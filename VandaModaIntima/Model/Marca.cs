@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntima.Model
 {
-    class Marca
+    public class Marca
     {
         public virtual long Id { get; set; }
         public virtual string Nome { get; set; }

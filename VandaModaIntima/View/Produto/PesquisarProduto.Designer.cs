@@ -28,13 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisarProduto));
             this.MenuProduto = new System.Windows.Forms.MenuStrip();
             this.cadastrarNovoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelPesquisarPor = new System.Windows.Forms.Label();
             this.cmbPesquisarPor = new System.Windows.Forms.ComboBox();
             this.dgvProduto = new System.Windows.Forms.DataGridView();
+            this.cod_barra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.preco = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPesquisa = new System.Windows.Forms.Label();
-            this.txtPesquisa = new System.Windows.Forms.TextBox();
+            this.TxtPesquisa = new System.Windows.Forms.TextBox();
             this.MenuProduto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduto)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +76,7 @@
             // 
             // cmbPesquisarPor
             // 
+            this.cmbPesquisarPor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPesquisarPor.FormattingEnabled = true;
             this.cmbPesquisarPor.Items.AddRange(new object[] {
             "Descrição",
@@ -76,16 +85,85 @@
             "Marca"});
             this.cmbPesquisarPor.Location = new System.Drawing.Point(131, 33);
             this.cmbPesquisarPor.Name = "cmbPesquisarPor";
-            this.cmbPesquisarPor.Size = new System.Drawing.Size(216, 29);
+            this.cmbPesquisarPor.Size = new System.Drawing.Size(230, 29);
             this.cmbPesquisarPor.TabIndex = 2;
             // 
             // dgvProduto
             // 
+            this.dgvProduto.AllowUserToAddRows = false;
+            this.dgvProduto.AllowUserToDeleteRows = false;
+            this.dgvProduto.AllowUserToOrderColumns = true;
+            this.dgvProduto.AllowUserToResizeRows = false;
+            this.dgvProduto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProduto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProduto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProduto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProduto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cod_barra,
+            this.descricao,
+            this.preco,
+            this.fornecedor,
+            this.marca});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProduto.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvProduto.Location = new System.Drawing.Point(12, 106);
             this.dgvProduto.Name = "dgvProduto";
+            this.dgvProduto.RowHeadersVisible = false;
             this.dgvProduto.Size = new System.Drawing.Size(658, 292);
             this.dgvProduto.TabIndex = 3;
+            // 
+            // cod_barra
+            // 
+            this.cod_barra.DataPropertyName = "Cod_Barra";
+            this.cod_barra.HeaderText = "Cód. De Barras";
+            this.cod_barra.Name = "cod_barra";
+            this.cod_barra.ReadOnly = true;
+            this.cod_barra.Width = 150;
+            // 
+            // descricao
+            // 
+            this.descricao.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descricao.DataPropertyName = "Descricao";
+            this.descricao.HeaderText = "Descrição";
+            this.descricao.Name = "descricao";
+            // 
+            // preco
+            // 
+            this.preco.DataPropertyName = "Preco";
+            this.preco.HeaderText = "Preço";
+            this.preco.Name = "preco";
+            this.preco.Width = 79;
+            // 
+            // fornecedor
+            // 
+            this.fornecedor.DataPropertyName = "FornecedorNome";
+            this.fornecedor.HeaderText = "Fornecedor";
+            this.fornecedor.Name = "fornecedor";
+            this.fornecedor.ReadOnly = true;
+            this.fornecedor.Width = 124;
+            // 
+            // marca
+            // 
+            this.marca.DataPropertyName = "MarcaNome";
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            this.marca.Width = 87;
             // 
             // labelPesquisa
             // 
@@ -96,28 +174,32 @@
             this.labelPesquisa.TabIndex = 4;
             this.labelPesquisa.Text = "Pesquisa:";
             // 
-            // txtPesquisa
+            // TxtPesquisa
             // 
-            this.txtPesquisa.Location = new System.Drawing.Point(131, 73);
-            this.txtPesquisa.Name = "txtPesquisa";
-            this.txtPesquisa.Size = new System.Drawing.Size(539, 27);
-            this.txtPesquisa.TabIndex = 5;
+            this.TxtPesquisa.Location = new System.Drawing.Point(131, 73);
+            this.TxtPesquisa.Name = "TxtPesquisa";
+            this.TxtPesquisa.Size = new System.Drawing.Size(539, 27);
+            this.TxtPesquisa.TabIndex = 5;
+            this.TxtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             // 
             // PesquisarProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 410);
-            this.Controls.Add(this.txtPesquisa);
+            this.Controls.Add(this.TxtPesquisa);
             this.Controls.Add(this.labelPesquisa);
             this.Controls.Add(this.dgvProduto);
             this.Controls.Add(this.cmbPesquisarPor);
             this.Controls.Add(this.labelPesquisarPor);
             this.Controls.Add(this.MenuProduto);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "PesquisarProduto";
             this.Text = "PesquisarProduto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PesquisarProduto_FormClosing);
+            this.Load += new System.EventHandler(this.PesquisarProduto_Load);
             this.MenuProduto.ResumeLayout(false);
             this.MenuProduto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduto)).EndInit();
@@ -134,6 +216,11 @@
         private System.Windows.Forms.ComboBox cmbPesquisarPor;
         private System.Windows.Forms.DataGridView dgvProduto;
         private System.Windows.Forms.Label labelPesquisa;
-        private System.Windows.Forms.TextBox txtPesquisa;
+        private System.Windows.Forms.TextBox TxtPesquisa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cod_barra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descricao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn preco;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fornecedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn marca;
     }
 }

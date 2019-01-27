@@ -1,27 +1,30 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using VandaModaIntima.Controller.Produto;
 using VandaModaIntima.view.interfaces;
 
 namespace VandaModaIntima.View.Produto
 {
-    public partial class PesquisarProduto : TelaDePesquisa, IPesquisarView
+    public partial class PesquisarProduto : Form, IPesquisarView
     {
+        private PesquisarProdutoController pesquisarProdutoController;
+
         public PesquisarProduto()
         {
             InitializeComponent();
         }
 
-        public void AtribuiDataSource(IList lista)
+        private void PesquisarProduto_Load(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            pesquisarProdutoController = new PesquisarProdutoController(this);
+            cmbPesquisarPor.SelectedIndex = 0;
+            dgvProduto.AutoGenerateColumns = false;
+        }
+
+        public void AtribuiDataSource<Produto>(IList<Produto> lista)
+        {
+            dgvProduto.DataSource = lista;
         }
 
         public void ExportarParaExcel(DataGridView dataGridView)
@@ -37,6 +40,16 @@ namespace VandaModaIntima.View.Produto
         private void cadastrarNovoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void PesquisarProduto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            pesquisarProdutoController.FechandoTela();
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            pesquisarProdutoController.PesquisarPorDescricao(TxtPesquisa.Text);
         }
     }
 }

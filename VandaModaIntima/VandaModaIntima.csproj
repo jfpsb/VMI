@@ -65,19 +65,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
+    <Compile Include="Controller\Produto\CadastrarProdutoController.cs" />
+    <Compile Include="Controller\Produto\PesquisarProdutoController.cs" />
+    <Compile Include="Model\CodBarraFornecedor.cs" />
+    <Compile Include="Model\DAO\DAOMySQL.cs" />
+    <Compile Include="Model\DAO\IDAO.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="View\Interfaces\ICadastrarView.cs" />
     <Compile Include="View\Interfaces\IPesquisarView.cs" />
+    <Compile Include="View\Produto\CadastrarProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Produto\CadastrarProduto.Designer.cs">
+      <DependentUpon>CadastrarProduto.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Produto\PesquisarProduto.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Produto\PesquisarProduto.Designer.cs">
       <DependentUpon>PesquisarProduto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaDePesquisa.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\TelaInicial.cs">
       <SubType>Form</SubType>
@@ -96,6 +104,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Produto\CadastrarProduto.resx">
+      <DependentUpon>CadastrarProduto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Produto\PesquisarProduto.resx">
       <DependentUpon>PesquisarProduto.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,9 +127,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Produto.png" />
   </ItemGroup>
@@ -132,6 +141,7 @@
     <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Mapas\CodBarraFornecedor.hbm.xml" />
     <EmbeddedResource Include="Mapas\Fornecedor.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

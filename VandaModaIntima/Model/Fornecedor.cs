@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VandaModaIntima.Model
 {
-    class Fornecedor
+    public class Fornecedor
     {
         public virtual string Cnpj { get; set; }
         public virtual string Nome { get; set; }

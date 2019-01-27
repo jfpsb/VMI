@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace VandaModaIntima.view.interfaces
@@ -8,6 +7,6 @@ namespace VandaModaIntima.view.interfaces
     {
         void Mensagem(string mensagem);
         void ExportarParaExcel(DataGridView dataGridView);
-        void AtribuiDataSource(IList lista);
+        void AtribuiDataSource<T>(IList<T> lista);
     }
 }
