@@ -122,7 +122,6 @@
             this.CmbFornecedor.Size = new System.Drawing.Size(245, 29);
             this.CmbFornecedor.TabIndex = 8;
             this.CmbFornecedor.ValueMember = "Cnpj";
-            this.CmbFornecedor.TextChanged += new System.EventHandler(this.CmbFornecedor_TextChanged);
             // 
             // CmbMarca
             // 
@@ -135,7 +134,6 @@
             this.CmbMarca.Size = new System.Drawing.Size(245, 29);
             this.CmbMarca.TabIndex = 9;
             this.CmbMarca.ValueMember = "Id";
-            this.CmbMarca.TextChanged += new System.EventHandler(this.CmbMarca_TextChanged);
             // 
             // BtnCadastrar
             // 

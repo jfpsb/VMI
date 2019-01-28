@@ -9,6 +9,8 @@ namespace VandaModaIntima.View.Produto
 {
     public partial class CadastrarProduto : Form, ICadastrarView
     {
+        private Fornecedor fornecedor = null;
+        private Marca marca = null;
         private CadastrarProdutoController cadastrarProdutoController;
 
         public CadastrarProduto()
@@ -25,7 +27,7 @@ namespace VandaModaIntima.View.Produto
 
         public void AposCadastro()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void LimparCampos()
@@ -33,8 +35,8 @@ namespace VandaModaIntima.View.Produto
             TxtCodigoBarra.Clear();
             TxtDescricao.Clear();
             TxtPreco.Clear();
-            CmbFornecedor.Text = "";
-            CmbMarca.Text = "";
+            fornecedor = null;
+            marca = null;
         }
 
         public void MensagemAviso(string mensagem)
@@ -49,30 +51,17 @@ namespace VandaModaIntima.View.Produto
 
         private void BtnCadastrar_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void CmbFornecedor_TextChanged(object sender, EventArgs e)
-        {
-            if (CmbFornecedor.Text != string.Empty)
+            if(CmbFornecedor.SelectedIndex != 0)
             {
-                //cadastrarProdutoController.PesquisarFornecedor(CmbFornecedor.Text);
-                //CmbFornecedor.SelectionStart = CmbFornecedor.Text.Length;
-                //CmbFornecedor.Focus();
-                //CmbFornecedor.DroppedDown = true;
+                fornecedor = CmbFornecedor.SelectedItem as Fornecedor;
             }
-            else
-            {
-                //CmbFornecedor.DroppedDown = false;
-            }
-        }
 
-        private void CmbMarca_TextChanged(object sender, EventArgs e)
-        {
-            if (CmbMarca.Text != string.Empty)
+            if(CmbMarca.SelectedIndex != 0)
             {
-
+                marca = CmbMarca.SelectedItem as Marca;
             }
+
+            cadastrarProdutoController.Cadastrar(TxtCodigoBarra.Text, fornecedor, marca, TxtDescricao.Text, TxtPreco.Text);
         }
 
         public void AtribuiDataSourceCmbMarca(IList<Marca> marcas)

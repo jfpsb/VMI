@@ -9,7 +9,7 @@ namespace VandaModaIntima.Controller.Produto
 {
     class CadastrarProdutoController
     {
-        private readonly ModelProduto produto;
+        private ModelProduto produto;
         private readonly ModelFornecedor fornecedor;
         private readonly ModelMarca marca;
         private ICadastrarView view;
@@ -22,8 +22,40 @@ namespace VandaModaIntima.Controller.Produto
             marca = new ModelMarca();
         }
 
-        public void Cadastrar(ModelProduto produto)
+        public void Cadastrar(string cod_barra, ModelFornecedor fornecedor, ModelMarca marca, string descricao, string preco)
         {
+            double preco_n;
+
+            if (cod_barra == string.Empty)
+            {
+                view.MensagemAviso("Código de Barras Não Pode Ser Vazio");
+                return;
+            }
+
+            if (descricao == string.Empty)
+            {
+                view.MensagemAviso("Descrição Não Pode Ser Vazia");
+                return;
+            }
+
+            if (preco == string.Empty)
+            {
+                view.MensagemAviso("Preço Não Pode Ser Vazio");
+                return;
+            }
+
+            if (!double.TryParse(preco, out preco_n))
+            {
+                view.MensagemAviso("Digite Um Preço Válido");
+                return;
+            }
+
+            produto.Cod_Barra = cod_barra;
+            produto.Fornecedor = fornecedor;
+            produto.Marca = marca;
+            produto.Descricao = descricao;
+            produto.Preco = preco_n;
+
             bool result = produto.Salvar(produto);
 
             if (result)
@@ -31,13 +63,14 @@ namespace VandaModaIntima.Controller.Produto
                 view.MensagemAviso("Produto Cadastrado Com Sucesso");
                 view.AposCadastro();
                 view.LimparCampos();
-                //Reseta modelo
-                produto = new ModelProduto();
             }
             else
             {
                 view.MensagemErro("Produto Não Foi Cadastrado");
             }
+
+            //Reseta produto
+            produto = new ModelProduto();
         }
 
         public void PesquisarFornecedor()
