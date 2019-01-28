@@ -10,7 +10,7 @@
       <one-to-many class="Produto" />
     </bag>
     <property name="Nome" column="Nome" />
-    <property name="NomeFantasia" column="NomeFantasia" />
+    <property name="NomeFantasia" column="fantasia" />
     <property name="Email" column="email" />
   </class>
 

@@ -37,9 +37,9 @@ namespace VandaModaIntima.View.Produto
             MessageBox.Show(mensagem);
         }
 
-        private void cadastrarNovoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CadastrarNovoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            new CadastrarProduto().Show();
         }
 
         private void PesquisarProduto_FormClosing(object sender, FormClosingEventArgs e)

@@ -113,19 +113,29 @@
             // 
             // CmbFornecedor
             // 
+            this.CmbFornecedor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbFornecedor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CmbFornecedor.DisplayMember = "Nome";
             this.CmbFornecedor.FormattingEnabled = true;
             this.CmbFornecedor.Location = new System.Drawing.Point(198, 125);
             this.CmbFornecedor.Name = "CmbFornecedor";
             this.CmbFornecedor.Size = new System.Drawing.Size(245, 29);
             this.CmbFornecedor.TabIndex = 8;
+            this.CmbFornecedor.ValueMember = "Cnpj";
+            this.CmbFornecedor.TextChanged += new System.EventHandler(this.CmbFornecedor_TextChanged);
             // 
             // CmbMarca
             // 
+            this.CmbMarca.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CmbMarca.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CmbMarca.DisplayMember = "Nome";
             this.CmbMarca.FormattingEnabled = true;
             this.CmbMarca.Location = new System.Drawing.Point(198, 160);
             this.CmbMarca.Name = "CmbMarca";
             this.CmbMarca.Size = new System.Drawing.Size(245, 29);
             this.CmbMarca.TabIndex = 9;
+            this.CmbMarca.ValueMember = "Id";
+            this.CmbMarca.TextChanged += new System.EventHandler(this.CmbMarca_TextChanged);
             // 
             // BtnCadastrar
             // 
@@ -162,6 +172,7 @@
             this.Name = "CadastrarProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CadastrarProduto";
+            this.Load += new System.EventHandler(this.CadastrarProduto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

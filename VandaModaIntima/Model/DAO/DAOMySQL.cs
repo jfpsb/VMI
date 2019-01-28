@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using VandaModaIntima.BancoDeDados.ConnectionFactory;
 
 namespace VandaModaIntima.Model.DAO
@@ -108,7 +109,7 @@ namespace VandaModaIntima.Model.DAO
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("ERRO AO LISTAR >>> " + ex.Message);
+                    Console.WriteLine(ex);
                 }
 
                 return null;

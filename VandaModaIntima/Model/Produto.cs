@@ -43,13 +43,21 @@ namespace VandaModaIntima.Model
             }
         }
 
+        public virtual bool Salvar(Produto produto)
+        {
+            bool result = daoProduto.Inserir(produto);
+
+            if (result)
+                return true;
+
+            return false;
+        }
+
         public virtual IList<Produto> Listar()
         {
             var criteria = daoProduto.CriarCriteria();
             return daoProduto.Listar(criteria);
         }
-
-
 
         public virtual IList<Produto> ListarPorDescricao(string descricao)
         {

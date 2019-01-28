@@ -63,7 +63,7 @@
             this.cadastrarNovoToolStripMenuItem.Name = "cadastrarNovoToolStripMenuItem";
             this.cadastrarNovoToolStripMenuItem.Size = new System.Drawing.Size(125, 21);
             this.cadastrarNovoToolStripMenuItem.Text = "Cadastrar Novo";
-            this.cadastrarNovoToolStripMenuItem.Click += new System.EventHandler(this.cadastrarNovoToolStripMenuItem_Click);
+            this.cadastrarNovoToolStripMenuItem.Click += new System.EventHandler(this.CadastrarNovoToolStripMenuItem_Click);
             // 
             // labelPesquisarPor
             // 
@@ -197,6 +197,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "PesquisarProduto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PesquisarProduto";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PesquisarProduto_FormClosing);
             this.Load += new System.EventHandler(this.PesquisarProduto_Load);
