@@ -9,7 +9,7 @@
       <key column="fornecedor" />
       <one-to-many class="Produto" />
     </bag>
-    <property name="Nome" column="Nome" />
+    <property name="Nome" column="nome" />
     <property name="NomeFantasia" column="fantasia" />
     <property name="Email" column="email" />
   </class>

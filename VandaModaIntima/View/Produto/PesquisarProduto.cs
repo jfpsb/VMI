@@ -10,6 +10,14 @@ namespace VandaModaIntima.View.Produto
     {
         private PesquisarProdutoController pesquisarProdutoController;
 
+        private enum Pesquisa
+        {
+            DESCRICAO,
+            CODIGO,
+            FORNECEDOR,
+            MARCA
+        }
+
         public PesquisarProduto()
         {
             InitializeComponent();
@@ -18,8 +26,8 @@ namespace VandaModaIntima.View.Produto
         private void PesquisarProduto_Load(object sender, EventArgs e)
         {
             pesquisarProdutoController = new PesquisarProdutoController(this);
-            cmbPesquisarPor.SelectedIndex = 0;
-            dgvProduto.AutoGenerateColumns = false;
+            dgvProduto.AutoGenerateColumns = false; //Tem que ficar antes do SelectIndex do ComboBox (confia)
+            CmbPesquisarPor.SelectedIndex = 0;
         }
 
         public void AtribuiDataSource<Produto>(IList<Produto> lista)
@@ -47,9 +55,36 @@ namespace VandaModaIntima.View.Produto
             pesquisarProdutoController.FechandoTela();
         }
 
-        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        private void TxtPesquisa_TextChanged(object sender, EventArgs e)
         {
-            pesquisarProdutoController.PesquisarPorDescricao(TxtPesquisa.Text);
+            RealizarPesquisa();
+        }
+
+        public void RealizarPesquisa()
+        {
+            switch (CmbPesquisarPor.SelectedIndex)
+            {
+                case (int)Pesquisa.DESCRICAO:
+                    pesquisarProdutoController.PesquisarPorDescricao(TxtPesquisa.Text);
+                    break;
+
+                case (int)Pesquisa.CODIGO:
+                    pesquisarProdutoController.PesquisarPorCodigoDeBarra(TxtPesquisa.Text);
+                    break;
+
+                case (int)Pesquisa.FORNECEDOR:
+                    pesquisarProdutoController.PesquisarPorFornecedor(TxtPesquisa.Text);
+                    break;
+
+                case (int)Pesquisa.MARCA:
+                    pesquisarProdutoController.PesquisarPorMarca(TxtPesquisa.Text);
+                    break;
+            }
+        }
+
+        private void CmbPesquisarPor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RealizarPesquisa();
         }
     }
 }

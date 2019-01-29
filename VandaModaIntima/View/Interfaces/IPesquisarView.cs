@@ -8,5 +8,6 @@ namespace VandaModaIntima.view.interfaces
         void Mensagem(string mensagem);
         void ExportarParaExcel(DataGridView dataGridView);
         void AtribuiDataSource<T>(IList<T> lista);
+        void RealizarPesquisa();
     }
 }

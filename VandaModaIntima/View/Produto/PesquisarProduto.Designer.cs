@@ -34,7 +34,7 @@
             this.MenuProduto = new System.Windows.Forms.MenuStrip();
             this.cadastrarNovoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelPesquisarPor = new System.Windows.Forms.Label();
-            this.cmbPesquisarPor = new System.Windows.Forms.ComboBox();
+            this.CmbPesquisarPor = new System.Windows.Forms.ComboBox();
             this.dgvProduto = new System.Windows.Forms.DataGridView();
             this.cod_barra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +53,7 @@
             this.cadastrarNovoToolStripMenuItem});
             this.MenuProduto.Location = new System.Drawing.Point(0, 0);
             this.MenuProduto.Name = "MenuProduto";
-            this.MenuProduto.Size = new System.Drawing.Size(683, 25);
+            this.MenuProduto.Size = new System.Drawing.Size(684, 25);
             this.MenuProduto.TabIndex = 0;
             this.MenuProduto.Text = "Opções de Produto";
             // 
@@ -68,25 +68,26 @@
             // labelPesquisarPor
             // 
             this.labelPesquisarPor.AutoSize = true;
-            this.labelPesquisarPor.Location = new System.Drawing.Point(12, 36);
+            this.labelPesquisarPor.Location = new System.Drawing.Point(13, 36);
             this.labelPesquisarPor.Name = "labelPesquisarPor";
             this.labelPesquisarPor.Size = new System.Drawing.Size(113, 21);
             this.labelPesquisarPor.TabIndex = 1;
             this.labelPesquisarPor.Text = "Pesquisar Por:";
             // 
-            // cmbPesquisarPor
+            // CmbPesquisarPor
             // 
-            this.cmbPesquisarPor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPesquisarPor.FormattingEnabled = true;
-            this.cmbPesquisarPor.Items.AddRange(new object[] {
+            this.CmbPesquisarPor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbPesquisarPor.FormattingEnabled = true;
+            this.CmbPesquisarPor.Items.AddRange(new object[] {
             "Descrição",
             "Código De Barras",
             "Fornecedor",
             "Marca"});
-            this.cmbPesquisarPor.Location = new System.Drawing.Point(131, 33);
-            this.cmbPesquisarPor.Name = "cmbPesquisarPor";
-            this.cmbPesquisarPor.Size = new System.Drawing.Size(230, 29);
-            this.cmbPesquisarPor.TabIndex = 2;
+            this.CmbPesquisarPor.Location = new System.Drawing.Point(132, 33);
+            this.CmbPesquisarPor.Name = "CmbPesquisarPor";
+            this.CmbPesquisarPor.Size = new System.Drawing.Size(230, 29);
+            this.CmbPesquisarPor.TabIndex = 2;
+            this.CmbPesquisarPor.SelectedIndexChanged += new System.EventHandler(this.CmbPesquisarPor_SelectedIndexChanged);
             // 
             // dgvProduto
             // 
@@ -121,10 +122,10 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvProduto.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvProduto.Location = new System.Drawing.Point(12, 106);
+            this.dgvProduto.Location = new System.Drawing.Point(13, 106);
             this.dgvProduto.Name = "dgvProduto";
             this.dgvProduto.RowHeadersVisible = false;
-            this.dgvProduto.Size = new System.Drawing.Size(658, 292);
+            this.dgvProduto.Size = new System.Drawing.Size(658, 293);
             this.dgvProduto.TabIndex = 3;
             // 
             // cod_barra
@@ -168,7 +169,7 @@
             // labelPesquisa
             // 
             this.labelPesquisa.AutoSize = true;
-            this.labelPesquisa.Location = new System.Drawing.Point(12, 76);
+            this.labelPesquisa.Location = new System.Drawing.Point(13, 76);
             this.labelPesquisa.Name = "labelPesquisa";
             this.labelPesquisa.Size = new System.Drawing.Size(80, 21);
             this.labelPesquisa.TabIndex = 4;
@@ -176,26 +177,29 @@
             // 
             // TxtPesquisa
             // 
-            this.TxtPesquisa.Location = new System.Drawing.Point(131, 73);
+            this.TxtPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtPesquisa.Location = new System.Drawing.Point(132, 73);
             this.TxtPesquisa.Name = "TxtPesquisa";
             this.TxtPesquisa.Size = new System.Drawing.Size(539, 27);
             this.TxtPesquisa.TabIndex = 5;
-            this.TxtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
+            this.TxtPesquisa.TextChanged += new System.EventHandler(this.TxtPesquisa_TextChanged);
             // 
             // PesquisarProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(683, 410);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.TxtPesquisa);
             this.Controls.Add(this.labelPesquisa);
             this.Controls.Add(this.dgvProduto);
-            this.Controls.Add(this.cmbPesquisarPor);
+            this.Controls.Add(this.CmbPesquisarPor);
             this.Controls.Add(this.labelPesquisarPor);
             this.Controls.Add(this.MenuProduto);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
+            this.MinimumSize = new System.Drawing.Size(700, 450);
             this.Name = "PesquisarProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PesquisarProduto";
@@ -214,7 +218,7 @@
         private System.Windows.Forms.MenuStrip MenuProduto;
         private System.Windows.Forms.ToolStripMenuItem cadastrarNovoToolStripMenuItem;
         private System.Windows.Forms.Label labelPesquisarPor;
-        private System.Windows.Forms.ComboBox cmbPesquisarPor;
+        private System.Windows.Forms.ComboBox CmbPesquisarPor;
         private System.Windows.Forms.DataGridView dgvProduto;
         private System.Windows.Forms.Label labelPesquisa;
         private System.Windows.Forms.TextBox TxtPesquisa;

@@ -21,6 +21,24 @@ namespace VandaModaIntima.Controller.Produto
             view.AtribuiDataSource(produtos);
         }
 
+        public void PesquisarPorCodigoDeBarra(string codigo)
+        {
+            IList<ModelProduto> produtos = produto.ListarPorCodigoDeBarra(codigo);
+            view.AtribuiDataSource(produtos);
+        }
+
+        public void PesquisarPorFornecedor(string fornecedor)
+        {
+            IList<ModelProduto> produtos = produto.ListarPorFornecedor(fornecedor);
+            view.AtribuiDataSource(produtos);
+        }
+
+        public void PesquisarPorMarca(string marca)
+        {
+            IList<ModelProduto> produtos = produto.ListarPorMarca(marca);
+            view.AtribuiDataSource(produtos);
+        }
+
         public void FechandoTela()
         {
             produto.DisposeDAO();
