@@ -36,13 +36,14 @@
             this.labelPesquisarPor = new System.Windows.Forms.Label();
             this.CmbPesquisarPor = new System.Windows.Forms.ComboBox();
             this.dgvProduto = new System.Windows.Forms.DataGridView();
+            this.labelPesquisa = new System.Windows.Forms.Label();
+            this.TxtPesquisa = new System.Windows.Forms.TextBox();
+            this.marcar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cod_barra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.preco = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelPesquisa = new System.Windows.Forms.Label();
-            this.TxtPesquisa = new System.Windows.Forms.TextBox();
             this.MenuProduto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduto)).BeginInit();
             this.SuspendLayout();
@@ -109,6 +110,7 @@
             this.dgvProduto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvProduto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProduto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.marcar,
             this.cod_barra,
             this.descricao,
             this.preco,
@@ -127,6 +129,32 @@
             this.dgvProduto.RowHeadersVisible = false;
             this.dgvProduto.Size = new System.Drawing.Size(658, 293);
             this.dgvProduto.TabIndex = 3;
+            // 
+            // labelPesquisa
+            // 
+            this.labelPesquisa.AutoSize = true;
+            this.labelPesquisa.Location = new System.Drawing.Point(13, 76);
+            this.labelPesquisa.Name = "labelPesquisa";
+            this.labelPesquisa.Size = new System.Drawing.Size(80, 21);
+            this.labelPesquisa.TabIndex = 4;
+            this.labelPesquisa.Text = "Pesquisa:";
+            // 
+            // TxtPesquisa
+            // 
+            this.TxtPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtPesquisa.Location = new System.Drawing.Point(132, 73);
+            this.TxtPesquisa.Name = "TxtPesquisa";
+            this.TxtPesquisa.Size = new System.Drawing.Size(539, 27);
+            this.TxtPesquisa.TabIndex = 5;
+            this.TxtPesquisa.TextChanged += new System.EventHandler(this.TxtPesquisa_TextChanged);
+            // 
+            // marcar
+            // 
+            this.marcar.HeaderText = "      ";
+            this.marcar.MinimumWidth = 25;
+            this.marcar.Name = "marcar";
+            this.marcar.Width = 36;
             // 
             // cod_barra
             // 
@@ -166,25 +194,6 @@
             this.marca.ReadOnly = true;
             this.marca.Width = 87;
             // 
-            // labelPesquisa
-            // 
-            this.labelPesquisa.AutoSize = true;
-            this.labelPesquisa.Location = new System.Drawing.Point(13, 76);
-            this.labelPesquisa.Name = "labelPesquisa";
-            this.labelPesquisa.Size = new System.Drawing.Size(80, 21);
-            this.labelPesquisa.TabIndex = 4;
-            this.labelPesquisa.Text = "Pesquisa:";
-            // 
-            // TxtPesquisa
-            // 
-            this.TxtPesquisa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtPesquisa.Location = new System.Drawing.Point(132, 73);
-            this.TxtPesquisa.Name = "TxtPesquisa";
-            this.TxtPesquisa.Size = new System.Drawing.Size(539, 27);
-            this.TxtPesquisa.TabIndex = 5;
-            this.TxtPesquisa.TextChanged += new System.EventHandler(this.TxtPesquisa_TextChanged);
-            // 
             // PesquisarProduto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -222,6 +231,7 @@
         private System.Windows.Forms.DataGridView dgvProduto;
         private System.Windows.Forms.Label labelPesquisa;
         private System.Windows.Forms.TextBox TxtPesquisa;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn marcar;
         private System.Windows.Forms.DataGridViewTextBoxColumn cod_barra;
         private System.Windows.Forms.DataGridViewTextBoxColumn descricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn preco;
