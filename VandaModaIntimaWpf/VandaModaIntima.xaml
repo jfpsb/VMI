@@ -1,0 +1,25 @@
+﻿<Window x:Class="VandaModaIntimaWpf.VandaModaIntima"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vanda Moda Íntima"
+        WindowState="Maximized">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Padding="5" BorderThickness="1">
+            <MenuItem Header="Opções" Padding="3">
+                <MenuItem Header="Sobre" />
+                <Separator />
+                <MenuItem Header="Sair" Click="Sair_Click" />
+            </MenuItem>
+        </Menu>
+        <WrapPanel>
+            <Button Style="{StaticResource BotoesTelaInicial}" Click="Produto_Click">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Produto.png" Height="200" Width="200"></Image>
+                        <TextBlock TextAlignment="Center">Produto</TextBlock>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </WrapPanel>
+    </DockPanel>
+</Window>

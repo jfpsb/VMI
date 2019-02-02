@@ -127,10 +127,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="Resources\Produto.png" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
   </ItemGroup>
