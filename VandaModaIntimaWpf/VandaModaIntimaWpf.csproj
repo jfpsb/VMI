@@ -55,7 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="VandaModaIntima.xaml">
+    <Page Include="View\Produto\PesquisarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VandaModaIntima.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,7 +67,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="VandaModaIntima.xaml.cs">
+    <Compile Include="Model\CodBarraFornecedor.cs" />
+    <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\Marca.cs" />
+    <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="Model\Produto.cs" />
+    <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
+      <DependentUpon>PesquisarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VandaModaIntima.xaml.cs">
       <DependentUpon>VandaModaIntima.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Produto_Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

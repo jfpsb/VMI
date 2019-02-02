@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.View.Produto;
 
 namespace VandaModaIntimaWpf
 {
@@ -16,7 +17,8 @@ namespace VandaModaIntimaWpf
 
         private void Produto_Click(object sender, RoutedEventArgs e)
         {
-
+            PesquisarProduto pesquisarProduto = new PesquisarProduto();
+            pesquisarProduto.Show();
         }
     }
 }

@@ -4,7 +4,7 @@
         Title="Vanda Moda Íntima"
         WindowState="Maximized">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Padding="5" BorderThickness="1">
+        <Menu>
             <MenuItem Header="Opções" Padding="3">
                 <MenuItem Header="Sobre" />
                 <Separator />
@@ -16,7 +16,7 @@
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Resources/Produto.png" Height="200" Width="200"></Image>
-                        <TextBlock TextAlignment="Center">Produto</TextBlock>
+                        <Label>Produto</Label>
                     </StackPanel>
                 </Button.Content>
             </Button>

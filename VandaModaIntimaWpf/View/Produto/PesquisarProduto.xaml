@@ -1,0 +1,57 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.PesquisarProduto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
+        mc:Ignorable="d"
+        Title="Pesquisar Produto"
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Opções">
+                <MenuItem Header="Cadastrar Novo" />
+                <MenuItem Header="Exportar">
+                    <MenuItem Header="Excel (*.xlsx)" />
+                    <MenuItem Header="Json (*.json)" />
+                    <MenuItem Header="Xml (*.xml)" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Sair" Click="Sair_Click" />
+            </MenuItem>
+        </Menu>
+        <StackPanel>
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="5" />
+                        <Setter Property="Padding" Value="5" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label>Pesquisar Por:</Label>
+                <TextBox Grid.Column="1" Width="300" HorizontalAlignment="Left" />
+                <Label Grid.Row="1">Pesquisa:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" />
+            </Grid>
+            <DataGrid Name="DataGridProduto" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="*"/>
+                    <DataGridTextColumn Header="Cód. De Barra" Binding="{Binding Cod_Barra}" Width="*"/>
+                    <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" Width="*"/>
+                    <DataGridTextColumn Header="Preço" Binding="{Binding Preco}" Width="*"/>
+                    <DataGridTextColumn Header="Fornecedor" Binding="{Binding FornecedorNome}" Width="*"/>
+                    <DataGridTextColumn Header="Marca" Binding="{Binding MarcaNome}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </DockPanel>
+</Window>
