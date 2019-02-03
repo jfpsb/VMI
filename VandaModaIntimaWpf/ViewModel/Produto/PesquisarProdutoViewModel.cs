@@ -2,13 +2,14 @@
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.Servico;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
-namespace VandaModaIntimaWpf.ViewModel
+namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     class PesquisarProdutoViewModel : ObservableObject
     {
         private ProdutoServico produtoServico;
-        private ObservableCollection<Produto> produtos;
+        private ObservableCollection<ProdutoModel> produtos;
         private string termoPesquisa;
         private int pesquisarPor;
 
@@ -32,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        public ObservableCollection<Produto> Produtos
+        public ObservableCollection<ProdutoModel> Produtos
         {
             get { return produtos; }
             set
@@ -52,21 +53,21 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        public void GetProdutos(string termo)
+        private void GetProdutos(string termo)
         {
             switch (pesquisarPor)
             {
                 case 0:
-                    Produtos = new ObservableCollection<Produto>(produtoServico.ListarPorDescricao(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorDescricao(termo));
                     break;
                 case 1:
-                    Produtos = new ObservableCollection<Produto>(produtoServico.ListarPorCodigoDeBarra(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorCodigoDeBarra(termo));
                     break;
                 case 2:
-                    Produtos = new ObservableCollection<Produto>(produtoServico.ListarPorFornecedor(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorFornecedor(termo));
                     break;
                 case 3:
-                    Produtos = new ObservableCollection<Produto>(produtoServico.ListarPorMarca(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorMarca(termo));
                     break;
             }
         }

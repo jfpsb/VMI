@@ -68,7 +68,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 catch (Exception ex)
                 {
                     transacao.Rollback();
-                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
+                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException);
                 }
 
                 return false;

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -95,7 +94,7 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 if (Fornecedor != null)
-                    return Fornecedor.Nome;
+                    return Fornecedor.nome;
 
                 return "Não Há Fornecedor";
             }

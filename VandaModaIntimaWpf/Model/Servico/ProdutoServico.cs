@@ -30,6 +30,20 @@ namespace VandaModaIntimaWpf.Model.Servico
             return dao.Listar(criteria);
         }
 
+        public virtual Produto ListarPorId(string cod_barra)
+        {
+            var criteria = dao.CriarCriteria();
+
+            criteria.Add(Restrictions.Like("Cod_Barra", cod_barra));
+
+            var result = dao.Listar(criteria);
+
+            if (result.Count == 0)
+                return null;
+
+            return result[0];
+        }
+
         public virtual IList<Produto> ListarPorDescricao(string descricao)
         {
             var criteria = dao.CriarCriteria();

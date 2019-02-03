@@ -73,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Produto\CadastrarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Produto\PesquisarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,8 +97,16 @@
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\Produto.cs" />
+    <Compile Include="Model\Servico\FornecedorServico.cs" />
+    <Compile Include="Model\Servico\MarcaServico.cs" />
     <Compile Include="Model\Servico\ProdutoServico.cs" />
-    <Compile Include="ViewModel\PesquisarProdutoViewModel.cs" />
+    <Compile Include="ViewModel\ICadastrarViewModel.cs" />
+    <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
+    <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
+      <DependentUpon>CadastrarProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>
     </Compile>
@@ -141,6 +153,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Aguardando.png" />
+    <Resource Include="Resources\Erro.png" />
+    <Resource Include="Resources\Sucesso.png" />
     <Resource Include="Resources\Produto_Icon.ico" />
     <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
     <EmbeddedResource Include="Mapas\Marca.hbm.xml" />

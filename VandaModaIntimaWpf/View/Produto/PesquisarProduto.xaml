@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Pesquisar Produto"
         Height="450" Width="800"
@@ -17,7 +17,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo" />
+                <MenuItem Header="Cadastrar Novo" Click="CadastrarNovo_Click"/>
                 <MenuItem Header="Exportar">
                     <MenuItem Header="Excel (*.xlsx)" />
                     <MenuItem Header="Json (*.json)" />
@@ -29,12 +29,6 @@
             </MenuItem>
         </Menu>
         <Grid>
-            <Grid.Resources>
-                <Style TargetType="TextBox">
-                    <Setter Property="Margin" Value="5" />
-                    <Setter Property="Padding" Value="5" />
-                </Style>
-            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="110" />
                 <ColumnDefinition Width="*" />
@@ -55,11 +49,15 @@
             <TextBox 
                 Grid.Row="1"
                 Grid.Column="1"
-                Text="{Binding TermoPesquisa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <DataGrid Grid.Row="3" Grid.ColumnSpan="2" Name="DataGridProduto" ItemsSource="{Binding Produtos, NotifyOnSourceUpdated=True}">
+                Text="{Binding TermoPesquisa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="TxtPesquisa"/>
+            <DataGrid
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Name="DataGridProduto"
+                ItemsSource="{Binding Produtos, NotifyOnSourceUpdated=True}">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn IsReadOnly="False"/>
-                    <DataGridTextColumn Header="Cód. De Barra" IsReadOnly="True" ToolTipService.ToolTip="Teste" Binding="{Binding Cod_Barra}" Width="*">
+                    <DataGridTextColumn Header="Cód. De Barra" IsReadOnly="True" Binding="{Binding Cod_Barra}" Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip" Value="{Binding Cod_Barra}" />

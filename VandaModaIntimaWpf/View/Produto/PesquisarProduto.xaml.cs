@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.ViewModel;
+using VandaModaIntimaWpf.ViewModel.Produto;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
@@ -19,6 +19,16 @@ namespace VandaModaIntimaWpf.View.Produto
         {
             //Fecha sessao
             ((PesquisarProdutoViewModel)DataContext).DisposeServico();
+        }
+
+        private void CadastrarNovo_Click(object sender, RoutedEventArgs e)
+        {
+            CadastrarProduto cadastrarProduto = new CadastrarProduto();
+            cadastrarProduto.ShowDialog();
+
+            //Atribui o próprio texto do campo nele mesmo para somente executar
+            //o evento no ViewModel para atualizar a consulta
+            TxtPesquisa.Text = TxtPesquisa.Text;
         }
     }
 }
