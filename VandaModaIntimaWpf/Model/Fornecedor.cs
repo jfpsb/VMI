@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VandaModaIntima.Model
+namespace VandaModaIntimaWpf.Model
 {
     public class Fornecedor
     {

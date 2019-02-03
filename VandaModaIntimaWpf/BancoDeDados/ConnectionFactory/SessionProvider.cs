@@ -2,7 +2,7 @@
 using NHibernate.Cfg;
 using System;
 
-namespace VandaModaIntima.BancoDeDados.ConnectionFactory
+namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {
     /// <summary>
     /// Classe estática responsável pelas Sessions necessárias para o uso de banco de dados com NHibernate.

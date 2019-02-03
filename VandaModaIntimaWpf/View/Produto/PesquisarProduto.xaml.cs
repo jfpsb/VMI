@@ -1,10 +1,8 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
-    /// <summary>
-    /// Interaction logic for PesquisarProduto.xaml
-    /// </summary>
     public partial class PesquisarProduto : Window
     {
         public PesquisarProduto()
@@ -15,6 +13,12 @@ namespace VandaModaIntimaWpf.View.Produto
         private void Sair_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void PesquisarProduto_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //Fecha sessao
+            ((PesquisarProdutoViewModel)DataContext).DisposeServico();
         }
     }
 }

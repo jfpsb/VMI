@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VandaModaIntimaWpf.Model;
 
-namespace VandaModaIntima.Model
+namespace VandaModaIntimaWpf.Model
 {
     public class Produto : ObservableObject
     {
@@ -35,6 +35,7 @@ namespace VandaModaIntima.Model
             {
                 fornecedor = value;
                 OnPropertyChanged("Fornecedor");
+                OnPropertyChanged("FornecedorNome");
             }
         }
 
@@ -48,6 +49,7 @@ namespace VandaModaIntima.Model
             {
                 marca = value;
                 OnPropertyChanged("Marca");
+                OnPropertyChanged("MarcaNome");
             }
         }
 

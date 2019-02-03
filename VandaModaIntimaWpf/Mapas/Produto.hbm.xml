@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+  <class name="Produto" table="produto" dynamic-insert="true" dynamic-update="true">
+    <id name="Cod_Barra" column="cod_barra" />
+    <many-to-one name="Fornecedor" class="Fornecedor" column="fornecedor" />
+    <many-to-one name="Marca" class="Marca" column="marca" />
+    <property name="Descricao" column="descricao" />
+    <property name="Preco" column="preco" />
+
+    <bag name="Codigos" table="cod_barra_fornecedor" lazy="true" >
+      <key column="produto" />
+      <element column="codigo" type="String" />
+    </bag>
+  </class>
+
+</hibernate-mapping>

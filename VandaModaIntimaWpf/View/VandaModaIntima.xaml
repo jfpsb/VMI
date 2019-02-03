@@ -15,7 +15,7 @@
             <Button Style="{StaticResource BotoesTelaInicial}" Click="Produto_Click">
                 <Button.Content>
                     <StackPanel>
-                        <Image Source="/Resources/Produto.png" Height="200" Width="200"></Image>
+                        <Image Source="/Resources/Produto.png" Height="300" Width="300"></Image>
                         <Label>Produto</Label>
                     </StackPanel>
                 </Button.Content>

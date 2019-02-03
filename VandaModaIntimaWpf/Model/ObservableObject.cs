@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.Model
         /// <summary>
         /// Raised when a property on this object has a new value.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public virtual event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Raises this object's PropertyChanged event.
