@@ -153,6 +153,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Exportar.png" />
+    <Resource Include="Resources\Importar.png" />
+    <Resource Include="Resources\Ajuda.png" />
+    <Resource Include="Resources\Adicionar.png" />
     <Resource Include="Resources\Aguardando.png" />
     <Resource Include="Resources\Erro.png" />
     <Resource Include="Resources\Sucesso.png" />

@@ -17,20 +17,40 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo" Click="CadastrarNovo_Click"/>
-                <MenuItem Header="Exportar">
+                <MenuItem Header="Cadastrar Novo" Click="CadastrarNovo_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Adicionar.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Importar">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Importar.png"/>
+                    </MenuItem.Icon>
                     <MenuItem Header="Excel (*.xlsx)" />
                     <MenuItem Header="Json (*.json)" />
                     <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
-                <MenuItem Header="Ajuda" />
+                <MenuItem Header="Exportar">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Exportar.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="Excel (*.xlsx)" />
+                    <MenuItem Header="Json (*.json)" />
+                    <MenuItem Header="Xml (*.xml)" />
+                </MenuItem>
+                <MenuItem Header="Ajuda">
+                    <MenuItem.Icon>
+                        <Image Source="/Resources/Ajuda.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
                 <MenuItem Header="Sair" Click="Sair_Click" />
             </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="85"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -38,21 +58,21 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Pesquisar Por:</Label>
+            <Label Grid.ColumnSpan="2">Pesquisar Por:</Label>
             <ComboBox
-                Grid.Column="1"
+                Grid.Column="2"
                 Width="200"
                 SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
                 ItemsSource="{StaticResource CmbPesquisaProdutoItems}"
-                HorizontalAlignment="Left" />
-            <Label Grid.Row="1">Pesquisa:</Label>
+                HorizontalAlignment="Left" Margin="5,5,0,5" />
+            <Label Grid.Row="1" Grid.ColumnSpan="2">Pesquisa:</Label>
             <TextBox 
                 Grid.Row="1"
-                Grid.Column="1"
+                Grid.Column="2"
                 Text="{Binding TermoPesquisa, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="TxtPesquisa"/>
             <DataGrid
-                Grid.Row="3"
-                Grid.ColumnSpan="2"
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
                 Name="DataGridProduto"
                 ItemsSource="{Binding Produtos, NotifyOnSourceUpdated=True}">
                 <DataGrid.Columns>
