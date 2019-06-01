@@ -90,16 +90,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="Model\CodBarraFornecedor.cs" />
+    <Compile Include="Model\Entidade\CodBarraFornecedor.cs" />
     <Compile Include="Model\DAO\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
-    <Compile Include="Model\Fornecedor.cs" />
-    <Compile Include="Model\Marca.cs" />
-    <Compile Include="Model\ObservableObject.cs" />
-    <Compile Include="Model\Produto.cs" />
-    <Compile Include="Model\Servico\FornecedorServico.cs" />
-    <Compile Include="Model\Servico\MarcaServico.cs" />
-    <Compile Include="Model\Servico\ProdutoServico.cs" />
+    <Compile Include="Model\Entidade\Fornecedor.cs" />
+    <Compile Include="Model\Entidade\Marca.cs" />
+    <Compile Include="Model\Entidade\ObservableObject.cs" />
+    <Compile Include="Model\Entidade\Produto.cs" />
+    <Compile Include="Model\FornecedorModel.cs" />
+    <Compile Include="Model\MarcaModel.cs" />
+    <Compile Include="Model\ProdutoModel.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />

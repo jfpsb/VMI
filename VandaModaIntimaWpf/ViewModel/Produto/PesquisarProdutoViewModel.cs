@@ -1,21 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.Model.Servico;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     class PesquisarProdutoViewModel : ObservableObject
     {
-        private ProdutoServico produtoServico;
+        private Model.ProdutoModel produtoServico;
         private ObservableCollection<ProdutoModel> produtos;
         private string termoPesquisa;
         private int pesquisarPor;
 
         public PesquisarProdutoViewModel()
         {
-            produtoServico = new ProdutoServico();
+            produtoServico = new Model.ProdutoModel();
             PropertyChanged += ProdutoViewModel_PropertyChanged;
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade

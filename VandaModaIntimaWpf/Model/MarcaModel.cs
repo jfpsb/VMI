@@ -2,25 +2,21 @@
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.Model.Servico
+namespace VandaModaIntimaWpf.Model
 {
-    class MarcaServico
+    class MarcaModel
     {
         private IDAO<Marca> dao;
+        public Marca marca;
 
-        public MarcaServico()
+        public MarcaModel()
         {
             dao = new DAOMySQL<Marca>();
         }
 
-        public virtual bool Salvar(Marca marca)
+        public virtual bool Salvar()
         {
-            bool result = dao.Inserir(marca);
-
-            if (result)
-                return true;
-
-            return false;
+            return dao.Inserir(marca);
         }
 
         public virtual IList<Marca> Listar()

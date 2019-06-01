@@ -3,25 +3,21 @@ using NHibernate.Transform;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.Model.Servico
+namespace VandaModaIntimaWpf.Model
 {
-    class ProdutoServico
+    class ProdutoModel
     {
         private IDAO<Produto> dao;
+        public Produto produto;
 
-        public ProdutoServico()
+        public ProdutoModel()
         {
             dao = new DAOMySQL<Produto>();
         }
 
-        public virtual bool Salvar(Produto produto)
+        public virtual bool Salvar()
         {
-            bool result = dao.Inserir(produto);
-
-            if (result)
-                return true;
-
-            return false;
+            return dao.Inserir(produto);
         }
 
         public virtual IList<Produto> Listar()

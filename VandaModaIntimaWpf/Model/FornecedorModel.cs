@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.Model.Servico
+namespace VandaModaIntimaWpf.Model
 {
-    class FornecedorServico
+    class FornecedorModel
     {
         private IDAO<Fornecedor> dao;
+        public Fornecedor fornecedor;
 
-        public FornecedorServico()
+        public FornecedorModel()
         {
             dao = new DAOMySQL<Fornecedor>();
         }
