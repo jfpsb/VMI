@@ -42,7 +42,7 @@
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=5.2.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.5.2.3\lib\net461\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.5.2.5\lib\net461\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
@@ -90,16 +90,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="Model\Entidade\CodBarraFornecedor.cs" />
+    <Compile Include="Model\CodBarraFornecedor\CodBarraFornecedorPropriedades.cs" />
     <Compile Include="Model\DAO\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
-    <Compile Include="Model\Entidade\Fornecedor.cs" />
-    <Compile Include="Model\Entidade\Marca.cs" />
-    <Compile Include="Model\Entidade\ObservableObject.cs" />
-    <Compile Include="Model\Entidade\Produto.cs" />
-    <Compile Include="Model\FornecedorModel.cs" />
-    <Compile Include="Model\MarcaModel.cs" />
-    <Compile Include="Model\ProdutoModel.cs" />
+    <Compile Include="Model\Fornecedor\FornecedorPropriedades.cs" />
+    <Compile Include="Model\Marca\MarcaPropriedades.cs" />
+    <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="Model\Produto\ProdutoPropriedades.cs" />
+    <Compile Include="Model\Fornecedor\FornecedorMetodos.cs" />
+    <Compile Include="Model\Marca\MarcaMetodos.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\Produto\ProdutoMetodos.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />
@@ -167,6 +168,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapas\CodBarraFornecedor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Fornecedor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

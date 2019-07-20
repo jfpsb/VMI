@@ -3,34 +3,26 @@ using NHibernate.Transform;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Produto
 {
-    class ProdutoModel
+    public partial class Produto : ObservableObject, Model<Produto>
     {
         private IDAO<Produto> dao;
-        public Produto produto;
-
-        public ProdutoModel()
+        public Produto()
         {
             dao = new DAOMySQL<Produto>();
         }
 
         public virtual bool Salvar()
         {
-            return dao.Inserir(produto);
+            return dao.Inserir(this);
         }
 
-        public virtual IList<Produto> Listar()
-        {
-            var criteria = dao.CriarCriteria();
-            return dao.Listar(criteria);
-        }
-
-        public virtual Produto ListarPorId(string cod_barra)
+        public virtual Produto ListarPorId(string id)
         {
             var criteria = dao.CriarCriteria();
 
-            criteria.Add(Restrictions.Like("Cod_Barra", cod_barra));
+            criteria.Add(Restrictions.Like("Cod_Barra", id));
 
             var result = dao.Listar(criteria);
 
@@ -95,13 +87,17 @@ namespace VandaModaIntimaWpf.Model
             var criteria = dao.CriarCriteria();
 
             criteria.CreateAlias("Marca", "Marca");
-
             criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
 
             return dao.Listar(criteria);
         }
 
-        public virtual void DisposeDAO()
+        public virtual IList<Produto> Listar()
+        {
+            return dao.Listar(dao.CriarCriteria());
+        }
+
+        public virtual void Dispose()
         {
             dao.Dispose();
         }

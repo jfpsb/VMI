@@ -1,20 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     class PesquisarProdutoViewModel : ObservableObject
     {
-        private Model.ProdutoModel produtoServico;
+        private ProdutoModel produto;
+        private ProdutoModel produtoSelecionado;
         private ObservableCollection<ProdutoModel> produtos;
         private string termoPesquisa;
         private int pesquisarPor;
 
         public PesquisarProdutoViewModel()
         {
-            produtoServico = new Model.ProdutoModel();
+            produto = new ProdutoModel();
             PropertyChanged += ProdutoViewModel_PropertyChanged;
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
@@ -52,21 +54,47 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
+        public ProdutoModel Produto
+        {
+            get { return produto; }
+            set
+            {
+                produto = value;
+                OnPropertyChanged("Produto");
+            }
+        }
+
+        public ProdutoModel ProdutoSelecionado
+        {
+            get { return produtoSelecionado; }
+            set
+            {
+                produtoSelecionado = value;
+                OnPropertyChanged("ProdutoSelecionado");
+                OnPropertyChanged("ProdutoSelecionadoDescricao");
+            }
+        }
+
+        public string ProdutoSelecionadoDescricao
+        {
+            get { return produtoSelecionado.Descricao.ToUpper(); }
+        }
+
         private void GetProdutos(string termo)
         {
             switch (pesquisarPor)
             {
                 case 0:
-                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorDescricao(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorDescricao(termo));
                     break;
                 case 1:
-                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorCodigoDeBarra(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorCodigoDeBarra(termo));
                     break;
                 case 2:
-                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorFornecedor(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorFornecedor(termo));
                     break;
                 case 3:
-                    Produtos = new ObservableCollection<ProdutoModel>(produtoServico.ListarPorMarca(termo));
+                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorMarca(termo));
                     break;
             }
         }
@@ -83,7 +111,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void DisposeServico()
         {
-            produtoServico.DisposeDAO();
+            produto.Dispose();
         }
     }
 }

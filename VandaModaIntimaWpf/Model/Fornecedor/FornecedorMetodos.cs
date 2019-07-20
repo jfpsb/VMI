@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Fornecedor
 {
-    class FornecedorModel
+    public partial class Fornecedor : ObservableObject, Model<Fornecedor>
     {
         private IDAO<Fornecedor> dao;
-        public Fornecedor fornecedor;
 
-        public FornecedorModel()
+        public Fornecedor()
         {
             dao = new DAOMySQL<Fornecedor>();
         }
 
-        public virtual IList<Fornecedor> Listar()
+        public virtual bool Salvar()
         {
-            var criteria = dao.CriarCriteria();
-            return dao.Listar(criteria);
+            return dao.Inserir(this);
         }
 
         public virtual IList<Fornecedor> ListarPorNome(string nome)
@@ -33,9 +31,19 @@ namespace VandaModaIntimaWpf.Model
             return dao.Listar(criteria);
         }
 
-        public virtual void DisposeDAO()
+        public virtual IList<Fornecedor> Listar()
+        {
+            return dao.Listar(dao.CriarCriteria());
+        }
+
+        public virtual void Dispose()
         {
             dao.Dispose();
+        }
+
+        public virtual Fornecedor ListarPorId(string id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

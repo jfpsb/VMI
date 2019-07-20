@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="VandaModaIntimaWpf"
-                   namespace="VandaModaIntimaWpf.Model">
+                   namespace="VandaModaIntimaWpf.Model.Produto">
 
   <class name="Produto" table="produto" dynamic-insert="true" dynamic-update="true">
     <id name="Cod_Barra" column="cod_barra" />
-    <many-to-one name="Fornecedor" class="Fornecedor" column="fornecedor" />
-    <many-to-one name="Marca" class="Marca" column="marca" />
+    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor.Fornecedor" column="fornecedor" />
+    <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca.Marca" column="marca" />
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
 

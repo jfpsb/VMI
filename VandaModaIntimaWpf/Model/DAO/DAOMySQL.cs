@@ -99,19 +99,20 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             using (var transacao = session.BeginTransaction())
             {
-                try
-                {
-                    criteria.SetCacheable(true);
-                    criteria.SetCacheMode(CacheMode.Normal);
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
 
-                    return criteria.List<T>();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                return criteria.List<T>();
+                //try
+                //{
+                    
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine(ex);
+                //}
 
-                return null;
+                //return null;
             }
         }
 

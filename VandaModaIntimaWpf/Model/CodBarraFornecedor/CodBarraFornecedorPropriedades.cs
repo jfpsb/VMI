@@ -1,10 +1,11 @@
-﻿namespace VandaModaIntimaWpf.Model
-{
-    class CodBarraFornecedor
-    {
-        public virtual Produto Produto { get; set; }
-        public virtual string Codigo { get; set; }
+﻿using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
+namespace VandaModaIntimaWpf.Model.CodBarraFornecedor
+{
+    public partial class CodBarraFornecedor
+    {
+        public virtual ProdutoModel Produto { get; set; }
+        public virtual string Codigo { get; set; }
         public override bool Equals(object obj)
         {
             if (obj.GetType() == typeof(CodBarraFornecedor))

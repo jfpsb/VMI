@@ -3,6 +3,9 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
@@ -20,8 +23,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private static readonly string IMAGEMERRO = "/Resources/Erro.png";
         private static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
 
-        public ObservableCollection<Fornecedor> Fornecedores { get; set; }
-        public ObservableCollection<Marca> Marcas { get; set; }
+        public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
+        public ObservableCollection<MarcaModel> Marcas { get; set; }
 
         public ICommand Command { get; set; }
 
@@ -64,7 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void ResetaPropriedades()
         {
-            produtoModel.produto = new Model.Produto();
+            produtoModel = new ProdutoModel();
             Cod_Barra = "";
             Descricao = "";
             Preco = 0;
@@ -77,7 +80,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             produtoModel = new ProdutoModel();
             fornecedorModel = new FornecedorModel();
             marcaModel = new MarcaModel();
-            produtoModel.produto = new Model.Produto();
 
             Command = new RelayCommand(Cadastrar, ValidaModel);
 
@@ -91,52 +93,52 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             get
             {
-                return produtoModel.produto.Cod_Barra;
+                return produtoModel.Cod_Barra;
             }
 
             set
             {
-                produtoModel.produto.Cod_Barra = value.ToUpper();
+                produtoModel.Cod_Barra = value.ToUpper();
                 OnPropertyChanged("Cod_Barra");
             }
         }
 
         public string Descricao
         {
-            get { return produtoModel.produto.Descricao; }
+            get { return produtoModel.Descricao; }
             set
             {
-                produtoModel.produto.Descricao = value.ToUpper();
+                produtoModel.Descricao = value.ToUpper();
                 OnPropertyChanged("Descricao");
             }
         }
 
         public double Preco
         {
-            get { return produtoModel.produto.Preco; }
+            get { return produtoModel.Preco; }
             set
             {
-                produtoModel.produto.Preco = value;
+                produtoModel.Preco = value;
                 OnPropertyChanged("Preco");
             }
         }
 
-        public Fornecedor Fornecedor
+        public FornecedorModel Fornecedor
         {
-            get { return produtoModel.produto.Fornecedor; }
+            get { return produtoModel.Fornecedor; }
             set
             {
-                produtoModel.produto.Fornecedor = value;
+                produtoModel.Fornecedor = value;
                 OnPropertyChanged("Fornecedor");
             }
         }
 
-        public Marca Marca
+        public MarcaModel Marca
         {
-            get { return produtoModel.produto.Marca; }
+            get { return produtoModel.Marca; }
             set
             {
-                produtoModel.produto.Marca = value;
+                produtoModel.Marca = value;
                 OnPropertyChanged("Marca");
             }
         }
@@ -183,14 +185,14 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void GetFornecedores()
         {
-            Fornecedores = new ObservableCollection<Fornecedor>(fornecedorModel.Listar());
-            Fornecedores.Insert(0, new Fornecedor(null, "SELECIONE O FORNECEDOR", null, null));
+            Fornecedores = new ObservableCollection<FornecedorModel>(fornecedorModel.Listar());
+            Fornecedores.Insert(0, new FornecedorModel("SELECIONE O FORNECEDOR"));
         }
 
         private void GetMarcas()
         {
-            Marcas = new ObservableCollection<Marca>(marcaModel.Listar());
-            Marcas.Insert(0, new Marca(0, "SELECIONE A MARCA"));
+            Marcas = new ObservableCollection<MarcaModel>(marcaModel.Listar());
+            Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
         }
 
         private void CadastrarProdutoViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -217,7 +219,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void DisposeServico()
         {
-            produtoModel.DisposeDAO();
+            produtoModel.Dispose();
         }
     }
 }

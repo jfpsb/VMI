@@ -1,23 +1,25 @@
 ﻿using System.Collections.Generic;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Fornecedor
 {
-    public class Fornecedor : ObservableObject
+    public partial class Fornecedor : ObservableObject
     {
-        public virtual string cnpj { get; set; }
-        public virtual string nome { get; set; }
-        public virtual string nomeFantasia { get; set; }
-        public virtual string email { get; set; }
+        private string cnpj { get; set; }
+        private string nome { get; set; }
+        private string nomeFantasia { get; set; }
+        private string email { get; set; }
 
-        public virtual IList<Produto> Produtos { get; set; } = new List<Produto>();
+        private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
-        public Fornecedor() { }
-        public Fornecedor(string Cnpj, string Nome, string NomeFantasia, string Email)
+        /// <summary>
+        /// Construtor para criar placeholder de Fornecedor para comboboxes
+        /// </summary>
+        /// <param name="nome">SELECIONE UM FORNECEDOR</param>
+        public Fornecedor(string nome)
         {
-            cnpj = Cnpj;
-            nome = Nome;
-            nomeFantasia = NomeFantasia;
-            email = Email;
+            cnpj = null;
+            this.nome = nome;
         }
 
         public virtual string Cnpj
@@ -57,6 +59,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 email = value;
                 OnPropertyChanged("Email");
+            }
+        }
+
+        public virtual IList<ProdutoModel> Produtos
+        {
+            get { return produtos; }
+            set
+            {
+                produtos = value;
+                OnPropertyChanged("Produtos");
             }
         }
     }

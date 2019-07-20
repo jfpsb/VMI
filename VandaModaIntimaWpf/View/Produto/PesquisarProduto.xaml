@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Pesquisar Produto"
-        Height="450" Width="800"
+        Height="540" Width="960"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Produto_Icon.ico"
         Closing="PesquisarProduto_Closing">
@@ -74,7 +74,9 @@
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
                 Name="DataGridProduto"
-                ItemsSource="{Binding Produtos, NotifyOnSourceUpdated=True}">
+                AlternatingRowBackground="White"
+                ItemsSource="{Binding Produtos, NotifyOnSourceUpdated=True}"
+                SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn IsReadOnly="False"/>
                     <DataGridTextColumn Header="Cód. De Barra" IsReadOnly="True" Binding="{Binding Cod_Barra}" Width="*">
@@ -113,6 +115,18 @@
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu FontSize="14px">
+                        <MenuItem
+                            Header="{Binding ProdutoSelecionadoDescricao}"
+                            IsEnabled="False" IsHitTestVisible="False"
+                            Focusable="False"
+                            FontWeight="Bold" />
+                        <Separator />
+                        <MenuItem Header="Editar" />
+                        <MenuItem Header="Apagar" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </DockPanel>

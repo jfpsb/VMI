@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Produto
 {
-    public class Produto : ObservableObject
+    public partial class Produto : ObservableObject
     {
         private string cod_barra;
-        private Fornecedor fornecedor;
-        private Marca marca;
+        private FornecedorModel fornecedor;
+        private MarcaModel marca;
         private string descricao;
         private double preco;
         private IList<string> codigos = new List<string>();
@@ -23,7 +25,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Cod_Barra");
             }
         }
-        public virtual Fornecedor Fornecedor
+        public virtual FornecedorModel Fornecedor
         {
             get
             {
@@ -38,7 +40,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual Marca Marca
+        public virtual MarcaModel Marca
         {
             get
             {
@@ -94,7 +96,7 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 if (Fornecedor != null)
-                    return Fornecedor.nome;
+                    return Fornecedor.Nome;
 
                 return "Não Há Fornecedor";
             }
