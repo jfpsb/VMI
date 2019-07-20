@@ -17,7 +17,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo" Click="CadastrarNovo_Click">
+                <MenuItem Header="Cadastrar Novo" Command="{Binding AbrirCadastrarComando}">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Adicionar.png"/>
                     </MenuItem.Icon>
@@ -119,12 +119,12 @@
                     <ContextMenu FontSize="14px">
                         <MenuItem
                             Header="{Binding ProdutoSelecionadoDescricao}"
-                            IsEnabled="False" IsHitTestVisible="False"
+                            IsHitTestVisible="False"
                             Focusable="False"
                             FontWeight="Bold" />
                         <Separator />
                         <MenuItem Header="Editar" />
-                        <MenuItem Header="Apagar" />
+                        <MenuItem Header="Apagar" Command="{Binding AbrirApagarComando}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

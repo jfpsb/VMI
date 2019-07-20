@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.View.Produto
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ((CadastrarProdutoViewModel)DataContext).DisposeServico();
+            ((CadastrarProdutoViewModel)DataContext).DisposeSession();
         }
     }
 }

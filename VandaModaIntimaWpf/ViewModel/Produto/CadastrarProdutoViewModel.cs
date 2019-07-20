@@ -6,6 +6,7 @@ using VandaModaIntimaWpf.Model;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
@@ -25,9 +26,20 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
-
         public ICommand Command { get; set; }
+        public CadastrarProdutoViewModel()
+        {
+            produtoModel = new ProdutoModel();
+            fornecedorModel = new FornecedorModel();
+            marcaModel = new MarcaModel();
 
+            Command = new RelayCommand(Cadastrar, ValidaModel);
+
+            PropertyChanged += CadastrarProdutoViewModel_PropertyChanged;
+
+            GetFornecedores();
+            GetMarcas();
+        }
         public bool ValidaModel(object parameter)
         {
             if (string.IsNullOrEmpty(Cod_Barra) || string.IsNullOrEmpty(Descricao))
@@ -73,20 +85,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Preco = 0;
             Fornecedor = Fornecedores[0];
             Marca = Marcas[0];
-        }
-
-        public CadastrarProdutoViewModel()
-        {
-            produtoModel = new ProdutoModel();
-            fornecedorModel = new FornecedorModel();
-            marcaModel = new MarcaModel();
-
-            Command = new RelayCommand(Cadastrar, ValidaModel);
-
-            PropertyChanged += CadastrarProdutoViewModel_PropertyChanged;
-
-            GetFornecedores();
-            GetMarcas();
         }
 
         public string Cod_Barra
@@ -217,9 +215,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public void DisposeServico()
+        public void DisposeSession()
         {
-            produtoModel.Dispose();
+            SessionProvider.FechaSession();
         }
     }
 }

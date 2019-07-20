@@ -1,7 +1,12 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Input;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View.Produto;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
@@ -14,14 +19,52 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private string termoPesquisa;
         private int pesquisarPor;
 
+        public ICommand AbrirCadastrarComando { get; set; }
+        public ICommand AbrirApagarComando { get; set; }
         public PesquisarProdutoViewModel()
         {
             produto = new ProdutoModel();
             PropertyChanged += ProdutoViewModel_PropertyChanged;
 
+            AbrirCadastrarComando = new RelayCommand(AbrirCadastrarNovo, IsCommandButtonEnabled);
+            AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, IsCommandButtonEnabled);
+
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
+        }
+
+        public void AbrirCadastrarNovo(object parameter)
+        {
+            int aux = pesquisarPor;
+            CadastrarProduto cadastrar = new CadastrarProduto();
+            cadastrar.ShowDialog();
+            pesquisarPor = aux;
+        }
+
+        public void AbrirApagarMsgBox(object parameter)
+        {
+            var result = MessageBox.Show("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Descricao + "?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                bool deletado = produtoSelecionado.Deletar();
+
+                if(deletado)
+                {
+                    MessageBox.Show("Produto " + produtoSelecionado.Descricao + " Foi Deletado Com Sucesso", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    MessageBox.Show("Produto Não Foi Deletado", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private bool IsCommandButtonEnabled(object parameter)
+        {
+            return true;
         }
 
         public int PesquisarPor
@@ -70,8 +113,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             set
             {
                 produtoSelecionado = value;
-                OnPropertyChanged("ProdutoSelecionado");
-                OnPropertyChanged("ProdutoSelecionadoDescricao");
+                if (produtoSelecionado != null)
+                {
+                    OnPropertyChanged("ProdutoSelecionado");
+                    OnPropertyChanged("ProdutoSelecionadoDescricao");
+                }
             }
         }
 
@@ -109,9 +155,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public void DisposeServico()
+        public void DisposeSession()
         {
-            produto.Dispose();
+            SessionProvider.FechaSession();
         }
     }
 }

@@ -8,7 +8,6 @@ namespace VandaModaIntimaWpf.Model.DAO
     public class DAOMySQL<T> : IDAO<T> where T : class
     {
         protected ISession session;
-        private bool isDisposed = false;
 
         public DAOMySQL()
         {
@@ -97,52 +96,23 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public IList<T> Listar(ICriteria criteria)
         {
-            using (var transacao = session.BeginTransaction())
+            try
             {
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
-
                 return criteria.List<T>();
-                //try
-                //{
-                    
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine(ex);
-                //}
-
-                //return null;
             }
-        }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            return null;
         }
 
         public ICriteria CriarCriteria()
         {
             return session.CreateCriteria<T>();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (isDisposed)
-                return;
-
-            if (disposing)
-            {
-                SessionProvider.FechaSession(session);
-            }
-
-            isDisposed = true;
-        }
-
-        ~DAOMySQL()
-        {
-            Dispose(false);
         }
     }
 }

@@ -10,7 +10,7 @@
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
 
-    <bag name="Codigos" table="cod_barra_fornecedor" lazy="true" >
+    <bag name="Codigos" table="cod_barra_fornecedor" lazy="true" cascade="delete">
       <key column="produto" />
       <element column="codigo" type="String" />
     </bag>

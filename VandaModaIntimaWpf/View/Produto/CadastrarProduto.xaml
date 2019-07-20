@@ -88,11 +88,11 @@
             SelectedIndex="0"
             IsEnabled="{Binding IsEnabled}"/>
             <Button
-            Grid.Row="7"
-            Grid.ColumnSpan="2"
-            Style="{StaticResource BotaoCadastrar}"
-            IsEnabled="{Binding IsEnabled}"
-            Command="{Binding Command}">Cadastrar</Button>
+                Grid.Row="7"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource BotaoCadastrar}"
+                IsEnabled="{Binding IsEnabled}"
+                Command="{Binding Command}">Cadastrar</Button>
         </Grid>
     </DockPanel>
 </Window>

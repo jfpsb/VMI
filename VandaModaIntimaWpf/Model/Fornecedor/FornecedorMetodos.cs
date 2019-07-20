@@ -1,4 +1,5 @@
-﻿using NHibernate.Criterion;
+﻿using NHibernate;
+using NHibernate.Criterion;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
@@ -36,12 +37,12 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             return dao.Listar(dao.CriarCriteria());
         }
 
-        public virtual void Dispose()
+        public virtual Fornecedor ListarPorId(string id)
         {
-            dao.Dispose();
+            throw new System.NotImplementedException();
         }
 
-        public virtual Fornecedor ListarPorId(string id)
+        public virtual bool Deletar()
         {
             throw new System.NotImplementedException();
         }

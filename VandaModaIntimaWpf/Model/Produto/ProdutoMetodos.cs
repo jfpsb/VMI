@@ -18,6 +18,11 @@ namespace VandaModaIntimaWpf.Model.Produto
             return dao.Inserir(this);
         }
 
+        public virtual bool Deletar()
+        {
+            return dao.Deletar(this);
+        }
+
         public virtual Produto ListarPorId(string id)
         {
             var criteria = dao.CriarCriteria();
@@ -95,11 +100,6 @@ namespace VandaModaIntimaWpf.Model.Produto
         public virtual IList<Produto> Listar()
         {
             return dao.Listar(dao.CriarCriteria());
-        }
-
-        public virtual void Dispose()
-        {
-            dao.Dispose();
         }
     }
 }

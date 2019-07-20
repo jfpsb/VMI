@@ -130,6 +130,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Mapas\CodBarraFornecedor.hbm.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -167,7 +170,6 @@
     <EmbeddedResource Include="Mapas\Fornecedor.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapas\CodBarraFornecedor.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\Fornecedor\" />

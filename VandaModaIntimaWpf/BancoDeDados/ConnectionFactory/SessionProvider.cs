@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Context;
 using System;
 
 namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
@@ -27,30 +28,8 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         {
             MyConfiguration = new Configuration();
             MyConfiguration.Configure();
+            MyConfiguration.CurrentSessionContext<ThreadStaticSessionContext>();
             return MyConfiguration.BuildSessionFactory();
-
-            //try
-            //{
-
-            //}
-            //catch (InvalidProxyTypeException ite)
-            //{
-            //    MessageBox.Show("Erro ao conectar. Cheque sua conexão com a internet." + ite.Message + "\n\n" + ite.StackTrace, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return null;
-            //}
-            //catch (MappingException me)
-            //{
-            //    MessageBox.Show("Erro de mapa\n\n" + me.Message + "\n\n" + me.Data + "\n\n" + me.StackTrace + "\n\n" + me.InnerException?.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return null;
-            //}
-        }
-        /// <summary>
-        /// Retorna a Session Factory para uso em classe DAO.
-        /// </summary>
-        /// <returns>mySessionFactory</returns>
-        public static ISessionFactory GetSessionFactory()
-        {
-            return MySessionFactory;
         }
 
         public static ISession GetMySession()
@@ -62,21 +41,17 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 MySessionFactory = BuildSessionFactory();
             }
 
-            if (MySessionFactory != null)
+            if (CurrentSessionContext.HasBind(MySessionFactory))
+            {
+                session = MySessionFactory.GetCurrentSession();
+            }
+            else
             {
                 session = MySessionFactory.OpenSession();
-                return session;
-                //try
-                //{
-
-                //}
-                //catch (Exception e)
-                //{
-                //    MessageBox.Show(e.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                CurrentSessionContext.Bind(session);
             }
 
-            return null;
+            return session;
         }
 
         public static void FechaConexoes()
@@ -85,13 +60,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 MySessionFactory.Close();
         }
 
-        public static void FechaSession(ISession session)
+        public static void FechaSession()
         {
-            if (session != null && session.IsOpen)
-            {
-                session.Close();
-                Console.WriteLine("Sessão Fechada");
-            }
+            ISession s = CurrentSessionContext.Unbind(MySessionFactory);
+            s.Dispose();
+            Console.WriteLine("Sessão Fechada");
         }
     }
 }

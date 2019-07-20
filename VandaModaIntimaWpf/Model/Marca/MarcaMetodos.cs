@@ -1,4 +1,5 @@
-﻿using NHibernate.Criterion;
+﻿using NHibernate;
+using NHibernate.Criterion;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
@@ -46,9 +47,9 @@ namespace VandaModaIntimaWpf.Model.Marca
             return result[0];
         }
 
-        public virtual void Dispose()
+        public virtual bool Deletar()
         {
-            dao.Dispose();
+            throw new System.NotImplementedException();
         }
     }
 }

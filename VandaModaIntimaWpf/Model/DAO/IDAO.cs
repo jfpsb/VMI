@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public interface IDAO<T> : IDisposable where T : class
+    public interface IDAO<T>
     {
         bool Inserir(T objeto);
         bool Atualizar(T objeto);
