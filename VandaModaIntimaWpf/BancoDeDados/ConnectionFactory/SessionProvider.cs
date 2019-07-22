@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             return MyConfiguration.BuildSessionFactory();
         }
 
-        public static ISession GetMySession()
+        public static ISession GetSession()
         {
             ISession session;
 

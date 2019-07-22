@@ -73,6 +73,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\Produto\EditarProduto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Produto\CadastrarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,9 +106,17 @@
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\Produto\ProdutoMetodos.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
+    <Compile Include="ViewModel\ICloseable.cs" />
+    <Compile Include="ViewModel\IEditarViewModel.cs" />
+    <Compile Include="ViewModel\IMessageable.cs" />
+    <Compile Include="ViewModel\IPesquisarViewModel.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
+    <Compile Include="ViewModel\Produto\EditarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="View\Produto\EditarProduto.xaml.cs">
+      <DependentUpon>EditarProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
       <DependentUpon>CadastrarProduto.xaml</DependentUpon>
     </Compile>

@@ -19,6 +19,16 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             return dao.Inserir(this);
         }
 
+        public virtual bool Atualizar()
+        {
+            return dao.Atualizar(this);
+        }
+
+        public virtual bool Deletar()
+        {
+            return dao.Deletar(this);
+        }
+
         public virtual IList<Fornecedor> ListarPorNome(string nome)
         {
             var criteria = dao.CriarCriteria();
@@ -38,11 +48,6 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
         }
 
         public virtual Fornecedor ListarPorId(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public virtual bool Deletar()
         {
             throw new System.NotImplementedException();
         }

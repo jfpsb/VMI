@@ -17,7 +17,10 @@ namespace VandaModaIntimaWpf.Model.Marca
         {
             return dao.Inserir(this);
         }
-
+        public virtual bool Atualizar()
+        {
+            return dao.Atualizar(this);
+        }
         public virtual IList<Marca> ListarPorNome(string nome)
         {
             var criteria = dao.CriarCriteria();

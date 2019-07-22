@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.ViewModel.Produto;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.View.Produto
         private void PesquisarProduto_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Fecha sessao
-            ((PesquisarProdutoViewModel)DataContext).DisposeSession();
+            ((IPesquisarViewModel)DataContext).DisposeSession();
         }
     }
 }

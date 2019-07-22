@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
 
 namespace VandaModaIntimaWpf.Model.Produto
 {
-    public partial class Produto : ObservableObject
+    public partial class Produto : ObservableObject, ICloneable
     {
         private string cod_barra;
         private FornecedorModel fornecedor;
@@ -63,7 +64,7 @@ namespace VandaModaIntimaWpf.Model.Produto
 
             set
             {
-                descricao = value;
+                descricao = value.ToUpper();
                 OnPropertyChanged("Descricao");
             }
         }
@@ -111,6 +112,20 @@ namespace VandaModaIntimaWpf.Model.Produto
 
                 return "Não Há Marca";
             }
+        }
+
+        public virtual object Clone()
+        {
+            Produto p = new Produto();
+
+            p.Cod_Barra = Cod_Barra;
+            p.Descricao = Descricao;
+            p.Preco = Preco;
+            p.Fornecedor = Fornecedor;
+            p.Marca = Marca;
+            p.Codigos = Codigos;
+
+            return p;
         }
     }
 }

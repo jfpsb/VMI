@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public DAOMySQL()
         {
-            session = SessionProvider.GetMySession();
+            session = SessionProvider.GetSession();
         }
 
         public bool Atualizar(T objeto)

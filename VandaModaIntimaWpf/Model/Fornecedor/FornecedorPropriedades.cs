@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.Model.Fornecedor
 {
-    public partial class Fornecedor : ObservableObject
+    public partial class Fornecedor : ObservableObject, ICloneable
     {
         private string cnpj { get; set; }
         private string nome { get; set; }
@@ -18,7 +19,7 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
         /// <param name="nome">SELECIONE UM FORNECEDOR</param>
         public Fornecedor(string nome)
         {
-            cnpj = null;
+            cnpj = "0";
             this.nome = nome;
         }
 
@@ -70,6 +71,18 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
                 produtos = value;
                 OnPropertyChanged("Produtos");
             }
+        }
+
+        public virtual object Clone()
+        {
+            Fornecedor f = new Fornecedor();
+
+            f.Cnpj = Cnpj;
+            f.Nome = Nome;
+            f.NomeFantasia = NomeFantasia;
+            f.Email = Email;
+
+            return f;
         }
     }
 }

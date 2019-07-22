@@ -1,42 +1,22 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.CadastrarProduto"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.EditarProduto"
+        x:Name="TelaEditarProduto"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
-        Title="Cadastrar Produto"
-        Height="350"
-        Width="500"
+        Title="Editar Produto"
+        Height="360"
+        Width="640"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Window.DataContext>
-        <ViewModel:CadastrarProdutoViewModel />
+        <ViewModel:EditarProdutoViewModel />
     </Window.DataContext>
     <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
         <Grid Margin="15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -53,28 +33,24 @@
             </Grid.RowDefinitions>
             <Label>Código De Barras:</Label>
             <TextBox Grid.Column="1"
-                     Text="{Binding Produto.Cod_Barra, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoCodBarra}"
-                   Foreground="Red">Este Código Já Existe No Sistema</Label>
+                     Text="{Binding Produto.Cod_Barra, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="False" />
             <Label Grid.Row="2">Descrição:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="3">Preço:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
-                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="4">Fornecedor:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="4"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Fornecedor}"
+                      SelectedItem="{Binding FornecedorComboBox, Mode=TwoWay}"
                       SelectedIndex="0"
                       IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5">Marca:</Label>
@@ -82,14 +58,15 @@
                       Grid.Row="5"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Marca}"
+                      SelectedItem="{Binding MarcaComboBox, Mode=TwoWay}"
                       SelectedIndex="0"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
                     IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding Command}">Cadastrar</Button>
+                    Command="{Binding Command}"
+                    CommandParameter="{Binding ElementName=TelaEditarProduto}">Salvar</Button>
         </Grid>
     </DockPanel>
 </Window>

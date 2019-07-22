@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -11,16 +10,18 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
-    class PesquisarProdutoViewModel : ObservableObject
+    class PesquisarProdutoViewModel : ObservableObject, IPesquisarViewModel
     {
         private ProdutoModel produto;
-        private ProdutoModel produtoSelecionado;
-        private ObservableCollection<ProdutoModel> produtos;
+        private ProdutoCampoMarcado produtoSelecionado;
+        private ObservableCollection<ProdutoCampoMarcado> produtos;
         private string termoPesquisa;
         private int pesquisarPor;
-
+        private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
+        public ICommand AbrirEditarComando { get; set; }
+        public ICommand ChecarItensMarcadosComando { get; set; }
         public PesquisarProdutoViewModel()
         {
             produto = new ProdutoModel();
@@ -28,6 +29,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrarNovo, IsCommandButtonEnabled);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, IsCommandButtonEnabled);
+            AbrirEditarComando = new RelayCommand(AbrirEditar, IsCommandButtonEnabled);
+            ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, IsCommandButtonEnabled);
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -36,23 +39,23 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void AbrirCadastrarNovo(object parameter)
         {
-            int aux = pesquisarPor;
             CadastrarProduto cadastrar = new CadastrarProduto();
             cadastrar.ShowDialog();
-            pesquisarPor = aux;
+
+            OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
         }
 
         public void AbrirApagarMsgBox(object parameter)
         {
-            var result = MessageBox.Show("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Descricao + "?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Produto.Descricao + "?", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
-                bool deletado = produtoSelecionado.Deletar();
+                bool deletado = produtoSelecionado.Produto.Deletar();
 
-                if(deletado)
+                if (deletado)
                 {
-                    MessageBox.Show("Produto " + produtoSelecionado.Descricao + " Foi Deletado Com Sucesso", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Produto " + produtoSelecionado.Produto.Descricao + " Foi Deletado Com Sucesso", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
@@ -62,7 +65,44 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        private bool IsCommandButtonEnabled(object parameter)
+        public void AbrirEditar(object parameter)
+        {
+            ProdutoModel produtoBkp = (ProdutoModel)produtoSelecionado.Produto.Clone();
+
+            EditarProduto editar = new EditarProduto(produtoSelecionado.Produto.Cod_Barra);
+            var result = editar.ShowDialog();
+
+            if (result.HasValue && result == true)
+            {
+                OnPropertyChanged("TermoPesquisa");
+            }
+            else
+            {
+                produtoSelecionado.Produto.Descricao = produtoBkp.Descricao;
+                produtoSelecionado.Produto.Preco = produtoBkp.Preco;
+                produtoSelecionado.Produto.Fornecedor = produtoBkp.Fornecedor;
+                produtoSelecionado.Produto.Marca = produtoBkp.Marca;
+                produtoSelecionado.Produto.Codigos = produtoBkp.Codigos;
+            }
+        }
+
+        public void ChecarItensMarcados(object parameter)
+        {
+            int marcados = 0;
+
+            foreach (ProdutoCampoMarcado pm in produtos)
+            {
+                if (pm.IsChecked)
+                    marcados++;
+            }
+
+            if (marcados > 1)
+                VisibilidadeBotaoApagarSelecionado = Visibility.Visible;
+            else
+                VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+        }
+
+        public bool IsCommandButtonEnabled(object parameter)
         {
             return true;
         }
@@ -77,7 +117,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ObservableCollection<ProdutoModel> Produtos
+        public ObservableCollection<ProdutoCampoMarcado> Produtos
         {
             get { return produtos; }
             set
@@ -107,7 +147,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ProdutoModel ProdutoSelecionado
+        public ProdutoCampoMarcado ProdutoSelecionado
         {
             get { return produtoSelecionado; }
             set
@@ -121,26 +161,36 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public string ProdutoSelecionadoDescricao
+        public Visibility VisibilidadeBotaoApagarSelecionado
         {
-            get { return produtoSelecionado.Descricao.ToUpper(); }
+            get { return visibilidadeBotaoApagarSelecionado; }
+            set
+            {
+                visibilidadeBotaoApagarSelecionado = value;
+                OnPropertyChanged("VisibilidadeBotaoApagarSelecionado");
+            }
         }
 
-        private void GetProdutos(string termo)
+        public string ProdutoSelecionadoDescricao
+        {
+            get { return produtoSelecionado.Produto.Descricao.ToUpper(); }
+        }
+
+        public void GetItems(string termo)
         {
             switch (pesquisarPor)
             {
                 case 0:
-                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorDescricao(termo));
+                    Produtos = new ObservableCollection<ProdutoCampoMarcado>(ProdutoCampoMarcado.ConverterIList(produto.ListarPorDescricao(termo)));
                     break;
                 case 1:
-                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorCodigoDeBarra(termo));
+                    Produtos = new ObservableCollection<ProdutoCampoMarcado>(ProdutoCampoMarcado.ConverterIList(produto.ListarPorCodigoDeBarra(termo)));
                     break;
                 case 2:
-                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorFornecedor(termo));
+                    Produtos = new ObservableCollection<ProdutoCampoMarcado>(ProdutoCampoMarcado.ConverterIList(produto.ListarPorFornecedor(termo)));
                     break;
                 case 3:
-                    Produtos = new ObservableCollection<ProdutoModel>(produto.ListarPorMarca(termo));
+                    Produtos = new ObservableCollection<ProdutoCampoMarcado>(ProdutoCampoMarcado.ConverterIList(produto.ListarPorMarca(termo)));
                     break;
             }
         }
@@ -150,7 +200,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "TermoPesquisa":
-                    GetProdutos(termoPesquisa);
+                    GetItems(termoPesquisa);
                     break;
             }
         }
@@ -158,6 +208,48 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public void DisposeSession()
         {
             SessionProvider.FechaSession();
+        }
+
+        public class ProdutoCampoMarcado : ObservableObject
+        {
+            private ProdutoModel produto;
+            private bool isChecked = false;
+            public ProdutoCampoMarcado(ProdutoModel produto)
+            {
+                this.produto = produto;
+            }
+            public ProdutoModel Produto
+            {
+                get { return produto; }
+                set
+                {
+                    produto = value;
+                    OnPropertyChanged("Produto");
+                }
+            }
+
+            public bool IsChecked
+            {
+                get { return isChecked; }
+                set
+                {
+                    isChecked = value;
+                    OnPropertyChanged("IsChecked");
+                }
+            }
+
+            public static IList<ProdutoCampoMarcado> ConverterIList(IList<ProdutoModel> produtos)
+            {
+                IList<ProdutoCampoMarcado> lista = new List<ProdutoCampoMarcado>();
+
+                foreach (ProdutoModel produto in produtos)
+                {
+                    ProdutoCampoMarcado pm = new ProdutoCampoMarcado(produto);
+                    lista.Add(pm);
+                }
+
+                return lista;
+            }
         }
     }
 }

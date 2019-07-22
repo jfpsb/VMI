@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.Model.Marca
 {
-    public partial class Marca : ObservableObject
+    public partial class Marca : ObservableObject, ICloneable
     {
         private long id { get; set; }
         private string nome { get; set; }
@@ -48,6 +49,16 @@ namespace VandaModaIntimaWpf.Model.Marca
                 produtos = value;
                 OnPropertyChanged("Produtos");
             }
+        }
+
+        public virtual object Clone()
+        {
+            Marca m = new Marca();
+
+            m.Id = Id;
+            m.Nome = Nome;
+
+            return m;
         }
     }
 }

@@ -3,20 +3,19 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
-    class CadastrarProdutoViewModel : ObservableObject, ICadastrarViewModel
+    public class CadastrarProdutoViewModel : ObservableObject, ICadastrarViewModel
     {
-        private ProdutoModel produtoModel;
+        protected ProdutoModel produtoModel;
         private FornecedorModel fornecedorModel;
         private MarcaModel marcaModel;
         private Visibility visibilidadeAvisoCodBarra = Visibility.Collapsed;
-        private bool isEnabled = true;
+        protected bool isEnabled = true;
         private string mensagemStatusBar = "Aguardando Usuário";
         private string imagemStatusBar = IMAGEMAGUARDANDO;
 
@@ -35,19 +34,19 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             Command = new RelayCommand(Cadastrar, ValidaModel);
 
-            PropertyChanged += CadastrarProdutoViewModel_PropertyChanged;
+            produtoModel.PropertyChanged += CadastrarProdutoViewModel_PropertyChanged;
 
             GetFornecedores();
             GetMarcas();
         }
         public bool ValidaModel(object parameter)
         {
-            if (string.IsNullOrEmpty(Cod_Barra) || string.IsNullOrEmpty(Descricao))
+            if (string.IsNullOrEmpty(Produto.Cod_Barra) || string.IsNullOrEmpty(Produto.Descricao))
             {
                 return false;
             }
 
-            if (Preco == 0)
+            if (Produto.Preco.ToString().Equals(string.Empty) || Produto.Preco == 0)
             {
                 return false;
             }
@@ -55,13 +54,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             return true;
         }
 
-        public void Cadastrar(object parameter)
+        public virtual void Cadastrar(object parameter)
         {
-            if (Fornecedor.Cnpj == null)
-                Fornecedor = null;
+            if (Produto.Fornecedor.Cnpj.Equals("0"))
+                Produto.Fornecedor = null;
 
-            if (Marca.Id == 0)
-                Marca = null;
+            if (Produto.Marca.Id == 0)
+                Produto.Marca = null;
 
             var result = produtoModel.Salvar();
 
@@ -80,64 +79,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public void ResetaPropriedades()
         {
             produtoModel = new ProdutoModel();
-            Cod_Barra = "";
-            Descricao = "";
-            Preco = 0;
-            Fornecedor = Fornecedores[0];
-            Marca = Marcas[0];
+            produtoModel.Fornecedor = Fornecedores[0];
+            produtoModel.Marca = Marcas[0];
         }
 
-        public string Cod_Barra
+        public ProdutoModel Produto
         {
-            get
-            {
-                return produtoModel.Cod_Barra;
-            }
-
+            get { return produtoModel; }
             set
             {
-                produtoModel.Cod_Barra = value.ToUpper();
-                OnPropertyChanged("Cod_Barra");
-            }
-        }
-
-        public string Descricao
-        {
-            get { return produtoModel.Descricao; }
-            set
-            {
-                produtoModel.Descricao = value.ToUpper();
-                OnPropertyChanged("Descricao");
-            }
-        }
-
-        public double Preco
-        {
-            get { return produtoModel.Preco; }
-            set
-            {
-                produtoModel.Preco = value;
-                OnPropertyChanged("Preco");
-            }
-        }
-
-        public FornecedorModel Fornecedor
-        {
-            get { return produtoModel.Fornecedor; }
-            set
-            {
-                produtoModel.Fornecedor = value;
-                OnPropertyChanged("Fornecedor");
-            }
-        }
-
-        public MarcaModel Marca
-        {
-            get { return produtoModel.Marca; }
-            set
-            {
-                produtoModel.Marca = value;
-                OnPropertyChanged("Marca");
+                produtoModel = value;
+                OnPropertyChanged("Produto");
             }
         }
 
@@ -198,7 +150,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "Cod_Barra":
-                    var result = produtoModel.ListarPorId(Cod_Barra);
+                    var result = produtoModel.ListarPorId(Produto.Cod_Barra);
 
                     if (result != null)
                     {
@@ -213,11 +165,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                     break;
             }
-        }
-
-        public void DisposeSession()
-        {
-            SessionProvider.FechaSession();
         }
     }
 }

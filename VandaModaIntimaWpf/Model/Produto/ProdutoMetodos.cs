@@ -18,6 +18,11 @@ namespace VandaModaIntimaWpf.Model.Produto
             return dao.Inserir(this);
         }
 
+        public virtual bool Atualizar()
+        {
+            return dao.Atualizar(this);
+        }
+
         public virtual bool Deletar()
         {
             return dao.Deletar(this);
