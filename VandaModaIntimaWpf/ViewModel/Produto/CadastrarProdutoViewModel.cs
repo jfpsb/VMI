@@ -78,9 +78,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void ResetaPropriedades()
         {
-            produtoModel = new ProdutoModel();
-            produtoModel.Fornecedor = Fornecedores[0];
-            produtoModel.Marca = Marcas[0];
+            Produto = new ProdutoModel();
+            Produto.Cod_Barra = Produto.Descricao = string.Empty;
+            Produto.Preco = 0;
+            Produto.Fornecedor = Fornecedores[0];
+            Produto.Marca = Marcas[0];
         }
 
         public ProdutoModel Produto

@@ -22,6 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
         public ICommand ChecarItensMarcadosComando { get; set; }
+        public ICommand ApagarMarcadosComando { get; set; }
         public PesquisarProdutoViewModel()
         {
             produto = new ProdutoModel();
@@ -31,6 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, IsCommandButtonEnabled);
             AbrirEditarComando = new RelayCommand(AbrirEditar, IsCommandButtonEnabled);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, IsCommandButtonEnabled);
+            ApagarMarcadosComando = new RelayCommand(ApagarMarcados, IsCommandButtonEnabled);
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -47,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void AbrirApagarMsgBox(object parameter)
         {
-            var result = MessageBox.Show("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Produto.Descricao + "?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = ((IMessageable)parameter).MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Produto.Descricao + "?");
 
             if (result == MessageBoxResult.Yes)
             {
@@ -100,6 +102,35 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 VisibilidadeBotaoApagarSelecionado = Visibility.Visible;
             else
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+        }
+
+        public void ApagarMarcados(object parameter)
+        {
+            var Mensagem = (IMessageable)parameter;
+            var resultMsgBox = Mensagem.MensagemSimOuNao("Desejar Apagar os Produtos Marcados?", "Apagar Produtos");
+
+            if (resultMsgBox == MessageBoxResult.Yes)
+            {
+                IList<ProdutoModel> AApagar = new List<ProdutoModel>();
+
+                foreach (ProdutoCampoMarcado pm in produtos)
+                {
+                    if (pm.IsChecked)
+                        AApagar.Add(pm.Produto);
+                }
+
+                bool result = produto.Deletar(AApagar);
+
+                if(result)
+                {
+                    Mensagem.MensagemDeAviso("Produtos Apagados Com Sucesso");
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    Mensagem.MensagemDeErro("Erro ao Apagar Produtos");
+                }
+            }
         }
 
         public bool IsCommandButtonEnabled(object parameter)

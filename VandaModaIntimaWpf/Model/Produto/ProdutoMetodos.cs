@@ -27,7 +27,10 @@ namespace VandaModaIntimaWpf.Model.Produto
         {
             return dao.Deletar(this);
         }
-
+        public virtual bool Deletar(IList<Produto> objetos)
+        {
+            return dao.Deletar(objetos);
+        }
         public virtual Produto ListarPorId(string id)
         {
             var criteria = dao.CriarCriteria();

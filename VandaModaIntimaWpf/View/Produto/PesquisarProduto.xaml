@@ -1,4 +1,5 @@
 ﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.PesquisarProduto"
+        x:Name="TelaPesquisarProduto"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -55,7 +56,9 @@
                 Margin="5,0,5,5"
                 Content="Apagar Produtos Marcados"
                 HorizontalAlignment="Right"
-                Visibility="{Binding VisibilidadeBotaoApagarSelecionado}" />
+                Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
+                Command="{Binding ApagarMarcadosComando}"
+                CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -92,7 +95,7 @@
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
                                           Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarProduto}}}">
-                                    
+
                                 </CheckBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

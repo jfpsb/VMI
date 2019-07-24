@@ -21,6 +21,14 @@ namespace VandaModaIntimaWpf.Model.Marca
         {
             return dao.Atualizar(this);
         }
+        public virtual bool Deletar()
+        {
+            return dao.Deletar(this);
+        }
+        public virtual bool Deletar(IList<Marca> objetos)
+        {
+            return dao.Deletar(objetos);
+        }
         public virtual IList<Marca> ListarPorNome(string nome)
         {
             var criteria = dao.CriarCriteria();
@@ -48,11 +56,6 @@ namespace VandaModaIntimaWpf.Model.Marca
                 return null;
 
             return result[0];
-        }
-
-        public virtual bool Deletar()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

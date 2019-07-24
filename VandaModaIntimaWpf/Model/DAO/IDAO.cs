@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         bool Atualizar(T objeto);
         bool InserirOuAtualizar(T objeto);
         bool Deletar(T objeto);
+        bool Deletar(IList<T> objetos);
         IList<T> Listar(ICriteria criteria);
         ICriteria CriarCriteria();
     }

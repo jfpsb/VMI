@@ -3,7 +3,7 @@ using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
-    public partial class PesquisarProduto : Window
+    public partial class PesquisarProduto : Window, IMessageable
     {
         public PesquisarProduto()
         {
@@ -19,6 +19,21 @@ namespace VandaModaIntimaWpf.View.Produto
         {
             //Fecha sessao
             ((IPesquisarViewModel)DataContext).DisposeSession();
+        }
+
+        public void MensagemDeAviso(string mensagem)
+        {
+            MessageBox.Show(mensagem, "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public void MensagemDeErro(string mensagem)
+        {
+            MessageBox.Show(mensagem, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        public MessageBoxResult MensagemSimOuNao(string mensagem, string caption)
+        {
+            return MessageBox.Show(mensagem, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
         }
     }
 }

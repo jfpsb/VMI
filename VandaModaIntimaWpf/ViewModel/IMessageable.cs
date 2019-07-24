@@ -1,4 +1,6 @@
-﻿namespace VandaModaIntimaWpf.ViewModel
+﻿using System.Windows;
+
+namespace VandaModaIntimaWpf.ViewModel
 {
     /// <summary>
     /// Interface para tornar possível usar MessageBox em View através da ViewModel com ICommand.
@@ -8,5 +10,6 @@
     {
         void MensagemDeAviso(string mensagem);
         void MensagemDeErro(string mensagem);
+        MessageBoxResult MensagemSimOuNao(string mensagem, string caption);
     }
 }

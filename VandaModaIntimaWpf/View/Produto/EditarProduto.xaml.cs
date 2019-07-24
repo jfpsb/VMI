@@ -30,6 +30,11 @@ namespace VandaModaIntimaWpf.View.Produto
             MessageBox.Show(mensagem, "Erro ao Editar", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        public MessageBoxResult MensagemSimOuNao(string mensagem, string caption)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             DialogResult = ((IEditarViewModel)DataContext).EdicaoComSucesso();

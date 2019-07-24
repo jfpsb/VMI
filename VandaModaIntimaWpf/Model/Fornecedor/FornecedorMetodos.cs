@@ -29,6 +29,11 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             return dao.Deletar(this);
         }
 
+        public virtual bool Deletar(IList<Fornecedor> objetos)
+        {
+            return dao.Deletar(objetos);
+        }
+
         public virtual IList<Fornecedor> ListarPorNome(string nome)
         {
             var criteria = dao.CriarCriteria();

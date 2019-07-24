@@ -54,6 +54,31 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        public bool Deletar(IList<T> objetos)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (T t in objetos)
+                    {
+                        session.Delete(t);
+                    }
+
+                    transacao.Commit();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
+                }
+
+                return false;
+            }
+        }
+
         public bool Inserir(T objeto)
         {
             using (var transacao = session.BeginTransaction())
@@ -67,7 +92,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 catch (Exception ex)
                 {
                     transacao.Rollback();
-                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException);
+                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
                 }
 
                 return false;

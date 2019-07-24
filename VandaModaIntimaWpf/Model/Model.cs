@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.Model
         bool Salvar();
         bool Atualizar();
         bool Deletar();
+        bool Deletar(IList<T> objetos);
         IList<T> Listar();
         T ListarPorId(string id);
     }
