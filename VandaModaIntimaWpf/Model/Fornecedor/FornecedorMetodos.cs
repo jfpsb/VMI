@@ -56,5 +56,10 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
         {
             throw new System.NotImplementedException();
         }
+
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "CNPJ", "Nome", "Nome Fantasia", "Email" };
+        }
     }
 }

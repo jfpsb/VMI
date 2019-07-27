@@ -6,6 +6,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
@@ -23,6 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand AbrirEditarComando { get; set; }
         public ICommand ChecarItensMarcadosComando { get; set; }
         public ICommand ApagarMarcadosComando { get; set; }
+        public ICommand ExportarExcelComando { get; set; }
         public PesquisarProdutoViewModel()
         {
             produto = new ProdutoModel();
@@ -33,6 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             AbrirEditarComando = new RelayCommand(AbrirEditar, IsCommandButtonEnabled);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, IsCommandButtonEnabled);
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados, IsCommandButtonEnabled);
+            ExportarExcelComando = new RelayCommand(ExportarExcel, IsCommandButtonEnabled);
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -121,7 +124,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                 bool result = produto.Deletar(AApagar);
 
-                if(result)
+                if (result)
                 {
                     Mensagem.MensagemDeAviso("Produtos Apagados Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
@@ -136,6 +139,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public bool IsCommandButtonEnabled(object parameter)
         {
             return true;
+        }
+
+        public void ExportarExcel(object parameter)
+        {
+            new Excel<ProdutoModel>(new ProdutoColunaStrategy()).Salvar(ProdutoCampoMarcado.ConverterIList(Produtos));
         }
 
         public int PesquisarPor
@@ -277,6 +285,19 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 {
                     ProdutoCampoMarcado pm = new ProdutoCampoMarcado(produto);
                     lista.Add(pm);
+                }
+
+                return lista;
+            }
+
+            public static IList<ProdutoModel> ConverterIList(IList<ProdutoCampoMarcado> produtos)
+            {
+                IList<ProdutoModel> lista = new List<ProdutoModel>();
+
+                foreach (ProdutoCampoMarcado produto in produtos)
+                {
+                    ProdutoModel p = produto.Produto;
+                    lista.Add(p);
                 }
 
                 return lista;

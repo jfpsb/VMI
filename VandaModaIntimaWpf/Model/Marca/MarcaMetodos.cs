@@ -57,5 +57,10 @@ namespace VandaModaIntimaWpf.Model.Marca
 
             return result[0];
         }
+
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "ID", "Nome" };
+        }
     }
 }

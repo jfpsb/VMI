@@ -14,6 +14,15 @@ namespace VandaModaIntimaWpf.Model.Produto
         private double preco;
         private IList<string> codigos = new List<string>();
 
+        public enum Cols
+        {
+            CodBarra = 1,
+            Descricao = 2,
+            Preco = 3,
+            Fornecedor = 4,
+            Marca = 5
+        }
+
         public virtual string Cod_Barra
         {
             get

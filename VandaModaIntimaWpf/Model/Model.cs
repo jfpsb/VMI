@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -10,5 +11,6 @@ namespace VandaModaIntimaWpf.Model
         bool Deletar(IList<T> objetos);
         IList<T> Listar();
         T ListarPorId(string id);
+        string[] GetColunas();
     }
 }

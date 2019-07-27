@@ -1,5 +1,6 @@
 ﻿using NHibernate.Criterion;
 using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Model.DAO;
 
@@ -108,6 +109,11 @@ namespace VandaModaIntimaWpf.Model.Produto
         public virtual IList<Produto> Listar()
         {
             return dao.Listar(dao.CriarCriteria());
+        }
+
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca" };
         }
     }
 }
