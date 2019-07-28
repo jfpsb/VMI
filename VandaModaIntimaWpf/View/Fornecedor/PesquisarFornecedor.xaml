@@ -1,20 +1,20 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.PesquisarProduto"
-        x:Name="TelaPesquisarProduto"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Fornecedor.PesquisarFornecedor"
+        x:Name="TelaPesquisarFornecedor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
-        Title="Pesquisar Produto"
+        Title="Pesquisar Fornecedor"
         Height="540"
         Width="960"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/Produto_Icon.ico"
-        Closing="PesquisarProduto_Closing">
+        Icon="/Resources/Fornecedor_Icon.ico"
+        Closing="TelaPesquisarFornecedor_Closing">
     <Window.DataContext>
-        <ViewModel:PesquisarProdutoViewModel />
+        <ViewModel:PesquisarFornecedorViewModel />
     </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -37,7 +37,8 @@
                     <MenuItem.Icon>
                         <Image Source="/Resources/Exportar.png" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)" Command="{Binding ExportarExcelComando}"/>
+                    <MenuItem Header="Excel (*.xlsx)"
+                              Command="{Binding ExportarExcelComando}" />
                     <MenuItem Header="Json (*.json)" />
                     <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
@@ -54,11 +55,11 @@
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Produtos Marcados"
+                Content="Apagar Fornecedores Marcados"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
-                CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
+                CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -74,7 +75,7 @@
             <ComboBox Grid.Column="2"
                       Width="200"
                       SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
-                      ItemsSource="{StaticResource CmbPesquisaProdutoItems}"
+                      ItemsSource="{StaticResource CmbPesquisaFornecedorItems}"
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
             <Label Grid.Row="1"
@@ -86,80 +87,69 @@
             <DataGrid Grid.Row="2"
                       Grid.ColumnSpan="3"
                       AutoGenerateColumns="False"
-                      Name="DataGridProduto"
+                      Name="DataGridFornecedor"
                       AlternatingRowBackground="White"
-                      ItemsSource="{Binding Produtos, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding ProdutoSelecionado, Mode=OneWayToSource}">
+                      ItemsSource="{Binding Fornecedores, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding FornecedorSelecionado, Mode=OneWayToSource}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarProduto}}}">
+                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarFornecedor}}}">
 
                                 </CheckBox>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Cód. De Barra"
+                    <DataGridTextColumn Header="CNPJ"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.Cod_Barra}"
+                                        Binding="{Binding Fornecedor.Cnpj}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Cod_Barra}" />
+                                        Value="{Binding Fornecedor.Cnpj}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Descrição"
+                    <DataGridTextColumn Header="Nome"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.Descricao}"
+                                        Binding="{Binding Fornecedor.Nome}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Descricao}" />
+                                        Value="{Binding Fornecedor.Nome}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Preço"
+                    <DataGridTextColumn Header="Nome Fantasia"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.Preco}"
+                                        Binding="{Binding Fornecedor.NomeFantasia}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Preco}" />
+                                        Value="{Binding Fornecedor.NomeFantasia}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Fornecedor"
+                    <DataGridTextColumn Header="Email"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.FornecedorNome}"
+                                        Binding="{Binding Fornecedor.Email}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.FornecedorNome}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="Marca"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.MarcaNome}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.MarcaNome}" />
+                                        Value="{Binding Fornecedor.Email}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu FontSize="14px">
-                        <MenuItem Header="{Binding ProdutoSelecionadoDescricao}"
+                        <MenuItem Header="{Binding FornecedorSelecionadoNome}"
                                   IsHitTestVisible="False"
                                   Focusable="False"
                                   FontWeight="Bold" />

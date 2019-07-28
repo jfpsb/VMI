@@ -16,11 +16,5 @@ namespace VandaModaIntimaWpf
         {
             Close();
         }
-
-        private void Produto_Click(object sender, RoutedEventArgs e)
-        {
-            PesquisarProduto pesquisarProduto = new PesquisarProduto();
-            pesquisarProduto.Show();
-        }
     }
 }

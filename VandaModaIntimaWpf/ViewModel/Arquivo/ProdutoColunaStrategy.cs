@@ -24,17 +24,17 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, ProdutoModel.Cols.CodBarra] = lista[i].Cod_Barra;
-                Worksheet.Cells[i + 2, ProdutoModel.Cols.Descricao] = lista[i].Descricao;
-                Worksheet.Cells[i + 2, ProdutoModel.Cols.Preco] = lista[i].Preco;
-                Worksheet.Cells[i + 2, ProdutoModel.Cols.Fornecedor] = "NÃO HÁ FORNECEDOR";
-                Worksheet.Cells[i + 2, ProdutoModel.Cols.Marca] = "NÃO HÁ MARCA";
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].Cod_Barra;
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco] = lista[i].Preco;
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
 
                 if (lista[i].Fornecedor != null)
-                    Worksheet.Cells[i + 2, ProdutoModel.Cols.Fornecedor] = lista[i].Fornecedor.Nome;
+                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
 
                 if (lista[i].Marca != null)
-                    Worksheet.Cells[i + 2, ProdutoModel.Cols.Marca] = lista[i].Marca.Nome;
+                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
 
                 Worksheet.Columns.AutoFit();
                 //Worksheet.Columns.AutoFit();

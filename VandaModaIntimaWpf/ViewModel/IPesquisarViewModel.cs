@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VandaModaIntimaWpf.ViewModel
+﻿namespace VandaModaIntimaWpf.ViewModel
 {
     interface IPesquisarViewModel
     {
@@ -12,6 +6,9 @@ namespace VandaModaIntimaWpf.ViewModel
         void AbrirEditar(object parameter);
         void AbrirApagarMsgBox(object parameter);
         bool IsCommandButtonEnabled(object parameter);
+        void ChecarItensMarcados(object parameter);
+        void ApagarMarcados(object parameter);
+        void ExportarExcel(object parameter);
         void GetItems(string termo);
         void DisposeSession();
     }
