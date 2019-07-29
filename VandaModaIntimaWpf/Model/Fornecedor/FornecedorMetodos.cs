@@ -46,6 +46,28 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
 
             return dao.Listar(criteria);
         }
+        public virtual IList<Fornecedor> ListarPorCnpj(string cnpj)
+        {
+            var criteria = dao.CriarCriteria();
+
+            criteria.Add(Restrictions.Disjunction()
+                .Add(Restrictions.Like("Cnpj", "%" + cnpj + "%")));
+
+            criteria.AddOrder(Order.Asc("Cnpj"));
+
+            return dao.Listar(criteria);
+        }
+        public virtual IList<Fornecedor> ListarPorEmail(string email)
+        {
+            var criteria = dao.CriarCriteria();
+
+            criteria.Add(Restrictions.Disjunction()
+                .Add(Restrictions.Like("Email", "%" + email + "%")));
+
+            criteria.AddOrder(Order.Asc("Email"));
+
+            return dao.Listar(criteria);
+        }
 
         public virtual IList<Fornecedor> Listar()
         {
@@ -54,7 +76,18 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
 
         public virtual Fornecedor ListarPorId(string id)
         {
-            throw new System.NotImplementedException();
+            var criteria = dao.CriarCriteria();
+
+            criteria.Add(Restrictions.Like("Cnpj", id));
+
+            var result = dao.Listar(criteria);
+
+            if (result.Count == 0)
+            {
+                return null;
+            }
+
+            return result[0];
         }
 
         public virtual string[] GetColunas()

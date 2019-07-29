@@ -169,7 +169,6 @@
                  Type="sys:String">
             <sys:String>CNPJ</sys:String>
             <sys:String>Nome</sys:String>
-            <sys:String>Nome Fantasia</sys:String>
             <sys:String>Email</sys:String>
         </x:Array>
 

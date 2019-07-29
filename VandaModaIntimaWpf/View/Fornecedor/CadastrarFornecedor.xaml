@@ -1,19 +1,20 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.CadastrarProduto"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Fornecedor.CadastrarFornecedor"
+        x:Name="TelaCadastrarFornecedor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
-        Title="Cadastrar Produto"
-        Height="350"
+        Title="Cadastrar Fornecedor"
+        Height="330"
         Width="500"
-        Icon="/Resources/Produto_Icon.ico"
+        Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <ViewModel:CadastrarProdutoViewModel />
+        <ViewModel:CadastrarFornecedorViewModel />
     </Window.DataContext>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -49,43 +50,31 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Código De Barras:</Label>
+            <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
-                     Text="{Binding Produto.Cod_Barra, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
                    Visibility="{Binding VisibilidadeAvisoCodBarra}"
-                   Foreground="Red">Este Código Já Existe No Sistema</Label>
-            <Label Grid.Row="2">Descrição:</Label>
-            <TextBox Grid.Column="1"
-                     Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged}"
+                   Foreground="Red">Este CNPJ Já Existe No Sistema</Label>
+            <Label Grid.Row="2">Nome:</Label>
+            <TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="3">Preço:</Label>
-            <TextBox Grid.Column="1"
-                     Grid.Row="3"
-                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged}"
+            <Label Grid.Row="3">Nome Fantasia:</Label>
+            <TextBox Grid.Row="3"
+                     Grid.Column="1"
+                     Text="{Binding Fornecedor.NomeFantasia, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4">Fornecedor:</Label>
-            <ComboBox Grid.Column="1"
-                      Grid.Row="4"
-                      ItemsSource="{Binding Fornecedores}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Fornecedor}"
-                      SelectedIndex="0"
-                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5">Marca:</Label>
-            <ComboBox Grid.Column="1"
-                      Grid.Row="5"
-                      ItemsSource="{Binding Marcas}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Marca}"
-                      SelectedIndex="0"
-                      IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="7"
+            <Label Grid.Row="4">Email:</Label>
+            <TextBox Grid.Row="4"
+                     Grid.Column="1"
+                     Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Button Grid.Row="5"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
                     IsEnabled="{Binding IsEnabled}"

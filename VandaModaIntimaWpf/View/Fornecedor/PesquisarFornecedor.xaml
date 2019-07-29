@@ -104,45 +104,45 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="CNPJ"
                                         IsReadOnly="True"
-                                        Binding="{Binding Fornecedor.Cnpj}"
+                                        Binding="{Binding Entidade.Cnpj}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Fornecedor.Cnpj}" />
+                                        Value="{Binding Entidade.Cnpj}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Nome"
                                         IsReadOnly="True"
-                                        Binding="{Binding Fornecedor.Nome}"
+                                        Binding="{Binding Entidade.Nome}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Fornecedor.Nome}" />
+                                        Value="{Binding Entidade.Nome}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Nome Fantasia"
                                         IsReadOnly="True"
-                                        Binding="{Binding Fornecedor.NomeFantasia}"
+                                        Binding="{Binding Entidade.NomeFantasia}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Fornecedor.NomeFantasia}" />
+                                        Value="{Binding Entidade.NomeFantasia}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Email"
                                         IsReadOnly="True"
-                                        Binding="{Binding Fornecedor.Email}"
+                                        Binding="{Binding Entidade.Email}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Fornecedor.Email}" />
+                                        Value="{Binding Entidade.Email}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -14,7 +16,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             Cnpj,
             Nome,
-            NomeFantasia,
             Email
         }
         public PesquisarFornecedorViewModel() : base()
@@ -28,7 +29,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void AbrirCadastrarNovo(object parameter)
         {
-            throw new NotImplementedException();
+            CadastrarFornecedor cadastrar = new CadastrarFornecedor();
+            cadastrar.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         public override void AbrirApagarMsgBox(object parameter)
@@ -39,6 +42,22 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override void AbrirEditar(object parameter)
         {
             throw new NotImplementedException();
+            //FornecedorModel fornecedorBkp = (FornecedorModel)FornecedorSelecionado.Entidade.Clone();
+
+            //EditarFornecedor editar = new EditarFornecedor(FornecedorSelecionado.Entidade.Cnpj);
+            //var result = editar.ShowDialog();
+
+            //if (result.HasValue && result == true)
+            //{
+            //    OnPropertyChanged("TermoPesquisa");
+            //}
+            //else
+            //{
+            //    FornecedorSelecionado.Entidade.Cnpj = fornecedorBkp.Cnpj;
+            //    FornecedorSelecionado.Entidade.Nome = fornecedorBkp.Nome;
+            //    FornecedorSelecionado.Entidade.NomeFantasia = fornecedorBkp.NomeFantasia;
+            //    FornecedorSelecionado.Entidade.Email = fornecedorBkp.Email;
+            //}
         }
 
         public override void ChecarItensMarcados(object parameter)
@@ -53,12 +72,23 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void ExportarExcel(object parameter)
         {
-            throw new NotImplementedException();
+            new Excel<FornecedorModel>(new FornecedorColunaStrategy()).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
         }
 
         public override void GetItems(string termo)
         {
-            throw new NotImplementedException();
+            switch (pesquisarPor)
+            {
+                case (int)OpcoesPesquisa.Cnpj:
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorCnpj(termo)));
+                    break;
+                case (int)OpcoesPesquisa.Nome:
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorNome(termo)));
+                    break;
+                case (int)OpcoesPesquisa.Email:
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorEmail(termo)));
+                    break;
+            }
         }
         public int PesquisarPor
         {
