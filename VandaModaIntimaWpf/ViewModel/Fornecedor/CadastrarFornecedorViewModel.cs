@@ -7,7 +7,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     class CadastrarFornecedorViewModel : ACadastrarViewModel
     {
         private FornecedorModel fornecedor;
-
         public CadastrarFornecedorViewModel() : base()
         {
             fornecedor = new FornecedorModel();

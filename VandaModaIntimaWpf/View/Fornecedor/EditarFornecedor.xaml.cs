@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.ViewModel;
 
-namespace VandaModaIntimaWpf.View.Produto
+namespace VandaModaIntimaWpf.View.Fornecedor
 {
     /// <summary>
-    /// Interaction logic for EditarProduto.xaml
+    /// Interaction logic for EditarFornecedor.xaml
     /// </summary>
-    public partial class EditarProduto : Window, ICloseable, IMessageable, IResultReturnable
+    public partial class EditarFornecedor : Window, ICloseable, IMessageable, IResultReturnable
     {
-        public EditarProduto()
+        public EditarFornecedor()
         {
             InitializeComponent();
         }
-        public EditarProduto(object Id)
+        public EditarFornecedor(object Id)
         {
             InitializeComponent();
             ((IEditarViewModel)DataContext).PassaId(Id);

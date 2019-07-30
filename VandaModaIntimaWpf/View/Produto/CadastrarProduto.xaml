@@ -37,7 +37,7 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="15">
+        <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="*" />

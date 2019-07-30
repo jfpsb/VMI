@@ -157,7 +157,8 @@
                         <MenuItem Header="Editar"
                                   Command="{Binding AbrirEditarComando}" />
                         <MenuItem Header="Apagar"
-                                  Command="{Binding AbrirApagarComando}" />
+                                  Command="{Binding AbrirApagarComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

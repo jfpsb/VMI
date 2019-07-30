@@ -38,7 +38,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override void AbrirApagarMsgBox(object parameter)
         {
-            var result = ((IMessageable)parameter).MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Entidade.Descricao + "?");
+            var Mensagem = ((IMessageable)parameter);
+            var result = Mensagem.MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Entidade.Descricao + "?");
 
             if (result == MessageBoxResult.Yes)
             {
@@ -46,12 +47,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                 if (deletado)
                 {
-                    MessageBox.Show("Produto " + produtoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Mensagem.MensagemDeAviso("Produto " + produtoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    MessageBox.Show("Produto Não Foi Deletado", "Deletado Com Sucesso", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Mensagem.MensagemDeErro("Produto Não Foi Deletado");
                 }
             }
         }

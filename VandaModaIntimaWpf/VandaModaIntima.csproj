@@ -78,15 +78,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Fornecedor\EditarFornecedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Fornecedor\PesquisarFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Produto\EditarProduto.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\Produto\CadastrarProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Produto\EditarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +127,7 @@
     <Compile Include="ViewModel\Arquivo\ProdutoColunaStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorViewModel.cs" />
+    <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
     <Compile Include="ViewModel\ICloseable.cs" />
@@ -137,14 +142,18 @@
     <Compile Include="View\Fornecedor\CadastrarFornecedor.xaml.cs">
       <DependentUpon>CadastrarFornecedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Fornecedor\EditarFornecedor.xaml.cs">
+      <DependentUpon>EditarFornecedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Produto\EditarProduto.xaml.cs">
-      <DependentUpon>EditarProduto.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="View\IResultReturnable.cs" />
     <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
       <DependentUpon>CadastrarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Produto\EditarProduto.xaml.cs">
+      <DependentUpon>EditarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>

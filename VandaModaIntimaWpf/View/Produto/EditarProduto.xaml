@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Editar Produto"
-        Height="360"
+        Height="300"
         Width="640"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
@@ -17,7 +17,7 @@
         <ViewModel:EditarProdutoViewModel />
     </Window.DataContext>
     <DockPanel>
-        <Grid Margin="15">
+        <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="*" />
@@ -38,34 +38,29 @@
             <Label Grid.Row="2">Descrição:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     IsEnabled="{Binding IsEnabled}" />
+                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <Label Grid.Row="3">Preço:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
-                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                     IsEnabled="{Binding IsEnabled}" />
+                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <Label Grid.Row="4">Fornecedor:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="4"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding FornecedorComboBox, Mode=TwoWay}"
-                      SelectedIndex="0"
-                      IsEnabled="{Binding IsEnabled}" />
+                      SelectedIndex="0" />
             <Label Grid.Row="5">Marca:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="5"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding MarcaComboBox, Mode=TwoWay}"
-                      SelectedIndex="0"
-                      IsEnabled="{Binding IsEnabled}" />
+                      SelectedIndex="0" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
-                    IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding Command}"
+                    Command="{Binding CadastrarComando}"
                     CommandParameter="{Binding ElementName=TelaEditarProduto}">Salvar</Button>
         </Grid>
     </DockPanel>

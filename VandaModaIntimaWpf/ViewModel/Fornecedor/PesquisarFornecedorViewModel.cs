@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
@@ -29,45 +30,95 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void AbrirCadastrarNovo(object parameter)
         {
-            CadastrarFornecedor cadastrar = new CadastrarFornecedor();
+            EditarFornecedor cadastrar = new EditarFornecedor();
             cadastrar.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
 
         public override void AbrirApagarMsgBox(object parameter)
         {
-            throw new NotImplementedException();
+            var Mensagem = ((IMessageable)parameter);
+            var result = ((IMessageable)parameter).MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Fornecedor?", "Apagar " + FornecedorSelecionado.Entidade.Nome + "?");
+
+            if (result == MessageBoxResult.Yes)
+            {
+                bool deletado = FornecedorSelecionado.Entidade.Deletar();
+
+                if (deletado)
+                {
+                    Mensagem.MensagemDeAviso("Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso");
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    Mensagem.MensagemDeErro("Fornecedor Não Foi Deletado");
+                }
+            }
         }
 
         public override void AbrirEditar(object parameter)
         {
-            throw new NotImplementedException();
-            //FornecedorModel fornecedorBkp = (FornecedorModel)FornecedorSelecionado.Entidade.Clone();
+            FornecedorModel fornecedorBkp = (FornecedorModel)FornecedorSelecionado.Entidade.Clone();
 
-            //EditarFornecedor editar = new EditarFornecedor(FornecedorSelecionado.Entidade.Cnpj);
-            //var result = editar.ShowDialog();
+            EditarFornecedor editar = new EditarFornecedor(FornecedorSelecionado.Entidade.Cnpj);
+            var result = editar.ShowDialog();
 
-            //if (result.HasValue && result == true)
-            //{
-            //    OnPropertyChanged("TermoPesquisa");
-            //}
-            //else
-            //{
-            //    FornecedorSelecionado.Entidade.Cnpj = fornecedorBkp.Cnpj;
-            //    FornecedorSelecionado.Entidade.Nome = fornecedorBkp.Nome;
-            //    FornecedorSelecionado.Entidade.NomeFantasia = fornecedorBkp.NomeFantasia;
-            //    FornecedorSelecionado.Entidade.Email = fornecedorBkp.Email;
-            //}
+            if (result.HasValue && result == true)
+            {
+                OnPropertyChanged("TermoPesquisa");
+            }
+            else
+            {
+                FornecedorSelecionado.Entidade.Cnpj = fornecedorBkp.Cnpj;
+                FornecedorSelecionado.Entidade.Nome = fornecedorBkp.Nome;
+                FornecedorSelecionado.Entidade.NomeFantasia = fornecedorBkp.NomeFantasia;
+                FornecedorSelecionado.Entidade.Email = fornecedorBkp.Email;
+            }
         }
 
         public override void ChecarItensMarcados(object parameter)
         {
-            throw new NotImplementedException();
+            int marcados = 0;
+
+            foreach (EntidadeComCampo<FornecedorModel> em in Fornecedores)
+            {
+                if (em.IsChecked)
+                    marcados++;
+            }
+
+            if (marcados > 1)
+                VisibilidadeBotaoApagarSelecionado = Visibility.Visible;
+            else
+                VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
 
         public override void ApagarMarcados(object parameter)
         {
-            throw new NotImplementedException();
+            var Mensagem = (IMessageable)parameter;
+            var resultMsgBox = Mensagem.MensagemSimOuNao("Desejar Apagar os Fornecedores Marcados?", "Apagar Fornecedores");
+
+            if (resultMsgBox == MessageBoxResult.Yes)
+            {
+                IList<FornecedorModel> AApagar = new List<FornecedorModel>();
+
+                foreach (EntidadeComCampo<FornecedorModel> em in Fornecedores)
+                {
+                    if (em.IsChecked)
+                        AApagar.Add(em.Entidade);
+                }
+
+                bool result = Fornecedor.Deletar(AApagar);
+
+                if (result)
+                {
+                    Mensagem.MensagemDeAviso("Fornecedores Apagados Com Sucesso");
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    Mensagem.MensagemDeErro("Erro ao Apagar Fornecedores");
+                }
+            }
         }
 
         public override void ExportarExcel(object parameter)

@@ -37,7 +37,8 @@
                     <MenuItem.Icon>
                         <Image Source="/Resources/Exportar.png" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)" Command="{Binding ExportarExcelComando}"/>
+                    <MenuItem Header="Excel (*.xlsx)"
+                              Command="{Binding ExportarExcelComando}" />
                     <MenuItem Header="Json (*.json)" />
                     <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
