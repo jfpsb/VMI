@@ -62,8 +62,7 @@
                 CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25" />
-                <ColumnDefinition Width="85" />
+                <ColumnDefinition Width="110" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -71,21 +70,20 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="2">Pesquisar Por:</Label>
-            <ComboBox Grid.Column="2"
+            <Label>Pesquisar Por:</Label>
+            <ComboBox Grid.Column="1"
                       Width="200"
                       SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
                       ItemsSource="{StaticResource CmbPesquisaProdutoItems}"
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2">Pesquisa:</Label>
+            <Label Grid.Row="1">Pesquisa:</Label>
             <TextBox Grid.Row="1"
-                     Grid.Column="2"
+                     Grid.Column="1"
                      Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                      Name="TxtPesquisa" />
             <DataGrid Grid.Row="2"
-                      Grid.ColumnSpan="3"
+                      Grid.ColumnSpan="2"
                       AutoGenerateColumns="False"
                       Name="DataGridProduto"
                       AlternatingRowBackground="White"

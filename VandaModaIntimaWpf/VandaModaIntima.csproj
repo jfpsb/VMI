@@ -86,6 +86,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Marca\CadastrarMarca.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Marca\EditarMarca.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Marca\PesquisarMarca.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Produto\CadastrarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +146,9 @@
     <Compile Include="ViewModel\IEditarViewModel.cs" />
     <Compile Include="ViewModel\IMessageable.cs" />
     <Compile Include="ViewModel\IPesquisarViewModel.cs" />
+    <Compile Include="ViewModel\Marca\CadastrarMarcaViewModel.cs" />
+    <Compile Include="ViewModel\Marca\EditarMarcaViewModel.cs" />
+    <Compile Include="ViewModel\Marca\PesquisarMarcaViewModel.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\EditarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />
@@ -149,6 +164,15 @@
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IResultReturnable.cs" />
+    <Compile Include="View\Marca\CadastrarMarca.xaml.cs">
+      <DependentUpon>CadastrarMarca.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Marca\EditarMarca.xaml.cs">
+      <DependentUpon>EditarMarca.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Marca\PesquisarMarca.xaml.cs">
+      <DependentUpon>PesquisarMarca.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
       <DependentUpon>CadastrarProduto.xaml</DependentUpon>
     </Compile>
@@ -204,6 +228,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Marca.png" />
+    <Resource Include="Resources\Marca_Icon.ico" />
+    <Resource Include="Resources\Marca_Small.png" />
     <Resource Include="Resources\Fornecedor.png" />
     <Resource Include="Resources\Fornecedor_Icon.ico" />
     <Resource Include="Resources\Fornecedor_Small.png" />
