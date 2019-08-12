@@ -18,7 +18,10 @@ namespace VandaModaIntimaWpf.Model.Produto
         {
             return dao.Inserir(this);
         }
-
+        public virtual bool Salvar(IList<Produto> lista)
+        {
+            return dao.Inserir(lista);
+        }
         public virtual bool Atualizar()
         {
             return dao.Atualizar(this);

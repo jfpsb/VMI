@@ -10,7 +10,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public CadastrarFornecedorViewModel() : base()
         {
             fornecedor = new FornecedorModel();
-
             fornecedor.PropertyChanged += CadastrarViewModel_PropertyChanged;
         }
         public override void Cadastrar(object parameter)
@@ -38,12 +37,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
                     if (result != null)
                     {
-                        VisibilidadeAvisoCodBarra = Visibility.Visible;
+                        VisibilidadeAvisoItemJaExiste = Visibility.Visible;
                         IsEnabled = false;
                     }
                     else
                     {
-                        VisibilidadeAvisoCodBarra = Visibility.Collapsed;
+                        VisibilidadeAvisoItemJaExiste = Visibility.Collapsed;
                         IsEnabled = true;
                     }
 

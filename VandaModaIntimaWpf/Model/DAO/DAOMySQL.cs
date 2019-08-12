@@ -93,6 +93,34 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     transacao.Rollback();
                     Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
+                    if (ex.InnerException != null)
+                        Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
+                }
+
+                return false;
+            }
+        }
+
+        public bool Inserir(IList<T> objetos)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (T t in objetos)
+                    {
+                        session.Save(t);
+                    }
+
+                    transacao.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.Message);
+                    if (ex.InnerException != null)
+                        Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.InnerException.Message);
                 }
 
                 return false;

@@ -13,6 +13,14 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
 
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
+        public enum Colunas
+        {
+            CNPJ = 1,
+            Nome = 2,
+            NomeFantasia = 3,
+            Email = 4
+        }
+
         /// <summary>
         /// Construtor para criar placeholder de Fornecedor para comboboxes
         /// </summary>
@@ -38,7 +46,7 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             get { return nome; }
             set
             {
-                nome = value;
+                nome = value.ToUpper();
                 OnPropertyChanged("Nome");
             }
         }
@@ -48,7 +56,7 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             get { return nomeFantasia; }
             set
             {
-                nomeFantasia = value;
+                nomeFantasia = value.ToUpper();
                 OnPropertyChanged("NomeFantasia");
             }
         }

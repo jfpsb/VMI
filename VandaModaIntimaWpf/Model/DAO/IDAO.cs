@@ -1,5 +1,4 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model.DAO
@@ -7,6 +6,7 @@ namespace VandaModaIntimaWpf.Model.DAO
     public interface IDAO<T>
     {
         bool Inserir(T objeto);
+        bool Inserir(IList<T> objetos);
         bool Atualizar(T objeto);
         bool InserirOuAtualizar(T objeto);
         bool Deletar(T objeto);

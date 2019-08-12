@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel
 {
     public abstract class ACadastrarViewModel : ObservableObject, ICadastrarViewModel
     {
-        protected Visibility visibilidadeAvisoCodBarra = Visibility.Collapsed;
+        protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         private string mensagemStatusBar = "Aguardando Usuário";
         private string imagemStatusBar = IMAGEMAGUARDANDO;
@@ -43,13 +43,13 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("ImagemStatusBar");
             }
         }
-        public Visibility VisibilidadeAvisoCodBarra
+        public Visibility VisibilidadeAvisoItemJaExiste
         {
-            get { return visibilidadeAvisoCodBarra; }
+            get { return visibilidadeAvisoItemJaExiste; }
             set
             {
-                visibilidadeAvisoCodBarra = value;
-                OnPropertyChanged("VisibilidadeAvisoCodBarra");
+                visibilidadeAvisoItemJaExiste = value;
+                OnPropertyChanged("VisibilidadeAvisoItemJaExiste");
             }
         }
         public bool IsEnabled

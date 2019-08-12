@@ -23,13 +23,14 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public PesquisarProdutoViewModel() : base()
         {
             produto = new ProdutoModel();
+            exportaExcelStrategy = new ExportarExcelStrategy(new ProdutoExcelStrategy());
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
         }
 
-        public override void AbrirCadastrarNovo(object parameter)
+        public override void AbrirCadastrar(object parameter)
         {
             CadastrarProduto cadastrar = new CadastrarProduto();
             cadastrar.ShowDialog();
@@ -123,11 +124,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public override void ExportarExcel(object parameter)
-        {
-            new Excel<ProdutoModel>(new ProdutoColunaStrategy()).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
-        }
-
         public int PesquisarPor
         {
             get { return pesquisarPor; }
@@ -174,7 +170,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string ProdutoSelecionadoDescricao
         {
-            get { return produtoSelecionado.Entidade.Descricao.ToUpper(); }
+            get
+            {
+                if (produtoSelecionado != null)
+                {
+                    return produtoSelecionado.Entidade.Descricao.ToUpper();
+                }
+
+                return string.Empty;
+            }
         }
 
         public override void GetItems(string termo)
@@ -194,6 +198,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(produto.ListarPorMarca(termo)));
                     break;
             }
+        }
+
+        public override void ExportarExcel(object parameter)
+        {
+            new Excel<ProdutoModel>(exportaExcelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
+        }
+        public override void ImportarExcel(object parameter)
+        {
+            new Excel<ProdutoModel>(exportaExcelStrategy, @"D:\").Importar();
         }
     }
 }

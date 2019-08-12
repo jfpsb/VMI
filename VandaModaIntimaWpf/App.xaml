@@ -80,6 +80,8 @@
                             Value="DarkGray" />
                     <Setter Property="Height"
                             Value="35" />
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center" />
                 </Style>
                 <Style TargetType="DataGridRow">
                     <Setter Property="Background"

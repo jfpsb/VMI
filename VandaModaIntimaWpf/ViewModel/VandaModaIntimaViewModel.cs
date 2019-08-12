@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto, CommandEnabled);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor, CommandEnabled);
-            AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaMarca, CommandEnabled);
+            AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca, CommandEnabled);
         }
         public void AbrirTelaProduto(object parameter)
         {

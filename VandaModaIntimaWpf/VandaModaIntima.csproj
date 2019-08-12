@@ -133,10 +133,11 @@
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
-    <Compile Include="ViewModel\Arquivo\FornecedorColunaStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\ExportarExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\ExportarFornecedorExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\IExportarExcelStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\MarcaColunaStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\ProdutoColunaStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\ExportarMarcaExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />

@@ -4,8 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model.Marca">
 
   <class name="Marca" table="marca" dynamic-insert="true" dynamic-update="true">
-    <id name="Id" column="id" />
-    <property name="Nome" column="nome" />
+    <id name="Nome" column="nome" />
     <bag name="Produtos" table="produto" lazy="true" inverse="true">
       <key column="marca" />
       <one-to-many class="VandaModaIntimaWpf.Model.Produto.Produto" />

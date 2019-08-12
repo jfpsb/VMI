@@ -29,7 +29,8 @@
                     <MenuItem.Icon>
                         <Image Source="/Resources/Importar.png" />
                     </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)" />
+                    <MenuItem Header="Excel (*.xlsx)"
+                              Command="{Binding ImportarExcelComando}" />
                     <MenuItem Header="Json (*.json)" />
                     <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>

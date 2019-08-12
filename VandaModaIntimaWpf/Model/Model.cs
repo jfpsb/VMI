@@ -6,6 +6,7 @@ namespace VandaModaIntimaWpf.Model
     public interface Model<T> where T : class
     {
         bool Salvar();
+        bool Salvar(IList<T> lista);
         bool Atualizar();
         bool Deletar();
         bool Deletar(IList<T> objetos);

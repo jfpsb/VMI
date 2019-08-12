@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca.Id == 0)
+            if (Produto.Marca.Nome.Equals("SELECIONE A MARCA"))
                 Produto.Marca = null;
 
             var result = produtoModel.Salvar();
@@ -102,12 +102,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                     if (result != null)
                     {
-                        VisibilidadeAvisoCodBarra = Visibility.Visible;
+                        VisibilidadeAvisoItemJaExiste = Visibility.Visible;
                         IsEnabled = false;
                     }
                     else
                     {
-                        VisibilidadeAvisoCodBarra = Visibility.Collapsed;
+                        VisibilidadeAvisoItemJaExiste = Visibility.Collapsed;
                         IsEnabled = true;
                     }
 

@@ -3,30 +3,62 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Marca"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
         mc:Ignorable="d"
         Title="Cadastrar Marca"
-        Height="150"
+        Height="180"
         Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Marca_Icon.ico">
-    <Grid Margin="15, 15, 15, 0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label>Nome:</Label>
-        <TextBox Grid.Column="1"
-                 Text="{Binding Marca.Nome}" />
-        <Button Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Style="{StaticResource BotaoCadastrar}"
-                IsEnabled="{Binding IsEnabled}"
-                Command="{Binding CadastrarComando}">Cadastrar</Button>
-    </Grid>
+    <Window.DataContext>
+        <ViewModel:CadastrarMarcaViewModel />
+    </Window.DataContext>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Image Height="15"
+                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1"
+                           HorizontalAlignment="Stretch">
+                <Label HorizontalAlignment="Right"
+                       Content="{Binding MensagemStatusBar}" />
+            </StatusBarItem>
+        </StatusBar>
+        <Grid Margin="15, 15, 15, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label>Nome:</Label>
+            <TextBox Grid.Column="1"
+                     Text="{Binding Marca.Nome, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right"
+                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+                   Foreground="Red">Esta Marca Já Existe No Sistema</Label>
+            <Button Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource BotaoCadastrar}"
+                    IsEnabled="{Binding IsEnabled}"
+                    Command="{Binding CadastrarComando}">Cadastrar</Button>
+        </Grid>
+    </DockPanel>
 </Window>

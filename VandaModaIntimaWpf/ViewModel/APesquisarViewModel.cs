@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -13,29 +14,33 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         private string termoPesquisa;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+        protected ExportarExcelStrategy exportaExcelStrategy;
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
         public ICommand ChecarItensMarcadosComando { get; set; }
         public ICommand ApagarMarcadosComando { get; set; }
         public ICommand ExportarExcelComando { get; set; }
+        public ICommand ImportarExcelComando { get; set; }
 
         public APesquisarViewModel()
         {
-            AbrirCadastrarComando = new RelayCommand(AbrirCadastrarNovo, IsCommandButtonEnabled);
+            AbrirCadastrarComando = new RelayCommand(AbrirCadastrar, IsCommandButtonEnabled);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, IsCommandButtonEnabled);
             AbrirEditarComando = new RelayCommand(AbrirEditar, IsCommandButtonEnabled);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, IsCommandButtonEnabled);
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados, IsCommandButtonEnabled);
             ExportarExcelComando = new RelayCommand(ExportarExcel, IsCommandButtonEnabled);
+            ImportarExcelComando = new RelayCommand(ImportarExcel, IsCommandButtonEnabled);
         }
 
-        public abstract void AbrirCadastrarNovo(object parameter);
+        public abstract void AbrirCadastrar(object parameter);
         public abstract void AbrirApagarMsgBox(object parameter);
         public abstract void AbrirEditar(object parameter);
         public abstract void ChecarItensMarcados(object parameter);
         public abstract void ApagarMarcados(object parameter);
         public abstract void ExportarExcel(object parameter);
+        public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
         public bool IsCommandButtonEnabled(object parameter)
         {

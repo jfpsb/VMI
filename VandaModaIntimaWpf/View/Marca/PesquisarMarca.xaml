@@ -1,15 +1,20 @@
 ﻿<Window x:Class="VandaModaIntimaWpf.View.Marca.PesquisarMarca"
+        x:Name="TelaPesquisarMarca"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Marca"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
         mc:Ignorable="d"
-        Title="PesquisarMarca"
+        Title="Pesquisar Marca"
         Height="400"
-        Width="700"
+        Width="550"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+    <Window.DataContext>
+        <ViewModel:PesquisarMarcaViewModel />
+    </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
@@ -49,24 +54,27 @@
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Marcas Marcadas"
+                Content="Apagar Marcas Selecionadas"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
                 CommandParameter="{Binding ElementName=TelaPesquisarMarca}" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="21" />
+                <ColumnDefinition Width="79" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Pesquisa:</Label>
-            <TextBox Grid.Column="1" />
+            <Label Grid.ColumnSpan="2">Pesquisa:</Label>
+            <TextBox Grid.Column="2"
+                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                     Name="TxtPesquisa" />
             <DataGrid Grid.Row="1"
-                      Grid.ColumnSpan="2"
+                      Grid.ColumnSpan="3"
                       AutoGenerateColumns="False"
                       Name="DataGridMarca"
                       AlternatingRowBackground="White"
@@ -83,17 +91,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Id"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.Id}"
-                                        Width="150">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Id}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Nome"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Nome}"

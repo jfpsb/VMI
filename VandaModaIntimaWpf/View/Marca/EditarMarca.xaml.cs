@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Marca
 {
@@ -22,6 +11,12 @@ namespace VandaModaIntimaWpf.View.Marca
         public EditarMarca()
         {
             InitializeComponent();
+        }
+
+        public EditarMarca(object Id)
+        {
+            InitializeComponent();
+            ((IEditarViewModel)DataContext).PassaId(Id);
         }
     }
 }

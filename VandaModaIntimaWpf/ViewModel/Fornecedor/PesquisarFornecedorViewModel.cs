@@ -28,9 +28,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             PesquisarPor = 0;
         }
 
-        public override void AbrirCadastrarNovo(object parameter)
+        public override void AbrirCadastrar(object parameter)
         {
-            EditarFornecedor cadastrar = new EditarFornecedor();
+            CadastrarFornecedor cadastrar = new CadastrarFornecedor();
             cadastrar.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
@@ -38,7 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override void AbrirApagarMsgBox(object parameter)
         {
             var Mensagem = ((IMessageable)parameter);
-            var result = ((IMessageable)parameter).MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Fornecedor?", "Apagar " + FornecedorSelecionado.Entidade.Nome + "?");
+            var result = Mensagem.MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Fornecedor?", "Apagar " + FornecedorSelecionado.Entidade.Nome + "?");
 
             if (result == MessageBoxResult.Yes)
             {
@@ -123,7 +123,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void ExportarExcel(object parameter)
         {
-            new Excel<FornecedorModel>(new FornecedorColunaStrategy()).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
+            ExportarExcelStrategy exportarExcelStrategy = new ExportarExcelStrategy(new ExportarFornecedorExcelStrategy());
+            new Excel<FornecedorModel>(exportarExcelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
         }
 
         public override void GetItems(string termo)
@@ -141,6 +142,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     break;
             }
         }
+
+        public override void ImportarExcel(object parameter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public int PesquisarPor
         {
             get { return pesquisarPor; }
@@ -186,7 +193,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string FornecedorSelecionadoNome
         {
-            get { return fornecedorSelecionado.Entidade.Nome.ToUpper(); }
+            get
+            {
+                if (fornecedorSelecionado != null)
+                {
+                    return fornecedorSelecionado.Entidade.Nome.ToUpper();
+                }
+
+                return string.Empty;
+            }
         }
     }
 }

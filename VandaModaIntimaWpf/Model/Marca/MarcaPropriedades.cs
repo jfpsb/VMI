@@ -6,10 +6,14 @@ namespace VandaModaIntimaWpf.Model.Marca
 {
     public partial class Marca : ObservableObject, ICloneable
     {
-        private long id { get; set; }
         private string nome { get; set; }
 
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
+
+        public enum Colunas
+        {
+            Nome = 1
+        }
 
         /// <summary>
         /// Construtor para criar placeholder de Marca para comboboxes
@@ -17,18 +21,7 @@ namespace VandaModaIntimaWpf.Model.Marca
         /// <param name="nome">SELECIONE UMA MARCA</param>
         public Marca(string nome)
         {
-            id = 0;
             this.nome = nome;
-        }
-
-        public virtual long Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged("Id");
-            }
         }
 
         public virtual string Nome
@@ -36,7 +29,7 @@ namespace VandaModaIntimaWpf.Model.Marca
             get { return nome; }
             set
             {
-                nome = value;
+                nome = value.ToUpper();
                 OnPropertyChanged("Nome");
             }
         }
@@ -55,7 +48,6 @@ namespace VandaModaIntimaWpf.Model.Marca
         {
             Marca m = new Marca();
 
-            m.Id = Id;
             m.Nome = Nome;
 
             return m;

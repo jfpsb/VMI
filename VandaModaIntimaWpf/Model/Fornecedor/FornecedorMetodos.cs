@@ -18,7 +18,10 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
         {
             return dao.Inserir(this);
         }
-
+        public virtual bool Salvar(IList<Fornecedor> lista)
+        {
+            return dao.Inserir(lista);
+        }
         public virtual bool Atualizar()
         {
             return dao.Atualizar(this);

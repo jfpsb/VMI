@@ -57,8 +57,8 @@
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoCodBarra}"
-                   Foreground="Red">Este CNPJ Já Existe No Sistema</Label>
+                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+                   Foreground="Red">Este Fornecedor Já Existe No Sistema</Label>
             <Label Grid.Row="2">Nome:</Label>
             <TextBox Grid.Row="2"
                      Grid.Column="1"

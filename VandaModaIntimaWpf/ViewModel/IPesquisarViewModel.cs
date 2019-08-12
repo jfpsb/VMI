@@ -2,7 +2,7 @@
 {
     interface IPesquisarViewModel
     {
-        void AbrirCadastrarNovo(object parameter);
+        void AbrirCadastrar(object parameter);
         void AbrirEditar(object parameter);
         void AbrirApagarMsgBox(object parameter);
         bool IsCommandButtonEnabled(object parameter);

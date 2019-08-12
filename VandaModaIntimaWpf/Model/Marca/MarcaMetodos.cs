@@ -17,6 +17,10 @@ namespace VandaModaIntimaWpf.Model.Marca
         {
             return dao.Inserir(this);
         }
+        public virtual bool Salvar(IList<Marca> lista)
+        {
+            return dao.Inserir(lista);
+        }
         public virtual bool Atualizar()
         {
             return dao.Atualizar(this);
@@ -48,7 +52,7 @@ namespace VandaModaIntimaWpf.Model.Marca
         {
             var criteria = dao.CriarCriteria();
 
-            criteria.Add(Restrictions.Like("Id", id));
+            criteria.Add(Restrictions.Like("Nome", id));
 
             var result = dao.Listar(criteria);
 
@@ -60,7 +64,7 @@ namespace VandaModaIntimaWpf.Model.Marca
 
         public virtual string[] GetColunas()
         {
-            return new string[] { "ID", "Nome" };
+            return new string[] { "Nome" };
         }
     }
 }

@@ -2,8 +2,10 @@
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    interface IExportarExcelStrategy
+    public interface IExportarExcelStrategy
     {
+        string[] GetColunas();
         void EscreveDados(Worksheet Worksheet, object l);
+        bool LeEInsereDados(Worksheet Worksheet);
     }
 }

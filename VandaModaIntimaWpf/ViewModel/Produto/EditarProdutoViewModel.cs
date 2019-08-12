@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Fornecedor != null && Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca != null && Produto.Marca.Id == 0)
+            if (Produto.Marca != null && Produto.Marca.Equals("SELECIONE UMA MARCA"))
                 Produto.Marca = null;
 
             var result = IsEditted = Produto.Atualizar();
