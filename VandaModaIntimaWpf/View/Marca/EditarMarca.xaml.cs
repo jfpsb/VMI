@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.ViewModel;
 
-namespace VandaModaIntimaWpf.View.Marca
+namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     /// <summary>
     /// Interaction logic for EditarMarca.xaml

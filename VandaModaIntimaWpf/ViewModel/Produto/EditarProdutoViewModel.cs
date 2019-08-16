@@ -1,4 +1,5 @@
 ﻿using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using VandaModaIntimaWpf.View;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;

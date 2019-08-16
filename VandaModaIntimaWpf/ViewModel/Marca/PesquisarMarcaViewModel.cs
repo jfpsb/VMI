@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using VandaModaIntimaWpf.View;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {

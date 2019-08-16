@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
 
@@ -206,7 +206,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         }
         public override void ImportarExcel(object parameter)
         {
-            new Excel<ProdutoModel>(exportaExcelStrategy, @"D:\").Importar();
+            var OpenFileDialog = (IOpenFileDialog)parameter;
+
+            string path = OpenFileDialog.OpenFileDialog();
+
+            if(path != null)
+                new Excel<ProdutoModel>(exportaExcelStrategy, path).Importar();
         }
     }
 }

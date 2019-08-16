@@ -6,7 +6,7 @@ using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.Model.Produto
 {
-    public partial class Produto : ObservableObject, Model<Produto>
+    public partial class Produto : ObservableObject, IModel<Produto>
     {
         private IDAO<Produto> dao;
         public Produto()

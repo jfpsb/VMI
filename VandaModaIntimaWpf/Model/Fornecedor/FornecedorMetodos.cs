@@ -5,7 +5,7 @@ using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.Model.Fornecedor
 {
-    public partial class Fornecedor : ObservableObject, Model<Fornecedor>
+    public partial class Fornecedor : ObservableObject, IModel<Fornecedor>
     {
         private IDAO<Fornecedor> dao;
 

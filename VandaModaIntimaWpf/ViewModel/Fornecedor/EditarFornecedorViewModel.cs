@@ -1,4 +1,5 @@
 ﻿using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using VandaModaIntimaWpf.View;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor

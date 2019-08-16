@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using VandaModaIntimaWpf.View;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {

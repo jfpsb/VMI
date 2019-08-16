@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.View.Fornecedor;
-using VandaModaIntimaWpf.View.Marca;
-using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Marca;
+using VandaModaIntimaWpf.ViewModel.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel
 {

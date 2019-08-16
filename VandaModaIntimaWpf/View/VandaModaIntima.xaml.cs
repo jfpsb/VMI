@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.View.Produto;
 
 namespace VandaModaIntimaWpf
 {
@@ -9,7 +8,7 @@ namespace VandaModaIntimaWpf
         public VandaModaIntima()
         {
             InitializeComponent();
-            //SessionProvider.BuildSessionFactory();
+            SessionProvider.BuildSessionFactory();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

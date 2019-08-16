@@ -1,7 +1,8 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel;
 
-namespace VandaModaIntimaWpf.View.Produto
+namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     /// <summary>
     /// Interaction logic for EditarProduto.xaml

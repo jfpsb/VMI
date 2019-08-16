@@ -109,7 +109,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (T t in objetos)
                     {
-                        session.Save(t);
+                        session.SaveOrUpdate(t);
                     }
 
                     transacao.Commit();

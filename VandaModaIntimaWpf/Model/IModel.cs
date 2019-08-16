@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public interface Model<T> where T : class
+    public interface IModel<T> where T : class
     {
         bool Salvar();
         bool Salvar(IList<T> lista);

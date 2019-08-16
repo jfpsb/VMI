@@ -128,7 +128,7 @@
     <Compile Include="Model\Produto\ProdutoPropriedades.cs" />
     <Compile Include="Model\Fornecedor\FornecedorMetodos.cs" />
     <Compile Include="Model\Marca\MarcaMetodos.cs" />
-    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Produto\ProdutoMetodos.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
@@ -143,9 +143,11 @@
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
-    <Compile Include="ViewModel\ICloseable.cs" />
+    <Compile Include="View\APesquisarView.cs" />
+    <Compile Include="View\ICloseable.cs" />
     <Compile Include="ViewModel\IEditarViewModel.cs" />
-    <Compile Include="ViewModel\IMessageable.cs" />
+    <Compile Include="View\IMessageable.cs" />
+    <Compile Include="View\IOpenFileDialog.cs" />
     <Compile Include="ViewModel\IPesquisarViewModel.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaViewModel.cs" />
     <Compile Include="ViewModel\Marca\EditarMarcaViewModel.cs" />

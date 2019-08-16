@@ -1,4 +1,4 @@
-﻿namespace VandaModaIntimaWpf.ViewModel
+﻿namespace VandaModaIntimaWpf.View
 {
     /// <summary>
     /// Interface para tornar possível fechar View através da ViewModel com ICommand.

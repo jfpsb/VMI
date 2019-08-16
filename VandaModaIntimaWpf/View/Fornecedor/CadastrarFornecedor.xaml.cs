@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace VandaModaIntimaWpf.View.Fornecedor
+namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     /// <summary>
     /// Interaction logic for CadastrarFornecedor.xaml

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.ViewModel.Produto;
 
-namespace VandaModaIntimaWpf.View.Produto
+namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     /// <summary>
     /// Interaction logic for CadastrarProduto.xaml

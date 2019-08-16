@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace VandaModaIntimaWpf.View.Marca
+namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     /// <summary>
     /// Interaction logic for CadastrarMarca.xaml

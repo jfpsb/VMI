@@ -5,7 +5,7 @@ using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.Model.Marca
 {
-    public partial class Marca : ObservableObject, Model<Marca>
+    public partial class Marca : ObservableObject, IModel<Marca>
     {
         private IDAO<Marca> dao;
         public Marca()

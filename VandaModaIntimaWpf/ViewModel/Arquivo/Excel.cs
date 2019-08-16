@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             this.exportaExcelStrategy = exportaExcelStrategy;
 
             Aplicacao = new Application() { DisplayAlerts = false }; //DisplayAlerts em falso impede que apareça a mensagem perguntando se quero sobescrever o arquivo
-            Workbook = Aplicacao.Workbooks.Open(Path.Combine(path, "Produtos.xlsx"));
+            Workbook = Aplicacao.Workbooks.Open(path);
             Worksheet = Workbook.Worksheets.Item[1];
         }
 
