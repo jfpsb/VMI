@@ -1,6 +1,6 @@
-﻿using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+﻿using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
-namespace VandaModaIntimaWpf.Model.CodBarraFornecedor
+namespace VandaModaIntimaWpf.Model
 {
     public partial class CodBarraFornecedor
     {

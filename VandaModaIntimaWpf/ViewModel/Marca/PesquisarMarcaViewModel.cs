@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using VandaModaIntimaWpf.ViewModel.Marca;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class PesquisarMarcaViewModel : APesquisarViewModel
     {
+        private DAOMarca daoMarca;
         private MarcaModel marca;
         private EntidadeComCampo<MarcaModel> marcaSelecionada;
         private ObservableCollection<EntidadeComCampo<MarcaModel>> marcas;
         public PesquisarMarcaViewModel() : base()
         {
+            daoMarca = new DAOMarca(_session);
+            excelStrategy = new ExcelStrategy(new MarcaExcelStrategy());
             marca = new MarcaModel();
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             OnPropertyChanged("TermoPesquisa");
@@ -48,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
             if (result == MessageBoxResult.Yes)
             {
-                bool deletado = marcaSelecionada.Entidade.Deletar();
+                bool deletado = daoMarca.Deletar(marcaSelecionada.Entidade);
 
                 if (deletado)
                 {
@@ -101,7 +104,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                         AApagar.Add(mm.Entidade);
                 }
 
-                bool result = marca.Deletar(AApagar);
+                bool result = daoMarca.Deletar(AApagar);
 
                 if (result)
                 {
@@ -133,18 +136,22 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override void ExportarExcel(object parameter)
         {
-            ExportarExcelStrategy exportaExcelStrategy = new ExportarExcelStrategy(new ExportarMarcaExcelStrategy());
-            new Excel<MarcaModel>(exportaExcelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
+            new Excel<MarcaModel>(excelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
         }
 
         public override void GetItems(string termo)
         {
-            Marcas = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(marca.ListarPorNome(termo)));
+            Marcas = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(daoMarca.ListarPorNome(termo)));
         }
 
         public override void ImportarExcel(object parameter)
         {
-            throw new System.NotImplementedException();
+            var OpenFileDialog = (IOpenFileDialog)parameter;
+
+            string path = OpenFileDialog.OpenFileDialog();
+
+            if (path != null)
+                new Excel<MarcaModel>(excelStrategy, path).Importar();
         }
     }
 }

@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     class PesquisarProdutoViewModel : APesquisarViewModel
     {
         private ProdutoModel produto;
+        private DAOProduto daoProduto;
         private EntidadeComCampo<ProdutoModel> produtoSelecionado;
         private ObservableCollection<EntidadeComCampo<ProdutoModel>> produtos;
         private int pesquisarPor;
@@ -22,8 +24,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         }
         public PesquisarProdutoViewModel() : base()
         {
+            daoProduto = new DAOProduto(_session);
             produto = new ProdutoModel();
-            exportaExcelStrategy = new ExportarExcelStrategy(new ProdutoExcelStrategy());
+            excelStrategy = new ExcelStrategy(new ProdutoExcelStrategy());
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -44,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (result == MessageBoxResult.Yes)
             {
-                bool deletado = produtoSelecionado.Entidade.Deletar();
+                bool deletado = daoProduto.Deletar(produtoSelecionado.Entidade);
 
                 if (deletado)
                 {
@@ -63,6 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ProdutoModel produtoBkp = (ProdutoModel)produtoSelecionado.Entidade.Clone();
 
             EditarProduto editar = new EditarProduto(produtoSelecionado.Entidade.Cod_Barra);
+            
             var result = editar.ShowDialog();
 
             if (result.HasValue && result == true)
@@ -110,7 +114,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                         AApagar.Add(pm.Entidade);
                 }
 
-                bool result = produto.Deletar(AApagar);
+                bool result = daoProduto.Deletar(AApagar);
 
                 if (result)
                 {
@@ -186,23 +190,23 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Descricao:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(produto.ListarPorDescricao(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorDescricao(termo)));
                     break;
                 case (int)OpcoesPesquisa.CodBarra:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(produto.ListarPorCodigoDeBarra(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorCodigoDeBarra(termo)));
                     break;
                 case (int)OpcoesPesquisa.Fornecedor:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(produto.ListarPorFornecedor(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorFornecedor(termo)));
                     break;
                 case (int)OpcoesPesquisa.Marca:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(produto.ListarPorMarca(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorMarca(termo)));
                     break;
             }
         }
 
         public override void ExportarExcel(object parameter)
         {
-            new Excel<ProdutoModel>(exportaExcelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
+            new Excel<ProdutoModel>(excelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
         }
         public override void ImportarExcel(object parameter)
         {
@@ -210,8 +214,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             string path = OpenFileDialog.OpenFileDialog();
 
-            if(path != null)
-                new Excel<ProdutoModel>(exportaExcelStrategy, path).Importar();
+            if (path != null)
+                new Excel<ProdutoModel>(excelStrategy, path).Importar();
         }
     }
 }

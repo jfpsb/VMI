@@ -1,21 +1,20 @@
 ﻿using Microsoft.Office.Interop.Excel;
-using System;
 using System.Drawing;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class ExportarExcelStrategy
+    public class ExcelStrategy
     {
-        private IExportarExcelStrategy exportarExcelStrategy;
+        private IExcelStrategy excelStrategy;
 
-        public ExportarExcelStrategy(IExportarExcelStrategy exportarExcelStrategy)
+        public ExcelStrategy(IExcelStrategy excelStrategy)
         {
-            this.exportarExcelStrategy = exportarExcelStrategy;
+            this.excelStrategy = excelStrategy;
         }
 
         public void EscreveDados(Worksheet Worksheet, object l)
         {
-            string[] colunas = exportarExcelStrategy.GetColunas();
+            string[] colunas = excelStrategy.GetColunas();
 
             //Escreve cabeçalho baseado nas colunas do model e estiliza
             for (int i = 0; i < colunas.Length; i++)
@@ -27,14 +26,14 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 Worksheet.Cells[1, i + 1].Borders.Color = Color.Black;
             }
 
-            exportarExcelStrategy.EscreveDados(Worksheet, l);
+            excelStrategy.EscreveDados(Worksheet, l);
 
             Worksheet.Columns.AutoFit();
         }
 
-        public Boolean LeDados(Worksheet Worksheet)
+        public bool LeEInsereDados(Worksheet Worksheet)
         {
-            return exportarExcelStrategy.LeEInsereDados(Worksheet);
+            return excelStrategy.LeEInsereDados(Worksheet);
         }
     }
 }

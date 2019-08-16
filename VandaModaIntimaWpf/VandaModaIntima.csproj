@@ -119,24 +119,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="Model\CodBarraFornecedor\CodBarraFornecedorPropriedades.cs" />
-    <Compile Include="Model\DAO\DAOMySQL.cs" />
+    <Compile Include="Model\CodBarraFornecedorPropriedades.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
-    <Compile Include="Model\Fornecedor\FornecedorPropriedades.cs" />
-    <Compile Include="Model\Marca\MarcaPropriedades.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOProduto.cs" />
+    <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\ObservableObject.cs" />
-    <Compile Include="Model\Produto\ProdutoPropriedades.cs" />
-    <Compile Include="Model\Fornecedor\FornecedorMetodos.cs" />
-    <Compile Include="Model\Marca\MarcaMetodos.cs" />
+    <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\IModel.cs" />
-    <Compile Include="Model\Produto\ProdutoMetodos.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
-    <Compile Include="ViewModel\Arquivo\ExportarExcelStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\ExportarFornecedorExcelStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\IExportarExcelStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\ExportarMarcaExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\IExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorViewModel.cs" />

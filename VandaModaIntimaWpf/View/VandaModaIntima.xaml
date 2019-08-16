@@ -4,7 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
         Title="Vanda Moda Íntima"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Closing="TelaPrincipal_Closing">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>

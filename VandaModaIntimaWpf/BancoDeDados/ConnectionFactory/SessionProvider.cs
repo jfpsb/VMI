@@ -28,7 +28,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         {
             MyConfiguration = new Configuration();
             MyConfiguration.Configure();
-            MyConfiguration.CurrentSessionContext<ThreadStaticSessionContext>();
             return MyConfiguration.BuildSessionFactory();
         }
 

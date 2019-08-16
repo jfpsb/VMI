@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
-namespace VandaModaIntimaWpf.Model.Produto
+namespace VandaModaIntimaWpf.Model
 {
-    public partial class Produto : ObservableObject, ICloneable
+    public class Produto : ObservableObject, ICloneable, IModel
     {
         private string cod_barra;
         private FornecedorModel fornecedor;
@@ -135,6 +135,15 @@ namespace VandaModaIntimaWpf.Model.Produto
             p.Codigos = Codigos;
 
             return p;
+        }
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "Cód. De Barras de Fornecedor" };
+        }
+
+        public virtual object GetId()
+        {
+            return Cod_Barra;
         }
     }
 }

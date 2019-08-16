@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
-namespace VandaModaIntimaWpf.Model.Marca
+namespace VandaModaIntimaWpf.Model
 {
-    public partial class Marca : ObservableObject, ICloneable
+    public class Marca : ObservableObject, ICloneable, IModel
     {
         private string nome { get; set; }
-
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
         public enum Colunas
         {
             Nome = 1
         }
+        public Marca() { }
 
         /// <summary>
         /// Construtor para criar placeholder de Marca para comboboxes
@@ -51,6 +51,16 @@ namespace VandaModaIntimaWpf.Model.Marca
             m.Nome = Nome;
 
             return m;
+        }
+
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "Nome" };
+        }
+
+        public virtual object GetId()
+        {
+            return Nome;
         }
     }
 }

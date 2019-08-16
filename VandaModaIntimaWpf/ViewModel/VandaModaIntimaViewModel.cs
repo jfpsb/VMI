@@ -13,9 +13,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaMarcaComando { get; set; }
         public VandaModaIntimaViewModel()
         {
-            AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto, CommandEnabled);
-            AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor, CommandEnabled);
-            AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca, CommandEnabled);
+            AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto, (object parameter) => { return true; });
+            AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor, (object parameter) => { return true; });
+            AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca, (object parameter) => { return true; });
         }
         public void AbrirTelaProduto(object parameter)
         {
@@ -31,10 +31,6 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             PesquisarMarca pesquisarMarca = new PesquisarMarca();
             pesquisarMarca.Show();
-        }
-        private bool CommandEnabled(object parameter)
-        {
-            return true;
         }
     }
 }

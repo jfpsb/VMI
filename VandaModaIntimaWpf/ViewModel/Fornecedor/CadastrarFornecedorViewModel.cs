@@ -1,20 +1,23 @@
 ﻿using System.ComponentModel;
 using System.Windows;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class CadastrarFornecedorViewModel : ACadastrarViewModel
     {
+        protected DAOFornecedor daoFornecedor;
         private FornecedorModel fornecedor;
         public CadastrarFornecedorViewModel() : base()
         {
+            daoFornecedor = new DAOFornecedor(_session);
             fornecedor = new FornecedorModel();
             fornecedor.PropertyChanged += CadastrarViewModel_PropertyChanged;
         }
         public override void Cadastrar(object parameter)
         {
-            var result = fornecedor.Salvar();
+            var result = daoFornecedor.Inserir(fornecedor);
 
             if (result)
             {
@@ -33,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             switch (e.PropertyName)
             {
                 case "Cnpj":
-                    var result = fornecedor.ListarPorId(Fornecedor.Cnpj);
+                    var result = daoFornecedor.ListarPorId(Fornecedor.Cnpj);
 
                     if (result != null)
                     {

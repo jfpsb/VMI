@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NHibernate;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -12,9 +13,10 @@ namespace VandaModaIntimaWpf.ViewModel
     /// </summary>
     public abstract class APesquisarViewModel : ObservableObject, IPesquisarViewModel
     {
+        protected ISession _session;
         private string termoPesquisa;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
-        protected ExportarExcelStrategy exportaExcelStrategy;
+        protected ExcelStrategy excelStrategy;
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
@@ -25,13 +27,15 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public APesquisarViewModel()
         {
-            AbrirCadastrarComando = new RelayCommand(AbrirCadastrar, IsCommandButtonEnabled);
-            AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, IsCommandButtonEnabled);
-            AbrirEditarComando = new RelayCommand(AbrirEditar, IsCommandButtonEnabled);
-            ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, IsCommandButtonEnabled);
-            ApagarMarcadosComando = new RelayCommand(ApagarMarcados, IsCommandButtonEnabled);
-            ExportarExcelComando = new RelayCommand(ExportarExcel, IsCommandButtonEnabled);
-            ImportarExcelComando = new RelayCommand(ImportarExcel, IsCommandButtonEnabled);
+            AbrirCadastrarComando = new RelayCommand(AbrirCadastrar, (object parameter) => { return true; });
+            AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, (object parameter) => { return true; });
+            AbrirEditarComando = new RelayCommand(AbrirEditar, (object parameter) => { return true; });
+            ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, (object parameter) => { return true; });
+            ApagarMarcadosComando = new RelayCommand(ApagarMarcados, (object parameter) => { return true; });
+            ExportarExcelComando = new RelayCommand(ExportarExcel, (object parameter) => { return true; });
+            ImportarExcelComando = new RelayCommand(ImportarExcel, (object parameter) => { return true; });
+
+            _session = SessionProvider.GetSession();
         }
 
         public abstract void AbrirCadastrar(object parameter);
@@ -42,10 +46,6 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void ExportarExcel(object parameter);
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
-        public bool IsCommandButtonEnabled(object parameter)
-        {
-            return true;
-        }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)

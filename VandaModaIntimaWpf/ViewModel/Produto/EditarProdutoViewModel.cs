@@ -1,8 +1,8 @@
 ﻿using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.View;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Equals("SELECIONE UMA MARCA"))
                 Produto.Marca = null;
 
-            var result = IsEditted = Produto.Atualizar();
+            var result = IsEditted = daoProduto.Atualizar(produtoModel);
 
             if (result)
             {

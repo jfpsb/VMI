@@ -1,16 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace VandaModaIntimaWpf.Model
+﻿namespace VandaModaIntimaWpf.Model
 {
-    public interface IModel<T> where T : class
+    public interface IModel
     {
-        bool Salvar();
-        bool Salvar(IList<T> lista);
-        bool Atualizar();
-        bool Deletar();
-        bool Deletar(IList<T> objetos);
-        IList<T> Listar();
-        T ListarPorId(string id);
-        string[] GetColunas();
+        object GetId();
     }
 }

@@ -1,12 +1,18 @@
 ﻿using System.ComponentModel;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class CadastrarMarcaViewModel : ACadastrarViewModel
     {
+        protected DAOMarca daoMarca;
         private MarcaModel marcaModel;
-
+        public CadastrarMarcaViewModel()
+        {
+            daoMarca = new DAOMarca(_session);
+            marcaModel = new MarcaModel();
+        }
         public MarcaModel Marca
         {
             get { return marcaModel; }
@@ -17,14 +23,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
-        public CadastrarMarcaViewModel()
-        {
-            marcaModel = new MarcaModel();
-        }
-
         public override void Cadastrar(object parameter)
         {
-            var result = marcaModel.Salvar();
+            var result = daoMarca.Inserir(marcaModel);
 
             if (result)
             {
@@ -43,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             switch (e.PropertyName)
             {
                 case "Nome":
-                    MarcaModel marca = marcaModel.ListarPorId(Marca.Nome);
+                    MarcaModel marca = daoMarca.ListarPorId(Marca.Nome);
 
                     if (marca != null)
                     {

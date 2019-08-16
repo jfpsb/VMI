@@ -1,13 +1,15 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using NHibernate;
 using System.Collections.Generic;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class ProdutoExcelStrategy : IExportarExcelStrategy
+    class ProdutoExcelStrategy : IExcelStrategy
     {
+        private ISession _session = SessionProvider.GetSession();
         public void EscreveDados(Worksheet Worksheet, object l)
         {
             var lista = (IList<ProdutoModel>)l;
@@ -35,9 +37,9 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
         public bool LeEInsereDados(Worksheet Worksheet)
         {
-            ProdutoModel produtoModel = new ProdutoModel();
-            FornecedorModel fornecedorModel = new FornecedorModel();
-            MarcaModel marcaModel = new MarcaModel();
+            DAOProduto daoProduto = new DAOProduto(_session);
+            DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
+            DAOMarca daoMarca = new DAOMarca(_session);
             IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
             Range range = Worksheet.UsedRange;
@@ -68,11 +70,11 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 produto.Descricao = descricao.ToString();
                 produto.Preco = preco;
 
-                if (!string.IsNullOrEmpty(fornecedor))
-                    produto.Fornecedor = fornecedorModel.ListarPorId(fornecedor);
+                if (!string.IsNullOrEmpty(fornecedor) && !fornecedor.ToString().Equals("NÃO POSSUI"))
+                    produto.Fornecedor = daoFornecedor.ListarPorIDOuNome(fornecedor);
 
-                if (!string.IsNullOrEmpty(marca))
-                    produto.Marca = marcaModel.ListarPorId(marca);
+                if (!string.IsNullOrEmpty(marca) && !marca.ToString().Equals("NÃO POSSUI"))
+                    produto.Marca = daoMarca.ListarPorId(marca);
 
                 if (!string.IsNullOrEmpty(cod_barra_fornecedor))
                 {
@@ -87,7 +89,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 produtos.Add(produto);
             }
 
-            return produtoModel.Salvar(produtos);
+            return daoProduto.Inserir(produtos);
         }
     }
 }

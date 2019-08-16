@@ -10,11 +10,11 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class Excel<IModel> where IModel : class
     {
-        private ExportarExcelStrategy exportaExcelStrategy;
+        private ExcelStrategy exportaExcelStrategy;
         private Application Aplicacao; // Aplicação Excel
         private Workbook Workbook; // Pasta
         private Worksheet Worksheet; // Planilha
-        public Excel(ExportarExcelStrategy exportaExcelStrategy)
+        public Excel(ExcelStrategy exportaExcelStrategy)
         {
             this.exportaExcelStrategy = exportaExcelStrategy;
 
@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Cells.NumberFormat = "@";
         }
 
-        public Excel(ExportarExcelStrategy exportaExcelStrategy, String path)
+        public Excel(ExcelStrategy exportaExcelStrategy, String path)
         {
             this.exportaExcelStrategy = exportaExcelStrategy;
 
@@ -62,12 +62,22 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
         }
 
-        public Boolean Importar()
+        public bool Importar()
         {
-            bool result = exportaExcelStrategy.LeDados(Worksheet);
-
-            Workbook.Close(true, Missing.Value, Missing.Value);
-            Aplicacao.Quit();
+            bool result = false;
+            try
+            {
+                result = exportaExcelStrategy.LeEInsereDados(Worksheet);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Workbook.Close(true, Missing.Value, Missing.Value);
+                Aplicacao.Quit();
+            }
 
             return result;
         }

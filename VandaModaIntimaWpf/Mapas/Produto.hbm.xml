@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="VandaModaIntimaWpf"
-                   namespace="VandaModaIntimaWpf.Model.Produto">
+                   namespace="VandaModaIntimaWpf.Model">
 
   <class name="Produto" table="produto" dynamic-insert="true" dynamic-update="true">
     <id name="Cod_Barra" column="cod_barra" />
-    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor.Fornecedor" column="fornecedor" />
-    <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca.Marca" column="marca" />
+    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
+    <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
 
-    <bag name="Codigos" table="cod_barra_fornecedor" lazy="true" cascade="delete">
+    <bag name="Codigos" table="cod_barra_fornecedor" inverse="false" lazy="false" cascade="delete">
       <key column="produto" />
       <element column="codigo" type="String" />
     </bag>

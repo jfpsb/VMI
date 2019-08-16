@@ -1,12 +1,15 @@
-﻿using System.ComponentModel;
+﻿using NHibernate;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
     public abstract class ACadastrarViewModel : ObservableObject, ICadastrarViewModel
     {
+        protected ISession _session;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         private string mensagemStatusBar = "Aguardando Usuário";
@@ -19,11 +22,13 @@ namespace VandaModaIntimaWpf.ViewModel
         public ACadastrarViewModel()
         {
             CadastrarComando = new RelayCommand(Cadastrar, ValidaModel);
+            _session = SessionProvider.GetSession();
         }
         public abstract void Cadastrar(object parameter);
         public abstract void ResetaPropriedades();
         public abstract bool ValidaModel(object parameter);
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
+
         public string MensagemStatusBar
         {
             get { return mensagemStatusBar; }

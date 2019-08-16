@@ -1,17 +1,16 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 
-namespace VandaModaIntimaWpf.Model.DAO
+namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
-    public class DAOMySQL<T> : IDAO<T> where T : class
+    public abstract class DAOMySQL<T> : IDAO<T> where T : class, IModel
     {
         protected ISession session;
 
-        public DAOMySQL()
+        public DAOMySQL(ISession session)
         {
-            session = SessionProvider.GetSession();
+            this.session = session;
         }
 
         public bool Atualizar(T objeto)
@@ -109,7 +108,10 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (T t in objetos)
                     {
-                        session.SaveOrUpdate(t);
+                        //Testa se a id do objeto sendo adicionado já existe no bd
+                        var o = session.Get<T>(t.GetId());
+                        if (o == null)
+                            session.Save(t);
                     }
 
                     transacao.Commit();
@@ -146,7 +148,22 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
+        public IList<T> Listar()
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+                return criteria.List<T>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
+            return null;
+        }
         public IList<T> Listar(ICriteria criteria)
         {
             try
@@ -167,5 +184,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             return session.CreateCriteria<T>();
         }
+
+        public abstract T ListarPorId(object id);
     }
 }

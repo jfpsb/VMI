@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="VandaModaIntimaWpf"
-                   namespace="VandaModaIntimaWpf.Model.Fornecedor">
+                   namespace="VandaModaIntimaWpf.Model">
 
   <class name="Fornecedor" table="fornecedor" dynamic-insert="true" dynamic-update="true">
     <id name="Cnpj" column="cnpj"></id>
     <bag name="Produtos" table="produto" lazy="true" inverse="true">
       <key column="fornecedor" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Produto.Produto" />
+      <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>
     <property name="Nome" column="nome" />
     <property name="NomeFantasia" column="fantasia" />

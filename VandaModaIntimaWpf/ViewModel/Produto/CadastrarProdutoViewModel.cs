@@ -1,24 +1,28 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca.Marca;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class CadastrarProdutoViewModel : ACadastrarViewModel
     {
+        protected DAOProduto daoProduto;
+        protected DAOMarca daoMarca;
+        protected DAOFornecedor daoFornecedor;
         protected ProdutoModel produtoModel;
-        private FornecedorModel fornecedorModel;
-        private MarcaModel marcaModel;
+        
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public CadastrarProdutoViewModel() : base()
         {
+            daoProduto = new DAOProduto(_session);
+            daoMarca = new DAOMarca(_session);
+            daoFornecedor = new DAOFornecedor(_session);
             produtoModel = new ProdutoModel();
-            fornecedorModel = new FornecedorModel();
-            marcaModel = new MarcaModel();
 
             produtoModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
 
@@ -48,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca.Nome.Equals("SELECIONE A MARCA"))
                 Produto.Marca = null;
 
-            var result = produtoModel.Salvar();
+            var result = daoProduto.Inserir(produtoModel);
 
             if (result)
             {
@@ -83,13 +87,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void GetFornecedores()
         {
-            Fornecedores = new ObservableCollection<FornecedorModel>(fornecedorModel.Listar());
+            Fornecedores = new ObservableCollection<FornecedorModel>(daoFornecedor.Listar());
             Fornecedores.Insert(0, new FornecedorModel("SELECIONE O FORNECEDOR"));
         }
 
         private void GetMarcas()
         {
-            Marcas = new ObservableCollection<MarcaModel>(marcaModel.Listar());
+            Marcas = new ObservableCollection<MarcaModel>(daoMarca.Listar());
             Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
         }
 
@@ -98,7 +102,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "Cod_Barra":
-                    var result = produtoModel.ListarPorId(Produto.Cod_Barra);
+                    var result = daoProduto.ListarPorId(Produto.Cod_Barra);
 
                     if (result != null)
                     {

@@ -3,13 +3,15 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class PesquisarFornecedorViewModel : APesquisarViewModel
     {
+        private DAOFornecedor daoFornecedor;
         private FornecedorModel fornecedor;
         private EntidadeComCampo<FornecedorModel> fornecedorSelecionado;
         private ObservableCollection<EntidadeComCampo<FornecedorModel>> fornecedores;
@@ -22,6 +24,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public PesquisarFornecedorViewModel() : base()
         {
+            excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
+            daoFornecedor = new DAOFornecedor(_session);
             fornecedor = new FornecedorModel();
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
@@ -43,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             if (result == MessageBoxResult.Yes)
             {
-                bool deletado = FornecedorSelecionado.Entidade.Deletar();
+                bool deletado = daoFornecedor.Deletar(FornecedorSelecionado.Entidade);
 
                 if (deletado)
                 {
@@ -108,7 +112,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                         AApagar.Add(em.Entidade);
                 }
 
-                bool result = Fornecedor.Deletar(AApagar);
+                bool result = daoFornecedor.Deletar(AApagar);
 
                 if (result)
                 {
@@ -124,8 +128,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void ExportarExcel(object parameter)
         {
-            ExportarExcelStrategy exportarExcelStrategy = new ExportarExcelStrategy(new ExportarFornecedorExcelStrategy());
-            new Excel<FornecedorModel>(exportarExcelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
+            new Excel<FornecedorModel>(excelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
         }
 
         public override void GetItems(string termo)
@@ -133,20 +136,25 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Cnpj:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorCnpj(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorCnpj(termo)));
                     break;
                 case (int)OpcoesPesquisa.Nome:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorNome(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorNome(termo)));
                     break;
                 case (int)OpcoesPesquisa.Email:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(fornecedor.ListarPorEmail(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorEmail(termo)));
                     break;
             }
         }
 
         public override void ImportarExcel(object parameter)
         {
-            throw new System.NotImplementedException();
+            var OpenFileDialog = (IOpenFileDialog)parameter;
+
+            string path = OpenFileDialog.OpenFileDialog();
+
+            if (path != null)
+                new Excel<FornecedorModel>(excelStrategy, path).Importar();
         }
 
         public int PesquisarPor

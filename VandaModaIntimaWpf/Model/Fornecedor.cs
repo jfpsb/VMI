@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProdutoModel = VandaModaIntimaWpf.Model.Produto.Produto;
+using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
-namespace VandaModaIntimaWpf.Model.Fornecedor
+namespace VandaModaIntimaWpf.Model
 {
-    public partial class Fornecedor : ObservableObject, ICloneable
+    public class Fornecedor : ObservableObject, ICloneable, IModel
     {
         private string cnpj { get; set; }
         private string nome { get; set; }
@@ -20,6 +20,8 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             NomeFantasia = 3,
             Email = 4
         }
+
+        public Fornecedor() { }
 
         /// <summary>
         /// Construtor para criar placeholder de Fornecedor para comboboxes
@@ -46,8 +48,11 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             get { return nome; }
             set
             {
-                nome = value.ToUpper();
-                OnPropertyChanged("Nome");
+                if (value != null)
+                {
+                    nome = value.ToUpper();
+                    OnPropertyChanged("Nome");
+                }
             }
         }
 
@@ -56,8 +61,11 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             get { return nomeFantasia; }
             set
             {
-                nomeFantasia = value.ToUpper();
-                OnPropertyChanged("NomeFantasia");
+                if (value != null)
+                {
+                    nomeFantasia = value.ToUpper();
+                    OnPropertyChanged("NomeFantasia");
+                }
             }
         }
 
@@ -91,6 +99,16 @@ namespace VandaModaIntimaWpf.Model.Fornecedor
             f.Email = Email;
 
             return f;
+        }
+
+        public virtual string[] GetColunas()
+        {
+            return new string[] { "CNPJ", "Nome", "Nome Fantasia", "Email" };
+        }
+
+        public virtual object GetId()
+        {
+            return Cnpj;
         }
     }
 }

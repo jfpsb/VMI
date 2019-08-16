@@ -1,6 +1,6 @@
 ﻿using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.View;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor.Fornecedor;
+using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override void Cadastrar(object parameter)
         {
 
-            var result = IsEditted = Fornecedor.Atualizar();
+            var result = IsEditted = daoFornecedor.Atualizar(Fornecedor);
 
             if (result)
             {
