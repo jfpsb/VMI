@@ -58,7 +58,8 @@
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="Sair"
-                          Click="Sair_Click" />
+                          Command="{Binding FecharTelaComando}"
+                          CommandParameter="{Binding ElementName=TelaPesquisarMarca}"/>
             </MenuItem>
         </Menu>
         <Button DockPanel.Dock="Bottom"

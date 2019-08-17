@@ -1,4 +1,6 @@
-﻿namespace VandaModaIntimaWpf.ViewModel
+﻿using System.Threading.Tasks;
+
+namespace VandaModaIntimaWpf.ViewModel
 {
     interface IPesquisarViewModel
     {
@@ -9,7 +11,9 @@
         void ApagarMarcados(object parameter);
         void ExportarExcel(object parameter);
         void ImportarExcel(object parameter);
+        void FecharTela(object parameter);
         void GetItems(string termo);
         void DisposeSession();
+        bool IsThreadLocked();
     }
 }

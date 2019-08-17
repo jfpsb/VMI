@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -55,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 fornecedor.Cnpj = cnpj.ToString();
 
-                if(fornecedor.Cnpj.Length != 14)
+                if (fornecedor.Cnpj.Length != 14)
                 {
                     int diff = 14 - fornecedor.Cnpj.Length;
 

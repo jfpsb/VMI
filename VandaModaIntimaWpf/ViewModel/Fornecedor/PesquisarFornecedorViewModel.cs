@@ -123,9 +123,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
         }
 
-        public override void ExportarExcel(object parameter)
+        public override async void ExportarExcel(object parameter)
         {
-            new Excel<FornecedorModel>(excelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
+            await new Excel<FornecedorModel>(excelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
         }
 
         public override void GetItems(string termo)
@@ -144,14 +144,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
         }
 
-        public override void ImportarExcel(object parameter)
+        public override async void ImportarExcel(object parameter)
         {
             var OpenFileDialog = (IOpenFileDialog)parameter;
 
             string path = OpenFileDialog.OpenFileDialog();
 
             if (path != null)
-                new Excel<FornecedorModel>(excelStrategy, path).Importar();
+                await new Excel<FornecedorModel>(excelStrategy, path).Importar();
         }
 
         public int PesquisarPor

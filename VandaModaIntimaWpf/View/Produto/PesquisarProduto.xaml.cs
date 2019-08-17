@@ -8,8 +8,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public PesquisarProduto()
         {
             InitializeComponent();
-
-            ((MenuItem)this.contextMenu.Items[2]).DataContext = DataContext;
         }
     }
 }

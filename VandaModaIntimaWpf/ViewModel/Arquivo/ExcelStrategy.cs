@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {

@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 }
             }
 
-            
+
         }
 
         public override void AbrirCadastrar(object parameter)
@@ -133,9 +133,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
 
-        public override void ExportarExcel(object parameter)
+        public override async void ExportarExcel(object parameter)
         {
-            new Excel<MarcaModel>(excelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
+            await new Excel<MarcaModel>(excelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
         }
 
         public override void GetItems(string termo)
@@ -143,14 +143,17 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             Marcas = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(daoMarca.ListarPorNome(termo)));
         }
 
-        public override void ImportarExcel(object parameter)
+        public override async void ImportarExcel(object parameter)
         {
             var OpenFileDialog = (IOpenFileDialog)parameter;
 
             string path = OpenFileDialog.OpenFileDialog();
 
             if (path != null)
-                new Excel<MarcaModel>(excelStrategy, path).Importar();
+            {
+                Excel<MarcaModel> excel = new Excel<MarcaModel>(excelStrategy, path);
+                await excel.Importar();
+            }
         }
     }
 }

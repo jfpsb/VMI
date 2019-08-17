@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -16,6 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected ISession _session;
         private string statusBarText;
         private string termoPesquisa;
+        private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         protected ExcelStrategy excelStrategy;
         public ICommand AbrirCadastrarComando { get; set; }
@@ -25,6 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ApagarMarcadosComando { get; set; }
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
+        public ICommand FecharTelaComando { get; set; }
 
         public APesquisarViewModel()
         {
@@ -35,6 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados, (object parameter) => { return true; });
             ExportarExcelComando = new RelayCommand(ExportarExcel, (object parameter) => { return true; });
             ImportarExcelComando = new RelayCommand(ImportarExcel, (object parameter) => { return true; });
+            FecharTelaComando = new RelayCommand(FecharTela, (object parameter) => { return !IsThreadLocked; });
 
             _session = SessionProvider.GetSession();
         }
@@ -47,6 +51,19 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void ExportarExcel(object parameter);
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
+        public void FecharTela(object parameter)
+        {
+            var Closeable = (ICloseable)parameter;
+
+            if (IsThreadLocked)
+            {
+                StatusBarText = "Tela Não Pode Ser Fechada Enquanto Operação Estiver Rodando em Background";
+            }
+            else
+            {
+                Closeable.Close();
+            }
+        }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -63,6 +80,16 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 termoPesquisa = value;
                 OnPropertyChanged("TermoPesquisa");
+            }
+        }
+
+        public bool IsThreadLocked
+        {
+            get { return _threadLocked; }
+            set
+            {
+                _threadLocked = value;
+                OnPropertyChanged("IsThreadLocked");
             }
         }
         public string StatusBarText
@@ -86,6 +113,11 @@ namespace VandaModaIntimaWpf.ViewModel
         public void DisposeSession()
         {
             SessionProvider.FechaSession();
+        }
+
+        bool IPesquisarViewModel.IsThreadLocked()
+        {
+            return _threadLocked;
         }
     }
 }

@@ -5,17 +5,19 @@ using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View
 {
-    public partial class APesquisarView : Window, IMessageable, IOpenFileDialog
+    public partial class APesquisarView : Window, IMessageable, IOpenFileDialog, ICloseable
     {
-        public void Sair_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void Pesquisar_Closing(object sender, CancelEventArgs e)
         {
-            //Fecha sessao
-            ((IPesquisarViewModel)DataContext).DisposeSession();
+            if (((IPesquisarViewModel)DataContext).IsThreadLocked())
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                //Fecha sessao
+                ((IPesquisarViewModel)DataContext).DisposeSession();
+            }
         }
 
         public void MensagemDeAviso(string mensagem)

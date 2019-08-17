@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
@@ -192,18 +193,24 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public override void ExportarExcel(object parameter)
+        public override async void ExportarExcel(object parameter)
         {
-            new Excel<ProdutoModel>(excelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
+            IsThreadLocked = true;
+            await new Excel<ProdutoModel>(excelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
+            IsThreadLocked = false;
         }
-        public override void ImportarExcel(object parameter)
+        public override async void ImportarExcel(object parameter)
         {
             var OpenFileDialog = (IOpenFileDialog)parameter;
 
             string path = OpenFileDialog.OpenFileDialog();
 
             if (path != null)
-                new Excel<ProdutoModel>(excelStrategy, path).Importar();
+            {
+                IsThreadLocked = true;
+                await new Excel<ProdutoModel>(excelStrategy, path).Importar();
+                IsThreadLocked = false;
+            }
         }
     }
 }
