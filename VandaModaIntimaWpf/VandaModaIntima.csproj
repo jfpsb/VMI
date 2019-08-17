@@ -110,6 +110,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\TelaApagarDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VandaModaIntima.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -184,6 +188,9 @@
     </Compile>
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TelaApagarDialog.xaml.cs">
+      <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VandaModaIntima.xaml.cs">
       <DependentUpon>VandaModaIntima.xaml</DependentUpon>

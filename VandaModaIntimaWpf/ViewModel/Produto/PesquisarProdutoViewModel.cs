@@ -10,7 +10,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     class PesquisarProdutoViewModel : APesquisarViewModel
     {
-        private ProdutoModel produto;
         private DAOProduto daoProduto;
         private EntidadeComCampo<ProdutoModel> produtoSelecionado;
         private ObservableCollection<EntidadeComCampo<ProdutoModel>> produtos;
@@ -25,7 +24,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public PesquisarProdutoViewModel() : base()
         {
             daoProduto = new DAOProduto(_session);
-            produto = new ProdutoModel();
             excelStrategy = new ExcelStrategy(new ProdutoExcelStrategy());
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
@@ -42,21 +40,21 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override void AbrirApagarMsgBox(object parameter)
         {
-            var Mensagem = ((IMessageable)parameter);
-            var result = Mensagem.MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Produto?", "Apagar " + produtoSelecionado.Entidade.Descricao + "?");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Produto " + produtoSelecionado.Entidade.Descricao + "?", "Apagar Produto");
+            bool? result = telaApagarDialog.ShowDialog();
 
-            if (result == MessageBoxResult.Yes)
+            if (result == true)
             {
                 bool deletado = daoProduto.Deletar(produtoSelecionado.Entidade);
 
                 if (deletado)
                 {
-                    Mensagem.MensagemDeAviso("Produto " + produtoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso");
+                    StatusBarText = "Produto " + produtoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    Mensagem.MensagemDeErro("Produto Não Foi Deletado");
+                    StatusBarText = "Produto Não Foi Deletado";
                 }
             }
         }
@@ -66,7 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ProdutoModel produtoBkp = (ProdutoModel)produtoSelecionado.Entidade.Clone();
 
             EditarProduto editar = new EditarProduto(produtoSelecionado.Entidade.Cod_Barra);
-            
+
             var result = editar.ShowDialog();
 
             if (result.HasValue && result == true)
@@ -145,16 +143,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 produtos = value;
                 OnPropertyChanged("Produtos");
-            }
-        }
-
-        public ProdutoModel Produto
-        {
-            get { return produto; }
-            set
-            {
-                produto = value;
-                OnPropertyChanged("Produto");
             }
         }
 

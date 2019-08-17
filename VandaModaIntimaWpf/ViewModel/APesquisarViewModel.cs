@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel
     public abstract class APesquisarViewModel : ObservableObject, IPesquisarViewModel
     {
         protected ISession _session;
+        private string statusBarText;
         private string termoPesquisa;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         protected ExcelStrategy excelStrategy;
@@ -62,6 +63,15 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 termoPesquisa = value;
                 OnPropertyChanged("TermoPesquisa");
+            }
+        }
+        public string StatusBarText
+        {
+            get { return statusBarText; }
+            set
+            {
+                statusBarText = value;
+                OnPropertyChanged("StatusBarText");
             }
         }
         public Visibility VisibilidadeBotaoApagarSelecionado

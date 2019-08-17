@@ -11,14 +11,12 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
     class PesquisarMarcaViewModel : APesquisarViewModel
     {
         private DAOMarca daoMarca;
-        private MarcaModel marca;
         private EntidadeComCampo<MarcaModel> marcaSelecionada;
         private ObservableCollection<EntidadeComCampo<MarcaModel>> marcas;
         public PesquisarMarcaViewModel() : base()
         {
             daoMarca = new DAOMarca(_session);
             excelStrategy = new ExcelStrategy(new MarcaExcelStrategy());
-            marca = new MarcaModel();
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             OnPropertyChanged("TermoPesquisa");
         }
@@ -45,24 +43,25 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override void AbrirApagarMsgBox(object parameter)
         {
-            var Mensagem = (IMessageable)parameter;
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + marcaSelecionada.Entidade.Nome + "?", "Apagar Marca");
+            bool? result = telaApagarDialog.ShowDialog();
 
-            var result = Mensagem.MensagemSimOuNao("Tem Certeza Que Deseja Apagar a Marca?", "Apagar " + marcaSelecionada.Entidade.Nome + "?");
-
-            if (result == MessageBoxResult.Yes)
+            if (result == true)
             {
                 bool deletado = daoMarca.Deletar(marcaSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    Mensagem.MensagemDeAviso("Marca " + marcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso");
+                    StatusBarText = "Marca " + marcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso";
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    Mensagem.MensagemDeErro("Marca Não Foi Deletada");
+                    StatusBarText = "Marca Não Foi Deletada";
                 }
             }
+
+            
         }
 
         public override void AbrirCadastrar(object parameter)

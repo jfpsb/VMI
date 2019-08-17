@@ -1,23 +1,29 @@
-﻿    <view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
-                    x:Class="VandaModaIntimaWpf.ViewModel.Marca.PesquisarMarca"
-                    x:Name="TelaPesquisarMarca"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
-                    xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
-                    mc:Ignorable="d"
-                    Title="Pesquisar Marca"
-                    Height="400"
-                    Width="550"
-                    Closing="Pesquisar_Closing"
-                    WindowStartupLocation="CenterScreen"
-                    ResizeMode="NoResize">
+﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+                     x:Class="VandaModaIntimaWpf.ViewModel.Marca.PesquisarMarca"
+                     x:Name="TelaPesquisarMarca"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Marca"
+                     Height="400"
+                     Width="550"
+                     Closing="Pesquisar_Closing"
+                     WindowStartupLocation="CenterScreen"
+                     ResizeMode="NoResize">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarMarcaViewModel />
     </view:APesquisarView.DataContext>
     <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem HorizontalAlignment="Right">
+                <Label Content="{Binding StatusBarText}"
+                       FontSize="15" />
+            </StatusBarItem>
+        </StatusBar>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
                 <MenuItem Header="Cadastrar Novo"
@@ -107,6 +113,20 @@
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu x:Name="contextMenu"
+                                 FontSize="14px">
+                        <MenuItem Header="{Binding MarcaSelecionada.Entidade.Nome}"
+                                  IsHitTestVisible="False"
+                                  Focusable="False"
+                                  FontWeight="Bold" />
+                        <Separator />
+                        <MenuItem Header="Editar"
+                                  Command="{Binding AbrirEditarComando}" />
+                        <MenuItem Header="Apagar"
+                                  Command="{Binding AbrirApagarComando}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </DockPanel>

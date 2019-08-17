@@ -1,23 +1,29 @@
-﻿    <view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
-                    x:Class="VandaModaIntimaWpf.ViewModel.Fornecedor.PesquisarFornecedor"
-                    x:Name="TelaPesquisarFornecedor"
-                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
-                    xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
-                    mc:Ignorable="d"
-                    Title="Pesquisar Fornecedor"
-                    Height="540"
-                    Width="960"
-                    WindowStartupLocation="CenterScreen"
-                    Icon="/Resources/Fornecedor_Icon.ico"
-                    Closing="Pesquisar_Closing">
+﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+                     x:Class="VandaModaIntimaWpf.ViewModel.Fornecedor.PesquisarFornecedor"
+                     x:Name="TelaPesquisarFornecedor"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Fornecedor"
+                     Height="540"
+                     Width="960"
+                     WindowStartupLocation="CenterScreen"
+                     Icon="/Resources/Fornecedor_Icon.ico"
+                     Closing="Pesquisar_Closing">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarFornecedorViewModel />
     </view:APesquisarView.DataContext>
     <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem HorizontalAlignment="Right">
+                <Label Content="{Binding StatusBarText}"
+                       FontSize="15" />
+            </StatusBarItem>
+        </StatusBar>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
                 <MenuItem Header="Cadastrar Novo"

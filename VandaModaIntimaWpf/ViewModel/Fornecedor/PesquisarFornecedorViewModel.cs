@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
-using VandaModaIntimaWpf.View;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class PesquisarFornecedorViewModel : APesquisarViewModel
     {
         private DAOFornecedor daoFornecedor;
-        private FornecedorModel fornecedor;
         private EntidadeComCampo<FornecedorModel> fornecedorSelecionado;
         private ObservableCollection<EntidadeComCampo<FornecedorModel>> fornecedores;
         private int pesquisarPor;
@@ -26,7 +24,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
             daoFornecedor = new DAOFornecedor(_session);
-            fornecedor = new FornecedorModel();
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -42,21 +39,21 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void AbrirApagarMsgBox(object parameter)
         {
-            var Mensagem = ((IMessageable)parameter);
-            var result = Mensagem.MensagemSimOuNao("Tem Certeza Que Deseja Apagar o Fornecedor?", "Apagar " + FornecedorSelecionado.Entidade.Nome + "?");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Fornecedor " + FornecedorSelecionado.Entidade.Nome + "?", "Apagar Fornecedor");
+            bool? result = telaApagarDialog.ShowDialog();
 
-            if (result == MessageBoxResult.Yes)
+            if (result == true)
             {
                 bool deletado = daoFornecedor.Deletar(FornecedorSelecionado.Entidade);
 
                 if (deletado)
                 {
-                    Mensagem.MensagemDeAviso("Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso");
+                    StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    Mensagem.MensagemDeErro("Fornecedor Não Foi Deletado");
+                    StatusBarText = "Fornecedor Não Foi Deletado";
                 }
             }
         }
@@ -176,24 +173,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
         }
 
-        public FornecedorModel Fornecedor
-        {
-            get { return fornecedor; }
-            set
-            {
-                fornecedor = value;
-                OnPropertyChanged("Fornecedor");
-            }
-        }
-
         public EntidadeComCampo<FornecedorModel> FornecedorSelecionado
         {
             get { return fornecedorSelecionado; }
             set
             {
-                fornecedorSelecionado = value;
-                if (fornecedorSelecionado != null)
+                if (value != null)
                 {
+                    fornecedorSelecionado = value;
                     OnPropertyChanged("FornecedorSelecionado");
                     OnPropertyChanged("FornecedorSelecionadoNome");
                 }

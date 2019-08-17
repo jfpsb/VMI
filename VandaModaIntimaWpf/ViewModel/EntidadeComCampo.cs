@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel
     /// Classe para representar coleção de itens de tela de pesquisa com campo de binding para marcar em DataGrid
     /// </summary>
     /// <typeparam name="E">Tipo da Entidade</typeparam>
-    public class EntidadeComCampo<E> : ObservableObject where E : class
+    public class EntidadeComCampo<E> : ObservableObject where E : class, IModel
     {
         private E entidade;
         private bool isChecked = false;

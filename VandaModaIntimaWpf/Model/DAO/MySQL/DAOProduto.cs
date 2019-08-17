@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
