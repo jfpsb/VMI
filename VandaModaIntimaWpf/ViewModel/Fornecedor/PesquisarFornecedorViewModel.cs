@@ -37,19 +37,20 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             OnPropertyChanged("TermoPesquisa");
         }
 
-        public override void AbrirApagarMsgBox(object parameter)
+        public override async void AbrirApagarMsgBox(object parameter)
         {
             TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Fornecedor " + FornecedorSelecionado.Entidade.Nome + "?", "Apagar Fornecedor");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = daoFornecedor.Deletar(FornecedorSelecionado.Entidade);
+                bool deletado = await daoFornecedor.Deletar(FornecedorSelecionado.Entidade);
 
                 if (deletado)
                 {
-                    StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
+                    SetStatusBarApagado();
                     OnPropertyChanged("TermoPesquisa");
+                    await ResetarStatusBar();
                 }
                 else
                 {
@@ -94,7 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
 
-        public override void ApagarMarcados(object parameter)
+        public override async void ApagarMarcados(object parameter)
         {
             var Mensagem = (IMessageable)parameter;
             var resultMsgBox = Mensagem.MensagemSimOuNao("Desejar Apagar os Fornecedores Marcados?", "Apagar Fornecedores");
@@ -109,7 +110,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                         AApagar.Add(em.Entidade);
                 }
 
-                bool result = daoFornecedor.Deletar(AApagar);
+                bool result = await daoFornecedor.Deletar(AApagar);
 
                 if (result)
                 {
@@ -128,18 +129,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             await new Excel<FornecedorModel>(excelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
         }
 
-        public override void GetItems(string termo)
+        public override async void GetItems(string termo)
         {
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Cnpj:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorCnpj(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(await daoFornecedor.ListarPorCnpj(termo)));
                     break;
                 case (int)OpcoesPesquisa.Nome:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorNome(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(await daoFornecedor.ListarPorNome(termo)));
                     break;
                 case (int)OpcoesPesquisa.Email:
-                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(daoFornecedor.ListarPorEmail(termo)));
+                    Fornecedores = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.ConverterIList(await daoFornecedor.ListarPorEmail(termo)));
                     break;
             }
         }
@@ -151,7 +152,17 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             string path = OpenFileDialog.OpenFileDialog();
 
             if (path != null)
+            {
+                IsThreadLocked = true;
                 await new Excel<FornecedorModel>(excelStrategy, path).Importar();
+                IsThreadLocked = false;
+                OnPropertyChanged("TermoPesquisa");
+            }
+        }
+
+        public override void SetStatusBarApagado()
+        {
+            StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
         }
 
         public int PesquisarPor

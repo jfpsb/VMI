@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             return new FornecedorModel().GetColunas();
         }
 
-        public bool LeEInsereDados(Worksheet Worksheet)
+        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
         {
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
             IList<FornecedorModel> fornecedores = new List<FornecedorModel>();
@@ -82,7 +82,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 fornecedores.Add(fornecedor);
             }
 
-            return daoFornecedor.Inserir(fornecedores);
+            return await daoFornecedor.Inserir(fornecedores);
         }
     }
 }

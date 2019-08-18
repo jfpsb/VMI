@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -8,22 +9,22 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOMarca(ISession session) : base(session) { }
 
-        public virtual IList<Marca> ListarPorNome(string nome)
+        public async Task<IList<Marca>> ListarPorNome(string nome)
         {
             var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
             criteria.AddOrder(Order.Asc("Nome"));
 
-            return Listar(criteria);
+            return await Listar(criteria);
         }
-        public override Marca ListarPorId(object id)
+        public override async Task<Marca> ListarPorId(object id)
         {
             var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Like("Nome", id));
 
-            var result = Listar(criteria);
+            var result = await Listar(criteria);
 
             if (result.Count == 0)
                 return null;

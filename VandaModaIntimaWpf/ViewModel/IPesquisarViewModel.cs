@@ -15,5 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel
         void GetItems(string termo);
         void DisposeSession();
         bool IsThreadLocked();
+        void SetStatusBarApagado();
+        Task ResetarStatusBar();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -13,19 +14,19 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             this.session = session;
         }
 
-        public bool Atualizar(T objeto)
+        public async Task<bool> Atualizar(T objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    session.Update(objeto);
-                    transacao.Commit();
+                    await session.UpdateAsync(objeto);
+                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO ATUALIZAR >>> " + ex.Message);
                 }
 
@@ -33,19 +34,19 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public bool Deletar(T objeto)
+        public async Task<bool> Deletar(T objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    session.Delete(objeto);
-                    transacao.Commit();
+                    await session.DeleteAsync(objeto);
+                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -53,7 +54,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public bool Deletar(IList<T> objetos)
+        public async Task<bool> Deletar(IList<T> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -61,16 +62,16 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     foreach (T t in objetos)
                     {
-                        session.Delete(t);
+                        await session.DeleteAsync(t);
                     }
 
-                    transacao.Commit();
+                    await transacao.CommitAsync();
 
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -78,19 +79,19 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public bool Inserir(T objeto)
+        public async Task<bool> Inserir(T objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    session.Save(objeto);
-                    transacao.Commit();
+                    await session.SaveAsync(objeto);
+                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
                     if (ex.InnerException != null)
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
@@ -100,7 +101,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public bool Inserir(IList<T> objetos)
+        public async Task<bool> Inserir(IList<T> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -109,17 +110,17 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     foreach (T t in objetos)
                     {
                         //Testa se a id do objeto sendo adicionado já existe no bd
-                        var o = session.Get<T>(t.GetId());
+                        var o = await session.GetAsync<T>(t.GetId());
                         if (o == null)
-                            session.Save(t);
+                            await session.SaveAsync(t);
                     }
 
-                    transacao.Commit();
+                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.Message);
                     if (ex.InnerException != null)
                         Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.InnerException.Message);
@@ -129,33 +130,33 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public bool InserirOuAtualizar(T objeto)
+        public async Task<bool> InserirOuAtualizar(T objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    session.SaveOrUpdate(objeto);
-                    transacao.Commit();
+                    await session.SaveOrUpdateAsync(objeto);
+                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    transacao.Rollback();
+                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR OU ATUALIZAR >>> " + ex.Message);
                 }
 
                 return false;
             }
         }
-        public IList<T> Listar()
+        public async Task<IList<T>> Listar()
         {
             try
             {
                 var criteria = CriarCriteria();
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
-                return criteria.List<T>();
+                return await criteria.ListAsync<T>();
             }
             catch (Exception ex)
             {
@@ -164,13 +165,13 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return null;
         }
-        public IList<T> Listar(ICriteria criteria)
+        public async Task<IList<T>> Listar(ICriteria criteria)
         {
             try
             {
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
-                return criteria.List<T>();
+                return await criteria.ListAsync<T>();
             }
             catch (Exception ex)
             {
@@ -185,6 +186,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             return session.CreateCriteria<T>();
         }
 
-        public abstract T ListarPorId(object id);
+        public abstract Task<T> ListarPorId(object id);
     }
 }

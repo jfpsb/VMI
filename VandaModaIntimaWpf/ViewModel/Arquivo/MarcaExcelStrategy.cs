@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             return new MarcaModel().GetColunas();
         }
 
-        public bool LeEInsereDados(Worksheet Worksheet)
+        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
         {
             DAOMarca daoMarca = new DAOMarca(_session);
             IList<MarcaModel> marcas = new List<MarcaModel>();
@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 marcas.Add(marca);
             }
 
-            return daoMarca.Inserir(marcas);
+            return await daoMarca.Inserir(marcas);
         }
     }
 }

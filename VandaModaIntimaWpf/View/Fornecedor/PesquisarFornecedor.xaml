@@ -39,8 +39,6 @@
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ImportarExcelComando}"
                               CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
-                    <MenuItem Header="Json (*.json)" />
-                    <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
                 <MenuItem Header="Exportar">
                     <MenuItem.Icon>
@@ -48,8 +46,6 @@
                     </MenuItem.Icon>
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ExportarExcelComando}" />
-                    <MenuItem Header="Json (*.json)" />
-                    <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
                 <MenuItem Header="Ajuda">
                     <MenuItem.Icon>

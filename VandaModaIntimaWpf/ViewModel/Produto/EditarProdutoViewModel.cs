@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
     public class EditarProdutoViewModel : CadastrarProdutoViewModel, IEditarViewModel
     {
         private bool IsEditted = false;
-        public override void Cadastrar(object parameter)
+        public override async void Cadastrar(object parameter)
         {
             if (Produto.Fornecedor != null && Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Equals("SELECIONE UMA MARCA"))
                 Produto.Marca = null;
 
-            var result = IsEditted = daoProduto.Atualizar(produtoModel);
+            var result = IsEditted = await daoProduto.Atualizar(produtoModel);
 
             if (result)
             {

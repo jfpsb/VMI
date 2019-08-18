@@ -9,8 +9,8 @@
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
                      mc:Ignorable="d"
                      Title="Pesquisar Produto"
-                     Height="540"
-                     Width="960"
+                     Width="1200"
+                     Height="675"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Produto_Icon.ico"
                      Closing="Pesquisar_Closing">
@@ -39,8 +39,6 @@
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ImportarExcelComando}"
                               CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
-                    <MenuItem Header="Json (*.json)" />
-                    <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
                 <MenuItem Header="Exportar">
                     <MenuItem.Icon>
@@ -48,8 +46,6 @@
                     </MenuItem.Icon>
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ExportarExcelComando}" />
-                    <MenuItem Header="Json (*.json)" />
-                    <MenuItem Header="Xml (*.xml)" />
                 </MenuItem>
                 <MenuItem Header="Ajuda">
                     <MenuItem.Icon>
@@ -113,7 +109,7 @@
                     <DataGridTextColumn Header="Cód. De Barra"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Cod_Barra}"
-                                        Width="*">
+                                        Width="Auto">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
@@ -135,7 +131,7 @@
                     <DataGridTextColumn Header="Preço"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Preco}"
-                                        Width="*">
+                                        Width="Auto">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
@@ -146,7 +142,7 @@
                     <DataGridTextColumn Header="Fornecedor"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.FornecedorNome}"
-                                        Width="*">
+                                        Width="Auto">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
@@ -157,7 +153,7 @@
                     <DataGridTextColumn Header="Marca"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.MarcaNome}"
-                                        Width="*">
+                                        Width="Auto">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"

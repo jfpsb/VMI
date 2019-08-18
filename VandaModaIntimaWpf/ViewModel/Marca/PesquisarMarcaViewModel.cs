@@ -41,19 +41,20 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
-        public override void AbrirApagarMsgBox(object parameter)
+        public override async void AbrirApagarMsgBox(object parameter)
         {
-            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + marcaSelecionada.Entidade.Nome + "?", "Apagar Marca");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + MarcaSelecionada.Entidade.Nome + "?", "Apagar Marca");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = daoMarca.Deletar(marcaSelecionada.Entidade);
+                bool deletado = await daoMarca.Deletar(MarcaSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    StatusBarText = "Marca " + marcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso";
+                    SetStatusBarApagado();
                     OnPropertyChanged("TermoPesquisa");
+                    await ResetarStatusBar();
                 }
                 else
                 {
@@ -88,7 +89,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
-        public override void ApagarMarcados(object parameter)
+        public override async void ApagarMarcados(object parameter)
         {
             var Mensagem = (IMessageable)parameter;
             var resultMsgBox = Mensagem.MensagemSimOuNao("Desejar Apagar as Marcas Selecionadas?", "Apagar Marcas");
@@ -103,7 +104,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                         AApagar.Add(mm.Entidade);
                 }
 
-                bool result = daoMarca.Deletar(AApagar);
+                bool result = await daoMarca.Deletar(AApagar);
 
                 if (result)
                 {
@@ -138,9 +139,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             await new Excel<MarcaModel>(excelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
         }
 
-        public override void GetItems(string termo)
+        public override async void GetItems(string termo)
         {
-            Marcas = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(daoMarca.ListarPorNome(termo)));
+            Marcas = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(await daoMarca.ListarPorNome(termo)));
         }
 
         public override async void ImportarExcel(object parameter)
@@ -151,9 +152,16 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
             if (path != null)
             {
-                Excel<MarcaModel> excel = new Excel<MarcaModel>(excelStrategy, path);
-                await excel.Importar();
+                IsThreadLocked = true;
+                await new Excel<MarcaModel>(excelStrategy, path).Importar();
+                IsThreadLocked = false;
+                OnPropertyChanged("TermoPesquisa");
             }
+        }
+
+        public override void SetStatusBarApagado()
+        {
+            StatusBarText = "Marca " + MarcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso";
         }
     }
 }

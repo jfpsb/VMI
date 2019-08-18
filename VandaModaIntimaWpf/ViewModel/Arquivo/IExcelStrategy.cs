@@ -7,6 +7,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
     {
         string[] GetColunas();
         void EscreveDados(Worksheet Worksheet, object l);
-        bool LeEInsereDados(Worksheet Worksheet);
+        Task<bool> LeEInsereDados(Worksheet Worksheet);
     }
 }

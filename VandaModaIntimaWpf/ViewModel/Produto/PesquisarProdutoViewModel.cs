@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
@@ -39,19 +38,20 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
         }
 
-        public override void AbrirApagarMsgBox(object parameter)
+        public override async void AbrirApagarMsgBox(object parameter)
         {
             TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Produto " + produtoSelecionado.Entidade.Descricao + "?", "Apagar Produto");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = daoProduto.Deletar(produtoSelecionado.Entidade);
+                bool deletado = await daoProduto.Deletar(produtoSelecionado.Entidade);
 
                 if (deletado)
                 {
-                    StatusBarText = "Produto " + produtoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
+                    SetStatusBarApagado();
                     OnPropertyChanged("TermoPesquisa");
+                    await ResetarStatusBar();
                 }
                 else
                 {
@@ -98,7 +98,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
 
-        public override void ApagarMarcados(object parameter)
+        public override async void ApagarMarcados(object parameter)
         {
             var Mensagem = (IMessageable)parameter;
             var resultMsgBox = Mensagem.MensagemSimOuNao("Desejar Apagar os Produtos Marcados?", "Apagar Produtos");
@@ -113,7 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                         AApagar.Add(pm.Entidade);
                 }
 
-                bool result = daoProduto.Deletar(AApagar);
+                bool result = await daoProduto.Deletar(AApagar);
 
                 if (result)
                 {
@@ -174,21 +174,21 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public override void GetItems(string termo)
+        public override async void GetItems(string termo)
         {
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Descricao:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorDescricao(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorDescricao(termo)));
                     break;
                 case (int)OpcoesPesquisa.CodBarra:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorCodigoDeBarra(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorCodigoDeBarra(termo)));
                     break;
                 case (int)OpcoesPesquisa.Fornecedor:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorFornecedor(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorFornecedor(termo)));
                     break;
                 case (int)OpcoesPesquisa.Marca:
-                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(daoProduto.ListarPorMarca(termo)));
+                    Produtos = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorMarca(termo)));
                     break;
             }
         }
@@ -210,7 +210,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 IsThreadLocked = true;
                 await new Excel<ProdutoModel>(excelStrategy, path).Importar();
                 IsThreadLocked = false;
+                OnPropertyChanged("TermoPesquisa");
             }
+        }
+
+        public override void SetStatusBarApagado()
+        {
+            StatusBarText = "Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
         }
     }
 }

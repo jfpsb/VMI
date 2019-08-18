@@ -32,9 +32,9 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Columns.AutoFit();
         }
 
-        public bool LeEInsereDados(Worksheet Worksheet)
+        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
         {
-            return excelStrategy.LeEInsereDados(Worksheet);
+            return await excelStrategy.LeEInsereDados(Worksheet);
         }
     }
 }

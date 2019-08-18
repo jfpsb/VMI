@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -28,7 +29,6 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
         public ICommand FecharTelaComando { get; set; }
-
         public APesquisarViewModel()
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar, (object parameter) => { return true; });
@@ -51,18 +51,16 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void ExportarExcel(object parameter);
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
+        public abstract void SetStatusBarApagado();
+        public async Task ResetarStatusBar()
+        {
+            await Task.Delay(7000); //Espera 7 segundos para apagar StatusBar
+            StatusBarText = string.Empty;
+        }
         public void FecharTela(object parameter)
         {
             var Closeable = (ICloseable)parameter;
-
-            if (IsThreadLocked)
-            {
-                StatusBarText = "Tela Não Pode Ser Fechada Enquanto Operação Estiver Rodando em Background";
-            }
-            else
-            {
-                Closeable.Close();
-            }
+            Closeable.Close();
         }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

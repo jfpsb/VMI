@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -8,5 +9,8 @@ namespace VandaModaIntimaWpf.ViewModel
         bool ValidaModel(object parameter);
         void ResetaPropriedades();
         void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
+        Task SetStatusBarSucesso();
+        void SetStatusBarAguardando();
+        void SetStatusBarErro();
     }
 }

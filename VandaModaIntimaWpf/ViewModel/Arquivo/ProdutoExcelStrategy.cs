@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             return new ProdutoModel().GetColunas();
         }
 
-        public bool LeEInsereDados(Worksheet Worksheet)
+        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
         {
             DAOProduto daoProduto = new DAOProduto(_session);
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
@@ -90,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 produtos.Add(produto);
             }
 
-            return daoProduto.Inserir(produtos);
+            return await daoProduto.Inserir(produtos);
         }
     }
 }

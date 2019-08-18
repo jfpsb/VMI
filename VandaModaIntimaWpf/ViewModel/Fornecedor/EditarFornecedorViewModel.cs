@@ -7,10 +7,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     class EditarFornecedorViewModel : CadastrarFornecedorViewModel, IEditarViewModel
     {
         private bool IsEditted = false;
-        public override void Cadastrar(object parameter)
+        public override async void Cadastrar(object parameter)
         {
 
-            var result = IsEditted = daoFornecedor.Atualizar(Fornecedor);
+            var result = IsEditted = await daoFornecedor.Atualizar(Fornecedor);
 
             if (result)
             {

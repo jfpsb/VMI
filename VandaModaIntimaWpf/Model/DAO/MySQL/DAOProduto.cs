@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -10,7 +11,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOProduto(ISession session) : base(session) { }
 
-        public override Produto ListarPorId(object id)
+        public override async Task<Produto> ListarPorId(object id)
         {
             id = (string)id;
 
@@ -18,7 +19,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.Add(Restrictions.Like("Cod_Barra", id));
 
-            var result = Listar(criteria);
+            var result = await Listar(criteria);
 
             if (result.Count == 0)
                 return null;
@@ -26,17 +27,17 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             return result[0];
         }
 
-        public virtual IList<Produto> ListarPorDescricao(string descricao)
+        public async Task<IList<Produto>> ListarPorDescricao(string descricao)
         {
             var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Like("Descricao", "%" + descricao + "%"));
             criteria.AddOrder(Order.Asc("Descricao"));
 
-            return Listar(criteria);
+            return await Listar(criteria);
         }
 
-        public IList<Produto> ListarPorCodigoDeBarra(string codigo)
+        public async Task<IList<Produto>> ListarPorCodigoDeBarra(string codigo)
         {
             var criteria = CriarCriteria();
 
@@ -60,10 +61,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.SetResultTransformer(Transformers.AliasToBean<Produto>());
 
-            return Listar(criteria);
+            return await Listar(criteria);
         }
 
-        public IList<Produto> ListarPorFornecedor(string fornecedor)
+        public async Task<IList<Produto>> ListarPorFornecedor(string fornecedor)
         {
             var criteria = CriarCriteria();
 
@@ -73,17 +74,17 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
                 .Add(Restrictions.Like("Fornecedor.NomeFantasia", "%" + fornecedor + "%")));
 
-            return Listar(criteria);
+            return await Listar(criteria);
         }
 
-        public IList<Produto> ListarPorMarca(string marca)
+        public async Task<IList<Produto>> ListarPorMarca(string marca)
         {
             var criteria = CriarCriteria();
 
             criteria.CreateAlias("Marca", "Marca");
             criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
 
-            return Listar(criteria);
+            return await Listar(criteria);
         }
     }
 }

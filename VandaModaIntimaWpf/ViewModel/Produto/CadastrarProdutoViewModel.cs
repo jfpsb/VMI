@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOMarca daoMarca;
         protected DAOFornecedor daoFornecedor;
         protected ProdutoModel produtoModel;
-        
+
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public CadastrarProdutoViewModel() : base()
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             return true;
         }
 
-        public override void Cadastrar(object parameter)
+        public override async void Cadastrar(object parameter)
         {
             if (Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;
@@ -52,18 +52,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca.Nome.Equals("SELECIONE A MARCA"))
                 Produto.Marca = null;
 
-            var result = daoProduto.Inserir(produtoModel);
+            var result = await daoProduto.Inserir(produtoModel);
 
             if (result)
             {
-                MensagemStatusBar = "Cadastro Realizado Com Sucesso";
-                ImagemStatusBar = IMAGEMSUCESSO;
                 ResetaPropriedades();
+                await SetStatusBarSucesso();
                 return;
             }
 
-            MensagemStatusBar = "Erro ao Cadastrar";
-            ImagemStatusBar = IMAGEMERRO;
+            SetStatusBarErro();
         }
 
         public override void ResetaPropriedades()
@@ -85,15 +83,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        private void GetFornecedores()
+        private async void GetFornecedores()
         {
-            Fornecedores = new ObservableCollection<FornecedorModel>(daoFornecedor.Listar());
+            Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new FornecedorModel("SELECIONE O FORNECEDOR"));
         }
 
-        private void GetMarcas()
+        private async void GetMarcas()
         {
-            Marcas = new ObservableCollection<MarcaModel>(daoMarca.Listar());
+            Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar());
             Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
         }
 

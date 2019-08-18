@@ -23,28 +23,26 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
-        public override void Cadastrar(object parameter)
+        public override async void Cadastrar(object parameter)
         {
-            var result = daoMarca.Inserir(marcaModel);
+            var result = await daoMarca.Inserir(marcaModel);
 
             if (result)
             {
-                MensagemStatusBar = "Marca Cadastrada Com Sucesso.";
-                ImagemStatusBar = IMAGEMSUCESSO;
                 ResetaPropriedades();
+                await SetStatusBarSucesso();
                 return;
             }
 
-            MensagemStatusBar = "Erro ao Cadastrar";
-            ImagemStatusBar = IMAGEMERRO;
+            SetStatusBarErro();
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "Nome":
-                    MarcaModel marca = daoMarca.ListarPorId(Marca.Nome);
+                    MarcaModel marca = await daoMarca.ListarPorId(Marca.Nome);
 
                     if (marca != null)
                     {
