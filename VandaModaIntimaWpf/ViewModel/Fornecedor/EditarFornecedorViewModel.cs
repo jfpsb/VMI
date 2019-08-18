@@ -27,9 +27,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             return IsEditted;
         }
 
-        public void PassaId(object Id)
+        public async void PassaId(object Id)
         {
-            Fornecedor = SessionProvider.GetSession().Load<FornecedorModel>(Id);
+            Fornecedor = await SessionProvider.GetSession().LoadAsync<FornecedorModel>(Id);
         }
     }
 }

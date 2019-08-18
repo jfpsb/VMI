@@ -30,9 +30,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public void PassaId(object Id)
+        public async void PassaId(object Id)
         {
-            Produto = SessionProvider.GetSession().Get<ProdutoModel>(Id);
+            Produto = await _session.LoadAsync<ProdutoModel>(Id);
         }
 
         public bool EdicaoComSucesso()

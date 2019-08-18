@@ -29,12 +29,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             SetStatusBarErro();
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "Cnpj":
-                    var result = daoFornecedor.ListarPorId(Fornecedor.Cnpj);
+                    var result = await daoFornecedor.ListarPorId(Fornecedor.Cnpj);
 
                     if (result != null)
                     {

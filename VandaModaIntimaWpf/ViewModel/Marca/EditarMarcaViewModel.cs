@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class EditarMarcaViewModel : CadastrarMarcaViewModel, IEditarViewModel
     {
+        private bool IsEditted = false;
         public bool EdicaoComSucesso()
         {
-            throw new NotImplementedException();
+            return IsEditted;
         }
 
-        public void PassaId(object Id)
+        public async void PassaId(object Id)
         {
-            throw new NotImplementedException();
+            Marca = await _session.LoadAsync<MarcaModel>(Id);
         }
     }
 }

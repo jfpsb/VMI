@@ -95,12 +95,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "Cod_Barra":
-                    var result = daoProduto.ListarPorId(Produto.Cod_Barra);
+                    var result = await daoProduto.ListarPorId(Produto.Cod_Barra);
 
                     if (result != null)
                     {
