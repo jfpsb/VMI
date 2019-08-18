@@ -245,6 +245,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Excel.ico" />
     <Resource Include="Resources\AjudaFornecedorExcel.png" />
     <Resource Include="Resources\AjudaProdutoExcel.png" />
     <Resource Include="Resources\AjudaMarcaExcel.png" />
