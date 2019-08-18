@@ -165,6 +165,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
         }
 
+        public override void AbrirAjuda(object parameter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public int PesquisarPor
         {
             get { return pesquisarPor; }

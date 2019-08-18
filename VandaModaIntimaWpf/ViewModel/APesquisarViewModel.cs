@@ -24,6 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
+        public ICommand AbrirAjudaComando { get; set; }
         public ICommand ChecarItensMarcadosComando { get; set; }
         public ICommand ApagarMarcadosComando { get; set; }
         public ICommand ExportarExcelComando { get; set; }
@@ -39,6 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ExportarExcelComando = new RelayCommand(ExportarExcel, (object parameter) => { return true; });
             ImportarExcelComando = new RelayCommand(ImportarExcel, (object parameter) => { return true; });
             FecharTelaComando = new RelayCommand(FecharTela, (object parameter) => { return !IsThreadLocked; });
+            AbrirAjudaComando = new RelayCommand(AbrirAjuda, (object parameter) => { return true; });
 
             _session = SessionProvider.GetSession();
         }
@@ -52,6 +54,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
         public abstract void SetStatusBarApagado();
+        public abstract void AbrirAjuda(object parameter);
         public async Task ResetarStatusBar()
         {
             await Task.Delay(7000); //Espera 7 segundos para apagar StatusBar

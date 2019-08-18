@@ -41,6 +41,11 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
+        public override void AbrirAjuda(object parameter)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override async void AbrirApagarMsgBox(object parameter)
         {
             TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + MarcaSelecionada.Entidade.Nome + "?", "Apagar Marca");

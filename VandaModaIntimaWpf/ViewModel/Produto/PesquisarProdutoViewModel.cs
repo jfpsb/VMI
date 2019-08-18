@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
@@ -217,6 +218,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public override void SetStatusBarApagado()
         {
             StatusBarText = "Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
+        }
+
+        public override void AbrirAjuda(object parameter)
+        {
+            AjudaProduto ajudaProduto = new AjudaProduto();
+            ajudaProduto.ShowDialog();
         }
     }
 }

@@ -47,7 +47,8 @@
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ExportarExcelComando}" />
                 </MenuItem>
-                <MenuItem Header="Ajuda">
+                <MenuItem Header="Ajuda"
+                          Command="{Binding AbrirAjudaComando}">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Ajuda.png" />
                     </MenuItem.Icon>
