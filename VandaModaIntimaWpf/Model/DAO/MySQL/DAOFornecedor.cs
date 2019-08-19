@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.Add(Restrictions.Disjunction()
                 .Add(Restrictions.Like("Nome", "%" + nome + "%"))
-                .Add(Restrictions.Like("NomeFantasia", "%" + nome + "%")));
+                .Add(Restrictions.Like("Fantasia", "%" + nome + "%")));
 
             criteria.AddOrder(Order.Asc("Nome"));
 

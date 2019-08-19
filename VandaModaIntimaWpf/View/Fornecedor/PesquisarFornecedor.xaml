@@ -26,11 +26,14 @@
         </StatusBar>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo"
-                          Command="{Binding AbrirCadastrarComando}">
+                <MenuItem Header="Cadastrar">
                     <MenuItem.Icon>
                         <Image Source="/Resources/Adicionar.png" />
                     </MenuItem.Icon>
+                    <MenuItem Header="Cadastrar Online"
+                              Command="{Binding AbrirCadastrarOnlineComando}" />
+                    <MenuItem Header="Cadastrar Manualmente"
+                              Command="{Binding AbrirCadastrarComando}" />
                 </MenuItem>
                 <MenuItem Header="Importar">
                     <MenuItem.Icon>
@@ -132,12 +135,12 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Nome Fantasia"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.NomeFantasia}"
+                                        Binding="{Binding Entidade.Fantasia}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.NomeFantasia}" />
+                                        Value="{Binding Entidade.Fantasia}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>

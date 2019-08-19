@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 
-namespace VandaModaIntimaWpf.ViewModel.Fornecedor
+namespace VandaModaIntimaWpf.View.Fornecedor
 {
     /// <summary>
     /// Interaction logic for CadastrarFornecedor.xaml
     /// </summary>
-    public partial class CadastrarFornecedor : Window
+    public partial class CadastrarFornecedorOnline : Window
     {
-        public CadastrarFornecedor()
+        public CadastrarFornecedorOnline()
         {
             InitializeComponent();
         }

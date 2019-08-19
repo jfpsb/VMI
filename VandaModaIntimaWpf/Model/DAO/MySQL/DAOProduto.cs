@@ -71,7 +71,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.Add(Restrictions.Disjunction()
                 .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
-                .Add(Restrictions.Like("Fornecedor.NomeFantasia", "%" + fornecedor + "%")));
+                .Add(Restrictions.Like("Fornecedor.Fantasia", "%" + fornecedor + "%")));
 
             return await Listar(criteria);
         }

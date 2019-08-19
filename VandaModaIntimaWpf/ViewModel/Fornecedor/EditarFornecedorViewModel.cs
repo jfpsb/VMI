@@ -4,7 +4,7 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class EditarFornecedorViewModel : CadastrarFornecedorViewModel, IEditarViewModel
+    class EditarFornecedorViewModel : CadastrarFornecedorManualmenteViewModel, IEditarViewModel
     {
         private bool IsEditted = false;
         public override async void Cadastrar(object parameter)

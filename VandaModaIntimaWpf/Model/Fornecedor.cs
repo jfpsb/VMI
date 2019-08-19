@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
@@ -8,7 +9,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private string cnpj { get; set; }
         private string nome { get; set; }
-        private string nomeFantasia { get; set; }
+        private string fantasia { get; set; }
         private string email { get; set; }
 
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
@@ -38,8 +39,11 @@ namespace VandaModaIntimaWpf.Model
             get { return cnpj; }
             set
             {
-                cnpj = value;
-                OnPropertyChanged("Cnpj");
+                if (value != null)
+                {
+                    cnpj = Regex.Replace(value, @"[-./]", "");
+                    OnPropertyChanged("Cnpj");
+                }
             }
         }
 
@@ -56,15 +60,15 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual string NomeFantasia
+        public virtual string Fantasia
         {
-            get { return nomeFantasia; }
+            get { return fantasia; }
             set
             {
                 if (value != null)
                 {
-                    nomeFantasia = value.ToUpper();
-                    OnPropertyChanged("NomeFantasia");
+                    fantasia = value.ToUpper();
+                    OnPropertyChanged("Fantasia");
                 }
             }
         }
@@ -95,7 +99,7 @@ namespace VandaModaIntimaWpf.Model
 
             f.Cnpj = Cnpj;
             f.Nome = Nome;
-            f.NomeFantasia = NomeFantasia;
+            f.Fantasia = Fantasia;
             f.Email = Email;
 
             return f;

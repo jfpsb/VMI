@@ -10,7 +10,7 @@
       <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>
     <property name="Nome" column="nome" />
-    <property name="NomeFantasia" column="fantasia" />
+    <property name="Fantasia" column="fantasia" />
     <property name="Email" column="email" />
   </class>
 

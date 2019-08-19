@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.CNPJ] = lista[i].Cnpj;
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome] = lista[i].Nome;
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia] = lista[i].NomeFantasia;
+                Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia] = lista[i].Fantasia;
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email] = lista[i].Email;
             }
         }
@@ -74,7 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 fornecedor.Nome = nome.ToString();
 
                 if (nome_fantasia != null)
-                    fornecedor.NomeFantasia = nome_fantasia.ToString();
+                    fornecedor.Fantasia = nome_fantasia.ToString();
 
                 if (email != null)
                     fornecedor.Email = email.ToString();

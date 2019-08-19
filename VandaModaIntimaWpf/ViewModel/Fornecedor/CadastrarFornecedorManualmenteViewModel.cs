@@ -5,11 +5,11 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class CadastrarFornecedorViewModel : ACadastrarViewModel
+    class CadastrarFornecedorManualmenteViewModel : ACadastrarViewModel
     {
         protected DAOFornecedor daoFornecedor;
         private FornecedorModel fornecedor;
-        public CadastrarFornecedorViewModel() : base()
+        public CadastrarFornecedorManualmenteViewModel() : base()
         {
             daoFornecedor = new DAOFornecedor(_session);
             fornecedor = new FornecedorModel();
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Cadastrar(object parameter)
         {
-            var result = await daoFornecedor.Inserir(fornecedor);
+            var result = await daoFornecedor.Inserir(Fornecedor);
 
             if (result)
             {
@@ -54,13 +54,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override void ResetaPropriedades()
         {
             Fornecedor = new FornecedorModel();
-            Fornecedor.Cnpj = Fornecedor.Nome = Fornecedor.NomeFantasia = Fornecedor.Email = string.Empty;
+            Fornecedor.Cnpj = Fornecedor.Nome = Fornecedor.Fantasia = Fornecedor.Email = string.Empty;
         }
 
         public override bool ValidaModel(object parameter)
         {
             if (string.IsNullOrEmpty(Fornecedor.Cnpj)
-                || string.IsNullOrEmpty(Fornecedor.Nome))
+                || string.IsNullOrEmpty(Fornecedor.Nome)
+                || Fornecedor.Cnpj.Length != 14)
             {
                 return false;
             }

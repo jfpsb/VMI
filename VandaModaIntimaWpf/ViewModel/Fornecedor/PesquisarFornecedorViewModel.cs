@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -14,6 +16,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         private EntidadeComCampo<FornecedorModel> fornecedorSelecionado;
         private ObservableCollection<EntidadeComCampo<FornecedorModel>> fornecedores;
         private int pesquisarPor;
+
+        public ICommand AbrirCadastrarOnlineComando { get; set; }
         private enum OpcoesPesquisa
         {
             Cnpj,
@@ -22,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public PesquisarFornecedorViewModel() : base()
         {
+            AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline, (object p) => { return true; });
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
             daoFornecedor = new DAOFornecedor(_session);
             PropertyChanged += PesquisarViewModel_PropertyChanged;
@@ -32,8 +37,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void AbrirCadastrar(object parameter)
         {
-            CadastrarFornecedor cadastrar = new CadastrarFornecedor();
+            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente();
             cadastrar.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
+        }
+
+        private void AbrirCadastrarOnline(object p)
+        {
+            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline();
+            cadastrarFornecedorOnline.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
 
@@ -74,7 +86,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 FornecedorSelecionado.Entidade.Cnpj = fornecedorBkp.Cnpj;
                 FornecedorSelecionado.Entidade.Nome = fornecedorBkp.Nome;
-                FornecedorSelecionado.Entidade.NomeFantasia = fornecedorBkp.NomeFantasia;
+                FornecedorSelecionado.Entidade.Fantasia = fornecedorBkp.Fantasia;
                 FornecedorSelecionado.Entidade.Email = fornecedorBkp.Email;
             }
         }
