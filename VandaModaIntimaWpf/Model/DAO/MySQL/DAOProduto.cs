@@ -8,7 +8,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
     public class DAOProduto : DAOMySQL<Produto>
     {
-        public DAOProduto(ISession session) : base(session) { }
+        public DAOProduto(ISession session) : base(session)
+        {
+            mySqlStatement = new MySqlStatement(new ProdutoMySqlStatement());
+        }
 
         public override async Task<Produto> ListarPorId(object id)
         {

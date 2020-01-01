@@ -141,6 +141,9 @@
     <Compile Include="Model\DAO\MySQL\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
     <Compile Include="Model\DAO\MySQL\DAOProduto.cs" />
+    <Compile Include="Model\DAO\MySQL\IMySqlStatementStrategy.cs" />
+    <Compile Include="Model\DAO\MySQL\MySqlStatement.cs" />
+    <Compile Include="Model\DAO\MySQL\ProdutoMySqlStatement.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\ObservableObject.cs" />
