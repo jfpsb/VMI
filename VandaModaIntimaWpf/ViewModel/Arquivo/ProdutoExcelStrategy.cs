@@ -72,10 +72,10 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 produto.Preco = preco;
 
                 if (!string.IsNullOrEmpty(fornecedor) && !fornecedor.ToString().Equals("NÃO POSSUI"))
-                    produto.Fornecedor = daoFornecedor.ListarPorIDOuNome(fornecedor);
+                    produto.Fornecedor = await daoFornecedor.ListarPorIDOuNome(fornecedor);
 
                 if (!string.IsNullOrEmpty(marca) && !marca.ToString().Equals("NÃO POSSUI"))
-                    produto.Marca = daoMarca.ListarPorId(marca);
+                    produto.Marca = await daoMarca.ListarPorId(marca);
 
                 if (!string.IsNullOrEmpty(cod_barra_fornecedor))
                 {

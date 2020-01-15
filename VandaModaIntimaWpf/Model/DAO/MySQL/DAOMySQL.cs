@@ -8,7 +8,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     public abstract class DAOMySQL<T> : IDAO<T> where T : class, IModel
     {
         protected ISession session;
-        protected MySqlStatement mySqlStatement;
         public DAOMySQL(ISession session)
         {
             this.session = session;
@@ -87,7 +86,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    mySqlStatement.Insert(objeto);
                     return true;
                 }
                 catch (Exception ex)

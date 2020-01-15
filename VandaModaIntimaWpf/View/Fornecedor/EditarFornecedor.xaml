@@ -41,7 +41,7 @@
             <Label Grid.Row="2">Nome Fantasia:</Label>
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.NomeFantasia, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="3">Email:</Label>
             <TextBox Grid.Row="3"
                      Grid.Column="1"
