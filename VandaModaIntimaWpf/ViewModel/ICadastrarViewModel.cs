@@ -5,12 +5,12 @@ namespace VandaModaIntimaWpf.ViewModel
 {
     interface ICadastrarViewModel
     {
-        void Cadastrar(object parameter);
+        void Salvar(object parameter);
         bool ValidaModel(object parameter);
         void ResetaPropriedades();
         void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
-        Task SetStatusBarSucesso();
+        Task SetStatusBarSucesso(string mensagem);
         void SetStatusBarAguardando();
-        void SetStatusBarErro();
+        void SetStatusBarErro(string mensagem);
     }
 }

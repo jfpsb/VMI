@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     /// <summary>
     /// Interaction logic for EditarFornecedor.xaml
     /// </summary>
-    public partial class EditarFornecedor : Window, ICloseable, IMessageable, IResultReturnable
+    public partial class EditarFornecedor : Window, ICloseable, IResultReturnable
     {
         public EditarFornecedor()
         {
@@ -16,18 +16,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             InitializeComponent();
             ((IEditarViewModel)DataContext).PassaId(Id);
-        }
-        public void MensagemDeAviso(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        public void MensagemDeErro(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Erro ao Editar", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        public MessageBoxResult MensagemSimOuNao(string mensagem, string caption)
-        {
-            return MessageBox.Show(mensagem, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
         }
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

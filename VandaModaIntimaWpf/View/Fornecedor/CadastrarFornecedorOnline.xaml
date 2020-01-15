@@ -86,7 +86,7 @@
                     Grid.ColumnSpan="2"
                     Margin="5,5,5,0"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding CadastrarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}">Cadastrar</Button>
         </Grid>
     </DockPanel>
 </Window>

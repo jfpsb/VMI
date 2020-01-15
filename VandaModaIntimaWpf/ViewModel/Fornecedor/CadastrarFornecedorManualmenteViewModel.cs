@@ -15,18 +15,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             fornecedor = new FornecedorModel();
             fornecedor.PropertyChanged += CadastrarViewModel_PropertyChanged;
         }
-        public override async void Cadastrar(object parameter)
+        public override async void Salvar(object parameter)
         {
             var result = await daoFornecedor.Inserir(Fornecedor);
 
             if (result)
             {
                 ResetaPropriedades();
-                await SetStatusBarSucesso();
+                await SetStatusBarSucesso("Fornecedor Cadastrado Com Sucesso");
                 return;
             }
 
-            SetStatusBarErro();
+            SetStatusBarErro("Erro Ao Cadastrar Fornecedor");
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

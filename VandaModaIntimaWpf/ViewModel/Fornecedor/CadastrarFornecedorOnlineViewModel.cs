@@ -12,37 +12,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public CadastrarFornecedorOnlineViewModel()
         {
-            PesquisarComando = new RelayCommand(Pesquisar, (object p) => { return Fornecedor.Cnpj?.Length == 14; });
+            PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Fornecedor.Cnpj?.Length == 14; });
         }
 
-        public async void Pesquisar(object parameter)
+        public async void PesquisarFornecedor(object parameter)
         {
-            var request = WebRequest.CreateHttp($"https://www.receitaws.com.br/v1/cnpj/{Fornecedor.Cnpj}");
-            request.Method = "GET";
-            //request.UserAgent = "VandaModaIntima";
             try
             {
-                using (var response = await request.GetResponseAsync())
-                {
-                    using (var stream = response.GetResponseStream())
-                    {
-                        using (StreamReader streamReader = new StreamReader(stream))
-                        {
-                            object objResponse = streamReader.ReadToEnd();
-                            Fornecedor = JsonConvert.DeserializeObject<FornecedorModel>(objResponse.ToString());
-
-                            if (Fornecedor.Cnpj == null)
-                            {
-                                var jsonErro = JsonConvert.DeserializeObject<JsonErro>(objResponse.ToString());
-                                SetStatusBarErroPesquisa(jsonErro.Message);
-                            }
-                            else
-                            {
-                                SetStatusBarSucessoPesquisa();
-                            }
-                        }
-                    }
-                }
+                Fornecedor = await new RequisicaoReceitaFederal().GetFornecedor(Fornecedor.Cnpj);
+                SetStatusBarSucessoPesquisa();
             }
             catch (WebException we)
             {
@@ -54,6 +32,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 {
                     SetStatusBarErroPesquisa(we.Message);
                 }
+            }
+            catch (InvalidDataException ide)
+            {
+                SetStatusBarErroPesquisa(ide.Message);
             }
         }
 
@@ -68,11 +50,5 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             MensagemStatusBar = "Fornecedor Encontrado";
             ImagemStatusBar = IMAGEMSUCESSO;
         }
-    }
-
-    class JsonErro
-    {
-        public string Status { get; set; }
-        public string Message { get; set; }
     }
 }

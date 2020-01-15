@@ -1,5 +1,4 @@
-﻿using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.View;
+﻿using VandaModaIntimaWpf.View;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -9,7 +8,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
     public class EditarProdutoViewModel : CadastrarProdutoViewModel, IEditarViewModel
     {
         private bool IsEditted = false;
-        public override async void Cadastrar(object parameter)
+        public override async void Salvar(object parameter)
         {
             if (Produto.Fornecedor != null && Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;

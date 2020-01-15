@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             return true;
         }
 
-        public override async void Cadastrar(object parameter)
+        public override async void Salvar(object parameter)
         {
             if (Produto.Fornecedor.Cnpj.Equals("0"))
                 Produto.Fornecedor = null;
@@ -57,11 +57,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (result)
             {
                 ResetaPropriedades();
-                await SetStatusBarSucesso();
+                await SetStatusBarSucesso("Produto Cadastrado Com Sucesso");
                 return;
             }
 
-            SetStatusBarErro();
+            SetStatusBarErro("Erro ao Cadastrar Produto");
         }
 
         public override void ResetaPropriedades()

@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
         Title="Editar Fornecedor"
-        Height="250"
+        Height="325"
         Width="500"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
@@ -18,6 +18,27 @@
         <ViewModel:EditarFornecedorViewModel />
     </Window.DataContext>
     <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Image Height="15"
+                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1"
+                           HorizontalAlignment="Stretch">
+                <Label HorizontalAlignment="Right"
+                       Content="{Binding MensagemStatusBar}" />
+            </StatusBarItem>
+        </StatusBar>
         <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
@@ -28,28 +49,42 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>CNPJ:</Label>
+            <Button Grid.Column="1"
+                    Grid.Row="0"
+                    Height="20"
+                    Width="20"
+                    Background="Transparent"
+                    HorizontalAlignment="Right"
+                    Margin="0, 0, 5, 0"
+                    BorderThickness="0"
+                    ToolTip="Atualizar Consultando a Receita Federal"
+                    Command="{Binding AtualizarReceitaComando}">
+                <Image Source="/Resources/Atualizar_Icon.ico" />
+            </Button>
+            <Label Grid.Row="1">CNPJ:</Label>
             <TextBox Grid.Column="1"
+                     Grid.Row="1"
                      Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False" />
-            <Label Grid.Row="1">Nome:</Label>
-            <TextBox Grid.Row="1"
-                     Grid.Column="1"
-                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="2">Nome Fantasia:</Label>
+            <Label Grid.Row="2">Nome:</Label>
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="3">Email:</Label>
+                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="3">Nome Fantasia:</Label>
             <TextBox Grid.Row="3"
                      Grid.Column="1"
+                     Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="4">Email:</Label>
+            <TextBox Grid.Row="4"
+                     Grid.Column="1"
                      Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding CadastrarComando}"
+                    Command="{Binding SalvarComando}"
                     CommandParameter="{Binding ElementName=TelaEditarFornecedor}">Salvar</Button>
         </Grid>
     </DockPanel>
