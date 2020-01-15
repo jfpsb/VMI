@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public PesquisarFornecedorViewModel() : base()
         {
-            AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline, (object p) => { return true; });
+            AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
             daoFornecedor = new DAOFornecedor(_session);
             PropertyChanged += PesquisarViewModel_PropertyChanged;

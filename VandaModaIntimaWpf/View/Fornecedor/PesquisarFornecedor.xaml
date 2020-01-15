@@ -56,9 +56,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="Sair"
-                          Command="{Binding FecharTelaComando}"
-                          CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
+                <MenuItem Header="Sair" />
             </MenuItem>
         </Menu>
         <Button DockPanel.Dock="Bottom"

@@ -14,6 +14,12 @@ namespace VandaModaIntimaWpf.ViewModel
         Action<object> _executeMethod;
         Func<object, bool> _canexecuteMethod;
 
+        public RelayCommand(Action<object> executeMethod)
+        {
+            _executeMethod = executeMethod;
+            _canexecuteMethod = (object p) => { return true; };
+        }
+
         public RelayCommand(Action<object> executeMethod, Func<object, bool> canexecuteMethod)
         {
             _executeMethod = executeMethod;
