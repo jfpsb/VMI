@@ -148,7 +148,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 return false;
             }
         }
-        public async Task<IList<T>> Listar()
+        public virtual async Task<IList<T>> Listar()
         {
             try
             {

@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,12 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     public class DAOFornecedor : DAOMySQL<Fornecedor>
     {
         public DAOFornecedor(ISession session) : base(session) { }
+        public override async Task<IList<Fornecedor>> Listar()
+        {
+            var criteria = CriarCriteria();
+            criteria.AddOrder(Order.Asc("Nome"));
+            return await Listar(criteria);
+        }
         public override async Task<Fornecedor> ListarPorId(object id)
         {
             var criteria = CriarCriteria();

@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         public static void FechaSession()
         {
             ISession s = CurrentSessionContext.Unbind(MySessionFactory);
-            s.Dispose();
+            s?.Dispose();
             Console.WriteLine("Sessão Fechada");
         }
     }
