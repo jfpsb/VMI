@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             Nome,
             Email
         }
-        public PesquisarFornecedorViewModel() : base()
+        public PesquisarFornecedorViewModel() : base("Fornecedor")
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
@@ -60,7 +60,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
                 if (deletado)
                 {
-                    SetStatusBarApagado();
+                    SetStatusBarItemApagado();
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -172,7 +172,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
         }
 
-        public override void SetStatusBarApagado()
+        public override void SetStatusBarItemApagado()
         {
             StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
         }

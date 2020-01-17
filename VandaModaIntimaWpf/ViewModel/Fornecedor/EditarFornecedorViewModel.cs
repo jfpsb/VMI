@@ -1,10 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.View;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -36,10 +33,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public async void PassaId(object Id)
         {
-            Fornecedor = await SessionProvider.GetSession().LoadAsync<FornecedorModel>(Id);
+            Fornecedor = await SessionProvider.GetSession("Fornecedor").LoadAsync<FornecedorModel>(Id);
         }
         private async void AtualizarReceita(object parameter)
         {
+            SetStatusBarAguardando("Pesquisando CNPJ na Receita Federal. Aguarde.");
             try
             {
                 FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Fornecedor.Cnpj);
@@ -49,14 +47,22 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 Fornecedor.Email = result.Email;
                 // Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Fornecedor");
+                await SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");
             }
             catch (WebException we)
             {
-                Console.WriteLine(we.Message);
+                if(we.Message.Contains("429"))
+                {
+                    SetStatusBarErro("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.");
+                }
+                else
+                {
+                    SetStatusBarErro(we.Message);
+                }                
             }
             catch (InvalidDataException ide)
             {
-
+                SetStatusBarErro(ide.Message);
             }
         }
     }

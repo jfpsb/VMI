@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -10,7 +11,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class ProdutoExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession();
+        private ISession _session = SessionProvider.GetSession("Produto");
+
         public void EscreveDados(Worksheet Worksheet, object l)
         {
             var lista = (IList<ProdutoModel>)l;
@@ -28,6 +30,21 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 if (lista[i].Marca != null)
                     Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
+
+                if (lista[i].Codigos.Count > 0)
+                {
+                    string codigos = "";
+
+                    foreach (string codigo in lista[i].Codigos)
+                    {
+                        codigos += $"{codigo},";
+                    }
+
+                    // Remove vírgula no final da string
+                    codigos = codigos.Remove(codigos.Length - 1);
+
+                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarraFornecedor] = codigos;
+                }
             }
         }
 
@@ -55,12 +72,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 ProdutoModel produto = new ProdutoModel();
 
-                var cod_barra = ((Range)Worksheet.Cells[i + 2, 1]).Value;
-                var descricao = ((Range)Worksheet.Cells[i + 2, 2]).Value;
-                var preco = ((Range)Worksheet.Cells[i + 2, 3]).Value;
-                var fornecedor = ((Range)Worksheet.Cells[i + 2, 4]).Value;
-                var marca = ((Range)Worksheet.Cells[i + 2, 5]).Value;
-                var cod_barra_fornecedor = ((Range)Worksheet.Cells[i + 2, 6]).Value;
+                var cod_barra = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra]).Value;
+                var descricao = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao]).Value;
+                var preco = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco]).Value;
+                var fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
+                var marca = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
+                var cod_barra_fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarraFornecedor]).Value;
 
                 if (cod_barra == null || descricao == null || preco == null)
                 {
@@ -79,7 +96,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 if (!string.IsNullOrEmpty(cod_barra_fornecedor))
                 {
-                    string[] codigos = cod_barra_fornecedor.Split(',');
+                    string[] codigos = cod_barra_fornecedor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
                     foreach (string s in codigos)
                     {
@@ -91,6 +108,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
 
             return await daoProduto.Inserir(produtos);
+        }
+        public void ConfiguraColunas(Worksheet Worksheet)
+        {
+            Worksheet.Range["A1", "E1"].EntireColumn.AutoFit();
+            Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].ColumnWidth = 100;
+            Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].EntireColumn.WrapText = true;
         }
     }
 }

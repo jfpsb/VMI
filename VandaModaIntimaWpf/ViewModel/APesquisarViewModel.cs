@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -20,6 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+        private string formId;
         protected ExcelStrategy excelStrategy;
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
@@ -29,20 +29,19 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ApagarMarcadosComando { get; set; }
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
-        public ICommand FecharTelaComando { get; set; }
-        public APesquisarViewModel()
+        public APesquisarViewModel(string formId)
         {
-            AbrirCadastrarComando = new RelayCommand(AbrirCadastrar, (object parameter) => { return true; });
-            AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox, (object parameter) => { return true; });
-            AbrirEditarComando = new RelayCommand(AbrirEditar, (object parameter) => { return true; });
-            ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados, (object parameter) => { return true; });
-            ApagarMarcadosComando = new RelayCommand(ApagarMarcados, (object parameter) => { return true; });
-            ExportarExcelComando = new RelayCommand(ExportarExcel, (object parameter) => { return true; });
-            ImportarExcelComando = new RelayCommand(ImportarExcel, (object parameter) => { return true; });
-            FecharTelaComando = new RelayCommand(FecharTela, (object parameter) => { return !IsThreadLocked; });
-            AbrirAjudaComando = new RelayCommand(AbrirAjuda, (object parameter) => { return true; });
+            AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
+            AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox);
+            AbrirEditarComando = new RelayCommand(AbrirEditar);
+            ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados);
+            ApagarMarcadosComando = new RelayCommand(ApagarMarcados);
+            ExportarExcelComando = new RelayCommand(ExportarExcel);
+            ImportarExcelComando = new RelayCommand(ImportarExcel);
+            AbrirAjudaComando = new RelayCommand(AbrirAjuda);
 
-            _session = SessionProvider.GetSession();
+            this.formId = formId;
+            _session = SessionProvider.GetSession(formId);
         }
 
         public abstract void AbrirCadastrar(object parameter);
@@ -50,20 +49,28 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void AbrirEditar(object parameter);
         public abstract void ChecarItensMarcados(object parameter);
         public abstract void ApagarMarcados(object parameter);
-        public abstract void ExportarExcel(object parameter);
+        public virtual void ExportarExcel(object parameter)
+        {
+            SetStatusBarAguardandoExcel();
+        }
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
-        public abstract void SetStatusBarApagado();
+        public abstract void SetStatusBarItemApagado();
         public abstract void AbrirAjuda(object parameter);
         public async Task ResetarStatusBar()
         {
-            await Task.Delay(7000); //Espera 7 segundos para apagar StatusBar
-            StatusBarText = string.Empty;
+            await Task.Delay(7000); //Espera 7 segundos para resetar StatusBar
+            StatusBarText = "Aguardando Usuário";
         }
-        public void FecharTela(object parameter)
+        public void SetStatusBarAguardandoExcel()
         {
-            var Closeable = (ICloseable)parameter;
-            Closeable.Close();
+            StatusBarText = "O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar.";
+        }
+        public async void SetStatusBarExportadoComSucesso()
+        {
+            StatusBarText = "Exportação em Excel Realizada Com Sucesso.";
+            await Task.Delay(7000);
+            StatusBarText = "Aguardando Usuário";
         }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -113,7 +120,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void DisposeSession()
         {
-            SessionProvider.FechaSession();
+            SessionProvider.FechaSession(this.formId);
         }
 
         bool IPesquisarViewModel.IsThreadLocked()

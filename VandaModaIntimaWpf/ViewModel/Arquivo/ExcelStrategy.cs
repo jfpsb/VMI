@@ -28,8 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
 
             excelStrategy.EscreveDados(Worksheet, l);
-
-            Worksheet.Columns.AutoFit();
+            excelStrategy.ConfiguraColunas(Worksheet);
         }
 
         public async Task<bool> LeEInsereDados(Worksheet Worksheet)

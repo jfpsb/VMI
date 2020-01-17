@@ -20,7 +20,8 @@ namespace VandaModaIntimaWpf.Model
             Descricao = 2,
             Preco = 3,
             Fornecedor = 4,
-            Marca = 5
+            Marca = 5,
+            CodBarraFornecedor = 6
         }
 
         public virtual string Cod_Barra

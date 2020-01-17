@@ -2,6 +2,7 @@
 using NHibernate.Cfg;
 using NHibernate.Context;
 using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {
@@ -20,6 +21,8 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         /// </summary>        
         public static ISessionFactory MySessionFactory = null;
 
+        private static Dictionary<string, ISession> _sessions = new Dictionary<string, ISession>();
+
         /// <summary>
         /// Método responsável pela criação da Session Factory.
         /// </summary>
@@ -31,26 +34,23 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             return MyConfiguration.BuildSessionFactory();
         }
 
-        public static ISession GetSession()
+        public static ISession GetSession(string formId)
         {
-            ISession session;
-
             if (MySessionFactory == null)
             {
                 MySessionFactory = BuildSessionFactory();
             }
 
-            if (CurrentSessionContext.HasBind(MySessionFactory))
+            if(_sessions.ContainsKey(formId))
             {
-                session = MySessionFactory.GetCurrentSession();
-            }
-            else
-            {
-                session = MySessionFactory.OpenSession();
-                CurrentSessionContext.Bind(session);
+                return _sessions[formId];
             }
 
-            return session;
+            ISession _session = MySessionFactory.OpenSession();
+
+            _sessions.Add(formId, _session);
+
+            return _session;
         }
 
         public static void FechaConexoes()
@@ -59,11 +59,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 MySessionFactory.Close();
         }
 
-        public static void FechaSession()
+        public static void FechaSession(string formId)
         {
-            ISession s = CurrentSessionContext.Unbind(MySessionFactory);
-            s?.Dispose();
-            Console.WriteLine("Sessão Fechada");
+            _sessions[formId]?.Dispose();
+            _sessions.Remove(formId);
+            Console.WriteLine($"Sessão Fechada: {formId}");
         }
     }
 }

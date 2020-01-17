@@ -53,10 +53,6 @@
                         <Image Source="/Resources/Ajuda.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="Sair"
-                          Command="{Binding FecharTelaComando}"
-                          CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
             </MenuItem>
         </Menu>
         <Button DockPanel.Dock="Bottom"

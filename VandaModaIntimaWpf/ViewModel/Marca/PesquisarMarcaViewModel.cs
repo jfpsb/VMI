@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         private DAOMarca daoMarca;
         private EntidadeComCampo<MarcaModel> marcaSelecionada;
         private ObservableCollection<EntidadeComCampo<MarcaModel>> marcas;
-        public PesquisarMarcaViewModel() : base()
+        public PesquisarMarcaViewModel() : base("Marca")
         {
             daoMarca = new DAOMarca(_session);
             excelStrategy = new ExcelStrategy(new MarcaExcelStrategy());
@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
                 if (deletado)
                 {
-                    SetStatusBarApagado();
+                    SetStatusBarItemApagado();
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -164,7 +164,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
         }
 
-        public override void SetStatusBarApagado()
+        public override void SetStatusBarItemApagado()
         {
             StatusBarText = "Marca " + MarcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso";
         }

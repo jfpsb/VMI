@@ -10,7 +10,11 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class FornecedorExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession();
+        private ISession _session = SessionProvider.GetSession("Fornecedor");
+        public void ConfiguraColunas(Worksheet Worksheet)
+        {
+            Worksheet.Columns.AutoFit();
+        }
         public void EscreveDados(Worksheet Worksheet, object l)
         {
             var lista = (IList<FornecedorModel>)l;

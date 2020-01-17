@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Fornecedor,
             Marca
         }
-        public PesquisarProdutoViewModel() : base()
+        public PesquisarProdutoViewModel() : base("Produto")
         {
             daoProduto = new DAOProduto(_session);
             excelStrategy = new ExcelStrategy(new ProdutoExcelStrategy());
@@ -50,7 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                 if (deletado)
                 {
-                    SetStatusBarApagado();
+                    SetStatusBarItemApagado();
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -196,9 +196,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override async void ExportarExcel(object parameter)
         {
+            base.ExportarExcel(parameter);
             IsThreadLocked = true;
             await new Excel<ProdutoModel>(excelStrategy).Salvar(EntidadeComCampo<ProdutoModel>.ConverterIList(Produtos));
             IsThreadLocked = false;
+            SetStatusBarExportadoComSucesso();
         }
         public override async void ImportarExcel(object parameter)
         {
@@ -215,7 +217,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public override void SetStatusBarApagado()
+        public override void SetStatusBarItemApagado()
         {
             StatusBarText = "Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
         }

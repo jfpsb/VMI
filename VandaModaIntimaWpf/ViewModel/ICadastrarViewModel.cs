@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel
         void ResetaPropriedades();
         void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
         Task SetStatusBarSucesso(string mensagem);
-        void SetStatusBarAguardando();
+        void SetStatusBarAguardando(string mensagem);
         void SetStatusBarErro(string mensagem);
     }
 }

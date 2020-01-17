@@ -55,8 +55,6 @@
                         <Image Source="/Resources/Ajuda.png" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="Sair" />
             </MenuItem>
         </Menu>
         <Button DockPanel.Dock="Bottom"
@@ -164,8 +162,7 @@
                         <MenuItem Header="Editar"
                                   Command="{Binding AbrirEditarComando}" />
                         <MenuItem Header="Apagar"
-                                  Command="{Binding AbrirApagarComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
+                                  Command="{Binding AbrirApagarComando}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

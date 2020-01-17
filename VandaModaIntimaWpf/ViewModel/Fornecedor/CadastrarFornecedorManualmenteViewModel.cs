@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         protected DAOFornecedor daoFornecedor;
         private FornecedorModel fornecedor;
-        public CadastrarFornecedorManualmenteViewModel() : base()
+        public CadastrarFornecedorManualmenteViewModel() : base("Fornecedor")
         {
             daoFornecedor = new DAOFornecedor(_session);
             fornecedor = new FornecedorModel();

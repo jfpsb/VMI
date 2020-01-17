@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
     {
         protected DAOMarca daoMarca;
         private MarcaModel marcaModel;
-        public CadastrarMarcaViewModel()
+        public CadastrarMarcaViewModel() : base("Marca")
         {
             daoMarca = new DAOMarca(_session);
             marcaModel = new MarcaModel();

@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
-        public CadastrarProdutoViewModel() : base()
+        public CadastrarProdutoViewModel() : base("Produto")
         {
             daoProduto = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);

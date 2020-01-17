@@ -12,11 +12,12 @@ namespace VandaModaIntimaWpf.ViewModel
         void ApagarMarcados(object parameter);
         void ExportarExcel(object parameter);
         void ImportarExcel(object parameter);
-        void FecharTela(object parameter);
         void GetItems(string termo);
         void DisposeSession();
         bool IsThreadLocked();
-        void SetStatusBarApagado();
+        void SetStatusBarItemApagado();
+        void SetStatusBarAguardandoExcel();
+        void SetStatusBarExportadoComSucesso();
         Task ResetarStatusBar();
     }
 }

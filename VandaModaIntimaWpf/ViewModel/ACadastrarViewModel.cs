@@ -20,11 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         public ICommand SalvarComando { get; set; }
-        public ACadastrarViewModel()
+        public ACadastrarViewModel(string formId)
         {
             SalvarComando = new RelayCommand(Salvar, ValidaModel);
-            SetStatusBarAguardando();
-            _session = SessionProvider.GetSession();
+            SetStatusBarAguardando("Aguardando Usuário");
+            _session = SessionProvider.GetSession(formId);
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();
@@ -36,12 +36,12 @@ namespace VandaModaIntimaWpf.ViewModel
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMSUCESSO;
             await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
-            SetStatusBarAguardando();
+            SetStatusBarAguardando("Aguardando Usuário");
         }
 
-        public void SetStatusBarAguardando()
+        public void SetStatusBarAguardando(string mensagem)
         {
-            MensagemStatusBar = "Aguardando Usuário";
+            MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMAGUARDANDO;
         }
 
