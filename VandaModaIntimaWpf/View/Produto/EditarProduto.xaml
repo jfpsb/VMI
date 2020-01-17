@@ -17,6 +17,27 @@
         <ViewModel:EditarProdutoViewModel />
     </Window.DataContext>
     <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Image Height="15"
+                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1"
+                           HorizontalAlignment="Stretch">
+                <Label HorizontalAlignment="Right"
+                       Content="{Binding MensagemStatusBar}" />
+            </StatusBarItem>
+        </StatusBar>
         <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />

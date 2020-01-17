@@ -60,13 +60,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
                 if (deletado)
                 {
-                    SetStatusBarItemApagado();
+                    SetStatusBarItemDeletado($"Fornecedor {FornecedorSelecionado.Entidade.Nome} Foi Deletado Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
                 else
                 {
-                    StatusBarText = "Fornecedor Não Foi Deletado";
+                    MensagemStatusBar = "Fornecedor Não Foi Deletado";
                 }
             }
         }
@@ -135,12 +135,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 }
             }
         }
-
         public override async void ExportarExcel(object parameter)
         {
+            base.ExportarExcel(parameter);
+            IsThreadLocked = true;
             await new Excel<FornecedorModel>(excelStrategy).Salvar(EntidadeComCampo<FornecedorModel>.ConverterIList(Fornecedores));
+            IsThreadLocked = false;
+            SetStatusBarExportadoComSucesso();
         }
-
         public override async void GetItems(string termo)
         {
             switch (pesquisarPor)
@@ -171,17 +173,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 OnPropertyChanged("TermoPesquisa");
             }
         }
-
-        public override void SetStatusBarItemApagado()
-        {
-            StatusBarText = "Fornecedor " + FornecedorSelecionado.Entidade.Nome + " Foi Deletado Com Sucesso";
-        }
-
         public override void AbrirAjuda(object parameter)
         {
             throw new System.NotImplementedException();
         }
-
         public int PesquisarPor
         {
             get { return pesquisarPor; }

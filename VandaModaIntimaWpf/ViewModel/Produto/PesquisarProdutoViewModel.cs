@@ -50,13 +50,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                 if (deletado)
                 {
-                    SetStatusBarItemApagado();
+                    SetStatusBarItemDeletado("Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
                 else
                 {
-                    StatusBarText = "Produto Não Foi Deletado";
+                    MensagemStatusBar = "Produto Não Foi Deletado";
                 }
             }
         }
@@ -98,7 +98,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             else
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
-
         public override async void ApagarMarcados(object parameter)
         {
             var Mensagem = (IMessageable)parameter;
@@ -127,7 +126,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 }
             }
         }
-
         public int PesquisarPor
         {
             get { return pesquisarPor; }
@@ -137,7 +135,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
             }
         }
-
         public ObservableCollection<EntidadeComCampo<ProdutoModel>> Produtos
         {
             get { return produtos; }
@@ -147,7 +144,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 OnPropertyChanged("Produtos");
             }
         }
-
         public EntidadeComCampo<ProdutoModel> ProdutoSelecionado
         {
             get { return produtoSelecionado; }
@@ -161,7 +157,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 }
             }
         }
-
         public string ProdutoSelecionadoDescricao
         {
             get
@@ -174,7 +169,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 return string.Empty;
             }
         }
-
         public override async void GetItems(string termo)
         {
             switch (pesquisarPor)
@@ -193,7 +187,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     break;
             }
         }
-
         public override async void ExportarExcel(object parameter)
         {
             base.ExportarExcel(parameter);
@@ -216,12 +209,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 OnPropertyChanged("TermoPesquisa");
             }
         }
-
-        public override void SetStatusBarItemApagado()
-        {
-            StatusBarText = "Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso";
-        }
-
         public override void AbrirAjuda(object parameter)
         {
             AjudaProduto ajudaProduto = new AjudaProduto();

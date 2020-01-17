@@ -15,12 +15,18 @@ namespace VandaModaIntimaWpf.ViewModel
     public abstract class APesquisarViewModel : ObservableObject, IPesquisarViewModel
     {
         protected ISession _session;
-        private string statusBarText;
+        protected ExcelStrategy excelStrategy;
+        private string mensagemStatusBar;
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         private string formId;
-        protected ExcelStrategy excelStrategy;
+        private string imagemStatusBar;
+
+        protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
+        protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
+        protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
+        protected static readonly string IMAGEMDELETADO = "/Resources/Delete.png";
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
@@ -42,6 +48,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             this.formId = formId;
             _session = SessionProvider.GetSession(formId);
+
+            SetStatusBarAguardando();
         }
 
         public abstract void AbrirCadastrar(object parameter);
@@ -49,28 +57,39 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void AbrirEditar(object parameter);
         public abstract void ChecarItensMarcados(object parameter);
         public abstract void ApagarMarcados(object parameter);
+        public abstract void AbrirAjuda(object parameter);
+        public abstract void ImportarExcel(object parameter);
+        public abstract void GetItems(string termo);
         public virtual void ExportarExcel(object parameter)
         {
             SetStatusBarAguardandoExcel();
         }
-        public abstract void ImportarExcel(object parameter);
-        public abstract void GetItems(string termo);
-        public abstract void SetStatusBarItemApagado();
-        public abstract void AbrirAjuda(object parameter);
+        public void SetStatusBarItemDeletado(string mensagem)
+        {
+            MensagemStatusBar = mensagem;
+            ImagemStatusBar = IMAGEMDELETADO;
+        }
         public async Task ResetarStatusBar()
         {
             await Task.Delay(7000); //Espera 7 segundos para resetar StatusBar
-            StatusBarText = "Aguardando Usuário";
+            SetStatusBarAguardando();
         }
         public void SetStatusBarAguardandoExcel()
         {
-            StatusBarText = "O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar.";
+            MensagemStatusBar = "O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar";
+            ImagemStatusBar = IMAGEMAGUARDANDO;
+        }
+        public void SetStatusBarAguardando()
+        {
+            MensagemStatusBar = "Aguardando Usuário";
+            ImagemStatusBar = IMAGEMAGUARDANDO;
         }
         public async void SetStatusBarExportadoComSucesso()
         {
-            StatusBarText = "Exportação em Excel Realizada Com Sucesso.";
+            MensagemStatusBar = "Exportação em Excel Realizada Com Sucesso";
+            ImagemStatusBar = IMAGEMSUCESSO;
             await Task.Delay(7000);
-            StatusBarText = "Aguardando Usuário";
+            SetStatusBarAguardando();
         }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -100,13 +119,13 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("IsThreadLocked");
             }
         }
-        public string StatusBarText
+        public string MensagemStatusBar
         {
-            get { return statusBarText; }
+            get { return mensagemStatusBar; }
             set
             {
-                statusBarText = value;
-                OnPropertyChanged("StatusBarText");
+                mensagemStatusBar = value;
+                OnPropertyChanged("MensagemStatusBar");
             }
         }
         public Visibility VisibilidadeBotaoApagarSelecionado
@@ -116,6 +135,15 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 visibilidadeBotaoApagarSelecionado = value;
                 OnPropertyChanged("VisibilidadeBotaoApagarSelecionado");
+            }
+        }
+        public string ImagemStatusBar
+        {
+            get { return imagemStatusBar; }
+            set
+            {
+                imagemStatusBar = value;
+                OnPropertyChanged("ImagemStatusBar");
             }
         }
         public void DisposeSession()

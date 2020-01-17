@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             if (result)
             {
-                await SetStatusBarSucesso("Atualização Realizada Com Sucesso");
+                await SetStatusBarSucesso($"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso");
             }
             else
             {
@@ -51,14 +51,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
             catch (WebException we)
             {
-                if(we.Message.Contains("429"))
+                if (we.Message.Contains("429"))
                 {
                     SetStatusBarErro("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.");
                 }
                 else
                 {
                     SetStatusBarErro(we.Message);
-                }                
+                }
             }
             catch (InvalidDataException ide)
             {

@@ -20,12 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (result)
             {
-                ((IMessageable)parameter).MensagemDeAviso("Produto Editado Com Sucesso");
-                ((ICloseable)parameter).Close();
+                await SetStatusBarSucesso($"Produto {Produto.Cod_Barra} Atualizado Com Sucesso");
             }
             else
             {
-                ((IMessageable)parameter).MensagemDeErro("Erro ao Editar Produto");
+                SetStatusBarErro("Erro ao Atualizar Produto");
             }
         }
 

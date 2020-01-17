@@ -115,7 +115,8 @@
                                   FontWeight="Bold" />
                         <Separator />
                         <MenuItem Header="Editar"
-                                  Command="{Binding AbrirEditarComando}" />
+                                  IsEnabled="False"
+                                  ToolTip="Nome de Marca Não Pode Ser Atualizado" />
                         <MenuItem Header="Apagar"
                                   Command="{Binding AbrirApagarComando}" />
                     </ContextMenu>

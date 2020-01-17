@@ -57,13 +57,13 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
                 if (deletado)
                 {
-                    SetStatusBarItemApagado();
+                    SetStatusBarItemDeletado("Marca " + MarcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
                 else
                 {
-                    StatusBarText = "Marca Não Foi Deletada";
+                    MensagemStatusBar = "Marca Não Foi Deletada";
                 }
             }
 
@@ -141,7 +141,11 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override async void ExportarExcel(object parameter)
         {
+            base.ExportarExcel(parameter);
+            IsThreadLocked = true;
             await new Excel<MarcaModel>(excelStrategy).Salvar(EntidadeComCampo<MarcaModel>.ConverterIList(Marcas));
+            IsThreadLocked = false;
+            SetStatusBarExportadoComSucesso();
         }
 
         public override async void GetItems(string termo)
@@ -162,11 +166,6 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 IsThreadLocked = false;
                 OnPropertyChanged("TermoPesquisa");
             }
-        }
-
-        public override void SetStatusBarItemApagado()
-        {
-            StatusBarText = "Marca " + MarcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso";
         }
     }
 }
