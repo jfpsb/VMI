@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private string nome { get; set; }
         private string fantasia { get; set; }
         private string email { get; set; }
+        private string telefone { get; set; }
 
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
@@ -19,7 +20,8 @@ namespace VandaModaIntimaWpf.Model
             CNPJ = 1,
             Nome = 2,
             NomeFantasia = 3,
-            Email = 4
+            Telefone = 4,
+            Email = 5
         }
 
         public Fornecedor() { }
@@ -82,6 +84,15 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Email");
             }
         }
+        public virtual string Telefone
+        {
+            get { return telefone; }
+            set
+            {
+                telefone = value;
+                OnPropertyChanged("Telefone");
+            }
+        }
 
         public virtual IList<ProdutoModel> Produtos
         {
@@ -101,13 +112,14 @@ namespace VandaModaIntimaWpf.Model
             f.Nome = Nome;
             f.Fantasia = Fantasia;
             f.Email = Email;
+            f.Telefone = Telefone;
 
             return f;
         }
 
         public virtual string[] GetColunas()
         {
-            return new string[] { "CNPJ", "Nome", "Nome Fantasia", "Email" };
+            return new string[] { "CNPJ", "Nome", "Nome Fantasia", "Telefone", "Email" };
         }
 
         public virtual object GetId()

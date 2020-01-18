@@ -258,6 +258,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Credit_Card.png" />
     <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\Delete_Big.png" />
     <Resource Include="Resources\Atualizar_Icon.ico" />

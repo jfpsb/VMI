@@ -50,13 +50,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     break;
             }
         }
-
         public override void ResetaPropriedades()
         {
             Fornecedor = new FornecedorModel();
             Fornecedor.Cnpj = Fornecedor.Nome = Fornecedor.Fantasia = Fornecedor.Email = string.Empty;
         }
-
         public override bool ValidaModel(object parameter)
         {
             if (string.IsNullOrEmpty(Fornecedor.Cnpj)
@@ -68,7 +66,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             return true;
         }
-
         public FornecedorModel Fornecedor
         {
             get { return fornecedor; }

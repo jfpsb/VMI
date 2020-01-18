@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
         Title="Cadastrar Fornecedor Manualmente"
-        Height="310"
+        Height="350"
         Width="500"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
@@ -50,6 +50,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
@@ -70,12 +71,17 @@
                      Grid.Column="1"
                      Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4">Email:</Label>
+            <Label Grid.Row="4">Telefone:</Label>
             <TextBox Grid.Row="4"
+                     Grid.Column="1"
+                     Text="{Binding Fornecedor.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="5">Email:</Label>
+            <TextBox Grid.Row="5"
                      Grid.Column="1"
                      Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="5"
+            <Button Grid.Row="6"
                     Grid.ColumnSpan="2"
                     Margin="5,5,5,0"
                     Style="{StaticResource BotaoCadastrar}"

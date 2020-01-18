@@ -5,7 +5,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
         Title="Vanda Moda Íntima"
         WindowState="Maximized"
-        Closing="TelaPrincipal_Closing">
+        Closing="TelaPrincipal_Closing" Height="783.491">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>
@@ -50,6 +50,17 @@
                                Height="300"
                                Width="300" />
                         <Label>Marca</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaRecebimento}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Credit_Card.png"
+                               Height="300"
+                               Width="300" />
+                        <Label>Recebimento de Cartão</Label>
                     </StackPanel>
                 </Button.Content>
             </Button>

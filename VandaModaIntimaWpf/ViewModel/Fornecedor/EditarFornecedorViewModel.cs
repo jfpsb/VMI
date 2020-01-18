@@ -45,6 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 Fornecedor.Nome = result.Nome;
                 Fornecedor.Fantasia = result.Fantasia;
                 Fornecedor.Email = result.Email;
+                Fornecedor.Telefone = result.Telefone;
                 // Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Fornecedor");
                 await SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");

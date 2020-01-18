@@ -8,7 +8,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
         Title="Editar Fornecedor"
-        Height="325"
+        Height="350"
         Width="525"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
@@ -50,6 +50,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Button Grid.Column="1"
@@ -78,11 +79,16 @@
             <TextBox Grid.Row="3"
                      Grid.Column="1"
                      Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="4">Email:</Label>
+            <Label Grid.Row="4">Telefone:</Label>
             <TextBox Grid.Row="4"
                      Grid.Column="1"
+                     Text="{Binding Fornecedor.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="5">Email:</Label>
+            <TextBox Grid.Row="5"
+                     Grid.Column="1"
                      Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="5"
+            <Button Grid.Row="6"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
