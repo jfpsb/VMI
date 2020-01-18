@@ -135,17 +135,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="Model\CodBarraFornecedorPropriedades.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
     <Compile Include="Model\DAO\MySQL\DAOProduto.cs" />
     <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\ObservableObject.cs" />
+    <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
@@ -231,9 +233,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Mapas\CodBarraFornecedor.hbm.xml">
-      <SubType>Designer</SubType>
-    </Resource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -258,6 +257,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Mapas\OperadoraCartao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
     <Resource Include="Resources\Credit_Card.png" />
     <Resource Include="Resources\Delete.png" />
     <Resource Include="Resources\Delete_Big.png" />
