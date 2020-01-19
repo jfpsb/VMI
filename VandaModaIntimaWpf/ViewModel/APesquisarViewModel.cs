@@ -1,7 +1,9 @@
 ﻿using NHibernate;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
@@ -22,6 +24,17 @@ namespace VandaModaIntimaWpf.ViewModel
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         private string formId;
         private string imagemStatusBar;
+        private DataGridCellInfo celulaSelecionada;
+
+        public DataGridCellInfo CelulaSelecionada
+        {
+            get { return celulaSelecionada; }
+            set
+            {
+                celulaSelecionada = value;
+                OnPropertyChanged("CelulaSelecionada");
+            }
+        }
 
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
@@ -35,6 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ApagarMarcadosComando { get; set; }
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
+        public ICommand CopiarValorCelulaComando { get; set; }
         public APesquisarViewModel(string formId)
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
@@ -45,6 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ExportarExcelComando = new RelayCommand(ExportarExcel);
             ImportarExcelComando = new RelayCommand(ImportarExcel);
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
+            CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
 
             this.formId = formId;
             _session = SessionProvider.GetSession(formId);
@@ -60,6 +75,11 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void AbrirAjuda(object parameter);
         public abstract void ImportarExcel(object parameter);
         public abstract void GetItems(string termo);
+        public void CopiarValorCelula(object paramenter)
+        {
+            string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
+            Clipboard.SetText(valorCelula);
+        }
         public virtual void ExportarExcel(object parameter)
         {
             SetStatusBarAguardandoExcel();

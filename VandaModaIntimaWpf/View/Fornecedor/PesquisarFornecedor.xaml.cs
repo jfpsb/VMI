@@ -1,6 +1,4 @@
-﻿using VandaModaIntimaWpf.View;
-
-namespace VandaModaIntimaWpf.ViewModel.Fornecedor
+﻿namespace VandaModaIntimaWpf.View.Fornecedor
 {
     public partial class PesquisarFornecedor : APesquisarView
     {

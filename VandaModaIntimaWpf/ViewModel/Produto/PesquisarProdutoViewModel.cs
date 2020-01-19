@@ -153,20 +153,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 if (produtoSelecionado != null)
                 {
                     OnPropertyChanged("ProdutoSelecionado");
-                    OnPropertyChanged("ProdutoSelecionadoDescricao");
                 }
-            }
-        }
-        public string ProdutoSelecionadoDescricao
-        {
-            get
-            {
-                if (produtoSelecionado != null)
-                {
-                    return produtoSelecionado.Entidade.Descricao.ToUpper();
-                }
-
-                return string.Empty;
             }
         }
         public override async void GetItems(string termo)

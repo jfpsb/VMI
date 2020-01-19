@@ -1,6 +1,4 @@
-﻿using VandaModaIntimaWpf.View;
-
-namespace VandaModaIntimaWpf.ViewModel.Marca
+﻿namespace VandaModaIntimaWpf.View.Marca
 {
     /// <summary>
     /// Interaction logic for PesquisarMarca.xaml

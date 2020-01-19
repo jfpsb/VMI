@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.ViewModel;
 
-namespace VandaModaIntimaWpf.ViewModel.Fornecedor
+namespace VandaModaIntimaWpf.View.Fornecedor
 {
     /// <summary>
     /// Interaction logic for EditarFornecedor.xaml

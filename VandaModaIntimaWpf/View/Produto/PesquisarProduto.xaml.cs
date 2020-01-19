@@ -1,7 +1,6 @@
-﻿using System.Windows.Controls;
-using VandaModaIntimaWpf.View;
+﻿using VandaModaIntimaWpf.View;
 
-namespace VandaModaIntimaWpf.ViewModel.Produto
+namespace VandaModaIntimaWpf.View.Produto
 {
     public partial class PesquisarProduto : APesquisarView
     {

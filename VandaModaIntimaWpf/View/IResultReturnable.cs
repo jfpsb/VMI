@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace VandaModaIntimaWpf.ViewModel
+namespace VandaModaIntimaWpf.View
 {
     interface IResultReturnable
     {

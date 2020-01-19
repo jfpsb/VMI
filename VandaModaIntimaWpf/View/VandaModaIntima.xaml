@@ -54,6 +54,17 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaLojaComando}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Loja_Icon.png"
+                               Height="300"
+                               Width="300" />
+                        <Label>Loja</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
                     Command="{Binding AbrirTelaRecebimento}">
                 <Button.Content>
                     <StackPanel>

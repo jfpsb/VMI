@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class Loja : ObservableObject, ICloneable, IModel
+    public class Loja : ObservableObject, ICloneable, IModel
     {
         private string cnpj { get; set; }
         private Loja matriz { get; set; }
@@ -14,6 +10,11 @@ namespace VandaModaIntimaWpf.Model
         private string telefone { get; set; }
         private string endereco { get; set; }
         private string inscricaoestadual { get; set; }
+        public Loja() { }
+        public Loja(string nome)
+        {
+            this.nome = nome;
+        }
         public virtual string Cnpj
         {
             get { return cnpj; }
@@ -34,7 +35,7 @@ namespace VandaModaIntimaWpf.Model
         }
         public virtual string Nome
         {
-            get { return nome; }
+            get { return nome?.ToUpper(); }
             set
             {
                 nome = value;
@@ -52,7 +53,7 @@ namespace VandaModaIntimaWpf.Model
         }
         public virtual string Endereco
         {
-            get { return endereco; }
+            get { return endereco?.ToUpper(); }
             set
             {
                 endereco = value;
@@ -70,7 +71,16 @@ namespace VandaModaIntimaWpf.Model
         }
         public virtual object Clone()
         {
-            throw new NotImplementedException();
+            Loja loja = new Loja();
+
+            loja.Cnpj = Cnpj;
+            loja.Nome = Nome;
+            loja.Telefone = Telefone;
+            loja.Endereco = Endereco;
+            loja.InscricaoEstadual = InscricaoEstadual;
+            loja.Matriz = Matriz;
+
+            return loja;
         }
 
         public virtual object GetId()

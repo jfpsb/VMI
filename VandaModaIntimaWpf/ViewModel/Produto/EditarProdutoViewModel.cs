@@ -1,5 +1,4 @@
-﻿using VandaModaIntimaWpf.View;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
+﻿using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 

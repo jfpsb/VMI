@@ -94,6 +94,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Loja\AjudaLoja.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Loja\CadastrarLoja.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Loja\EditarLoja.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Loja\PesquisarLoja.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Marca\CadastrarMarca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +152,7 @@
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMySQL.cs" />
     <Compile Include="Model\DAO\IDAO.cs" />
@@ -154,6 +171,7 @@
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\IExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
@@ -163,6 +181,9 @@
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
+    <Compile Include="ViewModel\Loja\CadastrarLojaViewModel.cs" />
+    <Compile Include="ViewModel\Loja\EditarLojaViewModel.cs" />
+    <Compile Include="ViewModel\Loja\PesquisarLojaViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
@@ -190,6 +211,18 @@
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\IResultReturnable.cs" />
+    <Compile Include="View\Loja\AjudaLoja.xaml.cs">
+      <DependentUpon>AjudaLoja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Loja\CadastrarLoja.xaml.cs">
+      <DependentUpon>CadastrarLoja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Loja\EditarLoja.xaml.cs">
+      <DependentUpon>EditarLoja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Loja\PesquisarLoja.xaml.cs">
+      <DependentUpon>PesquisarLoja.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Marca\CadastrarMarca.xaml.cs">
       <DependentUpon>CadastrarMarca.xaml</DependentUpon>
     </Compile>
@@ -257,6 +290,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Loja_Icon.png" />
+    <Resource Include="Resources\Loja_Icon.ico" />
     <EmbeddedResource Include="Mapas\OperadoraCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\Loja.hbm.xml" />

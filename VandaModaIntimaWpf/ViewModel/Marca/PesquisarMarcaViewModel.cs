@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 

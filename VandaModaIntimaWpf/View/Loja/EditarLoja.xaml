@@ -1,20 +1,20 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.EditarProduto"
-        x:Name="TelaEditarProduto"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Loja.EditarLoja"
+        x:Name="TelaEditarLoja"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Loja"
         mc:Ignorable="d"
-        Title="Editar Produto"
-        Height="350"
+        Title="Editar Loja"
+        Height="380"
         Width="640"
-        Icon="/Resources/Produto_Icon.ico"
+        Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
     <Window.DataContext>
-        <ViewModel:EditarProdutoViewModel />
+        <ViewModel:EditarLojaViewModel />
     </Window.DataContext>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -50,39 +50,48 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Código De Barras:</Label>
+            <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
-                     Text="{Binding Produto.Cod_Barra, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="False" />
-            <Label Grid.Row="2">Descrição:</Label>
+                     Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Right"
+                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+                   Foreground="Red">Este CNPJ Já Existe No Sistema</Label>
+            <Label Grid.Row="2">Nome:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-            <Label Grid.Row="3">Preço:</Label>
+                     Text="{Binding Loja.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="3">Telefone:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
-                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-            <Label Grid.Row="4">Fornecedor:</Label>
+                     Text="{Binding Loja.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="4">Endereço:</Label>
+            <TextBox Grid.Column="1"
+                     Grid.Row="4"
+                     Text="{Binding Loja.Endereco, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="5">Incrição Estadual:</Label>
+            <TextBox Grid.Column="1"
+                     Grid.Row="5"
+                     Text="{Binding Loja.InscricaoEstadual, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Label Grid.Row="6">Matriz:</Label>
             <ComboBox Grid.Column="1"
-                      Grid.Row="4"
-                      ItemsSource="{Binding Fornecedores}"
+                      Grid.Row="6"
+                      ItemsSource="{Binding Matrizes}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding FornecedorComboBox, Mode=TwoWay}"
-                      SelectedIndex="0" />
-            <Label Grid.Row="5">Marca:</Label>
-            <ComboBox Grid.Column="1"
-                      Grid.Row="5"
-                      ItemsSource="{Binding Marcas}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding MarcaComboBox, Mode=TwoWay}"
+                      SelectedItem="{Binding MatrizComboBox, Mode=TwoWay}"
                       SelectedIndex="0" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    CommandParameter="{Binding ElementName=TelaEditarProduto}">Salvar</Button>
+                    Command="{Binding SalvarComando}">Salvar</Button>
         </Grid>
     </DockPanel>
 </Window>

@@ -1,11 +1,11 @@
 ﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
-                     x:Class="VandaModaIntimaWpf.ViewModel.Fornecedor.PesquisarFornecedor"
+                     x:Class="VandaModaIntimaWpf.View.Fornecedor.PesquisarFornecedor"
                      x:Name="TelaPesquisarFornecedor"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
                      mc:Ignorable="d"
                      Title="Pesquisar Fornecedor"
@@ -110,7 +110,8 @@
                       Name="DataGridFornecedor"
                       AlternatingRowBackground="White"
                       ItemsSource="{Binding Fornecedores, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding FornecedorSelecionado, Mode=OneWayToSource}">
+                      SelectedItem="{Binding FornecedorSelecionado, Mode=OneWayToSource}"
+                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
@@ -180,13 +181,15 @@
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu FontSize="14px">
-                        <MenuItem Header="{Binding FornecedorSelecionadoNome}"
+                        <MenuItem Header="{Binding FornecedorSelecionado.Entidade.Nome}"
                                   IsHitTestVisible="False"
                                   Focusable="False"
                                   FontWeight="Bold" />
                         <Separator />
                         <MenuItem Header="Editar"
                                   Command="{Binding AbrirEditarComando}" />
+                        <MenuItem Header="Copiar"
+                                  Command="{Binding CopiarValorCelulaComando}" />
                         <MenuItem Header="Apagar"
                                   Command="{Binding AbrirApagarComando}" />
                     </ContextMenu>

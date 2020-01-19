@@ -175,5 +175,11 @@
             <sys:String>Email</sys:String>
         </x:Array>
 
+        <x:Array x:Key="CmbPesquisaLojaItems"
+                 Type="sys:String">
+            <sys:String>CNPJ</sys:String>
+            <sys:String>Nome</sys:String>
+        </x:Array>
+
     </Application.Resources>
 </Application>

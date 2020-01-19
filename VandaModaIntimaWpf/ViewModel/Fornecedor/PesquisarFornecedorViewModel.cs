@@ -205,21 +205,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 {
                     fornecedorSelecionado = value;
                     OnPropertyChanged("FornecedorSelecionado");
-                    OnPropertyChanged("FornecedorSelecionadoNome");
                 }
-            }
-        }
-
-        public string FornecedorSelecionadoNome
-        {
-            get
-            {
-                if (fornecedorSelecionado != null)
-                {
-                    return fornecedorSelecionado.Entidade.Nome.ToUpper();
-                }
-
-                return string.Empty;
             }
         }
     }

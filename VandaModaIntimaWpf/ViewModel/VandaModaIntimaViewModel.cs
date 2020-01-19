@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.ViewModel.Fornecedor;
-using VandaModaIntimaWpf.ViewModel.Marca;
-using VandaModaIntimaWpf.ViewModel.Produto;
+using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.View.Loja;
+using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.View.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -11,11 +12,13 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaProdutoComando { get; set; }
         public ICommand AbrirTelaFornecedorComando { get; set; }
         public ICommand AbrirTelaMarcaComando { get; set; }
+        public ICommand AbrirTelaLojaComando { get; set; }
         public VandaModaIntimaViewModel()
         {
-            AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto, (object parameter) => { return true; });
-            AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor, (object parameter) => { return true; });
-            AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca, (object parameter) => { return true; });
+            AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
+            AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);
+            AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca);
+            AbrirTelaLojaComando = new RelayCommand(AbrirTelaLoja);
         }
         public void AbrirTelaProduto(object parameter)
         {
@@ -31,6 +34,15 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             PesquisarMarca pesquisarMarca = new PesquisarMarca();
             pesquisarMarca.Show();
+        }
+        public void AbrirTelaLoja(object parameter)
+        {
+            PesquisarLoja pesquisarLoja = new PesquisarLoja();
+            pesquisarLoja.Show();
+        }
+        public void AbrirTelaRecebimento(object parameter)
+        {
+
         }
     }
 }
