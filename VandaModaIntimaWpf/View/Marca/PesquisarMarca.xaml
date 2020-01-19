@@ -97,7 +97,7 @@
                       Name="DataGridMarca"
                       AlternatingRowBackground="White"
                       ItemsSource="{Binding Marcas, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding MarcaSelecionada, Mode=OneWayToSource}"
+                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
@@ -123,21 +123,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="contextMenu"
-                                 FontSize="14px">
-                        <MenuItem Header="{Binding MarcaSelecionada.Entidade.Nome}"
-                                  IsHitTestVisible="False"
-                                  Focusable="False"
-                                  FontWeight="Bold" />
-                        <Separator />
-                        <MenuItem Header="Editar"
-                                  IsEnabled="False"
-                                  ToolTip="Nome de Marca Não Pode Ser Atualizado" />
-                        <MenuItem Header="Copiar"
-                                  Command="{Binding CopiarValorCelulaComando}" />
-                        <MenuItem Header="Apagar"
-                                  Command="{Binding AbrirApagarComando}" />
-                    </ContextMenu>
+                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
                 </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>

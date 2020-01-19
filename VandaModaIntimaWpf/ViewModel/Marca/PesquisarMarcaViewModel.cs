@@ -9,10 +9,9 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
-    class PesquisarMarcaViewModel : APesquisarViewModel
+    class PesquisarMarcaViewModel : APesquisarViewModel<MarcaModel>
     {
         private DAOMarca daoMarca;
-        private EntidadeComCampo<MarcaModel> marcaSelecionada;
         private ObservableCollection<EntidadeComCampo<MarcaModel>> marcas;
         public PesquisarMarcaViewModel() : base("Marca")
         {
@@ -21,7 +20,6 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             PropertyChanged += PesquisarViewModel_PropertyChanged;
             OnPropertyChanged("TermoPesquisa");
         }
-
         public ObservableCollection<EntidadeComCampo<MarcaModel>> Marcas
         {
             get { return marcas; }
@@ -31,34 +29,22 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 OnPropertyChanged("Marcas");
             }
         }
-
-        public EntidadeComCampo<MarcaModel> MarcaSelecionada
-        {
-            get { return marcaSelecionada; }
-            set
-            {
-                marcaSelecionada = value;
-                OnPropertyChanged("MarcaSelecionada");
-            }
-        }
-
         public override void AbrirAjuda(object parameter)
         {
             throw new System.NotImplementedException();
         }
-
         public override async void AbrirApagarMsgBox(object parameter)
         {
-            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + MarcaSelecionada.Entidade.Nome + "?", "Apagar Marca");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Marca " + EntidadeSelecionada.Entidade.Nome + "?", "Apagar Marca");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = await daoMarca.Deletar(MarcaSelecionada.Entidade);
+                bool deletado = await daoMarca.Deletar(EntidadeSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    SetStatusBarItemDeletado("Marca " + MarcaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso");
+                    SetStatusBarItemDeletado("Marca " + EntidadeSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -80,9 +66,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override void AbrirEditar(object parameter)
         {
-            MarcaModel marcaBkp = (MarcaModel)marcaSelecionada.Entidade.Clone();
+            MarcaModel marcaBkp = (MarcaModel)EntidadeSelecionada.Entidade.Clone();
 
-            EditarMarca editar = new EditarMarca(marcaSelecionada.Entidade.Nome);
+            EditarMarca editar = new EditarMarca(EntidadeSelecionada.Entidade.Nome);
             var result = editar.ShowDialog();
 
             if (result.HasValue && result == true)
@@ -91,7 +77,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             }
             else
             {
-                marcaSelecionada.Entidade.Nome = marcaBkp.Nome;
+                EntidadeSelecionada.Entidade.Nome = marcaBkp.Nome;
             }
         }
 

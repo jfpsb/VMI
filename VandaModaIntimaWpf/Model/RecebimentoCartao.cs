@@ -55,6 +55,9 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Valor");
             }
         }
+
+        public virtual string GetContextMenuHeader { get => $"{Mes}/{Ano}"; }
+
         public virtual object Clone()
         {
             throw new NotImplementedException();

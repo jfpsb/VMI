@@ -10,10 +10,9 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class PesquisarFornecedorViewModel : APesquisarViewModel
+    class PesquisarFornecedorViewModel : APesquisarViewModel<FornecedorModel>
     {
         private DAOFornecedor daoFornecedor;
-        private EntidadeComCampo<FornecedorModel> fornecedorSelecionado;
         private ObservableCollection<EntidadeComCampo<FornecedorModel>> fornecedores;
         private int pesquisarPor;
 
@@ -51,16 +50,16 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override async void AbrirApagarMsgBox(object parameter)
         {
-            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Fornecedor " + FornecedorSelecionado.Entidade.Nome + "?", "Apagar Fornecedor");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Fornecedor " + EntidadeSelecionada.Entidade.Nome + "?", "Apagar Fornecedor");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = await daoFornecedor.Deletar(FornecedorSelecionado.Entidade);
+                bool deletado = await daoFornecedor.Deletar(EntidadeSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    SetStatusBarItemDeletado($"Fornecedor {FornecedorSelecionado.Entidade.Nome} Foi Deletado Com Sucesso");
+                    SetStatusBarItemDeletado($"Fornecedor {EntidadeSelecionada.Entidade.Nome} Foi Deletado Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -73,9 +72,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override void AbrirEditar(object parameter)
         {
-            FornecedorModel fornecedorBkp = (FornecedorModel)FornecedorSelecionado.Entidade.Clone();
+            FornecedorModel fornecedorBkp = (FornecedorModel)EntidadeSelecionada.Entidade.Clone();
 
-            EditarFornecedor editar = new EditarFornecedor(FornecedorSelecionado.Entidade.Cnpj);
+            EditarFornecedor editar = new EditarFornecedor(EntidadeSelecionada.Entidade.Cnpj);
             var result = editar.ShowDialog();
 
             if (result.HasValue && result == true)
@@ -84,10 +83,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
             else
             {
-                FornecedorSelecionado.Entidade.Cnpj = fornecedorBkp.Cnpj;
-                FornecedorSelecionado.Entidade.Nome = fornecedorBkp.Nome;
-                FornecedorSelecionado.Entidade.Fantasia = fornecedorBkp.Fantasia;
-                FornecedorSelecionado.Entidade.Email = fornecedorBkp.Email;
+                EntidadeSelecionada.Entidade.Cnpj = fornecedorBkp.Cnpj;
+                EntidadeSelecionada.Entidade.Nome = fornecedorBkp.Nome;
+                EntidadeSelecionada.Entidade.Fantasia = fornecedorBkp.Fantasia;
+                EntidadeSelecionada.Entidade.Email = fornecedorBkp.Email;
+                EntidadeSelecionada.Entidade.Telefone = fornecedorBkp.Telefone;
             }
         }
 
@@ -193,19 +193,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 fornecedores = value;
                 OnPropertyChanged("Fornecedores");
-            }
-        }
-
-        public EntidadeComCampo<FornecedorModel> FornecedorSelecionado
-        {
-            get { return fornecedorSelecionado; }
-            set
-            {
-                if (value != null)
-                {
-                    fornecedorSelecionado = value;
-                    OnPropertyChanged("FornecedorSelecionado");
-                }
             }
         }
     }

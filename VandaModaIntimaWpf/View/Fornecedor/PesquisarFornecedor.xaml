@@ -110,7 +110,7 @@
                       Name="DataGridFornecedor"
                       AlternatingRowBackground="White"
                       ItemsSource="{Binding Fornecedores, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding FornecedorSelecionado, Mode=OneWayToSource}"
+                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
@@ -180,19 +180,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
-                    <ContextMenu FontSize="14px">
-                        <MenuItem Header="{Binding FornecedorSelecionado.Entidade.Nome}"
-                                  IsHitTestVisible="False"
-                                  Focusable="False"
-                                  FontWeight="Bold" />
-                        <Separator />
-                        <MenuItem Header="Editar"
-                                  Command="{Binding AbrirEditarComando}" />
-                        <MenuItem Header="Copiar"
-                                  Command="{Binding CopiarValorCelulaComando}" />
-                        <MenuItem Header="Apagar"
-                                  Command="{Binding AbrirApagarComando}" />
-                    </ContextMenu>
+                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
                 </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>

@@ -104,6 +104,8 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual string GetContextMenuHeader { get { return Nome; } }
+
         public virtual object Clone()
         {
             Fornecedor f = new Fornecedor();

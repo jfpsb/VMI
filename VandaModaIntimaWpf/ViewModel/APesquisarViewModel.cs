@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel
     /// <summary>
     /// Classe abstrata para ViewModels de pesquisa
     /// </summary>
-    public abstract class APesquisarViewModel : ObservableObject, IPesquisarViewModel
+    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarViewModel where E : class, IModel
     {
         protected ISession _session;
         protected ExcelStrategy excelStrategy;
@@ -25,16 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string formId;
         private string imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
-
-        public DataGridCellInfo CelulaSelecionada
-        {
-            get { return celulaSelecionada; }
-            set
-            {
-                celulaSelecionada = value;
-                OnPropertyChanged("CelulaSelecionada");
-            }
-        }
+        private EntidadeComCampo<E> entidadeSelecionada;
 
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
@@ -164,6 +155,24 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 imagemStatusBar = value;
                 OnPropertyChanged("ImagemStatusBar");
+            }
+        }
+        public DataGridCellInfo CelulaSelecionada
+        {
+            get { return celulaSelecionada; }
+            set
+            {
+                celulaSelecionada = value;
+                OnPropertyChanged("CelulaSelecionada");
+            }
+        }
+        public EntidadeComCampo<E> EntidadeSelecionada
+        {
+            get { return entidadeSelecionada; }
+            set
+            {
+                entidadeSelecionada = value;
+                OnPropertyChanged("EntidadeSelecionada");
             }
         }
         public void DisposeSession()

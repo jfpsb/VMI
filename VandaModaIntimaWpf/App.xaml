@@ -160,6 +160,11 @@
             </Style.Resources>
         </Style>
 
+        <Style TargetType="MenuItem">
+            <Setter Property="FontSize" Value="14px"/>
+            <Setter Property="Padding" Value="0,5,5,5"/>
+        </Style>
+
         <x:Array x:Key="CmbPesquisaProdutoItems"
                  Type="sys:String">
             <sys:String>Descrição</sys:String>
@@ -180,6 +185,30 @@
             <sys:String>CNPJ</sys:String>
             <sys:String>Nome</sys:String>
         </x:Array>
+
+        <ControlTemplate x:Key="PesquisaDataGridContextMenu"
+                         TargetType="{x:Type ContextMenu}">
+            <Border Background="Red"
+                    BorderThickness="3" Panel.ZIndex="1">
+                <Border.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="-45" ShadowDepth="10" Opacity="0.5" />
+                </Border.BitmapEffect>
+                <StackPanel Background="{TemplateBinding Background}">
+                    <MenuItem Header="{Binding EntidadeSelecionada.Entidade.GetContextMenuHeader}"
+                              IsHitTestVisible="False"
+                              Focusable="False"
+                              FontWeight="Bold"
+                              Margin="0,3,3,0"/>
+                    <Separator Margin="15,5,15,5" />
+                    <MenuItem Header="Editar"
+                                  Command="{Binding AbrirEditarComando}"/>
+                    <MenuItem Header="Copiar"
+                                  Command="{Binding CopiarValorCelulaComando}" />
+                    <MenuItem Header="Apagar"
+                              Command="{Binding AbrirApagarComando}" />
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
 
     </Application.Resources>
 </Application>

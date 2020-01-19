@@ -124,6 +124,8 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual string GetContextMenuHeader { get => Descricao; }
+
         public virtual object Clone()
         {
             Produto p = new Produto();

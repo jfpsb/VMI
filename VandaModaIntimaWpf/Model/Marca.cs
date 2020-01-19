@@ -44,6 +44,8 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual string GetContextMenuHeader { get => Nome; }
+
         public virtual object Clone()
         {
             Marca m = new Marca();

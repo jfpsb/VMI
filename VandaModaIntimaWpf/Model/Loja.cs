@@ -69,6 +69,9 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("InscricaoEstadual");
             }
         }
+
+        public virtual string GetContextMenuHeader { get => Nome; }
+
         public virtual object Clone()
         {
             Loja loja = new Loja();

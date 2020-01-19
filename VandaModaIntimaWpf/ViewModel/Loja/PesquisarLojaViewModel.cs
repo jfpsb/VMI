@@ -9,10 +9,9 @@ using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
 {
-    class PesquisarLojaViewModel : APesquisarViewModel
+    class PesquisarLojaViewModel : APesquisarViewModel<LojaModel>
     {
         private DAOLoja daoLoja;
-        private EntidadeComCampo<LojaModel> lojaSelecionada;
         private ObservableCollection<EntidadeComCampo<LojaModel>> lojas;
         private int pesquisarPor;
         private enum OpcoesPesquisa
@@ -39,16 +38,16 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override async void AbrirApagarMsgBox(object parameter)
         {
-            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Loja " + lojaSelecionada.Entidade.Nome + "?", "Apagar Loja");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar a Loja " + EntidadeSelecionada.Entidade.Nome + "?", "Apagar Loja");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = await daoLoja.Deletar(lojaSelecionada.Entidade);
+                bool deletado = await daoLoja.Deletar(EntidadeSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    SetStatusBarItemDeletado("Loja " + LojaSelecionada.Entidade.Nome + " Foi Deletada Com Sucesso");
+                    SetStatusBarItemDeletado("Loja " + (EntidadeSelecionada.Entidade).Nome + " Foi Deletada Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -61,9 +60,9 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override void AbrirEditar(object parameter)
         {
-            LojaModel lojaBkp = (LojaModel)lojaSelecionada.Entidade.Clone();
+            LojaModel lojaBkp = (LojaModel)EntidadeSelecionada.Entidade.Clone();
 
-            EditarLoja editar = new EditarLoja(lojaSelecionada.Entidade.Cnpj);
+            EditarLoja editar = new EditarLoja(EntidadeSelecionada.Entidade.Cnpj);
 
             var result = editar.ShowDialog();
 
@@ -73,12 +72,12 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             }
             else
             {
-                lojaSelecionada.Entidade.Cnpj = lojaBkp.Cnpj;
-                lojaSelecionada.Entidade.Nome = lojaBkp.Nome;
-                lojaSelecionada.Entidade.Telefone = lojaBkp.Telefone;
-                lojaSelecionada.Entidade.Endereco = lojaBkp.Endereco;
-                lojaSelecionada.Entidade.InscricaoEstadual = lojaBkp.InscricaoEstadual;
-                lojaSelecionada.Entidade.Matriz = lojaBkp.Matriz;
+                EntidadeSelecionada.Entidade.Cnpj = lojaBkp.Cnpj;
+                EntidadeSelecionada.Entidade.Nome = lojaBkp.Nome;
+                EntidadeSelecionada.Entidade.Telefone = lojaBkp.Telefone;
+                EntidadeSelecionada.Entidade.Endereco = lojaBkp.Endereco;
+                EntidadeSelecionada.Entidade.InscricaoEstadual = lojaBkp.InscricaoEstadual;
+                EntidadeSelecionada.Entidade.Matriz = lojaBkp.Matriz;
             }
         }
 
@@ -141,18 +140,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             {
                 lojas = value;
                 OnPropertyChanged("Lojas");
-            }
-        }
-        public EntidadeComCampo<LojaModel> LojaSelecionada
-        {
-            get { return lojaSelecionada; }
-            set
-            {
-                lojaSelecionada = value;
-                if (lojaSelecionada != null)
-                {
-                    OnPropertyChanged("LojaSelecionada");
-                }
             }
         }
         public override async void GetItems(string termo)

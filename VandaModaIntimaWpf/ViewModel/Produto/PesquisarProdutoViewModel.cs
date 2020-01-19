@@ -9,10 +9,9 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
-    class PesquisarProdutoViewModel : APesquisarViewModel
+    class PesquisarProdutoViewModel : APesquisarViewModel<ProdutoModel>
     {
         private DAOProduto daoProduto;
-        private EntidadeComCampo<ProdutoModel> produtoSelecionado;
         private ObservableCollection<EntidadeComCampo<ProdutoModel>> produtos;
         private int pesquisarPor;
         private enum OpcoesPesquisa
@@ -41,16 +40,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override async void AbrirApagarMsgBox(object parameter)
         {
-            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Produto " + produtoSelecionado.Entidade.Descricao + "?", "Apagar Produto");
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog("Tem Certeza Que Deseja Apagar o Produto " + EntidadeSelecionada.Entidade.Descricao + "?", "Apagar Produto");
             bool? result = telaApagarDialog.ShowDialog();
 
             if (result == true)
             {
-                bool deletado = await daoProduto.Deletar(produtoSelecionado.Entidade);
+                bool deletado = await daoProduto.Deletar(EntidadeSelecionada.Entidade);
 
                 if (deletado)
                 {
-                    SetStatusBarItemDeletado("Produto " + ProdutoSelecionado.Entidade.Descricao + " Foi Deletado Com Sucesso");
+                    SetStatusBarItemDeletado("Produto " + EntidadeSelecionada.Entidade.Descricao + " Foi Deletado Com Sucesso");
                     OnPropertyChanged("TermoPesquisa");
                     await ResetarStatusBar();
                 }
@@ -63,9 +62,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override void AbrirEditar(object parameter)
         {
-            ProdutoModel produtoBkp = (ProdutoModel)produtoSelecionado.Entidade.Clone();
+            ProdutoModel produtoBkp = (ProdutoModel)EntidadeSelecionada.Entidade.Clone();
 
-            EditarProduto editar = new EditarProduto(produtoSelecionado.Entidade.Cod_Barra);
+            EditarProduto editar = new EditarProduto(EntidadeSelecionada.Entidade.Cod_Barra);
 
             var result = editar.ShowDialog();
 
@@ -75,11 +74,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
             else
             {
-                produtoSelecionado.Entidade.Descricao = produtoBkp.Descricao;
-                produtoSelecionado.Entidade.Preco = produtoBkp.Preco;
-                produtoSelecionado.Entidade.Fornecedor = produtoBkp.Fornecedor;
-                produtoSelecionado.Entidade.Marca = produtoBkp.Marca;
-                produtoSelecionado.Entidade.Codigos = produtoBkp.Codigos;
+                EntidadeSelecionada.Entidade.Descricao = produtoBkp.Descricao;
+                EntidadeSelecionada.Entidade.Preco = produtoBkp.Preco;
+                EntidadeSelecionada.Entidade.Fornecedor = produtoBkp.Fornecedor;
+                EntidadeSelecionada.Entidade.Marca = produtoBkp.Marca;
+                EntidadeSelecionada.Entidade.Codigos = produtoBkp.Codigos;
             }
         }
 
@@ -142,18 +141,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 produtos = value;
                 OnPropertyChanged("Produtos");
-            }
-        }
-        public EntidadeComCampo<ProdutoModel> ProdutoSelecionado
-        {
-            get { return produtoSelecionado; }
-            set
-            {
-                produtoSelecionado = value;
-                if (produtoSelecionado != null)
-                {
-                    OnPropertyChanged("ProdutoSelecionado");
-                }
             }
         }
         public override async void GetItems(string termo)
