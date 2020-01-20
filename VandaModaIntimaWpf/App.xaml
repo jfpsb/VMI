@@ -160,9 +160,9 @@
             </Style.Resources>
         </Style>
 
-        <Style TargetType="MenuItem">
+        <Style x:Key="ContextMenuItemStyle" TargetType="MenuItem">
             <Setter Property="FontSize" Value="14px"/>
-            <Setter Property="Padding" Value="0,5,5,5"/>
+            <Setter Property="Padding" Value="0,3,3,3"/>
         </Style>
 
         <x:Array x:Key="CmbPesquisaProdutoItems"
@@ -198,14 +198,15 @@
                               IsHitTestVisible="False"
                               Focusable="False"
                               FontWeight="Bold"
-                              Margin="0,3,3,0"/>
+                              Margin="0,3,3,0"
+                              Style="{StaticResource ContextMenuItemStyle}"/>
                     <Separator Margin="15,5,15,5" />
                     <MenuItem Header="Editar"
-                                  Command="{Binding AbrirEditarComando}"/>
+                                  Command="{Binding AbrirEditarComando}" Style="{StaticResource ContextMenuItemStyle}"/>
                     <MenuItem Header="Copiar"
-                                  Command="{Binding CopiarValorCelulaComando}" />
+                                  Command="{Binding CopiarValorCelulaComando}" Style="{StaticResource ContextMenuItemStyle}"/>
                     <MenuItem Header="Apagar"
-                              Command="{Binding AbrirApagarComando}" />
+                              Command="{Binding AbrirApagarComando}" Style="{StaticResource ContextMenuItemStyle}"/>
                 </StackPanel>
             </Border>
         </ControlTemplate>

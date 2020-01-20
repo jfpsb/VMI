@@ -75,7 +75,7 @@
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Produto.Fornecedor}"
-                      SelectedIndex="0"
+                      SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5">Marca:</Label>
             <ComboBox Grid.Column="1"
@@ -83,7 +83,7 @@
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Produto.Marca}"
-                      SelectedIndex="0"
+                      SelectedIndex="{Binding Path=MarcaComboBoxIndex, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"

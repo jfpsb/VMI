@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -14,6 +15,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOMarca daoMarca;
         protected DAOFornecedor daoFornecedor;
         protected ProdutoModel produtoModel;
+        private int fornecedorComboBoxIndex = 0;
+        private int marcaComboBoxIndex = 0;
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public CadastrarProdutoViewModel() : base("Produto")
@@ -45,10 +48,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override async void Salvar(object parameter)
         {
-            if (Produto.Fornecedor.Cnpj.Equals("0"))
+            if (FornecedorComboBoxIndex == 0)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca.Nome.Equals("SELECIONE A MARCA"))
+            if (MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
             var result = await daoProduto.Inserir(produtoModel);
@@ -113,6 +116,25 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     }
 
                     break;
+            }
+        }
+        public int FornecedorComboBoxIndex
+        {
+            get { return fornecedorComboBoxIndex; }
+            set
+            {
+                fornecedorComboBoxIndex = value;
+                Console.WriteLine(value);
+                OnPropertyChanged("FornecedorComboBoxIndex");
+            }
+        }
+        public int MarcaComboBoxIndex
+        {
+            get { return marcaComboBoxIndex; }
+            set
+            {
+                marcaComboBoxIndex = value;
+                OnPropertyChanged("MarcaComboBoxIndex");
             }
         }
     }

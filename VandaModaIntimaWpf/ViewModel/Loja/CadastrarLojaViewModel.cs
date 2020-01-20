@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
     {
         protected DAOLoja daoLoja;
         protected LojaModel lojaModel;
+        private int matrizComboBoxIndex = 0;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public CadastrarLojaViewModel() : base("Loja")
         {
@@ -30,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override async void Salvar(object parameter)
         {
-            if (Loja.Matriz != null && Loja.Matriz.Nome.Equals("SELECIONE A MATRIZ"))
+            if (Loja.Matriz != null && MatrizComboBoxIndex == 0)
                 Loja.Matriz = null;
 
             var result = await daoLoja.Inserir(Loja);
@@ -86,6 +87,15 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                     }
 
                     break;
+            }
+        }
+        public int MatrizComboBoxIndex
+        {
+            get { return matrizComboBoxIndex; }
+            set
+            {
+                matrizComboBoxIndex = value;
+                OnPropertyChanged("MatrizComboBox");
             }
         }
     }

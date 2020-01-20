@@ -85,7 +85,7 @@
                       ItemsSource="{Binding Matrizes}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Loja.Matriz}"
-                      SelectedIndex="0"
+                      SelectedIndex="{Binding MatrizComboBoxIndex, Mode=OneWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"

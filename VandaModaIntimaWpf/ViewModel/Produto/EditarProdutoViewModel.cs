@@ -9,10 +9,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private bool IsEditted = false;
         public override async void Salvar(object parameter)
         {
-            if (Produto.Fornecedor != null && Produto.Fornecedor.Cnpj.Equals("0"))
+            if (Produto.Fornecedor != null && FornecedorComboBoxIndex == 0)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca != null && Produto.Marca.Nome.Equals("SELECIONE UMA MARCA"))
+            if (Produto.Marca != null && MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
             var result = IsEditted = await daoProduto.Atualizar(produtoModel);

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Editar Produto"
         Height="350"
-        Width="640"
+        Width="500"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -70,14 +70,14 @@
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding FornecedorComboBox, Mode=TwoWay}"
-                      SelectedIndex="0" />
+                      SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}" />
             <Label Grid.Row="5">Marca:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="5"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding MarcaComboBox, Mode=TwoWay}"
-                      SelectedIndex="0" />
+                      SelectedIndex="{Binding Path=MarcaComboBoxIndex, Mode=TwoWay}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
