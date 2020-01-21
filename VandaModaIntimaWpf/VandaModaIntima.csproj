@@ -138,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\RecebimentoCartao\PesquisarRecebimento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TelaApagarDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,11 +183,17 @@
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModel.cs" />
+    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModelStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
+    <Compile Include="ViewModel\IPesquisarViewModelStrategy.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaViewModel.cs" />
     <Compile Include="ViewModel\Loja\EditarLojaViewModel.cs" />
     <Compile Include="ViewModel\Loja\PesquisarLojaViewModel.cs" />
+    <Compile Include="ViewModel\Loja\PesquisarLojaViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Marca\PesquisarMarcaViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Produto\PesquisarProdutoViewModelStrategy.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
@@ -244,6 +254,11 @@
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RecebimentoCartao\DatePickerCalendar.cs" />
+    <Compile Include="View\RecebimentoCartao\DatePickerDateFormat.cs" />
+    <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
+      <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
@@ -290,6 +305,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Credit_Card_Icon.ico" />
     <Resource Include="Resources\Loja_Icon.png" />
     <Resource Include="Resources\Loja_Icon.ico" />
     <EmbeddedResource Include="Mapas\OperadoraCartao.hbm.xml" />

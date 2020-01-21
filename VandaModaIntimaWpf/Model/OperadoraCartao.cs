@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class OperadoraCartao : ObservableObject, ICloneable, IModel
+    public class OperadoraCartao : ObservableObject, ICloneable, IModel
     {
         private string nome;
         private IList<string> identificadoresBanco = new List<string>();

@@ -10,7 +10,8 @@
       <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" />
       <key-many-to-one name="OperadoraCartao" column="operadoracartao" class="VandaModaIntimaWpf.Model.OperadoraCartao" />
     </composite-id>
-    <property name="Valor" column="valor" />
+    <property name="Recebido" column="recebido" />
+    <property name="ValorOperadora" column="valoroperadora" />
   </class>
 
 </hibernate-mapping>

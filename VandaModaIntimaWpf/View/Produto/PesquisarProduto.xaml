@@ -105,7 +105,7 @@
                       AutoGenerateColumns="False"
                       Name="DataGridProduto"
                       AlternatingRowBackground="White"
-                      ItemsSource="{Binding Produtos, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                 <DataGrid.Columns>

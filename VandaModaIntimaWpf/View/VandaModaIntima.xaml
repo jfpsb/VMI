@@ -65,7 +65,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource BotoesTelaInicial}"
-                    Command="{Binding AbrirTelaRecebimento}">
+                    Command="{Binding AbritTelaRecebimentoComando}">
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Resources/Credit_Card.png"

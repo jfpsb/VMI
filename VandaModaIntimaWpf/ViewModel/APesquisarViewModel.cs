@@ -1,5 +1,7 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -7,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -14,10 +18,11 @@ namespace VandaModaIntimaWpf.ViewModel
     /// <summary>
     /// Classe abstrata para ViewModels de pesquisa
     /// </summary>
-    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarViewModel where E : class, IModel
+    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarViewModel where E : class, IModel, ICloneable
     {
         protected ISession _session;
         protected ExcelStrategy excelStrategy;
+        protected IPesquisarViewModelStrategy<E> pesquisarViewModelStrategy;
         private string mensagemStatusBar;
         private string termoPesquisa;
         private bool _threadLocked;
@@ -26,6 +31,8 @@ namespace VandaModaIntimaWpf.ViewModel
         private string imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
+        private ObservableCollection<EntidadeComCampo<E>> entidades;
+        protected IDAO<E> daoEntidade;
 
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
@@ -55,25 +62,126 @@ namespace VandaModaIntimaWpf.ViewModel
             this.formId = formId;
             _session = SessionProvider.GetSession(formId);
 
+            PropertyChanged += PesquisarViewModel_PropertyChanged;
+
             SetStatusBarAguardando();
         }
 
-        public abstract void AbrirCadastrar(object parameter);
-        public abstract void AbrirApagarMsgBox(object parameter);
-        public abstract void AbrirEditar(object parameter);
-        public abstract void ChecarItensMarcados(object parameter);
-        public abstract void ApagarMarcados(object parameter);
-        public abstract void AbrirAjuda(object parameter);
-        public abstract void ImportarExcel(object parameter);
+        public void AbrirCadastrar(object parameter)
+        {
+            pesquisarViewModelStrategy.AbrirCadastrar(parameter);
+            OnPropertyChanged("TermoPesquisa");
+        }
+        public async void AbrirApagarMsgBox(object parameter)
+        {
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog(pesquisarViewModelStrategy.MensagemApagarEntidadeCerteza(EntidadeSelecionada.Entidade), pesquisarViewModelStrategy.TelaApagarCaption());
+            bool? result = telaApagarDialog.ShowDialog();
+
+            if (result == true)
+            {
+                bool deletado = await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
+
+                if (deletado)
+                {
+                    SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade));
+                    OnPropertyChanged("TermoPesquisa");
+                    await ResetarStatusBar();
+                }
+                else
+                {
+                    MensagemStatusBar = pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada();
+                }
+            }
+        }
+        public void AbrirEditar(object parameter)
+        {
+            E backup = (E)EntidadeSelecionada.Entidade.Clone();
+
+            var result = pesquisarViewModelStrategy.AbrirEditar(backup);
+
+            if (result.HasValue && result == true)
+            {
+                OnPropertyChanged("TermoPesquisa");
+            }
+            else
+            {
+                pesquisarViewModelStrategy.RestauraEntidade(EntidadeSelecionada.Entidade, backup);
+            }
+        }
+        public void ChecarItensMarcados(object parameter)
+        {
+            int marcados = 0;
+
+            foreach (EntidadeComCampo<E> em in entidades)
+            {
+                if (em.IsChecked)
+                    marcados++;
+            }
+
+            if (marcados > 1)
+                VisibilidadeBotaoApagarSelecionado = Visibility.Visible;
+            else
+                VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+        }
+        public async void ApagarMarcados(object parameter)
+        {
+            var Mensagem = (IMessageable)parameter;
+            var resultMsgBox = Mensagem.MensagemSimOuNao(pesquisarViewModelStrategy.MensagemApagarMarcados(), pesquisarViewModelStrategy.TelaApagarCaption());
+
+            if (resultMsgBox == MessageBoxResult.Yes)
+            {
+                IList<E> AApagar = new List<E>();
+
+                foreach (EntidadeComCampo<E> em in entidades)
+                {
+                    if (em.IsChecked)
+                        AApagar.Add(em.Entidade);
+                }
+
+                bool result = await daoEntidade.Deletar(AApagar);
+
+                if (result)
+                {
+                    Mensagem.MensagemDeAviso(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    Mensagem.MensagemDeErro(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
+                }
+            }
+        }
+        public void AbrirAjuda(object parameter)
+        {
+            pesquisarViewModelStrategy.AbrirAjuda(parameter);
+        }
+        public async void ImportarExcel(object parameter)
+        {
+            var OpenFileDialog = (IOpenFileDialog)parameter;
+
+            string path = OpenFileDialog.OpenFileDialog();
+
+            if (path != null)
+            {
+                IsThreadLocked = true;
+                await new Excel<E>(excelStrategy, path).Importar();
+                IsThreadLocked = false;
+                OnPropertyChanged("TermoPesquisa");
+            }
+        }
         public abstract void GetItems(string termo);
         public void CopiarValorCelula(object paramenter)
         {
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
             Clipboard.SetText(valorCelula);
         }
-        public virtual void ExportarExcel(object parameter)
+        public async void ExportarExcel(object parameter)
         {
             SetStatusBarAguardandoExcel();
+            IsThreadLocked = true;
+            await new Excel<E>(excelStrategy).Salvar(EntidadeComCampo<E>.ConverterIList(Entidades));
+            IsThreadLocked = false;
+            SetStatusBarExportadoComSucesso();
         }
         public void SetStatusBarItemDeletado(string mensagem)
         {
@@ -173,6 +281,15 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 entidadeSelecionada = value;
                 OnPropertyChanged("EntidadeSelecionada");
+            }
+        }
+        public ObservableCollection<EntidadeComCampo<E>> Entidades
+        {
+            get { return entidades; }
+            set
+            {
+                entidades = value;
+                OnPropertyChanged("Entidades");
             }
         }
         public void DisposeSession()

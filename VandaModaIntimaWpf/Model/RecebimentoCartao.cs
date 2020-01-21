@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class RecebimentoCartao : ObservableObject, ICloneable, IModel
+    public class RecebimentoCartao : ObservableObject, ICloneable, IModel
     {
         private int mes { get; set; }
         private int ano { get; set; }
         private Loja loja { get; set; }
         private OperadoraCartao operadoraCartao { get; set; }
-        private double valor { get; set; }
+        private double recebido { get; set; }
+        private double valorOperadora { get; set; }
         public virtual int Mes
         {
             get { return mes; }
@@ -27,6 +28,10 @@ namespace VandaModaIntimaWpf.Model
                 ano = value;
                 OnPropertyChanged("Ano");
             }
+        }
+        public virtual string MesAno
+        {
+            get { return $"{Mes}/{Ano}"; }
         }
         public virtual Loja Loja
         {
@@ -46,16 +51,24 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("OperacaoCartao");
             }
         }
-        public virtual double Valor
+        public virtual double Recebido
         {
-            get { return valor; }
+            get { return recebido; }
             set
             {
-                valor = value;
+                recebido = value;
                 OnPropertyChanged("Valor");
             }
         }
-
+        public virtual double ValorOperadora
+        {
+            get { return valorOperadora; }
+            set
+            {
+                valorOperadora = value;
+                OnPropertyChanged("ValorOperadora");
+            }
+        }
         public virtual string GetContextMenuHeader { get => $"{Mes}/{Ano}"; }
 
         public virtual object Clone()

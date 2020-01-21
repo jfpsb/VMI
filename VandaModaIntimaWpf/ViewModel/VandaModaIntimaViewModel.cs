@@ -4,6 +4,7 @@ using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.View.RecebimentoCartao;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -13,12 +14,14 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaFornecedorComando { get; set; }
         public ICommand AbrirTelaMarcaComando { get; set; }
         public ICommand AbrirTelaLojaComando { get; set; }
+        public ICommand AbritTelaRecebimentoComando { get; set; }
         public VandaModaIntimaViewModel()
         {
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);
             AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca);
             AbrirTelaLojaComando = new RelayCommand(AbrirTelaLoja);
+            AbritTelaRecebimentoComando = new RelayCommand(AbrirTelaRecebimento);
         }
         public void AbrirTelaProduto(object parameter)
         {
@@ -42,7 +45,8 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirTelaRecebimento(object parameter)
         {
-
+            PesquisarRecebimento pesquisarRecebimento = new PesquisarRecebimento();
+            pesquisarRecebimento.Show();
         }
     }
 }
