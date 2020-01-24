@@ -100,7 +100,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public async Task<bool> Inserir(IList<T> objetos)
+        public virtual async Task<bool> Inserir(IList<T> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -185,6 +185,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             return session.CreateCriteria<T>();
         }
 
-        public abstract Task<T> ListarPorId(object id);
+        public abstract Task<T> ListarPorId(params object[] id);
     }
 }

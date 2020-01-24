@@ -18,11 +18,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar(criteria);
         }
-        public override async Task<Marca> ListarPorId(object id)
+        public override async Task<Marca> ListarPorId(params object[] id)
         {
             var criteria = CriarCriteria();
 
-            criteria.Add(Restrictions.Like("Nome", id));
+            criteria.Add(Restrictions.Like("Nome", id[0]));
 
             var result = await Listar(criteria);
 

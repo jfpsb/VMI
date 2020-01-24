@@ -6,7 +6,7 @@
   <class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true" dynamic-update="true">
     <id name="Nome" column="nome" />
     
-    <bag name="IdentificadoresBanco" table="operadorabancoid" inverse="false" lazy="true" cascade="delete">
+    <bag name="IdentificadoresBanco" table="operadorabancoid" inverse="false" lazy="false" cascade="delete">
       <key column="operadoracartao" />
       <element column="identificador" type="String" />
     </bag>

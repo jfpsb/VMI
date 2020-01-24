@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         Task<bool> Deletar(IList<T> objetos);
         Task<IList<T>> Listar();
         Task<IList<T>> Listar(ICriteria criteria);
-        Task<T> ListarPorId(object id);
+        Task<T> ListarPorId(params object[] id);
         ICriteria CriarCriteria();
     }
 }

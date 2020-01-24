@@ -39,10 +39,13 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             IList<EntidadeComCampo<E>> lista = new List<EntidadeComCampo<E>>();
 
-            foreach (E e in entidades)
+            if (entidades != null)
             {
-                EntidadeComCampo<E> em = new EntidadeComCampo<E>(e);
-                lista.Add(em);
+                foreach (E e in entidades)
+                {
+                    EntidadeComCampo<E> em = new EntidadeComCampo<E>(e);
+                    lista.Add(em);
+                }
             }
 
             return lista;
@@ -52,10 +55,13 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             IList<E> lista = new List<E>();
 
-            foreach (EntidadeComCampo<E> e in entidades)
+            if (entidades != null)
             {
-                E en = e.Entidade;
-                lista.Add(en);
+                foreach (EntidadeComCampo<E> e in entidades)
+                {
+                    E en = e.Entidade;
+                    lista.Add(en);
+                }
             }
 
             return lista;

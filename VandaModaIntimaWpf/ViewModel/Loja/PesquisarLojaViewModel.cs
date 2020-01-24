@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.View;
-using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 

@@ -48,7 +48,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 operadoraCartao = value;
-                OnPropertyChanged("OperacaoCartao");
+                OnPropertyChanged("OperadoraCartao");
             }
         }
         public virtual double Recebido
@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 recebido = value;
-                OnPropertyChanged("Valor");
+                OnPropertyChanged("Recebido");
             }
         }
         public virtual double ValorOperadora
@@ -95,7 +95,15 @@ namespace VandaModaIntimaWpf.Model
 
         public override int GetHashCode()
         {
-            return Mes.GetHashCode() + Ano.GetHashCode() + Loja.GetHashCode() + OperadoraCartao.GetHashCode();
+            int hash = 0;
+
+            if (Loja != null)
+                hash += Loja.GetHashCode();
+
+            if (OperadoraCartao != null)
+                hash += OperadoraCartao.GetHashCode();
+
+            return Mes.GetHashCode() + Ano.GetHashCode() + hash;
         }
     }
 }

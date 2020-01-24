@@ -43,6 +43,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 return false;
             }
 
+            if (!IsEnabled)
+                return false;
+
             return true;
         }
 
@@ -124,7 +127,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             set
             {
                 fornecedorComboBoxIndex = value;
-                Console.WriteLine(value);
                 OnPropertyChanged("FornecedorComboBoxIndex");
             }
         }

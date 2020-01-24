@@ -8,11 +8,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     public class DAOLoja : DAOMySQL<Loja>
     {
         public DAOLoja(ISession _session) : base(_session) { }
-        public override async Task<Loja> ListarPorId(object id)
+        public override async Task<Loja> ListarPorId(params object[] id)
         {
             var criteria = CriarCriteria();
 
-            criteria.Add(Restrictions.Like("Cnpj", id));
+            criteria.Add(Restrictions.Like("Cnpj", id[0]));
 
             var result = await Listar(criteria);
 
@@ -27,6 +27,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             var criteria = CriarCriteria();
             criteria.Add(Restrictions.IsNull("Matriz"));
+            criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);
         }
 
