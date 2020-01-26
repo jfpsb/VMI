@@ -83,7 +83,7 @@
             <view:CampoNumericoComBotao Grid.Column="1"
                                         Width="210"
                                         HorizontalAlignment="Left"
-                                        DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                        DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <Label>Mês Referência:</Label>
             <Label Grid.Row="1">Loja:</Label>
             <ComboBox Grid.Column="1"
@@ -170,7 +170,10 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
-                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
+                        <MenuItem Header="Detalhes"
+                                  Style="{StaticResource ContextMenuItemStyle}" />
+                    </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>

@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.View
         {
             InitializeComponent();
             Title = caption;
-            txtText.Content = text;
+            txtText.Text = text;
         }
         private void BtnSim_Click(object sender, RoutedEventArgs e)
         {

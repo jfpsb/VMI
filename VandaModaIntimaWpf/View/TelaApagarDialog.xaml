@@ -8,11 +8,15 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Produto_Icon.ico"
         Height="150"
-        Width="550">
+        Width="550"
+        SizeToContent="Height">
     <StackPanel>
-        <Label x:Name="txtText"
-               HorizontalAlignment="Center"
-               Padding="15"></Label>
+        <TextBlock x:Name="txtText"
+                   HorizontalAlignment="Center"
+                   Padding="15"
+                   TextWrapping="WrapWithOverflow"
+                   FontSize="14px"
+                   FontFamily="Century Gothic" />
         <Grid Grid.Row="5"
               Grid.ColumnSpan="3"
               Margin="10,10,10,0">

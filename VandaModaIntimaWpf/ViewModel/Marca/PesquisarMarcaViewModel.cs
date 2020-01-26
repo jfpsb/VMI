@@ -19,5 +19,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             DAOMarca daoMarca = (DAOMarca)daoEntidade;
             Entidades = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(await daoMarca.ListarPorNome(termo)));
         }
+        public override bool IsEditable(object parameter)
+        {
+            return false;
+        }
     }
 }

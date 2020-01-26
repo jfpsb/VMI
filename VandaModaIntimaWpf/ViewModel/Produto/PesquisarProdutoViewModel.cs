@@ -52,5 +52,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     break;
             }
         }
+        public override bool IsEditable(object parameter)
+        {
+            return true;
+        }
     }
 }

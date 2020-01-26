@@ -33,11 +33,14 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.ConverterIList(await daoRecebimento.ListarPorMesAnoSum(DataEscolhida.Month, DataEscolhida.Year)));
             }
         }
-
         public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
             Matrizes.Insert(0, new LojaModel("SELECIONE UMA MATRIZ"));
+        }
+        public override bool IsEditable(object parameter)
+        {
+            return false;
         }
         public LojaModel Matriz
         {

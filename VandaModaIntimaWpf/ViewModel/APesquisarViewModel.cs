@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox);
-            AbrirEditarComando = new RelayCommand(AbrirEditar);
+            AbrirEditarComando = new RelayCommand(AbrirEditar, IsEditable);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados);
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados);
             ExportarExcelComando = new RelayCommand(ExportarExcel);
@@ -66,7 +66,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             SetStatusBarAguardando();
         }
-
+        public abstract void GetItems(string termo);
+        public abstract bool IsEditable(object parameter);
         public void AbrirCadastrar(object parameter)
         {
             pesquisarViewModelStrategy.AbrirCadastrar(parameter);
@@ -169,7 +170,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("TermoPesquisa");
             }
         }
-        public abstract void GetItems(string termo);
         public void CopiarValorCelula(object parameter)
         {
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;

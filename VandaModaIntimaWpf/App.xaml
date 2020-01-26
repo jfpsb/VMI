@@ -176,9 +176,12 @@
             </Style.Resources>
         </Style>
 
-        <Style x:Key="ContextMenuItemStyle" TargetType="MenuItem">
-            <Setter Property="FontSize" Value="14px"/>
-            <Setter Property="Padding" Value="0,3,3,3"/>
+        <Style x:Key="ContextMenuItemStyle"
+               TargetType="MenuItem">
+            <Setter Property="FontSize"
+                    Value="14px" />
+            <Setter Property="Padding"
+                    Value="0,4,4,4" />
         </Style>
 
         <x:Array x:Key="CmbPesquisaProdutoItems"
@@ -205,9 +208,13 @@
         <ControlTemplate x:Key="PesquisaDataGridContextMenu"
                          TargetType="{x:Type ContextMenu}">
             <Border Background="Red"
-                    BorderThickness="3" Panel.ZIndex="1">
+                    BorderThickness="3"
+                    Panel.ZIndex="1">
                 <Border.BitmapEffect>
-                    <DropShadowBitmapEffect Color="Black" Direction="-45" ShadowDepth="10" Opacity="0.5" />
+                    <DropShadowBitmapEffect Color="Black"
+                                            Direction="-45"
+                                            ShadowDepth="10"
+                                            Opacity="0.5" />
                 </Border.BitmapEffect>
                 <StackPanel Background="{TemplateBinding Background}">
                     <MenuItem Header="{Binding EntidadeSelecionada.Entidade.GetContextMenuHeader}"
@@ -215,14 +222,19 @@
                               Focusable="False"
                               FontWeight="Bold"
                               Margin="0,3,3,0"
-                              Style="{StaticResource ContextMenuItemStyle}"/>
+                              Style="{StaticResource ContextMenuItemStyle}" />
                     <Separator Margin="15,5,15,5" />
                     <MenuItem Header="Editar"
-                                  Command="{Binding AbrirEditarComando}" Style="{StaticResource ContextMenuItemStyle}"/>
+                              Command="{Binding AbrirEditarComando}"
+                              Style="{StaticResource ContextMenuItemStyle}" />
                     <MenuItem Header="Copiar"
-                                  Command="{Binding CopiarValorCelulaComando}" Style="{StaticResource ContextMenuItemStyle}"/>
+                              Command="{Binding CopiarValorCelulaComando}"
+                              Style="{StaticResource ContextMenuItemStyle}" />
                     <MenuItem Header="Apagar"
-                              Command="{Binding AbrirApagarComando}" Style="{StaticResource ContextMenuItemStyle}"/>
+                              Command="{Binding AbrirApagarComando}"
+                              Style="{StaticResource ContextMenuItemStyle}" />
+                    <Separator Margin="15,5,15,5" />
+                    <ItemsPresenter />
                 </StackPanel>
             </Border>
         </ControlTemplate>

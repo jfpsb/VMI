@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string TelaApagarCaption()
         {
-            return "Apagar Produto";
+            return "Apagar Produto(s)";
         }
     }
 }

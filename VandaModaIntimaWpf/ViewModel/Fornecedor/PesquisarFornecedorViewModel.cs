@@ -50,6 +50,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     break;
             }
         }
+
+        public override bool IsEditable(object parameter)
+        {
+            return true;
+        }
+
         public int PesquisarPor
         {
             get { return pesquisarPor; }

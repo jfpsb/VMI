@@ -23,12 +23,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public bool? AbrirEditar(RecebimentoCartaoModel entidade)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public string MensagemApagarEntidadeCerteza(RecebimentoCartaoModel e)
         {
-            throw new NotImplementedException();
+            return $"Tem Certeza Que Deseja Apagar o Recebimento de {e.MesAno} da Loja {e.Loja.Nome}?";
         }
 
         public string MensagemApagarMarcados()
@@ -38,32 +38,32 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string MensagemEntidadeDeletada(RecebimentoCartaoModel e)
         {
-            throw new NotImplementedException();
+            return $"Recebimento {e.GetContextMenuHeader} Deletado Com Sucesso";
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            throw new NotImplementedException();
+            return "Recebimento Não Foi Deletado";
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            throw new NotImplementedException();
+            return "Recebimentos Deletados Com Sucesso";
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            throw new NotImplementedException();
+            return "Erro Ao Apagar Recebimentos";
         }
 
         public void RestauraEntidade(RecebimentoCartaoModel original, RecebimentoCartaoModel backup)
         {
-            throw new NotImplementedException();
+
         }
 
         public string TelaApagarCaption()
         {
-            throw new NotImplementedException();
+            return "Apagar Recebimento(s)";
         }
     }
 }
