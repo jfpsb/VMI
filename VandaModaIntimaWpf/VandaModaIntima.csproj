@@ -272,6 +272,7 @@
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RecebimentoCartao\SelectedItemConverter.cs" />
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>

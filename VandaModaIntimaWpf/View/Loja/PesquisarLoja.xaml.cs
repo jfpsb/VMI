@@ -1,6 +1,4 @@
-﻿using VandaModaIntimaWpf.View;
-
-namespace VandaModaIntimaWpf.View.Loja
+﻿namespace VandaModaIntimaWpf.View.Loja
 {
     public partial class PesquisarLoja : APesquisarView
     {

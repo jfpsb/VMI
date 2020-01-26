@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.View
 {
     public partial class APesquisarView : Window, IMessageable, IOpenFileDialog, ICloseable
     {
-        private void Pesquisar_Closing(object sender, CancelEventArgs e)
+        public void Pesquisar_Closing(object sender, CancelEventArgs e)
         {
             if (((IPesquisarViewModel)DataContext).IsThreadLocked())
             {

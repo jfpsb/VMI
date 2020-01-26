@@ -170,7 +170,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
         public abstract void GetItems(string termo);
-        public void CopiarValorCelula(object paramenter)
+        public void CopiarValorCelula(object parameter)
         {
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
             Clipboard.SetText(valorCelula);
@@ -294,7 +294,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void DisposeSession()
         {
-            SessionProvider.FechaSession(this.formId);
+            SessionProvider.FechaSession(formId);
         }
 
         bool IPesquisarViewModel.IsThreadLocked()

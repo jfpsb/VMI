@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Cadastrar Recebimento de Cartao"
         Height="500"
-        Width="700"
+        Width="850"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Credit_Card_Icon.ico">
     <Window.DataContext>
@@ -127,6 +127,27 @@
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
                                         Value="{Binding ValorOperadora}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Diferença"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Diferenca}"
+                                        Width="Auto">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Diferenca}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Observação"
+                                        Binding="{Binding Observacao}"
+                                        Width="200">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Observacao}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>

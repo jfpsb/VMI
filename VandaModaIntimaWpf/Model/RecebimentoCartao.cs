@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private OperadoraCartao operadoraCartao { get; set; }
         private double recebido { get; set; }
         private double valorOperadora { get; set; }
+        private string observacao { get; set; }
         public virtual int Mes
         {
             get { return mes; }
@@ -67,9 +68,28 @@ namespace VandaModaIntimaWpf.Model
             {
                 valorOperadora = value;
                 OnPropertyChanged("ValorOperadora");
+                OnPropertyChanged("Diferenca");
             }
         }
-        public virtual string GetContextMenuHeader { get => $"{Mes}/{Ano}"; }
+        public virtual double Diferenca
+        {
+            get
+            {
+                double v1 = Math.Round(valorOperadora, 2, MidpointRounding.AwayFromZero);
+                double v2 = Math.Round(recebido, 2, MidpointRounding.AwayFromZero);
+                return Math.Round(v1 - v2, 2, MidpointRounding.AwayFromZero);
+            }
+        }
+        public virtual string Observacao
+        {
+            get { return observacao; }
+            set
+            {
+                observacao = value;
+                OnPropertyChanged("Observacao");
+            }
+        }
+        public virtual string GetContextMenuHeader { get => $"{MesAno} - {Loja.Nome}"; }
 
         public virtual object Clone()
         {
@@ -83,7 +103,7 @@ namespace VandaModaIntimaWpf.Model
 
         public override bool Equals(object obj)
         {
-            if(obj.GetType() == typeof(RecebimentoCartao))
+            if (obj.GetType() == typeof(RecebimentoCartao))
             {
                 RecebimentoCartao rc = (RecebimentoCartao)obj;
                 if (Mes == rc.Mes && Ano == rc.Ano && Loja.Cnpj == rc.Loja.Cnpj && OperadoraCartao.Nome == rc.OperadoraCartao.Nome)

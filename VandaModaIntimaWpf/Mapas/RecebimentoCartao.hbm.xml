@@ -12,6 +12,7 @@
     </composite-id>
     <property name="Recebido" column="recebido" />
     <property name="ValorOperadora" column="valoroperadora" />
+  <property name="Observacao" column="observacao" />
   </class>
 
 </hibernate-mapping>

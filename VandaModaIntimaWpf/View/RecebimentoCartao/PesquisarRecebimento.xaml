@@ -1,21 +1,25 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.RecebimentoCartao.PesquisarRecebimento"
-        x:Name="TelaPesquisarRecebimento"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
-        mc:Ignorable="d"
-        Title="Pesquisar Recebimento de Cartão"
-        Height="450"
-        Width="800"
-        Icon="/Resources/Credit_Card_Icon.ico"
-        
-        WindowStartupLocation="CenterScreen">
+﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+                     x:Class="VandaModaIntimaWpf.View.RecebimentoCartao.PesquisarRecebimento"
+                     x:Name="TelaPesquisarRecebimento"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Recebimento de Cartão"
+                     Height="450"
+                     Width="800"
+                     Icon="/Resources/Credit_Card_Icon.ico"
+                     WindowStartupLocation="CenterScreen"
+                     Closing="Pesquisar_Closing">
     <Window.DataContext>
         <ViewModel:PesquisarRecebimentoViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <local:SelectedItemConverter x:Key="SelectedItemConverter"/>
+    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -86,7 +90,7 @@
                         HorizontalAlignment="Left"
                         SelectedDate="{Binding DataEscolhida}"
                         local:DatePickerCalendar.IsMonthYear="True"
-                        local:DatePickerDateFormat.DateFormat="MM/yyyy"/>
+                        local:DatePickerDateFormat.DateFormat="MM/yyyy" />
             <Label Grid.Row="1">Loja:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
@@ -95,11 +99,12 @@
                       ItemsSource="{Binding Matrizes}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Matriz}"
-                      SelectedIndex="{Binding MatrizComboBoxIndex}"/>
+                      SelectedIndex="{Binding MatrizComboBoxIndex}" />
             <DataGrid Grid.Row="2"
                       Grid.ColumnSpan="2"
                       Grid.RowSpan="2"
                       AutoGenerateColumns="False"
+                      Name="DataGridRecebimento"
                       AlternatingRowBackground="White"
                       ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
@@ -158,8 +163,22 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
+                    <DataGridTextColumn Header="Diferença"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Entidade.Diferenca}"
+                                        Width="Auto">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Entidade.Diferenca}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>
     </DockPanel>
-</Window>
+</view:APesquisarView>
