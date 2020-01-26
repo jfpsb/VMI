@@ -17,9 +17,6 @@
     <Window.DataContext>
         <ViewModel:PesquisarRecebimentoViewModel />
     </Window.DataContext>
-    <Window.Resources>
-        <local:SelectedItemConverter x:Key="SelectedItemConverter"/>
-    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -83,14 +80,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <view:CampoNumericoComBotao Grid.Column="1"
+                                        Width="210"
+                                        HorizontalAlignment="Left"
+                                        DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
             <Label>Mês Referência:</Label>
-            <DatePicker Grid.Column="1"
-                        Text="Selecione Um Mês"
-                        Width="200"
-                        HorizontalAlignment="Left"
-                        SelectedDate="{Binding DataEscolhida}"
-                        local:DatePickerCalendar.IsMonthYear="True"
-                        local:DatePickerDateFormat.DateFormat="MM/yyyy" />
             <Label Grid.Row="1">Loja:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="1"

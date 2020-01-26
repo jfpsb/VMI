@@ -78,6 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\CampoNumericoComBotao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -205,6 +209,9 @@
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoCartaoViewModelStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
+    <Compile Include="View\CampoNumericoComBotao.xaml.cs">
+      <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
     </Compile>
@@ -267,12 +274,9 @@
     <Compile Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml.cs">
       <DependentUpon>CadastrarRecebimentoCartao.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RecebimentoCartao\DatePickerCalendar.cs" />
-    <Compile Include="View\RecebimentoCartao\DatePickerDateFormat.cs" />
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RecebimentoCartao\SelectedItemConverter.cs" />
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
@@ -319,6 +323,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Flecha_Baixo.png" />
+    <Resource Include="Resources\Flecha_Cima.png" />
     <Resource Include="Resources\Credit_Card_Icon.ico" />
     <Resource Include="Resources\Loja_Icon.png" />
     <Resource Include="Resources\Loja_Icon.ico" />
