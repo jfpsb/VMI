@@ -126,10 +126,10 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public async void ApagarMarcados(object parameter)
         {
-            var Mensagem = (IMessageable)parameter;
-            var resultMsgBox = Mensagem.MensagemSimOuNao(pesquisarViewModelStrategy.MensagemApagarMarcados(), pesquisarViewModelStrategy.TelaApagarCaption());
+            TelaApagarDialog telaApagar = new TelaApagarDialog(pesquisarViewModelStrategy.MensagemApagarMarcados(), pesquisarViewModelStrategy.TelaApagarCaption());
+            bool? result = telaApagar.ShowDialog();
 
-            if (resultMsgBox == MessageBoxResult.Yes)
+            if (result == true)
             {
                 IList<E> AApagar = new List<E>();
 
@@ -139,16 +139,15 @@ namespace VandaModaIntimaWpf.ViewModel
                         AApagar.Add(em.Entidade);
                 }
 
-                bool result = await daoEntidade.Deletar(AApagar);
+                bool resultDeletar = await daoEntidade.Deletar(AApagar);
 
-                if (result)
+                if (resultDeletar)
                 {
-                    Mensagem.MensagemDeAviso(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
-                    OnPropertyChanged("TermoPesquisa");
+                    SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
                 }
                 else
                 {
-                    Mensagem.MensagemDeErro(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
+                    SetStatusBarErro(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
                 }
             }
         }
@@ -187,6 +186,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMDELETADO;
+            OnPropertyChanged("TermoPesquisa");
         }
         public async Task ResetarStatusBar()
         {
@@ -300,6 +300,14 @@ namespace VandaModaIntimaWpf.ViewModel
         bool IPesquisarViewModel.IsThreadLocked()
         {
             return _threadLocked;
+        }
+
+        public async void SetStatusBarErro(string mensagem)
+        {
+            MensagemStatusBar = mensagem;
+            ImagemStatusBar = IMAGEMERRO;
+            await Task.Delay(7000);
+            SetStatusBarAguardando();
         }
     }
 }

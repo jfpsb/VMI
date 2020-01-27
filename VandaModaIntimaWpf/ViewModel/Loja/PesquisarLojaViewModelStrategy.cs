@@ -66,7 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public string TelaApagarCaption()
         {
-            return "Apagar Loja";
+            return "Apagar Loja(s)";
         }
     }
 }

@@ -97,5 +97,52 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 return false;
             }
         }
+        public override async Task<bool> Deletar(RecebimentoCartao objeto)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    await session.DeleteAsync("from RecebimentoCartao WHERE Mes = ? AND Ano = ? and Loja = ?",
+                        new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
+                        new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
+                    await transacao.CommitAsync();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
+                }
+
+                return false;
+            }
+        }
+        public override async Task<bool> Deletar(IList<RecebimentoCartao> objetos)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (RecebimentoCartao recebimento in objetos)
+                    {
+                        await session.DeleteAsync("from RecebimentoCartao WHERE Mes = ? AND Ano = ? and Loja = ?",
+                            new object[] { recebimento.Mes, recebimento.Ano, recebimento.Loja.Cnpj },
+                            new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
+                    }
+
+                    await transacao.CommitAsync();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
+                }
+
+                return false;
+            }
+        }
     }
 }

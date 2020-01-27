@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string MensagemApagarMarcados()
         {
-            throw new System.NotImplementedException();
+            return "Deseja Apagar os Produtos Marcados?";
         }
 
         public string MensagemEntidadeDeletada(ProdutoModel produto)

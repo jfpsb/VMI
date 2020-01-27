@@ -47,6 +47,9 @@
     <Reference Include="NHibernate, Version=5.2.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.5.2.6\lib\net461\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="PrinterUtility, Version=1.0.2.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\PrinterUtility.1.2.0\lib\PrinterUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
@@ -217,7 +220,6 @@
     </Compile>
     <Compile Include="View\ICloseable.cs" />
     <Compile Include="ViewModel\IEditarViewModel.cs" />
-    <Compile Include="View\IMessageable.cs" />
     <Compile Include="View\IOpenFileDialog.cs" />
     <Compile Include="ViewModel\IPesquisarViewModel.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaViewModel.cs" />

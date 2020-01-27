@@ -60,7 +60,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public string TelaApagarCaption()
         {
-            return "Apagar Marca";
+            return "Apagar Marca(s)";
         }
     }
 }

@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public async Task<bool> Deletar(T objeto)
+        public virtual async Task<bool> Deletar(T objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             }
         }
 
-        public async Task<bool> Deletar(IList<T> objetos)
+        public virtual async Task<bool> Deletar(IList<T> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {

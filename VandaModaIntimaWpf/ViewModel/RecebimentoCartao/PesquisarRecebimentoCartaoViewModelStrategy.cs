@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -33,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string MensagemApagarMarcados()
         {
-            throw new NotImplementedException();
+            return "Deseja Apagar os Recebimentos Marcados?";
         }
 
         public string MensagemEntidadeDeletada(RecebimentoCartaoModel e)

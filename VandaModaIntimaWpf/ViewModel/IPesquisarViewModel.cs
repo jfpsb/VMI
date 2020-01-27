@@ -20,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel
         void SetStatusBarAguardandoExcel();
         void SetStatusBarAguardando();
         void SetStatusBarExportadoComSucesso();
+        void SetStatusBarErro(string mensagem);
         Task ResetarStatusBar();
     }
 }

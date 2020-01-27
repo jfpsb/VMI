@@ -5,7 +5,7 @@ using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View
 {
-    public partial class APesquisarView : Window, IMessageable, IOpenFileDialog, ICloseable
+    public partial class APesquisarView : Window, IOpenFileDialog, ICloseable
     {
         public void Pesquisar_Closing(object sender, CancelEventArgs e)
         {
@@ -18,21 +18,6 @@ namespace VandaModaIntimaWpf.View
                 //Fecha sessao
                 ((IPesquisarViewModel)DataContext).DisposeSession();
             }
-        }
-
-        public void MensagemDeAviso(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Aviso", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        public void MensagemDeErro(string mensagem)
-        {
-            MessageBox.Show(mensagem, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        public MessageBoxResult MensagemSimOuNao(string mensagem, string caption)
-        {
-            return MessageBox.Show(mensagem, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
         }
 
         public string OpenFileDialog()

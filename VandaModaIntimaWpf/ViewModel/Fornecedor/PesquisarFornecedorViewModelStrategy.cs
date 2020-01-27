@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string TelaApagarCaption()
         {
-            return "Apagar Fornecedor";
+            return "Apagar Fornecedor(es)";
         }
     }
 }
