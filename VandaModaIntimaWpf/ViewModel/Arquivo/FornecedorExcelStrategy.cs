@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
 
-            if (cols != 4)
+            if (cols != 5)
                 return false;
 
             for (int i = 0; i < rows; i++)
@@ -54,8 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 var cnpj = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.CNPJ]).Value;
                 var nome = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome]).Value;
                 var nome_fantasia = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia]).Value;
-                var email = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email]).Value;
                 var telefone = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone]).Value;
+                var email = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email]).Value;
 
                 if (cnpj == null || nome == null)
                     continue;
@@ -78,10 +78,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 }
 
                 fornecedor.Nome = nome.ToString();
-                fornecedor.Telefone = telefone.ToString();
 
                 if (nome_fantasia != null)
                     fornecedor.Fantasia = nome_fantasia.ToString();
+
+                if (telefone != null)
+                    fornecedor.Telefone = telefone.toString();
 
                 if (email != null)
                     fornecedor.Email = email.ToString();
