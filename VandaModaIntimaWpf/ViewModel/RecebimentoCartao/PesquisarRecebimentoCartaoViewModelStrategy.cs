@@ -1,4 +1,5 @@
 ﻿using System;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -20,6 +21,16 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public bool? AbrirEditar(RecebimentoCartaoModel entidade)
         {
             return false;
+        }
+
+        public void ExportarSQLInsert(object parameter, IDAO<RecebimentoCartaoModel> dao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExportarSQLUpdate(object parameter, IDAO<RecebimentoCartaoModel> dao)
+        {
+            throw new NotImplementedException();
         }
 
         public string MensagemApagarEntidadeCerteza(RecebimentoCartaoModel e)

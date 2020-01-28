@@ -1,4 +1,5 @@
 ﻿using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -7,6 +8,8 @@ namespace VandaModaIntimaWpf.ViewModel
         void AbrirCadastrar(object parameter);
         bool? AbrirEditar(E entidade);
         void AbrirAjuda(object parameter);
+        void ExportarSQLUpdate(object parameter, IDAO<E> dao);
+        void ExportarSQLInsert(object parameter, IDAO<E> dao);
         void RestauraEntidade(E original, E backup);
         string MensagemApagarEntidadeCerteza(E e);
         string MensagemEntidadeDeletada(E e);

@@ -47,6 +47,8 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
         public ICommand CopiarValorCelulaComando { get; set; }
+        public ICommand ExportarSQLUpdateComando { get; set; }
+        public ICommand ExportarSQLInsertComando { get; set; }
         public APesquisarViewModel(string formId)
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
@@ -58,6 +60,8 @@ namespace VandaModaIntimaWpf.ViewModel
             ImportarExcelComando = new RelayCommand(ImportarExcel);
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
+            ExportarSQLUpdateComando = new RelayCommand(ExportarSQLUpdate);
+            ExportarSQLInsertComando = new RelayCommand(ExportarSQLInsert);
 
             this.formId = formId;
             _session = SessionProvider.GetSession(formId);
@@ -308,6 +312,16 @@ namespace VandaModaIntimaWpf.ViewModel
             ImagemStatusBar = IMAGEMERRO;
             await Task.Delay(7000);
             SetStatusBarAguardando();
+        }
+
+        public void ExportarSQLUpdate(object parameter)
+        {
+            pesquisarViewModelStrategy.ExportarSQLUpdate(parameter, daoEntidade);
+        }
+
+        public void ExportarSQLInsert(object parameter)
+        {
+            pesquisarViewModelStrategy.ExportarSQLInsert(parameter, daoEntidade);
         }
     }
 }

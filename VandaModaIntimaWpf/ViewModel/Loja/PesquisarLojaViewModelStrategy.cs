@@ -1,4 +1,5 @@
 ﻿using System;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Loja;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -22,6 +23,16 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         {
             EditarLoja editar = new EditarLoja(entidade.Cnpj);
             return editar.ShowDialog();
+        }
+
+        public void ExportarSQLInsert(object parameter, IDAO<LojaModel> dao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExportarSQLUpdate(object parameter, IDAO<LojaModel> dao)
+        {
+            throw new NotImplementedException();
         }
 
         public string MensagemApagarEntidadeCerteza(LojaModel e)

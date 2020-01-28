@@ -1,4 +1,5 @@
 ﻿using System;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Marca;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -21,6 +22,16 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         {
             EditarMarca editar = new EditarMarca(entidade.Nome);
             return editar.ShowDialog();
+        }
+
+        public void ExportarSQLInsert(object parameter, IDAO<MarcaModel> dao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ExportarSQLUpdate(object parameter, IDAO<MarcaModel> dao)
+        {
+            throw new NotImplementedException();
         }
 
         public string MensagemApagarEntidadeCerteza(MarcaModel e)

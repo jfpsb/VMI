@@ -1,4 +1,5 @@
-﻿using VandaModaIntimaWpf.View.Produto;
+﻿using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.View.Produto;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
@@ -21,6 +22,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             EditarProduto editar = new EditarProduto(produto.Cod_Barra);
             return editar.ShowDialog();
+        }
+
+        public void ExportarSQLInsert(object parameter, IDAO<ProdutoModel> dao)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ExportarSQLUpdate(object parameter, IDAO<ProdutoModel> dao)
+        {
+            throw new System.NotImplementedException();
         }
 
         public string MensagemApagarEntidadeCerteza(ProdutoModel produto)
