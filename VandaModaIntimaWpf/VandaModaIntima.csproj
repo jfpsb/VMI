@@ -153,6 +153,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\SQL\ExportarSQL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TelaApagarDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +181,7 @@
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
+    <Compile Include="Model\MySQLAliases.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Produto.cs" />
@@ -211,6 +216,8 @@
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoCartaoViewModelStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
+    <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
+    <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\CampoNumericoComBotao.xaml.cs">
       <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
@@ -278,6 +285,9 @@
     </Compile>
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SQL\ExportarSQL.xaml.cs">
+      <DependentUpon>ExportarSQL.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>

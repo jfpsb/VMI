@@ -1,5 +1,5 @@
 ﻿using System;
-using VandaModaIntimaWpf.Model.DAO;
+using System.Collections.Generic;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -23,12 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             return false;
         }
 
-        public void ExportarSQLInsert(object parameter, IDAO<RecebimentoCartaoModel> dao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExportarSQLUpdate(object parameter, IDAO<RecebimentoCartaoModel> dao)
+        public void AbrirExportarSQL(object parameter, IList<RecebimentoCartaoModel> entidades)
         {
             throw new NotImplementedException();
         }

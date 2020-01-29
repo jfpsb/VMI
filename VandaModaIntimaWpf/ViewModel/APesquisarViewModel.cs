@@ -1,8 +1,10 @@
-﻿using NHibernate;
+﻿using Microsoft.Win32;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,8 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ExportarExcelComando { get; set; }
         public ICommand ImportarExcelComando { get; set; }
         public ICommand CopiarValorCelulaComando { get; set; }
-        public ICommand ExportarSQLUpdateComando { get; set; }
-        public ICommand ExportarSQLInsertComando { get; set; }
+        public ICommand ExportarSQLComando { get; set; }
         public APesquisarViewModel(string formId)
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
@@ -60,8 +61,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ImportarExcelComando = new RelayCommand(ImportarExcel);
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
-            ExportarSQLUpdateComando = new RelayCommand(ExportarSQLUpdate);
-            ExportarSQLInsertComando = new RelayCommand(ExportarSQLInsert);
+            ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
 
             this.formId = formId;
             _session = SessionProvider.GetSession(formId);
@@ -314,14 +314,9 @@ namespace VandaModaIntimaWpf.ViewModel
             SetStatusBarAguardando();
         }
 
-        public void ExportarSQLUpdate(object parameter)
+        public async void AbrirExportarSQL(object parameter)
         {
-            pesquisarViewModelStrategy.ExportarSQLUpdate(parameter, daoEntidade);
-        }
-
-        public void ExportarSQLInsert(object parameter)
-        {
-            pesquisarViewModelStrategy.ExportarSQLInsert(parameter, daoEntidade);
+            pesquisarViewModelStrategy.AbrirExportarSQL(parameter, await daoEntidade.Listar());
         }
     }
 }

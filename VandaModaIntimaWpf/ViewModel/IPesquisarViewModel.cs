@@ -21,8 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel
         void SetStatusBarAguardando();
         void SetStatusBarExportadoComSucesso();
         void SetStatusBarErro(string mensagem);
-        void ExportarSQLUpdate(object parameter);
-        void ExportarSQLInsert(object parameter);
+        void AbrirExportarSQL(object parameter);
         Task ResetarStatusBar();
     }
 }

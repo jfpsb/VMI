@@ -1,5 +1,5 @@
 ﻿using System;
-using VandaModaIntimaWpf.Model.DAO;
+using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Loja;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -25,12 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             return editar.ShowDialog();
         }
 
-        public void ExportarSQLInsert(object parameter, IDAO<LojaModel> dao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExportarSQLUpdate(object parameter, IDAO<LojaModel> dao)
+        public void AbrirExportarSQL(object parameter, IList<LojaModel> entidades)
         {
             throw new NotImplementedException();
         }
