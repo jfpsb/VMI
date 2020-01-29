@@ -17,13 +17,16 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         protected IDAO<E> daoEntidade;
         public ICommand ExportarInsertsComando { get; set; }
         public ICommand ExportarUpdatesComando { get; set; }
+        public ICommand InserirInsertComando { get; set; }
 
+        private MySQLAliases aliasSelecionado;
         private ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
         public ExportarSQLViewModel()
         {
             Aliases = GetAliases();
             ExportarInsertsComando = new RelayCommand(ExportarInserts);
             ExportarUpdatesComando = new RelayCommand(ExportarUpdates);
+            InserirInsertComando = new RelayCommand(InserirSelect);
         }
         protected abstract void ExportarSQLInsert(StreamWriter sw, IList<E> entidades, string fileName);
         protected abstract void ExportarSQLUpdate(StreamWriter sw, IList<E> entidades, string fileName);
@@ -66,9 +69,27 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                 }
             }
         }
+        private void InserirSelect(object parameter)
+        {
+            AliasSelecionado.ValorPadrao = "(SELECT <campo> FROM <tabela> WHERE <campo> = \"{nao_altere_este_campo}\" LIMIT 1)";
+            OnPropertyChanged("AliasSelecionado");
+            OnPropertyChanged("Aliases");
+        }
         public void FechaJanela(object sender, CancelEventArgs e)
         {
             SessionProvider.FechaSession("ExportarSQL");
+        }
+        public MySQLAliases AliasSelecionado
+        {
+            get
+            {
+                return aliasSelecionado;
+            }
+            set
+            {
+                aliasSelecionado = value;
+                OnPropertyChanged("AliasSelecionado");
+            }
         }
         public ObservableCollection<MySQLAliases> Aliases
         {

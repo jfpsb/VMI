@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.View.SQL;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
@@ -26,7 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public void AbrirExportarSQL(object parameter, IList<ProdutoModel> entidades)
         {
-            throw new System.NotImplementedException();
+            ExportarSQL importarExportarSQL = new ExportarSQL(new ExportarSQLProduto());
+            importarExportarSQL.ShowDialog();
         }
 
         public string MensagemApagarEntidadeCerteza(ProdutoModel produto)

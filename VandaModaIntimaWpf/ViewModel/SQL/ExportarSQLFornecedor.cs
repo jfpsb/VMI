@@ -19,32 +19,32 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             var originalAliases = GetAliases();
             var subtracaoAliases = Aliases.Where(p => p.Coluna == null);
 
-            string aliasCnpj = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cnpj")).Alias;
-            string aliasNome = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Nome")).Alias;
-            string aliasFantasia = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fantasia")).Alias;
-            string aliasTelefone = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Telefone")).Alias;
-            string aliasEmail = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Email")).Alias;
+            MySQLAliases aliasCnpj = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cnpj"));
+            MySQLAliases aliasNome = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Nome"));
+            MySQLAliases aliasFantasia = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fantasia"));
+            MySQLAliases aliasTelefone = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Telefone"));
+            MySQLAliases aliasEmail = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Email"));
 
             foreach (Model.Fornecedor fornecedor in entidades)
             {
-                string campos = $"`{aliasCnpj}`, `{aliasNome}`";
+                string campos = $"`{aliasCnpj.Alias}`, `{aliasNome.Alias}`";
                 string valores = $"\"{fornecedor.Cnpj}\", \"{fornecedor.Nome}\"";
 
                 if (!string.IsNullOrEmpty(fornecedor.Fantasia))
                 {
-                    campos += $", `{aliasFantasia}`";
+                    campos += $", `{aliasFantasia.Alias}`";
                     valores += $", \"{fornecedor.Fantasia}\"";
                 }
 
                 if (!string.IsNullOrEmpty(fornecedor.Telefone))
                 {
-                    campos += $", `{aliasTelefone}`";
+                    campos += $", `{aliasTelefone.Alias}`";
                     valores += $", '{new string(fornecedor.Telefone?.Where(c => char.IsDigit(c)).ToArray())}'";
                 }
 
                 if (!string.IsNullOrEmpty(fornecedor.Email))
                 {
-                    campos += $", `{aliasEmail}`";
+                    campos += $", `{aliasEmail.Alias}`";
                     valores += $", \"{fornecedor.Email}\"";
                 }
 
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
             foreach (Model.Fornecedor fornecedor in entidades)
             {
-                sw.WriteLine($"UPDATE fornecedor SET {aliasNome} = \"{fornecedor.Nome} - {fornecedor.Fantasia}\", " +
+                sw.WriteLine($"UPDATE fornecedor SET {aliasNome} = \"{fornecedor.Nome}\", " +
                     $"{aliasFantasia} = \"{fornecedor.Fantasia}\", " +
                     $"{aliasEmail} = \"{fornecedor.Email}\", " +
                     $"{aliasTelefone} = '{new string(fornecedor.Telefone?.Where(c => char.IsDigit(c)).ToArray())}' WHERE {aliasCnpj} LIKE '{fornecedor.Cnpj}';");

@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Importar/Exportar para SQL"
         Height="500"
-        Width="350"
+        Width="500
+        "
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -37,26 +38,34 @@
                    Margin="5"
                    FontSize="14px"
                    Foreground="Red">
-            Campo de valor padrão somente será considerado em colunas novas adicionadas à lista. Não pode ser vazio.
+            Campo de valor padrão somente será considerado se possuir um comando SQL válido. Em colunas adicionais não pode ter valor vazio.
             Campos adicionais serão ignorados em exportação de comandos de update.
         </TextBlock>
         <DataGrid Grid.Row="2"
                   Grid.ColumnSpan="2"
                   CanUserAddRows="True"
                   CanUserDeleteRows="True"
-                  ItemsSource="{Binding Aliases, UpdateSourceTrigger=PropertyChanged}">
+                  ItemsSource="{Binding Aliases}"
+                  SelectedItem="{Binding AliasSelecionado}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Coluna"
                                     Width="Auto"
                                     Binding="{Binding Coluna}"
                                     IsReadOnly="True" />
                 <DataGridTextColumn Header="Alias"
-                                    Width="*"
+                                    Width="Auto"
                                     Binding="{Binding Alias}" />
                 <DataGridTextColumn Header="Valor Padrão"
                                     Width="*"
                                     Binding="{Binding ValorPadrao}" />
+
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Inserir Comando de Select em Valor Padrão"
+                              Command="{Binding InserirInsertComando}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"

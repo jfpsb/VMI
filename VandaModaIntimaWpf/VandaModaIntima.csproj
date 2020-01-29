@@ -217,6 +217,7 @@
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoCartaoViewModelStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
+    <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\CampoNumericoComBotao.xaml.cs">

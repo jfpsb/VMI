@@ -61,18 +61,8 @@
                     </MenuItem.Icon>
                     <MenuItem Header="Excel (*.xlsx)"
                               Command="{Binding ExportarExcelComando}" />
-                    <MenuItem Header="SQL (*.sql)">
-                        <MenuItem Header="Insert">
-                            <MenuItem.ToolTip>
-                                <Label>Exporta Todos Os Produtos Como Comandos Insert</Label>
-                            </MenuItem.ToolTip>
-                        </MenuItem>
-                        <MenuItem Header="Update">
-                            <MenuItem.ToolTip>
-                                <Label>Exporta Todos Os Produtos Como Comandos Update</Label>
-                            </MenuItem.ToolTip>
-                        </MenuItem>
-                    </MenuItem>
+                    <MenuItem Header="SQL (*.sql)"
+                              Command="{Binding ExportarSQLComando}" />
                 </MenuItem>
                 <MenuItem Header="Ajuda"
                           Command="{Binding AbrirAjudaComando}">
