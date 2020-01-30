@@ -24,12 +24,16 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco] = lista[i].Preco;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
 
                 if (lista[i].Fornecedor != null)
                     Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
 
                 if (lista[i].Marca != null)
                     Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
+
+                if (!string.IsNullOrEmpty(lista[i].Ncm))
+                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
 
                 if (lista[i].Codigos.Count > 0)
                 {
@@ -65,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
 
-            if (cols != 6)
+            if (cols != 7)
                 return false;
 
             for (int i = 0; i < rows; i++)
@@ -77,6 +81,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 var preco = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco]).Value;
                 var fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
                 var marca = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
+                var ncm = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm]).Value;
                 var cod_barra_fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarraFornecedor]).Value;
 
                 if (cod_barra == null || descricao == null || preco == null)
@@ -93,6 +98,9 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 if (!string.IsNullOrEmpty(marca) && !marca.ToString().Equals("NÃO POSSUI"))
                     produto.Marca = await daoMarca.ListarPorId(marca);
+
+                if (!string.IsNullOrEmpty(ncm))
+                    produto.Marca = ncm.toString();
 
                 if (!string.IsNullOrEmpty(cod_barra_fornecedor))
                 {
@@ -111,7 +119,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
         public void ConfiguraColunas(Worksheet Worksheet)
         {
-            Worksheet.Range["A1", "E1"].EntireColumn.AutoFit();
+            Worksheet.Range["A1", "F1"].EntireColumn.AutoFit();
             Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].ColumnWidth = 100;
             Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].EntireColumn.WrapText = true;
         }

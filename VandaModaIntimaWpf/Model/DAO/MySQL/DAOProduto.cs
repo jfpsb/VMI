@@ -54,6 +54,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 .Add(Projections.Property("Preco"), "Preco")
                 .Add(Projections.Property("Fornecedor"), "Fornecedor")
                 .Add(Projections.Property("Marca"), "Marca")
+                .Add(Projections.Property("Ncm"), "Ncm")
                 .Add(Projections.GroupProperty("Cod_Barra")));
 
             criteria.AddOrder(Order.Asc("Cod_Barra"));

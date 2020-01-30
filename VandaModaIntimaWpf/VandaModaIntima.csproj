@@ -336,6 +336,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\Sql.png" />
+    <Resource Include="Resources\Sql_Icon.ico" />
     <Resource Include="Resources\Flecha_Baixo.png" />
     <Resource Include="Resources\Flecha_Cima.png" />
     <Resource Include="Resources\Credit_Card_Icon.ico" />

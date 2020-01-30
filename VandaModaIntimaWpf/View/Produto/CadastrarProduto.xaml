@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Cadastrar Produto"
-        Height="350"
+        Height="400"
         Width="500"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
@@ -49,6 +49,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label>Código De Barras:</Label>
@@ -69,23 +70,29 @@
                      Grid.Row="3"
                      Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4">Fornecedor:</Label>
+            <Label Grid.Row="4">NCM:</Label>
+            <TextBox Grid.Column="1"
+                     Grid.Row="4"
+                     Text="{Binding Produto.Ncm, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}"
+                     MaxLength="10" />
+            <Label Grid.Row="5">Fornecedor:</Label>
             <ComboBox Grid.Column="1"
-                      Grid.Row="4"
+                      Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Produto.Fornecedor}"
                       SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5">Marca:</Label>
+            <Label Grid.Row="6">Marca:</Label>
             <ComboBox Grid.Column="1"
-                      Grid.Row="5"
+                      Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Produto.Marca}"
                       SelectedIndex="{Binding Path=MarcaComboBoxIndex, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="7"
+            <Button Grid.Row="8"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}">Cadastrar</Button>

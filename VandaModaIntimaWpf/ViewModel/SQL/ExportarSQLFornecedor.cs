@@ -13,10 +13,11 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         public ExportarSQLFornecedor() : base()
         {
             daoEntidade = new DAOFornecedor(session);
+            Aliases = GetAliases(new string[] { "Produtos" });
         }
         protected override void ExportarSQLInsert(StreamWriter sw, IList<Model.Fornecedor> entidades, string fileName)
         {
-            var originalAliases = GetAliases();
+            var originalAliases = GetAliases(new string[] { "Produtos" });
             var subtracaoAliases = Aliases.Where(p => p.Coluna == null);
 
             MySQLAliases aliasCnpj = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cnpj"));
@@ -56,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 sw.WriteLine($"INSERT INTO fornecedor ({campos}) " +
                     $"SELECT * FROM (SELECT {valores}) AS tmp " +
-                    $"WHERE NOT EXISTS (SELECT {aliasCnpj} FROM fornecedor WHERE {aliasCnpj} = '{fornecedor.Cnpj}');");
+                    $"WHERE NOT EXISTS (SELECT {aliasCnpj.Alias} FROM fornecedor WHERE {aliasCnpj.Alias} = '{fornecedor.Cnpj}');");
             }
         }
         protected override void ExportarSQLUpdate(StreamWriter sw, IList<Model.Fornecedor> entidades, string fileName)
@@ -74,21 +75,6 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                     $"{aliasEmail} = \"{fornecedor.Email}\", " +
                     $"{aliasTelefone} = '{new string(fornecedor.Telefone?.Where(c => char.IsDigit(c)).ToArray())}' WHERE {aliasCnpj} LIKE '{fornecedor.Cnpj}';");
             }
-        }
-
-        protected override ObservableCollection<MySQLAliases> GetAliases()
-        {
-            ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
-            var persister = SessionProvider.MySessionFactory.GetClassMetadata(typeof(Model.Fornecedor));
-
-            aliases.Add(new MySQLAliases() { Coluna = persister.IdentifierPropertyName, Alias = persister.IdentifierPropertyName });
-
-            foreach (var columnName in persister.PropertyNames)
-            {
-                aliases.Add(new MySQLAliases() { Coluna = columnName, Alias = columnName });
-            }
-
-            return new ObservableCollection<MySQLAliases>(aliases.Where(w => !w.Coluna.Equals("Produtos")));
         }
     }
 }

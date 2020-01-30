@@ -176,6 +176,17 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
+                    <DataGridTextColumn Header="NCM"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Entidade.Ncm}"
+                                        Width="Auto">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="ToolTip"
+                                        Value="{Binding Entidade.Ncm}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />

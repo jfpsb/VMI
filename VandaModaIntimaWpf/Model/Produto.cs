@@ -12,6 +12,7 @@ namespace VandaModaIntimaWpf.Model
         private MarcaModel marca;
         private string descricao;
         private double preco;
+        private string ncm;
         private IList<string> codigos = new List<string>();
 
         public enum Colunas
@@ -21,7 +22,8 @@ namespace VandaModaIntimaWpf.Model
             Preco = 3,
             Fornecedor = 4,
             Marca = 5,
-            CodBarraFornecedor = 6
+            Ncm = 6,
+            CodBarraFornecedor = 7
         }
 
         public virtual string Cod_Barra
@@ -89,6 +91,16 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual string Ncm
+        {
+            get { return ncm; }
+            set
+            {
+                ncm = value;
+                OnPropertyChanged("Ncm");
+            }
+        }
+
         public virtual IList<string> Codigos
         {
             get
@@ -135,13 +147,14 @@ namespace VandaModaIntimaWpf.Model
             p.Preco = Preco;
             p.Fornecedor = Fornecedor;
             p.Marca = Marca;
+            p.Ncm = Ncm;
             p.Codigos = Codigos;
 
             return p;
         }
         public virtual string[] GetColunas()
         {
-            return new string[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "Cód. De Barras de Fornecedor" };
+            return new string[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "Ncm", "Cód. De Barras de Fornecedor" };
         }
 
         public virtual object GetId()

@@ -13,10 +13,11 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         public ExportarSQLProduto() : base()
         {
             daoEntidade = new DAOProduto(session);
+            Aliases = GetAliases(new string[] { "Codigos" });
         }
         protected override void ExportarSQLInsert(StreamWriter sw, IList<Model.Produto> entidades, string fileName)
         {
-            var originalAliases = GetAliases();
+            var originalAliases = GetAliases(new string[] { "Codigos" });
             var subtracaoAliases = Aliases.Where(p => p.Coluna == null);
 
             MySQLAliases aliasCodBarra = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cod_Barra"));
@@ -24,6 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             MySQLAliases aliasPreco = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Preco"));
             MySQLAliases aliasFornecedor = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fornecedor"));
             MySQLAliases aliasMarca = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Marca"));
+            MySQLAliases aliasNcm = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Ncm"));
 
             foreach (Model.Produto produto in entidades)
             {
@@ -52,6 +54,12 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                     valores += $", \"{produto.Marca.Nome}\"";
                 }
 
+                if (!string.IsNullOrEmpty(produto.Ncm))
+                {
+                    campos += $", `{aliasNcm.Alias}`";
+                    valores += $", \"{produto.Ncm}\"";
+                }
+
                 foreach (MySQLAliases aliases in subtracaoAliases)
                 {
                     campos += $", `{aliases.Alias}`";
@@ -69,30 +77,55 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             MySQLAliases aliasPreco = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Preco"));
             MySQLAliases aliasFornecedor = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fornecedor"));
             MySQLAliases aliasMarca = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Marca"));
+            MySQLAliases aliasNcm = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Ncm"));
 
             foreach (Model.Produto produto in entidades)
             {
-                string comandoUpdate;
+                string comandoUpdate = "UPDATE produto SET ";
 
-                comandoUpdate = $"UPDATE produto SET {aliasDescricao.Alias} = \"{produto.Descricao}\", ";
-                comandoUpdate += $"{aliasPreco.Alias} = \"{produto.Preco}\"";
-
-                if (produto.Marca != null)
+                if (aliasDescricao != null)
                 {
-                    comandoUpdate += $", {aliasMarca.Alias} = \"{produto.Marca.Nome}\"";
+                    comandoUpdate += $"{aliasDescricao.Alias} = \"{produto.Descricao}\"";
                 }
 
-                if (produto.Fornecedor != null)
+                if (aliasPreco != null)
                 {
+                    if (aliasDescricao != null)
+                        comandoUpdate += ", ";
+
+                    comandoUpdate += $"{aliasPreco.Alias} = \"{produto.Preco}\"";
+                }
+
+                if (produto.Marca != null && aliasMarca != null)
+                {
+                    if (aliasDescricao != null || aliasPreco != null)
+                        comandoUpdate += ", ";
+
+                    comandoUpdate += $"{aliasMarca.Alias} = \"{produto.Marca.Nome}\"";
+                }
+
+                if (!string.IsNullOrEmpty(produto.Ncm) && aliasNcm != null)
+                {
+                    if (aliasDescricao != null || aliasPreco != null || aliasMarca != null)
+                        comandoUpdate += ", ";
+
+                    comandoUpdate += $"{aliasNcm.Alias} = \"{produto.Ncm}\"";
+                }
+
+                if (produto.Fornecedor != null && aliasFornecedor != null)
+                {
+                    if (produto.Marca != null || aliasPreco != null || aliasDescricao != null || aliasNcm != null)
+                        comandoUpdate += ", ";
+
                     if (string.IsNullOrEmpty(aliasFornecedor.ValorPadrao))
                     {
-                        comandoUpdate += $", {aliasFornecedor.Alias} = \"{produto.Fornecedor.Cnpj}\"";
+                        comandoUpdate += $"{aliasFornecedor.Alias} = \"{produto.Fornecedor.Cnpj}\"";
                     }
                     else if (aliasFornecedor.ValorPadrao.Contains("{nao_altere_este_campo}"))
                     {
                         string valorPadrao = aliasFornecedor.ValorPadrao;
                         valorPadrao = valorPadrao.Replace("{nao_altere_este_campo}", produto.Fornecedor.Cnpj);
-                        comandoUpdate += $", {aliasFornecedor.Alias} = {valorPadrao}";
+                        comandoUpdate += $"{aliasFornecedor.Alias} = {valorPadrao}";
                     }
                 }
 
@@ -100,21 +133,6 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 sw.WriteLine(comandoUpdate);
             }
-        }
-
-        protected override ObservableCollection<MySQLAliases> GetAliases()
-        {
-            ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
-            var persister = SessionProvider.MySessionFactory.GetClassMetadata(typeof(Model.Produto));
-
-            aliases.Add(new MySQLAliases() { Coluna = persister.IdentifierPropertyName, Alias = persister.IdentifierPropertyName });
-
-            foreach (var columnName in persister.PropertyNames)
-            {
-                aliases.Add(new MySQLAliases() { Coluna = columnName, Alias = columnName });
-            }
-
-            return new ObservableCollection<MySQLAliases>(aliases.Where(w => !w.Coluna.Equals("Codigos")));
         }
     }
 }

@@ -9,6 +9,7 @@
     <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
+    <property name="Ncm" column="ncm" />
 
     <bag name="Codigos" table="cod_barra_fornecedor" inverse="false" lazy="true" cascade="delete">
       <key column="produto" />

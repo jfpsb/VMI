@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
@@ -23,14 +24,31 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         private ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
         public ExportarSQLViewModel()
         {
-            Aliases = GetAliases();
             ExportarInsertsComando = new RelayCommand(ExportarInserts);
             ExportarUpdatesComando = new RelayCommand(ExportarUpdates);
             InserirInsertComando = new RelayCommand(InserirSelect);
         }
         protected abstract void ExportarSQLInsert(StreamWriter sw, IList<E> entidades, string fileName);
         protected abstract void ExportarSQLUpdate(StreamWriter sw, IList<E> entidades, string fileName);
-        protected abstract ObservableCollection<MySQLAliases> GetAliases();
+        protected virtual ObservableCollection<MySQLAliases> GetAliases(string[] exclusoes)
+        {
+            ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
+            var persister = SessionProvider.MySessionFactory.GetClassMetadata(typeof(E));
+
+            aliases.Add(new MySQLAliases() { Coluna = persister.IdentifierPropertyName, Alias = persister.IdentifierPropertyName });
+
+            foreach (var columnName in persister.PropertyNames)
+            {
+                aliases.Add(new MySQLAliases() { Coluna = columnName, Alias = columnName });
+            }
+
+            foreach(string ex in exclusoes)
+            {
+                aliases = new ObservableCollection<MySQLAliases>(aliases.Where(w => !w.Coluna.Equals(ex)));
+            }
+
+            return aliases;
+        }
         public async void ExportarInserts(object parameter)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();

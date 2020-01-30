@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Importar/Exportar para SQL"
         Height="500"
-        Width="500
-        "
+        Width="500"
+        Icon="/Resources/Sql_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>
