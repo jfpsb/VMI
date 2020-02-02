@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -13,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string descricao;
         private double preco;
         private string ncm;
+        [XmlIgnore]
         private IList<string> codigos = new List<string>();
 
         public enum Colunas
@@ -101,6 +103,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [XmlIgnore]
         public virtual IList<string> Codigos
         {
             get

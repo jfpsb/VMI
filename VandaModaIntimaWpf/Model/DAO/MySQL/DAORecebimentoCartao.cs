@@ -4,6 +4,7 @@ using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -84,6 +85,12 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     }
 
                     await transacao.CommitAsync();
+
+                    foreach (RecebimentoCartao t in objetos)
+                    {
+                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                    }
+
                     return true;
                 }
                 catch (Exception ex)
@@ -107,11 +114,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
                         new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
                     await transacao.CommitAsync();
+                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -133,11 +140,15 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     await transacao.CommitAsync();
 
+                    foreach (RecebimentoCartao recebimento in objetos)
+                    {
+                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = recebimento });
+                    }
+
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 

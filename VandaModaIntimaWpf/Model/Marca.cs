@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
@@ -7,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     public class Marca : ObservableObject, ICloneable, IModel
     {
         private string nome { get; set; }
+        [XmlIgnore]
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
         public enum Colunas
@@ -34,6 +36,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [XmlIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
             get { return produtos; }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -16,6 +18,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
+        [XmlIgnore]
         public virtual IList<string> IdentificadoresBanco
         {
             get { return identificadoresBanco; }
@@ -24,6 +27,10 @@ namespace VandaModaIntimaWpf.Model
                 identificadoresBanco = value;
                 OnPropertyChanged("IdentificadoresBanco");
             }
+        }
+        public virtual string[] IdentificadoresBancoArray
+        {
+            get { return IdentificadoresBanco.ToArray(); }
         }
 
         public virtual string GetContextMenuHeader { get => Nome; }

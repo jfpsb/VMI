@@ -170,6 +170,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\ArquivoEntidade.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EntidadeMySQL.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
@@ -332,10 +334,14 @@
     <Resource Include="Resources\Produto_Small.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hibernate.cfg.xml">
+    <EmbeddedResource Include="hibernateSync.cfg.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
+    </EmbeddedResource>
     <Resource Include="Resources\Sql.png" />
     <Resource Include="Resources\Sql_Icon.ico" />
     <Resource Include="Resources\Flecha_Baixo.png" />

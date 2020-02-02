@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -21,11 +22,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
+                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "UPDATE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO ATUALIZAR >>> " + ex.Message);
                 }
 
@@ -41,11 +42,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
+                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -66,11 +67,15 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     await transacao.CommitAsync();
 
+                    foreach (T t in objetos)
+                    {
+                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = t });
+                    }
+
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -86,11 +91,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
+                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
                     if (ex.InnerException != null)
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
@@ -111,15 +116,27 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         //Testa se a id do objeto sendo adicionado já existe no bd
                         var o = await session.GetAsync<T>(t.GetId());
                         if (o == null)
+                        {
                             await session.SaveAsync(t);
+                        }
                     }
 
                     await transacao.CommitAsync();
+
+                    foreach (T t in objetos)
+                    {
+                        //Testa se a id do objeto sendo adicionado já existe no bd
+                        var o = await session.GetAsync<T>(t.GetId());
+                        if (o == null)
+                        {
+                            ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                        }
+                    }
+
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.Message);
                     if (ex.InnerException != null)
                         Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.InnerException.Message);
@@ -137,11 +154,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
+                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO INSERIR OU ATUALIZAR >>> " + ex.Message);
                 }
 

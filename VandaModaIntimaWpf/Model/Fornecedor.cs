@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
@@ -13,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string email { get; set; }
         private string telefone { get; set; }
 
+        [XmlIgnore]
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
         public enum Colunas
@@ -94,6 +96,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [XmlIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
             get { return produtos; }
