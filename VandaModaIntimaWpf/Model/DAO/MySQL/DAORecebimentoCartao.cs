@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (RecebimentoCartao t in objetos)
                     {
-                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                        new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
                     }
 
                     return true;
@@ -114,7 +114,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
                         new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
                     await transacao.CommitAsync();
-                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
+                    new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -142,7 +142,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (RecebimentoCartao recebimento in objetos)
                     {
-                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = recebimento });
+                        new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = recebimento });
                     }
 
                     return true;

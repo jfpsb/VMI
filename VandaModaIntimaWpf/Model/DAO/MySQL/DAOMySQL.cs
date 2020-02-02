@@ -6,7 +6,7 @@ using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
-    public abstract class DAOMySQL<T> : IDAO<T> where T : class, IModel
+    public abstract class DAOMySQL<T> : IDAO<T> where T : class, IModel, ICloneable
     {
         protected ISession session;
         public DAOMySQL(ISession session)
@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "UPDATE", EntidadeSalva = objeto });
+                    new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "UPDATE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
+                    new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (T t in objetos)
                     {
-                        ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "DELETE", EntidadeSalva = t });
+                        new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "DELETE", EntidadeSalva = t });
                     }
 
                     return true;
@@ -91,7 +91,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
+                    new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         var o = await session.GetAsync<T>(t.GetId());
                         if (o == null)
                         {
-                            ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                            new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
                         }
                     }
 
@@ -154,7 +154,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade.EscreverEmBinario(new EntidadeMySQL() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
+                    new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)

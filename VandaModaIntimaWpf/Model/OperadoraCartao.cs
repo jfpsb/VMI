@@ -18,7 +18,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
-        [XmlIgnore]
+        [XmlArray("Identificadores")]
+        [XmlArrayItem("Identificador")]
         public virtual IList<string> IdentificadoresBanco
         {
             get { return identificadoresBanco; }

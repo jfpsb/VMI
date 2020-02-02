@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf
         {
             InitializeComponent();
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
-            SessionProvider.MySessionFactorySync = SessionProvider.BuildSessionFactorySync();            
+            SessionProvider.MySessionFactorySync = SessionProvider.BuildSessionFactorySync();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

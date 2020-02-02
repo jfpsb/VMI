@@ -172,6 +172,13 @@
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="BancoDeDados\Sincronizacao\ArquivoEntidade.cs" />
     <Compile Include="BancoDeDados\Sincronizacao\EntidadeMySQL.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlFornecedor.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlLoja.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlMarca.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlOperadoraCartao.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlProduto.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlRecebimentoCartao.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\IEscreverEmXml.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />

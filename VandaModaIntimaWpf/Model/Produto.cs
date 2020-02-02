@@ -14,9 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string descricao;
         private double preco;
         private string ncm;
-        [XmlIgnore]
         private IList<string> codigos = new List<string>();
-
         public enum Colunas
         {
             CodBarra = 1,
@@ -103,7 +101,8 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [XmlIgnore]
+        [XmlArray("Codigos")]
+        [XmlArrayItem("Codigo")]
         public virtual IList<string> Codigos
         {
             get
