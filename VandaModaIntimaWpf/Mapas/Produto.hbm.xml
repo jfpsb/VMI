@@ -10,8 +10,9 @@
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
     <property name="Ncm" column="ncm" />
+    <property name="LastUpdate" column="lastUpdate" />
 
-    <bag name="Codigos" table="cod_barra_fornecedor" inverse="false" cascade="delete">
+    <bag name="Codigos" table="cod_barra_fornecedor" inverse="false" lazy="false" cascade="delete">
       <key column="produto" />
       <element column="codigo" type="String" />
     </bag>

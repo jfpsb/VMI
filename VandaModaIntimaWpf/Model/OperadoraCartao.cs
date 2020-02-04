@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     public class OperadoraCartao : ObservableObject, ICloneable, IModel
     {
         private string nome;
+        private DateTime lastUpdate { get; set; } = DateTime.Now;
         private IList<string> identificadoresBanco = new List<string>();
         public virtual string Nome
         {
@@ -18,6 +19,16 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
+        public virtual DateTime LastUpdate
+        {
+            get { return lastUpdate; }
+            set
+            {
+                lastUpdate = value;
+                OnPropertyChanged("LastUpdate");
+            }
+        }
+
         [XmlArray("Identificadores")]
         [XmlArrayItem("Identificador")]
         public virtual IList<string> IdentificadoresBanco

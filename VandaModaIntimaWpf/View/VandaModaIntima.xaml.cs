@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
-using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf
 {
@@ -13,6 +11,12 @@ namespace VandaModaIntimaWpf
             InitializeComponent();
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
             SessionProvider.MySessionFactorySync = SessionProvider.BuildSessionFactorySync();
+            ChamaSincronizacao();
+        }
+
+        private async void ChamaSincronizacao()
+        {
+            await SincronizacaoRemota.Sincronizar();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

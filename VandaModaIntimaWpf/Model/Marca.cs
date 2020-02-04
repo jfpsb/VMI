@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     public class Marca : ObservableObject, ICloneable, IModel
     {
         private string nome { get; set; }
+        private DateTime lastUpdate { get; set; } = DateTime.Now;
         [XmlIgnore]
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
@@ -33,6 +34,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 nome = value.ToUpper();
                 OnPropertyChanged("Nome");
+            }
+        }
+
+        public virtual DateTime LastUpdate
+        {
+            get { return lastUpdate; }
+            set
+            {
+                lastUpdate = value;
+                OnPropertyChanged("LastUpdate");
             }
         }
 

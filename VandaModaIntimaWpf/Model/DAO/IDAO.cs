@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         Task<bool> Inserir(T objeto);
         Task<bool> Inserir(IList<T> objetos);
         Task<bool> Atualizar(T objeto);
-        Task<bool> InserirOuAtualizar(T objeto);
         Task<bool> Deletar(T objeto);
         Task<bool> Deletar(IList<T> objetos);
         Task<IList<T>> Listar();

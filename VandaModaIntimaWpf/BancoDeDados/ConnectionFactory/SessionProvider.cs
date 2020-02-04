@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             return _session;
         }
 
-        public static ISession GetSessionSync(string formId)
+        public static ISession GetSessionSync()
         {
             if (MySessionFactorySync == null)
             {
@@ -94,8 +94,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 
         public static void FechaSession(string formId)
         {
-            _sessions[formId]?.Dispose();
-            _sessions.Remove(formId);
+            if (_sessions.ContainsKey(formId))
+            {
+                _sessions[formId]?.Dispose();
+                _sessions.Remove(formId);
+            }
             Console.WriteLine($"Sessão Fechada: {formId}");
         }
 

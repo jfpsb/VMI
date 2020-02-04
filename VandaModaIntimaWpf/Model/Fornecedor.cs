@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private string fantasia { get; set; }
         private string email { get; set; }
         private string telefone { get; set; }
+        private DateTime lastUpdate { get; set; } = DateTime.Now;
 
         [XmlIgnore]
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
@@ -93,6 +94,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 telefone = value;
                 OnPropertyChanged("Telefone");
+            }
+        }
+
+        public virtual DateTime LastUpdate
+        {
+            get { return lastUpdate; }
+            set
+            {
+                lastUpdate = value;
+                OnPropertyChanged("LastUpdate");
             }
         }
 

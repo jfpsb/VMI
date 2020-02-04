@@ -179,6 +179,7 @@
     <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlProduto.cs" />
     <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlRecebimentoCartao.cs" />
     <Compile Include="BancoDeDados\Sincronizacao\IEscreverEmXml.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao\SincronizacaoRemota.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Model\DAO\MySQL\DAOOperadoraCartao.cs" />
     <Compile Include="Model\DAO\MySQL\DAOProduto.cs" />
     <Compile Include="Model\DAO\MySQL\DAORecebimentoCartao.cs" />
+    <Compile Include="Model\DAO\MySQL\DAOSync.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />

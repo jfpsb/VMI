@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -145,26 +146,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 return false;
             }
         }
-
-        public async Task<bool> InserirOuAtualizar(T objeto)
-        {
-            using (var transacao = session.BeginTransaction())
-            {
-                try
-                {
-                    await session.SaveOrUpdateAsync(objeto);
-                    await transacao.CommitAsync();
-                    new ArquivoEntidade<T>().EscreverEmBinario(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERRO AO INSERIR OU ATUALIZAR >>> " + ex.Message);
-                }
-
-                return false;
-            }
-        }
         public virtual async Task<IList<T>> Listar()
         {
             try
@@ -196,7 +177,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return null;
         }
-
         public ICriteria CriarCriteria()
         {
             return session.CreateCriteria<T>();

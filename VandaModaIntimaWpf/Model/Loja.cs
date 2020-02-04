@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string telefone { get; set; }
         private string endereco { get; set; }
         private string inscricaoestadual { get; set; }
+        private DateTime lastUpdate { get; set; } = DateTime.Now;
         public Loja() { }
         public Loja(string nome)
         {
@@ -67,6 +68,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 inscricaoestadual = value;
                 OnPropertyChanged("InscricaoEstadual");
+            }
+        }
+
+        public virtual DateTime LastUpdate
+        {
+            get { return lastUpdate; }
+            set
+            {
+                lastUpdate = value;
+                OnPropertyChanged("LastUpdate");
             }
         }
 

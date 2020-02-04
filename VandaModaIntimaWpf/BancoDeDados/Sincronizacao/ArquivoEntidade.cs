@@ -81,6 +81,16 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
 
                 return lista;
             }
+            catch (DirectoryNotFoundException dnfe)
+            {
+                Console.WriteLine("Diretório Não Foi Encontrado. " + dnfe.Message);
+                return null;
+            }
+            catch (InvalidOperationException ioe)
+            {
+                Console.WriteLine(ioe.Message);
+                return null;
+            }
             finally
             {
                 if (reader != null)
