@@ -8,6 +8,7 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.Model
 {
+    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Produto : ObservableObject, ICloneable, IModel, IXmlSerializable
     {
         private string cod_barra;
@@ -17,8 +18,6 @@ namespace VandaModaIntimaWpf.Model
         private double preco;
         private string ncm;
         private DateTime lastUpdate { get; set; } = DateTime.Now;
-
-        [XmlIgnore]
         private IList<string> codigos = new List<string>();
         public enum Colunas
         {
@@ -115,9 +114,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("LastUpdate");
             }
         }
-
-        [XmlArray("Codigos")]
-        [XmlArrayItem("Codigo")]
+        
+        [XmlIgnore]
         public virtual IList<string> Codigos
         {
             get
@@ -204,6 +202,9 @@ namespace VandaModaIntimaWpf.Model
                         case "Ncm":
                             Ncm = reader.ReadString();
                             break;
+                        case "LastUpdate":
+                            LastUpdate = DateTime.Parse(reader.ReadString());
+                            break;
                         case "Codigos":
                             reader.ReadToDescendant("Codigo");
                             do
@@ -249,14 +250,12 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartDocument();
-
             // Campos de produto
-            writer.WriteStartElement("EntidadeSalva");
             writer.WriteElementString("Cod_Barra", Cod_Barra);
             writer.WriteElementString("Descricao", Descricao);
             writer.WriteElementString("Preco", Preco.ToString());
             writer.WriteElementString("Ncm", Ncm);
+            writer.WriteElementString("LastUpdate", LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             if (Codigos.Count > 0)
             {
@@ -289,9 +288,6 @@ namespace VandaModaIntimaWpf.Model
                 writer.WriteElementString("Nome", Marca.Nome);
                 writer.WriteEndElement();
             }
-
-            // Fecha tag EntidadeSalva
-            writer.WriteEndElement();
         }
     }
 }

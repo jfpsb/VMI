@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -16,6 +17,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
+            Fornecedor.LastUpdate = DateTime.Now;
+
             var result = IsEditted = await daoFornecedor.Atualizar(Fornecedor);
 
             if (result)

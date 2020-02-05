@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
+    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Loja : ObservableObject, ICloneable, IModel
     {
         private string cnpj { get; set; }

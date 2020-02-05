@@ -60,7 +60,8 @@
             <Label Grid.Row="2">Descrição:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     MaxLength="100" />
             <Label Grid.Row="3">Preço:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
@@ -70,7 +71,7 @@
                      Grid.Row="4"
                      Text="{Binding Produto.Ncm, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}"
-                     MaxLength="10" />
+                     MaxLength="8" />
             <Label Grid.Row="5">Fornecedor:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="5"

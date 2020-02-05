@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
+    [XmlRoot(ElementName = "EntidadeSalva")]
     public class RecebimentoCartao : ObservableObject, ICloneable, IModel
     {
         private int mes { get; set; }
@@ -76,9 +78,9 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                double v1 = Math.Round(valorOperadora, 2, MidpointRounding.AwayFromZero);
-                double v2 = Math.Round(recebido, 2, MidpointRounding.AwayFromZero);
-                return Math.Round(v1 - v2, 2, MidpointRounding.AwayFromZero);
+                double vOperadora = Math.Round(valorOperadora, 2, MidpointRounding.AwayFromZero);
+                double vRecebido = Math.Round(recebido, 2, MidpointRounding.AwayFromZero);
+                return Math.Round(vRecebido - vOperadora, 2, MidpointRounding.AwayFromZero);
             }
         }
         public virtual string Observacao

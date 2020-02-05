@@ -70,23 +70,27 @@
                      Grid.Row="1"
                      Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False"
-                     ToolTip="O Campo de CNPJ Não Pode Ser Alterado"/>
+                     ToolTip="O Campo de CNPJ Não Pode Ser Alterado" />
             <Label Grid.Row="2">Nome:</Label>
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="150" />
             <Label Grid.Row="3">Nome Fantasia:</Label>
             <TextBox Grid.Row="3"
                      Grid.Column="1"
+                     MaxLength="60"
                      Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="4">Telefone:</Label>
             <TextBox Grid.Row="4"
                      Grid.Column="1"
+                     MaxLength="100"
                      Text="{Binding Fornecedor.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5">Email:</Label>
             <TextBox Grid.Row="5"
                      Grid.Column="1"
+                     MaxLength="50"
                      Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="6"
                     Grid.ColumnSpan="2"

@@ -8,12 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>VandaModaIntimaWpf</RootNamespace>
     <AssemblyName>VandaModaIntimaWpf</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,10 +43,10 @@
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=5.2.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.5.2.6\lib\net461\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.5.2.7\lib\net461\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="PrinterUtility, Version=1.0.2.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\PrinterUtility.1.2.0\lib\PrinterUtility.dll</HintPath>
@@ -170,16 +171,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\ArquivoEntidade.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EntidadeMySQL.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlFornecedor.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlLoja.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlMarca.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlOperadoraCartao.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlProduto.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\EscreverEmXmlRecebimentoCartao.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\IEscreverEmXml.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao\SincronizacaoRemota.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
@@ -343,10 +334,6 @@
     <Resource Include="Resources\Produto_Small.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="hibernateSync.cfg.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -390,7 +377,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
@@ -419,6 +405,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SincronizacaoBD\SincronizacaoBD.csproj">
+      <Project>{d33cc500-18e8-44fd-a92d-c4a3dcbc6bb3}</Project>
+      <Name>SincronizacaoBD</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

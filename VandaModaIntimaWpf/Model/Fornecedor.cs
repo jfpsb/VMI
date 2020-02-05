@@ -6,6 +6,7 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
 {
+    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Fornecedor : ObservableObject, ICloneable, IModel
     {
         private string cnpj { get; set; }

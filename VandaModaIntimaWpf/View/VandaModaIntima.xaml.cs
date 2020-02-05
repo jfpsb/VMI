@@ -1,22 +1,20 @@
-﻿using System.Windows;
+﻿using SincronizacaoBD;
+using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
 
 namespace VandaModaIntimaWpf
 {
     public partial class VandaModaIntima : Window
     {
+        private MainWindow mainWindow;
         public VandaModaIntima()
         {
             InitializeComponent();
-            SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
-            SessionProvider.MySessionFactorySync = SessionProvider.BuildSessionFactorySync();
-            ChamaSincronizacao();
-        }
 
-        private async void ChamaSincronizacao()
-        {
-            await SincronizacaoRemota.Sincronizar();
+            SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
+
+            mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)
@@ -27,8 +25,8 @@ namespace VandaModaIntimaWpf
 
         private void TelaPrincipal_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            mainWindow.Close();
             SessionProvider.FechaConexoes();
-            SessionProvider.FechaConexoesSync();
         }
     }
 }

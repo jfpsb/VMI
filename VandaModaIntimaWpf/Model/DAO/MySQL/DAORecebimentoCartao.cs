@@ -1,10 +1,10 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using SincronizacaoBD.Sincronizacao;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (RecebimentoCartao t in objetos)
                     {
-                        new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                        ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
                     }
 
                     return true;
@@ -114,7 +114,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
                         new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
                     await transacao.CommitAsync();
-                    new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
+                    ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -142,7 +142,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (RecebimentoCartao recebimento in objetos)
                     {
-                        new ArquivoEntidade<RecebimentoCartao>().EscreverEmBinario(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = recebimento });
+                        ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySql = "DELETE", EntidadeSalva = recebimento });
                     }
 
                     return true;

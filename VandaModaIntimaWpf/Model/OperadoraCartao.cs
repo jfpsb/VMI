@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class OperadoraCartao : ObservableObject, ICloneable, IModel
+    [XmlRoot(ElementName = "EntidadeSalva")]
+    public class OperadoraCartao : ObservableObject, ICloneable, IModel, IXmlSerializable
     {
         private string nome;
         private DateTime lastUpdate { get; set; } = DateTime.Now;
@@ -29,8 +31,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [XmlArray("Identificadores")]
-        [XmlArrayItem("Identificador")]
+        [XmlIgnore]
         public virtual IList<string> IdentificadoresBanco
         {
             get { return identificadoresBanco; }
@@ -40,11 +41,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("IdentificadoresBanco");
             }
         }
-        public virtual string[] IdentificadoresBancoArray
-        {
-            get { return IdentificadoresBanco.ToArray(); }
-        }
-
         public virtual string GetContextMenuHeader { get => Nome; }
 
         public virtual object Clone()
@@ -55,6 +51,52 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetId()
         {
             return Nome;
+        }
+
+        public virtual XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public virtual void ReadXml(XmlReader reader)
+        {
+            while (reader.Read())
+            {
+                if (reader.IsStartElement())
+                {
+                    switch (reader.Name)
+                    {
+                        case "Nome":
+                            Nome = reader.ReadString();
+                            break;
+                        case "IdentificadoresBanco":
+                            reader.ReadToDescendant("Identificador");
+                            do
+                            {
+                                string identificador = reader.ReadString();
+                                IdentificadoresBanco.Add(identificador);
+                            } while (reader.ReadToNextSibling("Identificador"));
+                            break;
+                    }
+                }
+            }
+        }
+
+        public virtual void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("Nome", Nome);
+
+            if(IdentificadoresBanco.Count > 0)
+            {
+                writer.WriteStartElement("IdentificadoresBanco");
+
+                foreach (string identificador in IdentificadoresBanco)
+                {
+                    writer.WriteElementString("Identificador", identificador);
+                }
+
+                writer.WriteEndElement();
+            }
         }
     }
 }

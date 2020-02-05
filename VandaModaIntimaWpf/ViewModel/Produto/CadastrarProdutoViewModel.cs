@@ -67,6 +67,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
 
             SetStatusBarErro("Erro ao Cadastrar Produto");
+
+            Produto = new ProdutoModel();
         }
 
         public override void ResetaPropriedades()

@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <ViewModel:CadastrarLojaViewModel/>
+        <ViewModel:CadastrarLojaViewModel />
     </Window.DataContext>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -53,7 +53,8 @@
             </Grid.RowDefinitions>
             <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
-                     Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}"
+                     MaxLength="14" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
@@ -62,21 +63,25 @@
             <Label Grid.Row="2">Nome:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
+                     MaxLength="45"
                      Text="{Binding Loja.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="3">Telefone:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
+                     MaxLength="100"
                      Text="{Binding Loja.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="4">Endereço:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="4"
+                     MaxLength="200"
                      Text="{Binding Loja.Endereco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5">Incrição Estadual:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="5"
+                     MaxLength="10"
                      Text="{Binding Loja.InscricaoEstadual, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6">Matriz:</Label>

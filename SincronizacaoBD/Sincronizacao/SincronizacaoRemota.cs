@@ -1,15 +1,11 @@
 ﻿using NHibernate;
+using SincronizacaoBD.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
 
-namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
+namespace SincronizacaoBD.Sincronizacao
 {
     public static class SincronizacaoRemota
     {
@@ -18,13 +14,16 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
         private static ISession sessionLocal;
         private static ISession sessionSync;
 
-        public async static Task Sincronizar()
+        public static void Sincronizar(Action<string> AdicionaTexto)
         {
             if (!EmExecucao)
             {
                 try
                 {
                     EmExecucao = true;
+
+                    DateTime inicioSincronizacao = DateTime.Now;
+                    AdicionaTexto($"Iniciando Sincronização às {inicioSincronizacao.ToString("dd/MM/yyyy HH:mm:ss")}\n");
 
                     DateTime lastUpdate = new DateTime(2010, 1, 1, 12, 0, 0);
 
@@ -37,7 +36,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                         }
                     }
 
-                    sessionSync = SessionProvider.GetSessionSync();
+                    sessionSync = SessionSyncProvider.GetSessionSync();
 
                     DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
                     DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
@@ -46,16 +45,18 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                     DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
                     DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
 
-                    IList<Fornecedor> fornecedores = await daoFornecedorSync.ListarLastUpdate(lastUpdate);
-                    IList<Loja> lojas = await daoLojaSync.ListarLastUpdate(lastUpdate, "Matriz");
-                    IList<Marca> marcas = await daoMarcaSync.ListarLastUpdate(lastUpdate);
-                    IList<OperadoraCartao> operadoras = await daoOperadoraCartaoSync.ListarLastUpdate(lastUpdate, "IdentificadoresBanco");
-                    IList<Produto> produtos = await daoProdutoSync.ListarLastUpdate(lastUpdate, "Codigos");
-                    IList<RecebimentoCartao> recebimentos = await daoRecebimentoCartaoSync.ListarLastUpdate(lastUpdate, "Loja", "OperadoraCartao");
+                    AdicionaTexto($"{DataHoraAtual()}: Consultando Banco de Dados Remoto\n");
 
-                    SessionProvider.FechaSessionSync(sessionSync);
+                    IList<Fornecedor> fornecedores = daoFornecedorSync.ListarLastUpdate(lastUpdate);
+                    IList<Loja> lojas = daoLojaSync.ListarLastUpdate(lastUpdate, "Matriz");
+                    IList<Marca> marcas = daoMarcaSync.ListarLastUpdate(lastUpdate);
+                    IList<OperadoraCartao> operadoras = daoOperadoraCartaoSync.ListarLastUpdate(lastUpdate, "IdentificadoresBanco");
+                    IList<Produto> produtos = daoProdutoSync.ListarLastUpdate(lastUpdate, "Codigos");
+                    IList<RecebimentoCartao> recebimentos = daoRecebimentoCartaoSync.ListarLastUpdate(lastUpdate, "Loja", "OperadoraCartao");
 
-                    sessionLocal = SessionProvider.GetSession("Sincronizacao");
+                    SessionSyncProvider.FechaSession(sessionSync);
+
+                    sessionLocal = SessionSyncProvider.GetSession("Sincronizacao");
 
                     DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
                     DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
@@ -64,46 +65,50 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                     DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
                     DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
 
+                    AdicionaTexto($"{DataHoraAtual()}: Inserindo Em Banco de Dados Local Registros Recuperados do Banco de Dados Remoto\n");
+
                     if (fornecedores.Count > 0)
                     {
-                        await daoFornecedorLocal.InserirOuAtualizar(fornecedores);
+                        daoFornecedorLocal.InserirOuAtualizar(fornecedores);
                     }
 
                     if (lojas.Count > 0)
                     {
-                        await daoLojaLocal.InserirOuAtualizar(lojas);
+                        daoLojaLocal.InserirOuAtualizar(lojas);
                     }
 
                     if (marcas.Count > 0)
                     {
-                        await daoMarcaLocal.InserirOuAtualizar(marcas);
+                        daoMarcaLocal.InserirOuAtualizar(marcas);
                     }
 
                     if (operadoras.Count > 0)
                     {
-                        await daoOperadoraCartaoLocal.InserirOuAtualizar(operadoras);
+                        daoOperadoraCartaoLocal.InserirOuAtualizar(operadoras);
                     }
 
                     if (produtos.Count > 0)
                     {
-                        await daoProdutoLocal.InserirOuAtualizar(produtos);
+                        daoProdutoLocal.InserirOuAtualizar(produtos);
                     }
 
                     if (recebimentos.Count > 0)
                     {
-                        await daoRecebimentoCartaoLocal.InserirOuAtualizar(recebimentos);
+                        daoRecebimentoCartaoLocal.InserirOuAtualizar(recebimentos);
                     }
 
-                    //SessionProvider.FechaSession("Sincronizacao");
+                    SessionSyncProvider.FechaSession(sessionLocal);
 
-                    IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = new ArquivoEntidade<Fornecedor>().LerDeBinario();
-                    IList<EntidadeMySQL<Loja>> lojasLocais = new ArquivoEntidade<Loja>().LerDeBinario();
-                    IList<EntidadeMySQL<Marca>> marcasLocais = new ArquivoEntidade<Marca>().LerDeBinario();
-                    IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = new ArquivoEntidade<OperadoraCartao>().LerDeBinario();
-                    IList<EntidadeMySQL<Produto>> produtosLocais = new ArquivoEntidade<Produto>().LerDeBinario();
-                    IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = new ArquivoEntidade<RecebimentoCartao>().LerDeBinario();
+                    AdicionaTexto($"{DataHoraAtual()}: Lendo Arquivos Com Registros Das Mudanças Locais\n");
 
-                    sessionSync = SessionProvider.GetSessionSync();
+                    IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerDeBinario();
+                    IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerDeBinario();
+                    IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerDeBinario();
+                    IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerDeBinario();
+                    IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerDeBinario();
+                    IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerDeBinario();
+
+                    sessionSync = SessionSyncProvider.GetSessionSync();
 
                     daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
                     daoLojaSync = new DAOSync<Loja>(sessionSync);
@@ -111,6 +116,8 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                     daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
                     daoProdutoSync = new DAOSync<Produto>(sessionSync);
                     daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
+
+                    AdicionaTexto($"{DataHoraAtual()}: Inserindo em Banco de Dados Remoto Dados Locais\n");
 
                     if (fornecedoresLocais?.Count > 0)
                     {
@@ -122,8 +129,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoFornecedorSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoFornecedorSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoFornecedorSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoFornecedorSync.Deletar(listaDelete);
                     }
 
                     if (lojasLocais?.Count > 0)
@@ -136,8 +146,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoLojaSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoLojaSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoLojaSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoLojaSync.Deletar(listaDelete);
                     }
 
                     if (marcasLocais?.Count > 0)
@@ -150,8 +163,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoMarcaSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoMarcaSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoMarcaSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoMarcaSync.Deletar(listaDelete);
                     }
 
                     if (operadorasLocais?.Count > 0)
@@ -164,8 +180,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoOperadoraCartaoSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoOperadoraCartaoSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoOperadoraCartaoSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoOperadoraCartaoSync.Deletar(listaDelete);
                     }
 
                     if (produtosLocais?.Count > 0)
@@ -178,8 +197,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoProdutoSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoProdutoSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoProdutoSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoProdutoSync.Deletar(listaDelete);
                     }
 
                     if (recebimentosLocais?.Count > 0)
@@ -192,24 +214,46 @@ namespace VandaModaIntimaWpf.BancoDeDados.Sincronizacao
                             w => w.OperacaoMySql.Equals("DELETE")).
                             Select(sm => sm.EntidadeSalva).ToList();
 
-                        await daoRecebimentoCartaoSync.InserirOuAtualizar(listaInsertUpdate);
-                        await daoRecebimentoCartaoSync.Deletar(listaDelete);
+                        if (listaInsertUpdate.Count > 0)
+                            daoRecebimentoCartaoSync.InserirOuAtualizar(listaInsertUpdate);
+
+                        if (listaDelete.Count > 0)
+                            daoRecebimentoCartaoSync.Deletar(listaDelete);
                     }
 
-                    SessionProvider.FechaSessionSync(sessionSync);
+                    SessionSyncProvider.FechaSession(sessionSync);
 
                     using (StreamWriter streamWriter = new StreamWriter(Caminho, false))
                     {
-                        streamWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        streamWriter.WriteLine(inicioSincronizacao.ToString("yyyy-MM-dd HH:mm:ss"));
                     }
+
+                    EsvaziaDiretorios();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
                 finally
                 {
-                    SessionProvider.FechaSessionSync(sessionSync);
-                    SessionProvider.FechaSession("Sincronizacao");
+                    SessionSyncProvider.FechaSession(sessionSync);
+                    SessionSyncProvider.FechaSession(sessionLocal);
                     EmExecucao = false;
+                    AdicionaTexto($"{DataHoraAtual()}: Sincronização Finalizada\n");
                 }
             }
+        }
+        private static void EsvaziaDiretorios()
+        {
+            foreach (var dir in new DirectoryInfo("EntidadesSalvas").GetDirectories())
+            {
+                dir.Delete(true);
+            }
+        }
+
+        private static string DataHoraAtual()
+        {
+            return DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
         }
     }
 }
