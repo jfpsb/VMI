@@ -5,7 +5,6 @@
 
   <class name="Marca" table="marca" dynamic-insert="true" dynamic-update="true">
     <id name="Nome" column="nome" />
-    <property name="LastUpdate" column="lastUpdate" />
   </class>
 
 </hibernate-mapping>

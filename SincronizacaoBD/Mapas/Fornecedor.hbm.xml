@@ -9,7 +9,6 @@
     <property name="Fantasia" column="fantasia" />
     <property name="Email" column="email" />
     <property name="Telefone" column="telefone" />
-    <property name="LastUpdate" column="lastUpdate" />
   </class>
 
 </hibernate-mapping>

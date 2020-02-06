@@ -1,5 +1,4 @@
 ﻿using SincronizacaoBD;
-using System;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 
@@ -14,8 +13,8 @@ namespace VandaModaIntimaWpf
 
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
 
-            //mainWindow = new MainWindow();
-            //mainWindow.Show();
+            mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

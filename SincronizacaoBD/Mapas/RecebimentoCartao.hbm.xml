@@ -13,7 +13,6 @@
     <property name="Recebido" column="recebido" />
     <property name="ValorOperadora" column="valoroperadora" />
     <property name="Observacao" column="observacao" />
-    <property name="LastUpdate" column="lastUpdate" />
   </class>
 
 </hibernate-mapping>
