@@ -10,7 +10,6 @@ namespace VandaModaIntimaWpf.Model
     public class OperadoraCartao : ObservableObject, ICloneable, IModel, IXmlSerializable
     {
         private string nome;
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         private IList<string> identificadoresBanco = new List<string>();
         public virtual string Nome
         {
@@ -19,15 +18,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 nome = value;
                 OnPropertyChanged("Nome");
-            }
-        }
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
-                OnPropertyChanged("LastUpdate");
             }
         }
 
@@ -69,9 +59,6 @@ namespace VandaModaIntimaWpf.Model
                         case "Nome":
                             Nome = reader.ReadString();
                             break;
-                        case "LastUpdate":
-                            LastUpdate = XmlConvert.ToDateTime(reader.ReadString(), XmlDateTimeSerializationMode.Unspecified);
-                            break;
                         case "IdentificadoresBanco":
                             reader.ReadToDescendant("Identificador");
                             do
@@ -88,7 +75,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteElementString("Nome", Nome);
-            writer.WriteElementString("LastUpdate", XmlConvert.ToString(LastUpdate, XmlDateTimeSerializationMode.Unspecified));
 
             if (IdentificadoresBanco.Count > 0)
             {

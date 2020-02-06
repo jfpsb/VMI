@@ -13,7 +13,6 @@ namespace SincronizacaoBD.Model
         private double recebido { get; set; }
         private double valorOperadora { get; set; }
         private string observacao { get; set; }
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         public virtual int Mes
         {
             get { return mes; }
@@ -70,15 +69,6 @@ namespace SincronizacaoBD.Model
                 observacao = value;
             }
         }
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
-            }
-        }
-
         public override bool Equals(object obj)
         {
             if (obj.GetType() == typeof(RecebimentoCartao))

@@ -10,7 +10,6 @@ namespace SincronizacaoBD.Model
     public class OperadoraCartao : IXmlSerializable
     {
         private string nome;
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         private IList<string> identificadoresBanco = new List<string>();
         public virtual string Nome
         {
@@ -18,14 +17,6 @@ namespace SincronizacaoBD.Model
             set
             {
                 nome = value;
-            }
-        }
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
             }
         }
 

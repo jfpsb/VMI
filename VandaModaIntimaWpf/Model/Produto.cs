@@ -17,7 +17,6 @@ namespace VandaModaIntimaWpf.Model
         private string descricao;
         private double preco;
         private string ncm;
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         private IList<string> codigos = new List<string>();
         public enum Colunas
         {
@@ -102,28 +101,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 ncm = value;
                 OnPropertyChanged("Ncm");
-            }
-        }
-
-        [XmlIgnore]
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
-                OnPropertyChanged("LastUpdate");
-            }
-        }
-
-        [XmlElement("LastUpdate")]
-        public virtual string LastUpdateString
-        {
-            get { return LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"); }
-            set
-            {
-                LastUpdate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
-                OnPropertyChanged("LastUpdate");
             }
         }
 
@@ -214,9 +191,6 @@ namespace VandaModaIntimaWpf.Model
                         case "Ncm":
                             Ncm = reader.ReadString();
                             break;
-                        case "LastUpdate":
-                            LastUpdate = XmlConvert.ToDateTime(reader.ReadString(), XmlDateTimeSerializationMode.Unspecified);
-                            break;
                         case "Codigos":
                             reader.ReadToDescendant("Codigo");
                             do
@@ -267,7 +241,6 @@ namespace VandaModaIntimaWpf.Model
             writer.WriteElementString("Descricao", Descricao);
             writer.WriteElementString("Preco", Preco.ToString());
             writer.WriteElementString("Ncm", Ncm);
-            writer.WriteElementString("LastUpdate", XmlConvert.ToString(LastUpdate, XmlDateTimeSerializationMode.Unspecified));
 
             if (Codigos.Count > 0)
             {

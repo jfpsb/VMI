@@ -13,7 +13,6 @@ namespace SincronizacaoBD.Model
         private string fantasia { get; set; }
         private string email { get; set; }
         private string telefone { get; set; }
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
 
         public virtual string Cnpj
         {
@@ -65,15 +64,6 @@ namespace SincronizacaoBD.Model
             set
             {
                 telefone = value;
-            }
-        }
-
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
             }
         }
     }

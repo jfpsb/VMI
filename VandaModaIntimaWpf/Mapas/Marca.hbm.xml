@@ -9,7 +9,6 @@
       <key column="marca" />
       <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>
-    <property name="LastUpdate" column="lastUpdate" />
   </class>
 
 </hibernate-mapping>

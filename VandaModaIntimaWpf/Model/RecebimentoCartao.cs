@@ -14,7 +14,6 @@ namespace VandaModaIntimaWpf.Model
         private double recebido { get; set; }
         private double valorOperadora { get; set; }
         private string observacao { get; set; }
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         public virtual int Mes
         {
             get { return mes; }
@@ -90,15 +89,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 observacao = value;
                 OnPropertyChanged("Observacao");
-            }
-        }
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
-                OnPropertyChanged("LastUpdate");
             }
         }
         public virtual string GetContextMenuHeader { get => $"{MesAno} - {Loja.Nome}"; }

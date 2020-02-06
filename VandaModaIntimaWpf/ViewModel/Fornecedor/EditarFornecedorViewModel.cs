@@ -17,8 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
-            Fornecedor.LastUpdate = DateTime.Now;
-
             var result = IsEditted = await daoFornecedor.Atualizar(Fornecedor);
 
             if (result)

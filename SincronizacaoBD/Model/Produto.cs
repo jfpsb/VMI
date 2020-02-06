@@ -15,7 +15,6 @@ namespace SincronizacaoBD.Model
         private string descricao;
         private double preco;
         private string ncm;
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         private IList<string> codigos = new List<string>();
 
         public virtual string Cod_Barra
@@ -84,15 +83,6 @@ namespace SincronizacaoBD.Model
                 ncm = value;
             }
         }
-
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
-            }
-        }
         
         [XmlIgnore]
         public virtual IList<string> Codigos
@@ -131,9 +121,6 @@ namespace SincronizacaoBD.Model
                             break;
                         case "Ncm":
                             Ncm = reader.ReadString();
-                            break;
-                        case "LastUpdate":
-                            LastUpdate = DateTime.Parse(reader.ReadString());
                             break;
                         case "Codigos":
                             reader.ReadToDescendant("Codigo");
@@ -185,7 +172,6 @@ namespace SincronizacaoBD.Model
             writer.WriteElementString("Descricao", Descricao);
             writer.WriteElementString("Preco", Preco.ToString());
             writer.WriteElementString("Ncm", Ncm);
-            writer.WriteElementString("LastUpdate", LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             if (Codigos.Count > 0)
             {

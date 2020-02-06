@@ -11,8 +11,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             if (Loja.Matriz != null && Loja.Matriz.Nome.Equals("SELECIONE UMA LOJA"))
                 Loja.Matriz = null;
 
-            Loja.LastUpdate = DateTime.Now;
-
             var result = IsEditted = await daoLoja.Atualizar(Loja);
 
             if (result)

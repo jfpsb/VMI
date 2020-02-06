@@ -7,7 +7,6 @@ namespace SincronizacaoBD.Model
     public class Marca
     {
         private string nome { get; set; }
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
 
         public virtual string Nome
         {
@@ -15,15 +14,6 @@ namespace SincronizacaoBD.Model
             set
             {
                 nome = value.ToUpper();
-            }
-        }
-
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
             }
         }
     }

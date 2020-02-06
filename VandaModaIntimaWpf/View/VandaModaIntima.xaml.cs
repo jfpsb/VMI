@@ -14,8 +14,8 @@ namespace VandaModaIntimaWpf
 
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
 
-            mainWindow = new MainWindow();
-            mainWindow.Show();
+            //mainWindow = new MainWindow();
+            //mainWindow.Show();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)
@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf
 
         private void TelaPrincipal_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            mainWindow.Close();
+            mainWindow?.Close();
             SessionProvider.FechaConexoes();
         }
     }

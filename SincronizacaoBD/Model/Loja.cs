@@ -12,7 +12,6 @@ namespace SincronizacaoBD.Model
         private string telefone { get; set; }
         private string endereco { get; set; }
         private string inscricaoestadual { get; set; }
-        private DateTime lastUpdate { get; set; } = DateTime.Now;
         public virtual string Cnpj
         {
             get { return cnpj; }
@@ -59,15 +58,6 @@ namespace SincronizacaoBD.Model
             set
             {
                 inscricaoestadual = value;
-            }
-        }
-
-        public virtual DateTime LastUpdate
-        {
-            get { return lastUpdate; }
-            set
-            {
-                lastUpdate = value;
             }
         }
     }

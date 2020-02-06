@@ -16,8 +16,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
-            Produto.LastUpdate = DateTime.Now;
-
             var result = IsEditted = await daoProduto.Atualizar(produtoModel);
 
             if (result)
