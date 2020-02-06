@@ -1,4 +1,5 @@
 ﻿using SincronizacaoBD;
+using System;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 

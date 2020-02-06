@@ -105,6 +105,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [XmlIgnore]
         public virtual DateTime LastUpdate
         {
             get { return lastUpdate; }
@@ -114,7 +115,18 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("LastUpdate");
             }
         }
-        
+
+        [XmlElement("LastUpdate")]
+        public virtual string LastUpdateString
+        {
+            get { return LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"); }
+            set
+            {
+                LastUpdate = DateTime.ParseExact(value, "yyyy-MM-dd HH:mm:ss", null);
+                OnPropertyChanged("LastUpdate");
+            }
+        }
+
         [XmlIgnore]
         public virtual IList<string> Codigos
         {
@@ -203,7 +215,7 @@ namespace VandaModaIntimaWpf.Model
                             Ncm = reader.ReadString();
                             break;
                         case "LastUpdate":
-                            LastUpdate = DateTime.Parse(reader.ReadString());
+                            LastUpdate = XmlConvert.ToDateTime(reader.ReadString(), XmlDateTimeSerializationMode.Unspecified);
                             break;
                         case "Codigos":
                             reader.ReadToDescendant("Codigo");
@@ -255,7 +267,7 @@ namespace VandaModaIntimaWpf.Model
             writer.WriteElementString("Descricao", Descricao);
             writer.WriteElementString("Preco", Preco.ToString());
             writer.WriteElementString("Ncm", Ncm);
-            writer.WriteElementString("LastUpdate", LastUpdate.ToString("yyyy-MM-dd HH:mm:ss"));
+            writer.WriteElementString("LastUpdate", XmlConvert.ToString(LastUpdate, XmlDateTimeSerializationMode.Unspecified));
 
             if (Codigos.Count > 0)
             {

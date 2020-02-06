@@ -10,7 +10,7 @@ namespace SincronizacaoBD.ViewModel
 
         public ViewModel()
         {
-            SessionSyncProvider.MySessionFactory = SessionSyncProvider.BuildSessionFactory();
+            SessionSyncProvider.MySessionFactory = SessionSyncProvider.BuildSessionFactoryLocal();
             SessionSyncProvider.MySessionFactorySync = SessionSyncProvider.BuildSessionFactorySync();
 
             threadBDRemoto = new Thread(() =>
@@ -20,7 +20,7 @@ namespace SincronizacaoBD.ViewModel
                 timer = new Timer((e) =>
                 {
                     SincronizacaoRemota.Sincronizar(AdicionaTexto);
-                    timer.Change(30000, Timeout.Infinite);
+                    timer.Change(20000, Timeout.Infinite);
                 }, null, 0, Timeout.Infinite);
             });
 
@@ -30,6 +30,12 @@ namespace SincronizacaoBD.ViewModel
         public void AbortThread()
         {
             threadBDRemoto.Abort();
+        }
+
+        public void FechaSessionFactories()
+        {
+            SessionSyncProvider.FechaConexoesLocal();
+            SessionSyncProvider.FechaConexoesSync();
         }
 
         public string Texto

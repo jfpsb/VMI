@@ -26,7 +26,7 @@ namespace SincronizacaoBD
         /// Método responsável pela criação da Session Factory.
         /// </summary>
         /// <returns>myConfiguration.BuildSessionFactory()</returns>
-        public static ISessionFactory BuildSessionFactory()
+        public static ISessionFactory BuildSessionFactoryLocal()
         {
             MyConfiguration = new Configuration();
             MyConfiguration.Configure("hibernateLocal.cfg.xml");
@@ -40,11 +40,11 @@ namespace SincronizacaoBD
             return MyConfigurationSync.BuildSessionFactory();
         }
 
-        public static ISession GetSession(string formId)
+        public static ISession GetSessionLocal()
         {
             if (MySessionFactory == null)
             {
-                MySessionFactory = BuildSessionFactory();
+                MySessionFactory = BuildSessionFactoryLocal();
             }
 
             ISession _session = MySessionFactory.OpenSession();
@@ -64,7 +64,7 @@ namespace SincronizacaoBD
             return _session;
         }
 
-        public static void FechaConexoes()
+        public static void FechaConexoesLocal()
         {
             if (MySessionFactory != null && !MySessionFactory.IsClosed)
             {

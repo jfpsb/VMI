@@ -82,7 +82,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("LastUpdate");
             }
         }
-
         public virtual string GetContextMenuHeader { get => Nome; }
 
         public virtual object Clone()

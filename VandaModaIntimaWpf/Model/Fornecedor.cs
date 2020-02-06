@@ -16,7 +16,6 @@ namespace VandaModaIntimaWpf.Model
         private string telefone { get; set; }
         private DateTime lastUpdate { get; set; } = DateTime.Now;
 
-        [XmlIgnore]
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
         public enum Colunas

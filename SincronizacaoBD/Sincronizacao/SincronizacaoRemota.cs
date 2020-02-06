@@ -27,208 +27,149 @@ namespace SincronizacaoBD.Sincronizacao
 
                     DateTime lastUpdate = new DateTime(2010, 1, 1, 12, 0, 0);
 
-                    if (File.Exists(Caminho))
+                    if (!File.Exists(Caminho))
+                    {
+                        sessionSync = SessionSyncProvider.GetSessionSync();
+
+                        DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
+                        DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
+                        DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
+                        DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
+                        DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
+                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
+
+                        AdicionaTexto($"{DataHoraAtual()}: Sincronizando pela primeira vez. Consultando Banco de Dados Remoto\n");
+
+                        IList<Fornecedor> fornecedores = daoFornecedorSync.Listar();
+                        IList<Loja> lojas = daoLojaSync.Listar();
+                        IList<Marca> marcas = daoMarcaSync.Listar();
+                        IList<OperadoraCartao> operadoras = daoOperadoraCartaoSync.Listar();
+                        IList<Produto> produtos = daoProdutoSync.Listar();
+                        IList<RecebimentoCartao> recebimentos = daoRecebimentoCartaoSync.Listar();
+
+                        SessionSyncProvider.FechaSession(sessionSync);
+
+                        sessionLocal = SessionSyncProvider.GetSessionLocal();
+
+                        DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
+                        DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
+                        DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
+                        DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
+                        DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
+                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
+
+                        AdicionaTexto($"{DataHoraAtual()}: Inserindo Em Banco de Dados Local Registros Recuperados do Banco de Dados Remoto\n");
+
+                        if (fornecedores.Count > 0)
+                        {
+                            daoFornecedorLocal.InserirOuAtualizar(fornecedores);
+                        }
+
+                        if (lojas.Count > 0)
+                        {
+                            daoLojaLocal.InserirOuAtualizar(lojas);
+                        }
+
+                        if (marcas.Count > 0)
+                        {
+                            daoMarcaLocal.InserirOuAtualizar(marcas);
+                        }
+
+                        if (operadoras.Count > 0)
+                        {
+                            daoOperadoraCartaoLocal.InserirOuAtualizar(operadoras);
+                        }
+
+                        if (produtos.Count > 0)
+                        {
+                            daoProdutoLocal.InserirOuAtualizar(produtos);
+                        }
+
+                        if (recebimentos.Count > 0)
+                        {
+                            daoRecebimentoCartaoLocal.InserirOuAtualizar(recebimentos);
+                        }
+
+                        SessionSyncProvider.FechaSession(sessionLocal);
+                    }
+                    else
                     {
                         using (StreamReader streamReader = File.OpenText(Caminho))
                         {
                             string dataString = streamReader.ReadToEnd();
                             lastUpdate = DateTime.Parse(dataString);
                         }
+
+                        AdicionaTexto($"{DataHoraAtual()}: Lendo Arquivos Remotos Com As Mudanças No Banco de Dados\n");
+
+                        IList<EntidadeMySQL<Fornecedor>> fornecedoresRemotos = ArquivoEntidade<Fornecedor>.LerXmlRemoto(lastUpdate);
+                        IList<EntidadeMySQL<Loja>> lojasRemotos = ArquivoEntidade<Loja>.LerXmlRemoto(lastUpdate);
+                        IList<EntidadeMySQL<Marca>> marcasRemotos = ArquivoEntidade<Marca>.LerXmlRemoto(lastUpdate);
+                        IList<EntidadeMySQL<OperadoraCartao>> operadorasRemotos = ArquivoEntidade<OperadoraCartao>.LerXmlRemoto(lastUpdate);
+                        IList<EntidadeMySQL<Produto>> produtosRemotos = ArquivoEntidade<Produto>.LerXmlRemoto(lastUpdate);
+                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosRemotos = ArquivoEntidade<RecebimentoCartao>.LerXmlRemoto(lastUpdate);
+
+                        AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Local Com Arquivos Remotos\n");
+
+                        sessionLocal = SessionSyncProvider.GetSessionLocal();
+
+                        DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
+                        DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
+                        DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
+                        DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
+                        DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
+                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
+
+                        SincronizaBancoDeDados(daoFornecedorLocal, fornecedoresRemotos);
+                        SincronizaBancoDeDados(daoLojaLocal, lojasRemotos);
+                        SincronizaBancoDeDados(daoMarcaLocal, marcasRemotos);
+                        SincronizaBancoDeDados(daoOperadoraCartaoLocal, operadorasRemotos);
+                        SincronizaBancoDeDados(daoProdutoLocal, produtosRemotos);
+                        SincronizaBancoDeDados(daoRecebimentoCartaoLocal, recebimentosRemotos);
+
+                        SessionSyncProvider.FechaSession(sessionLocal);
+
+                        AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Remoto Com Arquivos Locais\n");
+
+                        IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerXmlLocal();
+                        IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerXmlLocal();
+                        IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerXmlLocal();
+                        IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerXmlLocal();
+                        IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerXmlLocal();
+                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerXmlLocal();
+
+                        sessionSync = SessionSyncProvider.GetSessionSync();
+
+                        DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
+                        DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
+                        DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
+                        DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
+                        DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
+                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
+
+                        SincronizaBancoDeDados(daoFornecedorSync, fornecedoresLocais);
+                        SincronizaBancoDeDados(daoLojaSync, lojasLocais);
+                        SincronizaBancoDeDados(daoMarcaSync, marcasLocais);
+                        SincronizaBancoDeDados(daoOperadoraCartaoSync, operadorasLocais);
+                        SincronizaBancoDeDados(daoProdutoSync, produtosLocais);
+                        SincronizaBancoDeDados(daoRecebimentoCartaoSync, recebimentosLocais);
+
+                        SessionSyncProvider.FechaSession(sessionSync);
+
+                        ArquivoEntidade<Fornecedor>.EnviaXmlRemoto();
+                        ArquivoEntidade<Loja>.EnviaXmlRemoto();
+                        ArquivoEntidade<Marca>.EnviaXmlRemoto();
+                        ArquivoEntidade<OperadoraCartao>.EnviaXmlRemoto();
+                        ArquivoEntidade<Produto>.EnviaXmlRemoto();
+                        ArquivoEntidade<RecebimentoCartao>.EnviaXmlRemoto();
+
+                        EsvaziaDiretorios();
                     }
-
-                    sessionSync = SessionSyncProvider.GetSessionSync();
-
-                    DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
-                    DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
-                    DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
-                    DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
-                    DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
-                    DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
-
-                    AdicionaTexto($"{DataHoraAtual()}: Consultando Banco de Dados Remoto\n");
-
-                    IList<Fornecedor> fornecedores = daoFornecedorSync.ListarLastUpdate(lastUpdate);
-                    IList<Loja> lojas = daoLojaSync.ListarLastUpdate(lastUpdate, "Matriz");
-                    IList<Marca> marcas = daoMarcaSync.ListarLastUpdate(lastUpdate);
-                    IList<OperadoraCartao> operadoras = daoOperadoraCartaoSync.ListarLastUpdate(lastUpdate, "IdentificadoresBanco");
-                    IList<Produto> produtos = daoProdutoSync.ListarLastUpdate(lastUpdate, "Codigos");
-                    IList<RecebimentoCartao> recebimentos = daoRecebimentoCartaoSync.ListarLastUpdate(lastUpdate, "Loja", "OperadoraCartao");
-
-                    SessionSyncProvider.FechaSession(sessionSync);
-
-                    sessionLocal = SessionSyncProvider.GetSession("Sincronizacao");
-
-                    DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
-                    DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
-                    DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
-                    DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
-                    DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
-                    DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
-
-                    AdicionaTexto($"{DataHoraAtual()}: Inserindo Em Banco de Dados Local Registros Recuperados do Banco de Dados Remoto\n");
-
-                    if (fornecedores.Count > 0)
-                    {
-                        daoFornecedorLocal.InserirOuAtualizar(fornecedores);
-                    }
-
-                    if (lojas.Count > 0)
-                    {
-                        daoLojaLocal.InserirOuAtualizar(lojas);
-                    }
-
-                    if (marcas.Count > 0)
-                    {
-                        daoMarcaLocal.InserirOuAtualizar(marcas);
-                    }
-
-                    if (operadoras.Count > 0)
-                    {
-                        daoOperadoraCartaoLocal.InserirOuAtualizar(operadoras);
-                    }
-
-                    if (produtos.Count > 0)
-                    {
-                        daoProdutoLocal.InserirOuAtualizar(produtos);
-                    }
-
-                    if (recebimentos.Count > 0)
-                    {
-                        daoRecebimentoCartaoLocal.InserirOuAtualizar(recebimentos);
-                    }
-
-                    SessionSyncProvider.FechaSession(sessionLocal);
-
-                    AdicionaTexto($"{DataHoraAtual()}: Lendo Arquivos Com Registros Das Mudanças Locais\n");
-
-                    IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerDeBinario();
-                    IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerDeBinario();
-                    IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerDeBinario();
-                    IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerDeBinario();
-                    IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerDeBinario();
-                    IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerDeBinario();
-
-                    sessionSync = SessionSyncProvider.GetSessionSync();
-
-                    daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
-                    daoLojaSync = new DAOSync<Loja>(sessionSync);
-                    daoMarcaSync = new DAOSync<Marca>(sessionSync);
-                    daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
-                    daoProdutoSync = new DAOSync<Produto>(sessionSync);
-                    daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
-
-                    AdicionaTexto($"{DataHoraAtual()}: Inserindo em Banco de Dados Remoto Dados Locais\n");
-
-                    if (fornecedoresLocais?.Count > 0)
-                    {
-                        IList<Fornecedor> listaInsertUpdate = fornecedoresLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<Fornecedor> listaDelete = fornecedoresLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoFornecedorSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoFornecedorSync.Deletar(listaDelete);
-                    }
-
-                    if (lojasLocais?.Count > 0)
-                    {
-                        IList<Loja> listaInsertUpdate = lojasLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<Loja> listaDelete = lojasLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoLojaSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoLojaSync.Deletar(listaDelete);
-                    }
-
-                    if (marcasLocais?.Count > 0)
-                    {
-                        IList<Marca> listaInsertUpdate = marcasLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<Marca> listaDelete = marcasLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoMarcaSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoMarcaSync.Deletar(listaDelete);
-                    }
-
-                    if (operadorasLocais?.Count > 0)
-                    {
-                        IList<OperadoraCartao> listaInsertUpdate = operadorasLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<OperadoraCartao> listaDelete = operadorasLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoOperadoraCartaoSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoOperadoraCartaoSync.Deletar(listaDelete);
-                    }
-
-                    if (produtosLocais?.Count > 0)
-                    {
-                        IList<Produto> listaInsertUpdate = produtosLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<Produto> listaDelete = produtosLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoProdutoSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoProdutoSync.Deletar(listaDelete);
-                    }
-
-                    if (recebimentosLocais?.Count > 0)
-                    {
-                        IList<RecebimentoCartao> listaInsertUpdate = recebimentosLocais.Where(
-                            w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        IList<RecebimentoCartao> listaDelete = recebimentosLocais.Where(
-                            w => w.OperacaoMySql.Equals("DELETE")).
-                            Select(sm => sm.EntidadeSalva).ToList();
-
-                        if (listaInsertUpdate.Count > 0)
-                            daoRecebimentoCartaoSync.InserirOuAtualizar(listaInsertUpdate);
-
-                        if (listaDelete.Count > 0)
-                            daoRecebimentoCartaoSync.Deletar(listaDelete);
-                    }
-
-                    SessionSyncProvider.FechaSession(sessionSync);
 
                     using (StreamWriter streamWriter = new StreamWriter(Caminho, false))
                     {
                         streamWriter.WriteLine(inicioSincronizacao.ToString("yyyy-MM-dd HH:mm:ss"));
                     }
-
-                    EsvaziaDiretorios();
                 }
                 catch (Exception e)
                 {
@@ -241,6 +182,25 @@ namespace SincronizacaoBD.Sincronizacao
                     EmExecucao = false;
                     AdicionaTexto($"{DataHoraAtual()}: Sincronização Finalizada\n");
                 }
+            }
+        }
+        private static void SincronizaBancoDeDados<E>(DAOSync<E> dao, IList<EntidadeMySQL<E>> entidadesRemotas) where E : class
+        {
+            if (entidadesRemotas?.Count > 0)
+            {
+                IList<E> listaInsertUpdate = entidadesRemotas.Where(
+                    w => w.OperacaoMySql.Equals("INSERT") || w.OperacaoMySql.Equals("UPDATE")).
+                    Select(sm => sm.EntidadeSalva).ToList();
+
+                IList<E> listaDelete = entidadesRemotas.Where(
+                    w => w.OperacaoMySql.Equals("DELETE")).
+                    Select(sm => sm.EntidadeSalva).ToList();
+
+                if (listaInsertUpdate.Count > 0)
+                    dao.InserirOuAtualizar(listaInsertUpdate);
+
+                if (listaDelete.Count > 0)
+                    dao.Deletar(listaDelete);
             }
         }
         private static void EsvaziaDiretorios()

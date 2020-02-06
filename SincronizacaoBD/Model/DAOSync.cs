@@ -2,7 +2,6 @@
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SincronizacaoBD.Model
 {
@@ -14,87 +13,45 @@ namespace SincronizacaoBD.Model
             this.session = session;
         }
 
-        public bool InserirOuAtualizar(E objeto)
+        public void InserirOuAtualizar(E objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
-                try
-                {
-                    session.SaveOrUpdate(objeto);
-                    transacao.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERRO AO INSERIR OU ATUALIZAR SYNC >>> " + ex.Message);
-                }
-
-                return false;
+                session.SaveOrUpdate(objeto);
+                transacao.Commit();
             }
         }
-        public bool InserirOuAtualizar(IList<E> objetos)
+        public void InserirOuAtualizar(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
-                try
+                foreach (E e in objetos)
                 {
-                    foreach (E e in objetos)
-                    {
-                        session.SaveOrUpdate(e);
-                    }
-
-                    transacao.Commit();
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERRO AO INSERIR OU ATUALIZAR LISTA SYNC >>> " + ex.Message);
+                    session.SaveOrUpdate(e);
                 }
 
-                return false;
+                transacao.Commit();
             }
         }
-        public virtual bool Deletar(E objeto)
+        public virtual void Deletar(E objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
-                try
-                {
-                    session.Delete(objeto);
-                    transacao.Commit();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERRO AO DELETAR SYNC >>> " + ex.Message);
-                }
-
-                return false;
+                session.Delete(objeto);
+                transacao.Commit();
             }
         }
 
-        public virtual bool Deletar(IList<E> objetos)
+        public virtual void Deletar(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
-                try
+                foreach (E e in objetos)
                 {
-                    foreach (E e in objetos)
-                    {
-                        session.Delete(e);
-                    }
-
-                    transacao.Commit();
-
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERRO AO DELETAR LISTA SYNC >>> " + ex.Message);
+                    session.Delete(e);
                 }
 
-                return false;
+                transacao.Commit();
             }
         }
         public IList<E> ListarLastUpdate(DateTime lastUpdate, params string[] fetchPaths)
@@ -110,6 +67,23 @@ namespace SincronizacaoBD.Model
                     criteria.Fetch(fetchPath);
                 }
 
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+
+                return criteria.List<E>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return null;
+        }
+        public IList<E> Listar()
+        {
+            try
+            {
+                var criteria = session.CreateCriteria<E>();
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
 

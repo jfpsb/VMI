@@ -69,6 +69,9 @@ namespace VandaModaIntimaWpf.Model
                         case "Nome":
                             Nome = reader.ReadString();
                             break;
+                        case "LastUpdate":
+                            LastUpdate = XmlConvert.ToDateTime(reader.ReadString(), XmlDateTimeSerializationMode.Unspecified);
+                            break;
                         case "IdentificadoresBanco":
                             reader.ReadToDescendant("Identificador");
                             do
@@ -85,8 +88,9 @@ namespace VandaModaIntimaWpf.Model
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteElementString("Nome", Nome);
+            writer.WriteElementString("LastUpdate", XmlConvert.ToString(LastUpdate, XmlDateTimeSerializationMode.Unspecified));
 
-            if(IdentificadoresBanco.Count > 0)
+            if (IdentificadoresBanco.Count > 0)
             {
                 writer.WriteStartElement("IdentificadoresBanco");
 

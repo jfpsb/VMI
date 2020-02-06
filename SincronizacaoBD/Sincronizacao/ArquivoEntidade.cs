@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using WinSCP;
 
 namespace SincronizacaoBD.Sincronizacao
 {
@@ -39,39 +40,115 @@ namespace SincronizacaoBD.Sincronizacao
             }
         }
 
-        public static IList<EntidadeMySQL<E>> LerDeBinario()
+        public static IList<EntidadeMySQL<E>> LerXmlLocal()
         {
             IList<EntidadeMySQL<E>> lista = new List<EntidadeMySQL<E>>();
-            try
+
+            string Caminho = $@"{Diretorio}\{typeof(E).Name}";
+
+            if (Directory.Exists(Caminho))
             {
-                if (Directory.Exists(Diretorio))
+                string[] arquivos = Directory.GetFiles(Caminho, "*.xml");
+
+                foreach (string arquivo in arquivos)
                 {
-                    string[] arquivos = Directory.GetFiles($@"{Diretorio}\{typeof(E).Name}", "*.xml");
+                    XmlRootAttribute root = new XmlRootAttribute();
+                    root.ElementName = "EntidadeMySQL";
+                    var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
+
+                    using (TextReader reader = new StreamReader(arquivo))
+                    {
+                        EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
+                        lista.Add(entidadeMySQL);
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+        public static IList<EntidadeMySQL<E>> LerXmlRemoto(DateTime lastUpdate)
+        {
+            IList<EntidadeMySQL<E>> lista = new List<EntidadeMySQL<E>>();
+
+            SessionOptions sessionOptions = new SessionOptions
+            {
+                Protocol = Protocol.Ftp,
+                HostName = "ftp.vandamodaintima.com.br",
+                UserName = "syncftp@vandamodaintima.com.br",
+                Password = "Jfpsb5982jf"
+            };
+
+            using (Session ftpsession = new Session())
+            {
+                ftpsession.Open(sessionOptions);
+
+                string CaminhoRemoto = $"EntidadesSalvas/{typeof(E).Name}";
+                string CaminhoLocal = Path.Combine(Path.GetTempPath(), $@"VandaModaIntima\{CaminhoRemoto.Replace("/", @"\")}");
+
+                TransferOptions transferOptions = new TransferOptions();
+                transferOptions.FileMask = $"*xml>={lastUpdate.ToString("yyyy-MM-dd HH:mm:ss")}";
+
+                TransferOperationResult transferOperationResult = ftpsession.GetFiles(CaminhoRemoto, CaminhoLocal, false, transferOptions);
+
+                if (transferOperationResult.IsSuccess)
+                {
+                    foreach (TransferEventArgs transferEventArgs in transferOperationResult.Transfers)
+                    {
+                        Console.WriteLine($"Arquivo {transferEventArgs.FileName} Baixado");
+                    }
+
+                    string[] arquivos = Directory.GetFiles($@"{CaminhoLocal}", "*.xml");
 
                     foreach (string arquivo in arquivos)
                     {
-                        XmlRootAttribute root = new XmlRootAttribute();
-                        root.ElementName = "EntidadeMySQL";
+                        XmlRootAttribute root = new XmlRootAttribute
+                        {
+                            ElementName = "EntidadeMySQL"
+                        };
+
                         var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
 
-                        using(TextReader reader = new StreamReader(arquivo))
+                        using (TextReader reader = new StreamReader(arquivo))
                         {
                             EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
                             lista.Add(entidadeMySQL);
                         }
                     }
                 }
+            }
 
-                return lista;
-            }
-            catch (DirectoryNotFoundException)
+            return lista;
+        }
+
+        public static void EnviaXmlRemoto()
+        {
+            SessionOptions sessionOptions = new SessionOptions
             {
-                return null;
-            }
-            catch (InvalidOperationException ioe)
+                Protocol = Protocol.Ftp,
+                HostName = "ftp.vandamodaintima.com.br",
+                UserName = "syncftp@vandamodaintima.com.br",
+                Password = "Jfpsb5982jf"
+            };
+
+            using (Session ftpsession = new Session())
             {
-                Console.WriteLine(ioe.Message);
-                return null;
+                ftpsession.Open(sessionOptions);
+
+                string CaminhoRemoto = $"{Diretorio}/{typeof(E).Name}";
+                string CaminhoLocal = CaminhoRemoto.Replace("/", @"\");
+
+                if (Directory.Exists(CaminhoLocal))
+                {
+                    TransferOperationResult transferOperationResult = ftpsession.PutFiles(CaminhoLocal, CaminhoRemoto, false);
+
+                    transferOperationResult.Check();
+
+                    foreach (TransferEventArgs transferEventArgs in transferOperationResult.Transfers)
+                    {
+                        Console.WriteLine($"Arquivo {transferEventArgs.FileName} Enviado");
+                    }
+                }
             }
         }
 

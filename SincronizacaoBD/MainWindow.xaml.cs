@@ -19,6 +19,7 @@ namespace SincronizacaoBD
         {
             e.Cancel = true;
             ((ViewModel.ViewModel)DataContext).AbortThread();
+            ((ViewModel.ViewModel)DataContext).FechaSessionFactories();
         }
 
         private void ScrollViewer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
