@@ -1,4 +1,4 @@
-﻿namespace VandaModaIntimaWpf.Model
+﻿namespace SincronizacaoBD.Model
 {
     public interface IModel
     {

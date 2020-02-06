@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using VandaModaIntimaWpf.Model;
+﻿using SincronizacaoBD.Model;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.ViewModel
 {

@@ -80,6 +80,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\DAOSync.cs" />
     <Compile Include="Model\Fornecedor.cs" />
+    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />

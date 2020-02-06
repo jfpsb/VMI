@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class Loja
+    public class Loja : IModel
     {
         private string cnpj { get; set; }
         private Loja matriz { get; set; }
@@ -59,6 +59,13 @@ namespace SincronizacaoBD.Model
             {
                 inscricaoestadual = value;
             }
+        }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual object GetId()
+        {
+            return Cnpj;
         }
     }
 }

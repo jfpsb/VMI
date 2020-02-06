@@ -209,6 +209,11 @@ namespace SincronizacaoBD.Sincronizacao
             {
                 dir.Delete(true);
             }
+
+            foreach (var dir in new DirectoryInfo(Path.Combine(Path.GetTempPath(), @"VandaModaIntima\EntidadesSalvas")).GetDirectories())
+            {
+                dir.Delete(true);
+            }
         }
 
         private static string DataHoraAtual()

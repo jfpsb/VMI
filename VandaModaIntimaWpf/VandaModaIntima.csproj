@@ -192,7 +192,6 @@
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Produto.cs" />
-    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />

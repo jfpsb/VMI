@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class Marca
+    public class Marca : IModel
     {
         private string nome { get; set; }
 
@@ -15,6 +15,13 @@ namespace SincronizacaoBD.Model
             {
                 nome = value.ToUpper();
             }
+        }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual object GetId()
+        {
+            return Nome;
         }
     }
 }

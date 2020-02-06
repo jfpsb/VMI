@@ -1,5 +1,5 @@
 ﻿using NHibernate;
-using System;
+using SincronizacaoBD.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

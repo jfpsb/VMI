@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using SincronizacaoBD.Model;
 using SincronizacaoBD.Sincronizacao;
 using System;
 using System.Collections.Generic;

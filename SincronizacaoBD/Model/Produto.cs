@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class Produto : IXmlSerializable
+    public class Produto : IXmlSerializable, IModel
     {
         private string cod_barra;
         private Fornecedor fornecedor;
@@ -95,6 +95,13 @@ namespace SincronizacaoBD.Model
             {
                 codigos = value;
             }
+        }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual object GetId()
+        {
+            return Cod_Barra;
         }
 
         public virtual XmlSchema GetSchema()

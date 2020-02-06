@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class Fornecedor
+    public class Fornecedor : IModel
     {
         private string cnpj { get; set; }
         private string nome { get; set; }
@@ -65,6 +64,13 @@ namespace SincronizacaoBD.Model
             {
                 telefone = value;
             }
+        }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual object GetId()
+        {
+            return Cnpj;
         }
     }
 }

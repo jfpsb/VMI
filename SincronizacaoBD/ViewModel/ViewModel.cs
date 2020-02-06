@@ -20,7 +20,7 @@ namespace SincronizacaoBD.ViewModel
                 timer = new Timer((e) =>
                 {
                     SincronizacaoRemota.Sincronizar(AdicionaTexto);
-                    timer.Change(20000, Timeout.Infinite);
+                    timer.Change(5000, Timeout.Infinite);
                 }, null, 0, Timeout.Infinite);
             });
 

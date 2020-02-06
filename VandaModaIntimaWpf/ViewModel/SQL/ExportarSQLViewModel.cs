@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using NHibernate;
+using SincronizacaoBD.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

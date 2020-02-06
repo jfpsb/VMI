@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class RecebimentoCartao
+    public class RecebimentoCartao : IModel
     {
         private int mes { get; set; }
         private int ano { get; set; }
@@ -69,6 +69,9 @@ namespace SincronizacaoBD.Model
                 observacao = value;
             }
         }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() == typeof(RecebimentoCartao))
@@ -92,6 +95,11 @@ namespace SincronizacaoBD.Model
                 hash += OperadoraCartao.GetHashCode();
 
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
+        }
+
+        public virtual object GetId()
+        {
+            return $"{Mes}{Ano}{Loja.Cnpj}{OperadoraCartao.Nome}";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SincronizacaoBD.Model;
+using System;
 using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model

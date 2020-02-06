@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace SincronizacaoBD.Model
 {
     [XmlRoot(ElementName = "EntidadeSalva")]
-    public class OperadoraCartao : IXmlSerializable
+    public class OperadoraCartao : IXmlSerializable, IModel
     {
         private string nome;
         private IList<string> identificadoresBanco = new List<string>();
@@ -28,6 +28,13 @@ namespace SincronizacaoBD.Model
             {
                 identificadoresBanco = value;
             }
+        }
+
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual object GetId()
+        {
+            return Nome;
         }
 
         public virtual XmlSchema GetSchema()
@@ -63,7 +70,7 @@ namespace SincronizacaoBD.Model
         {
             writer.WriteElementString("Nome", Nome);
 
-            if(IdentificadoresBanco.Count > 0)
+            if (IdentificadoresBanco.Count > 0)
             {
                 writer.WriteStartElement("IdentificadoresBanco");
 

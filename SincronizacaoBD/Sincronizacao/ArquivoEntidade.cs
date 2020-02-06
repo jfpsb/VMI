@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SincronizacaoBD.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,7 +9,7 @@ using WinSCP;
 
 namespace SincronizacaoBD.Sincronizacao
 {
-    public static class ArquivoEntidade<E> where E : class
+    public static class ArquivoEntidade<E> where E : class, IModel
     {
         private static readonly string Diretorio = "EntidadesSalvas";
 
@@ -24,7 +25,7 @@ namespace SincronizacaoBD.Sincronizacao
                 }
 
                 var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>));
-                writer = new XmlTextWriter($@"{Diretorio}\{typeof(E).Name}\{entidade.EntidadeSalva.GetHashCode()}.xml", Encoding.UTF8);
+                writer = new XmlTextWriter($@"{Diretorio}\{typeof(E).Name}\{entidade.EntidadeSalva.GetId()}.xml", Encoding.UTF8);
                 writer.Formatting = Formatting.Indented;
                 writer.Indentation = 4;
                 serializer.Serialize(writer, entidade);
@@ -138,9 +139,12 @@ namespace SincronizacaoBD.Sincronizacao
                 string CaminhoRemoto = $"{Diretorio}/{typeof(E).Name}";
                 string CaminhoLocal = CaminhoRemoto.Replace("/", @"\");
 
+                TransferOptions transferOptions = new TransferOptions();
+                transferOptions.OverwriteMode = OverwriteMode.Overwrite;
+
                 if (Directory.Exists(CaminhoLocal))
                 {
-                    TransferOperationResult transferOperationResult = ftpsession.PutFiles(CaminhoLocal, CaminhoRemoto, false);
+                    TransferOperationResult transferOperationResult = ftpsession.PutFiles(CaminhoLocal, CaminhoRemoto, false, transferOptions);
 
                     transferOperationResult.Check();
 
