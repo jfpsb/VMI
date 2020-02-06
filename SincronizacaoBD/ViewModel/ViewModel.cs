@@ -1,4 +1,5 @@
 ﻿using SincronizacaoBD.Sincronizacao;
+using System;
 using System.Threading;
 
 namespace SincronizacaoBD.ViewModel
@@ -10,17 +11,30 @@ namespace SincronizacaoBD.ViewModel
 
         public ViewModel()
         {
-            SessionSyncProvider.MySessionFactory = SessionSyncProvider.BuildSessionFactoryLocal();
-            SessionSyncProvider.MySessionFactorySync = SessionSyncProvider.BuildSessionFactorySync();
-
             threadBDRemoto = new Thread(() =>
             {
-                Timer timer = null;
+                Timer timerSessionFactory = null;
+                Timer timerSincronizar = null;
 
-                timer = new Timer((e) =>
+                SessionSyncProvider.MySessionFactory = SessionSyncProvider.BuildSessionFactoryLocal();
+
+                timerSessionFactory = new Timer((e) =>
                 {
-                    SincronizacaoRemota.Sincronizar(AdicionaTexto);
-                    timer.Change(5000, Timeout.Infinite);
+                    try
+                    {
+                        SessionSyncProvider.MySessionFactorySync = SessionSyncProvider.BuildSessionFactorySync();
+
+                        timerSincronizar = new Timer((e2) =>
+                        {
+                            SincronizacaoRemota.Sincronizar(AdicionaTexto);
+                            timerSincronizar.Change(5000, Timeout.Infinite);
+                        }, null, 0, Timeout.Infinite);
+                    }
+                    catch (Exception ex)
+                    {
+                        Texto += $"{DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}: Erro ao Conectar Com Servidor Remoto. Cheque Sua Conexão com a Internet:\n{ex.Message}\n";
+                        timerSessionFactory.Change(30000, Timeout.Infinite);
+                    }
                 }, null, 0, Timeout.Infinite);
             });
 
