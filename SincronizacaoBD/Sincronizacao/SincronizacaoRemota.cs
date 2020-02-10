@@ -131,12 +131,12 @@ namespace SincronizacaoBD.Sincronizacao
 
                         AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Remoto Com Arquivos Locais\n");
 
-                        IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerXmlLocal();
-                        IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerXmlLocal();
-                        IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerXmlLocal();
-                        IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerXmlLocal();
-                        IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerXmlLocal();
-                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerXmlLocal();
+                        IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerXmlLocal(lastUpdate);
+                        IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerXmlLocal(lastUpdate);
+                        IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerXmlLocal(lastUpdate);
+                        IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerXmlLocal(lastUpdate);
+                        IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerXmlLocal(lastUpdate);
+                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerXmlLocal(lastUpdate);
 
                         sessionSync = SessionSyncProvider.GetSessionSync();
 
@@ -156,14 +156,12 @@ namespace SincronizacaoBD.Sincronizacao
 
                         SessionSyncProvider.FechaSession(sessionSync);
 
-                        ArquivoEntidade<Fornecedor>.EnviaXmlRemoto();
-                        ArquivoEntidade<Loja>.EnviaXmlRemoto();
-                        ArquivoEntidade<Marca>.EnviaXmlRemoto();
-                        ArquivoEntidade<OperadoraCartao>.EnviaXmlRemoto();
-                        ArquivoEntidade<Produto>.EnviaXmlRemoto();
-                        ArquivoEntidade<RecebimentoCartao>.EnviaXmlRemoto();
-
-                        EsvaziaDiretorios();
+                        ArquivoEntidade<Fornecedor>.EnviaXmlRemoto(lastUpdate);
+                        ArquivoEntidade<Loja>.EnviaXmlRemoto(lastUpdate);
+                        ArquivoEntidade<Marca>.EnviaXmlRemoto(lastUpdate);
+                        ArquivoEntidade<OperadoraCartao>.EnviaXmlRemoto(lastUpdate);
+                        ArquivoEntidade<Produto>.EnviaXmlRemoto(lastUpdate);
+                        ArquivoEntidade<RecebimentoCartao>.EnviaXmlRemoto(lastUpdate);
                     }
 
                     using (StreamWriter streamWriter = new StreamWriter(Caminho, false))
@@ -204,19 +202,6 @@ namespace SincronizacaoBD.Sincronizacao
                     dao.Deletar(listaDelete);
             }
         }
-        private static void EsvaziaDiretorios()
-        {
-            foreach (var dir in new DirectoryInfo("EntidadesSalvas").GetDirectories())
-            {
-                dir.Delete(true);
-            }
-
-            foreach (var dir in new DirectoryInfo(Path.Combine(Path.GetTempPath(), @"VandaModaIntima\EntidadesSalvas")).GetDirectories())
-            {
-                dir.Delete(true);
-            }
-        }
-
         private static string DataHoraAtual()
         {
             return DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");

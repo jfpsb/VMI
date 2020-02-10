@@ -27,7 +27,7 @@ namespace SincronizacaoBD.ViewModel
                         timerSincronizar = new Timer((e2) =>
                         {
                             SincronizacaoRemota.Sincronizar(AdicionaTexto);
-                            timerSincronizar.Change(5000, Timeout.Infinite);
+                            timerSincronizar.Change(0, Timeout.Infinite);
                         }, null, 0, Timeout.Infinite);
                     }
                     catch (Exception ex)

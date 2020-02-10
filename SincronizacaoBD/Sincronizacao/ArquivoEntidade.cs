@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -41,7 +42,7 @@ namespace SincronizacaoBD.Sincronizacao
             }
         }
 
-        public static IList<EntidadeMySQL<E>> LerXmlLocal()
+        public static IList<EntidadeMySQL<E>> LerXmlLocal(DateTime lastUpdate)
         {
             IList<EntidadeMySQL<E>> lista = new List<EntidadeMySQL<E>>();
 
@@ -49,15 +50,17 @@ namespace SincronizacaoBD.Sincronizacao
 
             if (Directory.Exists(Caminho))
             {
-                string[] arquivos = Directory.GetFiles(Caminho, "*.xml");
+                var arquivos = new DirectoryInfo($@"{Caminho}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime >= lastUpdate);
 
-                foreach (string arquivo in arquivos)
+                foreach (FileInfo arquivo in arquivos)
                 {
-                    XmlRootAttribute root = new XmlRootAttribute();
-                    root.ElementName = "EntidadeMySQL";
+                    XmlRootAttribute root = new XmlRootAttribute
+                    {
+                        ElementName = "EntidadeMySQL"
+                    };
                     var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
 
-                    using (TextReader reader = new StreamReader(arquivo))
+                    using (TextReader reader = new StreamReader(arquivo.FullName))
                     {
                         EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
                         lista.Add(entidadeMySQL);
@@ -85,32 +88,32 @@ namespace SincronizacaoBD.Sincronizacao
                 ftpsession.Open(sessionOptions);
 
                 string CaminhoRemoto = $"EntidadesSalvas/{typeof(E).Name}";
-                string CaminhoLocal = Path.Combine(Path.GetTempPath(), $@"VandaModaIntima\{CaminhoRemoto.Replace("/", @"\")}");
+                string CaminhoLocal = $@"{CaminhoRemoto.Replace("/", @"\")}";
 
-                TransferOptions transferOptions = new TransferOptions();
-                transferOptions.FileMask = $"*xml>={lastUpdate.ToString("yyyy-MM-dd HH:mm:ss")}";
-
-                TransferOperationResult transferOperationResult = ftpsession.GetFiles(CaminhoRemoto, CaminhoLocal, false, transferOptions);
-
-                if (transferOperationResult.IsSuccess)
+                if (ftpsession.FileExists(CaminhoRemoto))
                 {
-                    foreach (TransferEventArgs transferEventArgs in transferOperationResult.Transfers)
+                    TransferOptions transferOptions = new TransferOptions();
+                    transferOptions.OverwriteMode = OverwriteMode.Overwrite;
+                    transferOptions.PreserveTimestamp = true;
+
+                    if (!Directory.Exists(CaminhoLocal))
+                        Directory.CreateDirectory(CaminhoLocal);
+
+                    SynchronizationResult synchronizationResult = ftpsession.SynchronizeDirectories(SynchronizationMode.Local, CaminhoLocal, CaminhoRemoto, false, false, SynchronizationCriteria.Time, transferOptions);
+                    synchronizationResult.Check();
+
+                    var arquivos = new DirectoryInfo($@"{CaminhoLocal}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime >= lastUpdate);
+
+                    XmlRootAttribute root = new XmlRootAttribute
                     {
-                        Console.WriteLine($"Arquivo {transferEventArgs.FileName} Baixado");
-                    }
+                        ElementName = "EntidadeMySQL"
+                    };
 
-                    string[] arquivos = Directory.GetFiles($@"{CaminhoLocal}", "*.xml");
+                    var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
 
-                    foreach (string arquivo in arquivos)
+                    foreach (FileInfo arquivo in arquivos)
                     {
-                        XmlRootAttribute root = new XmlRootAttribute
-                        {
-                            ElementName = "EntidadeMySQL"
-                        };
-
-                        var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
-
-                        using (TextReader reader = new StreamReader(arquivo))
+                        using (TextReader reader = new StreamReader(arquivo.FullName))
                         {
                             EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
                             lista.Add(entidadeMySQL);
@@ -122,7 +125,7 @@ namespace SincronizacaoBD.Sincronizacao
             return lista;
         }
 
-        public static void EnviaXmlRemoto()
+        public static void EnviaXmlRemoto(DateTime lastUpdate)
         {
             SessionOptions sessionOptions = new SessionOptions
             {
@@ -142,16 +145,13 @@ namespace SincronizacaoBD.Sincronizacao
                 TransferOptions transferOptions = new TransferOptions();
                 transferOptions.OverwriteMode = OverwriteMode.Overwrite;
 
+                if (!ftpsession.FileExists(CaminhoRemoto))
+                    ftpsession.CreateDirectory(CaminhoRemoto);
+
                 if (Directory.Exists(CaminhoLocal))
                 {
-                    TransferOperationResult transferOperationResult = ftpsession.PutFiles(CaminhoLocal, CaminhoRemoto, false, transferOptions);
-
-                    transferOperationResult.Check();
-
-                    foreach (TransferEventArgs transferEventArgs in transferOperationResult.Transfers)
-                    {
-                        Console.WriteLine($"Arquivo {transferEventArgs.FileName} Enviado");
-                    }
+                    SynchronizationResult synchronizationResult = ftpsession.SynchronizeDirectories(SynchronizationMode.Remote, CaminhoLocal, CaminhoRemoto, false, false, SynchronizationCriteria.Time, transferOptions);
+                    synchronizationResult.Check();
                 }
             }
         }
