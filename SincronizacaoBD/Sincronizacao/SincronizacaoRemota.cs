@@ -173,6 +173,7 @@ namespace SincronizacaoBD.Sincronizacao
                 }
                 catch (Exception e)
                 {
+                    AdicionaTexto(e.Message + "\n");
                     Console.WriteLine(e.Message);
                 }
                 finally

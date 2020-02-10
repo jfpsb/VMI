@@ -56,45 +56,27 @@ namespace SincronizacaoBD.Model
         }
         public IList<E> ListarLastUpdate(DateTime lastUpdate, params string[] fetchPaths)
         {
-            try
+            var criteria = session.CreateCriteria<E>();
+
+            criteria.Add(Restrictions.Ge("LastUpdate", lastUpdate));
+
+            foreach (string fetchPath in fetchPaths)
             {
-                var criteria = session.CreateCriteria<E>();
-
-                criteria.Add(Restrictions.Ge("LastUpdate", lastUpdate));
-
-                foreach (string fetchPath in fetchPaths)
-                {
-                    criteria.Fetch(fetchPath);
-                }
-
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
-
-                return criteria.List<E>();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
+                criteria.Fetch(fetchPath);
             }
 
-            return null;
+            criteria.SetCacheable(true);
+            criteria.SetCacheMode(CacheMode.Normal);
+
+            return criteria.List<E>();
         }
         public IList<E> Listar()
         {
-            try
-            {
-                var criteria = session.CreateCriteria<E>();
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
+            var criteria = session.CreateCriteria<E>();
+            criteria.SetCacheable(true);
+            criteria.SetCacheMode(CacheMode.Normal);
 
-                return criteria.List<E>();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-
-            return null;
+            return criteria.List<E>();
         }
     }
 }
