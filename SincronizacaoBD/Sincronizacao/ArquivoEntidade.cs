@@ -50,7 +50,7 @@ namespace SincronizacaoBD.Sincronizacao
 
             if (Directory.Exists(Caminho))
             {
-                var arquivos = new DirectoryInfo($@"{Caminho}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime >= lastUpdate);
+                var arquivos = new DirectoryInfo($@"{Caminho}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime > lastUpdate);
 
                 foreach (FileInfo arquivo in arquivos)
                 {
@@ -102,7 +102,7 @@ namespace SincronizacaoBD.Sincronizacao
                     SynchronizationResult synchronizationResult = ftpsession.SynchronizeDirectories(SynchronizationMode.Local, CaminhoLocal, CaminhoRemoto, false, false, SynchronizationCriteria.Time, transferOptions);
                     synchronizationResult.Check();
 
-                    var arquivos = new DirectoryInfo($@"{CaminhoLocal}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime >= lastUpdate);
+                    var arquivos = new DirectoryInfo($@"{CaminhoLocal}").EnumerateFiles("*.xml").Where(arquivo => arquivo.LastWriteTime > lastUpdate);
 
                     XmlRootAttribute root = new XmlRootAttribute
                     {
@@ -125,7 +125,7 @@ namespace SincronizacaoBD.Sincronizacao
             return lista;
         }
 
-        public static void EnviaXmlRemoto(DateTime lastUpdate)
+        public static void EnviaXmlRemoto()
         {
             SessionOptions sessionOptions = new SessionOptions
             {

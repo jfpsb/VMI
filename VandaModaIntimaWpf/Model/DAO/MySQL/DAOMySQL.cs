@@ -126,6 +126,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         {
                             await session.SaveAsync(t);
                         }
+                        else
+                        {
+                            session.Evict(o);
+                            await session.UpdateAsync(t);
+                        }
                     }
 
                     await transacao.CommitAsync();
@@ -137,6 +142,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         if (o == null)
                         {
                             ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                        }
+                        else
+                        {
+                            ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "UPDATE", EntidadeSalva = t });
                         }
                     }
 

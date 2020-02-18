@@ -99,8 +99,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 if (!string.IsNullOrEmpty(marca) && !marca.ToString().Equals("NÃO POSSUI"))
                     produto.Marca = await daoMarca.ListarPorId(marca);
 
-                if (!string.IsNullOrEmpty(ncm))
-                    produto.Marca = ncm.toString();
+                if (!string.IsNullOrEmpty(ncm) && !ncm.ToString().Equals("NÃO POSSUI"))
+                    produto.Ncm = ncm.ToString();
 
                 if (!string.IsNullOrEmpty(cod_barra_fornecedor))
                 {

@@ -27,142 +27,77 @@ namespace SincronizacaoBD.Sincronizacao
 
                     DateTime lastUpdate = new DateTime(2010, 1, 1, 12, 0, 0);
 
-                    if (!File.Exists(Caminho))
-                    {
-                        sessionSync = SessionSyncProvider.GetSessionSync();
-
-                        DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
-                        DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
-                        DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
-                        DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
-                        DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
-                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
-
-                        AdicionaTexto($"{DataHoraAtual()}: Sincronizando pela primeira vez. Consultando Banco de Dados Remoto\n");
-
-                        IList<Fornecedor> fornecedores = daoFornecedorSync.Listar();
-                        IList<Loja> lojas = daoLojaSync.Listar();
-                        IList<Marca> marcas = daoMarcaSync.Listar();
-                        IList<OperadoraCartao> operadoras = daoOperadoraCartaoSync.Listar();
-                        IList<Produto> produtos = daoProdutoSync.Listar();
-                        IList<RecebimentoCartao> recebimentos = daoRecebimentoCartaoSync.Listar();
-
-                        SessionSyncProvider.FechaSession(sessionSync);
-
-                        sessionLocal = SessionSyncProvider.GetSessionLocal();
-
-                        DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
-                        DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
-                        DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
-                        DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
-                        DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
-                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
-
-                        AdicionaTexto($"{DataHoraAtual()}: Inserindo Em Banco de Dados Local Registros Recuperados do Banco de Dados Remoto\n");
-
-                        if (fornecedores.Count > 0)
-                        {
-                            daoFornecedorLocal.InserirOuAtualizar(fornecedores);
-                        }
-
-                        if (lojas.Count > 0)
-                        {
-                            daoLojaLocal.InserirOuAtualizar(lojas);
-                        }
-
-                        if (marcas.Count > 0)
-                        {
-                            daoMarcaLocal.InserirOuAtualizar(marcas);
-                        }
-
-                        if (operadoras.Count > 0)
-                        {
-                            daoOperadoraCartaoLocal.InserirOuAtualizar(operadoras);
-                        }
-
-                        if (produtos.Count > 0)
-                        {
-                            daoProdutoLocal.InserirOuAtualizar(produtos);
-                        }
-
-                        if (recebimentos.Count > 0)
-                        {
-                            daoRecebimentoCartaoLocal.InserirOuAtualizar(recebimentos);
-                        }
-
-                        SessionSyncProvider.FechaSession(sessionLocal);
-                    }
-                    else
+                    if (File.Exists(Caminho))
                     {
                         using (StreamReader streamReader = File.OpenText(Caminho))
                         {
                             string dataString = streamReader.ReadToEnd();
                             lastUpdate = DateTime.Parse(dataString);
                         }
-
-                        AdicionaTexto($"{DataHoraAtual()}: Lendo Arquivos Remotos Com As Mudanças No Banco de Dados\n");
-
-                        IList<EntidadeMySQL<Fornecedor>> fornecedoresRemotos = ArquivoEntidade<Fornecedor>.LerXmlRemoto(lastUpdate);
-                        IList<EntidadeMySQL<Loja>> lojasRemotos = ArquivoEntidade<Loja>.LerXmlRemoto(lastUpdate);
-                        IList<EntidadeMySQL<Marca>> marcasRemotos = ArquivoEntidade<Marca>.LerXmlRemoto(lastUpdate);
-                        IList<EntidadeMySQL<OperadoraCartao>> operadorasRemotos = ArquivoEntidade<OperadoraCartao>.LerXmlRemoto(lastUpdate);
-                        IList<EntidadeMySQL<Produto>> produtosRemotos = ArquivoEntidade<Produto>.LerXmlRemoto(lastUpdate);
-                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosRemotos = ArquivoEntidade<RecebimentoCartao>.LerXmlRemoto(lastUpdate);
-
-                        AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Local Com Arquivos Remotos\n");
-
-                        sessionLocal = SessionSyncProvider.GetSessionLocal();
-
-                        DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
-                        DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
-                        DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
-                        DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
-                        DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
-                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
-
-                        SincronizaBancoDeDados(daoFornecedorLocal, fornecedoresRemotos);
-                        SincronizaBancoDeDados(daoLojaLocal, lojasRemotos);
-                        SincronizaBancoDeDados(daoMarcaLocal, marcasRemotos);
-                        SincronizaBancoDeDados(daoOperadoraCartaoLocal, operadorasRemotos);
-                        SincronizaBancoDeDados(daoProdutoLocal, produtosRemotos);
-                        SincronizaBancoDeDados(daoRecebimentoCartaoLocal, recebimentosRemotos);
-
-                        SessionSyncProvider.FechaSession(sessionLocal);
-
-                        AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Remoto Com Arquivos Locais\n");
-
-                        IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerXmlLocal(lastUpdate);
-                        IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerXmlLocal(lastUpdate);
-                        IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerXmlLocal(lastUpdate);
-                        IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerXmlLocal(lastUpdate);
-                        IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerXmlLocal(lastUpdate);
-                        IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerXmlLocal(lastUpdate);
-
-                        sessionSync = SessionSyncProvider.GetSessionSync();
-
-                        DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
-                        DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
-                        DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
-                        DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
-                        DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
-                        DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
-
-                        SincronizaBancoDeDados(daoFornecedorSync, fornecedoresLocais);
-                        SincronizaBancoDeDados(daoLojaSync, lojasLocais);
-                        SincronizaBancoDeDados(daoMarcaSync, marcasLocais);
-                        SincronizaBancoDeDados(daoOperadoraCartaoSync, operadorasLocais);
-                        SincronizaBancoDeDados(daoProdutoSync, produtosLocais);
-                        SincronizaBancoDeDados(daoRecebimentoCartaoSync, recebimentosLocais);
-
-                        SessionSyncProvider.FechaSession(sessionSync);
-
-                        ArquivoEntidade<Fornecedor>.EnviaXmlRemoto(lastUpdate);
-                        ArquivoEntidade<Loja>.EnviaXmlRemoto(lastUpdate);
-                        ArquivoEntidade<Marca>.EnviaXmlRemoto(lastUpdate);
-                        ArquivoEntidade<OperadoraCartao>.EnviaXmlRemoto(lastUpdate);
-                        ArquivoEntidade<Produto>.EnviaXmlRemoto(lastUpdate);
-                        ArquivoEntidade<RecebimentoCartao>.EnviaXmlRemoto(lastUpdate);
                     }
+
+                    AdicionaTexto($"{DataHoraAtual()}: Lendo Arquivos Remotos Com As Mudanças No Banco de Dados\n");
+
+                    IList<EntidadeMySQL<Fornecedor>> fornecedoresRemotos = ArquivoEntidade<Fornecedor>.LerXmlRemoto(lastUpdate);
+                    IList<EntidadeMySQL<Loja>> lojasRemotos = ArquivoEntidade<Loja>.LerXmlRemoto(lastUpdate);
+                    IList<EntidadeMySQL<Marca>> marcasRemotos = ArquivoEntidade<Marca>.LerXmlRemoto(lastUpdate);
+                    IList<EntidadeMySQL<OperadoraCartao>> operadorasRemotos = ArquivoEntidade<OperadoraCartao>.LerXmlRemoto(lastUpdate);
+                    IList<EntidadeMySQL<Produto>> produtosRemotos = ArquivoEntidade<Produto>.LerXmlRemoto(lastUpdate);
+                    IList<EntidadeMySQL<RecebimentoCartao>> recebimentosRemotos = ArquivoEntidade<RecebimentoCartao>.LerXmlRemoto(lastUpdate);
+
+                    AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Local Com Arquivos Remotos\n");
+
+                    sessionLocal = SessionSyncProvider.GetSessionLocal();
+
+                    DAOSync<Fornecedor> daoFornecedorLocal = new DAOSync<Fornecedor>(sessionLocal);
+                    DAOSync<Loja> daoLojaLocal = new DAOSync<Loja>(sessionLocal);
+                    DAOSync<Marca> daoMarcaLocal = new DAOSync<Marca>(sessionLocal);
+                    DAOSync<OperadoraCartao> daoOperadoraCartaoLocal = new DAOSync<OperadoraCartao>(sessionLocal);
+                    DAOSync<Produto> daoProdutoLocal = new DAOSync<Produto>(sessionLocal);
+                    DAOSync<RecebimentoCartao> daoRecebimentoCartaoLocal = new DAOSync<RecebimentoCartao>(sessionLocal);
+
+                    SincronizaBancoDeDados(daoFornecedorLocal, fornecedoresRemotos);
+                    SincronizaBancoDeDados(daoLojaLocal, lojasRemotos);
+                    SincronizaBancoDeDados(daoMarcaLocal, marcasRemotos);
+                    SincronizaBancoDeDados(daoOperadoraCartaoLocal, operadorasRemotos);
+                    SincronizaBancoDeDados(daoProdutoLocal, produtosRemotos);
+                    SincronizaBancoDeDados(daoRecebimentoCartaoLocal, recebimentosRemotos);
+
+                    SessionSyncProvider.FechaSession(sessionLocal);
+
+                    AdicionaTexto($"{DataHoraAtual()}: Atualizando Banco de Dados Remoto Com Arquivos Locais\n");
+
+                    IList<EntidadeMySQL<Fornecedor>> fornecedoresLocais = ArquivoEntidade<Fornecedor>.LerXmlLocal(lastUpdate);
+                    IList<EntidadeMySQL<Loja>> lojasLocais = ArquivoEntidade<Loja>.LerXmlLocal(lastUpdate);
+                    IList<EntidadeMySQL<Marca>> marcasLocais = ArquivoEntidade<Marca>.LerXmlLocal(lastUpdate);
+                    IList<EntidadeMySQL<OperadoraCartao>> operadorasLocais = ArquivoEntidade<OperadoraCartao>.LerXmlLocal(lastUpdate);
+                    IList<EntidadeMySQL<Produto>> produtosLocais = ArquivoEntidade<Produto>.LerXmlLocal(lastUpdate);
+                    IList<EntidadeMySQL<RecebimentoCartao>> recebimentosLocais = ArquivoEntidade<RecebimentoCartao>.LerXmlLocal(lastUpdate);
+
+                    sessionSync = SessionSyncProvider.GetSessionSync();
+
+                    DAOSync<Fornecedor> daoFornecedorSync = new DAOSync<Fornecedor>(sessionSync);
+                    DAOSync<Loja> daoLojaSync = new DAOSync<Loja>(sessionSync);
+                    DAOSync<Marca> daoMarcaSync = new DAOSync<Marca>(sessionSync);
+                    DAOSync<OperadoraCartao> daoOperadoraCartaoSync = new DAOSync<OperadoraCartao>(sessionSync);
+                    DAOSync<Produto> daoProdutoSync = new DAOSync<Produto>(sessionSync);
+                    DAOSync<RecebimentoCartao> daoRecebimentoCartaoSync = new DAOSync<RecebimentoCartao>(sessionSync);
+
+                    SincronizaBancoDeDados(daoFornecedorSync, fornecedoresLocais);
+                    SincronizaBancoDeDados(daoLojaSync, lojasLocais);
+                    SincronizaBancoDeDados(daoMarcaSync, marcasLocais);
+                    SincronizaBancoDeDados(daoOperadoraCartaoSync, operadorasLocais);
+                    SincronizaBancoDeDados(daoProdutoSync, produtosLocais);
+                    SincronizaBancoDeDados(daoRecebimentoCartaoSync, recebimentosLocais);
+
+                    SessionSyncProvider.FechaSession(sessionSync);
+
+                    ArquivoEntidade<Fornecedor>.EnviaXmlRemoto();
+                    ArquivoEntidade<Loja>.EnviaXmlRemoto();
+                    ArquivoEntidade<Marca>.EnviaXmlRemoto();
+                    ArquivoEntidade<OperadoraCartao>.EnviaXmlRemoto();
+                    ArquivoEntidade<Produto>.EnviaXmlRemoto();
+                    ArquivoEntidade<RecebimentoCartao>.EnviaXmlRemoto();
 
                     using (StreamWriter streamWriter = new StreamWriter(Caminho, false))
                     {
