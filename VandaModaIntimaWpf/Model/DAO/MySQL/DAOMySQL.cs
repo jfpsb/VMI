@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "UPDATE", EntidadeSalva = objeto });
+                    ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "UPDATE", Entidade = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             {
                 try
                 {
-                    ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "DELETE", EntidadeSalva = objeto });
+                    ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "DELETE", Entidade = objeto });
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
                     return true;
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     foreach (T t in objetos)
                     {
                         xmlFileNames.Add($"{t.GetHashCode()}.xml");
-                        ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "DELETE", EntidadeSalva = t });
+                        ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "DELETE", Entidade = t });
                         await session.DeleteAsync(t);
                     }
 
@@ -98,7 +98,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = objeto });
+                    //ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySQL = "INSERT", Entidade = objeto });
                     return true;
                 }
                 catch (Exception ex)
@@ -141,11 +141,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         var o = await session.GetAsync<T>(t.GetId());
                         if (o == null)
                         {
-                            ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "INSERT", EntidadeSalva = t });
+                            ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "INSERT", Entidade = t });
                         }
                         else
                         {
-                            ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySql = "UPDATE", EntidadeSalva = t });
+                            ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "UPDATE", Entidade = t });
                         }
                     }
 

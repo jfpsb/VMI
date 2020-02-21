@@ -7,76 +7,88 @@ namespace SincronizacaoBD.Model
 {
     public class DAOSync<E> where E : class
     {
-        private ISession session;
-        public DAOSync(ISession session)
-        {
-            this.session = session;
-        }
-
         public void InserirOuAtualizar(E objeto)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ISession session = SessionSyncProvider.GetSession())
             {
-                session.SaveOrUpdate(objeto);
-                transacao.Commit();
+                using (var transacao = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(objeto);
+                    transacao.Commit();
+                }
             }
         }
         public void InserirOuAtualizar(IList<E> objetos)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ISession session = SessionSyncProvider.GetSession())
             {
-                foreach (E e in objetos)
+                using (var transacao = session.BeginTransaction())
                 {
-                    session.SaveOrUpdate(e);
-                }
+                    foreach (E e in objetos)
+                    {
+                        session.SaveOrUpdate(e);
+                    }
 
-                transacao.Commit();
+                    transacao.Commit();
+                }
             }
         }
         public virtual void Deletar(E objeto)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ISession session = SessionSyncProvider.GetSession())
             {
-                session.Delete(objeto);
-                transacao.Commit();
+                using (var transacao = session.BeginTransaction())
+                {
+                    session.Delete(objeto);
+                    transacao.Commit();
+                }
             }
         }
 
         public virtual void Deletar(IList<E> objetos)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ISession session = SessionSyncProvider.GetSession())
             {
-                foreach (E e in objetos)
+                using (var transacao = session.BeginTransaction())
                 {
-                    session.Delete(e);
-                }
+                    foreach (E e in objetos)
+                    {
+                        session.Delete(e);
+                    }
 
-                transacao.Commit();
+                    transacao.Commit();
+                }
             }
         }
         public IList<E> ListarLastUpdate(DateTime lastUpdate, params string[] fetchPaths)
         {
-            var criteria = session.CreateCriteria<E>();
-
-            criteria.Add(Restrictions.Ge("LastUpdate", lastUpdate));
-
-            foreach (string fetchPath in fetchPaths)
+            using (ISession session = SessionSyncProvider.GetSession())
             {
-                criteria.Fetch(fetchPath);
+                var criteria = session.CreateCriteria<E>();
+
+                criteria.Add(Restrictions.Ge("LastUpdate", lastUpdate));
+
+                foreach (string fetchPath in fetchPaths)
+                {
+                    criteria.Fetch(fetchPath);
+                }
+
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+
+                return criteria.List<E>();
             }
-
-            criteria.SetCacheable(true);
-            criteria.SetCacheMode(CacheMode.Normal);
-
-            return criteria.List<E>();
         }
         public IList<E> Listar()
         {
-            var criteria = session.CreateCriteria<E>();
-            criteria.SetCacheable(true);
-            criteria.SetCacheMode(CacheMode.Normal);
+            using (ISession session = SessionSyncProvider.GetSession())
+            {
+                var criteria = session.CreateCriteria<E>();
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
 
-            return criteria.List<E>();
+                return criteria.List<E>();
+            }
         }
     }
 }

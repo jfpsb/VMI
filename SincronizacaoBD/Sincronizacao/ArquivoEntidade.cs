@@ -14,7 +14,7 @@ namespace SincronizacaoBD.Sincronizacao
     {
         private static readonly string Diretorio = "EntidadesSalvas";
 
-        public static void EscreverEmXml(EntidadeMySQL<E> entidade)
+        public static void EscreverEmXml(DatabaseLogFile<E> entidade)
         {
             XmlTextWriter writer = null;
             try
@@ -25,8 +25,8 @@ namespace SincronizacaoBD.Sincronizacao
                     directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                 }
 
-                var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>));
-                writer = new XmlTextWriter($@"{Diretorio}\{typeof(E).Name}\{entidade.EntidadeSalva.GetId()}.xml", Encoding.UTF8);
+                var serializer = new XmlSerializer(typeof(DatabaseLogFile<E>));
+                writer = new XmlTextWriter($@"{Diretorio}\{typeof(E).Name}\{entidade.Entidade.GetId()}.xml", Encoding.UTF8);
                 writer.Formatting = Formatting.Indented;
                 writer.Indentation = 4;
                 serializer.Serialize(writer, entidade);
@@ -42,9 +42,9 @@ namespace SincronizacaoBD.Sincronizacao
             }
         }
 
-        public static IList<EntidadeMySQL<E>> LerXmlLocal(DateTime lastUpdate)
+        public static IList<DatabaseLogFile<E>> LerXmlLocal(DateTime lastUpdate)
         {
-            IList<EntidadeMySQL<E>> lista = new List<EntidadeMySQL<E>>();
+            IList<DatabaseLogFile<E>> lista = new List<DatabaseLogFile<E>>();
 
             string Caminho = $@"{Diretorio}\{typeof(E).Name}";
 
@@ -58,11 +58,11 @@ namespace SincronizacaoBD.Sincronizacao
                     {
                         ElementName = "EntidadeMySQL"
                     };
-                    var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
+                    var serializer = new XmlSerializer(typeof(DatabaseLogFile<E>), root);
 
                     using (TextReader reader = new StreamReader(arquivo.FullName))
                     {
-                        EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
+                        DatabaseLogFile<E> entidadeMySQL = (DatabaseLogFile<E>)serializer.Deserialize(reader);
                         lista.Add(entidadeMySQL);
                     }
                 }
@@ -71,9 +71,9 @@ namespace SincronizacaoBD.Sincronizacao
             return lista;
         }
 
-        public static IList<EntidadeMySQL<E>> LerXmlRemoto(DateTime lastUpdate)
+        public static IList<DatabaseLogFile<E>> LerXmlRemoto(DateTime lastUpdate)
         {
-            IList<EntidadeMySQL<E>> lista = new List<EntidadeMySQL<E>>();
+            IList<DatabaseLogFile<E>> lista = new List<DatabaseLogFile<E>>();
 
             SessionOptions sessionOptions = new SessionOptions
             {
@@ -109,13 +109,13 @@ namespace SincronizacaoBD.Sincronizacao
                         ElementName = "EntidadeMySQL"
                     };
 
-                    var serializer = new XmlSerializer(typeof(EntidadeMySQL<E>), root);
+                    var serializer = new XmlSerializer(typeof(DatabaseLogFile<E>), root);
 
                     foreach (FileInfo arquivo in arquivos)
                     {
                         using (TextReader reader = new StreamReader(arquivo.FullName))
                         {
-                            EntidadeMySQL<E> entidadeMySQL = (EntidadeMySQL<E>)serializer.Deserialize(reader);
+                            DatabaseLogFile<E> entidadeMySQL = (DatabaseLogFile<E>)serializer.Deserialize(reader);
                             lista.Add(entidadeMySQL);
                         }
                     }
