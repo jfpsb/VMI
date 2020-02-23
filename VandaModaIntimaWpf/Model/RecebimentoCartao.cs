@@ -1,11 +1,9 @@
-﻿using SincronizacaoBD.Model;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
-    [XmlRoot(ElementName = "EntidadeSalva")]
     public class RecebimentoCartao : ObservableObject, ICloneable, IModel
     {
         private int mes { get; set; }
@@ -33,6 +31,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Ano");
             }
         }
+
+        [JsonIgnore]
         public virtual string MesAno
         {
             get { return $"{Mes}/{Ano}"; }
@@ -74,6 +74,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Diferenca");
             }
         }
+
+        [JsonIgnore]
         public virtual double Diferenca
         {
             get
@@ -92,6 +94,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Observacao");
             }
         }
+
+        [JsonIgnore]
         public virtual string GetContextMenuHeader { get => $"{MesAno} - {Loja.Nome}"; }
 
         public virtual object Clone()
@@ -99,9 +103,9 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public virtual object GetId()
+        public virtual object GetIdentifier()
         {
-            return new List<object> { mes, ano, loja, operadoraCartao };
+            return $"{mes}{ano}{loja.GetIdentifier()}{operadoraCartao.GetIdentifier()}";
         }
 
         public override bool Equals(object obj)

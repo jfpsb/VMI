@@ -1,10 +1,8 @@
-﻿using SincronizacaoBD.Model;
+﻿using Newtonsoft.Json;
 using System;
-using System.Xml.Serialization;
 
 namespace VandaModaIntimaWpf.Model
 {
-    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Loja : ObservableObject, ICloneable, IModel
     {
         private string cnpj { get; set; }
@@ -72,6 +70,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("InscricaoEstadual");
             }
         }
+
+        [JsonIgnore]
         public virtual string GetContextMenuHeader { get => Nome; }
 
         public virtual object Clone()
@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.Model
             return loja;
         }
 
-        public virtual object GetId()
+        public virtual object GetIdentifier()
         {
             return Cnpj;
         }

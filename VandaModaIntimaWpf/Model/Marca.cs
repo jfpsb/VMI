@@ -1,12 +1,10 @@
-﻿using SincronizacaoBD.Model;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
 {
-    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Marca : ObservableObject, ICloneable, IModel
     {
         private string nome { get; set; }
@@ -37,7 +35,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [XmlIgnore]
+        [JsonIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
             get { return produtos; }
@@ -48,6 +46,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader { get => Nome; }
 
         public virtual object Clone()
@@ -64,7 +63,7 @@ namespace VandaModaIntimaWpf.Model
             return new string[] { "Nome" };
         }
 
-        public virtual object GetId()
+        public virtual object GetIdentifier()
         {
             return Nome;
         }

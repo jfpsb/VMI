@@ -1,9 +1,8 @@
 ﻿using NHibernate;
-using SincronizacaoBD.Model;
-using SincronizacaoBD.Sincronizacao;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -23,7 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
-                    ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "UPDATE", Entidade = objeto });
+                    OperacoesDatabaseLogFile<T>.EscreverJson("UPDATE", objeto);
                     return true;
                 }
                 catch (Exception ex)
@@ -37,20 +36,20 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
         public virtual async Task<bool> Deletar(T objeto)
         {
-            string xmlFileName = $"{objeto.GetHashCode()}.xml";
+            string jsonFileName = $"{typeof(T).Name} {objeto.GetIdentifier()}.json";
 
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "DELETE", Entidade = objeto });
+                    OperacoesDatabaseLogFile<T>.EscreverJson("DELETE", objeto);
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    ArquivoEntidade<T>.DeletaArquivo(xmlFileName);
+                    OperacoesDatabaseLogFile<T>.DeletaArquivo(jsonFileName);
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
 
@@ -60,7 +59,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
         public virtual async Task<bool> Deletar(IList<T> objetos)
         {
-            List<string> xmlFileNames = new List<string>();
+            List<string> jsonFileNames = new List<string>();
 
             using (var transacao = session.BeginTransaction())
             {
@@ -68,8 +67,8 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     foreach (T t in objetos)
                     {
-                        xmlFileNames.Add($"{t.GetHashCode()}.xml");
-                        ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "DELETE", Entidade = t });
+                        jsonFileNames.Add($"{typeof(T).Name} {t.GetIdentifier()}.json");
+                        OperacoesDatabaseLogFile<T>.EscreverJson("DELETE", t);
                         await session.DeleteAsync(t);
                     }
 
@@ -79,9 +78,9 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 }
                 catch (Exception ex)
                 {
-                    foreach (string xmlFileName in xmlFileNames)
+                    foreach (string jsonFileName in jsonFileNames)
                     {
-                        ArquivoEntidade<T>.DeletaArquivo(xmlFileName);
+                        OperacoesDatabaseLogFile<T>.DeletaArquivo(jsonFileName);
                     }
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
                 }
@@ -98,7 +97,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    //ArquivoEntidade<T>.EscreverEmXml(new EntidadeMySQL<T>() { OperacaoMySQL = "INSERT", Entidade = objeto });
+                    OperacoesDatabaseLogFile<T>.EscreverJson("INSERT", objeto);
                     return true;
                 }
                 catch (Exception ex)
@@ -121,7 +120,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     foreach (T t in objetos)
                     {
                         //Testa se a id do objeto sendo adicionado já existe no bd
-                        var o = await session.GetAsync<T>(t.GetId());
+                        var o = await session.GetAsync<T>(t.GetIdentifier());
                         if (o == null)
                         {
                             await session.SaveAsync(t);
@@ -138,14 +137,14 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     foreach (T t in objetos)
                     {
                         //Testa se a id do objeto sendo adicionado já existe no bd
-                        var o = await session.GetAsync<T>(t.GetId());
+                        var o = await session.GetAsync<T>(t.GetIdentifier());
                         if (o == null)
                         {
-                            ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "INSERT", Entidade = t });
+                            OperacoesDatabaseLogFile<T>.EscreverJson("INSERT", t);
                         }
                         else
                         {
-                            ArquivoEntidade<T>.EscreverEmXml(new DatabaseLogFile<T>() { OperacaoMySQL = "UPDATE", Entidade = t });
+                            OperacoesDatabaseLogFile<T>.EscreverJson("UPDATE", t);
                         }
                     }
 

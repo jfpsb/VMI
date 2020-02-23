@@ -32,7 +32,7 @@ namespace SincronizacaoBD.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual object GetId()
+        public virtual object GetIdentifier()
         {
             return Nome;
         }

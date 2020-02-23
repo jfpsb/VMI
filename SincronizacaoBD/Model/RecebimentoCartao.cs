@@ -97,9 +97,9 @@ namespace SincronizacaoBD.Model
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
         }
 
-        public virtual object GetId()
+        public virtual object GetIdentifier()
         {
-            return $"{Mes}{Ano}{Loja.Cnpj}{OperadoraCartao.Nome}";
+            return $"{Mes}{Ano}{Loja.GetIdentifier()}{OperadoraCartao.GetIdentifier()}";
         }
     }
 }

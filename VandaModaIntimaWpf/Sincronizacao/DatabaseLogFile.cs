@@ -1,7 +1,7 @@
-﻿using SincronizacaoBD.Model;
-using System;
+﻿using System;
+using VandaModaIntimaWpf.Model;
 
-namespace SincronizacaoBD.Sincronizacao
+namespace VandaModaIntimaWpf.Sincronizacao
 {
     public class DatabaseLogFile<E> where E : class, IModel
     {

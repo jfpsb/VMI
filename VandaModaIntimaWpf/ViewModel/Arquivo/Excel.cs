@@ -8,7 +8,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class Excel<T> where T : class, SincronizacaoBD.Model.IModel
+    public class Excel<T> where T : class, Model.IModel
     {
         private ExcelStrategy exportaExcelStrategy;
         private Application Aplicacao; // Aplicação Excel

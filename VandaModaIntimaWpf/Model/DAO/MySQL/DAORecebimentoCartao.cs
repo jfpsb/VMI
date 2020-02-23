@@ -1,10 +1,10 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
-using SincronizacaoBD.Sincronizacao;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Sincronizacao;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -34,7 +34,17 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return result[0];
         }
-        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLojaSum(int mes, int ano, Loja loja)
+        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLoja(int mes, int ano, Loja loja)
+        {
+            var criteria = CriarCriteria();
+
+            criteria.Add(Restrictions.Eq("Mes", mes));
+            criteria.Add(Restrictions.Eq("Ano", ano));
+            criteria.Add(Restrictions.Eq("Loja", loja));
+
+            return await Listar(criteria);
+        }
+        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLojaGroupByLoja(int mes, int ano, Loja loja)
         {
             var criteria = CriarCriteria();
 
@@ -54,7 +64,13 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar(criteria);
         }
-        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoSum(int mes, int ano)
+        /// <summary>
+        /// Retorna Uma Lista de Recebimento de Cartão Com a Soma do campo Recebido e ValorOperadora Agrupado Por Loja
+        /// </summary>
+        /// <param name="mes">Mês Do Recebimento de Cartão Desejado</param>
+        /// <param name="ano">Ano Do Recebimento de Cartão Desejado</param>
+        /// <returns>Lista de Recebimentos de Cartão</returns>
+        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoGroupByLoja(int mes, int ano)
         {
             var criteria = CriarCriteria();
 
@@ -86,10 +102,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     await transacao.CommitAsync();
 
-                    //foreach (RecebimentoCartao t in objetos)
-                    //{
-                    //    ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new EntidadeMySQL<RecebimentoCartao>() { OperacaoMySQL = "INSERT", Entidade = t });
-                    //}
+                    foreach (RecebimentoCartao t in objetos)
+                    {
+                        OperacoesDatabaseLogFile<RecebimentoCartao>.EscreverJson("INSERT", t);
+                    }
 
                     return true;
                 }
@@ -106,20 +122,41 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         }
         public override async Task<bool> Deletar(RecebimentoCartao objeto)
         {
+            IList<RecebimentoCartao> recebimentos = null;
+
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    await session.DeleteAsync("from RecebimentoCartao WHERE Mes = ? AND Ano = ? and Loja = ?",
-                        new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
-                        new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
+                    recebimentos = await ListarPorMesAnoLoja(objeto.Mes, objeto.Ano, objeto.Loja);
+
+                    if (recebimentos.Count > 0)
+                    {
+                        foreach (RecebimentoCartao recebimento in recebimentos)
+                        {
+                            OperacoesDatabaseLogFile<RecebimentoCartao>.EscreverJson("DELETE", recebimento);
+                            await session.DeleteAsync(recebimento);
+                        }
+                    }
+
+                    //await session.DeleteAsync("from RecebimentoCartao WHERE Mes = ? AND Ano = ? and Loja = ?",
+                    //    new object[] { objeto.Mes, objeto.Ano, objeto.Loja.Cnpj },
+                    //    new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
                     await transacao.CommitAsync();
-                    ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new DatabaseLogFile<RecebimentoCartao>() { OperacaoMySQL = "DELETE", Entidade = objeto });
+
                     return true;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
+
+                    if (recebimentos.Count > 0)
+                    {
+                        foreach (RecebimentoCartao recebimento in recebimentos)
+                        {
+                            OperacoesDatabaseLogFile<RecebimentoCartao>.DeletaArquivo($"RecebimentoCartao {recebimento.GetIdentifier()}.json");
+                        }
+                    }
                 }
 
                 return false;
@@ -142,7 +179,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                     foreach (RecebimentoCartao recebimento in objetos)
                     {
-                        ArquivoEntidade<RecebimentoCartao>.EscreverEmXml(new DatabaseLogFile<RecebimentoCartao>() { OperacaoMySQL = "DELETE", Entidade = recebimento });
+                        OperacoesDatabaseLogFile<RecebimentoCartao>.EscreverJson("DELETE", recebimento);
                     }
 
                     return true;

@@ -1,11 +1,8 @@
-﻿using Microsoft.Win32;
-using NHibernate;
-using SincronizacaoBD.Model;
+﻿using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;

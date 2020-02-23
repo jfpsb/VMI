@@ -5,7 +5,7 @@
 
   <class name="Loja" table="loja" dynamic-insert="true" dynamic-update="true">
     <id name="Cnpj" column="cnpj" />
-    <many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" />
+    <many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" lazy="false" />
     <property name="Nome" column="nome" />
     <property name="Telefone" column="telefone" />
     <property name="Endereco" column="endereco" />

@@ -5,7 +5,8 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
         Title="Vanda Moda Íntima"
         WindowState="Maximized"
-        Closing="TelaPrincipal_Closing" Height="783.491">
+        Closing="TelaPrincipal_Closing" Height="783.491"
+        Loaded="TelaPrincipal_Loaded">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>
