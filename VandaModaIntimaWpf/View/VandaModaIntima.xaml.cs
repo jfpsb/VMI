@@ -1,5 +1,4 @@
 ﻿using NHibernate;
-using System.Diagnostics;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -14,6 +13,9 @@ namespace VandaModaIntimaWpf
             InitializeComponent();
 
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
+
+            SincronizacaoBD.SyncMainWindow syncMainWindow = new SincronizacaoBD.SyncMainWindow();
+            syncMainWindow.Show();
 
             //string JsonText = File.ReadAllText(Path.Combine("DatabaseLog", "Produto 13704.json"));
             //var databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Produto>>(JsonText, new ProdutoJsonConverter());

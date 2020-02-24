@@ -418,6 +418,12 @@
   <ItemGroup>
     <Resource Include="VMIIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SincronizacaoBD\SincronizacaoBD.csproj">
+      <Project>{d33cc500-18e8-44fd-a92d-c4a3dcbc6bb3}</Project>
+      <Name>SincronizacaoBD</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

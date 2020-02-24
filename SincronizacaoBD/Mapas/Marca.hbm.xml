@@ -5,6 +5,10 @@
 
   <class name="Marca" table="marca" dynamic-insert="true" dynamic-update="true">
     <id name="Nome" column="nome" />
+    <bag name="Produtos" table="produto" lazy="true" inverse="true">
+      <key column="marca" />
+      <one-to-many class="SincronizacaoBD.Model.Produto" />
+    </bag>
   </class>
 
 </hibernate-mapping>

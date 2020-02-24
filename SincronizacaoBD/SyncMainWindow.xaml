@@ -20,7 +20,10 @@
                       ScrollChanged="ScrollViewer_ScrollChanged">
             <TextBlock Text="{Binding Texto}"
                        FontSize="14"
-                       FontFamily="Century Gothic" />
+                       FontFamily="Century Gothic"
+                       TextWrapping="WrapWithOverflow">
+            </TextBlock>
+
         </ScrollViewer>
         <ProgressBar Grid.Row="1"
                      Margin="2"

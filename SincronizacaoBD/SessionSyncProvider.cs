@@ -26,7 +26,7 @@ namespace SincronizacaoBD
         public static ISessionFactory BuildSessionFactory()
         {
             MyConfiguration = new Configuration();
-            MyConfiguration.Configure();
+            MyConfiguration.Configure("hibernateSync.cfg.xml");
             return MyConfiguration.BuildSessionFactory();
         }
 

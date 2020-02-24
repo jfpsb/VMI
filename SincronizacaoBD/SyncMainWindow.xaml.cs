@@ -18,7 +18,7 @@ namespace SincronizacaoBD
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            ((ViewModel.ViewModel)DataContext).FechaSessionFactories();
+            ((ViewModel.ViewModel)DataContext).Dispose();
         }
 
         private void ScrollViewer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)

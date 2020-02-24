@@ -25,7 +25,6 @@ namespace SincronizacaoBD.Sincronizacao
                 string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
 
                 File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), json);
-                File.SetLastWriteTime(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), LastWriteTime);
             }
             catch (Exception e)
             {
