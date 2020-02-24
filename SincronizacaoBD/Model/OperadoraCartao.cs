@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
@@ -20,7 +21,6 @@ namespace SincronizacaoBD.Model
             }
         }
 
-        [XmlIgnore]
         public virtual IList<string> IdentificadoresBanco
         {
             get { return identificadoresBanco; }
@@ -30,6 +30,7 @@ namespace SincronizacaoBD.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual object GetIdentifier()

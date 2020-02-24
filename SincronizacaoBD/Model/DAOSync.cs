@@ -1,13 +1,11 @@
 ﻿using NHibernate;
-using NHibernate.Criterion;
-using System;
 using System.Collections.Generic;
 
 namespace SincronizacaoBD.Model
 {
-    public class DAOSync<E> where E : class
+    public class DAOSync
     {
-        public void InserirOuAtualizar(E objeto)
+        public void InserirOuAtualizar(object objeto)
         {
             using (ISession session = SessionSyncProvider.GetSession())
             {
@@ -18,22 +16,26 @@ namespace SincronizacaoBD.Model
                 }
             }
         }
-        public void InserirOuAtualizar(IList<E> objetos)
+        public bool InserirOuAtualizar(IList<object> objetos)
         {
+            if (objetos.Count == 0)
+                return false;
+
             using (ISession session = SessionSyncProvider.GetSession())
             {
                 using (var transacao = session.BeginTransaction())
                 {
-                    foreach (E e in objetos)
+                    foreach (object e in objetos)
                     {
                         session.SaveOrUpdate(e);
                     }
 
                     transacao.Commit();
+                    return true;
                 }
             }
         }
-        public virtual void Deletar(E objeto)
+        public void Deletar(object objeto)
         {
             using (ISession session = SessionSyncProvider.GetSession())
             {
@@ -45,49 +47,23 @@ namespace SincronizacaoBD.Model
             }
         }
 
-        public virtual void Deletar(IList<E> objetos)
+        public bool Deletar(IList<object> objetos)
         {
+            if (objetos.Count == 0)
+                return false;
+
             using (ISession session = SessionSyncProvider.GetSession())
             {
                 using (var transacao = session.BeginTransaction())
                 {
-                    foreach (E e in objetos)
+                    foreach (object e in objetos)
                     {
                         session.Delete(e);
                     }
 
                     transacao.Commit();
+                    return true;
                 }
-            }
-        }
-        public IList<E> ListarLastUpdate(DateTime lastUpdate, params string[] fetchPaths)
-        {
-            using (ISession session = SessionSyncProvider.GetSession())
-            {
-                var criteria = session.CreateCriteria<E>();
-
-                criteria.Add(Restrictions.Ge("LastUpdate", lastUpdate));
-
-                foreach (string fetchPath in fetchPaths)
-                {
-                    criteria.Fetch(fetchPath);
-                }
-
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
-
-                return criteria.List<E>();
-            }
-        }
-        public IList<E> Listar()
-        {
-            using (ISession session = SessionSyncProvider.GetSession())
-            {
-                var criteria = session.CreateCriteria<E>();
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
-
-                return criteria.List<E>();
             }
         }
     }

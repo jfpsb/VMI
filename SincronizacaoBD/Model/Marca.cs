@@ -1,9 +1,8 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace SincronizacaoBD.Model
 {
-    [XmlRoot(ElementName = "EntidadeSalva")]
     public class Marca : IModel
     {
         private string nome { get; set; }
@@ -17,6 +16,7 @@ namespace SincronizacaoBD.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual object GetIdentifier()

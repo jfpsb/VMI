@@ -33,6 +33,29 @@ namespace SincronizacaoBD.Sincronizacao
             }
         }
 
+        public static void EscreverJson(string operacao, E entidade, DateTime LastWriteTime)
+        {
+            try
+            {
+                if (!Directory.Exists($"{Diretorio}"))
+                {
+                    DirectoryInfo directoryInfo = Directory.CreateDirectory($"{Diretorio}");
+                    directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                }
+
+                DatabaseLogFile<E> databaseLogFile = new DatabaseLogFile<E>() { OperacaoMySQL = operacao, Entidade = entidade, LastWriteTime = LastWriteTime };
+
+                string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
+
+                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), json);
+                File.SetLastWriteTime(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), LastWriteTime);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
         public static void DeletaArquivo(string fileName)
         {
             File.Delete(Path.Combine(Diretorio, fileName));

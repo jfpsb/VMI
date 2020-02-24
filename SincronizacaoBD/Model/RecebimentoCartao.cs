@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Xml.Serialization;
 
 namespace SincronizacaoBD.Model
@@ -70,6 +71,7 @@ namespace SincronizacaoBD.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public override bool Equals(object obj)

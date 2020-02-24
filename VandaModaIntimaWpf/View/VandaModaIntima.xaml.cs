@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System.Diagnostics;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;

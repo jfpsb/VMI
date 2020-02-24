@@ -5,11 +5,11 @@ namespace SincronizacaoBD
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SyncMainWindow : Window
     {
         private bool AutoScroll = true;
 
-        public MainWindow()
+        public SyncMainWindow()
         {
             InitializeComponent();
             DataContext = new ViewModel.ViewModel();
