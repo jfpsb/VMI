@@ -24,7 +24,7 @@ namespace SincronizacaoBD.Sincronizacao
 
                 string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
 
-                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), json);
+                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetFileName()}"), json);
             }
             catch (Exception e)
             {
@@ -46,15 +46,32 @@ namespace SincronizacaoBD.Sincronizacao
 
                 string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
 
-                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), json);
-                File.SetLastWriteTime(Path.Combine(Diretorio, $"{databaseLogFile.GetClassName()} {databaseLogFile.GetIdentifier()}.json"), LastWriteTime);
+                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetFileName()}"), json);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
+        public static void EscreverJson(DatabaseLogFile<E> databaseLogFile)
+        {
+            try
+            {
+                if (!Directory.Exists($"{Diretorio}"))
+                {
+                    DirectoryInfo directoryInfo = Directory.CreateDirectory($"{Diretorio}");
+                    directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                }
 
+                string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
+
+                File.WriteAllText(Path.Combine(Diretorio, $"{databaseLogFile.GetFileName()}"), json);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         public static void DeletaArquivo(string fileName)
         {
             File.Delete(Path.Combine(Diretorio, fileName));

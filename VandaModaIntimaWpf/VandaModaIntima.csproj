@@ -179,6 +179,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
+    <Compile Include="Model\Contagem.cs" />
+    <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
     <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
+    <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Sincronizacao\DatabaseLogFile.cs" />
     <Compile Include="Sincronizacao\OperacoesDatabaseLogFile.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />

@@ -372,7 +372,7 @@ namespace SincronizacaoBD.ViewModel
         {
             foreach (DatabaseLogFile<E> databaseLogFile in logs)
             {
-                OperacoesDatabaseLogFile<E>.EscreverJson(databaseLogFile.OperacaoMySQL, databaseLogFile.Entidade, databaseLogFile.LastWriteTime);
+                OperacoesDatabaseLogFile<E>.EscreverJson(databaseLogFile);
             }
         }
 
