@@ -42,12 +42,15 @@ namespace SincronizacaoBD.ViewModel
                     Texto += $"{DateTime.Now.ToString(dateFormat)}: Conectando ao Servidor\n";
 
                     ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    ClientSocket.Connect("18.222.177.179", 3999);
+                    ClientSocket.Connect("3.21.89.238", 3999);
 
                     Texto += $"{DateTime.Now.ToString(dateFormat)}: Conectado ao Servidor Com Sucesso\n";
 
                     if (fileSystemWatcher == null)
                     {
+                        if (!Directory.Exists(Diretorio))
+                            Directory.CreateDirectory(Diretorio);
+
                         logsLastModify = new Dictionary<string, DateTime>();
                         fileSystemWatcher = new FileSystemWatcher(Diretorio);
                         fileSystemWatcher.Filter = "*.json";
@@ -70,7 +73,7 @@ namespace SincronizacaoBD.ViewModel
 
         private void FileSystemWatcher_OnChanged(object sender, FileSystemEventArgs e)
         {
-            if(logsLastModify.ContainsKey(e.Name))
+            if (logsLastModify.ContainsKey(e.Name))
             {
                 double intervalo = (DateTime.Now - logsLastModify[e.Name]).TotalMilliseconds;
 
