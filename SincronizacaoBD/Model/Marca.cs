@@ -28,9 +28,6 @@ namespace SincronizacaoBD.Model
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
-
         public virtual object GetIdentifier()
         {
             return Nome;

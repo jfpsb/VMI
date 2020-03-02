@@ -24,6 +24,7 @@ namespace SincronizacaoBD.ViewModel
         private FileSystemWatcher fileSystemWatcher = null;
         private List<DatabaseLogFileInfo> FileInfoLogsRecebidos = new List<DatabaseLogFileInfo>();
         private bool disposed;
+        private Dictionary<String, DateTime> logsLastModify;
 
         public ViewModel()
         {
@@ -41,14 +42,13 @@ namespace SincronizacaoBD.ViewModel
                     Texto += $"{DateTime.Now.ToString(dateFormat)}: Conectando ao Servidor\n";
 
                     ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    ClientSocket.Connect(IPAddress.Loopback, 3999);
+                    ClientSocket.Connect("18.222.177.179", 3999);
 
                     Texto += $"{DateTime.Now.ToString(dateFormat)}: Conectado ao Servidor Com Sucesso\n";
 
-                    ApplicationOpening();
-
                     if (fileSystemWatcher == null)
                     {
+                        logsLastModify = new Dictionary<string, DateTime>();
                         fileSystemWatcher = new FileSystemWatcher(Diretorio);
                         fileSystemWatcher.Filter = "*.json";
                         fileSystemWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.CreationTime;
@@ -57,6 +57,8 @@ namespace SincronizacaoBD.ViewModel
                     }
 
                     fileSystemWatcher.EnableRaisingEvents = true;
+
+                    ApplicationOpening();
                 }
                 catch (SocketException se)
                 {
@@ -68,6 +70,14 @@ namespace SincronizacaoBD.ViewModel
 
         private void FileSystemWatcher_OnChanged(object sender, FileSystemEventArgs e)
         {
+            if(logsLastModify.ContainsKey(e.Name))
+            {
+                double intervalo = (DateTime.Now - logsLastModify[e.Name]).TotalMilliseconds;
+
+                if (intervalo < 500)
+                    return;
+            }
+
             if (e.ChangeType == WatcherChangeTypes.Created)
             {
                 Texto += $"{DateTime.Now.ToString(dateFormat)}: Arquivo {e.Name} Criado\n";
@@ -88,6 +98,15 @@ namespace SincronizacaoBD.ViewModel
                     databaseLogFileInfos.Add(databaseLogFileInfo);
                     GeraEEnviaMensagemDatabaseFileLog(JsonConvert.SerializeObject(databaseLogFileInfos));
                     Texto += $"{DateTime.Now.ToString(dateFormat)}: Arquivo {e.Name} Enviado Ao Servidor\n";
+
+                    if (logsLastModify.ContainsKey(e.Name))
+                    {
+                        logsLastModify[e.Name] = DateTime.Now;
+                    }
+                    else
+                    {
+                        logsLastModify.Add(e.Name, DateTime.Now);
+                    }
                 }
                 catch (SocketException se)
                 {
@@ -110,68 +129,72 @@ namespace SincronizacaoBD.ViewModel
                 if (!Directory.Exists(Diretorio))
                     Directory.CreateDirectory(Diretorio);
 
-                string[] fileNames = Directory.GetFiles(Diretorio);
+                string[] filePaths = Directory.GetFiles(Diretorio);
                 List<DatabaseLogFileInfo> databaseLogFileInfos = new List<DatabaseLogFileInfo>();
 
-                foreach (string fileName in fileNames)
+                foreach (string filePath in filePaths)
                 {
-                    string name = Path.GetFileName(fileName);
-                    string json = File.ReadAllText(fileName);
-                    DateTime lastModified = new DateTime();
+                    string fileName = Path.GetFileName(filePath);
+                    string tipoLog = Path.GetFileName(fileName).Split(' ')[0];
+                    string json = File.ReadAllText(filePath);
 
-                    //TODO: Pensar em algum jeito de melhorar isso aqui
-                    if (name.StartsWith("Contagem"))
+                    switch (tipoLog)
                     {
-                        //DatabaseLogFile<Contagem> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Contagem>>(json);
-                        //lastModified = databaseLogFile.LastWriteTime;
+                        case "Contagem":
+                            if (!PopulaDatabaseLogFileInfos<Contagem>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "ContagemProduto":
+                            if (!PopulaDatabaseLogFileInfos<ContagemProduto>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "Fornecedor":
+                            if (!PopulaDatabaseLogFileInfos<Fornecedor>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "Loja":
+                            if (!PopulaDatabaseLogFileInfos<Loja>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "Marca":
+                            if (!PopulaDatabaseLogFileInfos<Marca>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "OperadoraCartao":
+                            if (!PopulaDatabaseLogFileInfos<OperadoraCartao>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "Produto":
+                            if (!PopulaDatabaseLogFileInfos<Produto>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "RecebimentoCartao":
+                            if (!PopulaDatabaseLogFileInfos<RecebimentoCartao>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
+                        case "TipoContagem":
+                            if (!PopulaDatabaseLogFileInfos<TipoContagem>(fileName, json, databaseLogFileInfos))
+                            {
+                                continue;
+                            }
+                            break;
                     }
-                    else if (name.StartsWith("ContagemProduto"))
-                    {
-                        //DatabaseLogFile<ContagemProduto> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<ContagemProduto>>(json);
-                        //lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("Fornecedor"))
-                    {
-                        DatabaseLogFile<Fornecedor> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Fornecedor>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("Loja"))
-                    {
-                        DatabaseLogFile<Loja> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Loja>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("Marca"))
-                    {
-                        DatabaseLogFile<Marca> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Marca>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("OperadoraCartao"))
-                    {
-                        DatabaseLogFile<OperadoraCartao> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<OperadoraCartao>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("Produto"))
-                    {
-                        DatabaseLogFile<Produto> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<Produto>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("RecebimentoCartao"))
-                    {
-                        DatabaseLogFile<RecebimentoCartao> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<RecebimentoCartao>>(json);
-                        lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else if (name.StartsWith("TipoContagem"))
-                    {
-                        //DatabaseLogFile<TipoContagem> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<TipoContagem>>(json);
-                        //lastModified = databaseLogFile.LastWriteTime;
-                    }
-                    else
-                    {
-                        throw new Exception("Classe Não Existe");
-                    }
-
-                    DatabaseLogFileInfo databaseLogFileInfo = new DatabaseLogFileInfo() { LastModified = lastModified, FileName = name };
-                    databaseLogFileInfos.Add(databaseLogFileInfo);
                 }
 
                 string databaseLogFileInfosJson = "DatabaseLogFileInfo|" + JsonConvert.SerializeObject(databaseLogFileInfos) + "\n";
@@ -184,6 +207,33 @@ namespace SincronizacaoBD.ViewModel
             {
                 ErroAoConectar(se, "ApplicationOpening");
             }
+        }
+
+        /// <summary>
+        /// Deserializa o LOG, cria o DatabaseLogFileInfo e insere na lista fornecida.
+        /// Se o LOG for do tipo DELETE e não tiver sido modificado há um ano ou mais, o LOG será deletado.
+        /// </summary>
+        /// <typeparam name="E">Tipo da entidade do LOG</typeparam>
+        /// <param name="fileName">Caminho completo do arquivo de LOG</param>
+        /// <param name="json">Json do arquivo de LGO</param>
+        /// <param name="databaseLogFileInfos">Lista de DatabaseLogFileInfo</param>
+        /// <returns></returns>
+        private bool PopulaDatabaseLogFileInfos<E>(string fileName, string json, List<DatabaseLogFileInfo> databaseLogFileInfos) where E : class, IModel
+        {
+            DatabaseLogFile<E> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<E>>(json);
+            DateTime now = DateTime.Now;
+            DateTime lastWriteTime = databaseLogFile.LastWriteTime;
+
+            if ((now.Year - lastWriteTime.Year) >= 1 && databaseLogFile.OperacaoMySQL.Equals("DELETE"))
+            {
+                File.Delete(fileName);
+                return false;
+            }
+
+            DatabaseLogFileInfo databaseLogFileInfo = new DatabaseLogFileInfo() { LastModified = lastWriteTime, FileName = fileName };
+            databaseLogFileInfos.Add(databaseLogFileInfo);
+
+            return true;
         }
 
         private void ReceiveCallback(IAsyncResult asyncResult)
@@ -221,82 +271,69 @@ namespace SincronizacaoBD.ViewModel
 
                                 List<string> fileNamesDatabaseLogFile = JsonConvert.DeserializeObject<List<string>>(fileNamesDatabaseLogFileJson);
                                 List<string> databaseLogFilesDatabaseLogFile = JsonConvert.DeserializeObject<List<string>>(databaseLogFilesDatabaseLogFileJson);
-                                List<Object> saveUpdateList = new List<Object>();
-                                List<Object> deleteList = new List<Object>();
 
+                                List<DatabaseLogFile<Contagem>> logsContagem = new List<DatabaseLogFile<Contagem>>();
+                                List<DatabaseLogFile<ContagemProduto>> logsContagemProduto = new List<DatabaseLogFile<ContagemProduto>>();
                                 List<DatabaseLogFile<Fornecedor>> logsFornecedor = new List<DatabaseLogFile<Fornecedor>>();
                                 List<DatabaseLogFile<Loja>> logsLoja = new List<DatabaseLogFile<Loja>>();
                                 List<DatabaseLogFile<Marca>> logsMarca = new List<DatabaseLogFile<Marca>>();
                                 List<DatabaseLogFile<OperadoraCartao>> logsOperadoraCartao = new List<DatabaseLogFile<OperadoraCartao>>();
                                 List<DatabaseLogFile<Produto>> logsProduto = new List<DatabaseLogFile<Produto>>();
                                 List<DatabaseLogFile<RecebimentoCartao>> logsRecebimentoCartao = new List<DatabaseLogFile<RecebimentoCartao>>();
+                                List<DatabaseLogFile<TipoContagem>> logsTipoContagem = new List<DatabaseLogFile<TipoContagem>>();
 
                                 for (int i = 0; i < fileNamesDatabaseLogFile.Count; i++)
                                 {
-                                    //TODO: Pensar em algum jeito de melhorar isso aqui
-                                    if (fileNamesDatabaseLogFile[i].StartsWith("Contagem"))
-                                    {
-                                        //databaseLogFile = new DatabaseLogFile<Contagem>();
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("ContagemProduto"))
-                                    {
+                                    string fileName = fileNamesDatabaseLogFile[i].Split(' ')[0];
 
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("Fornecedor"))
+                                    switch (fileName)
                                     {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsFornecedor, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("Loja"))
-                                    {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsLoja, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("Marca"))
-                                    {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsMarca, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("OperadoraCartao"))
-                                    {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsOperadoraCartao, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("Produto"))
-                                    {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsProduto, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("RecebimentoCartao"))
-                                    {
-                                        DeserializaDatabaseLogFileJson(databaseLogFilesDatabaseLogFile[i], logsRecebimentoCartao, saveUpdateList, deleteList);
-                                    }
-                                    else if (fileNamesDatabaseLogFile[i].StartsWith("TipoContagem"))
-                                    {
-                                        //databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<TipoContagem>>(databaseLogFilesDatabaseLogFile[i]);
+                                        case "Contagem":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsContagem);
+                                            break;
+                                        case "ContagemProduto":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsContagemProduto);
+                                            break;
+                                        case "Fornecedor":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsFornecedor);
+                                            break;
+                                        case "Loja":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsLoja);
+                                            break;
+                                        case "Marca":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsMarca);
+                                            break;
+                                        case "OperadoraCartao":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsOperadoraCartao);
+                                            break;
+                                        case "Produto":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsProduto);
+                                            break;
+                                        case "RecebimentoCartao":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsRecebimentoCartao);
+                                            break;
+                                        case "TipoContagem":
+                                            DeserializaDatabaseLogFileRecebido(databaseLogFilesDatabaseLogFile[i], logsTipoContagem);
+                                            break;
                                     }
                                 }
 
                                 DAOSync daoSync = new DAOSync();
 
-                                if (daoSync.InserirOuAtualizar(saveUpdateList))
-                                {
-                                    EscreverDatabaseLogFile(logsFornecedor.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
-                                    EscreverDatabaseLogFile(logsLoja.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
-                                    EscreverDatabaseLogFile(logsMarca.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
-                                    EscreverDatabaseLogFile(logsOperadoraCartao.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
-                                    EscreverDatabaseLogFile(logsProduto.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
-                                    EscreverDatabaseLogFile(logsRecebimentoCartao.Where(w => w.OperacaoMySQL.Equals("INSERT") || w.OperacaoMySQL.Equals("UPDATE")).ToList());
+                                // Persiste os que não tem chaves estrangeiras antes
+                                PersistLogs(daoSync, logsLoja);
+                                PersistLogs(daoSync, logsFornecedor);
+                                PersistLogs(daoSync, logsOperadoraCartao);
+                                PersistLogs(daoSync, logsTipoContagem);
 
-                                    Texto += $"{DateTime.Now.ToString(dateFormat)}: Logs Inseridos Ou Atualizados Com Sucesso\n";
-                                }
+                                // The rest is free real state
+                                PersistLogs(daoSync, logsContagem);
+                                PersistLogs(daoSync, logsContagemProduto);
+                                PersistLogs(daoSync, logsMarca);
+                                PersistLogs(daoSync, logsProduto);
+                                PersistLogs(daoSync, logsRecebimentoCartao);
 
-                                if (daoSync.Deletar(deleteList))
-                                {
-                                    EscreverDatabaseLogFile(logsFornecedor.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-                                    EscreverDatabaseLogFile(logsLoja.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-                                    EscreverDatabaseLogFile(logsMarca.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-                                    EscreverDatabaseLogFile(logsOperadoraCartao.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-                                    EscreverDatabaseLogFile(logsProduto.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-                                    EscreverDatabaseLogFile(logsRecebimentoCartao.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList());
-
-                                    Texto += $"{DateTime.Now.ToString(dateFormat)}: Logs Deletados Com Sucesso\n";
-                                }
+                                Texto += $"{DateTime.Now.ToString(dateFormat)}: Logs Atualizados Com Sucesso\n";
 
                                 break;
                         }
@@ -344,28 +381,48 @@ namespace SincronizacaoBD.ViewModel
             }
         }
 
-        private void InsereLista(string operacao, Object entidade, List<Object> saveUpdateList, List<Object> deleteList)
-        {
-            switch (operacao)
-            {
-                case "INSERT":
-                    saveUpdateList.Add(entidade);
-                    break;
-                case "UPDATE":
-                    saveUpdateList.Add(entidade);
-                    break;
-                case "DELETE":
-                    deleteList.Add(entidade);
-                    break;
-            }
-        }
-
-        private void DeserializaDatabaseLogFileJson<E>(string databaseLogFileJson, List<DatabaseLogFile<E>> logs, List<Object> saveUpdateList, List<Object> deleteList) where E : class, IModel
+        private void DeserializaDatabaseLogFileRecebido<E>(string databaseLogFileJson, List<DatabaseLogFile<E>> logs) where E : class, IModel
         {
             var databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<E>>(databaseLogFileJson);
             FileInfoLogsRecebidos.Add(new DatabaseLogFileInfo() { FileName = databaseLogFile.GetFileName() });
             logs.Add(databaseLogFile);
-            InsereLista(databaseLogFile.OperacaoMySQL, databaseLogFile.Entidade, saveUpdateList, deleteList);
+        }
+
+        private void PersistLogs<E>(DAOSync dao, IList<DatabaseLogFile<E>> logs) where E : class, IModel
+        {
+            if (logs.Count > 0)
+            {
+                List<DatabaseLogFile<E>> saveLogs = logs.Where(w => w.OperacaoMySQL.Equals("INSERT")).ToList();
+                List<DatabaseLogFile<E>> updateLogs = logs.Where(w => w.OperacaoMySQL.Equals("UPDATE")).ToList();
+                List<DatabaseLogFile<E>> deleteLogs = logs.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList();
+
+                if (saveLogs.Count > 0)
+                {
+                    List<E> lista = saveLogs.Select(s => s.Entidade).ToList();
+                    if (dao.InserirOuAtualizar(lista))
+                    {
+                        EscreverDatabaseLogFile(saveLogs);
+                    }
+                }
+
+                if (updateLogs.Count > 0)
+                {
+                    List<E> lista = updateLogs.Select(s => s.Entidade).ToList();
+                    if (dao.InserirOuAtualizar(lista))
+                    {
+                        EscreverDatabaseLogFile(updateLogs);
+                    }
+                }
+
+                if (deleteLogs.Count > 0)
+                {
+                    List<E> lista = deleteLogs.Select(s => s.Entidade).ToList();
+                    if (dao.Deletar(lista))
+                    {
+                        EscreverDatabaseLogFile(deleteLogs);
+                    }
+                }
+            }
         }
 
         private void EscreverDatabaseLogFile<E>(List<DatabaseLogFile<E>> logs) where E : class, IModel

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+  <class name="ContagemProduto" table="contagem_produto" dynamic-insert="true" dynamic-update="true">
+    <id name="Id" column="id" />
+    <many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" lazy="false" />
+    <many-to-one name="Contagem" class="VandaModaIntimaWpf.Model.Contagem" lazy="false" >
+      <column name="contagem_loja" />
+      <column name="contagem_data" />
+    </many-to-one>
+    <property name="Quant" column="quant" />
+  </class>
+
+</hibernate-mapping>

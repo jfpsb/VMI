@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Xml.Serialization;
 
 namespace SincronizacaoBD.Model
 {
-    [XmlRoot(ElementName = "EntidadeSalva")]
     public class RecebimentoCartao : IModel
     {
         private int mes { get; set; }
@@ -70,9 +68,6 @@ namespace SincronizacaoBD.Model
                 observacao = value;
             }
         }
-
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public override bool Equals(object obj)
         {

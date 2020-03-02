@@ -81,6 +81,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Contagem.cs" />
+    <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\DAOSync.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\IModel.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
+    <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="SessionSyncProvider.cs" />
     <Compile Include="Sincronizacao\OperacoesDatabaseLogFile.cs" />
     <Compile Include="Sincronizacao\DatabaseLogFile.cs" />
@@ -163,6 +166,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VMIIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Contagem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ContagemProduto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\TipoContagem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />

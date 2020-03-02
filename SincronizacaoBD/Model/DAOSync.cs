@@ -16,7 +16,7 @@ namespace SincronizacaoBD.Model
                 }
             }
         }
-        public bool InserirOuAtualizar(IList<object> objetos)
+        public bool InserirOuAtualizar<E>(IList<E> objetos) where E : class, IModel
         {
             if (objetos.Count == 0)
                 return false;
@@ -47,7 +47,7 @@ namespace SincronizacaoBD.Model
             }
         }
 
-        public bool Deletar(IList<object> objetos)
+        public bool Deletar<E>(IList<E> objetos) where E : class, IModel
         {
             if (objetos.Count == 0)
                 return false;

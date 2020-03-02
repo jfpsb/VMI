@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace SincronizacaoBD.Model
 {
@@ -95,9 +90,6 @@ namespace SincronizacaoBD.Model
                 codigos = value;
             }
         }
-
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual object GetIdentifier()
         {
