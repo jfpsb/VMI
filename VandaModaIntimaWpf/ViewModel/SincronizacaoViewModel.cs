@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -28,9 +29,11 @@ namespace VandaModaIntimaWpf.ViewModel
         private string _textLog;
         private bool Disposed;
         private static readonly string _localDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+        private static object This; // Guarda referência à própria classe para ser usado em Reflection dentro de método estático
 
         public SincronizacaoViewModel()
         {
+            This = this;
             Conectar();
         }
 
@@ -45,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectando ao Servidor";
 
                     ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    ClientSocket.Connect(IPAddress.Loopback, 3999);
+                    ClientSocket.Connect("18.229.130.78", 3999);
 
                     TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectado ao Servidor Com Sucesso";
 
@@ -126,7 +129,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 string databaseLogFileInfosJson = "DatabaseLogFileInfo|" + JsonConvert.SerializeObject(databaseLogFileInfos) + "\n";
 
-                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Sincronização Executando\n";
+                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Sincronização Executando";
                 ClientSocket.Send(Encoding.UTF8.GetBytes(databaseLogFileInfosJson));
                 ClientSocket.BeginReceive(BytesReceivedFromServer, 0, BytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, ClientSocket);
             }
@@ -141,7 +144,7 @@ namespace VandaModaIntimaWpf.ViewModel
             string JsonText = File.ReadAllText(fileName).Replace("\r", string.Empty).Replace("\n", string.Empty);
             DatabaseLogFile<E> DatabaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<E>>(JsonText);
 
-            if ((DateTime.Now - DatabaseLogFile.LastWriteTime).TotalDays >= 180 && DatabaseLogFile.OperacaoMySQL.Equals("DELETE"))
+            if ((DateTime.Now - DatabaseLogFile.LastWriteTime).TotalDays >= 30 && DatabaseLogFile.OperacaoMySQL.Equals("DELETE"))
             {
                 File.Delete(fileName);
                 return;
@@ -211,7 +214,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
                                 foreach (int contagemIndex in contagemIndexes)
                                 {
-                                    DeserializeLogAndAddToList<Contagem>(databaseLogFiles[contagemIndex], logsContagem);
+                                    DeserializeLogAndAddToList(databaseLogFiles[contagemIndex], logsContagem);
                                 }
 
                                 foreach (int contagemProdutoIndex in contagemProdutoIndexes)
@@ -357,7 +360,11 @@ namespace VandaModaIntimaWpf.ViewModel
                 messageToServer += "\n"; // Para que o servidor encontre o fim do texto
 
                 ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
-                //ClientSocket.BeginSend(Encoding.UTF8.GetBytes(messageToServer), 0, Encoding.UTF8.GetBytes(messageToServer).Length, SocketFlags.None, SendCallback, ClientSocket);
+
+                // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+                PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
+                string textLogAtual = (string)propertyInfo.GetValue(This, null);
+                propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Enviado ao Servidor - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
             }
             catch (Exception ex)
             {
@@ -414,6 +421,11 @@ namespace VandaModaIntimaWpf.ViewModel
             string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
 
             File.WriteAllText(Path.Combine(DatabaseLogDir, databaseLogFile.GetFileName()), json);
+
+            // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+            PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
+            string textLogAtual = (string)propertyInfo.GetValue(This, null);
+            propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Escrito - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
 
             return databaseLogFile;
         }

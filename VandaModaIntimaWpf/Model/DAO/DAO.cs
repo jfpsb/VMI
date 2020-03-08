@@ -55,8 +55,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        var o = await session.MergeAsync(e);
-                        await session.SaveOrUpdateAsync(o);
+                        await session.SaveOrUpdateAsync(e);
                     }
 
                     if (writeToJson)

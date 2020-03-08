@@ -96,7 +96,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                         foreach (RecebimentoCartao recebimento in recebimentos)
                         {
-                            DatabaseLogFile<RecebimentoCartao> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile<RecebimentoCartao>("DELETE", recebimento);
+                            DatabaseLogFile<RecebimentoCartao> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile("DELETE", recebimento);
 
                             if (sendToServer)
                                 SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
