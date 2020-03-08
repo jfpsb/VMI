@@ -162,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Sincronizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SQL\ExportarSQL.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,17 +185,16 @@
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOContagem.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOContagemProduto.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOFornecedor.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOLoja.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOMarca.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOMySQL.cs" />
-    <Compile Include="Model\DAO\IDAO.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOOperadoraCartao.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOProduto.cs" />
-    <Compile Include="Model\DAO\MySQL\DAORecebimentoCartao.cs" />
-    <Compile Include="Model\DAO\MySQL\DAOTipoContagem.cs" />
+    <Compile Include="Model\DAO\DAOContagem.cs" />
+    <Compile Include="Model\DAO\DAOContagemProduto.cs" />
+    <Compile Include="Model\DAO\DAOFornecedor.cs" />
+    <Compile Include="Model\DAO\DAOLoja.cs" />
+    <Compile Include="Model\DAO\DAOMarca.cs" />
+    <Compile Include="Model\DAO\DAO.cs" />
+    <Compile Include="Model\DAO\DAOOperadoraCartao.cs" />
+    <Compile Include="Model\DAO\DAOProduto.cs" />
+    <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
+    <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
@@ -202,8 +205,8 @@
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="Model\TipoContagem.cs" />
-    <Compile Include="Sincronizacao\DatabaseLogFile.cs" />
-    <Compile Include="Sincronizacao\OperacoesDatabaseLogFile.cs" />
+    <Compile Include="Util\Sincronizacao\DatabaseLogFile.cs" />
+    <Compile Include="Util\Sincronizacao\DatabaseLogFileInfo.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoCartaoViewModelStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
+    <Compile Include="ViewModel\SincronizacaoViewModel.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
@@ -303,6 +307,9 @@
     </Compile>
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sincronizacao.xaml.cs">
+      <DependentUpon>Sincronizacao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SQL\ExportarSQL.xaml.cs">
       <DependentUpon>ExportarSQL.xaml</DependentUpon>
@@ -423,12 +430,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VMIIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SincronizacaoBD\SincronizacaoBD.csproj">
-      <Project>{d33cc500-18e8-44fd-a92d-c4a3dcbc6bb3}</Project>
-      <Name>SincronizacaoBD</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Contagem.hbm.xml">

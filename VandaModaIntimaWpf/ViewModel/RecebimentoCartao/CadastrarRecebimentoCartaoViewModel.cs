@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 using System.Xml.Linq;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using OperadoraCartaoModel = VandaModaIntimaWpf.Model.OperadoraCartao;
@@ -16,8 +17,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 {
     class CadastrarRecebimentoCartaoViewModel : ACadastrarViewModel
     {
-        private DAORecebimentoCartao daoRecebimentoCartao;
-        private DAOOperadoraCartao daoOperadoraCartao;
+        private DAO daoRecebimentoCartao;
+        private DAO daoOperadoraCartao;
         private DAOLoja daoLoja;
         private int matrizComboBoxIndex;
         public LojaModel Matriz { get; set; }
@@ -102,7 +103,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             {
                 var caminho = openFileDialog.FileName;
                 XElement doc = ImportOfx.toXElement(caminho);
-                IList<OperadoraCartaoModel> operadoras = await daoOperadoraCartao.Listar();
+                IList<OperadoraCartaoModel> operadoras = await daoOperadoraCartao.Listar<OperadoraCartaoModel>();
                 Dictionary<OperadoraCartaoModel, double> recebimentoPorOperadora = new Dictionary<OperadoraCartaoModel, double>();
 
                 foreach (var transacao in doc.Descendants("STMTTRN"))

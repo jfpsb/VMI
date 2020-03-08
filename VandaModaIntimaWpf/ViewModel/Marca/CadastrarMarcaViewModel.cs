@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             switch (e.PropertyName)
             {
                 case "Nome":
-                    MarcaModel marca = await daoMarca.ListarPorId(Marca.Nome);
+                    MarcaModel marca = (MarcaModel) await daoMarca.ListarPorId(Marca.Nome);
 
                     if (marca != null)
                     {

@@ -93,7 +93,15 @@ namespace VandaModaIntimaWpf.Model
 
         public override int GetHashCode()
         {
-            return Loja.GetHashCode() + Data.GetHashCode();
+            int hash = 0;
+
+            if (Loja != null)
+                hash += Loja.GetHashCode();
+
+            if (Data != null)
+                hash += Data.GetHashCode();
+
+            return hash;
         }
     }
 }

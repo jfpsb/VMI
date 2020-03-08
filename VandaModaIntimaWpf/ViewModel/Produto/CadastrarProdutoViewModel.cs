@@ -92,13 +92,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private async void GetFornecedores()
         {
-            Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar());
+            Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar<FornecedorModel>());
             Fornecedores.Insert(0, new FornecedorModel("SELECIONE O FORNECEDOR"));
         }
 
         private async void GetMarcas()
         {
-            Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar());
+            Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar<MarcaModel>());
             Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
         }
 

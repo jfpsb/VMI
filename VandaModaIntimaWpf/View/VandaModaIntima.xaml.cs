@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf
 {
@@ -14,8 +13,8 @@ namespace VandaModaIntimaWpf
 
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
 
-            SincronizacaoBD.SyncMainWindow syncMainWindow = new SincronizacaoBD.SyncMainWindow();
-            syncMainWindow.Show();
+            View.Sincronizacao sincronizacao = new View.Sincronizacao();
+            sincronizacao.Show();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)
@@ -27,11 +26,6 @@ namespace VandaModaIntimaWpf
         private void TelaPrincipal_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SessionProvider.FechaConexoes();
-        }
-
-        private void TelaPrincipal_Loaded(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

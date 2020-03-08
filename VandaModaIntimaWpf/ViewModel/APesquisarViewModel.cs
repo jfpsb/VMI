@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> entidades;
-        protected IDAO<E> daoEntidade;
+        protected DAO daoEntidade;
 
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
@@ -314,7 +314,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public async void AbrirExportarSQL(object parameter)
         {
-            pesquisarViewModelStrategy.AbrirExportarSQL(parameter, await daoEntidade.Listar());
+            pesquisarViewModelStrategy.AbrirExportarSQL(parameter, await daoEntidade.Listar<E>());
         }
     }
 }

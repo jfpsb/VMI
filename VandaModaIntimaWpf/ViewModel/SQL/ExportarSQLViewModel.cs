@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
     public abstract class ExportarSQLViewModel<E> : ObservableObject where E : class, IModel
     {
         protected ISession session = SessionProvider.GetSession("ExportarSQL");
-        protected IDAO<E> daoEntidade;
+        protected DAO daoEntidade;
         public ICommand ExportarInsertsComando { get; set; }
         public ICommand ExportarUpdatesComando { get; set; }
         public ICommand InserirInsertComando { get; set; }
@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    ExportarSQLInsert(sw, await daoEntidade.Listar(), fileName);
+                    ExportarSQLInsert(sw, await daoEntidade.Listar<E>(), fileName);
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    ExportarSQLUpdate(sw, await daoEntidade.Listar(), fileName);
+                    ExportarSQLUpdate(sw, await daoEntidade.Listar<E>(), fileName);
                 }
             }
         }
