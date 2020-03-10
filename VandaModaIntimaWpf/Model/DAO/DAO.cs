@@ -24,6 +24,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 try
                 {
                     await session.SaveAsync(objeto);
+                    await transacao.CommitAsync();
 
                     if (writeToJson)
                     {
@@ -33,7 +34,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                             SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
                     }
 
-                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
@@ -58,6 +58,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                         await session.SaveOrUpdateAsync(e);
                     }
 
+                    await transacao.CommitAsync();
+
                     if (writeToJson)
                     {
                         foreach (E e in objetos)
@@ -68,8 +70,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                                 SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
                         }
                     }
-
-                    await transacao.CommitAsync();
 
                     return true;
                 }
@@ -90,8 +90,8 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 try
                 {
-                    var o = await session.MergeAsync(objeto);
-                    await session.SaveOrUpdateAsync(o);
+                    await session.SaveOrUpdateAsync(objeto);
+                    await transacao.CommitAsync();
 
                     if (writeToJson)
                     {
@@ -100,8 +100,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                         if (sendToServer)
                             SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
                     }
-
-                    await transacao.CommitAsync();
 
                     return true;
                 }
@@ -127,6 +125,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                         await session.SaveOrUpdateAsync(e);
                     }
 
+                    await transacao.CommitAsync();
+
                     if (writeToJson)
                     {
                         foreach (E e in objetos)
@@ -137,8 +137,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                                 SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
                         }
                     }
-
-                    await transacao.CommitAsync();
 
                     return true;
                 }
@@ -160,6 +158,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 try
                 {
                     await session.UpdateAsync(objeto);
+                    await transacao.CommitAsync();
 
                     if (writeToJson)
                     {
@@ -169,7 +168,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                             SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
                     }
 
-                    await transacao.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
@@ -188,6 +186,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                 try
                 {
                     await session.DeleteAsync(objeto);
+                    await transacao.CommitAsync();
+
                     if (writeToJson)
                     {
                         var databaseLogFile = WriteDatabaseLogFile("DELETE", objeto);
@@ -195,7 +195,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         if (sendToServer)
                             SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
                     }
-                    await transacao.CommitAsync();
+
                     return true;
                 }
                 catch (Exception ex)
@@ -218,6 +218,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                         await session.DeleteAsync(e);
                     }
 
+                    await transacao.CommitAsync();
+
                     if (writeToJson)
                     {
                         foreach (E e in objetos)
@@ -228,8 +230,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                                 SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
                         }
                     }
-
-                    await transacao.CommitAsync();
 
                     return true;
                 }

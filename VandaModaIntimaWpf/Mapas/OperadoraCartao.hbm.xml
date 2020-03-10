@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true" dynamic-update="true">
+  <class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true" lazy="false">
     <id name="Nome" column="nome" />    
     <bag name="IdentificadoresBanco" table="operadorabancoid" inverse="false" lazy="false" cascade="delete">
       <key column="operadoracartao" />

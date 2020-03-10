@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         {
             this.nome = nome;
         }
-        public virtual string Cnpj
+        public string Cnpj
         {
             get { return cnpj; }
             set
@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Cnpj");
             }
         }
-        public virtual Loja Matriz
+        public Loja Matriz
         {
             get { return matriz; }
             set
@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Matriz");
             }
         }
-        public virtual string Nome
+        public string Nome
         {
             get { return nome?.ToUpper(); }
             set
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
-        public virtual string Telefone
+        public string Telefone
         {
             get { return telefone; }
             set
@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Telefone");
             }
         }
-        public virtual string Endereco
+        public string Endereco
         {
             get { return endereco?.ToUpper(); }
             set
@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Endereco");
             }
         }
-        public virtual string InscricaoEstadual
+        public string InscricaoEstadual
         {
             get { return inscricaoestadual; }
             set
@@ -72,9 +72,9 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public virtual string GetContextMenuHeader { get => Nome; }
+        public string GetContextMenuHeader { get => Nome; }
 
-        public virtual object Clone()
+        public object Clone()
         {
             Loja loja = new Loja();
 
@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.Model
             return loja;
         }
 
-        public virtual object GetIdentifier()
+        public object GetIdentifier()
         {
             return Cnpj;
         }

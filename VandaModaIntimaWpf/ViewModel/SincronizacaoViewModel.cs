@@ -265,11 +265,11 @@ namespace VandaModaIntimaWpf.ViewModel
                                 PersistLogs(new DAOOperadoraCartao(session), logsOperadoraCartao);
                                 PersistLogs(new DAOTipoContagem(session), logsTipoContagem);
 
-                                // The rest is free real state
-                                PersistLogs(new DAOContagem(session), logsContagem);
-                                PersistLogs(new DAOContagemProduto(session), logsContagemProduto);
+                                // Tem que seguir ordem específica para não dar problema com fk
                                 PersistLogs(new DAOMarca(session), logsMarca);
+                                PersistLogs(new DAOContagem(session), logsContagem);
                                 PersistLogs(new DAOProduto(session), logsProduto);
+                                PersistLogs(new DAOContagemProduto(session), logsContagemProduto);
                                 PersistLogs(new DAORecebimentoCartao(session), logsRecebimentoCartao);
 
                                 SessionProvider.FechaSession("Sincronizacao");
@@ -379,6 +379,12 @@ namespace VandaModaIntimaWpf.ViewModel
             logs.Add(databaseLogFile);
         }
 
+        /// <summary>
+        /// Persiste no Banco de Dados Local os Logs Recebidos do Servidor
+        /// </summary>
+        /// <typeparam name="E">Tipo da Entidade no Log</typeparam>
+        /// <param name="dao">DAO da entidade</param>
+        /// <param name="logs">Lista de Logs da Entidade</param>
         private async void PersistLogs<E>(DAO dao, IList<DatabaseLogFile<E>> logs) where E : class, IModel
         {
             if (logs.Count > 0)
@@ -390,21 +396,54 @@ namespace VandaModaIntimaWpf.ViewModel
                 if (saveLogs.Count > 0)
                 {
                     List<E> lista = saveLogs.Select(s => s.Entidade).ToList();
-                    await dao.InserirOuAtualizar(lista, true, false);
+                    if (await dao.InserirOuAtualizar(lista, false, false))
+                    {
+                        foreach (var save in saveLogs)
+                        {
+                            WriteDatabaseLogFile(save);
+                        }
+                    }
                 }
 
                 if (updateLogs.Count > 0)
                 {
                     List<E> lista = updateLogs.Select(s => s.Entidade).ToList();
-                    await dao.InserirOuAtualizar(lista, true, false);
+                    if (await dao.InserirOuAtualizar(lista, false, false))
+                    {
+                        foreach (var update in updateLogs)
+                        {
+                            WriteDatabaseLogFile(update);
+                        }
+                    }
                 }
 
                 if (deleteLogs.Count > 0)
                 {
                     List<E> lista = deleteLogs.Select(s => s.Entidade).ToList();
-                    await dao.Deletar(lista, true, false);
+                    if (await dao.Deletar(lista, false, false))
+                    {
+                        foreach (var delete in deleteLogs)
+                        {
+                            WriteDatabaseLogFile(delete);
+                        }
+                    }
                 }
             }
+        }
+
+        private void WriteDatabaseLogFile<E>(DatabaseLogFile<E> databaseLogFile) where E : class, IModel
+        {
+            if (!Directory.Exists($"{DatabaseLogDir}"))
+            {
+                DirectoryInfo directoryInfo = Directory.CreateDirectory($"{DatabaseLogDir}");
+                directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            }
+
+            string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
+
+            File.WriteAllText(Path.Combine(DatabaseLogDir, databaseLogFile.GetFileName()), json);
+
+            TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Log Baixado do Servidor - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}";
         }
 
         public static DatabaseLogFile<E> WriteDatabaseLogFile<E>(string operacao, E entidade) where E : class, IModel
@@ -422,10 +461,17 @@ namespace VandaModaIntimaWpf.ViewModel
 
             File.WriteAllText(Path.Combine(DatabaseLogDir, databaseLogFile.GetFileName()), json);
 
-            // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
-            PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
-            string textLogAtual = (string)propertyInfo.GetValue(This, null);
-            propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Escrito - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
+            try
+            {
+                // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+                PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
+                string textLogAtual = (string)propertyInfo.GetValue(This, null);
+                propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Escrito - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
             return databaseLogFile;
         }
@@ -439,6 +485,73 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (callConectar)
                 Conectar();
+        }
+
+        /// <summary>
+        /// Apaga todos os LOGS e recria usando os dados presentes atualmente no banco de dados
+        /// </summary>
+        private async static void ResetaLogs()
+        {
+            Directory.Delete(DatabaseLogDir, true);
+
+            ISession session = SessionProvider.GetSession("SincronizacaoReset");
+
+            DAOContagem dAOContagem = new DAOContagem(session);
+            DAOContagemProduto dAOContagemProduto = new DAOContagemProduto(session);
+            DAOFornecedor dAOFornecedor = new DAOFornecedor(session);
+            DAOLoja dAOLoja = new DAOLoja(session);
+            DAOMarca dAOMarca = new DAOMarca(session);
+            DAOOperadoraCartao dAOOperadoraCartao = new DAOOperadoraCartao(session);
+            DAOProduto dAOProduto = new DAOProduto(session);
+            DAORecebimentoCartao dAORecebimentoCartao = new DAORecebimentoCartao(session);
+            DAOTipoContagem dAOTipoContagem = new DAOTipoContagem(session);
+
+            foreach (Model.Contagem contagem in await dAOContagem.Listar<Contagem>())
+            {
+                WriteDatabaseLogFile("INSERT", contagem);
+            }
+
+            foreach (Model.ContagemProduto contagemProduto in await dAOContagemProduto.Listar<ContagemProduto>())
+            {
+                WriteDatabaseLogFile("INSERT", contagemProduto);
+            }
+
+            foreach (Model.Fornecedor fornecedor in await dAOFornecedor.Listar<Model.Fornecedor>())
+            {
+                WriteDatabaseLogFile("INSERT", fornecedor);
+            }
+
+            foreach (Model.Loja Loja in await dAOLoja.Listar<Model.Loja>())
+            {
+                WriteDatabaseLogFile("INSERT", Loja);
+            }
+
+            foreach (Model.Marca Marca in await dAOMarca.Listar<Model.Marca>())
+            {
+                WriteDatabaseLogFile("INSERT", Marca);
+            }
+
+            foreach (Model.OperadoraCartao OperadoraCartao in await dAOOperadoraCartao.Listar<Model.OperadoraCartao>())
+            {
+                WriteDatabaseLogFile("INSERT", OperadoraCartao);
+            }
+
+            foreach (Model.Produto Produto in await dAOProduto.Listar<Model.Produto>())
+            {
+                WriteDatabaseLogFile("INSERT", Produto);
+            }
+
+            foreach (Model.RecebimentoCartao RecebimentoCartao in await dAORecebimentoCartao.Listar<Model.RecebimentoCartao>())
+            {
+                WriteDatabaseLogFile("INSERT", RecebimentoCartao);
+            }
+
+            foreach (Model.TipoContagem tipoContagem in await dAOTipoContagem.Listar<Model.TipoContagem>())
+            {
+                WriteDatabaseLogFile("INSERT", tipoContagem);
+            }
+
+            SessionProvider.FechaSession("SincronizacaoReset");
         }
 
         public string TextLog

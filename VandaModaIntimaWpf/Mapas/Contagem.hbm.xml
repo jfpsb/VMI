@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Contagem" table="contagem" dynamic-insert="true" dynamic-update="true">
+  <class name="Contagem" table="contagem" lazy="false" dynamic-insert="true">
     <composite-id>
       <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" />
       <key-property name="Data" column="data" />

@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="RecebimentoCartao" table="recebimentocartao" dynamic-insert="true" dynamic-update="true">
+  <class name="RecebimentoCartao" table="recebimentocartao" dynamic-insert="true" lazy="false">
     <composite-id>
       <key-property name="Mes" column="mes" />
       <key-property name="Ano" column="ano" />
