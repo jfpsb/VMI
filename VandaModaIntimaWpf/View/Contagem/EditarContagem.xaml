@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Contagem"
         mc:Ignorable="d"
         Title="Editar Contagem"
-        Height="400"
+        Height="475"
         Width="525"
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
@@ -50,6 +50,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label>Data:</Label>
@@ -121,6 +122,9 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Button Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    Padding="3">Adicionar Contagem de Produto</Button>
+            <Button Grid.Row="6"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}">Salvar</Button>
