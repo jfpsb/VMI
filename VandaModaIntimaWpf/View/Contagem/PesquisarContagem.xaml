@@ -179,7 +179,11 @@
                     </DataGridCheckBoxColumn>
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
-                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
+                        <MenuItem Header="Ver Produtos"
+                                  Command="{Binding AbrirVisualizarContagemProdutoComando}"
+                                  Style="{StaticResource ContextMenuItemStyle}" />
+                    </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
         </Grid>

@@ -1,14 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class Contagem : ObservableObject, ICloneable, IModel
+    public class Contagem : ObservableObject, ICloneable, IModel
     {
         private Loja loja;
         private DateTime data;
         private bool finalizada;
         private TipoContagem tipoContagem;
+        private IList<ContagemProduto> contagens = new List<ContagemProduto>();
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader { get { return loja.Cnpj; } }
@@ -62,6 +64,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 tipoContagem = value;
                 OnPropertyChanged("TipoContagem");
+            }
+        }
+
+        public virtual IList<ContagemProduto> Contagens
+        {
+            get
+            {
+                return contagens;
+            }
+
+            set
+            {
+                contagens = value;
+                OnPropertyChanged("Contagens");
             }
         }
 

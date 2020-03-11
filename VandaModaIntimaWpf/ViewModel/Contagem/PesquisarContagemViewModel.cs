@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.View.Contagem;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -14,6 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
     {
         private DAOLoja daoLoja;
         public ObservableCollection<LojaModel> Lojas { get; set; }
+        public ICommand AbrirVisualizarContagemProdutoComando { get; set; }
 
         private DateTime _dataInicial;
         private DateTime _dataFinal;
@@ -27,6 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             DataInicial = DateTime.Now;
             DataFinal = DateTime.Now;
             GetLojas();
+            AbrirVisualizarContagemProdutoComando = new RelayCommand(AbrirVisualizarContagemProduto);
         }
         public override async void GetItems(string termo)
         {
@@ -42,6 +46,12 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private async void GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.Listar<LojaModel>());
+        }
+
+        private void AbrirVisualizarContagemProduto(object parameter)
+        {
+            VisualizarContagemProduto visualizar = new VisualizarContagemProduto(EntidadeSelecionada.Entidade);
+            visualizar.ShowDialog();
         }
 
         public DateTime DataInicial

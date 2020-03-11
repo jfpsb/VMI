@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class TipoContagem : ObservableObject, ICloneable, IModel
+    public class TipoContagem : ObservableObject, ICloneable, IModel
     {
         private int id;
         private string nome;

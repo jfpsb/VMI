@@ -3,7 +3,7 @@ using System;
 
 namespace VandaModaIntimaWpf.Model
 {
-    class ContagemProduto : ObservableObject, ICloneable, IModel
+    public class ContagemProduto : ObservableObject, ICloneable, IModel
     {
         private long id;
         private Contagem contagem;

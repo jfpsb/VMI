@@ -106,6 +106,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Contagem\VisualizarContagemProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -232,6 +236,7 @@
     <Compile Include="ViewModel\Contagem\EditarContagemViewModel.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModel.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineViewModel.cs" />
@@ -268,6 +273,9 @@
     </Compile>
     <Compile Include="View\Contagem\PesquisarContagem.xaml.cs">
       <DependentUpon>PesquisarContagem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
+      <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>

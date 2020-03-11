@@ -10,6 +10,14 @@
     </composite-id>
     <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" lazy="false" />
     <property name="Finalizada" column="finalizada" />
+
+    <bag name="Contagens" table="contagem_produto" lazy="true" inverse="true">
+      <key>
+        <column name="contagem_loja" />
+        <column name="contagem_data" />
+      </key>
+      <one-to-many class="VandaModaIntimaWpf.Model.ContagemProduto" />
+    </bag>
   </class>
 
 </hibernate-mapping>
