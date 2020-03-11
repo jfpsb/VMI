@@ -67,7 +67,14 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual object Clone()
         {
-            throw new NotImplementedException();
+            Contagem contagem = new Contagem();
+
+            contagem.Loja = Loja;
+            contagem.Data = Data;
+            contagem.TipoContagem = TipoContagem;
+            contagem.Finalizada = Finalizada;
+
+            return contagem;
         }
 
         public virtual object GetIdentifier()

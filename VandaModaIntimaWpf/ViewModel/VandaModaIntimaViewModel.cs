@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
@@ -14,14 +15,16 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaFornecedorComando { get; set; }
         public ICommand AbrirTelaMarcaComando { get; set; }
         public ICommand AbrirTelaLojaComando { get; set; }
-        public ICommand AbritTelaRecebimentoComando { get; set; }
+        public ICommand AbrirTelaRecebimentoComando { get; set; }
+        public ICommand AbrirTelaContagemComando { get; set; }
         public VandaModaIntimaViewModel()
         {
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);
             AbrirTelaMarcaComando = new RelayCommand(AbrirTelaMarca);
             AbrirTelaLojaComando = new RelayCommand(AbrirTelaLoja);
-            AbritTelaRecebimentoComando = new RelayCommand(AbrirTelaRecebimento);
+            AbrirTelaRecebimentoComando = new RelayCommand(AbrirTelaRecebimento);
+            AbrirTelaContagemComando = new RelayCommand(AbrirTelaContagem);
         }
         public void AbrirTelaProduto(object parameter)
         {
@@ -47,6 +50,12 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             PesquisarRecebimento pesquisarRecebimento = new PesquisarRecebimento();
             pesquisarRecebimento.Show();
+        }
+
+        public void AbrirTelaContagem(object parameter)
+        {
+            PesquisarContagem pesquisarContagem = new PesquisarContagem();
+            pesquisarContagem.Show();
         }
     }
 }

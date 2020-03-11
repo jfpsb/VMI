@@ -95,7 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             set
             {
                 matrizComboBoxIndex = value;
-                OnPropertyChanged("MatrizComboBox");
+                OnPropertyChanged("MatrizComboBoxIndex");
             }
         }
     }

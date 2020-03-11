@@ -94,6 +94,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Contagem\CadastrarContagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Contagem\EditarContagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Contagem\PesquisarContagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -216,6 +228,10 @@
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
+    <Compile Include="ViewModel\Contagem\CadastrarContagemViewModel.cs" />
+    <Compile Include="ViewModel\Contagem\EditarContagemViewModel.cs" />
+    <Compile Include="ViewModel\Contagem\PesquisarContagemViewModel.cs" />
+    <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineViewModel.cs" />
@@ -243,6 +259,15 @@
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\CampoNumericoComBotao.xaml.cs">
       <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contagem\CadastrarContagem.xaml.cs">
+      <DependentUpon>CadastrarContagem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contagem\EditarContagem.xaml.cs">
+      <DependentUpon>EditarContagem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Contagem\PesquisarContagem.xaml.cs">
+      <DependentUpon>PesquisarContagem.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
@@ -445,6 +470,12 @@
     <EmbeddedResource Include="Mapas\TipoContagem.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Contagem_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Contagem.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />

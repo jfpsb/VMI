@@ -5,7 +5,9 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
         Title="Vanda Moda Íntima"
         WindowState="Maximized"
-        Closing="TelaPrincipal_Closing" Height="783.491">
+        Closing="TelaPrincipal_Closing"
+        Width="1200"
+        Height="1200">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>
@@ -19,7 +21,7 @@
                           Click="Sair_Click" />
             </MenuItem>
         </Menu>
-        <WrapPanel>
+        <WrapPanel HorizontalAlignment="Center">
             <Button Style="{StaticResource BotoesTelaInicial}"
                     Command="{Binding AbrirTelaProdutoComando}">
                 <Button.Content>
@@ -65,13 +67,24 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource BotoesTelaInicial}"
-                    Command="{Binding AbritTelaRecebimentoComando}">
+                    Command="{Binding AbrirTelaRecebimentoComando}">
                 <Button.Content>
                     <StackPanel>
                         <Image Source="/Resources/Credit_Card.png"
                                Height="300"
                                Width="300" />
                         <Label>Recebimento de Cartão</Label>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaContagemComando}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Contagem.png"
+                               Height="300"
+                               Width="300" />
+                        <Label>Contagem</Label>
                     </StackPanel>
                 </Button.Content>
             </Button>

@@ -146,6 +146,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 if (resultDeletar)
                 {
                     SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
+                    VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
                 }
                 else
                 {

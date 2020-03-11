@@ -10,7 +10,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     public class PesquisarFornecedorViewModel : APesquisarViewModel<FornecedorModel>
     {
         private int pesquisarPor;
-
         public ICommand AbrirCadastrarOnlineComando { get; set; }
         private enum OpcoesPesquisa
         {

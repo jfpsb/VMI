@@ -506,7 +506,7 @@ namespace VandaModaIntimaWpf.ViewModel
             DAORecebimentoCartao dAORecebimentoCartao = new DAORecebimentoCartao(session);
             DAOTipoContagem dAOTipoContagem = new DAOTipoContagem(session);
 
-            foreach (Model.Contagem contagem in await dAOContagem.Listar<Contagem>())
+            foreach (Model.Contagem contagem in await dAOContagem.Listar<Model.Contagem>())
             {
                 WriteDatabaseLogFile("INSERT", contagem);
             }
