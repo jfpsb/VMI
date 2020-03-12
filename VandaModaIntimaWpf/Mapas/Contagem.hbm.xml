@@ -11,7 +11,7 @@
     <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" lazy="false" />
     <property name="Finalizada" column="finalizada" />
 
-    <bag name="Contagens" table="contagem_produto" lazy="true" inverse="true">
+    <bag name="Contagens" table="contagem_produto" inverse="true" cascade="all-delete-orphan">
       <key>
         <column name="contagem_loja" />
         <column name="contagem_data" />

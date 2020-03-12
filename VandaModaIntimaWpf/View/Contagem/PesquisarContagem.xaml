@@ -81,8 +81,8 @@
                 CommandParameter="{Binding ElementName=TelaPesquisarContagem}" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="39.123" />
-                <ColumnDefinition Width="45.877" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="45" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

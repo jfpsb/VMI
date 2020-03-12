@@ -32,6 +32,35 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             return await Listar<Produto>(criteria);
         }
 
+        public async Task<IList<Produto>> ListarPorDescricaoCodigoDeBarra(string termo)
+        {
+            var criteria = CriarCriteria<Produto>();
+
+            criteria.CreateAlias("Codigos", "Codigos", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
+
+            criteria.Add(Restrictions.Disjunction()
+                .Add(Restrictions.Like("Cod_Barra", "%" + termo + "%"))
+                //Tem que usar 'elements' porque no mapa de Produto os códigos estão mapeados como element
+                .Add(Restrictions.Like("Codigos.elements", "%" + termo + "%"))
+                .Add(Restrictions.Like("Descricao", termo)));
+
+            //Por causa do groupby eu tenho que especificar as propriedades que quero recuperar no select
+            criteria.SetProjection(Projections.ProjectionList()
+                .Add(Projections.Property("Cod_Barra"), "Cod_Barra")
+                .Add(Projections.Property("Descricao"), "Descricao")
+                .Add(Projections.Property("Preco"), "Preco")
+                .Add(Projections.Property("Fornecedor"), "Fornecedor")
+                .Add(Projections.Property("Marca"), "Marca")
+                .Add(Projections.Property("Ncm"), "Ncm")
+                .Add(Projections.GroupProperty("Cod_Barra")));
+
+            criteria.AddOrder(Order.Asc("Cod_Barra"));
+
+            criteria.SetResultTransformer(Transformers.AliasToBean<Produto>());
+
+            return await Listar<Produto>(criteria);
+        }
+
         public async Task<IList<Produto>> ListarPorCodigoDeBarra(string codigo)
         {
             var criteria = CriarCriteria<Produto>();

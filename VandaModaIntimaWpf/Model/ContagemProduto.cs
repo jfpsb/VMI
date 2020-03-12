@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private int quant;
 
         [JsonIgnore]
-        public virtual string GetContextMenuHeader { get {return $"{Produto.Cod_Barra}; Quantidade: {Quant}"; } }
+        public virtual string GetContextMenuHeader { get { return $"{Produto.Cod_Barra}; Quantidade: {Quant}"; } }
 
         public virtual long Id
         {
@@ -55,6 +55,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual Contagem Contagem
         {
             get

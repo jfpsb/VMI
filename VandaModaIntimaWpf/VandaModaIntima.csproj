@@ -94,6 +94,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Contagem\AdicionarContagemProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Contagem\CadastrarContagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,9 +269,13 @@
     <Compile Include="View\CampoNumericoComBotao.xaml.cs">
       <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Contagem\AdicionarContagemProduto.xaml.cs">
+      <DependentUpon>AdicionarContagemProduto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Contagem\CadastrarContagem.xaml.cs">
       <DependentUpon>CadastrarContagem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Contagem\AdicionarContagemProdutoComboBox.cs" />
     <Compile Include="View\Contagem\EditarContagem.xaml.cs">
       <DependentUpon>EditarContagem.xaml</DependentUpon>
     </Compile>

@@ -1,0 +1,136 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.Contagem.AdicionarContagemProduto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Contagem"
+        mc:Ignorable="d"
+        Title="Adicionar Contagem de Produto"
+        ResizeMode="NoResize"
+        Icon="/Resources/Contagem_Icon.ico"
+        WindowStartupLocation="CenterScreen"
+        Height="450"
+        Width="700">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label>Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</Label>
+        <local:AdicionarContagemProdutoComboBox Grid.Row="1"
+                                                HorizontalAlignment="Stretch"
+                                                DisplayMemberPath="Descricao"
+                                                SelectedItem="{Binding Produto}"
+                                                ItemsSource="{Binding Produtos}"
+                                                Text="{Binding PesquisaProdutoComboBox}"
+                                                IsEditable="True"
+                                                StaysOpenOnEdit="True"
+                                                PreviewTextInput="ComboBox_PreviewTextInput"
+                                                PreviewKeyDown="ComboBox_PreviewKeyDown"
+                                                IsTextSearchEnabled="False">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Left" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Center" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.InputBindings>
+                <KeyBinding Key="Enter"
+                            Command="{Binding InserirContagemComando}" />
+            </ComboBox.InputBindings>
+        </local:AdicionarContagemProdutoComboBox>
+        <Label Grid.Row="1"
+               Grid.Column="1">Quantidade:</Label>
+        <TextBox Grid.Row="1"
+                 Grid.Column="2"
+                 Text="{Binding Quantidade}" />
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center"
+                Padding="50, 5, 50, 5"
+                Command="{Binding InserirContagemComando}">Inserir</Button>
+        <DataGrid Grid.Row="3"
+                  Grid.ColumnSpan="3"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="White"
+                  SelectedItem="{Binding ContagemProduto}"
+                  ItemsSource="{Binding Contagens, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cód. De Barra"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Produto.Cod_Barra}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Produto.Cod_Barra}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Descrição"
+                                    IsReadOnly="True"
+                                    Width="*"
+                                    Binding="{Binding Produto.Descricao}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Produto.Descricao}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Preço"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Produto.Preco}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Produto.Preco}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Quantidade"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Quant}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Quant}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem  Header="Editar Este Produto"
+                               Command="{Binding AbrirEditarProdutoComando}" />
+                    <Separator />
+                    <MenuItem  Header="Remover"
+                               Command="{Binding RemoverContagemProdutoComando}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Grid Grid.Row="4"
+              Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   FontWeight="Bold">Produto Selecionado:</Label>
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Content="{Binding Produto.Descricao}" />
+        </Grid>
+    </Grid>
+
+</Window>

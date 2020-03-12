@@ -81,6 +81,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public void RefreshContagens()
+        {
+            OnPropertyChanged("Contagens");
+        }
+
         public virtual object Clone()
         {
             Contagem contagem = new Contagem();
