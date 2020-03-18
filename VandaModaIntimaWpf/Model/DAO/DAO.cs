@@ -26,14 +26,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
 
-                    if (writeToJson)
-                    {
-                        var databaseLogFile = WriteDatabaseLogFile("INSERT", objeto);
-
-                        if (sendToServer)
-                            SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
-                    }
-
                     return true;
                 }
                 catch (Exception ex)
@@ -60,17 +52,6 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                     await transacao.CommitAsync();
 
-                    if (writeToJson)
-                    {
-                        foreach (E e in objetos)
-                        {
-                            DatabaseLogFile<E> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile<E>("UPDATE", e);
-
-                            if (sendToServer)
-                                SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
-                        }
-                    }
-
                     return true;
                 }
                 catch (Exception ex)
@@ -92,14 +73,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
-
-                    if (writeToJson)
-                    {
-                        var databaseLogFile = WriteDatabaseLogFile("UPDATE", objeto);
-
-                        if (sendToServer)
-                            SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
-                    }
 
                     return true;
                 }
@@ -127,17 +100,6 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                     await transacao.CommitAsync();
 
-                    if (writeToJson)
-                    {
-                        foreach (E e in objetos)
-                        {
-                            DatabaseLogFile<E> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile("UPDATE", e);
-
-                            if (sendToServer)
-                                SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
-                        }
-                    }
-
                     return true;
                 }
                 catch (Exception ex)
@@ -160,14 +122,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
 
-                    if (writeToJson)
-                    {
-                        var databaseLogFile = WriteDatabaseLogFile("UPDATE", objeto);
-
-                        if (sendToServer)
-                            SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
-                    }
-
                     return true;
                 }
                 catch (Exception ex)
@@ -187,14 +141,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
-
-                    if (writeToJson)
-                    {
-                        var databaseLogFile = WriteDatabaseLogFile("DELETE", objeto);
-
-                        if (sendToServer)
-                            SendDatabaseLogFileToServer(databaseLogFile, objeto.GetType());
-                    }
 
                     return true;
                 }
@@ -219,17 +165,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
-
-                    if (writeToJson)
-                    {
-                        foreach (E e in objetos)
-                        {
-                            DatabaseLogFile<E> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile("DELETE", e);
-
-                            if (sendToServer)
-                                SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
-                        }
-                    }
 
                     return true;
                 }
@@ -277,52 +212,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         public ICriteria CriarCriteria<E>() where E : class, IModel
         {
             return session.CreateCriteria<E>();
-        }
-
-        /// <summary>
-        /// Escreve DatabaseLogFile em Json usando Reflection
-        /// </summary>
-        /// <param name="operacao">Tipo de Operação no Banco de Dados</param>
-        /// <param name="objeto">Objeto de Entidade Sendo Usada</param>
-        /// <returns>Método Para Escrever DatabaseLogFile em Json</returns>
-        private object WriteDatabaseLogFile(string operacao, object objeto)
-        {
-            Type type = typeof(SincronizacaoViewModel);
-            var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static);
-            var method = methods.Where(w =>
-                w.Name.Equals("WriteDatabaseLogFile")
-                && w.GetParameters().Length == 2
-                && w.GetParameters()[0].ParameterType.Name.Equals("String")
-                && w.GetParameters()[1].ParameterType.Name.Equals("E"))
-                .SingleOrDefault();
-
-            if (method != null)
-                return method.MakeGenericMethod(objeto.GetType()).Invoke(null, new object[] { operacao, objeto });
-
-            throw new NullReferenceException("Método Não Foi Encontrado");
-        }
-
-        private object SendDatabaseLogFileToServer(object databaseLogFile, Type tipoEntidade)
-        {
-            try
-            {
-                Type type = typeof(SincronizacaoViewModel);
-                var methods = type.GetMethods(BindingFlags.Public | BindingFlags.Static);
-                var method = methods.Where(w =>
-                    w.Name.Equals("SendDatabaseLogFileToServer"))
-                    .SingleOrDefault();
-
-                if (method != null)
-                    return method.MakeGenericMethod(tipoEntidade).Invoke(null, new object[] { databaseLogFile });
-
-                throw new NullReferenceException("Método Não Foi Encontrado");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"DAO SendDatabaseLogFileToServer | Não Possível Enviar Log ao Servidor | {ex.Message}");
-                Console.WriteLine(ex.StackTrace);
-                return null;
-            }
         }
     }
 }

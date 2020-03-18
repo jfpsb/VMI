@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Globalization;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -55,7 +56,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonIgnore]
         public virtual Contagem Contagem
         {
             get
@@ -75,9 +75,14 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public virtual object GetIdentifier()
+        public string GetDatabaseLogIdentifier()
         {
             return Id.ToString();
+        }
+
+        public virtual object GetIdentifier()
+        {
+            return Id;
         }
     }
 }

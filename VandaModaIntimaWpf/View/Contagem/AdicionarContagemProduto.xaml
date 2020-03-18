@@ -9,57 +9,71 @@
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
-        Height="450"
+        Height="550"
         Width="700">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label>Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</Label>
-        <local:AdicionarContagemProdutoComboBox Grid.Row="1"
-                                                HorizontalAlignment="Stretch"
-                                                DisplayMemberPath="Descricao"
-                                                SelectedItem="{Binding Produto}"
-                                                ItemsSource="{Binding Produtos}"
-                                                Text="{Binding PesquisaProdutoComboBox}"
-                                                IsEditable="True"
-                                                StaysOpenOnEdit="True"
-                                                PreviewTextInput="ComboBox_PreviewTextInput"
-                                                PreviewKeyDown="ComboBox_PreviewKeyDown"
-                                                IsTextSearchEnabled="False">
-            <ComboBox.ItemContainerStyle>
-                <Style TargetType="ComboBoxItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Left" />
-                    <Setter Property="VerticalContentAlignment"
-                            Value="Center" />
-                </Style>
-            </ComboBox.ItemContainerStyle>
-            <ComboBox.InputBindings>
+        <Label Grid.ColumnSpan="3">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</Label>
+        <TextBox x:Name="TxtPesquisa"
+                 Grid.Row="1"
+                 HorizontalAlignment="Stretch"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding PesquisaProdutoTxtBox, UpdateSourceTrigger=PropertyChanged}"
+                 KeyUp="TextBox_KeyUp"
+                 local:FocusExtension.IsFocused="{Binding IsTxtPesquisaFocused}">
+            <TextBox.InputBindings>
                 <KeyBinding Key="Enter"
                             Command="{Binding InserirContagemComando}" />
-            </ComboBox.InputBindings>
-        </local:AdicionarContagemProdutoComboBox>
-        <Label Grid.Row="1"
-               Grid.Column="1">Quantidade:</Label>
-        <TextBox Grid.Row="1"
-                 Grid.Column="2"
+            </TextBox.InputBindings>
+        </TextBox>
+        <DataGrid x:Name="DataGridProdutos"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="3"
+                  SelectedItem="{Binding Produto}"
+                  ItemsSource="{Binding Produtos}"
+                  IsReadOnly="True">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Enter"
+                            Command="{Binding InserirContagemComando}" />
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cód. De Barra"
+                                    Width="Auto"
+                                    Binding="{Binding Cod_Barra}" />
+                <DataGridTextColumn Header="Descrição"
+                                    Binding="{Binding Descricao}"
+                                    Width="*" />
+                <DataGridTextColumn Header="Preço"
+                                    Binding="{Binding Preco}"
+                                    Width="Auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Grid.Row="3">Quantidade:</Label>
+        <TextBox x:Name="TxtQuantidade"
+                 Grid.Row="3"
+                 Grid.Column="1"
+                 HorizontalAlignment="Stretch"
                  Text="{Binding Quantidade}" />
-        <Button Grid.Row="2"
-                Grid.ColumnSpan="3"
+        <Button Grid.Row="3"
+                Grid.Column="2"
                 HorizontalAlignment="Center"
                 Padding="50, 5, 50, 5"
-                Command="{Binding InserirContagemComando}">Inserir</Button>
-        <DataGrid Grid.Row="3"
+                Command="{Binding InserirContagemComando}"
+                Click="Button_Click">Inserir</Button>
+        <DataGrid x:Name="DataGridContagens"
+                  Grid.Row="4"
                   Grid.ColumnSpan="3"
                   AutoGenerateColumns="False"
                   AlternatingRowBackground="White"
@@ -118,7 +132,7 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <Grid Grid.Row="4"
+        <Grid Grid.Row="5"
               Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

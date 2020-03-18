@@ -87,10 +87,9 @@
             <Label Grid.Row="6">Matriz:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="6"
-                      ItemsSource="{Binding Matrizes}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Loja.Matriz}"
-                      SelectedIndex="{Binding MatrizComboBoxIndex, Mode=OneWay}"
+                      ItemsSource="{Binding Path=Matrizes}"
+                      SelectedItem="{Binding Path=Matriz, Mode=TwoWay}"                      
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"

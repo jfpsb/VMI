@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Loja" table="loja" dynamic-insert="true" lazy="false">
+  <class name="Loja" table="loja" lazy="false">
     <id name="Cnpj" column="cnpj" />
     <many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" lazy="false" />
     <property name="Nome" column="nome" />

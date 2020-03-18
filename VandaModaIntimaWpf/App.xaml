@@ -134,18 +134,6 @@
                     Value="Center" />
         </Style>
 
-        <Style TargetType="contagemView:AdicionarContagemProdutoComboBox"
-               BasedOn="{StaticResource Fonte}">
-            <Setter Property="FontSize"
-                    Value="14" />
-            <Setter Property="Margin"
-                    Value="5" />
-            <Setter Property="Padding"
-                    Value="5" />
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center" />
-        </Style>
-
         <Style TargetType="DatePicker"
                BasedOn="{StaticResource Fonte}">
             <Setter Property="FontSize"

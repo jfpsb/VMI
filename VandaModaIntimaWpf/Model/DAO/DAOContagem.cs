@@ -35,5 +35,34 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             return await session.GetAsync<Contagem>(id);
         }
+
+        public async override Task<bool> Deletar(object objeto, bool writeToJson = true, bool sendToServer = true)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    Contagem contagem = (Contagem)objeto;
+
+                    foreach(ContagemProduto contagemProduto in contagem.Contagens)
+                    {
+                        await session.DeleteAsync(contagemProduto);
+                    }
+
+                    await session.DeleteAsync(objeto);
+
+                    await transacao.CommitAsync();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Console.WriteLine("ERRO AO DELETAR >>> " + ex.Message);
+                }
+
+                return false;
+            }
+        }
     }
 }

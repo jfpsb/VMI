@@ -57,6 +57,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
+            produtoModel.Codigos.Add("123455555");
+            produtoModel.Codigos.Add("1234535125");
+
             var result = await daoProduto.Inserir(produtoModel);
 
             if (result)

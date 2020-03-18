@@ -9,12 +9,10 @@ namespace VandaModaIntimaWpf
         {
             InitializeComponent();
 
-            //Sincronizacao.OperacoesDatabaseLogFile<IModel>.ResetaLogs();
-
             SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
 
-            //View.Sincronizacao sincronizacao = new View.Sincronizacao();
-            //sincronizacao.Show();
+            View.Sincronizacao sincronizacao = new View.Sincronizacao();
+            sincronizacao.Show();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

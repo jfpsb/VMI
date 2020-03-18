@@ -90,19 +90,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                         new object[] { recebimentoCartao.Mes, recebimentoCartao.Ano, recebimentoCartao.Loja.Cnpj },
                         new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
 
-                    if (writeToJson)
-                    {
-                        IList<RecebimentoCartao> recebimentos = await ListarPorMesAnoLoja(recebimentoCartao.Mes, recebimentoCartao.Ano, recebimentoCartao.Loja);
-
-                        foreach (RecebimentoCartao recebimento in recebimentos)
-                        {
-                            DatabaseLogFile<RecebimentoCartao> databaseLogFile = SincronizacaoViewModel.WriteDatabaseLogFile("DELETE", recebimento);
-
-                            if (sendToServer)
-                                SincronizacaoViewModel.SendDatabaseLogFileToServer(databaseLogFile);
-                        }
-                    }
-
                     await transacao.CommitAsync();
                     return true;
                 }

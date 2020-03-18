@@ -67,6 +67,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual IList<ContagemProduto> Contagens
         {
             get
@@ -100,7 +101,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual object GetIdentifier()
         {
-            return Loja.Cnpj + Data.ToString("yyyyMMddHHmmss");
+            return this;
         }
 
         public override bool Equals(object obj)
@@ -130,6 +131,11 @@ namespace VandaModaIntimaWpf.Model
                 hash += Data.GetHashCode();
 
             return hash;
+        }
+
+        public string GetDatabaseLogIdentifier()
+        {
+            return Loja.Cnpj + Data.ToString("yyyyMMddHHmmss");
         }
     }
 }

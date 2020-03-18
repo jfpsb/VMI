@@ -1,19 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using NHibernate;
-using SincronizacaoBD.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Util.Sincronizacao;
 
@@ -23,16 +22,43 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         public static Socket ClientSocket;
 
-        private static readonly string DatabaseLogDir = "DatabaseLog";
+        private static readonly string StatementLogFile = "StatementLog.txt";
+        private static readonly string LastSyncFile = "LastSync.txt";
         private string MessageReceived = "";
         private byte[] BytesReceivedFromServer = new byte[1024];
         private string _textLog;
         private bool Disposed;
         private static readonly string _localDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
         private static object This; // Guarda referência à própria classe para ser usado em Reflection dentro de método estático
+        private static List<StatementLog> StatementLogs;
+        public static List<StatementLog> TransientWriteStatementLogs;
+        public static List<StatementLog> TransientSendStatementLogs;
+        private static DateTime LastSync = new DateTime(2018, 1, 1, 0, 0, 0);
+        private string connectionString = "SERVER=localhost;DATABASE=vandamodaintima;UID=root;PASSWORD=1124";
 
         public SincronizacaoViewModel()
         {
+
+
+            StatementLogs = new List<StatementLog>();
+            TransientWriteStatementLogs = new List<StatementLog>();
+            TransientSendStatementLogs = new List<StatementLog>();
+
+            ResetaLogs();
+
+            if (File.Exists(LastSyncFile))
+            {
+                string fromFile = File.ReadAllText(LastSyncFile);
+                LastSync = DateTime.Parse(fromFile);
+            }
+
+            if (File.Exists(StatementLogFile))
+            {
+                string json = File.ReadAllText(StatementLogFile);
+                if (json != string.Empty)
+                    StatementLogs = JsonConvert.DeserializeObject<List<StatementLog>>(json);
+            }
+
             This = this;
             Conectar();
         }
@@ -48,6 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectando ao Servidor";
 
                     ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    //18.229.130.78
                     ClientSocket.Connect("18.229.130.78", 3999);
 
                     TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectado ao Servidor Com Sucesso";
@@ -66,71 +93,32 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             try
             {
-                if (!Directory.Exists(DatabaseLogDir))
-                    Directory.CreateDirectory(DatabaseLogDir);
+                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Sincronização Iniciada";
 
-                string[] filePaths = Directory.GetFiles(DatabaseLogDir);
-                List<DatabaseLogFileInfo> databaseLogFileInfos = new List<DatabaseLogFileInfo>();
-
-                string[] contagemFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("Contagem")).ToArray();
-                string[] contagemProdutoFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("ContagemProduto")).ToArray();
-                string[] fornecedorFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("Fornecedor")).ToArray();
-                string[] lojaFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("Loja")).ToArray();
-                string[] marcaFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("Marca")).ToArray();
-                string[] operadoraCartaoFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("OperadoraCartao")).ToArray();
-                string[] produtoFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("Produto")).ToArray();
-                string[] recebimentoCartaoFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("RecebimentoCartao")).ToArray();
-                string[] tipoContagemFilePaths = filePaths.Where(w => Path.GetFileName(w).Split(' ')[0].Equals("TipoContagem")).ToArray();
-
-                foreach (string fileName in contagemFilePaths)
+                if (StatementLogs.Count == 0)
                 {
-                    AddToDatabaseLogFileInfoList<Model.Contagem>(fileName, databaseLogFileInfos);
+                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Não Há Arquivo de Logs Local. Solicitando Ao Servidor";
+                    DateTime dateTime = new DateTime(2018, 1, 1, 0, 0, 0);
+                    string requestJson = "StatementRequest|" + dateTime.ToString("o") + "\n";
+                    ClientSocket.Send(Encoding.UTF8.GetBytes(requestJson));
+                    return;
                 }
 
-                foreach (string fileName in contagemProdutoFilePaths)
+                List<StatementLog> statementsAEnviar = StatementLogs.Where(w => w.WriteTime >= LastSync).ToList();
+
+                if (statementsAEnviar.Count == 0)
                 {
-                    AddToDatabaseLogFileInfoList<Model.ContagemProduto>(fileName, databaseLogFileInfos);
+                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Não Há Statements Para Mandar Para O Servidor";
+                }
+                else
+                {
+                    SendStatementLog(statementsAEnviar);
+                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Enviando Statements Locais Para Servidor";
                 }
 
-                foreach (string fileName in fornecedorFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.Fornecedor>(fileName, databaseLogFileInfos);
-                }
+                string statementRequestJson = "StatementRequest|" + LastSync.ToString("o") + "\n";
 
-                foreach (string fileName in lojaFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.Loja>(fileName, databaseLogFileInfos);
-                }
-
-                foreach (string fileName in marcaFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.Marca>(fileName, databaseLogFileInfos);
-                }
-
-                foreach (string fileName in operadoraCartaoFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.OperadoraCartao>(fileName, databaseLogFileInfos);
-                }
-
-                foreach (string fileName in produtoFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.Produto>(fileName, databaseLogFileInfos);
-                }
-
-                foreach (string fileName in recebimentoCartaoFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.RecebimentoCartao>(fileName, databaseLogFileInfos);
-                }
-
-                foreach (string fileName in tipoContagemFilePaths)
-                {
-                    AddToDatabaseLogFileInfoList<Model.TipoContagem>(fileName, databaseLogFileInfos);
-                }
-
-                string databaseLogFileInfosJson = "DatabaseLogFileInfo|" + JsonConvert.SerializeObject(databaseLogFileInfos) + "\n";
-
-                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Sincronização Executando";
-                ClientSocket.Send(Encoding.UTF8.GetBytes(databaseLogFileInfosJson));
+                ClientSocket.Send(Encoding.UTF8.GetBytes(statementRequestJson));
                 ClientSocket.BeginReceive(BytesReceivedFromServer, 0, BytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, ClientSocket);
             }
             catch (SocketException se)
@@ -139,21 +127,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        private void AddToDatabaseLogFileInfoList<E>(string fileName, List<DatabaseLogFileInfo> databaseLogFileInfos) where E : class, IModel
-        {
-            string JsonText = File.ReadAllText(fileName).Replace("\r", string.Empty).Replace("\n", string.Empty);
-            DatabaseLogFile<E> DatabaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<E>>(JsonText);
-
-            if ((DateTime.Now - DatabaseLogFile.LastWriteTime).TotalDays >= 30 && DatabaseLogFile.OperacaoMySQL.Equals("DELETE"))
-            {
-                File.Delete(fileName);
-                return;
-            }
-
-            DatabaseLogFileInfo databaseLogFileInfo = new DatabaseLogFileInfo() { LastModified = DatabaseLogFile.LastWriteTime, FileName = Path.GetFileName(fileName) };
-            databaseLogFileInfos.Add(databaseLogFileInfo);
-        }
-
+        [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Comando não precisa adicionar parâmetros")]
         private void ReceiveCallback(IAsyncResult asyncResult)
         {
             try
@@ -175,106 +149,42 @@ namespace VandaModaIntimaWpf.ViewModel
 
                         switch (MessageId)
                         {
-                            case "DatabaseLogFileRequest":
-                                // Recebendo requests de LOGS que devem ser enviados ao servidor
-                                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Recebido Pedido Do Servidor Para Envio De Logs";
-                                string dataLogFileRequest = FirstLineSplitted[1];
-                                SendDatabaseLogFileToServer(dataLogFileRequest);
-                                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Logs Enviados Ao Servidor";
-                                break;
-                            case "DatabaseLogFile":
-                                // Recebendo LOG do servidor
-                                string fileNamesJson = FirstLineSplitted[1];
-                                string databaseLogFilesJson = FirstLineSplitted[2];
+                            case "StatementLogs":
+                                List<StatementLog> statementsRecebidos = JsonConvert.DeserializeObject<List<StatementLog>>(FirstLineSplitted[1]);
 
-                                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Recebido Log Do Servidor. Inserindo No Banco de Dados";
-
-                                List<string> fileNames = JsonConvert.DeserializeObject<List<string>>(fileNamesJson);
-                                List<string> databaseLogFiles = JsonConvert.DeserializeObject<List<string>>(databaseLogFilesJson);
-
-                                List<DatabaseLogFile<Model.Contagem>> logsContagem = new List<DatabaseLogFile<Model.Contagem>>();
-                                List<DatabaseLogFile<Model.ContagemProduto>> logsContagemProduto = new List<DatabaseLogFile<Model.ContagemProduto>>();
-                                List<DatabaseLogFile<Model.Fornecedor>> logsFornecedor = new List<DatabaseLogFile<Model.Fornecedor>>();
-                                List<DatabaseLogFile<Model.Loja>> logsLoja = new List<DatabaseLogFile<Model.Loja>>();
-                                List<DatabaseLogFile<Model.Marca>> logsMarca = new List<DatabaseLogFile<Model.Marca>>();
-                                List<DatabaseLogFile<Model.OperadoraCartao>> logsOperadoraCartao = new List<DatabaseLogFile<Model.OperadoraCartao>>();
-                                List<DatabaseLogFile<Model.Produto>> logsProduto = new List<DatabaseLogFile<Model.Produto>>();
-                                List<DatabaseLogFile<Model.RecebimentoCartao>> logsRecebimentoCartao = new List<DatabaseLogFile<Model.RecebimentoCartao>>();
-                                List<DatabaseLogFile<Model.TipoContagem>> logsTipoContagem = new List<DatabaseLogFile<Model.TipoContagem>>();
-
-                                int[] contagemIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("Contagem")).Select(s => s.Index).ToArray();
-                                int[] contagemProdutoIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("ContagemProduto")).Select(s => s.Index).ToArray();
-                                int[] fornecedorIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("Fornecedor")).Select(s => s.Index).ToArray();
-                                int[] lojaIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("Loja")).Select(s => s.Index).ToArray();
-                                int[] marcaIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("Marca")).Select(s => s.Index).ToArray();
-                                int[] operadoraCartaoIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("OperadoraCartao")).Select(s => s.Index).ToArray();
-                                int[] produtoIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("Produto")).Select(s => s.Index).ToArray();
-                                int[] recebimentoCartaoIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("RecebimentoCartao")).Select(s => s.Index).ToArray();
-                                int[] tipoContagemIndexes = fileNames.Select((str, index) => new { Value = str, Index = index }).Where(w => w.Value.Split(' ')[0].Equals("TipoContagem")).Select(s => s.Index).ToArray();
-
-                                foreach (int contagemIndex in contagemIndexes)
+                                using (MySqlConnection conexao = new MySqlConnection(connectionString))
                                 {
-                                    DeserializeLogAndAddToList(databaseLogFiles[contagemIndex], logsContagem);
+                                    using (MySqlTransaction transacao = conexao.BeginTransaction())
+                                    {
+                                        try
+                                        {
+                                            using (MySqlCommand comando = new MySqlCommand())
+                                            {
+                                                comando.Connection = conexao;
+                                                comando.Transaction = transacao;
+
+                                                foreach (StatementLog statement in statementsRecebidos)
+                                                {
+                                                    comando.Parameters.Clear();
+                                                    comando.CommandText = statement.Statement;
+                                                    comando.ExecuteNonQuery();
+                                                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Statement Recebido: {statement.Statement}";
+                                                }
+
+                                                transacao.Commit();
+
+                                                LastSync = DateTime.Now;
+                                                File.WriteAllText(LastSyncFile, LastSync.ToString("o"));
+                                            }
+                                        }
+                                        catch (MySqlException ex)
+                                        {
+                                            transacao.Rollback();
+                                            Console.WriteLine(ex.Message);
+                                        }
+                                    }
                                 }
 
-                                foreach (int contagemProdutoIndex in contagemProdutoIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[contagemProdutoIndex], logsContagemProduto);
-                                }
-
-                                foreach (int fornecedorIndex in fornecedorIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[fornecedorIndex], logsFornecedor);
-                                }
-
-                                foreach (int lojaIndex in lojaIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[lojaIndex], logsLoja);
-                                }
-
-                                foreach (int marcaIndex in marcaIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[marcaIndex], logsMarca);
-                                }
-
-                                foreach (int operadoraIndex in operadoraCartaoIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[operadoraIndex], logsOperadoraCartao);
-                                }
-
-                                foreach (int produtoIndex in produtoIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[produtoIndex], logsProduto);
-                                }
-
-                                foreach (int recebimentoIndex in recebimentoCartaoIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[recebimentoIndex], logsRecebimentoCartao);
-                                }
-
-                                foreach (int tipoContagemIndex in tipoContagemIndexes)
-                                {
-                                    DeserializeLogAndAddToList(databaseLogFiles[tipoContagemIndex], logsTipoContagem);
-                                }
-
-                                ISession session = SessionProvider.GetSession("Sincronizacao");
-
-                                // Persiste os que não tem chaves estrangeiras antes
-                                PersistLogs(new DAOLoja(session), logsLoja);
-                                PersistLogs(new DAOFornecedor(session), logsFornecedor);
-                                PersistLogs(new DAOOperadoraCartao(session), logsOperadoraCartao);
-                                PersistLogs(new DAOTipoContagem(session), logsTipoContagem);
-
-                                // Tem que seguir ordem específica para não dar problema com fk
-                                PersistLogs(new DAOMarca(session), logsMarca);
-                                PersistLogs(new DAOContagem(session), logsContagem);
-                                PersistLogs(new DAOProduto(session), logsProduto);
-                                PersistLogs(new DAOContagemProduto(session), logsContagemProduto);
-                                PersistLogs(new DAORecebimentoCartao(session), logsRecebimentoCartao);
-
-                                SessionProvider.FechaSession("Sincronizacao");
-
-                                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Logs Atualizados Com Sucesso";
 
                                 break;
                         }
@@ -312,59 +222,27 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        /// <summary>
-        /// Envia os Logs Ao Servidor
-        /// </summary>
-        /// <param name="databaseLogFileInfoRequestJson">Lista de DatabaseLogFileInfo em Json</param>
-        private void SendDatabaseLogFileToServer(string databaseLogFileInfoRequestJson)
-        {
-            List<DatabaseLogFileInfo> databaseLogFileInfos = JsonConvert.DeserializeObject<List<DatabaseLogFileInfo>>(databaseLogFileInfoRequestJson);
-
-            List<string> fileNamesRequested = databaseLogFileInfos.Select(s => Path.GetFileName(s.FileName)).ToList();
-            List<string> databaseLogFilesRequested = new List<string>();
-
-            Directory.CreateDirectory(DatabaseLogDir);
-
-            foreach (string fileNameRequested in fileNamesRequested)
-            {
-                databaseLogFilesRequested.Add(File.ReadAllText(Path.Combine(DatabaseLogDir, fileNameRequested)).Replace("\r", string.Empty).Replace("\n", string.Empty));
-            }
-
-            string fileNamesRequestedJson = JsonConvert.SerializeObject(fileNamesRequested);
-            string databaseLogFilesRequestedJson = JsonConvert.SerializeObject(databaseLogFilesRequested);
-
-            string messageToServer = "DatabaseLogFile";
-            messageToServer += "|" + fileNamesRequestedJson;
-            messageToServer += "|" + databaseLogFilesRequestedJson;
-            messageToServer += "\n"; // Para que o servidor encontre o fim do texto
-
-            ClientSocket.BeginSend(Encoding.UTF8.GetBytes(messageToServer), 0, Encoding.UTF8.GetBytes(messageToServer).Length, SocketFlags.None, SendCallback, ClientSocket);
-        }
-
-        public static void SendDatabaseLogFileToServer<E>(DatabaseLogFile<E> databaseLogFile) where E : class, IModel
+        public static void SendStatementLog()
         {
             try
             {
-                List<string> fileNamesRequested = new List<string>();
-                List<string> databaseLogFilesRequested = new List<string>();
+                if (TransientWriteStatementLogs.Count > 0)
+                {
+                    string transientStatementLogsJson = JsonConvert.SerializeObject(TransientWriteStatementLogs);
 
-                fileNamesRequested.Add(databaseLogFile.GetFileName());
-                databaseLogFilesRequested.Add(JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented));
+                    string messageToServer = "StatementLogs";
+                    messageToServer += "|" + transientStatementLogsJson;
+                    messageToServer += "\n"; // Para que o servidor encontre o fim da mensagem
 
-                string fileNamesRequestedJson = JsonConvert.SerializeObject(fileNamesRequested);
-                string databaseLogFilesRequestedJson = JsonConvert.SerializeObject(databaseLogFilesRequested);
+                    ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
 
-                string messageToServer = "DatabaseLogFile";
-                messageToServer += "|" + fileNamesRequestedJson;
-                messageToServer += "|" + databaseLogFilesRequestedJson;
-                messageToServer += "\n"; // Para que o servidor encontre o fim do texto
+                    TransientWriteStatementLogs.Clear();
 
-                ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
-
-                // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
-                PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
-                string textLogAtual = (string)propertyInfo.GetValue(This, null);
-                propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Enviado ao Servidor - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
+                    // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+                    PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
+                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
+                    propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Statements Enviados ao Servidor: {TransientWriteStatementLogs.Count}");
+                }
             }
             catch (Exception ex)
             {
@@ -373,107 +251,59 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        private void DeserializeLogAndAddToList<E>(string jsonLog, List<DatabaseLogFile<E>> logs) where E : class, IModel
+        public static void SendStatementLog(List<StatementLog> statements)
         {
-            DatabaseLogFile<E> databaseLogFile = JsonConvert.DeserializeObject<DatabaseLogFile<E>>(jsonLog);
-            logs.Add(databaseLogFile);
-        }
-
-        /// <summary>
-        /// Persiste no Banco de Dados Local os Logs Recebidos do Servidor
-        /// </summary>
-        /// <typeparam name="E">Tipo da Entidade no Log</typeparam>
-        /// <param name="dao">DAO da entidade</param>
-        /// <param name="logs">Lista de Logs da Entidade</param>
-        private async void PersistLogs<E>(DAO dao, IList<DatabaseLogFile<E>> logs) where E : class, IModel
-        {
-            if (logs.Count > 0)
+            try
             {
-                List<DatabaseLogFile<E>> saveLogs = logs.Where(w => w.OperacaoMySQL.Equals("INSERT")).ToList();
-                List<DatabaseLogFile<E>> updateLogs = logs.Where(w => w.OperacaoMySQL.Equals("UPDATE")).ToList();
-                List<DatabaseLogFile<E>> deleteLogs = logs.Where(w => w.OperacaoMySQL.Equals("DELETE")).ToList();
-
-                if (saveLogs.Count > 0)
+                if (TransientSendStatementLogs.Count > 0)
                 {
-                    List<E> lista = saveLogs.Select(s => s.Entidade).ToList();
-                    if (await dao.InserirOuAtualizar(lista, false, false))
-                    {
-                        foreach (var save in saveLogs)
-                        {
-                            WriteDatabaseLogFile(save);
-                        }
-                    }
-                }
+                    string transientSendStatementLogsJson = JsonConvert.SerializeObject(statements);
 
-                if (updateLogs.Count > 0)
-                {
-                    List<E> lista = updateLogs.Select(s => s.Entidade).ToList();
-                    if (await dao.InserirOuAtualizar(lista, false, false))
-                    {
-                        foreach (var update in updateLogs)
-                        {
-                            WriteDatabaseLogFile(update);
-                        }
-                    }
-                }
+                    string messageToServer = "StatementLogs";
+                    messageToServer += "|" + transientSendStatementLogsJson;
+                    messageToServer += "\n"; // Para que o servidor encontre o fim da mensagem
 
-                if (deleteLogs.Count > 0)
-                {
-                    List<E> lista = deleteLogs.Select(s => s.Entidade).ToList();
-                    if (await dao.Deletar(lista, false, false))
-                    {
-                        foreach (var delete in deleteLogs)
-                        {
-                            WriteDatabaseLogFile(delete);
-                        }
-                    }
+                    ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
+
+                    TransientSendStatementLogs.Clear();
+
+                    // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+                    PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
+                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
+                    propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Statements Enviados ao Servidor: {TransientSendStatementLogs.Count}");
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
-        private void WriteDatabaseLogFile<E>(DatabaseLogFile<E> databaseLogFile) where E : class, IModel
+        public static void WriteStatementLog()
         {
-            if (!Directory.Exists($"{DatabaseLogDir}"))
-            {
-                DirectoryInfo directoryInfo = Directory.CreateDirectory($"{DatabaseLogDir}");
-                directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-            }
-
-            string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
-
-            File.WriteAllText(Path.Combine(DatabaseLogDir, databaseLogFile.GetFileName()), json);
-
-            TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Log Baixado do Servidor - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}";
-        }
-
-        public static DatabaseLogFile<E> WriteDatabaseLogFile<E>(string operacao, E entidade) where E : class, IModel
-        {
-            if (!Directory.Exists($"{DatabaseLogDir}"))
-            {
-                DirectoryInfo directoryInfo = Directory.CreateDirectory($"{DatabaseLogDir}");
-                directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-            }
-
-            DateTime LastWriteTime = DateTime.Now;
-            DatabaseLogFile<E> databaseLogFile = new DatabaseLogFile<E>() { OperacaoMySQL = operacao, Entidade = entidade, LastWriteTime = LastWriteTime };
-
-            string json = JsonConvert.SerializeObject(databaseLogFile, Formatting.Indented);
-
-            File.WriteAllText(Path.Combine(DatabaseLogDir, databaseLogFile.GetFileName()), json);
+            StatementLogs.AddRange(TransientWriteStatementLogs);
+            string json = JsonConvert.SerializeObject(StatementLogs, Formatting.Indented);
+            File.WriteAllText(StatementLogFile, json);
+            File.SetAttributes(StatementLogFile, File.GetAttributes(StatementLogFile) | FileAttributes.Hidden);
 
             try
             {
-                // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
+                //Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
                 PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
-                string textLogAtual = (string)propertyInfo.GetValue(This, null);
-                propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Log Escrito - {databaseLogFile.OperacaoMySQL} - {databaseLogFile.GetFileName()}");
+
+                foreach (StatementLog statement in TransientWriteStatementLogs)
+                {
+                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
+                    propertyInfo.SetValue(This, textLogAtual + $"{statement.WriteTime.ToString(_localDateFormat)}: Statement Escrito - {statement.Statement}");
+                }
+
+                TransientWriteStatementLogs.Clear();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-
-            return databaseLogFile;
         }
 
         private void ErroAoConectar(SocketException se, string metodo, bool callConectar = true)
@@ -492,7 +322,10 @@ namespace VandaModaIntimaWpf.ViewModel
         /// </summary>
         private async static void ResetaLogs()
         {
-            Directory.Delete(DatabaseLogDir, true);
+            if (File.Exists(StatementLogFile))
+                File.Delete(StatementLogFile);
+
+            List<StatementLog> statements = new List<StatementLog>();
 
             ISession session = SessionProvider.GetSession("SincronizacaoReset");
 
@@ -506,52 +339,39 @@ namespace VandaModaIntimaWpf.ViewModel
             DAORecebimentoCartao dAORecebimentoCartao = new DAORecebimentoCartao(session);
             DAOTipoContagem dAOTipoContagem = new DAOTipoContagem(session);
 
-            foreach (Model.Contagem contagem in await dAOContagem.Listar<Model.Contagem>())
-            {
-                WriteDatabaseLogFile("INSERT", contagem);
-            }
+            //var lojas = await dAOLoja.Listar<Model.Loja>();
+            //var fornecedores = await dAOFornecedor.Listar<Model.Fornecedor>();
+            //var operadoras = await dAOOperadoraCartao.Listar<Model.OperadoraCartao>();
+            //var tipocontagens = await dAOTipoContagem.Listar<Model.TipoContagem>();
+            //var marcas = await dAOMarca.Listar<Model.Marca>();
+            //var produtos = await dAOProduto.Listar<Model.Produto>();
+            //var contagens = await dAOContagem.Listar<Model.Contagem>();
+            //var contagemprodutos = await dAOContagemProduto.Listar<ContagemProduto>();
+            //var recebimentos = await dAORecebimentoCartao.Listar<Model.RecebimentoCartao>();
 
-            foreach (Model.ContagemProduto contagemProduto in await dAOContagemProduto.Listar<ContagemProduto>())
-            {
-                WriteDatabaseLogFile("INSERT", contagemProduto);
-            }
+            IList<Model.Loja> Loja = JsonConvert.DeserializeObject<List<Model.Loja>>(File.ReadAllText("Loja.txt"));
+            IList<Model.Fornecedor> Fornecedor = JsonConvert.DeserializeObject<List<Model.Fornecedor>>(File.ReadAllText("Fornecedor.txt"));
+            IList<Model.OperadoraCartao> OperadoraCartao = JsonConvert.DeserializeObject<List<Model.OperadoraCartao>>(File.ReadAllText("OperadoraCartao.txt"));
+            IList<Model.TipoContagem> TipoContagem = JsonConvert.DeserializeObject<List<Model.TipoContagem>>(File.ReadAllText("TipoContagem.txt"));
+            IList<Model.Marca> Marca = JsonConvert.DeserializeObject<List<Model.Marca>>(File.ReadAllText("Marca.txt"));
+            IList<Model.Produto> Produto = JsonConvert.DeserializeObject<List<Model.Produto>>(File.ReadAllText("Produto.txt"));
+            IList<Model.Contagem> Contagem = JsonConvert.DeserializeObject<List<Model.Contagem>>(File.ReadAllText("Contagem.txt"));
+            IList<Model.ContagemProduto> ContagemProduto = JsonConvert.DeserializeObject<List<Model.ContagemProduto>>(File.ReadAllText("ContagemProduto.txt"));
+            IList<Model.RecebimentoCartao> RecebimentoCartao = JsonConvert.DeserializeObject<List<Model.RecebimentoCartao>>(File.ReadAllText("RecebimentoCartao.txt"));
 
-            foreach (Model.Fornecedor fornecedor in await dAOFornecedor.Listar<Model.Fornecedor>())
-            {
-                WriteDatabaseLogFile("INSERT", fornecedor);
-            }
-
-            foreach (Model.Loja Loja in await dAOLoja.Listar<Model.Loja>())
-            {
-                WriteDatabaseLogFile("INSERT", Loja);
-            }
-
-            foreach (Model.Marca Marca in await dAOMarca.Listar<Model.Marca>())
-            {
-                WriteDatabaseLogFile("INSERT", Marca);
-            }
-
-            foreach (Model.OperadoraCartao OperadoraCartao in await dAOOperadoraCartao.Listar<Model.OperadoraCartao>())
-            {
-                WriteDatabaseLogFile("INSERT", OperadoraCartao);
-            }
-
-            foreach (Model.Produto Produto in await dAOProduto.Listar<Model.Produto>())
-            {
-                WriteDatabaseLogFile("INSERT", Produto);
-            }
-
-            foreach (Model.RecebimentoCartao RecebimentoCartao in await dAORecebimentoCartao.Listar<Model.RecebimentoCartao>())
-            {
-                WriteDatabaseLogFile("INSERT", RecebimentoCartao);
-            }
-
-            foreach (Model.TipoContagem tipoContagem in await dAOTipoContagem.Listar<Model.TipoContagem>())
-            {
-                WriteDatabaseLogFile("INSERT", tipoContagem);
-            }
+            await dAOLoja.Inserir(Loja);
+            await dAOFornecedor.Inserir(Fornecedor);
+            await dAOOperadoraCartao.Inserir(OperadoraCartao);
+            await dAOMarca.Inserir(Marca);
+            await dAOProduto.Inserir(Produto);
+            await dAOTipoContagem.Inserir(TipoContagem);
+            await dAOContagem.Inserir(Contagem);
+            await dAOContagemProduto.Inserir(ContagemProduto);
+            await dAORecebimentoCartao.Inserir(RecebimentoCartao);
 
             SessionProvider.FechaSession("SincronizacaoReset");
+
+            WriteStatementLog();
         }
 
         public string TextLog

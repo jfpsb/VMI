@@ -164,5 +164,10 @@ namespace VandaModaIntimaWpf.Model
         {
             return Cod_Barra;
         }
+
+        public string GetDatabaseLogIdentifier()
+        {
+            return Cod_Barra;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -11,6 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         protected DAOLoja daoLoja;
         protected LojaModel lojaModel;
         private int matrizComboBoxIndex = 0;
+        private LojaModel _matriz;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public CadastrarLojaViewModel() : base("Loja")
         {
@@ -18,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             lojaModel = new LojaModel();
             lojaModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetMatrizes();
+            Matriz = Matrizes[0];
         }
         public override bool ValidaModel(object parameter)
         {
@@ -31,9 +34,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override async void Salvar(object parameter)
         {
-            if (Loja.Matriz != null && MatrizComboBoxIndex == 0)
-                Loja.Matriz = null;
-
             var result = await daoLoja.Inserir(Loja);
 
             if (result)
@@ -96,6 +96,20 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             {
                 matrizComboBoxIndex = value;
                 OnPropertyChanged("MatrizComboBoxIndex");
+            }
+        }
+
+        public LojaModel Matriz
+        {
+            get
+            {
+                return _matriz;
+            }
+
+            set
+            {
+                _matriz = value;
+                OnPropertyChanged("Matriz");
             }
         }
     }

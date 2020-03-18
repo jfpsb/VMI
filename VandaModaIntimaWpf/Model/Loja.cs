@@ -92,5 +92,10 @@ namespace VandaModaIntimaWpf.Model
         {
             return Cnpj;
         }
+
+        public string GetDatabaseLogIdentifier()
+        {
+            return Cnpj;
+        }
     }
 }

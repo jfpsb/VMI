@@ -46,7 +46,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 return _sessions[formId];
             }
 
-            ISession _session = MySessionFactory.OpenSession();
+            ISession _session = MySessionFactory.WithOptions().Interceptor(new SQLInterceptor()).OpenSession();
 
             _sessions.Add(formId, _session);
 

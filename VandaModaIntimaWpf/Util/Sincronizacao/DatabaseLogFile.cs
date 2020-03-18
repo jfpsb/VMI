@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Util.Sincronizacao
 
         public string GetFileName()
         {
-            return $"{GetClassName()} {Entidade.GetIdentifier()}.json";
+            return $"{GetClassName()} {Entidade.GetDatabaseLogIdentifier()}.json";
         }
     }
 }

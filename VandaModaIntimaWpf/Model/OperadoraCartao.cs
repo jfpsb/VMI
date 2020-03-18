@@ -27,13 +27,18 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("IdentificadoresBanco");
             }
         }
-        
+
         [JsonIgnore]
         public virtual string GetContextMenuHeader { get => Nome; }
 
         public virtual object Clone()
         {
             throw new NotImplementedException();
+        }
+
+        public string GetDatabaseLogIdentifier()
+        {
+            return Nome;
         }
 
         public virtual object GetIdentifier()

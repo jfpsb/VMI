@@ -7,7 +7,8 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Marca : ObservableObject, ICloneable, IModel
     {
-        private string nome { get; set; }
+        private string nome;
+        private Fornecedor fornecedor;
         private IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
         public enum Colunas
@@ -49,6 +50,20 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader { get => Nome; }
 
+        public Fornecedor Fornecedor
+        {
+            get
+            {
+                return fornecedor;
+            }
+
+            set
+            {
+                fornecedor = value;
+                OnPropertyChanged("Fornecedor");
+            }
+        }
+
         public virtual object Clone()
         {
             Marca m = new Marca();
@@ -64,6 +79,11 @@ namespace VandaModaIntimaWpf.Model
         }
 
         public virtual object GetIdentifier()
+        {
+            return Nome;
+        }
+
+        public string GetDatabaseLogIdentifier()
         {
             return Nome;
         }

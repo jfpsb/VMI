@@ -104,7 +104,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual object GetIdentifier()
         {
-            return $"{mes}{ano}{loja.GetIdentifier()}{operadoraCartao.GetIdentifier()}";
+            return this;
         }
 
         public override bool Equals(object obj)
@@ -130,6 +130,11 @@ namespace VandaModaIntimaWpf.Model
                 hash += OperadoraCartao.GetHashCode();
 
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
+        }
+
+        public string GetDatabaseLogIdentifier()
+        {
+            return $"{mes}{ano}{loja.GetIdentifier()}{operadoraCartao.GetIdentifier()}";
         }
     }
 }

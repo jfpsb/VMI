@@ -47,6 +47,7 @@
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -203,6 +204,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\SQLInterceptor.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\CustomMySqlDataDriver.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -227,6 +231,7 @@
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Util\Sincronizacao\DatabaseLogFile.cs" />
     <Compile Include="Util\Sincronizacao\DatabaseLogFileInfo.cs" />
+    <Compile Include="Util\Sincronizacao\StatementLog.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
@@ -269,16 +274,17 @@
     <Compile Include="View\CampoNumericoComBotao.xaml.cs">
       <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Contagem\AddContagemProdutoDataGrid.cs" />
     <Compile Include="View\Contagem\AdicionarContagemProduto.xaml.cs">
       <DependentUpon>AdicionarContagemProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Contagem\CadastrarContagem.xaml.cs">
       <DependentUpon>CadastrarContagem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Contagem\AdicionarContagemProdutoComboBox.cs" />
     <Compile Include="View\Contagem\EditarContagem.xaml.cs">
       <DependentUpon>EditarContagem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Contagem\FocusExtension.cs" />
     <Compile Include="View\Contagem\PesquisarContagem.xaml.cs">
       <DependentUpon>PesquisarContagem.xaml</DependentUpon>
     </Compile>
