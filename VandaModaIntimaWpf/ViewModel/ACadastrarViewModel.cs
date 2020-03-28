@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             SalvarComando = new RelayCommand(Salvar, ValidaModel);
             SetStatusBarAguardando("Aguardando Usuário");
-            _session = SessionProvider.GetMainSession(formId);
+            _session = SessionProvider.GetSession(formId);
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();

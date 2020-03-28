@@ -128,7 +128,7 @@
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Cod_Barra}" />
+                                        Value="{Binding Entidade.CodBarra}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>

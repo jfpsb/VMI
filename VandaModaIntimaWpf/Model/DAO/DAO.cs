@@ -23,9 +23,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
 
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
-
                     return true;
                 }
                 catch (Exception ex)
@@ -52,9 +49,6 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                     await transacao.CommitAsync();
 
-                    //SincronizacaoViewModel.WriteStatementLog();
-                    //SincronizacaoViewModel.SendStatementLog();
-
                     return true;
                 }
                 catch (Exception ex)
@@ -76,9 +70,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
-
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -106,9 +97,6 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                     await transacao.CommitAsync();
 
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
-
                     return true;
                 }
                 catch (Exception ex)
@@ -131,9 +119,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
 
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
-
                     return true;
                 }
                 catch (Exception ex)
@@ -153,9 +138,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
-
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -180,9 +162,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
-
-                    SincronizacaoViewModel.WriteStatementLog();
-                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }

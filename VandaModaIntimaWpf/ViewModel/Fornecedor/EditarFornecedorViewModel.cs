@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public async void PassaId(object Id)
         {
-            Fornecedor = await SessionProvider.GetMainSession("Fornecedor").LoadAsync<FornecedorModel>(Id);
+            Fornecedor = await SessionProvider.GetSession("Fornecedor").LoadAsync<FornecedorModel>(Id);
         }
         private async void AtualizarReceita(object parameter)
         {

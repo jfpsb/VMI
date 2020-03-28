@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 {
     public abstract class ExportarSQLViewModel<E> : ObservableObject where E : class, IModel
     {
-        protected ISession session = SessionProvider.GetMainSession("ExportarSQL");
+        protected ISession session = SessionProvider.GetSession("ExportarSQL");
         protected DAO daoEntidade;
         public ICommand ExportarInsertsComando { get; set; }
         public ICommand ExportarUpdatesComando { get; set; }
@@ -95,7 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         }
         public void FechaJanela(object sender, CancelEventArgs e)
         {
-            SessionProvider.FechaMainSession("ExportarSQL");
+            SessionProvider.FechaSession("ExportarSQL");
         }
         public MySQLAliases AliasSelecionado
         {

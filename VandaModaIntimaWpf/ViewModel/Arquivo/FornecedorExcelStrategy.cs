@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class FornecedorExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetMainSession("Fornecedor");
+        private ISession _session = SessionProvider.GetSession("Fornecedor");
         public void ConfiguraColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();

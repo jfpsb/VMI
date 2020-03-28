@@ -4,8 +4,6 @@ using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.Util.Sincronizacao;
-using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {

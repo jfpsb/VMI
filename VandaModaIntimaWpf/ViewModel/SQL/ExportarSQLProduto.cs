@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             var originalAliases = GetAliases(new string[] { "Codigos" });
             var subtracaoAliases = Aliases.Where(p => p.Coluna == null);
 
-            MySQLAliases aliasCodBarra = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cod_Barra"));
+            MySQLAliases aliasCodBarra = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("CodBarra"));
             MySQLAliases aliasDescricao = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Descricao"));
             MySQLAliases aliasPreco = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Preco"));
             MySQLAliases aliasFornecedor = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fornecedor"));
@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
         protected override void ExportarSQLUpdate(StreamWriter sw, IList<Model.Produto> entidades, string fileName)
         {
-            MySQLAliases aliasCodBarra = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cod_Barra"));
+            MySQLAliases aliasCodBarra = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("CodBarra"));
             MySQLAliases aliasDescricao = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Descricao"));
             MySQLAliases aliasPreco = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Preco"));
             MySQLAliases aliasFornecedor = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Fornecedor"));

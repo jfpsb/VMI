@@ -4,7 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="Produto" table="produto" dynamic-insert="true" lazy="false">
-    <id name="Cod_Barra" column="cod_barra" />
+    <id name="CodBarra" column="cod_barra" />
     <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" lazy="false" />
     <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" lazy="false" />
     <property name="Descricao" column="descricao" />

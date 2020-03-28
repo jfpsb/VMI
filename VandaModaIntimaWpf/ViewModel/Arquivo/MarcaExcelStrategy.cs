@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class MarcaExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetMainSession("Marca");
+        private ISession _session = SessionProvider.GetSession("Marca");
 
         public void ConfiguraColunas(Worksheet Worksheet)
         {

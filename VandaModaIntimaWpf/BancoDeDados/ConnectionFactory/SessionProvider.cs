@@ -15,74 +15,45 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         /// Variável que guardará a configuração necessária contida em hibernate.cfg.xml.
         /// </summary>
         public static Configuration MainConfiguration;
-        public static Configuration SecondaryConfiguration;
 
         /// <summary>
         /// Guarda a Session Factory criada para uso em DAO.
         /// </summary>        
         public static ISessionFactory MainSessionFactory = null;
-        public static ISessionFactory SecondarySessionFactory = null;
 
-        private static Dictionary<string, ISession> _mainSessions = new Dictionary<string, ISession>();
-        private static Dictionary<string, ISession> _secondarySessions = new Dictionary<string, ISession>();
+        private static Dictionary<string, ISession> _sessions = new Dictionary<string, ISession>();
 
         /// <summary>
         /// Método responsável pela criação da Session Factory.
         /// </summary>
         /// <returns>myConfiguration.BuildSessionFactory()</returns>
-        public static ISessionFactory BuildMainSessionFactory()
+        public static ISessionFactory BuildSessionFactory()
         {
             MainConfiguration = new Configuration();
-            MainConfiguration.Configure("mainHibernate.cfg.xml");
+            MainConfiguration.Configure();
             return MainConfiguration.BuildSessionFactory();
         }
 
-        public static ISessionFactory BuildSecondarySessionFactory()
-        {
-            MainConfiguration = new Configuration();
-            MainConfiguration.Configure("secondaryHibernate.cfg.xml");
-            return MainConfiguration.BuildSessionFactory();
-        }
-
-        public static ISession GetMainSession(string formId)
+        public static ISession GetSession(string formId)
         {
             if (MainSessionFactory == null)
             {
-                MainSessionFactory = BuildMainSessionFactory();
+                MainSessionFactory = BuildSessionFactory();
             }
 
-            if (_mainSessions.ContainsKey(formId))
+            if (_sessions.ContainsKey(formId))
             {
-                return _mainSessions[formId];
+                return _sessions[formId];
             }
 
             ISession _session = MainSessionFactory.OpenSession();
 
-            _mainSessions.Add(formId, _session);
+            _sessions.Add(formId, _session);
 
             return _session;
         }
 
-        public static ISession GetSecondarySession(string formId)
-        {
-            if (SecondarySessionFactory == null)
-            {
-                SecondarySessionFactory = BuildSecondarySessionFactory();
-            }
-
-            if (_secondarySessions.ContainsKey(formId))
-            {
-                return _secondarySessions[formId];
-            }
-
-            ISession _session = SecondarySessionFactory.OpenSession();
-
-            _secondarySessions.Add(formId, _session);
-
-            return _session;
-        }
-
-        public static void FechaMainConexoes()
+        public static void FechaSessionFactory()
         {
             if (MainSessionFactory != null && !MainSessionFactory.IsClosed)
             {
@@ -91,33 +62,14 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             }
         }
 
-        public static void FechaSecondaryConexoes()
+        public static void FechaSession(string formId)
         {
-            if (SecondarySessionFactory != null && !SecondarySessionFactory.IsClosed)
+            if (_sessions.ContainsKey(formId))
             {
-                SecondarySessionFactory.Close();
-                Console.WriteLine("SecondarySessionFactory fechada");
+                _sessions[formId]?.Dispose();
+                _sessions.Remove(formId);
             }
-        }
-
-        public static void FechaMainSession(string formId)
-        {
-            if (_mainSessions.ContainsKey(formId))
-            {
-                _mainSessions[formId]?.Dispose();
-                _mainSessions.Remove(formId);
-            }
-            Console.WriteLine($"Sessão Principal Fechada: {formId}");
-        }
-
-        public static void FechaSecondarySession(string formId)
-        {
-            if (_secondarySessions.ContainsKey(formId))
-            {
-                _secondarySessions[formId]?.Dispose();
-                _secondarySessions.Remove(formId);
-            }
-            Console.WriteLine($"Sessão Secundária Fechada: {formId}");
+            Console.WriteLine($"Sessão Fechada: {formId}");
         }
     }
 }

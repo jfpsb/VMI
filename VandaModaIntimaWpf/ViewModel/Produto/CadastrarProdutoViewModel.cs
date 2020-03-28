@@ -106,7 +106,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             switch (e.PropertyName)
             {
-                case "Cod_Barra":
+                case "CodBarra":
                     var result = await daoProduto.ListarPorId(Produto.CodBarra);
 
                     if (result != null)

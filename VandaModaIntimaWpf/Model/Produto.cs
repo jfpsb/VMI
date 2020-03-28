@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _codBarra = value;
-                OnPropertyChanged("Cod_Barra");
+                OnPropertyChanged("CodBarra");
             }
         }
         public virtual FornecedorModel Fornecedor

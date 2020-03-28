@@ -51,7 +51,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cód. De Barra"
                                     Width="Auto"
-                                    Binding="{Binding Cod_Barra}" />
+                                    Binding="{Binding CodBarra}" />
                 <DataGridTextColumn Header="Descrição"
                                     Binding="{Binding Descricao}"
                                     Width="*" />
@@ -82,11 +82,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Cód. De Barra"
                                     IsReadOnly="True"
-                                    Binding="{Binding Produto.Cod_Barra}">
+                                    Binding="{Binding Produto.CodBarra}">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="ToolTip"
-                                    Value="{Binding Produto.Cod_Barra}" />
+                                    Value="{Binding Produto.CodBarra}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
