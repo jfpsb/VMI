@@ -9,6 +9,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOContagemProduto(ISession session) : base(session) { }
 
+        public override int GetMaxId()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<IList<ContagemProduto>> ListarPorContagemGroupByProduto(Contagem contagem)
         {
             var criteria = CriarCriteria<ContagemProduto>();

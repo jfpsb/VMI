@@ -5,97 +5,109 @@ namespace VandaModaIntimaWpf.Model
 {
     public class RecebimentoCartao : ObservableObject, ICloneable, IModel
     {
-        private int mes { get; set; }
-        private int ano { get; set; }
-        private Loja loja { get; set; }
-        private OperadoraCartao operadoraCartao { get; set; }
-        private double recebido { get; set; }
-        private double valorOperadora { get; set; }
-        private string observacao { get; set; }
+        private int _mes;
+        private int _ano;
+        private Loja _loja;
+        private OperadoraCartao _operadoraCartao;
+        private double _recebido;
+        private double _valorOperadora;
+        private string _observacao;
         public virtual int Mes
         {
-            get { return mes; }
+            get => _mes;
             set
             {
-                mes = value;
+                _mes = value;
                 OnPropertyChanged("Mes");
             }
         }
         public virtual int Ano
         {
-            get { return ano; }
+            get => _ano;
             set
             {
-                ano = value;
+                _ano = value;
                 OnPropertyChanged("Ano");
             }
         }
 
-        [JsonIgnore]
-        public virtual string MesAno
-        {
-            get { return $"{Mes}/{Ano}"; }
-        }
+        public virtual string MesAno => $"{Mes}/{Ano}";
+
         public virtual Loja Loja
         {
-            get { return loja; }
+            get => _loja;
             set
             {
-                loja = value;
+                _loja = value;
                 OnPropertyChanged("Loja");
             }
         }
         public virtual OperadoraCartao OperadoraCartao
         {
-            get { return operadoraCartao; }
+            get => _operadoraCartao;
             set
             {
-                operadoraCartao = value;
+                _operadoraCartao = value;
                 OnPropertyChanged("OperadoraCartao");
             }
         }
         public virtual double Recebido
         {
-            get { return recebido; }
+            get => _recebido;
             set
             {
-                recebido = value;
+                _recebido = value;
                 OnPropertyChanged("Recebido");
             }
         }
         public virtual double ValorOperadora
         {
-            get { return valorOperadora; }
+            get => _valorOperadora;
             set
             {
-                valorOperadora = value;
+                _valorOperadora = value;
                 OnPropertyChanged("ValorOperadora");
                 OnPropertyChanged("Diferenca");
             }
         }
 
-        [JsonIgnore]
         public virtual double Diferenca
         {
             get
             {
-                double vOperadora = Math.Round(valorOperadora, 2, MidpointRounding.AwayFromZero);
-                double vRecebido = Math.Round(recebido, 2, MidpointRounding.AwayFromZero);
+                double vOperadora = Math.Round(_valorOperadora, 2, MidpointRounding.AwayFromZero);
+                double vRecebido = Math.Round(_recebido, 2, MidpointRounding.AwayFromZero);
                 return Math.Round(vRecebido - vOperadora, 2, MidpointRounding.AwayFromZero);
             }
         }
         public virtual string Observacao
         {
-            get { return observacao; }
+            get => _observacao;
             set
             {
-                observacao = value;
+                _observacao = value;
                 OnPropertyChanged("Observacao");
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get => $"{MesAno} - {Loja.Nome}"; }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(RecebimentoCartao))
+            {
+                RecebimentoCartao recebimentoCartao = (RecebimentoCartao)obj;
+                return recebimentoCartao.Mes.Equals(Mes)
+                       && recebimentoCartao.Ano.Equals(Ano)
+                       && recebimentoCartao.Loja.Cnpj.Equals(Loja.Cnpj)
+                       && recebimentoCartao.OperadoraCartao.Nome.Equals(OperadoraCartao.Nome)
+                       && recebimentoCartao.Recebido.Equals(Recebido)
+                       && recebimentoCartao.ValorOperadora.Equals(ValorOperadora)
+                       && recebimentoCartao.Observacao.Equals(Observacao);
+            }
+
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => $"{MesAno} - {Loja.Nome}";
 
         public virtual object Clone()
         {
@@ -109,11 +121,13 @@ namespace VandaModaIntimaWpf.Model
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(RecebimentoCartao))
+            if (obj != null && obj.GetType() == typeof(RecebimentoCartao))
             {
                 RecebimentoCartao rc = (RecebimentoCartao)obj;
-                if (Mes == rc.Mes && Ano == rc.Ano && Loja.Cnpj == rc.Loja.Cnpj && OperadoraCartao.Nome == rc.OperadoraCartao.Nome)
-                    return true;
+                return Mes == rc.Mes
+                       && Ano == rc.Ano
+                       && Loja.Cnpj == rc.Loja.Cnpj
+                       && OperadoraCartao.Nome == rc.OperadoraCartao.Nome;
             }
 
             return false;
@@ -130,11 +144,6 @@ namespace VandaModaIntimaWpf.Model
                 hash += OperadoraCartao.GetHashCode();
 
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
-        }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return $"{mes}{ano}{loja.GetIdentifier()}{operadoraCartao.GetIdentifier()}";
         }
     }
 }

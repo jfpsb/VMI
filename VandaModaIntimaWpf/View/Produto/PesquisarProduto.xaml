@@ -123,7 +123,7 @@
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Cód. De Barra"
                                         IsReadOnly="True"
-                                        Binding="{Binding Entidade.Cod_Barra}"
+                                        Binding="{Binding Entidade.CodBarra}"
                                         Width="Auto">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">

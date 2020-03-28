@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory

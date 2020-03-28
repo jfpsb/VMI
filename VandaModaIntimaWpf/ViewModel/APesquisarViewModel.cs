@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
 
             this.formId = formId;
-            _session = SessionProvider.GetSession(formId);
+            _session = SessionProvider.GetMainSession(formId);
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
@@ -297,7 +297,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void DisposeSession()
         {
-            SessionProvider.FechaSession(formId);
+            SessionProvider.FechaMainSession(formId);
         }
 
         bool IPesquisarViewModel.IsThreadLocked()

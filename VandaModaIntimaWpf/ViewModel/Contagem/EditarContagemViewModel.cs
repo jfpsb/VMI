@@ -76,11 +76,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void InserirContagem(object parameter)
         {
-            ContagemProdutoModel contagemProduto = new ContagemProdutoModel();
-            contagemProduto.Id = DateTime.Now.Ticks;
-            contagemProduto.Contagem = Contagem;
-            contagemProduto.Produto = Produto;
-            contagemProduto.Quant = Quantidade;
+            ContagemProdutoModel contagemProduto = new ContagemProdutoModel
+            {
+                Id = DateTime.Now.Ticks, Contagem = Contagem, Produto = Produto, Quant = Quantidade
+            };
 
             var result = _daoContagemProduto.Inserir(contagemProduto);
 
@@ -107,7 +106,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirEditarProduto(object p)
         {
-            EditarProduto editar = new EditarProduto(ContagemProduto.Produto.Cod_Barra);
+            EditarProduto editar = new EditarProduto(ContagemProduto.Produto.CodBarra);
             editar.ShowDialog();
         }
 

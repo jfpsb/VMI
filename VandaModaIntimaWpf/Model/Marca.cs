@@ -7,9 +7,9 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Marca : ObservableObject, ICloneable, IModel
     {
-        private string nome;
-        private Fornecedor fornecedor;
-        private IList<ProdutoModel> produtos = new List<ProdutoModel>();
+        private string _nome;
+        private Fornecedor _fornecedor;
+        private IList<ProdutoModel> _produtos = new List<ProdutoModel>();
 
         public enum Colunas
         {
@@ -23,67 +23,66 @@ namespace VandaModaIntimaWpf.Model
         /// <param name="nome">SELECIONE UMA MARCA</param>
         public Marca(string nome)
         {
-            this.nome = nome;
+            _nome = nome;
         }
 
         public virtual string Nome
         {
-            get { return nome; }
+            get => _nome;
             set
             {
-                nome = value.ToUpper();
+                _nome = value.ToUpper();
                 OnPropertyChanged("Nome");
             }
         }
 
-        [JsonIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
-            get { return produtos; }
+            get => _produtos;
             set
             {
-                produtos = value;
+                _produtos = value;
                 OnPropertyChanged("Produtos");
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get => Nome; }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(Marca))
+            {
+                Marca marca = (Marca)obj;
+                return marca.Nome.Equals(Nome) 
+                       && marca.Fornecedor.Equals(Fornecedor);
+            }
+
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => Nome;
 
         public Fornecedor Fornecedor
         {
-            get
-            {
-                return fornecedor;
-            }
+            get => _fornecedor;
 
             set
             {
-                fornecedor = value;
+                _fornecedor = value;
                 OnPropertyChanged("Fornecedor");
             }
         }
 
         public virtual object Clone()
         {
-            Marca m = new Marca();
-
-            m.Nome = Nome;
-
+            Marca m = new Marca { Nome = Nome };
             return m;
         }
 
         public virtual string[] GetColunas()
         {
-            return new string[] { "Nome" };
+            return new[] { "Nome" };
         }
 
         public virtual object GetIdentifier()
-        {
-            return Nome;
-        }
-
-        public string GetDatabaseLogIdentifier()
         {
             return Nome;
         }

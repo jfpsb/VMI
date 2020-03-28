@@ -1,46 +1,51 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class OperadoraCartao : ObservableObject, ICloneable, IModel
     {
-        private string nome;
-        private IList<string> identificadoresBanco = new List<string>();
+        private string _nome;
+        private IList<string> _identificadoresBanco = new List<string>();
         public virtual string Nome
         {
-            get { return nome; }
+            get => _nome;
             set
             {
-                nome = value;
+                _nome = value;
                 OnPropertyChanged("Nome");
             }
         }
 
         public virtual IList<string> IdentificadoresBanco
         {
-            get { return identificadoresBanco; }
+            get => _identificadoresBanco;
             set
             {
-                identificadoresBanco = value;
+                _identificadoresBanco = value;
                 OnPropertyChanged("IdentificadoresBanco");
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get => Nome; }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(OperadoraCartao))
+            {
+                OperadoraCartao operadoraCartao = (OperadoraCartao)obj;
+                return operadoraCartao.Nome.Equals(Nome) 
+                       && operadoraCartao.IdentificadoresBanco.SequenceEqual(IdentificadoresBanco);
+            }
+
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => Nome;
 
         public virtual object Clone()
         {
             throw new NotImplementedException();
         }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return Nome;
-        }
-
         public virtual object GetIdentifier()
         {
             return Nome;

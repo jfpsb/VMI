@@ -3,7 +3,7 @@
     public interface IModel
     {
         object GetIdentifier();
-        string GetDatabaseLogIdentifier();
+        bool IsIdentical(object obj);
         string GetContextMenuHeader { get; }
     }
 }

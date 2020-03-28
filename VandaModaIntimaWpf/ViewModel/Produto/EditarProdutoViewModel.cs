@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (result)
             {
-                await SetStatusBarSucesso($"Produto {Produto.Cod_Barra} Atualizado Com Sucesso");
+                await SetStatusBarSucesso($"Produto {Produto.CodBarra} Atualizado Com Sucesso");
             }
             else
             {

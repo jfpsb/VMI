@@ -7,6 +7,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOOperadoraCartao(ISession session) : base(session) { }
 
+        public override int GetMaxId()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Retorna a Operadora de Cartão
         /// </summary>

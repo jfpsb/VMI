@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -8,17 +7,17 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Fornecedor : ObservableObject, ICloneable, IModel
     {
-        private string cnpj { get; set; }
-        private string nome { get; set; }
-        private string fantasia { get; set; }
-        private string email { get; set; }
-        private string telefone { get; set; }
+        private string _cnpj;
+        private string _nome;
+        private string _fantasia;
+        private string _email;
+        private string _telefone;
 
-        private IList<ProdutoModel> produtos = new List<ProdutoModel>();
+        private IList<ProdutoModel> _produtos = new List<ProdutoModel>();
 
         public enum Colunas
         {
-            CNPJ = 1,
+            Cnpj = 1,
             Nome = 2,
             NomeFantasia = 3,
             Telefone = 4,
@@ -33,18 +32,18 @@ namespace VandaModaIntimaWpf.Model
         /// <param name="nome">SELECIONE UM FORNECEDOR</param>
         public Fornecedor(string nome)
         {
-            cnpj = "0";
-            this.nome = nome;
+            _cnpj = "0";
+            this._nome = nome;
         }
 
         public virtual string Cnpj
         {
-            get { return cnpj; }
+            get => _cnpj;
             set
             {
                 if (value != null)
                 {
-                    cnpj = Regex.Replace(value, @"[-./]", "");
+                    _cnpj = Regex.Replace(value, @"[-./]", string.Empty);
                     OnPropertyChanged("Cnpj");
                 }
             }
@@ -52,12 +51,12 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string Nome
         {
-            get { return nome; }
+            get => _nome;
             set
             {
                 if (value != null)
                 {
-                    nome = value.ToUpper();
+                    _nome = value.ToUpper();
                     OnPropertyChanged("Nome");
                 }
             }
@@ -65,12 +64,12 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string Fantasia
         {
-            get { return fantasia; }
+            get => _fantasia;
             set
             {
                 if (value != null)
                 {
-                    fantasia = value.ToUpper();
+                    _fantasia = value.ToUpper();
                     OnPropertyChanged("Fantasia");
                 }
             }
@@ -78,61 +77,72 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string Email
         {
-            get { return email; }
+            get => _email;
             set
             {
-                email = value;
+                _email = value;
                 OnPropertyChanged("Email");
             }
         }
         public virtual string Telefone
         {
-            get { return telefone; }
+            get => _telefone;
             set
             {
-                telefone = value;
+                _telefone = value;
                 OnPropertyChanged("Telefone");
             }
         }
 
-        [JsonIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
-            get { return produtos; }
+            get => _produtos;
             set
             {
-                produtos = value;
+                _produtos = value;
                 OnPropertyChanged("Produtos");
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get { return Nome; } }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(Fornecedor))
+            {
+                Fornecedor fornecedor = (Fornecedor)obj;
+
+                return fornecedor.Cnpj.Equals(Cnpj)
+                       && fornecedor.Nome.Equals(Nome)
+                       && fornecedor.Fantasia.Equals(Fantasia)
+                       && fornecedor.Email.Equals(Email)
+                       && fornecedor.Telefone.Equals(Telefone);
+                ;
+            }
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => Nome;
 
         public virtual object Clone()
         {
-            Fornecedor f = new Fornecedor();
+            Fornecedor f = new Fornecedor
+            {
+                Cnpj = Cnpj,
+                Nome = Nome,
+                Fantasia = Fantasia,
+                Email = Email,
+                Telefone = Telefone
+            };
 
-            f.Cnpj = Cnpj;
-            f.Nome = Nome;
-            f.Fantasia = Fantasia;
-            f.Email = Email;
-            f.Telefone = Telefone;
 
             return f;
         }
 
         public virtual string[] GetColunas()
         {
-            return new string[] { "CNPJ", "Nome", "Nome Fantasia", "Telefone", "Email" };
+            return new[] { "CNPJ", "Nome", "Nome Fantasia", "Telefone", "Email" };
         }
 
         public virtual object GetIdentifier()
-        {
-            return Cnpj;
-        }
-
-        public string GetDatabaseLogIdentifier()
         {
             return Cnpj;
         }

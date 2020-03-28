@@ -6,96 +6,90 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Contagem : ObservableObject, ICloneable, IModel
     {
-        private Loja loja;
-        private DateTime data;
-        private bool finalizada;
-        private TipoContagem tipoContagem;
-        private IList<ContagemProduto> contagens = new List<ContagemProduto>();
+        private Loja _loja;
+        private DateTime _data;
+        private bool _finalizada;
+        private TipoContagem _tipoContagem;
+        private IList<ContagemProduto> _contagens = new List<ContagemProduto>();
+
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(Contagem))
+            {
+                Contagem contagem = (Contagem)obj;
+
+                return contagem.Loja.Equals(Loja)
+                       && contagem.Data.Equals(Data)
+                       && contagem.Finalizada.Equals(Finalizada)
+                       && contagem.TipoContagem.Equals(TipoContagem);
+            }
+
+            return false;
+        }
 
         [JsonIgnore]
-        public virtual string GetContextMenuHeader { get { return loja.Cnpj; } }
+        public virtual string GetContextMenuHeader
+        {
+            get { return _loja.Cnpj; }
+        }
 
         public virtual Loja Loja
         {
-            get { return loja; }
+            get => _loja;
             set
             {
-                loja = value;
+                _loja = value;
                 OnPropertyChanged("Loja");
             }
         }
 
         public virtual DateTime Data
         {
-            get
-            {
-                return data;
-            }
-
+            get => _data;
             set
             {
-                data = value;
+                _data = value;
                 OnPropertyChanged("Data");
             }
         }
 
         public virtual bool Finalizada
         {
-            get
-            {
-                return finalizada;
-            }
-
+            get => _finalizada;
             set
             {
-                finalizada = value;
+                _finalizada = value;
                 OnPropertyChanged("Finalizada");
             }
         }
 
         public virtual TipoContagem TipoContagem
         {
-            get
-            {
-                return tipoContagem;
-            }
-
+            get => _tipoContagem;
             set
             {
-                tipoContagem = value;
+                _tipoContagem = value;
                 OnPropertyChanged("TipoContagem");
             }
         }
 
-        [JsonIgnore]
         public virtual IList<ContagemProduto> Contagens
         {
-            get
-            {
-                return contagens;
-            }
-
+            get { return _contagens; }
             set
             {
-                contagens = value;
+                _contagens = value;
                 OnPropertyChanged("Contagens");
             }
-        }
-
-        public void RefreshContagens()
-        {
-            OnPropertyChanged("Contagens");
         }
 
         public virtual object Clone()
         {
             Contagem contagem = new Contagem();
-
             contagem.Loja = Loja;
             contagem.Data = Data;
             contagem.TipoContagem = TipoContagem;
             contagem.Finalizada = Finalizada;
-
             return contagem;
         }
 
@@ -106,15 +100,11 @@ namespace VandaModaIntimaWpf.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return false;
-
+            if (obj == null) return false;
             if (obj.GetType() == typeof(Contagem))
             {
                 Contagem that = (Contagem)obj;
-
-                if (Loja.Equals(that.Loja) && Data.Equals(that.Data))
-                    return true;
+                if (Loja.Equals(that.Loja) && Data.Equals(that.Data)) return true;
             }
 
             return false;
@@ -123,19 +113,9 @@ namespace VandaModaIntimaWpf.Model
         public override int GetHashCode()
         {
             int hash = 0;
-
-            if (Loja != null)
-                hash += Loja.GetHashCode();
-
-            if (Data != null)
-                hash += Data.GetHashCode();
-
+            if (Loja != null) hash += Loja.GetHashCode();
+            hash += Data.GetHashCode();
             return hash;
-        }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return Loja.Cnpj + Data.ToString("yyyyMMddHHmmss");
         }
     }
 }

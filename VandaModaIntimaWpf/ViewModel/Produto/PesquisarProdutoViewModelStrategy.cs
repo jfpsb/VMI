@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public bool? AbrirEditar(ProdutoModel produto)
         {
-            EditarProduto editar = new EditarProduto(produto.Cod_Barra);
+            EditarProduto editar = new EditarProduto(produto.CodBarra);
             return editar.ShowDialog();
         }
 

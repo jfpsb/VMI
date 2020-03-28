@@ -5,95 +5,108 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Loja : ObservableObject, ICloneable, IModel
     {
-        private string cnpj { get; set; }
-        private Loja matriz { get; set; }
-        private string nome { get; set; }
-        private string telefone { get; set; }
-        private string endereco { get; set; }
-        private string inscricaoestadual { get; set; }
+        private string _cnpj;
+        private Loja _matriz;
+        private string _nome;
+        private string _telefone;
+        private string _endereco;
+        private string _inscricaoestadual;
         public Loja() { }
         public Loja(string nome)
         {
-            this.nome = nome;
+            this._nome = nome;
         }
         public string Cnpj
         {
-            get { return cnpj; }
+            get => _cnpj;
             set
             {
-                cnpj = value;
+                _cnpj = value;
                 OnPropertyChanged("Cnpj");
             }
         }
         public Loja Matriz
         {
-            get { return matriz; }
+            get => _matriz;
             set
             {
-                matriz = value;
+                _matriz = value;
                 OnPropertyChanged("Matriz");
             }
         }
         public string Nome
         {
-            get { return nome?.ToUpper(); }
+            get => _nome?.ToUpper();
             set
             {
-                nome = value;
+                _nome = value;
                 OnPropertyChanged("Nome");
             }
         }
         public string Telefone
         {
-            get { return telefone; }
+            get => _telefone;
             set
             {
-                telefone = value;
+                _telefone = value;
                 OnPropertyChanged("Telefone");
             }
         }
         public string Endereco
         {
-            get { return endereco?.ToUpper(); }
+            get => _endereco?.ToUpper();
             set
             {
-                endereco = value;
+                _endereco = value;
                 OnPropertyChanged("Endereco");
             }
         }
         public string InscricaoEstadual
         {
-            get { return inscricaoestadual; }
+            get => _inscricaoestadual;
             set
             {
-                inscricaoestadual = value;
+                _inscricaoestadual = value;
                 OnPropertyChanged("InscricaoEstadual");
             }
         }
 
-        [JsonIgnore]
-        public string GetContextMenuHeader { get => Nome; }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(Loja))
+            {
+                Loja loja = (Loja)obj;
+
+                return loja.Cnpj.Equals(Cnpj)
+                       && loja.Matriz.Equals(Matriz)
+                       && loja.Nome.Equals(Nome)
+                       && loja.Telefone.Equals(Telefone)
+                       && loja.Endereco.Equals(Endereco)
+                       && loja.InscricaoEstadual.Equals(InscricaoEstadual);
+            }
+
+            return false;
+        }
+
+        public string GetContextMenuHeader => Nome;
 
         public object Clone()
         {
-            Loja loja = new Loja();
+            Loja loja = new Loja
+            {
+                Cnpj = Cnpj,
+                Nome = Nome,
+                Telefone = Telefone,
+                Endereco = Endereco,
+                InscricaoEstadual = InscricaoEstadual,
+                Matriz = Matriz
+            };
 
-            loja.Cnpj = Cnpj;
-            loja.Nome = Nome;
-            loja.Telefone = Telefone;
-            loja.Endereco = Endereco;
-            loja.InscricaoEstadual = InscricaoEstadual;
-            loja.Matriz = Matriz;
 
             return loja;
         }
 
         public object GetIdentifier()
-        {
-            return Cnpj;
-        }
-
-        public string GetDatabaseLogIdentifier()
         {
             return Cnpj;
         }

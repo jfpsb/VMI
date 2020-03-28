@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class ProdutoExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession("Produto");
+        private ISession _session = SessionProvider.GetMainSession("Produto");
 
         public void EscreveDados(Worksheet Worksheet, object l)
         {
@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].Cod_Barra;
+                Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco] = lista[i].Preco;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
@@ -89,7 +89,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     continue;
                 }
 
-                produto.Cod_Barra = cod_barra.ToString();
+                produto.CodBarra = cod_barra.ToString();
                 produto.Descricao = descricao.ToString();
                 produto.Preco = preco;
 

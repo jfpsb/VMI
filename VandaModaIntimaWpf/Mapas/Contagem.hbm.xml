@@ -3,14 +3,13 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Contagem" table="contagem" lazy="false" dynamic-insert="true">
+  <class name="Contagem" table="contagem" lazy="false">
     <composite-id>
       <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" />
       <key-property name="Data" column="data" />
     </composite-id>
-    <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" lazy="false" />
+    <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
     <property name="Finalizada" column="finalizada" />
-
     <bag name="Contagens" table="contagem_produto" inverse="true" cascade="all-delete-orphan">
       <key>
         <column name="contagem_loja" />

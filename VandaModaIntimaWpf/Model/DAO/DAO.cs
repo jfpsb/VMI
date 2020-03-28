@@ -1,10 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.Util.Sincronizacao;
 using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.Model.DAO
@@ -17,7 +14,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public virtual async Task<bool> Inserir(object objeto, bool writeToJson = true, bool sendToServer = true)
+        public virtual async Task<bool> Inserir(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -25,6 +22,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Inserir<E>(IList<E> objetos, bool writeToJson = true, bool sendToServer = true) where E : class, IModel
+        public virtual async Task<bool> Inserir<E>(IList<E> objetos) where E : class, IModel
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -51,6 +51,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
+
+                    //SincronizacaoViewModel.WriteStatementLog();
+                    //SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -65,7 +68,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> InserirOuAtualizar(object objeto, bool writeToJson = true, bool sendToServer = true)
+        public virtual async Task<bool> InserirOuAtualizar(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -73,6 +76,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -87,7 +93,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> InserirOuAtualizar<E>(IList<E> objetos, bool writeToJson = true, bool sendToServer = true) where E : class, IModel
+        public virtual async Task<bool> InserirOuAtualizar<E>(IList<E> objetos) where E : class, IModel
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -99,6 +105,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -113,7 +122,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Atualizar(object objeto, bool writeToJson = true, bool sendToServer = true)
+        public virtual async Task<bool> Atualizar(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -121,6 +130,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -133,7 +145,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Deletar(object objeto, bool writeToJson = true, bool sendToServer = true)
+        public virtual async Task<bool> Deletar(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -141,6 +153,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.DeleteAsync(objeto);
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -153,7 +168,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Deletar<E>(IList<E> objetos, bool writeToJson = true, bool sendToServer = true) where E : class, IModel
+        public virtual async Task<bool> Deletar<E>(IList<E> objetos) where E : class, IModel
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -165,6 +180,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
+
+                    SincronizacaoViewModel.WriteStatementLog();
+                    SincronizacaoViewModel.SendStatementLog();
 
                     return true;
                 }
@@ -209,6 +227,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             return null;
         }
         public abstract Task<object> ListarPorId(object id);
+        public abstract int GetMaxId();
         public ICriteria CriarCriteria<E>() where E : class, IModel
         {
             return session.CreateCriteria<E>();

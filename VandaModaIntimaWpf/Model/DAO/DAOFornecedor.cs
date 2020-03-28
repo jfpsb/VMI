@@ -79,5 +79,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return result[0];
         }
+
+        public override int GetMaxId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

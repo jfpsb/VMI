@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             foreach (Model.Produto produto in entidades)
             {
                 string campos = $"`{aliasCodBarra.Alias}`, `{aliasDescricao.Alias}`, `{aliasPreco.Alias}`";
-                string valores = $"\"{produto.Cod_Barra}\", \"{produto.Descricao}\", \"{produto.Preco}\"";
+                string valores = $"\"{produto.CodBarra}\", \"{produto.Descricao}\", \"{produto.Preco}\"";
 
                 if (produto.Fornecedor != null)
                 {
@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                     }
                 }
 
-                comandoUpdate += $" WHERE {aliasCodBarra.Alias} = \"{produto.Cod_Barra}\";";
+                comandoUpdate += $" WHERE {aliasCodBarra.Alias} = \"{produto.CodBarra}\";";
 
                 sw.WriteLine(comandoUpdate);
             }

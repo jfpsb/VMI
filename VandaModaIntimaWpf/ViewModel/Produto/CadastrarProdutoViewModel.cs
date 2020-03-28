@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         }
         public override bool ValidaModel(object parameter)
         {
-            if (string.IsNullOrEmpty(Produto.Cod_Barra) || string.IsNullOrEmpty(Produto.Descricao))
+            if (string.IsNullOrEmpty(Produto.CodBarra) || string.IsNullOrEmpty(Produto.Descricao))
             {
                 return false;
             }
@@ -57,9 +57,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
-            produtoModel.Codigos.Add("123455555");
-            produtoModel.Codigos.Add("1234535125");
-
             var result = await daoProduto.Inserir(produtoModel);
 
             if (result)
@@ -77,7 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public override void ResetaPropriedades()
         {
             Produto = new ProdutoModel();
-            Produto.Cod_Barra = Produto.Descricao = string.Empty;
+            Produto.CodBarra = Produto.Descricao = string.Empty;
             Produto.Preco = 0;
             Produto.Fornecedor = Fornecedores[0];
             Produto.Marca = Marcas[0];
@@ -110,7 +107,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "Cod_Barra":
-                    var result = await daoProduto.ListarPorId(Produto.Cod_Barra);
+                    var result = await daoProduto.ListarPorId(Produto.CodBarra);
 
                     if (result != null)
                     {

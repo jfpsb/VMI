@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 {
     public abstract class ExportarSQLViewModel<E> : ObservableObject where E : class, IModel
     {
-        protected ISession session = SessionProvider.GetSession("ExportarSQL");
+        protected ISession session = SessionProvider.GetMainSession("ExportarSQL");
         protected DAO daoEntidade;
         public ICommand ExportarInsertsComando { get; set; }
         public ICommand ExportarUpdatesComando { get; set; }
@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         protected virtual ObservableCollection<MySQLAliases> GetAliases(string[] exclusoes)
         {
             ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
-            var persister = SessionProvider.MySessionFactory.GetClassMetadata(typeof(E));
+            var persister = SessionProvider.MainSessionFactory.GetClassMetadata(typeof(E));
 
             aliases.Add(new MySQLAliases() { Coluna = persister.IdentifierPropertyName, Alias = persister.IdentifierPropertyName });
 
@@ -95,7 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         }
         public void FechaJanela(object sender, CancelEventArgs e)
         {
-            SessionProvider.FechaSession("ExportarSQL");
+            SessionProvider.FechaMainSession("ExportarSQL");
         }
         public MySQLAliases AliasSelecionado
         {

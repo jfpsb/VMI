@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class FornecedorExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession("Fornecedor");
+        private ISession _session = SessionProvider.GetMainSession("Fornecedor");
         public void ConfiguraColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();
@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.CNPJ] = lista[i].Cnpj;
+                Worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj] = lista[i].Cnpj;
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome] = lista[i].Nome;
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia] = lista[i].Fantasia;
                 Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email] = lista[i].Email;
@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 FornecedorModel fornecedor = new FornecedorModel();
 
-                var cnpj = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.CNPJ]).Value;
+                var cnpj = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj]).Value;
                 var nome = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome]).Value;
                 var nome_fantasia = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia]).Value;
                 var telefone = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone]).Value;

@@ -9,7 +9,8 @@ namespace VandaModaIntimaWpf
         {
             InitializeComponent();
 
-            SessionProvider.MySessionFactory = SessionProvider.BuildSessionFactory();
+            SessionProvider.MainSessionFactory = SessionProvider.BuildMainSessionFactory();
+            SessionProvider.SecondarySessionFactory = SessionProvider.BuildSecondarySessionFactory();
 
             View.Sincronizacao sincronizacao = new View.Sincronizacao();
             sincronizacao.Show();
@@ -23,7 +24,8 @@ namespace VandaModaIntimaWpf
 
         private void TelaPrincipal_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            SessionProvider.FechaConexoes();
+            SessionProvider.FechaMainConexoes();
+            SessionProvider.FechaSecondaryConexoes();
         }
     }
 }

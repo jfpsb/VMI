@@ -49,5 +49,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar<Loja>(criteria);
         }
+
+        public override int GetMaxId()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

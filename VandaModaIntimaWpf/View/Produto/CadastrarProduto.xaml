@@ -54,7 +54,7 @@
             </Grid.RowDefinitions>
             <Label>Código De Barras:</Label>
             <TextBox Grid.Column="1"
-                     Text="{Binding Produto.Cod_Barra, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="15" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"

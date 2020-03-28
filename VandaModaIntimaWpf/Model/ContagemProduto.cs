@@ -1,29 +1,41 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Globalization;
+﻿using System;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class ContagemProduto : ObservableObject, ICloneable, IModel
     {
-        private long id;
-        private Contagem contagem;
-        private Produto produto;
-        private int quant;
+        private long _id;
+        private Contagem _contagem;
+        private Produto _produto;
+        private int _quant;
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get { return $"{Produto.Cod_Barra}; Quantidade: {Quant}"; } }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(ContagemProduto))
+            {
+                ContagemProduto contagemProduto = (ContagemProduto)obj;
+
+                return contagemProduto.Id.Equals(Id)
+                       && contagemProduto.Contagem.Equals(Contagem)
+                       && contagemProduto.Produto.Equals(Produto)
+                       && contagemProduto.Quant.Equals(Quant);
+            }
+
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => $"{Produto.CodBarra}; Quantidade: {Quant}";
 
         public virtual long Id
         {
             get
             {
-                return id;
+                return _id;
             }
 
             set
             {
-                id = value;
+                _id = value;
                 OnPropertyChanged("Id");
             }
         }
@@ -32,12 +44,12 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return produto;
+                return _produto;
             }
 
             set
             {
-                produto = value;
+                _produto = value;
                 OnPropertyChanged("Produto");
             }
         }
@@ -46,12 +58,12 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return quant;
+                return _quant;
             }
 
             set
             {
-                quant = value;
+                _quant = value;
                 OnPropertyChanged("Quant");
             }
         }
@@ -60,12 +72,12 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return contagem;
+                return _contagem;
             }
 
             set
             {
-                contagem = value;
+                _contagem = value;
                 OnPropertyChanged("Contagem");
             }
         }
@@ -73,11 +85,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual object Clone()
         {
             throw new NotImplementedException();
-        }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return Id.ToString();
         }
 
         public virtual object GetIdentifier()

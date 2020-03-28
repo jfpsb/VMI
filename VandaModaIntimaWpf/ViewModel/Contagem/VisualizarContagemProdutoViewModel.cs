@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             this._contagem = _contagem;
             _contagemGroupBy = _contagem.Contagens
-                .GroupBy(gb => gb.Produto.Cod_Barra)
+                .GroupBy(gb => gb.Produto.CodBarra)
                 .Select(s => new ContagemProdutoModel
                 {
                     Produto = s.First().Produto,

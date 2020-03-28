@@ -27,5 +27,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             return await session.GetAsync<Marca>(id);
         }
+
+        public override int GetMaxId()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

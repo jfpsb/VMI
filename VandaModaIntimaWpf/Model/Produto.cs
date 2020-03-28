@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -8,13 +7,13 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Produto : ObservableObject, ICloneable, IModel
     {
-        private string cod_barra;
-        private FornecedorModel fornecedor;
-        private MarcaModel marca;
-        private string descricao;
-        private double preco;
-        private string ncm;
-        private IList<string> codigos = new List<string>();
+        private string _codBarra;
+        private FornecedorModel _fornecedor;
+        private MarcaModel _marca;
+        private string _descricao;
+        private double _preco;
+        private string _ncm;
+        private IList<string> _codigos = new List<string>();
         public enum Colunas
         {
             CodBarra = 1,
@@ -26,28 +25,22 @@ namespace VandaModaIntimaWpf.Model
             CodBarraFornecedor = 7
         }
 
-        public virtual string Cod_Barra
+        public virtual string CodBarra
         {
-            get
-            {
-                return cod_barra;
-            }
+            get => _codBarra;
             set
             {
-                cod_barra = value;
+                _codBarra = value;
                 OnPropertyChanged("Cod_Barra");
             }
         }
         public virtual FornecedorModel Fornecedor
         {
-            get
-            {
-                return fornecedor;
-            }
+            get => _fornecedor;
 
             set
             {
-                fornecedor = value;
+                _fornecedor = value;
                 OnPropertyChanged("Fornecedor");
                 OnPropertyChanged("FornecedorNome");
             }
@@ -55,13 +48,10 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual MarcaModel Marca
         {
-            get
-            {
-                return marca;
-            }
+            get => _marca;
             set
             {
-                marca = value;
+                _marca = value;
                 OnPropertyChanged("Marca");
                 OnPropertyChanged("MarcaNome");
             }
@@ -69,52 +59,45 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string Descricao
         {
-            get
-            {
-                return descricao;
-            }
+            get => _descricao;
 
             set
             {
-                descricao = value.ToUpper();
+                _descricao = value.ToUpper();
                 OnPropertyChanged("Descricao");
             }
         }
 
         public virtual double Preco
         {
-            get { return preco; }
+            get => _preco;
             set
             {
-                preco = value;
+                _preco = value;
                 OnPropertyChanged("Preco");
             }
         }
 
         public virtual string Ncm
         {
-            get { return ncm; }
+            get => _ncm;
             set
             {
-                ncm = value;
+                _ncm = value;
                 OnPropertyChanged("Ncm");
             }
         }
 
         public virtual IList<string> Codigos
         {
-            get
-            {
-                return codigos;
-            }
+            get => _codigos;
             set
             {
-                codigos = value;
+                _codigos = value;
                 OnPropertyChanged("Codigos");
             }
         }
 
-        [JsonIgnore]
         public virtual string FornecedorNome
         {
             get
@@ -126,7 +109,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonIgnore]
         public virtual string MarcaNome
         {
             get
@@ -138,36 +120,47 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get => Descricao; }
+        public bool IsIdentical(object obj)
+        {
+            if (obj != null && obj.GetType() == typeof(Produto))
+            {
+                Produto produto = (Produto)obj;
+                return produto.CodBarra.Equals(CodBarra)
+                       && produto.Fornecedor.Equals(Fornecedor)
+                       && produto.Marca.Equals(Marca)
+                       && produto.Descricao.Equals(Descricao)
+                       && produto.Preco.Equals(Preco)
+                       && produto.Ncm.Equals(Ncm);
+            }
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => Descricao;
 
         public virtual object Clone()
         {
-            Produto p = new Produto();
+            Produto p = new Produto
+            {
+                CodBarra = CodBarra,
+                Descricao = Descricao,
+                Preco = Preco,
+                Fornecedor = Fornecedor,
+                Marca = Marca,
+                Ncm = Ncm,
+                Codigos = new List<string>(Codigos)
+            };
 
-            p.Cod_Barra = Cod_Barra;
-            p.Descricao = Descricao;
-            p.Preco = Preco;
-            p.Fornecedor = Fornecedor;
-            p.Marca = Marca;
-            p.Ncm = Ncm;
-            p.Codigos = Codigos;
 
             return p;
         }
         public virtual string[] GetColunas()
         {
-            return new string[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM", "Cód. De Barras de Fornecedor" };
+            return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM", "Cód. De Barras de Fornecedor" };
         }
 
         public virtual object GetIdentifier()
         {
-            return Cod_Barra;
-        }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return Cod_Barra;
+            return CodBarra;
         }
     }
 }

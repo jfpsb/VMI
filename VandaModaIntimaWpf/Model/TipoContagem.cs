@@ -1,44 +1,43 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class TipoContagem : ObservableObject, ICloneable, IModel
     {
-        private int id;
-        private string nome;
+        private long _id;
+        private string _nome;
 
-        [JsonIgnore]
-        public virtual string GetContextMenuHeader { get { return Nome; } }
-
-        public virtual int Id
+        public bool IsIdentical(object obj)
         {
-            get
+            if (obj != null && obj.GetType() == typeof(TipoContagem))
             {
-                return id;
+                TipoContagem tipoContagem = (TipoContagem)obj;
+                return tipoContagem.Id.Equals(Id)
+                       && tipoContagem.Nome.Equals(Nome);
             }
+            return false;
+        }
+
+        public virtual string GetContextMenuHeader => Nome;
+
+        public virtual long Id
+        {
+            get => _id;
 
             set
             {
-                id = value;
+                _id = value;
                 OnPropertyChanged("Id");
             }
         }
 
         public virtual string Nome
         {
-            get
-            {
-                return nome;
-            }
+            get => _nome;
 
             set
             {
-                nome = value;
+                _nome = value;
                 OnPropertyChanged("Nome");
             }
         }
@@ -46,11 +45,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual object Clone()
         {
             throw new NotImplementedException();
-        }
-
-        public string GetDatabaseLogIdentifier()
-        {
-            return Id.ToString();
         }
 
         public virtual object GetIdentifier()

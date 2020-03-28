@@ -78,7 +78,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             return await Listar<RecebimentoCartao>(criteria);
         }
 
-        public async override Task<bool> Deletar(object objeto, bool writeToJson = true, bool sendToServer = true)
+        public async override Task<bool> Deletar(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -100,6 +100,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                 return false;
             }
+        }
+
+        public override int GetMaxId()
+        {
+            throw new NotImplementedException();
         }
     }
 }

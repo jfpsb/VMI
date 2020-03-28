@@ -22,44 +22,48 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         public static Socket ClientSocket;
 
-        private static readonly string StatementLogFile = "StatementLog.txt";
-        private static readonly string LastSyncFile = "LastSync.txt";
-        private string MessageReceived = "";
-        private byte[] BytesReceivedFromServer = new byte[1024];
+        private static readonly string VandaModaIntimaLocalAppDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Vanda Moda Íntima");
+        private static readonly string StatementLogFile = Path.Combine(VandaModaIntimaLocalAppDir, "StatementLog.json");
+        private static readonly string LastSyncFile = Path.Combine(VandaModaIntimaLocalAppDir, "LastSync.txt");
+        private string _messageReceived = "";
+        private readonly byte[] _bytesReceivedFromServer = new byte[1024];
         private string _textLog;
-        private bool Disposed;
-        private static readonly string _localDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
-        private static object This; // Guarda referência à própria classe para ser usado em Reflection dentro de método estático
-        private static List<StatementLog> StatementLogs;
-        public static List<StatementLog> TransientWriteStatementLogs;
-        public static List<StatementLog> TransientSendStatementLogs;
-        private static DateTime LastSync = new DateTime(2018, 1, 1, 0, 0, 0);
-        private string connectionString = "SERVER=localhost;DATABASE=vandamodaintima;UID=root;PASSWORD=1124";
+        private bool _disposed;
+        private static readonly string LocalDateFormat = CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern;
+        private static object _this; // Guarda referência à própria classe para ser usado em Reflection dentro de método estático
+        private static List<StatementLog> _statementLogs; //Guarda os logs presentes no arquivo de logs
+        private static List<StatementLog> _duplicateStatementLogs;
+        public static List<StatementLog> TransientWriteStatementLogs; //Guarda os logs que ainda não foram escritos
+        public static List<StatementLog> TransientSendStatementLogs; //Guarda os logs que ainda não foram enviados
+        public static DateTime LastSync = new DateTime(2018, 1, 1, 0, 0, 0);
+        private readonly string _connectionString = "SERVER=localhost;DATABASE=vandamodaintima;UID=root;PASSWORD=1124";
 
         public SincronizacaoViewModel()
         {
+            if (!Directory.Exists(VandaModaIntimaLocalAppDir))
+            {
+                Directory.CreateDirectory(VandaModaIntimaLocalAppDir);
+            }
 
-
-            StatementLogs = new List<StatementLog>();
+            _statementLogs = new List<StatementLog>();
             TransientWriteStatementLogs = new List<StatementLog>();
             TransientSendStatementLogs = new List<StatementLog>();
-
-            ResetaLogs();
+            _duplicateStatementLogs = new List<StatementLog>();
 
             if (File.Exists(LastSyncFile))
             {
-                string fromFile = File.ReadAllText(LastSyncFile);
+                string fromFile = ReadAllText(LastSyncFile);
                 LastSync = DateTime.Parse(fromFile);
             }
 
             if (File.Exists(StatementLogFile))
             {
-                string json = File.ReadAllText(StatementLogFile);
+                string json = ReadAllText(StatementLogFile);
                 if (json != string.Empty)
-                    StatementLogs = JsonConvert.DeserializeObject<List<StatementLog>>(json);
+                    _statementLogs = JsonConvert.DeserializeObject<List<StatementLog>>(json);
             }
 
-            This = this;
+            _this = this;
             Conectar();
         }
 
@@ -71,20 +75,20 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 try
                 {
-                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectando ao Servidor";
+                    TextLog += $"{DateTime.Now.ToString(LocalDateFormat)}: Conectando ao Servidor";
 
                     ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     //18.229.130.78
-                    ClientSocket.Connect("18.229.130.78", 3999);
+                    ClientSocket.Connect("localhost", 3999);
 
-                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Conectado ao Servidor Com Sucesso";
+                    TextLog += $"{DateTime.Now.ToString(LocalDateFormat)}: Conectado ao Servidor Com Sucesso";
 
                     ApplicationOpening();
                 }
                 catch (SocketException se)
                 {
                     ErroAoConectar(se, "Conectar", false);
-                    timerConexaoServidor.Change(30000, Timeout.Infinite);
+                    timerConexaoServidor?.Change(30000, Timeout.Infinite);
                 }
             }, null, 0, Timeout.Infinite);
         }
@@ -93,33 +97,16 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             try
             {
-                TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Sincronização Iniciada";
+                TextLog += $"{DateTime.Now.ToString(LocalDateFormat)}: Sincronização Iniciada";
+                TextLog += $"{DateTime.Now.ToString(LocalDateFormat)}: Solicitando Logs do Servidor";
 
-                if (StatementLogs.Count == 0)
-                {
-                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Não Há Arquivo de Logs Local. Solicitando Ao Servidor";
-                    DateTime dateTime = new DateTime(2018, 1, 1, 0, 0, 0);
-                    string requestJson = "StatementRequest|" + dateTime.ToString("o") + "\n";
-                    ClientSocket.Send(Encoding.UTF8.GetBytes(requestJson));
-                    return;
-                }
-
-                List<StatementLog> statementsAEnviar = StatementLogs.Where(w => w.WriteTime >= LastSync).ToList();
-
-                if (statementsAEnviar.Count == 0)
-                {
-                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Não Há Statements Para Mandar Para O Servidor";
-                }
-                else
-                {
-                    SendStatementLog(statementsAEnviar);
-                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Enviando Statements Locais Para Servidor";
-                }
+                //Guarda logs locais que serão enviados ao servidor
+                TransientSendStatementLogs.AddRange(_statementLogs.Where(w => w.WriteTime >= LastSync).ToList());
 
                 string statementRequestJson = "StatementRequest|" + LastSync.ToString("o") + "\n";
 
                 ClientSocket.Send(Encoding.UTF8.GetBytes(statementRequestJson));
-                ClientSocket.BeginReceive(BytesReceivedFromServer, 0, BytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, ClientSocket);
+                ClientSocket.BeginReceive(_bytesReceivedFromServer, 0, _bytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, ClientSocket);
             }
             catch (SocketException se)
             {
@@ -128,7 +115,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
 
         [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Comando não precisa adicionar parâmetros")]
-        private void ReceiveCallback(IAsyncResult asyncResult)
+        private async void ReceiveCallback(IAsyncResult asyncResult)
         {
             try
             {
@@ -137,38 +124,156 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 if (messageLength > 0)
                 {
-                    MessageReceived += Encoding.UTF8.GetString(BytesReceivedFromServer, 0, messageLength);
+                    _messageReceived += Encoding.UTF8.GetString(_bytesReceivedFromServer, 0, messageLength);
 
-                    if (MessageReceived.Contains("\n"))
+                    if (_messageReceived.Contains("\n"))
                     {
-                        string[] SplittedMessage = MessageReceived.Split('\n');
-                        string FirstLine = SplittedMessage[0];
+                        string[] splittedMessage = _messageReceived.Split('\n');
+                        string firstLine = splittedMessage[0];
 
-                        string[] FirstLineSplitted = FirstLine.Split('|');
-                        string MessageId = FirstLineSplitted[0];
+                        string[] firstLineSplitted = firstLine.Split('|');
+                        string messageId = firstLineSplitted[0];
 
-                        switch (MessageId)
+                        switch (messageId)
                         {
                             case "StatementLogs":
-                                List<StatementLog> statementsRecebidos = JsonConvert.DeserializeObject<List<StatementLog>>(FirstLineSplitted[1]);
+                                var statementsRecebidos = JsonConvert.DeserializeObject<List<StatementLog>>(firstLineSplitted[1]);
+                                var insertsRecebidos = statementsRecebidos.Where(w => w.Statement.StartsWith("INSERT"))
+                                    .ToList();
 
-                                using (MySqlConnection conexao = new MySqlConnection(connectionString))
+                                //Para cada statement do tipo INSERT
+                                foreach (var statementRecebido in insertsRecebidos)
                                 {
-                                    using (MySqlTransaction transacao = conexao.BeginTransaction())
+                                    if (_statementLogs.Contains(statementRecebido))
+                                    {
+                                        var sameIdStatement = _statementLogs.FirstOrDefault(f =>
+                                            f.Statement.Equals(statementRecebido.Statement));
+
+                                        //Se sameIdStatement retorna null significa que em _statementLogs existe um log com a(s)
+                                        //mesma(s) id(s) de statementRecebido, mas o Statement em si difere entre os dois, ou seja,
+                                        //contêm a mesma id, mas os valores dos outros campos são diferentes.
+                                        //Então eu deleto item do Bd local e insiro com uma nova Id
+                                        if (sameIdStatement == null)
+                                        {
+                                            ISession mainSession = SessionProvider.GetMainSession("Duplicate");
+                                            ISession secondarySession = SessionProvider.GetSecondarySession("Duplicate");
+
+                                            switch (statementRecebido.Tabela)
+                                            {
+                                                case "contagem":
+                                                    var lojaId = (Model.Loja)await new DAOLoja(secondarySession).ListarPorId(statementRecebido.Identificadores[0]);
+                                                    var dataId = DateTime.ParseExact(statementRecebido.Identificadores[1], "yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture);
+
+                                                    var daoContagem = new DAOContagem(secondarySession);
+
+                                                    var contagem = new Model.Contagem() { Loja = lojaId, Data = dataId };
+                                                    contagem = (Model.Contagem)await daoContagem.ListarPorId(contagem);
+
+                                                    var contagem1 = (Model.Contagem)contagem.Clone();
+
+                                                    contagem1.Data = contagem.Data.AddMinutes(1);
+
+                                                    await daoContagem.Deletar(contagem);
+
+                                                    await new DAOContagem(mainSession).Inserir(contagem1);
+                                                    break;
+                                                case "contagemproduto":
+                                                    var daoContagemProduto = new DAOContagemProduto(secondarySession);
+                                                    string idContagemProduto = statementRecebido.Identificadores[0];
+                                                    long newIdContagemProduto = 0;
+
+                                                    //Recuperando local
+                                                    Model.ContagemProduto contagemProduto = await daoContagemProduto.ListarPorId(idContagemProduto) as Model.ContagemProduto;
+                                                    Model.ContagemProduto copia = contagemProduto.Clone() as Model.ContagemProduto;
+
+                                                    while (contagemProduto != null)
+                                                    {
+                                                        contagemProduto = await daoContagemProduto.ListarPorId(newIdContagemProduto) as Model.ContagemProduto;
+                                                        newIdContagemProduto = DateTime.Now.Ticks;
+                                                    }
+
+                                                    copia.Id = newIdContagemProduto;
+
+                                                    await daoContagemProduto.Deletar(contagemProduto);
+                                                    await new DAOContagemProduto(mainSession).Inserir(copia);
+                                                    break;
+                                                case "fornecedor":
+                                                    var daoFornecedor = new DAOFornecedor(secondarySession);
+                                                    var idFornecedor = statementRecebido.Identificadores[0];
+                                                    var fornecedor = await daoFornecedor.ListarPorId(idFornecedor);
+                                                    await daoFornecedor.Deletar(fornecedor);
+                                                    break;
+                                                case "loja":
+                                                    var daoLoja = new DAOLoja(secondarySession);
+                                                    var idLoja = statementRecebido.Identificadores[0];
+                                                    var loja = await daoLoja.ListarPorId(idLoja);
+                                                    await daoLoja.Deletar(loja);
+                                                    break;
+                                                case "marca":
+                                                    statementsRecebidos.Remove(statementRecebido);
+                                                    break;
+                                                case "operadoracartao":
+                                                    break;
+                                                case "produto":
+                                                    var daoProduto = new DAOProduto(secondarySession);
+                                                    string idProduto = statementRecebido.Identificadores[0];
+                                                    var newIdProduto = daoProduto.GetMaxId() + 1;
+
+                                                    //Recuperando produto no BD local com a mesma id do produto recebido do servidor
+                                                    Model.Produto produto = await daoProduto.ListarPorId(idProduto) as Model.Produto;
+                                                    //Copio o produto local para um novo objeto
+                                                    Model.Produto produtoCopia = produto.Clone() as Model.Produto;
+
+                                                    //Checando qual Id está livre para usar para inserir a cópia do produto
+                                                    while (produto != null)
+                                                    {
+                                                        produto = await daoProduto.ListarPorId((newIdProduto).ToString()) as Model.Produto;
+                                                        newIdProduto++;
+                                                    }
+
+                                                    //Mudando Id da cópia
+                                                    produtoCopia.CodBarra = newIdProduto.ToString();
+
+                                                    //Deleto produto com id repetida do BD local
+                                                    await daoProduto.Deletar(produto);
+
+                                                    //Insiro a cópia com nova id
+                                                    await new DAOProduto(mainSession).Inserir(produtoCopia);
+                                                    break;
+                                                case "recebimentocartao":
+                                                    break;
+                                                case "tipocontagem":
+                                                    break;
+                                            }
+
+                                            SessionProvider.FechaMainSession("Duplicate");
+                                            SessionProvider.FechaSecondarySession("Duplicate");
+                                        }
+
+                                        _statementLogs.Remove(statementRecebido);
+                                        TransientSendStatementLogs.Remove(statementRecebido);
+                                    }
+                                }
+
+                                using (var conexao = new MySqlConnection(_connectionString))
+                                {
+                                    conexao.Open();
+
+                                    using (var transacao = conexao.BeginTransaction())
                                     {
                                         try
                                         {
-                                            using (MySqlCommand comando = new MySqlCommand())
+                                            using (var comando = new MySqlCommand())
                                             {
                                                 comando.Connection = conexao;
                                                 comando.Transaction = transacao;
 
-                                                foreach (StatementLog statement in statementsRecebidos)
+                                                foreach (var statement in statementsRecebidos)
                                                 {
                                                     comando.Parameters.Clear();
                                                     comando.CommandText = statement.Statement;
                                                     comando.ExecuteNonQuery();
-                                                    TextLog += $"{DateTime.Now.ToString(_localDateFormat)}: Statement Recebido: {statement.Statement}";
+                                                    TextLog += $"{DateTime.Now.ToString(LocalDateFormat)}: Statement Recebido: {statement.Statement}";
                                                 }
 
                                                 transacao.Commit();
@@ -185,14 +290,13 @@ namespace VandaModaIntimaWpf.ViewModel
                                     }
                                 }
 
-
                                 break;
                         }
 
-                        MessageReceived = MessageReceived.Replace(FirstLine + "\n", string.Empty);
+                        _messageReceived = _messageReceived.Replace(firstLine + "\n", string.Empty);
                     }
 
-                    socket.BeginReceive(BytesReceivedFromServer, 0, BytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, socket);
+                    socket.BeginReceive(_bytesReceivedFromServer, 0, _bytesReceivedFromServer.Length, SocketFlags.None, ReceiveCallback, socket);
                 }
             }
             catch (SocketException se)
@@ -226,9 +330,9 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             try
             {
-                if (TransientWriteStatementLogs.Count > 0)
+                if (TransientSendStatementLogs.Count > 0)
                 {
-                    string transientStatementLogsJson = JsonConvert.SerializeObject(TransientWriteStatementLogs);
+                    string transientStatementLogsJson = JsonConvert.SerializeObject(TransientSendStatementLogs);
 
                     string messageToServer = "StatementLogs";
                     messageToServer += "|" + transientStatementLogsJson;
@@ -236,12 +340,14 @@ namespace VandaModaIntimaWpf.ViewModel
 
                     ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
 
-                    TransientWriteStatementLogs.Clear();
+                    WriteAllText(LastSyncFile, DateTime.Now.ToString("o"));
 
                     // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
                     PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
-                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
-                    propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Statements Enviados ao Servidor: {TransientWriteStatementLogs.Count}");
+                    string textLogAtual = (string)propertyInfo.GetValue(_this, null);
+                    propertyInfo.SetValue(_this, textLogAtual + $"{DateTime.Now.ToString(LocalDateFormat)}: Statements Enviados ao Servidor: {TransientSendStatementLogs.Count}");
+
+                    TransientSendStatementLogs.Clear();
                 }
             }
             catch (Exception ex)
@@ -255,7 +361,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             try
             {
-                if (TransientSendStatementLogs.Count > 0)
+                if (statements.Count > 0)
                 {
                     string transientSendStatementLogsJson = JsonConvert.SerializeObject(statements);
 
@@ -265,12 +371,12 @@ namespace VandaModaIntimaWpf.ViewModel
 
                     ClientSocket.Send(Encoding.UTF8.GetBytes(messageToServer));
 
-                    TransientSendStatementLogs.Clear();
+                    WriteAllText(LastSyncFile, DateTime.Now.ToString("o"));
 
                     // Usando Reflection Para Setar Valor de TextLog Porque Este Método é Estático, Mas a Propriedade Não É
                     PropertyInfo propertyInfo = typeof(SincronizacaoViewModel).GetProperty("TextLog");
-                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
-                    propertyInfo.SetValue(This, textLogAtual + $"{DateTime.Now.ToString(_localDateFormat)}: Statements Enviados ao Servidor: {TransientSendStatementLogs.Count}");
+                    string textLogAtual = (string)propertyInfo.GetValue(_this, null);
+                    propertyInfo.SetValue(_this, textLogAtual + $"{DateTime.Now.ToString(LocalDateFormat)}: Statements Enviados ao Servidor: {statements.Count}");
                 }
             }
             catch (Exception ex)
@@ -282,10 +388,12 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public static void WriteStatementLog()
         {
-            StatementLogs.AddRange(TransientWriteStatementLogs);
-            string json = JsonConvert.SerializeObject(StatementLogs, Formatting.Indented);
-            File.WriteAllText(StatementLogFile, json);
-            File.SetAttributes(StatementLogFile, File.GetAttributes(StatementLogFile) | FileAttributes.Hidden);
+            _statementLogs.AddRange(TransientWriteStatementLogs);
+            _statementLogs = _statementLogs.OrderBy(o => o.WriteTime).ToList();
+            string json = JsonConvert.SerializeObject(_statementLogs, Formatting.Indented);
+            WriteAllText(StatementLogFile, json);
+
+            TransientSendStatementLogs.AddRange(TransientWriteStatementLogs);
 
             try
             {
@@ -294,11 +402,9 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 foreach (StatementLog statement in TransientWriteStatementLogs)
                 {
-                    string textLogAtual = (string)propertyInfo.GetValue(This, null);
-                    propertyInfo.SetValue(This, textLogAtual + $"{statement.WriteTime.ToString(_localDateFormat)}: Statement Escrito - {statement.Statement}");
+                    string textLogAtual = (string)propertyInfo.GetValue(_this, null);
+                    propertyInfo.SetValue(_this, textLogAtual + $"{statement.WriteTime.ToString(LocalDateFormat)}: Statement Escrito - {statement.Statement}");
                 }
-
-                TransientWriteStatementLogs.Clear();
             }
             catch (Exception e)
             {
@@ -317,6 +423,35 @@ namespace VandaModaIntimaWpf.ViewModel
                 Conectar();
         }
 
+        private string ReadAllText(string path)
+        {
+            string text = null;
+
+            if (!File.Exists(path))
+                File.Create(path);
+
+            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (var textReader = new StreamReader(fileStream))
+                {
+                    text = textReader.ReadToEnd();
+                }
+            }
+
+            return text;
+        }
+
+        private static void WriteAllText(string path, string text)
+        {
+            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (var textReader = new StreamWriter(fileStream))
+                {
+                    textReader.Write(text);
+                }
+            }
+        }
+
         /// <summary>
         /// Apaga todos os LOGS e recria usando os dados presentes atualmente no banco de dados
         /// </summary>
@@ -325,9 +460,7 @@ namespace VandaModaIntimaWpf.ViewModel
             if (File.Exists(StatementLogFile))
                 File.Delete(StatementLogFile);
 
-            List<StatementLog> statements = new List<StatementLog>();
-
-            ISession session = SessionProvider.GetSession("SincronizacaoReset");
+            ISession session = SessionProvider.GetMainSession("SincronizacaoReset");
 
             DAOContagem dAOContagem = new DAOContagem(session);
             DAOContagemProduto dAOContagemProduto = new DAOContagemProduto(session);
@@ -339,15 +472,35 @@ namespace VandaModaIntimaWpf.ViewModel
             DAORecebimentoCartao dAORecebimentoCartao = new DAORecebimentoCartao(session);
             DAOTipoContagem dAOTipoContagem = new DAOTipoContagem(session);
 
-            //var lojas = await dAOLoja.Listar<Model.Loja>();
-            //var fornecedores = await dAOFornecedor.Listar<Model.Fornecedor>();
-            //var operadoras = await dAOOperadoraCartao.Listar<Model.OperadoraCartao>();
-            //var tipocontagens = await dAOTipoContagem.Listar<Model.TipoContagem>();
-            //var marcas = await dAOMarca.Listar<Model.Marca>();
-            //var produtos = await dAOProduto.Listar<Model.Produto>();
-            //var contagens = await dAOContagem.Listar<Model.Contagem>();
-            //var contagemprodutos = await dAOContagemProduto.Listar<ContagemProduto>();
-            //var recebimentos = await dAORecebimentoCartao.Listar<Model.RecebimentoCartao>();
+            ////var lojas = await dAOLoja.Listar<Model.Loja>();
+            ////var fornecedores = await dAOFornecedor.Listar<Model.Fornecedor>();
+            ////var operadoras = await dAOOperadoraCartao.Listar<Model.OperadoraCartao>();
+            ////var tipocontagens = await dAOTipoContagem.Listar<Model.TipoContagem>();
+            ////var marcas = await dAOMarca.Listar<Model.Marca>();
+            ////var produtos = await dAOProduto.Listar<Model.Produto>();
+            ////var contagens = await dAOContagem.Listar<Model.Contagem>();
+            ////var contagemprodutos = await dAOContagemProduto.Listar<ContagemProduto>();
+            ////var recebimentos = await dAORecebimentoCartao.Listar<Model.RecebimentoCartao>();
+
+            //string l = JsonConvert.SerializeObject(lojas);
+            //string f = JsonConvert.SerializeObject(fornecedores);
+            //string o = JsonConvert.SerializeObject(operadoras);
+            //string tc = JsonConvert.SerializeObject(tipocontagens);
+            //string m = JsonConvert.SerializeObject(marcas);
+            //string p = JsonConvert.SerializeObject(produtos);
+            //string c = JsonConvert.SerializeObject(contagens);
+            //string cp = JsonConvert.SerializeObject(contagemprodutos);
+            //string r = JsonConvert.SerializeObject(recebimentos);
+
+            //File.WriteAllText("Loja.txt", l);
+            //File.WriteAllText("Fornecedor.txt", f);
+            //File.WriteAllText("OperadoraCartao.txt", o);
+            //File.WriteAllText("TipoContagem.txt", tc);
+            //File.WriteAllText("Marca.txt", m);
+            //File.WriteAllText("Produto.txt", p);
+            //File.WriteAllText("Contagem.txt", c);
+            //File.WriteAllText("ContagemProduto.txt", cp);
+            //File.WriteAllText("RecebimentoCartao.txt", r);
 
             IList<Model.Loja> Loja = JsonConvert.DeserializeObject<List<Model.Loja>>(File.ReadAllText("Loja.txt"));
             IList<Model.Fornecedor> Fornecedor = JsonConvert.DeserializeObject<List<Model.Fornecedor>>(File.ReadAllText("Fornecedor.txt"));
@@ -369,9 +522,9 @@ namespace VandaModaIntimaWpf.ViewModel
             await dAOContagemProduto.Inserir(ContagemProduto);
             await dAORecebimentoCartao.Inserir(RecebimentoCartao);
 
-            SessionProvider.FechaSession("SincronizacaoReset");
-
             WriteStatementLog();
+
+            SessionProvider.FechaMainSession("SincronizacaoReset");
         }
 
         public string TextLog
@@ -396,7 +549,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         protected virtual void Dispose(bool disposing)
         {
-            if (Disposed)
+            if (_disposed)
                 return;
 
             if (disposing && ClientSocket.Connected)
@@ -405,7 +558,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 ClientSocket.Close();
             }
 
-            Disposed = true;
+            _disposed = true;
         }
     }
 }

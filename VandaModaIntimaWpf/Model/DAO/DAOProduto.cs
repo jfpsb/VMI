@@ -111,5 +111,11 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar<Produto>(criteria);
         }
+
+        public override int GetMaxId()
+        {
+            ISQLQuery query = session.CreateSQLQuery("SELECT max(CAST(cod_barra as SIGNED)) from produto;");
+            return int.Parse(query.UniqueResult().ToString());
+        }
     }
 }
