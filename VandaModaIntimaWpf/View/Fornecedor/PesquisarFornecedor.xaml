@@ -78,7 +78,7 @@
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Fornecedores Marcados"
+                Content="{DynamicResource apagar_fornecedores_marcados}"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
@@ -93,7 +93,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="2">Pesquisar Por:</Label>
+            <Label Grid.ColumnSpan="2"
+                   Content="{DynamicResource pesquisar_por_dois_pontos}" />
             <ComboBox Grid.Column="2"
                       Width="200"
                       SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
@@ -101,7 +102,8 @@
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
             <Label Grid.Row="1"
-                   Grid.ColumnSpan="2">Pesquisa:</Label>
+                   Grid.ColumnSpan="2"
+                   Content="{DynamicResource pesquisa_dois_pontos}" />
             <TextBox x:Name="TxtPesquisa"
                      Grid.Row="1"
                      Grid.Column="2"
@@ -124,7 +126,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="CNPJ"
+                    <DataGridTextColumn Header="{DynamicResource cnpj_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Cnpj}"
                                         Width="*">
@@ -135,7 +137,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Nome"
+                    <DataGridTextColumn Header="{DynamicResource nome_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Nome}"
                                         Width="*">
@@ -146,7 +148,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Nome Fantasia"
+                    <DataGridTextColumn Header="{DynamicResource nome_fantasia_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Fantasia}"
                                         Width="*">
@@ -157,7 +159,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Telefone"
+                    <DataGridTextColumn Header="{DynamicResource telefone_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Telefone}"
                                         Width="*">
@@ -168,7 +170,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Email"
+                    <DataGridTextColumn Header="{DynamicResource email_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Email}"
                                         Width="*">

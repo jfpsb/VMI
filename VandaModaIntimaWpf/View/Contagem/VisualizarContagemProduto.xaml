@@ -17,7 +17,7 @@
                   AlternatingRowBackground="White"
                   ItemsSource="{Binding ContagemGroupBy, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Cód. De Barra"
+                <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Produto.CodBarra}">
                     <DataGridTextColumn.CellStyle>
@@ -27,7 +27,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Produto"
+                <DataGridTextColumn Header="{DynamicResource produto_header}"
                                     IsReadOnly="True"
                                     Width="*"
                                     Binding="{Binding Produto.Descricao}">
@@ -38,7 +38,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Quantidade"
+                <DataGridTextColumn Header="{DynamicResource quantidade_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Quant}">
                     <DataGridTextColumn.CellStyle>

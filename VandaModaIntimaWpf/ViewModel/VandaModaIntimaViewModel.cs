@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             ResourceDictionary resourceDictionary = new ResourceDictionary();
 
-            switch (CultureInfo.CurrentCulture.Name)
+            switch ("en-US")
             {
                 case "pt-BR":
                     resourceDictionary.Source = new Uri(@"..\Resources\Linguagem\PT-BR.xaml", UriKind.Relative);

@@ -16,7 +16,41 @@
     <System:String x:Key="inserir">Inserir</System:String>
     <System:String x:Key="quantidade_dois_pontos">Quantidade:</System:String>
     <System:String x:Key="produto_selecionado">Produto Selecionado:</System:String>
-    
+    <System:String x:Key="data_dois_pontos">Data:</System:String>
+    <System:String x:Key="finalizada_dois_pontos">Finalizada:</System:String>
+    <System:String x:Key="produto_header">Produto</System:String>
+    <System:String x:Key="salvar">Salvar</System:String>
+    <System:String x:Key="adicionar_contagem_produto">Adicionar Contagem de Produto</System:String>
+    <System:String x:Key="periodo_dois_pontos">Período:</System:String>
+    <System:String x:Key="data_header">Data</System:String>
+    <System:String x:Key="loja_header">Loja</System:String>
+    <System:String x:Key="tipo_contagem_header">Tipo Contagem</System:String>
+    <System:String x:Key="finalizada_header">Finalizada</System:String>
+    <System:String x:Key="apagar_contagens_marcadas">Apagar Contagens Marcadas</System:String>
+    <System:String x:Key="apagar_fornecedores_marcados">Apagar Fornecedores Marcados</System:String>
+    <System:String x:Key="cnpj_dois_pontos">CNPJ:</System:String>
+    <System:String x:Key="nome_dois_pontos">Nome:</System:String>
+    <System:String x:Key="nome_fantasia_dois_pontos">Nome Fantasia:</System:String>
+    <System:String x:Key="telefone_dois_pontos">Telefone:</System:String>
+    <System:String x:Key="email_dois_pontos">E-mail:</System:String>
+    <System:String x:Key="fornecedor_ja_existe_sistema">Este Fornecedor Já Existe No Sistema</System:String>
+    <System:String x:Key="loja_ja_existe_sistema">Esta Loja Já Existe No Sistema</System:String>
+    <System:String x:Key="pesquisar">Pesquisar</System:String>
+    <System:String x:Key="pesquisa_dois_pontos">Pesquisa</System:String>
+    <System:String x:Key="pesquisar_por_dois_pontos">Pesquisar Por:</System:String>
+    <System:String x:Key="cnpj_header">CNPJ</System:String>
+    <System:String x:Key="nome_header">Nome</System:String>
+    <System:String x:Key="nome_fantasia_header">Nome Fantasia</System:String>
+    <System:String x:Key="telefone_header">Telefone</System:String>
+    <System:String x:Key="email_header">E-mail</System:String>
+    <System:String x:Key="endereco_dois_pontos">Endereço:</System:String>
+    <System:String x:Key="inscricao_estadual_dois_pontos">Inscrição Estadual:</System:String>
+    <System:String x:Key="matriz_dois_pontos">Matriz:</System:String>
+
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
+    
+    <!-- Exclusivo da janela EditarFornecedor -->
+    <System:String x:Key="atualizar_consultando_receita_federal">Atualizar Consultando a Receita Federal</System:String>
+
 </ResourceDictionary>

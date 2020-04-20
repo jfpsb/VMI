@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.View.Loja
     /// </summary>
     public partial class AjudaLoja : Window
     {
+        //TODO: usar string do resources
         public AjudaLoja()
         {
             InitializeComponent();

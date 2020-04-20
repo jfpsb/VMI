@@ -50,51 +50,58 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>CNPJ:</Label>
+            <Label Content="{DynamicResource cnpj_dois_pontos}" />
             <TextBox x:Name="TxtCnpj"
                      Grid.Column="1"
                      Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="14" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
+                   Content="{DynamicResource loja_ja_existe_sistema}"
                    HorizontalAlignment="Right"
                    Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red">Este CNPJ Já Existe No Sistema</Label>
-            <Label Grid.Row="2">Nome:</Label>
+                   Foreground="Red" />
+            <Label Grid.Row="2"
+                   Content="{DynamicResource nome_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="2"
                      MaxLength="45"
                      Text="{Binding Loja.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="3">Telefone:</Label>
+            <Label Grid.Row="3"
+                   Content="{DynamicResource telefone_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="3"
                      MaxLength="100"
                      Text="{Binding Loja.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4">Endereço:</Label>
+            <Label Grid.Row="4"
+                   Content="{DynamicResource endereco_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="4"
                      MaxLength="200"
                      Text="{Binding Loja.Endereco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5">Incrição Estadual:</Label>
+            <Label Grid.Row="5"
+                   Content="{DynamicResource inscricao_estadual_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="5"
                      MaxLength="10"
                      Text="{Binding Loja.InscricaoEstadual, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="6">Matriz:</Label>
+            <Label Grid.Row="6"
+                   Content="{DynamicResource matriz_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="6"
                       DisplayMemberPath="Nome"
                       ItemsSource="{Binding Path=Matrizes}"
-                      SelectedItem="{Binding Path=Matriz, Mode=TwoWay}"                      
+                      SelectedItem="{Binding Path=Matriz, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}" />
         </Grid>
     </DockPanel>
 </Window>

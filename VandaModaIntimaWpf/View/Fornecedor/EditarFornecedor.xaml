@@ -56,43 +56,49 @@
                     HorizontalAlignment="Right"
                     Margin="0, 0, 5, 0"
                     BorderThickness="0"
-                    ToolTip="Atualizar Consultando a Receita Federal"
+                    ToolTip="{DynamicResource atualizar_consultando_receita_federal}"
                     Command="{Binding AtualizarReceitaComando}">
                 <Image Source="/Resources/Atualizar_Icon.ico" />
             </Button>
-            <Label Grid.Row="1">CNPJ:</Label>
+            <Label Grid.Row="1"
+                   Content="{DynamicResource cnpj_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="1"
                      Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False"
                      ToolTip="O Campo de CNPJ Não Pode Ser Alterado" />
-            <Label Grid.Row="2">Nome:</Label>
+            <Label Grid.Row="2"
+                   Content="{DynamicResource nome_dois_pontos}" />
             <TextBox x:Name="TxtNome"
                      Grid.Row="2"
                      Grid.Column="1"
                      Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="150" />
-            <Label Grid.Row="3">Nome Fantasia:</Label>
+            <Label Grid.Row="3"
+                   Content="{DynamicResource nome_fantasia_dois_pontos}" />
             <TextBox Grid.Row="3"
                      Grid.Column="1"
                      MaxLength="60"
                      Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="4">Telefone:</Label>
+            <Label Grid.Row="4"
+                   Content="{DynamicResource telefone_dois_pontos}" />
             <TextBox Grid.Row="4"
                      Grid.Column="1"
                      MaxLength="100"
                      Text="{Binding Fornecedor.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5">Email:</Label>
+            <Label Grid.Row="5"
+                   Content="{DynamicResource email_dois_pontos}" />
             <TextBox Grid.Row="5"
                      Grid.Column="1"
                      MaxLength="50"
                      Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="6"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource salvar}"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
-                    CommandParameter="{Binding ElementName=TelaEditarFornecedor}">Salvar</Button>
+                    CommandParameter="{Binding ElementName=TelaEditarFornecedor}" />
         </Grid>
     </DockPanel>
 </Window>
