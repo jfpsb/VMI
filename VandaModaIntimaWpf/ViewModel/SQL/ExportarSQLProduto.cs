@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
     {
         public ExportarSQLProduto() : base()
         {
-            daoEntidade = new DAOProduto(session);
+            daoEntidade = new DAOProduto(_session);
             Aliases = GetAliases(new string[] { "Codigos" });
         }
         protected override void ExportarSQLInsert(StreamWriter sw, IList<Model.Produto> entidades, string fileName)

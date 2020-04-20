@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
@@ -12,13 +13,17 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             throw new NotImplementedException();
         }
 
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarRecebimentoCartao cadastrar = new CadastrarRecebimentoCartao();
-            cadastrar.ShowDialog();
+            CadastrarRecebimentoCartaoViewModel cadastrarRecebimentoCartaoViewModel = new CadastrarRecebimentoCartaoViewModel(session);
+            CadastrarRecebimentoCartao cadastrar = new CadastrarRecebimentoCartao()
+            {
+                DataContext = cadastrarRecebimentoCartaoViewModel
+            };
+            return cadastrar.ShowDialog();
         }
 
-        public bool? AbrirEditar(RecebimentoCartaoModel entidade)
+        public bool? AbrirEditar(RecebimentoCartaoModel clone, ISession session)
         {
             return false;
         }

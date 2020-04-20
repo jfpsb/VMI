@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Fornecedor
 {
@@ -10,6 +11,11 @@ namespace VandaModaIntimaWpf.View.Fornecedor
         public CadastrarFornecedorManualmente()
         {
             InitializeComponent();
+        }
+
+        private void TelaCadastrarFornecedor_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
         }
     }
 }

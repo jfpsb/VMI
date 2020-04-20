@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -16,19 +15,19 @@ namespace VandaModaIntimaWpf.ViewModel
         private string mensagemStatusBar;
         private string imagemStatusBar;
 
+        protected bool _result = false; //Guarda se foi salvo com sucesso
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         public ICommand SalvarComando { get; set; }
-        public ACadastrarViewModel(string formId)
+        public ACadastrarViewModel()
         {
-            SalvarComando = new RelayCommand(Salvar, ValidaModel);
+            SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             SetStatusBarAguardando("Aguardando Usuário");
-            _session = SessionProvider.GetSession(formId);
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();
-        public abstract bool ValidaModel(object parameter);
+        public abstract bool ValidacaoSalvar(object parameter);
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
 
         public virtual async Task SetStatusBarSucesso(string mensagem)
@@ -38,19 +37,24 @@ namespace VandaModaIntimaWpf.ViewModel
             await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
             SetStatusBarAguardando("Aguardando Usuário");
         }
-
         public void SetStatusBarAguardando(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMAGUARDANDO;
         }
-
         public virtual void SetStatusBarErro(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMERRO;
         }
-
+        /// <summary>
+        /// Método utilizado nas telas de ediçao para saber se houve edição.
+        /// </summary>
+        /// <returns>True se a entidade foi editada, senão, False</returns>
+        public bool ResultadoSalvar()
+        {
+            return _result;
+        }
         public string MensagemStatusBar
         {
             get { return mensagemStatusBar; }
@@ -60,7 +64,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("MensagemStatusBar");
             }
         }
-
         public string ImagemStatusBar
         {
             get { return imagemStatusBar; }

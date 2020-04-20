@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -13,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private DateTime dataEscolhida = DateTime.Now;
         private int matrizComboBoxIndex;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
-        public PesquisarRecebimentoViewModel() : base("RecebimentoCartao")
+        public PesquisarRecebimentoViewModel()
         {
             daoEntidade = new DAORecebimentoCartao(_session);
             daoLoja = new DAOLoja(_session);
@@ -36,7 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel("SELECIONE UMA MATRIZ"));
+            Matrizes.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
         }
         public override bool IsEditable(object parameter)
         {

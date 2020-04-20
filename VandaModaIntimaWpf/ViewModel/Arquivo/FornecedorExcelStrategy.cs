@@ -2,7 +2,6 @@
 using NHibernate;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -10,7 +9,13 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class FornecedorExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession("Fornecedor");
+        private ISession _session;
+
+        public FornecedorExcelStrategy(ISession session)
+        {
+            _session = session;
+        }
+
         public void ConfiguraColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();

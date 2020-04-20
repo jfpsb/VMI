@@ -21,8 +21,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         /// </summary>        
         public static ISessionFactory MainSessionFactory = null;
 
-        private static Dictionary<string, ISession> _sessions = new Dictionary<string, ISession>();
-
         /// <summary>
         /// Método responsável pela criação da Session Factory.
         /// </summary>
@@ -34,21 +32,14 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             return MainConfiguration.BuildSessionFactory();
         }
 
-        public static ISession GetSession(string formId)
+        public static ISession GetSession()
         {
             if (MainSessionFactory == null)
             {
                 MainSessionFactory = BuildSessionFactory();
             }
 
-            if (_sessions.ContainsKey(formId))
-            {
-                return _sessions[formId];
-            }
-
             ISession _session = MainSessionFactory.OpenSession();
-
-            _sessions.Add(formId, _session);
 
             return _session;
         }
@@ -62,14 +53,13 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             }
         }
 
-        public static void FechaSession(string formId)
+        public static void FechaSession(ISession session)
         {
-            if (_sessions.ContainsKey(formId))
+            if (session.IsOpen)
             {
-                _sessions[formId]?.Dispose();
-                _sessions.Remove(formId);
+                session?.Dispose();
             }
-            Console.WriteLine($"Sessão Fechada: {formId}");
+            Console.WriteLine($"Sessão Fechada");
         }
     }
 }

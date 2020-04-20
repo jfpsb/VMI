@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Loja
 {
@@ -10,6 +11,11 @@ namespace VandaModaIntimaWpf.View.Loja
         public CadastrarLoja()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
         }
     }
 }

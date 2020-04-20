@@ -1,23 +1,24 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.IO;
 using System.Net;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class EditarFornecedorViewModel : CadastrarFornecedorManualmenteViewModel, IEditarViewModel
+    class EditarFornecedorViewModel : CadastrarFornecedorManualmenteViewModel
     {
-        private bool IsEditted = false;
         public ICommand AtualizarReceitaComando { get; set; }
-        public EditarFornecedorViewModel() : base()
+        public EditarFornecedorViewModel(ISession session) : base(session)
         {
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
         }
         public override async void Salvar(object parameter)
         {
-            var result = IsEditted = await daoFornecedor.Atualizar(Fornecedor);
+            var result = await daoFornecedor.Merge(Fornecedor);
 
             if (result)
             {
@@ -28,14 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 SetStatusBarErro("Erro ao Atualizar Fornecedor");
             }
         }
-        public bool EdicaoComSucesso()
-        {
-            return IsEditted;
-        }
-        public async void PassaId(object Id)
-        {
-            Fornecedor = await SessionProvider.GetSession("Fornecedor").LoadAsync<FornecedorModel>(Id);
-        }
+
         private async void AtualizarReceita(object parameter)
         {
             SetStatusBarAguardando("Pesquisando CNPJ na Receita Federal. Aguarde.");
@@ -49,6 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 Fornecedor.Telefone = result.Telefone;
                 // Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Fornecedor");
+
                 await SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");
             }
             catch (WebException we)

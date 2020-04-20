@@ -13,7 +13,8 @@
                      Height="675"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
-                     Closing="Pesquisar_Closing">
+                     Closing="Pesquisar_Closing"
+                     FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarLojaViewModel />
     </view:APesquisarView.DataContext>
@@ -87,7 +88,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="75*" />
-                <RowDefinition Height="394*"/>
+                <RowDefinition Height="394*" />
             </Grid.RowDefinitions>
             <Label>Pesquisar Por:</Label>
             <ComboBox Grid.Column="1"
@@ -97,10 +98,10 @@
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
             <Label Grid.Row="1">Pesquisa:</Label>
-            <TextBox Grid.Row="1"
+            <TextBox x:Name="TxtPesquisa"
+                     Grid.Row="1"
                      Grid.Column="1"
-                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                     Name="TxtPesquisa" />
+                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <DataGrid Grid.Row="2"
                       Grid.ColumnSpan="2"
                       Grid.RowSpan="2"

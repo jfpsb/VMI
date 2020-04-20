@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using NHibernate;
 using System.IO;
 using System.Net;
 using System.Windows.Input;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
@@ -10,8 +9,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornecedorOnlineViewModel()
+        public CadastrarFornecedorOnlineViewModel(ISession session) : base(session)
         {
+            _session = session;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Fornecedor.Cnpj?.Length == 14; });
         }
 

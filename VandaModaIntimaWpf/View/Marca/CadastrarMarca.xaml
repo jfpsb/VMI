@@ -10,10 +10,9 @@
         Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/Marca_Icon.ico">
-    <Window.DataContext>
-        <ViewModel:CadastrarMarcaViewModel />
-    </Window.DataContext>
+        Icon="/Resources/Marca_Icon.ico"
+        FocusManager.FocusedElement="{Binding ElementName=TxtMarca}"
+        Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -47,7 +46,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label>Nome:</Label>
-            <TextBox Grid.Column="1"
+            <TextBox x:Name="TxtMarca"
+                     Grid.Column="1"
                      Text="{Binding Marca.Nome, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="25" />
             <Label Grid.Row="1"

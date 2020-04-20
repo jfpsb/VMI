@@ -13,7 +13,8 @@
                      Width="800"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Contagem_Icon.ico"
-                     Closing="Pesquisar_Closing">
+                     Closing="Pesquisar_Closing"
+                     FocusManager.FocusedElement="{Binding ElementName=CmbLoja}">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarContagemViewModel />
     </view:APesquisarView.DataContext>
@@ -93,7 +94,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="3">Loja:</Label>
-            <ComboBox Grid.Column="2"
+            <ComboBox x:Name="CmbLoja"
+                      Grid.Column="2"
                       Width="200"
                       SelectedItem="{Binding Loja}"
                       ItemsSource="{Binding Lojas}"

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NHibernate;
+using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.SQL;
 using VandaModaIntimaWpf.ViewModel.SQL;
@@ -14,15 +15,30 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ajudaProduto.ShowDialog();
         }
 
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarProduto cadastrar = new CadastrarProduto();
-            cadastrar.ShowDialog();
+            CadastrarProdutoViewModel cadastrarProdutoViewModel = new CadastrarProdutoViewModel(session);
+
+            CadastrarProduto cadastrar = new CadastrarProduto()
+            {
+                DataContext = cadastrarProdutoViewModel
+            };
+
+            return cadastrar.ShowDialog();
         }
 
-        public bool? AbrirEditar(ProdutoModel produto)
+        public bool? AbrirEditar(ProdutoModel clone, ISession session)
         {
-            EditarProduto editar = new EditarProduto(produto.CodBarra);
+            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(session)
+            {
+                Produto = clone
+            };
+
+            EditarProduto editar = new EditarProduto()
+            {
+                DataContext = editarProdutoViewModel
+            };
+
             return editar.ShowDialog();
         }
 

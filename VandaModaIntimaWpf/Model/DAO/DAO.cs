@@ -118,7 +118,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
-
                     return true;
                 }
                 catch (Exception ex)
@@ -130,6 +129,27 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
+
+        public virtual async Task<bool> Merge(object objeto)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    await session.MergeAsync(objeto);
+                    await transacao.CommitAsync();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Console.WriteLine("ERRO AO FAZER MERGE >>> " + ex.Message);
+                }
+
+                return false;
+            }
+        }
+
         public virtual async Task<bool> Deletar(object objeto)
         {
             using (var transacao = session.BeginTransaction())

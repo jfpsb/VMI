@@ -4,8 +4,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Contagem"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Contagem"
         mc:Ignorable="d"
         Title="Editar Contagem"
         Height="475"
@@ -13,10 +11,8 @@
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
-    <Window.DataContext>
-        <ViewModel:EditarContagemViewModel />
-    </Window.DataContext>
+        FocusManager.FocusedElement="{Binding ElementName=CmbTipoContagem}"
+        Closing="TelaEditarContagem_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -59,23 +55,21 @@
                      IsReadOnly="True"
                      HorizontalAlignment="Stretch" />
             <Label Grid.Row="1">Loja:</Label>
-            <ComboBox Grid.Column="1"
-                      Grid.Row="1"
-                      SelectedItem="{Binding Contagem.Loja}"
-                      ItemsSource="{Binding Lojas}"
-                      DisplayMemberPath="Nome"
-                      HorizontalAlignment="Stretch"
-                      SelectedIndex="0"
-                      Margin="5,5,0,5" />
+            <TextBox Grid.Column="1"
+                     Grid.Row="1"
+                     Text="{Binding Contagem.Loja.Cnpj}"
+                     IsReadOnly="True"
+                     HorizontalAlignment="Stretch" />
             <Label Grid.Row="2">Tipo de Contagem:</Label>
-            <ComboBox Grid.Column="1"
+            <ComboBox x:Name="CmbTipoContagem"
+                      Grid.Column="1"
                       Grid.Row="2"
                       SelectedItem="{Binding Contagem.TipoContagem}"
                       ItemsSource="{Binding TiposContagem}"
                       DisplayMemberPath="Nome"
                       HorizontalAlignment="Stretch"
                       SelectedIndex="0"
-                      Margin="5,5,0,5" />
+                      Margin="5" />
             <Label Grid.Row="3">Finalizada:</Label>
             <CheckBox Grid.Row="3"
                       Grid.Column="1"

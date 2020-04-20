@@ -1,19 +1,22 @@
-﻿using System;
+﻿using NHibernate;
+using System.Windows;
+using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
 {
-    public class EditarLojaViewModel : CadastrarLojaViewModel, IEditarViewModel
+    public class EditarLojaViewModel : CadastrarLojaViewModel
     {
-        private bool IsEditted = false;
+        public EditarLojaViewModel(ISession session) : base(session) { }
+
         public override async void Salvar(object parameter)
         {
-            if (Loja.Matriz != null && Loja.Matriz.Nome.Equals("SELECIONE UMA LOJA"))
+            if (Loja.Matriz != null && Loja.Matriz.Nome.Equals(StringResource.GetString("matriz_nao_selecionada")))
                 Loja.Matriz = null;
 
-            var result = IsEditted = await daoLoja.Atualizar(Loja);
+            _result = await daoLoja.Merge(Loja);
 
-            if (result)
+            if (_result)
             {
                 await SetStatusBarSucesso($"Loja {Loja.Cnpj} Atualizada Com Sucesso");
             }
@@ -21,16 +24,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             {
                 SetStatusBarErro("Erro ao Atualizar Loja");
             }
-        }
-
-        public async void PassaId(object Id)
-        {
-            Loja = await _session.LoadAsync<LojaModel>(Id);
-        }
-
-        public bool EdicaoComSucesso()
-        {
-            return IsEditted;
         }
 
         public new LojaModel Loja
@@ -50,7 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             {
                 if (Loja.Matriz == null)
                 {
-                    Loja.Matriz = new LojaModel("SELECIONE UMA LOJA");
+                    Loja.Matriz = new LojaModel(StringResource.GetString("matriz_nao_selecionada"));
                 }
 
                 return Loja.Matriz;

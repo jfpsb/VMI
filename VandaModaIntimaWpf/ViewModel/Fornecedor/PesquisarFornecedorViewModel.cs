@@ -17,10 +17,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             Nome,
             Email
         }
-        public PesquisarFornecedorViewModel() : base("Fornecedor")
+        public PesquisarFornecedorViewModel()
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
-            excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy());
+            excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy(_session));
             pesquisarViewModelStrategy = new PesquisarFornecedorViewModelStrategy();
             daoEntidade = new DAOFornecedor(_session);
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
@@ -29,8 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         private void AbrirCadastrarOnline(object p)
         {
-            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline();
-            cadastrarFornecedorOnline.ShowDialog();
+            ((PesquisarFornecedorViewModelStrategy)pesquisarViewModelStrategy).AbrirCadastrarOnline(_session);
             OnPropertyChanged("TermoPesquisa");
         }
         public override async void GetItems(string termo)

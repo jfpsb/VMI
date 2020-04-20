@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NHibernate;
+using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -8,8 +9,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
     {
         protected DAOMarca daoMarca;
         private MarcaModel marcaModel;
-        public CadastrarMarcaViewModel() : base("Marca")
+        public CadastrarMarcaViewModel(ISession session)
         {
+            _session = session;
             daoMarca = new DAOMarca(_session);
             marcaModel = new MarcaModel();
         }
@@ -25,9 +27,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override async void Salvar(object parameter)
         {
-            var result = await daoMarca.Inserir(marcaModel);
+            _result = await daoMarca.Inserir(marcaModel);
 
-            if (result)
+            if (_result)
             {
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Marca Cadastrada Com Sucesso");
@@ -65,9 +67,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             Marca.Nome = string.Empty;
         }
 
-        public override bool ValidaModel(object parameter)
+        public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Marca.Nome))
+            if (string.IsNullOrEmpty(Marca.Nome.Trim()))
                 return false;
 
             return true;

@@ -12,10 +12,8 @@
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
-    <Window.DataContext>
-        <ViewModel:EditarProdutoViewModel />
-    </Window.DataContext>
+        FocusManager.FocusedElement="{Binding ElementName=TxtDescricao}"
+        Closing="TelaEditarProduto_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -58,7 +56,8 @@
                      Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False" />
             <Label Grid.Row="2">Descrição:</Label>
-            <TextBox Grid.Column="1"
+            <TextBox x:Name="TxtDescricao"
+                     Grid.Column="1"
                      Grid.Row="2"
                      Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      MaxLength="100" />
@@ -77,15 +76,13 @@
                       Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding FornecedorComboBox, Mode=TwoWay}"
-                      SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}" />
+                      SelectedItem="{Binding FornecedorComboBox, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="6">Marca:</Label>
             <ComboBox Grid.Column="1"
                       Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding MarcaComboBox, Mode=TwoWay}"
-                      SelectedIndex="{Binding Path=MarcaComboBoxIndex, Mode=TwoWay}" />
+                      SelectedItem="{Binding MarcaComboBox, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Style="{StaticResource BotaoCadastrar}"

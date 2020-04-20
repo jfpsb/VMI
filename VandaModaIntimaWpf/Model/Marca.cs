@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model
         /// <summary>
         /// Construtor para criar placeholder de Marca para comboboxes
         /// </summary>
-        /// <param name="nome">SELECIONE UMA MARCA</param>
+        /// <param name="nome">Placeholder para nome</param>
         public Marca(string nome)
         {
             _nome = nome;

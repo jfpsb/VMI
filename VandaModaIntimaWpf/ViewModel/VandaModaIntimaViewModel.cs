@@ -1,5 +1,9 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Loja;
@@ -25,6 +29,23 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrirTelaLojaComando = new RelayCommand(AbrirTelaLoja);
             AbrirTelaRecebimentoComando = new RelayCommand(AbrirTelaRecebimento);
             AbrirTelaContagemComando = new RelayCommand(AbrirTelaContagem);
+
+            ResourceDictionary resourceDictionary = new ResourceDictionary();
+
+            switch (CultureInfo.CurrentCulture.Name)
+            {
+                case "pt-BR":
+                    resourceDictionary.Source = new Uri(@"..\View\Linguagem\PT-BR.xaml", UriKind.Relative);
+                    break;
+                case "en-US":
+                    //TODO: dicionario ingles
+                    break;
+                default:
+                    //TODO: dicionario ingles
+                    break;
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
         public void AbrirTelaProduto(object parameter)
         {

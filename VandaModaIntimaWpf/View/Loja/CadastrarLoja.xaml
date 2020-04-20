@@ -10,10 +10,9 @@
         Width="500"
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <ViewModel:CadastrarLojaViewModel />
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
+        Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -52,7 +51,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label>CNPJ:</Label>
-            <TextBox Grid.Column="1"
+            <TextBox x:Name="TxtCnpj"
+                     Grid.Column="1"
                      Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="14" />
             <Label Grid.Row="1"

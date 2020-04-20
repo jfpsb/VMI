@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.SQL;
@@ -13,15 +14,25 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             throw new NotImplementedException();
         }
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente();
-            cadastrar.ShowDialog();
+            CadastrarFornecedorManualmenteViewModel cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteViewModel(session);
+            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente() { DataContext = cadastrarFornecedorManualmenteViewModel };
+            return cadastrar.ShowDialog();
         }
-        public bool? AbrirEditar(FornecedorModel entidade)
+        public bool? AbrirEditar(FornecedorModel clone, ISession session)
         {
-            EditarFornecedor editar = new EditarFornecedor(entidade.Cnpj);
-            return editar.ShowDialog();
+            EditarFornecedorViewModel viewModel = new EditarFornecedorViewModel(session)
+            {
+                Fornecedor = clone
+            };
+
+            EditarFornecedor editarFornecedor = new EditarFornecedor()
+            {
+                DataContext = viewModel
+            };
+
+            return editarFornecedor.ShowDialog();
         }
 
         public void AbrirExportarSQL(object parameter, IList<FornecedorModel> entidades)
@@ -73,6 +84,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public string TelaApagarCaption()
         {
             return "Apagar Fornecedor(es)";
+        }
+
+        public void AbrirCadastrarOnline(ISession session)
+        {
+            CadastrarFornecedorOnlineViewModel viewModel = new CadastrarFornecedorOnlineViewModel(session);
+            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline();
+            cadastrarFornecedorOnline.DataContext = viewModel;
+            cadastrarFornecedorOnline.ShowDialog();
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
@@ -14,15 +16,16 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         private int matrizComboBoxIndex = 0;
         private LojaModel _matriz;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
-        public CadastrarLojaViewModel() : base("Loja")
+        public CadastrarLojaViewModel(ISession session)
         {
+            _session = session;
             daoLoja = new DAOLoja(_session);
             lojaModel = new LojaModel();
             lojaModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetMatrizes();
             Matriz = Matrizes[0];
         }
-        public override bool ValidaModel(object parameter)
+        public override bool ValidacaoSalvar(object parameter)
         {
             if (string.IsNullOrEmpty(Loja.Cnpj) || string.IsNullOrEmpty(Loja.Nome))
             {
@@ -34,9 +37,9 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override async void Salvar(object parameter)
         {
-            var result = await daoLoja.Inserir(Loja);
+            _result = await daoLoja.Inserir(Loja);
 
-            if (result)
+            if (_result)
             {
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Loja Cadastrada Com Sucesso");
@@ -65,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         private async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel("SELECIONE A MATRIZ"));
+            Matrizes.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

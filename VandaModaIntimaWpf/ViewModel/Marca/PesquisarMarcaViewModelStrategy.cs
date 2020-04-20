@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using VandaModaIntimaWpf.View.Marca;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -13,16 +13,19 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             throw new NotImplementedException();
         }
 
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarMarca cadastrarMarca = new CadastrarMarca();
-            cadastrarMarca.ShowDialog();
+            CadastrarMarcaViewModel cadastrarMarcaViewModel = new CadastrarMarcaViewModel(session);
+            CadastrarMarca cadastrarMarca = new CadastrarMarca()
+            {
+                DataContext = cadastrarMarcaViewModel
+            };
+            return cadastrarMarca.ShowDialog();
         }
 
-        public bool? AbrirEditar(MarcaModel entidade)
+        public bool? AbrirEditar(MarcaModel clone, ISession session)
         {
-            EditarMarca editar = new EditarMarca(entidade.Nome);
-            return editar.ShowDialog();
+            return false;
         }
         public void AbrirExportarSQL(object parameter, IList<MarcaModel> entidades)
         {

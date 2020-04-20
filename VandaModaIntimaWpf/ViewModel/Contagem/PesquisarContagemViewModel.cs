@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private DateTime _dataFinal;
         private LojaModel _loja;
 
-        public PesquisarContagemViewModel() : base("Contagem")
+        public PesquisarContagemViewModel()
         {
             daoLoja = new DAOLoja(_session);
             daoEntidade = new DAOContagem(_session);

@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
     {
         public ExportarSQLFornecedor() : base()
         {
-            daoEntidade = new DAOFornecedor(session);
+            daoEntidade = new DAOFornecedor(_session);
             Aliases = GetAliases(new string[] { "Produtos" });
         }
         protected override void ExportarSQLInsert(StreamWriter sw, IList<Model.Fornecedor> entidades, string fileName)

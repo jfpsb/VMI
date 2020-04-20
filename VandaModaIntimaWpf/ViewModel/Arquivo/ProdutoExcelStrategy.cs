@@ -11,7 +11,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     class ProdutoExcelStrategy : IExcelStrategy
     {
-        private ISession _session = SessionProvider.GetSession("Produto");
+        private ISession _session;
+
+        public ProdutoExcelStrategy(ISession session)
+        {
+            _session = session;
+        }
 
         public void EscreveDados(Worksheet Worksheet, object l)
         {

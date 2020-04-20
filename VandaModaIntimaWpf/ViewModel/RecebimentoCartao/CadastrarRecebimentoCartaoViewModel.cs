@@ -1,14 +1,17 @@
 ﻿using FinancerData;
 using Microsoft.Win32;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using OperadoraCartaoModel = VandaModaIntimaWpf.Model.OperadoraCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
@@ -29,8 +32,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private double totalOperadora;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoCartaoViewModel() : base("RecebimentoCartao")
+        public CadastrarRecebimentoCartaoViewModel(ISession session)
         {
+            _session = session;
             daoRecebimentoCartao = new DAORecebimentoCartao(_session);
             daoOperadoraCartao = new DAOOperadoraCartao(_session);
             daoLoja = new DAOLoja(_session);
@@ -64,9 +68,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public override async void Salvar(object parameter)
         {
-            var result = await daoRecebimentoCartao.Inserir(Recebimentos);
+            _result = await daoRecebimentoCartao.Inserir(Recebimentos);
 
-            if (result)
+            if (_result)
             {
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Recebimento Cadastrado Com Sucesso");
@@ -76,7 +80,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             SetStatusBarErro("Erro ao Cadastrar Recebimento");
         }
 
-        public override bool ValidaModel(object parameter)
+        public override bool ValidacaoSalvar(object parameter)
         {
             if (MatrizComboBoxIndex == 0 || Recebimentos.Count == 0)
             {
@@ -201,7 +205,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel("SELECIONE UMA MATRIZ"));
+            Matrizes.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
         }
         private void CalculaTotais()
         {

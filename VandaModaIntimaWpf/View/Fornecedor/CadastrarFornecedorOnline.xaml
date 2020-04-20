@@ -11,10 +11,9 @@
         Width="500"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <ViewModel:CadastrarFornecedorOnlineViewModel />
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
+        Closing="TelaCadastrarFornecedor_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -54,6 +53,7 @@
             </Grid.RowDefinitions>
             <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
+                     x:Name="TxtCnpj"
                      Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="14" />
             <Label Grid.Row="1"

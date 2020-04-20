@@ -7,10 +7,10 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class PesquisarMarcaViewModel : APesquisarViewModel<MarcaModel>
     {
-        public PesquisarMarcaViewModel() : base("Marca")
+        public PesquisarMarcaViewModel()
         {
             daoEntidade = new DAOMarca(_session);
-            excelStrategy = new ExcelStrategy(new MarcaExcelStrategy());
+            excelStrategy = new ExcelStrategy(new MarcaExcelStrategy(_session));
             pesquisarViewModelStrategy = new PesquisarMarcaViewModelStrategy();
             OnPropertyChanged("TermoPesquisa");
         }

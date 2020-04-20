@@ -11,10 +11,8 @@
         Height="500"
         Width="850"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/Credit_Card_Icon.ico">
-    <Window.DataContext>
-        <ViewModel:CadastrarRecebimentoCartaoViewModel />
-    </Window.DataContext>
+        Icon="/Resources/Credit_Card_Icon.ico"
+        Closing="Window_Closing">
     <Window.Resources>
         <ViewModel:FormatoDoubleDataGrid x:Key="formatoDoubleDataGrid" />
     </Window.Resources>
@@ -67,7 +65,8 @@
                    Grid.Row="2">Arquivo .OFX:</Label>
             <Button Grid.Column="1"
                     Grid.Row="2"
-                    Command="{Binding AbrirOfxComando}">Selecione O Arquivo</Button>
+                    Command="{Binding AbrirOfxComando}"
+                    Content="{DynamicResource selecione_o_arquivo}" />
             <DataGrid Grid.Row="3"
                       Grid.ColumnSpan="2"
                       AutoGenerateColumns="False"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Loja;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
@@ -13,15 +14,28 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             ajudaLoja.ShowDialog();
         }
 
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarLoja cadastrar = new CadastrarLoja();
-            cadastrar.ShowDialog();
+            CadastrarLojaViewModel cadastrarLojaViewModel = new CadastrarLojaViewModel(session);
+            CadastrarLoja cadastrar = new CadastrarLoja()
+            {
+                DataContext = cadastrarLojaViewModel
+            };
+            return cadastrar.ShowDialog();
         }
 
-        public bool? AbrirEditar(LojaModel entidade)
+        public bool? AbrirEditar(LojaModel clone, ISession session)
         {
-            EditarLoja editar = new EditarLoja(entidade.Cnpj);
+            EditarLojaViewModel editarLojaViewModel = new EditarLojaViewModel(session)
+            {
+                Loja = clone
+            };
+
+            EditarLoja editar = new EditarLoja()
+            {
+                DataContext = editarLojaViewModel
+            };
+
             return editar.ShowDialog();
         }
 

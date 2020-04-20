@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Cnpj,
             Nome
         }
-        public PesquisarLojaViewModel() : base("Loja")
+        public PesquisarLojaViewModel()
         {
             daoEntidade = new DAOLoja(_session);
             excelStrategy = new ExcelStrategy(new LojaExcelStrategy());

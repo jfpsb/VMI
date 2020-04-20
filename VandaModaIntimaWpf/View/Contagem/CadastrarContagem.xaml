@@ -11,10 +11,9 @@
         Width="450"
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
-        WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <ViewModel:CadastrarContagemViewModel />
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=CmbLoja}"
+        Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -48,7 +47,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label>Loja:</Label>
-            <ComboBox Grid.Column="1"
+            <ComboBox x:Name="CmbLoja"
+                      Grid.Column="1"
                       SelectedItem="{Binding Contagem.Loja}"
                       ItemsSource="{Binding Lojas}"
                       DisplayMemberPath="Nome"

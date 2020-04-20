@@ -27,7 +27,6 @@ namespace VandaModaIntimaWpf.ViewModel
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
-        private string formId;
         private string imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
@@ -48,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ImportarExcelComando { get; set; }
         public ICommand CopiarValorCelulaComando { get; set; }
         public ICommand ExportarSQLComando { get; set; }
-        public APesquisarViewModel(string formId)
+        public APesquisarViewModel()
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox);
@@ -61,8 +60,7 @@ namespace VandaModaIntimaWpf.ViewModel
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
 
-            this.formId = formId;
-            _session = SessionProvider.GetSession(formId);
+            _session = SessionProvider.GetSession();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
@@ -72,8 +70,12 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract bool IsEditable(object parameter);
         public void AbrirCadastrar(object parameter)
         {
-            pesquisarViewModelStrategy.AbrirCadastrar(parameter);
-            OnPropertyChanged("TermoPesquisa");
+            var result = pesquisarViewModelStrategy.AbrirCadastrar(parameter, _session);
+            //Se houve cadastro
+            if (result.HasValue && result == true)
+            {
+                OnPropertyChanged("TermoPesquisa");
+            }
         }
         public async void AbrirApagarMsgBox(object parameter)
         {
@@ -98,18 +100,8 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirEditar(object parameter)
         {
-            E backup = (E)EntidadeSelecionada.Entidade.Clone();
-
-            var result = pesquisarViewModelStrategy.AbrirEditar(backup);
-
-            if (result.HasValue && result == true)
-            {
-                OnPropertyChanged("TermoPesquisa");
-            }
-            else
-            {
-                pesquisarViewModelStrategy.RestauraEntidade(EntidadeSelecionada.Entidade, backup);
-            }
+            E clone = (E)EntidadeSelecionada.Entidade.Clone();
+            pesquisarViewModelStrategy.AbrirEditar(clone, _session);
         }
         public void ChecarItensMarcados(object parameter)
         {
@@ -297,7 +289,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void DisposeSession()
         {
-            SessionProvider.FechaSession(formId);
+            SessionProvider.FechaSession(_session);
         }
 
         bool IPesquisarViewModel.IsThreadLocked()

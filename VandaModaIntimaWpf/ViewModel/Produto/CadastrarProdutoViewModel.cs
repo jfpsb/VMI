@@ -1,8 +1,10 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -19,8 +21,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private int marcaComboBoxIndex = 0;
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
-        public CadastrarProdutoViewModel() : base("Produto")
+        public CadastrarProdutoViewModel(ISession session)
         {
+            _session = session;
             daoProduto = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);
             daoFornecedor = new DAOFornecedor(_session);
@@ -31,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
         }
-        public override bool ValidaModel(object parameter)
+        public override bool ValidacaoSalvar(object parameter)
         {
             if (string.IsNullOrEmpty(Produto.CodBarra) || string.IsNullOrEmpty(Produto.Descricao))
             {
@@ -57,9 +60,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (MarcaComboBoxIndex == 0)
                 Produto.Marca = null;
 
-            var result = await daoProduto.Inserir(produtoModel);
+            _result = await daoProduto.Inserir(produtoModel);
 
-            if (result)
+            if (_result)
             {
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Produto Cadastrado Com Sucesso");
@@ -67,8 +70,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
 
             SetStatusBarErro("Erro ao Cadastrar Produto");
-
-            Produto = new ProdutoModel();
         }
 
         public override void ResetaPropriedades()
@@ -93,13 +94,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private async void GetFornecedores()
         {
             Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar<FornecedorModel>());
-            Fornecedores.Insert(0, new FornecedorModel("SELECIONE O FORNECEDOR"));
+            Fornecedores.Insert(0, new FornecedorModel(StringResource.GetString("fornecedor_nao_selecionado")));
         }
 
         private async void GetMarcas()
         {
             Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar<MarcaModel>());
-            Marcas.Insert(0, new MarcaModel("SELECIONE A MARCA"));
+            Marcas.Insert(0, new MarcaModel(StringResource.GetString("marca_nao_selecionada")));
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

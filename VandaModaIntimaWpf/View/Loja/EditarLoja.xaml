@@ -12,10 +12,8 @@
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
-    <Window.DataContext>
-        <ViewModel:EditarLojaViewModel />
-    </Window.DataContext>
+        FocusManager.FocusedElement="{Binding ElementName=TxtNome}"
+        Closing="TelaEditarLoja_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -55,13 +53,10 @@
             </Grid.RowDefinitions>
             <Label>CNPJ:</Label>
             <TextBox Grid.Column="1"
+                     IsReadOnly="True"
                      Text="{Binding Loja.Cnpj, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red">Este CNPJ Já Existe No Sistema</Label>
-            <Label Grid.Row="2">Nome:</Label>
+            <Label x:Name="TxtNome"
+                   Grid.Row="2">Nome:</Label>
             <TextBox Grid.Column="1"
                      Grid.Row="2"
                      MaxLength="45"

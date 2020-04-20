@@ -3,17 +3,16 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.View.Contagem;
-using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 using ContagemProdutoModel = VandaModaIntimaWpf.Model.ContagemProduto;
 using VandaModaIntimaWpf.View.Produto;
+using NHibernate;
+using VandaModaIntimaWpf.ViewModel.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
-    class EditarContagemViewModel : CadastrarContagemViewModel, IEditarViewModel
+    class EditarContagemViewModel : CadastrarContagemViewModel
     {
-        private bool IsEditted = false;
         private ProdutoModel _produto;
         private ContagemProdutoModel _contagemProduto;
         private string _pesquisaProdutoTxtBox;
@@ -30,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemViewModel() : base()
+        public EditarContagemViewModel(ISession session) : base(session)
         {
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);
             InserirContagemComando = new RelayCommand(InserirContagem);
@@ -38,15 +37,16 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             AbrirEditarProdutoComando = new RelayCommand(AbrirEditarProduto);
             _daoProduto = new DAOProduto(_session);
             _daoContagemProduto = new DAOContagemProduto(_session);
+            Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
             Quantidade = 1;
             GetProdutos();
         }
 
         public override async void Salvar(object parameter)
         {
-            var result = IsEditted = await _daoContagem.Atualizar(Contagem);
+            _result = await _daoContagem.Merge(Contagem);
 
-            if (result)
+            if (_result)
             {
                 await SetStatusBarSucesso("Contagem Atualizada Com Sucesso");
             }
@@ -56,34 +56,24 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             }
         }
 
-        public bool EdicaoComSucesso()
-        {
-            return IsEditted;
-        }
-
-        public async void PassaId(object Id)
-        {
-            Contagem = await _session.LoadAsync<ContagemModel>(Id);
-            Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
-        }
-
         private void AbrirAdicionarContagemProduto(object parameter)
         {
-            AdicionarContagemProduto adicionarContagemProduto = new AdicionarContagemProduto();
-            adicionarContagemProduto.DataContext = this;
-            adicionarContagemProduto.ShowDialog();
+            EditarContagemViewModelJanela.AbrirAdicionarContagemProduto(this);
         }
 
-        private void InserirContagem(object parameter)
+        private async void InserirContagem(object parameter)
         {
             ContagemProdutoModel contagemProduto = new ContagemProdutoModel
             {
-                Id = DateTime.Now.Ticks, Contagem = Contagem, Produto = Produto, Quant = Quantidade
+                Id = DateTime.Now.Ticks,
+                Contagem = Contagem,
+                Produto = Produto,
+                Quant = Quantidade
             };
 
-            var result = _daoContagemProduto.Inserir(contagemProduto);
+            _result = await _daoContagemProduto.Inserir(contagemProduto);
 
-            if (result.Result)
+            if (_result)
             {
                 _session.Refresh(Contagem);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
@@ -93,11 +83,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             }
         }
 
-        private void RemoverContagemProduto(object p)
+        private async void RemoverContagemProduto(object parameter)
         {
-            var result = _daoContagemProduto.Deletar(ContagemProduto);
+            _result = await _daoContagemProduto.Deletar(ContagemProduto);
 
-            if (result.Result)
+            if (_result)
             {
                 _session.Refresh(Contagem);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
@@ -106,7 +96,13 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirEditarProduto(object p)
         {
-            EditarProduto editar = new EditarProduto(ContagemProduto.Produto.CodBarra);
+            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(_session)
+            {
+                Produto = ContagemProduto.Produto
+            };
+
+            EditarProduto editar = new EditarProduto() { DataContext = editarProdutoViewModel };
+
             editar.ShowDialog();
         }
 
@@ -117,11 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public ProdutoModel Produto
         {
-            get
-            {
-                return _produto;
-            }
-
+            get => _produto;
             set
             {
                 _produto = value;
@@ -131,11 +123,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public string PesquisaProdutoTxtBox
         {
-            get
-            {
-                return _pesquisaProdutoTxtBox;
-            }
-
+            get => _pesquisaProdutoTxtBox;
             set
             {
                 _pesquisaProdutoTxtBox = value;
@@ -147,11 +135,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public ObservableCollection<ProdutoModel> Produtos
         {
-            get
-            {
-                return _produtos;
-            }
-
+            get => _produtos;
             set
             {
                 _produtos = value;
@@ -161,11 +145,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public int Quantidade
         {
-            get
-            {
-                return _quantidade;
-            }
-
+            get => _quantidade;
             set
             {
                 _quantidade = value;

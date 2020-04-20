@@ -6,20 +6,11 @@ namespace VandaModaIntimaWpf.View.Produto
     /// <summary>
     /// Interaction logic for EditarProduto.xaml
     /// </summary>
-    public partial class EditarProduto : Window, ICloseable, IResultReturnable
+    public partial class EditarProduto : Window, ICloseable
     {
         public EditarProduto()
         {
             InitializeComponent();
-        }
-        public EditarProduto(object Id)
-        {
-            InitializeComponent();
-            ((IEditarViewModel)DataContext).PassaId(Id);
-        }
-        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            DialogResult = ((IEditarViewModel)DataContext).EdicaoComSucesso();
         }
     }
 }

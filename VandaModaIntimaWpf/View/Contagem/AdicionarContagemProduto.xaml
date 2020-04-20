@@ -10,7 +10,8 @@
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
         Height="550"
-        Width="700">
+        Width="700"
+        FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

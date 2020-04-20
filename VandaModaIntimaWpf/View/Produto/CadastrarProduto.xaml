@@ -11,10 +11,9 @@
         Width="500"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <ViewModel:CadastrarProdutoViewModel />
-    </Window.DataContext>
+        WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCodBarra}"
+        Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -53,7 +52,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label>Código De Barras:</Label>
-            <TextBox Grid.Column="1"
+            <TextBox x:Name="TxtCodBarra"
+                     Grid.Column="1"
                      Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="15" />
             <Label Grid.Row="1"

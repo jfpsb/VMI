@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.View;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using TipoContagemModel = VandaModaIntimaWpf.Model.TipoContagem;
@@ -22,8 +21,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ObservableCollection<TipoContagemModel> TiposContagem { get; set; }
 
-        public CadastrarContagemViewModel() : base("Contagem")
+        public CadastrarContagemViewModel(ISession session)
         {
+            _session = session;
+
             Contagem = new ContagemModel();
 
             _daoLoja = new DAOLoja(_session);
@@ -50,9 +51,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Contagem.Data = DateTime.Now;
             Contagem.Finalizada = false;
 
-            var result = await _daoContagem.Inserir(Contagem);
+            _result = await _daoContagem.Inserir(Contagem);
 
-            if (result)
+            if (_result)
             {
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Contagem Cadastrada Com Sucesso");
@@ -62,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             SetStatusBarErro("Erro ao Cadastrar Contagem");
         }
 
-        public override bool ValidaModel(object parameter)
+        public override bool ValidacaoSalvar(object parameter)
         {
             return true;
         }

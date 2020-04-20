@@ -1,8 +1,6 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.View.Contagem;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 
@@ -15,15 +13,29 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             throw new NotImplementedException();
         }
 
-        public void AbrirCadastrar(object parameter)
+        public bool? AbrirCadastrar(object parameter, ISession session)
         {
-            CadastrarContagem cadastrarContagem = new CadastrarContagem();
-            cadastrarContagem.ShowDialog();
+            CadastrarContagemViewModel cadastrarContagemViewModel = new CadastrarContagemViewModel(session);
+            CadastrarContagem cadastrarContagem = new CadastrarContagem()
+            {
+                DataContext = cadastrarContagemViewModel
+            };
+
+            return cadastrarContagem.ShowDialog();
         }
 
-        public bool? AbrirEditar(ContagemModel entidade)
+        public bool? AbrirEditar(ContagemModel clone, ISession session)
         {
-            EditarContagem editarContagem = new EditarContagem(entidade);
+            EditarContagemViewModel editarContagemViewModel = new EditarContagemViewModel(session)
+            {
+                Contagem = clone
+            };
+
+            EditarContagem editarContagem = new EditarContagem()
+            {
+                DataContext = editarContagemViewModel
+            };
+
             return editarContagem.ShowDialog();
         }
 

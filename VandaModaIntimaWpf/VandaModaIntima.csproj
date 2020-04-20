@@ -131,6 +131,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Linguagem\PT-BR.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Loja\AjudaLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,10 +152,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Marca\CadastrarMarca.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Marca\EditarMarca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,6 +222,7 @@
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="Model\TipoContagem.cs" />
+    <Compile Include="Resources\StringResource.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemViewModel.cs" />
     <Compile Include="ViewModel\Contagem\EditarContagemViewModel.cs" />
+    <Compile Include="ViewModel\Contagem\EditarContagemViewModelJanela.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModel.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
@@ -284,11 +286,9 @@
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ICloseable.cs" />
-    <Compile Include="ViewModel\IEditarViewModel.cs" />
     <Compile Include="View\IOpenFileDialog.cs" />
     <Compile Include="ViewModel\IPesquisarViewModel.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaViewModel.cs" />
-    <Compile Include="ViewModel\Marca\EditarMarcaViewModel.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaViewModel.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
     <Compile Include="ViewModel\Produto\EditarProdutoViewModel.cs" />
@@ -304,7 +304,7 @@
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IResultReturnable.cs" />
+    <Compile Include="View\IWindowClosing.cs" />
     <Compile Include="View\Loja\AjudaLoja.xaml.cs">
       <DependentUpon>AjudaLoja.xaml</DependentUpon>
     </Compile>
@@ -319,9 +319,6 @@
     </Compile>
     <Compile Include="View\Marca\CadastrarMarca.xaml.cs">
       <DependentUpon>CadastrarMarca.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Marca\EditarMarca.xaml.cs">
-      <DependentUpon>EditarMarca.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Marca\PesquisarMarca.xaml.cs">
       <DependentUpon>PesquisarMarca.xaml</DependentUpon>

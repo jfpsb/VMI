@@ -15,10 +15,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Fornecedor,
             Marca
         }
-        public PesquisarProdutoViewModel() : base("Produto")
+        public PesquisarProdutoViewModel()
         {
             daoEntidade = new DAOProduto(_session);
-            excelStrategy = new ExcelStrategy(new ProdutoExcelStrategy());
+            excelStrategy = new ExcelStrategy(new ProdutoExcelStrategy(_session));
             pesquisarViewModelStrategy = new PesquisarProdutoViewModelStrategy();
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -36,6 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public override async void GetItems(string termo)
         {
             DAOProduto daoProduto = (DAOProduto)daoEntidade;
+
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Descricao:

@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.ViewModel
     interface ICadastrarViewModel
     {
         void Salvar(object parameter);
-        bool ValidaModel(object parameter);
+        bool ValidacaoSalvar(object parameter);
         void ResetaPropriedades();
         void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
         Task SetStatusBarSucesso(string mensagem);

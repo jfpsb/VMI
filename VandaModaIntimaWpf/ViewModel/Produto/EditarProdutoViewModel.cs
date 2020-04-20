@@ -1,41 +1,38 @@
-﻿using System;
+﻿using NHibernate;
+using System;
+using System.Windows;
+using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
-    public class EditarProdutoViewModel : CadastrarProdutoViewModel, IEditarViewModel
+    public class EditarProdutoViewModel : CadastrarProdutoViewModel
     {
-        private bool IsEditted = false;
+        public EditarProdutoViewModel(ISession session) : base(session)
+        {
+
+        }
+
         public override async void Salvar(object parameter)
         {
-            if (Produto.Fornecedor != null && FornecedorComboBoxIndex == 0)
+            if (Produto.Fornecedor.Cnpj == null)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca != null && MarcaComboBoxIndex == 0)
+            if (Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            var result = IsEditted = await daoProduto.Atualizar(produtoModel);
+            _result = await daoProduto.Merge(produtoModel);
 
-            if (result)
+            if (_result)
             {
                 await SetStatusBarSucesso($"Produto {Produto.CodBarra} Atualizado Com Sucesso");
             }
             else
             {
-                SetStatusBarErro("Erro ao Atualizar Produto");
+                SetStatusBarErro(StringResource.GetString("erro_ao_atualizar_produto"));
             }
-        }
-
-        public async void PassaId(object Id)
-        {
-            Produto = await _session.LoadAsync<ProdutoModel>(Id);
-        }
-
-        public bool EdicaoComSucesso()
-        {
-            return IsEditted;
         }
 
         public new ProdutoModel Produto
@@ -44,9 +41,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             set
             {
                 produtoModel = value;
+                FornecedorComboBox = value.Fornecedor;
+                MarcaComboBox = value.Marca;
                 OnPropertyChanged("Produto");
-                OnPropertyChanged("FornecedorComboBox");
-                OnPropertyChanged("MarcaComboBox");
+                //OnPropertyChanged("FornecedorComboBox");
+                //OnPropertyChanged("MarcaComboBox");
             }
         }
 
@@ -56,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 if (Produto.Fornecedor == null)
                 {
-                    Produto.Fornecedor = new FornecedorModel("SELECIONE UM FORNECEDOR");
+                    Produto.Fornecedor = Fornecedores[0];
                 }
 
                 return Produto.Fornecedor;
@@ -75,7 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 if (Produto.Marca == null)
                 {
-                    Produto.Marca = new MarcaModel("SELECIONE UMA MARCA");
+                    Produto.Marca = Marcas[0];
                 }
 
                 return Produto.Marca;

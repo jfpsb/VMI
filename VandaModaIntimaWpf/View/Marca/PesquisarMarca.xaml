@@ -13,7 +13,8 @@
                      Width="550"
                      Closing="Pesquisar_Closing"
                      WindowStartupLocation="CenterScreen"
-                     ResizeMode="NoResize">
+                     ResizeMode="NoResize"
+                     FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarMarcaViewModel />
     </view:APesquisarView.DataContext>
@@ -88,9 +89,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.ColumnSpan="2">Pesquisa:</Label>
-            <TextBox Grid.Column="2"
-                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                     Name="TxtPesquisa" />
+            <TextBox x:Name="TxtPesquisa"
+                     Grid.Column="2"
+                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <DataGrid Grid.Row="1"
                       Grid.ColumnSpan="3"
                       AutoGenerateColumns="False"
