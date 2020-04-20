@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <System:String x:Key="marca_nao_selecionada">BRAND NOT SELECTED</System:String>
+    <System:String x:Key="matriz_nao_selecionada">HQ NOT SELECTED</System:String>
+    <System:String x:Key="fornecedor_nao_selecionado">VENDOR NOT SELECTED</System:String>
+    <System:String x:Key="selecione_o_arquivo">Choose the file</System:String>
+    <System:String x:Key="erro_ao_atualizar_produto">Error While Trying To Update a Product</System:String>
+    <System:String x:Key="loja_dois_pontos">Store:</System:String>
+    <System:String x:Key="tipo_contagem_dois_pontos">Inventory Type:</System:String>
+    <System:String x:Key="cadastrar">Submit</System:String>
+
+    <!-- Exclusivo da janela AdicionarContagemProduto -->
+    <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Enter a Product's Barcode (Barcode From Vendor Also Valid):</System:String>
+</ResourceDictionary>

@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <System:String x:Key="marca_nao_selecionada">MARCA NÃO SELECIONADA</System:String>
+    <System:String x:Key="matriz_nao_selecionada">MATRIZ NÃO SELECIONADA</System:String>
+    <System:String x:Key="fornecedor_nao_selecionado">FORNECEDOR NÃO SELECIONADO</System:String>
+    <System:String x:Key="selecione_o_arquivo">Selecione o Arquivo</System:String>
+    <System:String x:Key="erro_ao_atualizar_produto">Erro Ao Atualizar Produto</System:String>
+    <System:String x:Key="loja_dois_pontos">Loja:</System:String>
+    <System:String x:Key="tipo_contagem_dois_pontos">Tipo Contagem:</System:String>
+    <System:String x:Key="cadastrar">Cadastrar</System:String>
+    <System:String x:Key="cod_barra_header">Cód. De Barra</System:String>
+    <System:String x:Key="descricao_header">Descrição</System:String>
+    <System:String x:Key="preco_header">Preço</System:String>
+    <System:String x:Key="quantidade_header">Quantidade</System:String>
+    <System:String x:Key="inserir">Inserir</System:String>
+    <System:String x:Key="quantidade_dois_pontos">Quantidade:</System:String>
+    <System:String x:Key="produto_selecionado">Produto Selecionado:</System:String>
+    
+    <!-- Exclusivo da janela AdicionarContagemProduto -->
+    <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
+</ResourceDictionary>

@@ -46,7 +46,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Loja:</Label>
+            <Label Content="{DynamicResource loja_dois_pontos}" />
             <ComboBox x:Name="CmbLoja"
                       Grid.Column="1"
                       SelectedItem="{Binding Contagem.Loja}"
@@ -55,7 +55,8 @@
                       HorizontalAlignment="Stretch"
                       SelectedIndex="0"
                       Margin="5,5,0,5" />
-            <Label Grid.Row="1">Tipo de Contagem:</Label>
+            <Label Grid.Row="1"
+                   Content="{DynamicResource tipo_contagem_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
                       SelectedItem="{Binding Contagem.TipoContagem}"
@@ -66,8 +67,9 @@
                       Margin="5,5,0,5" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}" />
         </Grid>
     </DockPanel>
 </Window>

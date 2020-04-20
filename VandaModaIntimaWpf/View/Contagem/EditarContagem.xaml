@@ -11,8 +11,7 @@
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=CmbTipoContagem}"
-        Closing="TelaEditarContagem_Closing">
+        FocusManager.FocusedElement="{Binding ElementName=CmbTipoContagem}">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>

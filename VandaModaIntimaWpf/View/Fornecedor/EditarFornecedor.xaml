@@ -11,8 +11,7 @@
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=TxtNome}"
-        Closing="TelaEditarFornecedor_Closing">
+        FocusManager.FocusedElement="{Binding ElementName=TxtNome}">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>

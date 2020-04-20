@@ -35,16 +35,17 @@ namespace VandaModaIntimaWpf.ViewModel
             switch (CultureInfo.CurrentCulture.Name)
             {
                 case "pt-BR":
-                    resourceDictionary.Source = new Uri(@"..\View\Linguagem\PT-BR.xaml", UriKind.Relative);
+                    resourceDictionary.Source = new Uri(@"..\Resources\Linguagem\PT-BR.xaml", UriKind.Relative);
                     break;
                 case "en-US":
-                    //TODO: dicionario ingles
+                    resourceDictionary.Source = new Uri(@"..\Resources\Linguagem\EN-US.xaml", UriKind.Relative);
                     break;
                 default:
-                    //TODO: dicionario ingles
+                    resourceDictionary.Source = new Uri(@"..\Resources\Linguagem\EN-US.xaml", UriKind.Relative);
                     break;
             }
 
+            Application.Current.Resources.MergedDictionaries.Clear();
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
         public void AbrirTelaProduto(object parameter)

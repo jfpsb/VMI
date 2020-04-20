@@ -26,7 +26,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Grid.ColumnSpan="3">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</Label>
+        <Label Grid.ColumnSpan="3"
+               Content="{DynamicResource informe_codbarra_adicionar_contagem_produto}" />
         <TextBox x:Name="TxtPesquisa"
                  Grid.Row="1"
                  HorizontalAlignment="Stretch"
@@ -50,18 +51,19 @@
                             Command="{Binding InserirContagemComando}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Cód. De Barra"
+                <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                     Width="Auto"
                                     Binding="{Binding CodBarra}" />
-                <DataGridTextColumn Header="Descrição"
+                <DataGridTextColumn Header="{DynamicResource descricao_header}"
                                     Binding="{Binding Descricao}"
                                     Width="*" />
-                <DataGridTextColumn Header="Preço"
+                <DataGridTextColumn Header="{DynamicResource preco_header}"
                                     Binding="{Binding Preco}"
                                     Width="Auto" />
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="3">Quantidade:</Label>
+        <Label Grid.Row="3"
+               Content="{DynamicResource quantidade_dois_pontos}" />
         <TextBox x:Name="TxtQuantidade"
                  Grid.Row="3"
                  Grid.Column="1"
@@ -69,10 +71,11 @@
                  Text="{Binding Quantidade}" />
         <Button Grid.Row="3"
                 Grid.Column="2"
+                Content="{DynamicResource inserir}"
                 HorizontalAlignment="Center"
                 Padding="50, 5, 50, 5"
                 Command="{Binding InserirContagemComando}"
-                Click="Button_Click">Inserir</Button>
+                Click="Button_Click" />
         <DataGrid x:Name="DataGridContagens"
                   Grid.Row="4"
                   Grid.ColumnSpan="3"
@@ -81,7 +84,7 @@
                   SelectedItem="{Binding ContagemProduto}"
                   ItemsSource="{Binding Contagens, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Cód. De Barra"
+                <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Produto.CodBarra}">
                     <DataGridTextColumn.CellStyle>
@@ -91,7 +94,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Descrição"
+                <DataGridTextColumn Header="{DynamicResource descricao_header}"
                                     IsReadOnly="True"
                                     Width="*"
                                     Binding="{Binding Produto.Descricao}">
@@ -102,7 +105,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Preço"
+                <DataGridTextColumn Header="{DynamicResource preco_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Produto.Preco}">
                     <DataGridTextColumn.CellStyle>
@@ -112,7 +115,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Quantidade"
+                <DataGridTextColumn Header="{DynamicResource quantidade_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Quant}">
                     <DataGridTextColumn.CellStyle>
@@ -140,7 +143,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
-                   FontWeight="Bold">Produto Selecionado:</Label>
+                   FontWeight="Bold"
+                   Content="{DynamicResource produto_selecionado}" />
             <Label Grid.Row="0"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"

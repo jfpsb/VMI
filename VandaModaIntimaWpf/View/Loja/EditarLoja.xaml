@@ -12,8 +12,7 @@
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=TxtNome}"
-        Closing="TelaEditarLoja_Closing">
+        FocusManager.FocusedElement="{Binding ElementName=TxtNome}">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
