@@ -40,43 +40,13 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo"
-                          Command="{Binding AbrirCadastrarComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Adicionar.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Importar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Importar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ImportarExcelComando}"
-                              CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
-                </MenuItem>
-                <MenuItem Header="Exportar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Exportar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ExportarExcelComando}" />
-                    <MenuItem Header="SQL (*.sql)"
-                              Command="{Binding ExportarSQLComando}" />
-                </MenuItem>
-                <MenuItem Header="Ajuda"
-                          Command="{Binding AbrirAjudaComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Ajuda.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <view:TelaPesquisaMenu DockPanel.Dock="Top"
+                               CommandParameter="{Binding ElementName=TelaPesquisarProduto}"
+                               Template="{DynamicResource TelaPesquisaMenu}" />
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Produtos Marcados"
+                Content="{DynamicResource apagar_produtos_marcados}"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
@@ -91,14 +61,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Pesquisar Por:</Label>
+            <Label Content="{DynamicResource pesquisar_por_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Width="200"
                       SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
-                      ItemsSource="{StaticResource CmbPesquisaProdutoItems}"
+                      ItemsSource="{DynamicResource CmbPesquisaProdutoItems}"
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
-            <Label Grid.Row="1">Pesquisa:</Label>
+            <Label Grid.Row="1"
+                   Content="{DynamicResource pesquisa_dois_pontos}" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
                      Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
@@ -122,7 +93,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Cód. De Barra"
+                    <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.CodBarra}"
                                         Width="Auto">
@@ -133,7 +104,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Descrição"
+                    <DataGridTextColumn Header="{DynamicResource descricao_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Descricao}"
                                         Width="*">
@@ -144,7 +115,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Preço"
+                    <DataGridTextColumn Header="{DynamicResource preco_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Preco}"
                                         Width="Auto">
@@ -155,7 +126,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Fornecedor"
+                    <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.FornecedorNome}"
                                         Width="Auto">
@@ -166,7 +137,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Marca"
+                    <DataGridTextColumn Header="{DynamicResource marca_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.MarcaNome}"
                                         Width="Auto">
@@ -177,7 +148,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="NCM"
+                    <DataGridTextColumn Header="{DynamicResource ncm_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Ncm}"
                                         Width="Auto">

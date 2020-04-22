@@ -351,6 +351,7 @@
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TelaPesquisaMenu.cs" />
     <Compile Include="View\VandaModaIntima.xaml.cs">
       <DependentUpon>VandaModaIntima.xaml</DependentUpon>
       <SubType>Code</SubType>

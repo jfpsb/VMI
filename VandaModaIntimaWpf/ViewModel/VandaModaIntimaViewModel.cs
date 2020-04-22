@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             ResourceDictionary resourceDictionary = new ResourceDictionary();
 
-            switch ("en-US")
+            switch (CultureInfo.CurrentCulture.Name)
             {
                 case "pt-BR":
                     resourceDictionary.Source = new Uri(@"..\Resources\Linguagem\PT-BR.xaml", UriKind.Relative);
@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     break;
             }
 
-            Application.Current.Resources.MergedDictionaries.Clear();
+            //Application.Current.Resources.MergedDictionaries.Clear();
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
         public void AbrirTelaProduto(object parameter)

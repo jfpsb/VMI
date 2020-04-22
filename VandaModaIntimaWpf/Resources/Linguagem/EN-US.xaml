@@ -23,7 +23,7 @@
     <System:String x:Key="adicionar_contagem_produto">Add Product Quantity</System:String>
     <System:String x:Key="periodo_dois_pontos">Period:</System:String>
     <System:String x:Key="data_header">Date</System:String>
-    <System:String x:Key="loja_header">Store Name</System:String>
+    <System:String x:Key="loja_header">Store</System:String>
     <System:String x:Key="tipo_contagem_header">Inventory Type</System:String>
     <System:String x:Key="finalizada_header">Finished</System:String>
     <System:String x:Key="apagar_contagens_marcadas">Delete Marked Inventories</System:String>
@@ -39,13 +39,107 @@
     <System:String x:Key="pesquisa_dois_pontos">Search Term:</System:String>
     <System:String x:Key="pesquisar_por_dois_pontos">Search By:</System:String>
     <System:String x:Key="cnpj_header">EIN</System:String>
-    <System:String x:Key="nome_header">Company Name</System:String>
+    <System:String x:Key="nome_header">Name</System:String>
     <System:String x:Key="nome_fantasia_header">Trading Name</System:String>
     <System:String x:Key="telefone_header">Phone Number</System:String>
     <System:String x:Key="email_header">E-mail</System:String>
     <System:String x:Key="endereco_dois_pontos">Address:</System:String>
     <System:String x:Key="inscricao_estadual_dois_pontos">State ID(Brazil only):</System:String>
     <System:String x:Key="matriz_dois_pontos">HQ:</System:String>
+    <System:String x:Key="endereco_header">Address</System:String>
+    <System:String x:Key="matriz_header">HQ</System:String>
+    <System:String x:Key="apagar_lojas_marcadas">Delete Marked Stores</System:String>
+    <System:String x:Key="marca_ja_existe_sistema">This Brand Already Exists In The System</System:String>
+    <System:String x:Key="apagar_marcas_marcadas">Delete Marked Brands</System:String>
+    <System:String x:Key="codigo_de_barras_dois_pontos">Barcode:</System:String>
+    <System:String x:Key="ncm_dois_pontos">NCM (MERCOSUL Only):</System:String>
+    <System:String x:Key="fornecedor_dois_pontos">Supplier:</System:String>
+    <System:String x:Key="fornecedor_header">Supplier</System:String>
+    <System:String x:Key="marca_header">Brand</System:String>
+    <System:String x:Key="ncm_header">NCM (MERCOSUL Only)</System:String>
+    <System:String x:Key="marca_dois_pontos">Brand:</System:String>
+    <System:String x:Key="produto_ja_existe_sistema">This Product Already Exists In The System</System:String>
+    <System:String x:Key="descricao_dois_pontos">Description:</System:String>
+    <System:String x:Key="preco_dois_pontos">Price:</System:String>
+    <System:String x:Key="apagar_produtos_marcados">Delete Marked Products</System:String>
+    <System:String x:Key="mes_de_referencia">Month/Year:</System:String>
+    <System:String x:Key="mes_referencia_header">Month/Year</System:String>
+    <System:String x:Key="operadora_cartao_header">Card Company</System:String>
+    <System:String x:Key="recebido_header">Deposited</System:String>
+    <System:String x:Key="valor_operadora_header">Deposit According To Card Co.</System:String>
+    <System:String x:Key="observacao_header">Remarks</System:String>
+    <System:String x:Key="diferenca_header">Difference</System:String>
+    <System:String x:Key="arquivo_ofx">OFX File:</System:String>
+    <System:String x:Key="total_recebido_dois_pontos">Total Deposited:</System:String>
+    <System:String x:Key="total_fornecido_operadora_dois_pontos">Total Deposit According To Card Co.:</System:String>
+    <System:String x:Key="detalhes">Details</System:String>
+    <System:String x:Key="apagar_recebimentos_marcados">Delete Marked Deposits</System:String>
+    <System:String x:Key="opcoes">Options</System:String>
+    <System:String x:Key="cadastrar_novo">Create New</System:String>
+    <System:String x:Key="importar">Import</System:String>
+    <System:String x:Key="exportar">Export</System:String>
+    <System:String x:Key="excel_xlsx">Excel (*.xlsx)</System:String>
+    <System:String x:Key="sql_sql">SQL (*.sql)</System:String>
+    <System:String x:Key="ajuda">Help</System:String>
+    <System:String x:Key="cadastrar_online">Create New Online</System:String>
+    <System:String x:Key="cadastrar_manualmente">Create New Manually</System:String>
+    <System:String x:Key="editar">Edit</System:String>
+    <System:String x:Key="copiar">Copy</System:String>
+    <System:String x:Key="apagar">Delete</System:String>
+    <System:String x:Key="recebimento_de_cartao">Card Companies Deposits</System:String>
+    <System:String x:Key="contagem">Inventory</System:String>
+
+    <System:String x:Key="aguardando_usuario">Waiting For User</System:String>
+    <System:String x:Key="arquivo_excel_sendo_gerado">Excel File Is Being Created. Stand By For Save File Dialog</System:String>
+    <System:String x:Key="exportacao_excel_realizada_com_sucesso">Excel Export Sucessful</System:String>
+
+    <System:String x:Key="certeza_deletar_contagem">Are You Sure You Want To Delete The Inventory {0}?</System:String>
+    <System:String x:Key="deseja_apagar_contagem_marcadas">Are You Sure You Wish To Delete The Marked Inventories?</System:String>
+    <System:String x:Key="contagem_deletada_com_sucesso">Inventory {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="contagem_nao_deletada">Inventory Was Not Deleted</System:String>
+    <System:String x:Key="contagens_nao_deletadas">Inventories Were Not Deleted</System:String>
+    <System:String x:Key="contagens_deletadas_com_sucesso">Inventories Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_contagens">Delete Invetory(ies)</System:String>
+
+    <System:String x:Key="certeza_deletar_fornecedor">Are You Sure You Want To Delete The Supplier {0}?</System:String>
+    <System:String x:Key="deseja_apagar_fornecedor_marcados">Are You Sure You Wish To Delete The Marked Suppliers?</System:String>
+    <System:String x:Key="fornecedor_deletado_com_sucesso">Supplier {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="fornecedor_nao_deletado">Supplier Was Not Deleted</System:String>
+    <System:String x:Key="fornecedores_nao_deletados">Suppliers Were Not Deleted</System:String>
+    <System:String x:Key="fornecedores_deletados_com_sucesso">Suppliers Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_fornecedores">Delete Supplier(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_loja">Are You Sure You Want To Delete The Store {0}?</System:String>
+    <System:String x:Key="deseja_apagar_loja_marcadas">Are You Sure You Wish To Delete The Marked Stores?</System:String>
+    <System:String x:Key="loja_deletada_com_sucesso">Store {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="loja_nao_deletada">Store Was Not Deleted</System:String>
+    <System:String x:Key="lojas_nao_deletadas">Stores Were Not Deleted</System:String>
+    <System:String x:Key="lojas_deletadas_com_sucesso">Stores Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_lojas">Delete Store(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_marca">Are You Sure You Want To Delete The Brand {0}?</System:String>
+    <System:String x:Key="deseja_apagar_marca_marcadas">Are You Sure You Wish To Delete The Marked Brands?</System:String>
+    <System:String x:Key="marca_deletada_com_sucesso">Brand {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="marca_nao_deletada">Brand Was Not Deleted</System:String>
+    <System:String x:Key="marcas_nao_deletadas">Brands Were Not Deleted</System:String>
+    <System:String x:Key="marcas_deletadas_com_sucesso">Brands Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_marcas">Delete Brand(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_produto">Are You Sure You Want To Delete The Product {0}?</System:String>
+    <System:String x:Key="deseja_apagar_produto_marcados">Are You Sure You Wish To Delete The Marked Products?</System:String>
+    <System:String x:Key="produto_deletado_com_sucesso">Product {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="produto_nao_deletado">Product Was Not Deleted</System:String>
+    <System:String x:Key="produtos_nao_deletados">Products Were Not Deleted</System:String>
+    <System:String x:Key="produtos_deletados_com_sucesso">Products Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_produtos">Delete Product(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_recebimento">Are You Sure You Want To Delete The Deposit From Month {0} From Store {1}?</System:String>
+    <System:String x:Key="deseja_apagar_recebimento_marcados">Are You Sure You Wish To Delete The Marke Deposits?</System:String>
+    <System:String x:Key="recebimento_deletado_com_sucesso">Deposit {0} Was Successfully Deleted</System:String>
+    <System:String x:Key="recebimento_nao_deletado">Deposit Was Not Deleted</System:String>
+    <System:String x:Key="recebimentos_nao_deletados">Deposits Were Not Deleted</System:String>
+    <System:String x:Key="recebimentos_deletados_com_sucesso">Deposits Were Successfully Deleted</System:String>
+    <System:String x:Key="apagar_recebimentos">Delete Deposit(s)</System:String>
 
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Enter a Product's Barcode (Barcode From Vendor Also Valid):</System:String>
@@ -53,5 +147,35 @@
     <!-- Exclusivo da janela EditarFornecedor -->
     <System:String x:Key="atualizar_consultando_receita_federal">Update Values From IRS Database</System:String>
 
-    
+    <!-- Exclusivo da janela ExportarSQL -->
+    <System:String x:Key="exportar_sql_primeiro_paragrafo">Inform in the table below the alternative names for the columns, if necessary.</System:String>
+    <System:String x:Key="exportar_sql_segundo_paragrafo">Default value field will only be considered if its content is a valid SQL statement. Additional column fields cannot have empty values.
+            Additional column fields will be ignored in update statements exports.</System:String>
+    <System:String x:Key="exportar_inserts">Export Inserts</System:String>
+    <System:String x:Key="exportar_updates">Export Updates</System:String>
+    <System:String x:Key="coluna_header">Column</System:String>
+    <System:String x:Key="pseudonimo_header">Alias</System:String>
+    <System:String x:Key="valor_padrao_header">Default Value</System:String>
+
+    <x:Array x:Key="CmbPesquisaProdutoItems"
+             Type="System:String">
+        <System:String>Description</System:String>
+        <System:String>Barcode</System:String>
+        <System:String>Supplier</System:String>
+        <System:String>Brand</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaFornecedorItems"
+             Type="System:String">
+        <System:String>EIN</System:String>
+        <System:String>Name</System:String>
+        <System:String>E-mail</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaLojaItems"
+             Type="System:String">
+        <System:String>EIN</System:String>
+        <System:String>Name</System:String>
+    </x:Array>
+
 </ResourceDictionary>

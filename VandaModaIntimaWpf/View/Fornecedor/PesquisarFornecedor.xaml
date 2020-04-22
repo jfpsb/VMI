@@ -40,41 +40,9 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Adicionar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Cadastrar Online"
-                              Command="{Binding AbrirCadastrarOnlineComando}" />
-                    <MenuItem Header="Cadastrar Manualmente"
-                              Command="{Binding AbrirCadastrarComando}" />
-                </MenuItem>
-                <MenuItem Header="Importar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Importar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ImportarExcelComando}"
-                              CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
-                </MenuItem>
-                <MenuItem Header="Exportar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Exportar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ExportarExcelComando}" />
-                    <MenuItem Header="SQL (*.sql)"
-                              Command="{Binding ExportarSQLComando}" />
-                </MenuItem>
-                <MenuItem Header="Ajuda">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Ajuda.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <view:TelaPesquisaMenu DockPanel.Dock="Top"
+                               CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}"
+                               Template="{DynamicResource TelaPesquisaMenu}" />
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"

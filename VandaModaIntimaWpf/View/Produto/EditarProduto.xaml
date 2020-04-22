@@ -37,7 +37,7 @@
         </StatusBar>
         <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -50,33 +50,38 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Código De Barras:</Label>
+            <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="False" />
-            <Label Grid.Row="2">Descrição:</Label>
+            <Label Grid.Row="2"
+                   Content="{DynamicResource descricao_dois_pontos}" />
             <TextBox x:Name="TxtDescricao"
                      Grid.Column="1"
                      Grid.Row="2"
                      Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      MaxLength="100" />
-            <Label Grid.Row="3">Preço:</Label>
+            <Label Grid.Row="3"
+                   Content="{DynamicResource preco_dois_pontos}"></Label>
             <TextBox Grid.Column="1"
                      Grid.Row="3"
                      Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
-            <Label Grid.Row="4">NCM:</Label>
+            <Label Grid.Row="4"
+                   Content="{DynamicResource ncm_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="4"
                      Text="{Binding Produto.Ncm, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}"
                      MaxLength="8" />
-            <Label Grid.Row="5">Fornecedor:</Label>
+            <Label Grid.Row="5"
+                   Content="{DynamicResource fornecedor_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding FornecedorComboBox, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="6">Marca:</Label>
+            <Label Grid.Row="6"
+                   Content="{DynamicResource marca_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
@@ -84,9 +89,10 @@
                       SelectedItem="{Binding MarcaComboBox, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource salvar}"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
-                    CommandParameter="{Binding ElementName=TelaEditarProduto}">Salvar</Button>
+                    CommandParameter="{Binding ElementName=TelaEditarProduto}" />
         </Grid>
     </DockPanel>
 </Window>

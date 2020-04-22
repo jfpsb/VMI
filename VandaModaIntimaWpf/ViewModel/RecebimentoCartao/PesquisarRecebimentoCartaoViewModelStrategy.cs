@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -35,32 +36,32 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string MensagemApagarEntidadeCerteza(RecebimentoCartaoModel e)
         {
-            return $"Tem Certeza Que Deseja Apagar o Recebimento de {e.MesAno} da Loja {e.Loja.Nome}?";
+            return string.Format(StringResource.GetString("certeza_deletar_recebimento"), e.MesAno, e.Loja.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return "Deseja Apagar os Recebimentos Marcados?";
+            return StringResource.GetString("deseja_apagar_recebimento_marcados");
         }
 
         public string MensagemEntidadeDeletada(RecebimentoCartaoModel e)
         {
-            return $"Recebimento {e.GetContextMenuHeader} Deletado Com Sucesso";
+            return string.Format(StringResource.GetString("recebimento_deletado_com_sucesso"), e.GetContextMenuHeader);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return "Recebimento Não Foi Deletado";
+            return StringResource.GetString("recebimento_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return "Recebimentos Deletados Com Sucesso";
+            return StringResource.GetString("recebimentos_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return "Erro Ao Apagar Recebimentos";
+            return StringResource.GetString("recebimentos_nao_deletados");
         }
 
         public void RestauraEntidade(RecebimentoCartaoModel original, RecebimentoCartaoModel backup)
@@ -70,7 +71,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string TelaApagarCaption()
         {
-            return "Apagar Recebimento(s)";
+            return StringResource.GetString("apagar_recebimentos");
         }
     }
 }

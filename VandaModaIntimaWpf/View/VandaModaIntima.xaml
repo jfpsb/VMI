@@ -29,7 +29,7 @@
                         <Image Source="/Resources/Produto.png"
                                Height="300"
                                Width="300" />
-                        <Label>Produto</Label>
+                        <Label Content="{DynamicResource produto_header}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -40,7 +40,7 @@
                         <Image Source="/Resources/Fornecedor.png"
                                Height="300"
                                Width="300" />
-                        <Label>Fornecedor</Label>
+                        <Label Content="{DynamicResource fornecedor_header}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -51,7 +51,7 @@
                         <Image Source="/Resources/Marca.png"
                                Height="300"
                                Width="300" />
-                        <Label>Marca</Label>
+                        <Label Content="{DynamicResource marca_header}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -62,7 +62,7 @@
                         <Image Source="/Resources/Loja_Icon.png"
                                Height="300"
                                Width="300" />
-                        <Label>Loja</Label>
+                        <Label Content="{DynamicResource loja_header}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -73,7 +73,7 @@
                         <Image Source="/Resources/Credit_Card.png"
                                Height="300"
                                Width="300" />
-                        <Label>Recebimento de Cartão</Label>
+                        <Label Content="{DynamicResource recebimento_de_cartao}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -84,7 +84,7 @@
                         <Image Source="/Resources/Contagem.png"
                                Height="300"
                                Width="300" />
-                        <Label>Contagem</Label>
+                        <Label Content="{DynamicResource contagem}" />
                     </StackPanel>
                 </Button.Content>
             </Button>

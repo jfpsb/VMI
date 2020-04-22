@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Resources;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -23,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ACadastrarViewModel()
         {
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
-            SetStatusBarAguardando("Aguardando Usuário");
+            SetStatusBarAguardando(StringResource.GetString("aguardando_usuario"));
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();
@@ -35,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMSUCESSO;
             await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
-            SetStatusBarAguardando("Aguardando Usuário");
+            SetStatusBarAguardando(StringResource.GetString("aguardando_usuario"));
         }
         public void SetStatusBarAguardando(string mensagem)
         {

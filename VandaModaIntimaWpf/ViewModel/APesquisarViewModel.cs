@@ -10,6 +10,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 
@@ -30,7 +31,9 @@ namespace VandaModaIntimaWpf.ViewModel
         private string imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
-        private ObservableCollection<EntidadeComCampo<E>> entidades;
+        private ObservableCollection<EntidadeComCampo<E>> _entidades;
+        private ObservableCollection<MenuItem> _cadastrarNovoMenuItems; //Adiciona novos MenuItems se necessário no MenuItem de CadastrarNovo
+
         protected DAO daoEntidade;
 
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
@@ -61,6 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
 
             _session = SessionProvider.GetSession();
+            CadastrarNovoMenuItems = new ObservableCollection<MenuItem>();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
@@ -107,7 +111,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             int marcados = 0;
 
-            foreach (EntidadeComCampo<E> em in entidades)
+            foreach (EntidadeComCampo<E> em in _entidades)
             {
                 if (em.IsChecked)
                     marcados++;
@@ -127,7 +131,7 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 IList<E> AApagar = new List<E>();
 
-                foreach (EntidadeComCampo<E> em in entidades)
+                foreach (EntidadeComCampo<E> em in _entidades)
                 {
                     if (em.IsChecked)
                         AApagar.Add(em.Entidade);
@@ -190,17 +194,17 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void SetStatusBarAguardandoExcel()
         {
-            MensagemStatusBar = "O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar";
+            MensagemStatusBar = StringResource.GetString("arquivo_excel_sendo_gerado");
             ImagemStatusBar = IMAGEMAGUARDANDO;
         }
         public void SetStatusBarAguardando()
         {
-            MensagemStatusBar = "Aguardando Usuário";
+            MensagemStatusBar = StringResource.GetString("aguardando_usuario");
             ImagemStatusBar = IMAGEMAGUARDANDO;
         }
         public async void SetStatusBarExportadoComSucesso()
         {
-            MensagemStatusBar = "Exportação em Excel Realizada Com Sucesso";
+            MensagemStatusBar = StringResource.GetString("exportacao_excel_realizada_com_sucesso");
             ImagemStatusBar = IMAGEMSUCESSO;
             await Task.Delay(7000);
             SetStatusBarAguardando();
@@ -280,13 +284,24 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public ObservableCollection<EntidadeComCampo<E>> Entidades
         {
-            get { return entidades; }
+            get { return _entidades; }
             set
             {
-                entidades = value;
+                _entidades = value;
                 OnPropertyChanged("Entidades");
             }
         }
+
+        public ObservableCollection<MenuItem> CadastrarNovoMenuItems
+        {
+            get => _cadastrarNovoMenuItems;
+            set
+            {
+                _cadastrarNovoMenuItems = value;
+                OnPropertyChanged("CadastrarNovoMenuItems");
+            }
+        }
+
         public void DisposeSession()
         {
             SessionProvider.FechaSession(_session);

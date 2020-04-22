@@ -27,9 +27,9 @@
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
                    Margin="5"
-                   FontSize="14px">
-            Informe na tabela abaixo os nomes alternativos para as colunas da tabela, caso seja necessário.
-        </TextBlock>
+                   FontSize="14px"
+                   Text="{DynamicResource exportar_sql_primeiro_paragrafo}" />
+
         <TextBlock Grid.ColumnSpan="2"
                    Grid.Row="1"
                    TextAlignment="Justify"
@@ -37,10 +37,9 @@
                    TextWrapping="Wrap"
                    Margin="5"
                    FontSize="14px"
-                   Foreground="Red">
-            Campo de valor padrão somente será considerado se possuir um comando SQL válido. Em colunas adicionais não pode ter valor vazio.
-            Campos adicionais serão ignorados em exportação de comandos de update.
-        </TextBlock>
+                   Foreground="Red"
+                   Text="{DynamicResource exportar_sql_segundo_paragrafo}" />
+
         <DataGrid Grid.Row="2"
                   Grid.ColumnSpan="2"
                   CanUserAddRows="True"
@@ -48,14 +47,14 @@
                   ItemsSource="{Binding Aliases}"
                   SelectedItem="{Binding AliasSelecionado}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Coluna"
+                <DataGridTextColumn Header="{DynamicResource coluna_header}"
                                     Width="Auto"
                                     Binding="{Binding Coluna}"
                                     IsReadOnly="True" />
-                <DataGridTextColumn Header="Alias"
+                <DataGridTextColumn Header="{DynamicResource pseudonimo_header}"
                                     Width="Auto"
                                     Binding="{Binding Alias}" />
-                <DataGridTextColumn Header="Valor Padrão"
+                <DataGridTextColumn Header="{DynamicResource valor_padrao_header}"
                                     Width="*"
                                     Binding="{Binding ValorPadrao}" />
 
@@ -75,10 +74,12 @@
                     Width="Auto">
             <Button Width="Auto"
                     Padding="5"
-                    Command="{Binding ExportarInsertsComando}">Exportar Inserts</Button>
+                    Content="{DynamicResource exportar_inserts}"
+                    Command="{Binding ExportarInsertsComando}" />
             <Button Width="Auto"
                     Padding="5"
-                    Command="{Binding ExportarUpdatesComando}">Exportar Updates</Button>
+                    Content="{DynamicResource exportar_updates}"
+                    Command="{Binding ExportarUpdatesComando}" />
         </StackPanel>
     </Grid>
 </Window>

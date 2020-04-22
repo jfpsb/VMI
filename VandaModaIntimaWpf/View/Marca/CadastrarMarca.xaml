@@ -6,7 +6,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
         mc:Ignorable="d"
         Title="Cadastrar Marca"
-        Height="180"
+        Height="200"
         Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -45,7 +45,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Nome:</Label>
+            <Label Content="{DynamicResource nome_dois_pontos}" />
             <TextBox x:Name="TxtMarca"
                      Grid.Column="1"
                      Text="{Binding Marca.Nome, UpdateSourceTrigger=PropertyChanged}"
@@ -54,12 +54,14 @@
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
                    Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red">Esta Marca Já Existe No Sistema</Label>
+                   Foreground="Red"
+                   Content="{DynamicResource marca_ja_existe_sistema}" />
             <Button Grid.Row="2"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
                     IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding SalvarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}" />
         </Grid>
     </DockPanel>
 </Window>

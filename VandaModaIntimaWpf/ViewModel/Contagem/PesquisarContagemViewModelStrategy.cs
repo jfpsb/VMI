@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 
@@ -46,32 +47,32 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public string MensagemApagarEntidadeCerteza(ContagemModel e)
         {
-            return $"Tem Certeza Que Deseja Apagar a Contagem {e.GetContextMenuHeader}?";
+            return string.Format(StringResource.GetString("certeza_deletar_contagem"), e.GetContextMenuHeader);
         }
 
         public string MensagemApagarMarcados()
         {
-            return "Desejar Apagar as Contagens Marcadas?";
+            return StringResource.GetString("deseja_apagar_contagem_marcadas");
         }
 
         public string MensagemEntidadeDeletada(ContagemModel e)
         {
-            return $"Contagem {e.GetContextMenuHeader} Foi Deletada Com Sucesso";
+            return string.Format(StringResource.GetString("contagem_deletada_com_sucesso"), e.GetContextMenuHeader);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return "Contagem Não Foi Deletada";
+            return StringResource.GetString("contagem_nao_deletada");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return "Contagens Foram Deletadas Com Sucesso";
+            return StringResource.GetString("contagens_deletadas_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return "Contagens Não Foram Deletadas";
+            return StringResource.GetString("contagens_nao_deletadas");
         }
 
         public void RestauraEntidade(ContagemModel original, ContagemModel backup)
@@ -84,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public string TelaApagarCaption()
         {
-            return "Apagar Contagem(ns)";
+            return StringResource.GetString("apagar_contagens");
         }
     }
 }

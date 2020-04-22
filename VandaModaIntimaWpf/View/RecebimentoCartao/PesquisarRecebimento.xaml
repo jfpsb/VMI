@@ -39,33 +39,13 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Opções">
-                <MenuItem Header="Inserir Recebimento"
-                          Command="{Binding AbrirCadastrarComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Adicionar.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Exportar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Exportar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ExportarExcelComando}" />
-                </MenuItem>
-                <MenuItem Header="Ajuda"
-                          Command="{Binding AbrirAjudaComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Ajuda.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <view:TelaPesquisaMenu DockPanel.Dock="Top"
+                               CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}"
+                               Template="{DynamicResource TelaPesquisaMenu}" />
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Recebimentos Marcados"
+                Content="{DynamicResource apagar_recebimentos_marcados}"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
@@ -81,14 +61,15 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <view:CampoNumericoComBotao Grid.Column="1"
-                                        Width="210"
+                                        Width="230"
                                         HorizontalAlignment="Left"
                                         DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
-            <Label>Mês Referência:</Label>
-            <Label Grid.Row="1">Loja:</Label>
+            <Label Content="{DynamicResource mes_de_referencia}" />
+            <Label Grid.Row="1"
+                   Content="{DynamicResource loja_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
-                      Width="200"
+                      Width="220"
                       HorizontalAlignment="Left"
                       ItemsSource="{Binding Matrizes}"
                       DisplayMemberPath="Nome"
@@ -113,7 +94,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Mês Referência"
+                    <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.MesAno}"
                                         Width="Auto">
@@ -124,7 +105,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Loja"
+                    <DataGridTextColumn Header="{DynamicResource loja_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Loja.Nome}"
                                         Width="Auto">
@@ -135,7 +116,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Recebido"
+                    <DataGridTextColumn Header="{DynamicResource recebido_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Recebido}"
                                         Width="*">
@@ -146,7 +127,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Valor da Operadora"
+                    <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.ValorOperadora}"
                                         Width="*">
@@ -157,7 +138,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Diferença"
+                    <DataGridTextColumn Header="{DynamicResource diferenca_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Diferenca}"
                                         Width="Auto">
@@ -171,7 +152,7 @@
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                        <MenuItem Header="Detalhes"
+                        <MenuItem Header="{DynamicResource detalhes}"
                                   Style="{StaticResource ContextMenuItemStyle}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>

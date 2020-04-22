@@ -40,41 +40,13 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo"
-                          Command="{Binding AbrirCadastrarComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Adicionar.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Importar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Importar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ImportarExcelComando}"
-                              CommandParameter="{Binding ElementName=TelaPesquisarLoja}" />
-                </MenuItem>
-                <MenuItem Header="Exportar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Exportar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ExportarExcelComando}" />
-                </MenuItem>
-                <MenuItem Header="Ajuda"
-                          Command="{Binding AbrirAjudaComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Ajuda.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <view:TelaPesquisaMenu DockPanel.Dock="Top"
+                               CommandParameter="{Binding ElementName=TelaPesquisarLoja}"
+                               Template="{DynamicResource TelaPesquisaMenu}" />
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Lojas Marcadas"
+                Content="{DynamicResource apagar_lojas_marcadas}"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
@@ -90,14 +62,15 @@
                 <RowDefinition Height="75*" />
                 <RowDefinition Height="394*" />
             </Grid.RowDefinitions>
-            <Label>Pesquisar Por:</Label>
+            <Label Content="{DynamicResource pesquisar_por_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Width="200"
                       SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
                       ItemsSource="{StaticResource CmbPesquisaLojaItems}"
                       HorizontalAlignment="Left"
                       Margin="5,5,0,5" />
-            <Label Grid.Row="1">Pesquisa:</Label>
+            <Label Grid.Row="1"
+                   Content="{DynamicResource pesquisa_dois_pontos}" />
             <TextBox x:Name="TxtPesquisa"
                      Grid.Row="1"
                      Grid.Column="1"
@@ -122,7 +95,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="CNPJ"
+                    <DataGridTextColumn Header="{DynamicResource cnpj_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Cnpj}"
                                         Width="Auto">
@@ -133,7 +106,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Nome"
+                    <DataGridTextColumn Header="{DynamicResource nome_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Nome}"
                                         Width="Auto">
@@ -144,7 +117,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Telefone"
+                    <DataGridTextColumn Header="{DynamicResource telefone_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Telefone}"
                                         Width="Auto">
@@ -155,7 +128,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Endereco"
+                    <DataGridTextColumn Header="{DynamicResource endereco_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Endereco}"
                                         Width="*">
@@ -166,7 +139,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Matriz"
+                    <DataGridTextColumn Header="{DynamicResource matriz_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Matriz.Nome}"
                                         Width="Auto">

@@ -40,40 +40,13 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Opções">
-                <MenuItem Header="Cadastrar Novo"
-                          Command="{Binding AbrirCadastrarComando}">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Adicionar.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Importar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Importar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ImportarExcelComando}"
-                              CommandParameter="{Binding ElementName=TelaPesquisarMarca}" />
-                </MenuItem>
-                <MenuItem Header="Exportar">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Exportar.png" />
-                    </MenuItem.Icon>
-                    <MenuItem Header="Excel (*.xlsx)"
-                              Command="{Binding ExportarExcelComando}" />
-                </MenuItem>
-                <MenuItem Header="Ajuda">
-                    <MenuItem.Icon>
-                        <Image Source="/Resources/Ajuda.png" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-        </Menu>
+        <view:TelaPesquisaMenu DockPanel.Dock="Top"
+                               CommandParameter="{Binding ElementName=TelaPesquisarMarca}"
+                               Template="{DynamicResource TelaPesquisaMenu}" />
         <Button DockPanel.Dock="Bottom"
                 Padding="10px"
                 Margin="5,0,5,5"
-                Content="Apagar Marcas Selecionadas"
+                Content="{DynamicResource apagar_marcas_marcadas}"
                 HorizontalAlignment="Right"
                 Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                 Command="{Binding ApagarMarcadosComando}"
@@ -88,7 +61,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="2">Pesquisa:</Label>
+            <Label Grid.ColumnSpan="2"
+                   Content="{DynamicResource pesquisa_dois_pontos}" />
             <TextBox x:Name="TxtPesquisa"
                      Grid.Column="2"
                      Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
@@ -111,7 +85,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Nome"
+                    <DataGridTextColumn Header="{DynamicResource nome_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Entidade.Nome}"
                                         Width="*">

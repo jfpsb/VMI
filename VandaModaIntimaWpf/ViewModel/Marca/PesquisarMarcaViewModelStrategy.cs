@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Marca;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -34,32 +35,32 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public string MensagemApagarEntidadeCerteza(MarcaModel e)
         {
-            return $"Tem Certeza Que Deseja Apagar a Marca {e.Nome}?";
+            return string.Format(StringResource.GetString("certeza_deletar_marca"), e.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return "Desejar Apagar as Marcas Selecionadas?";
+            return StringResource.GetString("deseja_apagar_marca_marcadas");
         }
 
         public string MensagemEntidadeDeletada(MarcaModel e)
         {
-            return $"Marca {e.Nome} Foi Deletada Com Sucesso";
+            return string.Format(StringResource.GetString("marca_deletada_com_sucesso"), e.Nome);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return "Marca Não Foi Deletada";
+            return StringResource.GetString("marca_nao_deletada");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return "Marcas Apagadas Com Sucesso";
+            return StringResource.GetString("marcas_deletadas_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return "Erro ao Apagar Marcas";
+            return StringResource.GetString("marcas_nao_deletadas");
         }
 
         public void RestauraEntidade(MarcaModel original, MarcaModel backup)
@@ -69,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public string TelaApagarCaption()
         {
-            return "Apagar Marca(s)";
+            return StringResource.GetString("apagar_marcas");
         }
     }
 }

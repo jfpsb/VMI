@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.SQL;
 using VandaModaIntimaWpf.ViewModel.SQL;
@@ -43,32 +44,32 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string MensagemApagarEntidadeCerteza(FornecedorModel e)
         {
-            return $"Tem Certeza Que Deseja Apagar o Fornecedor {e.Nome}?";
+            return string.Format(StringResource.GetString("certeza_deletar_fornecedor"), e.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return "Desejar Apagar os Fornecedores Marcados?";
+            return StringResource.GetString("deseja_apagar_fornecedor_marcados");
         }
 
         public string MensagemEntidadeDeletada(FornecedorModel e)
         {
-            return $"Fornecedor {e.Nome} Foi Deletado Com Sucesso";
+            return string.Format(StringResource.GetString("fornecedor_deletado_com_sucesso"), e.Nome);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return "Fornecedor Não Foi Deletado";
+            return StringResource.GetString("fornecedor_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return "Fornecedores Apagados Com Sucesso";
+            return StringResource.GetString("fornecedores_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return "Erro ao Apagar Fornecedores";
+            return StringResource.GetString("fornecedores_nao_deletados");
         }
 
         public void RestauraEntidade(FornecedorModel original, FornecedorModel backup)
@@ -83,7 +84,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string TelaApagarCaption()
         {
-            return "Apagar Fornecedor(es)";
+            return StringResource.GetString("apagar_fornecedores");
         }
 
         public void AbrirCadastrarOnline(ISession session)

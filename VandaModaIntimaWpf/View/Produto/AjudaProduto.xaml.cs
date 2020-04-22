@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.View.Produto
     {
         public AjudaProduto()
         {
+            //TODO: string resources
             InitializeComponent();
         }
     }

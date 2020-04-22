@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System.Collections.Generic;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.SQL;
 using VandaModaIntimaWpf.ViewModel.SQL;
@@ -48,34 +49,34 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             importarExportarSQL.ShowDialog();
         }
 
-        public string MensagemApagarEntidadeCerteza(ProdutoModel produto)
+        public string MensagemApagarEntidadeCerteza(ProdutoModel e)
         {
-            return $"Tem Certeza Que Deseja Apagar o Produto {produto.Descricao}?";
+            return string.Format(StringResource.GetString("certeza_deletar_produto"), e.Descricao);
         }
 
         public string MensagemApagarMarcados()
         {
-            return "Deseja Apagar os Produtos Marcados?";
+            return StringResource.GetString("deseja_apagar_produto_marcados");
         }
 
-        public string MensagemEntidadeDeletada(ProdutoModel produto)
+        public string MensagemEntidadeDeletada(ProdutoModel e)
         {
-            return $"Produto {produto.Descricao} Foi Deletado Com Sucesso";
+            return string.Format(StringResource.GetString("produto_deletado_com_sucesso"), e.Descricao);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return "Produto Não Foi Deletado";
+            return StringResource.GetString("produto_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return "Produtos Apagados Com Sucesso";
+            return StringResource.GetString("produtos_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return "Erro Ao Apagar Fornecedores";
+            return StringResource.GetString("produtos_nao_deletados");
         }
 
         public void RestauraEntidade(ProdutoModel original, ProdutoModel backup)
@@ -89,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string TelaApagarCaption()
         {
-            return "Apagar Produto(s)";
+            return StringResource.GetString("apagar_produtos");
         }
     }
 }

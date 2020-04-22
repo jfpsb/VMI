@@ -46,11 +46,135 @@
     <System:String x:Key="endereco_dois_pontos">Endereço:</System:String>
     <System:String x:Key="inscricao_estadual_dois_pontos">Inscrição Estadual:</System:String>
     <System:String x:Key="matriz_dois_pontos">Matriz:</System:String>
+    <System:String x:Key="endereco_header">Endereço</System:String>
+    <System:String x:Key="matriz_header">Matriz</System:String>
+    <System:String x:Key="apagar_lojas_marcadas">Apagar Lojas Marcadas</System:String>
+    <System:String x:Key="marca_ja_existe_sistema">Esta Marca Já Existe No Sistema</System:String>
+    <System:String x:Key="apagar_marcas_marcadas">Apagar Marcas Marcadas</System:String>
+    <System:String x:Key="codigo_de_barras_dois_pontos">Código de Barra:</System:String>
+    <System:String x:Key="ncm_dois_pontos">NCM:</System:String>
+    <System:String x:Key="fornecedor_dois_pontos">Fornecedor:</System:String>
+    <System:String x:Key="fornecedor_header">Fornecedor</System:String>
+    <System:String x:Key="marca_header">Marca</System:String>
+    <System:String x:Key="ncm_header">NCM</System:String>
+    <System:String x:Key="marca_dois_pontos">Marca:</System:String>
+    <System:String x:Key="produto_ja_existe_sistema">Este Produto Já Existe No Sistema</System:String>
+    <System:String x:Key="descricao_dois_pontos">Descrição:</System:String>
+    <System:String x:Key="preco_dois_pontos">Preço:</System:String>
+    <System:String x:Key="apagar_produtos_marcados">Apagar Produtos Marcados</System:String>
+    <System:String x:Key="mes_de_referencia">Mês de Referência:</System:String>
+    <System:String x:Key="mes_referencia_header">Mês Referência</System:String>
+    <System:String x:Key="operadora_cartao_header">Operadora</System:String>
+    <System:String x:Key="recebido_header">Recebido</System:String>
+    <System:String x:Key="valor_operadora_header">Valor da Operadora</System:String>
+    <System:String x:Key="observacao_header">Observação</System:String>
+    <System:String x:Key="diferenca_header">Diferença</System:String>
+    <System:String x:Key="arquivo_ofx">Arquivo .OFX:</System:String>
+    <System:String x:Key="total_recebido_dois_pontos">Total Recebido:</System:String>
+    <System:String x:Key="total_fornecido_operadora_dois_pontos">Total Fornecido por Operadora:</System:String>
+    <System:String x:Key="detalhes">Detalhes</System:String>
+    <System:String x:Key="apagar_recebimentos_marcados">Apagar Recebimentos Marcados</System:String>
+    <System:String x:Key="opcoes">Opções</System:String>
+    <System:String x:Key="cadastrar_novo">Cadastrar Novo</System:String>
+    <System:String x:Key="importar">Importar</System:String>
+    <System:String x:Key="exportar">Exportar</System:String>
+    <System:String x:Key="excel_xlsx">Excel (*.xlsx)</System:String>
+    <System:String x:Key="sql_sql">SQL (*.sql)</System:String>
+    <System:String x:Key="ajuda">Ajuda</System:String>
+    <System:String x:Key="cadastrar_online">Cadastrar Online</System:String>
+    <System:String x:Key="cadastrar_manualmente">Cadastrar Manualmente</System:String>
+    <System:String x:Key="editar">Editar</System:String>
+    <System:String x:Key="copiar">Copiar</System:String>
+    <System:String x:Key="apagar">Apagar</System:String>
+    <System:String x:Key="recebimento_de_cartao">Recebimento De Cartão</System:String>
+    <System:String x:Key="contagem">Contagem</System:String>
+
+    <System:String x:Key="aguardando_usuario">Aguardando Usuário</System:String>
+    <System:String x:Key="arquivo_excel_sendo_gerado">O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar</System:String>
+    <System:String x:Key="exportacao_excel_realizada_com_sucesso">Exportação em Excel Realizada Com Sucesso</System:String>
+    <System:String x:Key="certeza_deletar_contagem">Tem Certeza Que Deseja Apagar a Contagem {0}?</System:String>
+    <System:String x:Key="deseja_apagar_contagem_marcadas">Deseja Apagar as Contagens Marcadas?</System:String>
+    <System:String x:Key="contagem_deletada_com_sucesso">Contagem {0} Foi Deletada Com Sucesso</System:String>
+    <System:String x:Key="contagem_nao_deletada">Contagem Não Foi Deletada</System:String>
+    <System:String x:Key="contagens_nao_deletadas">Contagens Não Foram Deletadas</System:String>
+    <System:String x:Key="contagens_deletadas_com_sucesso">Contagens Foram Deletadas Com Sucesso</System:String>
+    <System:String x:Key="apagar_contagens">Apagar Contagem(ns)</System:String>
+
+    <System:String x:Key="certeza_deletar_fornecedor">Tem Certeza Que Deseja Apagar o Fornecedor {0}?</System:String>
+    <System:String x:Key="deseja_apagar_fornecedor_marcados">Deseja Apagar os Fornecedores Marcados?</System:String>
+    <System:String x:Key="fornecedor_deletado_com_sucesso">Fornecedor {0} Foi Deletado Com Sucesso</System:String>
+    <System:String x:Key="fornecedor_nao_deletado">Fornecedor Não Foi Deletado</System:String>
+    <System:String x:Key="fornecedores_nao_deletados">Fornecedores Não Foram Deletados</System:String>
+    <System:String x:Key="fornecedores_deletados_com_sucesso">Fornecedores Foram Deletados Com Sucesso</System:String>
+    <System:String x:Key="apagar_fornecedores">Apagar Fornecedor(es)</System:String>
+
+    <System:String x:Key="certeza_deletar_loja">Tem Certeza Que Deseja Apagar a Loja {0}?</System:String>
+    <System:String x:Key="deseja_apagar_loja_marcadas">Deseja Apagar as Lojas Marcadas?</System:String>
+    <System:String x:Key="loja_deletada_com_sucesso">Loja {0} Foi Deletada Com Sucesso</System:String>
+    <System:String x:Key="loja_nao_deletada">Loja Não Foi Deletada</System:String>
+    <System:String x:Key="lojas_nao_deletadas">Lojas Não Foram Deletadas</System:String>
+    <System:String x:Key="lojas_deletadas_com_sucesso">Lojas Foram Deletadas Com Sucesso</System:String>
+    <System:String x:Key="apagar_lojas">Apagar Loja(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_marca">Tem Certeza Que Deseja Apagar a Marca {0}?</System:String>
+    <System:String x:Key="deseja_apagar_marca_marcadas">Deseja Apagar as Marcas Marcadas?</System:String>
+    <System:String x:Key="marca_deletada_com_sucesso">Marca {0} Foi Deletada Com Sucesso</System:String>
+    <System:String x:Key="marca_nao_deletada">Marca Não Foi Deletada</System:String>
+    <System:String x:Key="marcas_nao_deletadas">Marcas Não Foram Deletadas</System:String>
+    <System:String x:Key="marcas_deletadas_com_sucesso">Marcas Foram Deletadas Com Sucesso</System:String>
+    <System:String x:Key="apagar_marcas">Apagar Marca(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_produto">Tem Certeza Que Deseja Apagar o Produto {0}?</System:String>
+    <System:String x:Key="deseja_apagar_produto_marcados">Deseja Apagar os Produtos Marcados?</System:String>
+    <System:String x:Key="produto_deletado_com_sucesso">Produto {0} Foi Deletado Com Sucesso</System:String>
+    <System:String x:Key="produto_nao_deletado">Produto Não Foi Deletado</System:String>
+    <System:String x:Key="produtos_nao_deletados">Produtos Não Foram Deletados</System:String>
+    <System:String x:Key="produtos_deletados_com_sucesso">Produtos Foram Deletados Com Sucesso</System:String>
+    <System:String x:Key="apagar_produtos">Apagar Produto(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_recebimento">Tem Certeza Que Deseja Apagar o Recebimento de {0} da Loja {1}?</System:String>
+    <System:String x:Key="deseja_apagar_recebimento_marcados">Deseja Apagar os Recebimentos Marcados?</System:String>
+    <System:String x:Key="recebimento_deletado_com_sucesso">Recebimento {0} Foi Deletado Com Sucesso</System:String>
+    <System:String x:Key="recebimento_nao_deletado">Recebimento Não Foi Deletado</System:String>
+    <System:String x:Key="recebimentos_nao_deletados">Recebimentos Não Foram Deletados</System:String>
+    <System:String x:Key="recebimentos_deletados_com_sucesso">Recebimentos Foram Deletados Com Sucesso</System:String>
+    <System:String x:Key="apagar_recebimentos">Apagar Recebimento(s)</System:String>
 
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
-    
+
     <!-- Exclusivo da janela EditarFornecedor -->
     <System:String x:Key="atualizar_consultando_receita_federal">Atualizar Consultando a Receita Federal</System:String>
+
+    <!-- Exclusivo da janela ExportarSQL -->
+    <System:String x:Key="exportar_sql_primeiro_paragrafo">Informe na tabela abaixo os nomes alternativos para as colunas da tabela, caso seja necessário.</System:String>
+    <System:String x:Key="exportar_sql_segundo_paragrafo">Campo de valor padrão somente será considerado se possuir um comando SQL válido. Em colunas adicionais não pode ter valor vazio.
+            Campos adicionais serão ignorados em exportação de comandos de update.</System:String>
+    <System:String x:Key="exportar_inserts">Exportar Inserts</System:String>
+    <System:String x:Key="exportar_updates">Exportar Updates</System:String>
+    <System:String x:Key="coluna_header">Coluna</System:String>
+    <System:String x:Key="pseudonimo_header">Pseudônimo</System:String>
+    <System:String x:Key="valor_padrao_header">Valor Padrão</System:String>
+
+    <x:Array x:Key="CmbPesquisaProdutoItems"
+             Type="System:String">
+        <System:String>Descrição</System:String>
+        <System:String>Cód. De Barras</System:String>
+        <System:String>Fornecedor</System:String>
+        <System:String>Marca</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaFornecedorItems"
+             Type="System:String">
+        <System:String>CNPJ</System:String>
+        <System:String>Nome</System:String>
+        <System:String>E-mail</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaLojaItems"
+             Type="System:String">
+        <System:String>CNPJ</System:String>
+        <System:String>Nome</System:String>
+    </x:Array>
 
 </ResourceDictionary>

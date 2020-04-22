@@ -38,7 +38,7 @@
         </StatusBar>
         <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -51,34 +51,39 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label>Código De Barras:</Label>
+            <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
             <TextBox x:Name="TxtCodBarra"
                      Grid.Column="1"
                      Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="15" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
+                   Content="{DynamicResource produto_ja_existe_sistema}"
                    HorizontalAlignment="Right"
                    Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red">Este Código Já Existe No Sistema</Label>
-            <Label Grid.Row="2">Descrição:</Label>
+                   Foreground="Red" />
+            <Label Grid.Row="2"
+                   Content="{DynamicResource descricao_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="2"
                      Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="100"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="3">Preço:</Label>
+            <Label Grid.Row="3"
+                   Content="{DynamicResource preco_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="3"
                      Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4">NCM:</Label>
+            <Label Grid.Row="4"
+                   Content="{DynamicResource ncm_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="4"
                      Text="{Binding Produto.Ncm, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}"
                      MaxLength="8" />
-            <Label Grid.Row="5">Fornecedor:</Label>
+            <Label Grid.Row="5"
+                   Content="{DynamicResource fornecedor_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
@@ -86,7 +91,8 @@
                       SelectedItem="{Binding Produto.Fornecedor}"
                       SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="6">Marca:</Label>
+            <Label Grid.Row="6"
+                   Content="{DynamicResource marca_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
@@ -96,8 +102,9 @@
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="8"
                     Grid.ColumnSpan="2"
+                    Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}" />
         </Grid>
     </DockPanel>
 </Window>

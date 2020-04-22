@@ -50,11 +50,13 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Right">Mês de Referência:</Label>
+            <Label HorizontalAlignment="Right"
+                   Content="{DynamicResource mes_de_referencia}" />
             <view:CampoNumericoComBotao Grid.Column="1"
                                         DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
             <Label HorizontalAlignment="Right"
-                   Grid.Row="1">Loja:</Label>
+                   Grid.Row="1"
+                   Content="{DynamicResource loja_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
                       ItemsSource="{Binding Matrizes}"
@@ -62,7 +64,8 @@
                       SelectedItem="{Binding Matriz}"
                       SelectedIndex="{Binding MatrizComboBoxIndex}" />
             <Label HorizontalAlignment="Right"
-                   Grid.Row="2">Arquivo .OFX:</Label>
+                   Grid.Row="2"
+                   Content="{DynamicResource arquivo_ofx}" />
             <Button Grid.Column="1"
                     Grid.Row="2"
                     Command="{Binding AbrirOfxComando}"
@@ -73,7 +76,7 @@
                       AlternatingRowBackground="White"
                       ItemsSource="{Binding Recebimentos, IsAsync=True, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Mês Referência"
+                    <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding MesAno}"
                                         Width="Auto">
@@ -84,7 +87,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Loja"
+                    <DataGridTextColumn Header="{DynamicResource loja_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Loja.Nome}"
                                         Width="Auto">
@@ -95,7 +98,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Operadora"
+                    <DataGridTextColumn Header="{DynamicResource operadora_cartao_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding OperadoraCartao.Nome}"
                                         Width="Auto">
@@ -106,7 +109,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Recebido"
+                    <DataGridTextColumn Header="{DynamicResource recebido_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Recebido}"
                                         Width="*">
@@ -117,7 +120,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Valor da Operadora"
+                    <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
                                         Binding="{Binding ValorOperadora, Converter={StaticResource formatoDoubleDataGrid}}"
                                         Width="*">
                         <DataGridTextColumn.CellStyle>
@@ -127,7 +130,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Diferença"
+                    <DataGridTextColumn Header="{DynamicResource diferenca_header}"
                                         IsReadOnly="True"
                                         Binding="{Binding Diferenca}"
                                         Width="Auto">
@@ -138,7 +141,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Observação"
+                    <DataGridTextColumn Header="{DynamicResource observacao_header}"
                                         Binding="{Binding Observacao}"
                                         Width="200">
                         <DataGridTextColumn.CellStyle>
@@ -160,13 +163,15 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label FontWeight="Bold">Total Recebido:</Label>
+                <Label FontWeight="Bold"
+                       Content="{DynamicResource total_recebido_dois_pontos}" />
                 <Label Grid.Column="1"
                        Grid.Row="0"
                        FontWeight="Bold"
                        Content="{Binding TotalRecebido}" />
                 <Label Grid.Row="1"
-                       FontWeight="Bold">Total Fornecido por Operadora:</Label>
+                       FontWeight="Bold"
+                       Content="{DynamicResource total_fornecido_operadora_dois_pontos}" />
                 <Label Grid.Column="1"
                        Grid.Row="1"
                        FontWeight="Bold"
@@ -175,9 +180,10 @@
             <Button Grid.Row="4"
                     Grid.Column="1"
                     Width="190"
+                    Content="{DynamicResource cadastrar}"
                     ToolTip="Se Já Existir Um Mês de Referência Com A Loja Escolhida, os Valores Serão Atualizados"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}">Cadastrar</Button>
+                    Command="{Binding SalvarComando}" />
         </Grid>
     </DockPanel>
 </Window>
