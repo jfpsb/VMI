@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public PesquisarLojaViewModel()
         {
             daoEntidade = new DAOLoja(_session);
-            excelStrategy = new ExcelStrategy(new LojaExcelStrategy());
+            excelStrategy = new ExcelStrategy(new LojaExcelStrategy(_session));
             pesquisarViewModelStrategy = new PesquisarLojaViewModelStrategy();
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio

@@ -14,8 +14,19 @@ namespace VandaModaIntimaWpf.Model
         public Loja() { }
         public Loja(string nome)
         {
-            this._nome = nome;
+            _nome = nome;
         }
+
+        public enum Colunas
+        {
+            Cnpj = 1,
+            Matriz = 2,
+            Nome = 3,
+            Telefone = 4,
+            Endereco = 5,
+            InscricaoEstadual = 6
+        }
+
         public string Cnpj
         {
             get => _cnpj;
@@ -52,6 +63,12 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Telefone");
             }
         }
+
+        internal string[] GetColunas()
+        {
+            return new[] { "CNPJ", "Matriz", "Nome", "Telefone", "Endereço", "Inscrição Estadual" };
+        }
+
         public string Endereco
         {
             get => _endereco?.ToUpper();

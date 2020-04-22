@@ -63,9 +63,16 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 }
                 finally
                 {
-                    Workbook.Close(true, Missing.Value, Missing.Value);
-                    Aplicacao.Quit();
-                    Marshal.ReleaseComObject(Aplicacao);
+                    try
+                    {
+                        Workbook.Close(true, Missing.Value, Missing.Value);
+                        Aplicacao.Quit();
+                        Marshal.ReleaseComObject(Aplicacao);
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             });
 
