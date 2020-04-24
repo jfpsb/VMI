@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
@@ -17,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private DAOLoja daoLoja;
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ICommand AbrirVisualizarContagemProdutoComando { get; set; }
+        public ICommand AbrirCadastrarTipoContagemComando { get; set; }
 
         private DateTime _dataInicial;
         private DateTime _dataFinal;
@@ -31,6 +30,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             DataFinal = DateTime.Now;
             GetLojas();
             AbrirVisualizarContagemProdutoComando = new RelayCommand(AbrirVisualizarContagemProduto);
+            AbrirCadastrarTipoContagemComando = new RelayCommand(AbrirCadastrarTipoContagem);
+
+            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_contagem"), Command = AbrirCadastrarComando });
+            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_tipo_contagem"), Command = AbrirCadastrarTipoContagemComando });
         }
         public override async void GetItems(string termo)
         {
@@ -50,8 +53,12 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirVisualizarContagemProduto(object parameter)
         {
-            VisualizarContagemProduto visualizar = new VisualizarContagemProduto(EntidadeSelecionada.Entidade);
-            visualizar.ShowDialog();
+            ((PesquisarContagemViewModelStrategy)pesquisarViewModelStrategy).AbrirVisualizarContagemProduto(EntidadeSelecionada.Entidade);
+        }
+
+        private void AbrirCadastrarTipoContagem(object parameter)
+        {
+            ((PesquisarContagemViewModelStrategy)pesquisarViewModelStrategy).AbrirCadastrarTipoContagem();
         }
 
         public DateTime DataInicial

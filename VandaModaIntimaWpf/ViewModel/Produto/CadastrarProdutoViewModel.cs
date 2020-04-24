@@ -33,6 +33,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             GetFornecedores();
             GetMarcas();
+
+            int novoCodBarra = daoProduto.GetMaxId();
+            Produto.CodBarra = (novoCodBarra + 1).ToString();
         }
         public override bool ValidacaoSalvar(object parameter)
         {

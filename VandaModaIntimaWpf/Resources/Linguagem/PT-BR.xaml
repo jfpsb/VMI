@@ -140,6 +140,10 @@
     <System:String x:Key="recebimentos_deletados_com_sucesso">Recebimentos Foram Deletados Com Sucesso</System:String>
     <System:String x:Key="apagar_recebimentos">Apagar Recebimento(s)</System:String>
 
+    <System:String x:Key="cadastrar_contagem">Cadastrar Contagem</System:String>
+    <System:String x:Key="cadastrar_tipo_contagem">Cadastrar Tipo de Contagem</System:String>
+    <System:String x:Key="id_dois_pontos">Id:</System:String>
+
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
 

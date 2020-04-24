@@ -195,6 +195,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VandaModaIntima.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -352,6 +356,9 @@
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaPesquisaMenu.cs" />
+    <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
+      <DependentUpon>CadastrarTipoContagem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\VandaModaIntima.xaml.cs">
       <DependentUpon>VandaModaIntima.xaml</DependentUpon>
       <SubType>Code</SubType>

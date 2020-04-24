@@ -9,12 +9,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
     public class VisualizarContagemProdutoViewModel : ObservableObject
     {
         private ContagemModel _contagem;
-        private IList<ContagemProdutoModel> _contagemGroupBy;
 
         public VisualizarContagemProdutoViewModel(ContagemModel _contagem)
         {
             this._contagem = _contagem;
-            _contagemGroupBy = _contagem.Contagens
+            ContagemGroupBy = _contagem.Contagens
                 .GroupBy(gb => gb.Produto.CodBarra)
                 .Select(s => new ContagemProdutoModel
                 {
@@ -22,6 +21,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
                     Quant = s.Sum(sum => sum.Quant)
                 }).ToList();
         }
+
+
 
         public ContagemModel Contagem
         {
@@ -37,17 +38,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             }
         }
 
-        public IList<ContagemProdutoModel> ContagemGroupBy
-        {
-            get
-            {
-                return _contagemGroupBy;
-            }
-
-            set
-            {
-                _contagemGroupBy = value;
-            }
-        }
+        public IList<ContagemProdutoModel> ContagemGroupBy { get; set; }
     }
 }

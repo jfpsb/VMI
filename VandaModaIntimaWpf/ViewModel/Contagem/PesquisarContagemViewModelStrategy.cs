@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
+using VandaModaIntimaWpf.View.TipoContagem;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
@@ -86,6 +87,19 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public string TelaApagarCaption()
         {
             return StringResource.GetString("apagar_contagens");
+        }
+
+        public void AbrirVisualizarContagemProduto(ContagemModel contagem)
+        {
+            VisualizarContagemProduto visualizar = new VisualizarContagemProduto(contagem);
+            visualizar.ShowDialog();
+        }
+
+        public void AbrirCadastrarTipoContagem()
+        {
+            //TODO: Implementar ViewModel
+            CadastrarTipoContagem cadastrarTipoContagem = new CadastrarTipoContagem();
+            cadastrarTipoContagem.ShowDialog();
         }
     }
 }
