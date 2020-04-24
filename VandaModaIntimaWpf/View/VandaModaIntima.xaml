@@ -7,7 +7,7 @@
         WindowState="Maximized"
         Closing="TelaPrincipal_Closing"
         Width="1200"
-        Height="1200">
+        Height="800">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>
