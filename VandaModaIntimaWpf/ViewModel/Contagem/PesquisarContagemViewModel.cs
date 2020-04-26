@@ -16,6 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ICommand AbrirVisualizarContagemProdutoComando { get; set; }
         public ICommand AbrirCadastrarTipoContagemComando { get; set; }
+        public ICommand AbrirPesquisarTipoContagemComando { get; set; }
 
         private DateTime _dataInicial;
         private DateTime _dataFinal;
@@ -31,9 +32,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             GetLojas();
             AbrirVisualizarContagemProdutoComando = new RelayCommand(AbrirVisualizarContagemProduto);
             AbrirCadastrarTipoContagemComando = new RelayCommand(AbrirCadastrarTipoContagem);
-
-            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_contagem"), Command = AbrirCadastrarComando });
-            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_tipo_contagem"), Command = AbrirCadastrarTipoContagemComando });
         }
         public override async void GetItems(string termo)
         {

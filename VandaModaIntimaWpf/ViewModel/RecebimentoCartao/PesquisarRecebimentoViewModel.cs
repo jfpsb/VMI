@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
@@ -14,7 +15,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private LojaModel matriz;
         private DateTime dataEscolhida = DateTime.Now;
         private int matrizComboBoxIndex;
+
         public ObservableCollection<LojaModel> Matrizes { get; set; }
+        public ICommand AbrirCadastrarOperadoraComando { get; set; }
         public PesquisarRecebimentoViewModel()
         {
             daoEntidade = new DAORecebimentoCartao(_session);
@@ -22,6 +25,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             pesquisarViewModelStrategy = new PesquisarRecebimentoCartaoViewModelStrategy();
             GetMatrizes();
             MatrizComboBoxIndex = 0;
+
+            CadastrarNovoMenuItems.Add(new System.Windows.Controls.MenuItem() { Header = StringResource.GetString("cadastrar_recebimento_cartao"), Command = AbrirCadastrarComando });
+            CadastrarNovoMenuItems.Add(new System.Windows.Controls.MenuItem() { Header = StringResource.GetString("cadastrar_operadora_cartao"), Command = AbrirCadastrarOperadoraComando });
         }
         public override async void GetItems(string termo)
         {

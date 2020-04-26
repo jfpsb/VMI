@@ -14,43 +14,14 @@
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Contagem_Icon.ico"
                      Closing="Pesquisar_Closing"
-                     FocusManager.FocusedElement="{Binding ElementName=CmbLoja}">
+                     FocusManager.FocusedElement="{Binding ElementName=CmbLoja}"
+                     Style="{StaticResource JanelaBase}">
     <view:APesquisarView.DataContext>
         <ViewModel:PesquisarContagemViewModel />
     </view:APesquisarView.DataContext>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <view:TelaPesquisaMenu DockPanel.Dock="Top"
-                               CommandParameter="{Binding ElementName=TelaPesquisarContagem}"
-                               Template="{DynamicResource TelaPesquisaMenu}" />
-
-        <Button DockPanel.Dock="Bottom"
-                Padding="10px"
-                Margin="5,0,5,5"
+    <DockPanel Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Button Style="{StaticResource ApagarMarcadoBotaoEstilo}"
                 Content="{DynamicResource apagar_contagens_marcadas}"
-                HorizontalAlignment="Right"
-                Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
-                Command="{Binding ApagarMarcadosComando}"
                 CommandParameter="{Binding ElementName=TelaPesquisarContagem}" />
         <Grid>
             <Grid.ColumnDefinitions>

@@ -32,6 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
+        private ObservableCollection<MenuItem> _telaPesquisaMenuItems;
         private ObservableCollection<MenuItem> _cadastrarNovoMenuItems; //Adiciona novos MenuItems se necessário no MenuItem de CadastrarNovo
 
         protected DAO daoEntidade;
@@ -65,6 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             _session = SessionProvider.GetSession();
             CadastrarNovoMenuItems = new ObservableCollection<MenuItem>();
+            TelaPesquisaMenuItems = new ObservableCollection<MenuItem>();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
@@ -299,6 +301,16 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _cadastrarNovoMenuItems = value;
                 OnPropertyChanged("CadastrarNovoMenuItems");
+            }
+        }
+
+        public ObservableCollection<MenuItem> TelaPesquisaMenuItems
+        {
+            get => _telaPesquisaMenuItems;
+            set
+            {
+                _telaPesquisaMenuItems = value;
+                OnPropertyChanged("TelaPesquisaMenuItems");
             }
         }
 

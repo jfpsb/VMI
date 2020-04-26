@@ -163,6 +163,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\OperadoraCartao\CadastrarOperadoraCartao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Produto\AjudaProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -330,6 +334,9 @@
     </Compile>
     <Compile Include="View\Marca\PesquisarMarca.xaml.cs">
       <DependentUpon>PesquisarMarca.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OperadoraCartao\CadastrarOperadoraCartao.xaml.cs">
+      <DependentUpon>CadastrarOperadoraCartao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Produto\AjudaProduto.xaml.cs">
       <DependentUpon>AjudaProduto.xaml</DependentUpon>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.View.OperadoraCartao;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -72,6 +73,13 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public string TelaApagarCaption()
         {
             return StringResource.GetString("apagar_recebimentos");
+        }
+
+        public void AbrirCadastrarOperadoraCartao()
+        {
+            //TODO: implementar ViewModel
+            CadastrarOperadoraCartao cadastrarOperadoraCartao = new CadastrarOperadoraCartao();
+            cadastrarOperadoraCartao.ShowDialog();
         }
     }
 }

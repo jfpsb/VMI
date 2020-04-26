@@ -219,6 +219,9 @@
                             <MenuItem Header="SQL (*.sql)"
                                       Command="{Binding ExportarSQLComando}" />
                         </MenuItem>
+
+                        <ItemsPresenter />
+
                         <MenuItem Header="{DynamicResource ajuda}"
                                   Command="{Binding AbrirAjudaComando}">
                             <MenuItem.Icon>
@@ -262,7 +265,67 @@
                     </StackPanel>
                 </Border>
             </ControlTemplate>
-            
+
+            <Style x:Key="ApagarMarcadoBotaoEstilo"
+                   TargetType="Button"
+                   BasedOn="{StaticResource Fonte}">
+                <Setter Property="DockPanel.Dock"
+                        Value="Bottom" />
+                <Setter Property="Padding"
+                        Value="10px" />
+                <Setter Property="Margin"
+                        Value="5,0,5,5" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Visibility"
+                        Value="{Binding VisibilidadeBotaoApagarSelecionado}" />
+                <Setter Property="Command"
+                        Value="{Binding ApagarMarcadosComando}" />
+            </Style>
+
+            <Style x:Key="JanelaBase"
+                   TargetType="Window">
+                <Style.Resources>
+                    <System:String x:Key="ApagarMarcadosTextoBotao">placeholder</System:String>
+                    <Window x:Key="Owner" />
+                </Style.Resources>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Window">
+                            <DockPanel>
+                                <StatusBar DockPanel.Dock="Bottom">
+                                    <StatusBar.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                            </Grid>
+                                        </ItemsPanelTemplate>
+                                    </StatusBar.ItemsPanel>
+                                    <StatusBarItem HorizontalAlignment="Right">
+                                        <Image Height="15"
+                                               Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
+                                    </StatusBarItem>
+                                    <StatusBarItem Grid.Column="1"
+                                                   HorizontalAlignment="Stretch">
+                                        <Label HorizontalAlignment="Right"
+                                               Content="{Binding MensagemStatusBar}" />
+                                    </StatusBarItem>
+                                </StatusBar>
+                                <View:TelaPesquisaMenu DockPanel.Dock="Top"
+                                                       CommandParameter="{DynamicResource Owner}"
+                                                       Template="{DynamicResource TelaPesquisaMenu}">
+                                </View:TelaPesquisaMenu>
+
+                                <ContentPresenter />
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
 
     </Application.Resources>
