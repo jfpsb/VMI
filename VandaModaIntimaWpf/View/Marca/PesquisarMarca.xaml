@@ -1,4 +1,4 @@
-﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
                      x:Class="VandaModaIntimaWpf.View.Marca.PesquisarMarca"
                      x:Name="TelaPesquisarMarca"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -15,92 +15,63 @@
                      WindowStartupLocation="CenterScreen"
                      ResizeMode="NoResize"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <view:APesquisarView.DataContext>
+    <View:APesquisarView.DataContext>
         <ViewModel:PesquisarMarcaViewModel />
-    </view:APesquisarView.DataContext>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <view:TelaPesquisaMenu DockPanel.Dock="Top"
-                               CommandParameter="{Binding ElementName=TelaPesquisarMarca}"
-                               Template="{DynamicResource TelaPesquisaMenu}" />
-        <Button DockPanel.Dock="Bottom"
-                Padding="10px"
-                Margin="5,0,5,5"
-                Content="{DynamicResource apagar_marcas_marcadas}"
-                HorizontalAlignment="Right"
-                Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
-                Command="{Binding ApagarMarcadosComando}"
-                CommandParameter="{Binding ElementName=TelaPesquisarMarca}" />
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="21" />
-                <ColumnDefinition Width="79" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="2"
-                   Content="{DynamicResource pesquisa_dois_pontos}" />
-            <TextBox x:Name="TxtPesquisa"
-                     Grid.Column="2"
-                     Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
-            <DataGrid Grid.Row="1"
-                      Grid.ColumnSpan="3"
-                      AutoGenerateColumns="False"
-                      Name="DataGridMarca"
-                      AlternatingRowBackground="White"
-                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
-                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarMarca}}}">
+    </View:APesquisarView.DataContext>
+    <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_marcas_marcadas}"
+                               CommandParameter="{Binding ElementName=TelaPesquisarMarca}">
+        <View:TelaPesquisaTemplate.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21" />
+                    <ColumnDefinition Width="79" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.ColumnSpan="2"
+                       Content="{DynamicResource pesquisa_dois_pontos}" />
+                <TextBox x:Name="TxtPesquisa"
+                         Grid.Column="2"
+                         Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGrid Grid.Row="1"
+                          Grid.ColumnSpan="3"
+                          AutoGenerateColumns="False"
+                          Name="DataGridMarca"
+                          AlternatingRowBackground="White"
+                          ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                              Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarMarca}}}">
 
-                                </CheckBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{DynamicResource nome_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.Nome}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Nome}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
-                </DataGrid.ContextMenu>
-            </DataGrid>
-        </Grid>
-    </DockPanel>
-</view:APesquisarView>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{DynamicResource nome_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Nome}"
+                                            Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Nome}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </View:TelaPesquisaTemplate.Content>
+    </View:TelaPesquisaTemplate>
+</View:APesquisarView>

@@ -1,4 +1,4 @@
-﻿<view:APesquisarView xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
                      x:Class="VandaModaIntimaWpf.View.RecebimentoCartao.PesquisarRecebimento"
                      x:Name="TelaPesquisarRecebimento"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -17,146 +17,117 @@
     <Window.DataContext>
         <ViewModel:PesquisarRecebimentoViewModel />
     </Window.DataContext>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <view:TelaPesquisaMenu DockPanel.Dock="Top"
-                               CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}"
-                               Template="{DynamicResource TelaPesquisaMenu}" />
-        <Button DockPanel.Dock="Bottom"
-                Padding="10px"
-                Margin="5,0,5,5"
-                Content="{DynamicResource apagar_recebimentos_marcados}"
-                HorizontalAlignment="Right"
-                Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
-                Command="{Binding ApagarMarcadosComando}"
-                CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}" />
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <view:CampoNumericoComBotao Grid.Column="1"
-                                        Width="230"
-                                        HorizontalAlignment="Left"
-                                        DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content="{DynamicResource mes_de_referencia}" />
-            <Label Grid.Row="1"
-                   Content="{DynamicResource loja_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="1"
-                      Width="220"
-                      HorizontalAlignment="Left"
-                      ItemsSource="{Binding Matrizes}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Matriz}"
-                      SelectedIndex="{Binding MatrizComboBoxIndex}" />
-            <DataGrid Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      Grid.RowSpan="2"
-                      AutoGenerateColumns="False"
-                      Name="DataGridRecebimento"
-                      AlternatingRowBackground="White"
-                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
-                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarRecebimento}}}">
-                                </CheckBox>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.MesAno}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.MesAno}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource loja_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.Loja.Nome}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Loja.Nome}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource recebido_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.Recebido}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Recebido}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.ValorOperadora}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.ValorOperadora}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource diferenca_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Entidade.Diferenca}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Entidade.Diferenca}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                        <MenuItem Header="{DynamicResource detalhes}"
-                                  Style="{StaticResource ContextMenuItemStyle}" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-        </Grid>
-    </DockPanel>
-</view:APesquisarView>
+    <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_recebimentos_marcados}"
+                               CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}">
+        <View:TelaPesquisaTemplate.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <View:CampoNumericoComBotao Grid.Column="1"
+                                            Width="230"
+                                            HorizontalAlignment="Left"
+                                            DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Content="{DynamicResource mes_de_referencia}" />
+                <Label Grid.Row="1"
+                       Content="{DynamicResource loja_dois_pontos}" />
+                <ComboBox Grid.Column="1"
+                          Grid.Row="1"
+                          Width="220"
+                          HorizontalAlignment="Left"
+                          ItemsSource="{Binding Matrizes}"
+                          DisplayMemberPath="Nome"
+                          SelectedItem="{Binding Matriz}"
+                          SelectedIndex="{Binding MatrizComboBoxIndex}" />
+                <DataGrid Grid.Row="2"
+                          Grid.ColumnSpan="2"
+                          Grid.RowSpan="2"
+                          AutoGenerateColumns="False"
+                          Name="DataGridRecebimento"
+                          AlternatingRowBackground="White"
+                          ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                              Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarRecebimento}}}">
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.MesAno}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.MesAno}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Loja.Nome}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Loja.Nome}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource recebido_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Recebido}"
+                                            Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Recebido}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.ValorOperadora}"
+                                            Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.ValorOperadora}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource diferenca_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Diferenca}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Diferenca}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
+                            <MenuItem Header="{DynamicResource detalhes}"
+                                      Style="{StaticResource ContextMenuItemStyle}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </View:TelaPesquisaTemplate.Content>
+    </View:TelaPesquisaTemplate>
+</View:APesquisarView>

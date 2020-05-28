@@ -18,9 +18,9 @@
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarContagemViewModel />
     </View:APesquisarView.DataContext>
-    <View:TelaPesquisaTemplate3 BtnApagarMarcadoTexto="{DynamicResource apagar_contagens_marcadas}"
+    <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_contagens_marcadas}"
                                 CommandParameter="{Binding ElementName=TelaPesquisarContagem}">
-        <View:TelaPesquisaTemplate3.Main>
+        <View:TelaPesquisaTemplate.Content>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40" />
@@ -131,6 +131,6 @@
                     </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
-        </View:TelaPesquisaTemplate3.Main>
-    </View:TelaPesquisaTemplate3>
+        </View:TelaPesquisaTemplate.Content>
+    </View:TelaPesquisaTemplate>
 </View:APesquisarView>

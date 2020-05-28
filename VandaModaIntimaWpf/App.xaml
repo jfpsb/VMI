@@ -283,11 +283,10 @@
                         Value="{Binding ApagarMarcadosComando}" />
             </Style>
 
-            <Style TargetType="View:TelaPesquisaTemplate2"
-                   x:Key="Blah">
+            <Style TargetType="{x:Type View:TelaPesquisaTemplate}">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate>
+                        <ControlTemplate TargetType="{x:Type View:TelaPesquisaTemplate}">
                             <DockPanel Background="White">
                                 <StatusBar DockPanel.Dock="Bottom">
                                     <StatusBar.ItemsPanel>
@@ -312,18 +311,18 @@
                                 </StatusBar>
                                 <View:TelaPesquisaMenu DockPanel.Dock="Top"
                                                        Template="{DynamicResource TelaPesquisaMenu}"
-                                                       CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource AncestorType=ContentControl}}">
+                                                       CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource AncestorType=Control}}">
                                 </View:TelaPesquisaMenu>
 
                                 <Button DockPanel.Dock="Bottom"
                                         Padding="10px"
                                         Margin="5,0,5,5"
-                                        Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=ContentControl}}"
+                                        Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=Control}}"
                                         HorizontalAlignment="Right"
                                         Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                                         Command="{Binding ApagarMarcadosComando}" />
 
-                                <ContentControl />
+                                <ContentPresenter x:Name="Presenter" />
 
                             </DockPanel>
                         </ControlTemplate>

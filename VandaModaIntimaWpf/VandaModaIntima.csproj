@@ -95,10 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\CampoNumericoComBotao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,10 +198,6 @@
     <Page Include="View\TelaApagarDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TelaPesquisaTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
       <SubType>Designer</SubType>
@@ -371,11 +363,7 @@
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaPesquisaMenu.cs" />
-    <Compile Include="View\TelaPesquisaTemplate.xaml.cs">
-      <DependentUpon>TelaPesquisaTemplate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaPesquisaTemplate2.cs" />
-    <Compile Include="View\TelaPesquisaTemplate3.cs" />
+    <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
       <DependentUpon>CadastrarTipoContagem.xaml</DependentUpon>
     </Compile>

@@ -44,25 +44,25 @@ namespace VandaModaIntimaWpf.View
     ///     <MyNamespace:TelaPesquisaTemplate3/>
     ///
     /// </summary>
-    public class TelaPesquisaTemplate3 : Control
+    public class TelaPesquisaTemplate : Control
     {
-        static TelaPesquisaTemplate3()
+        static TelaPesquisaTemplate()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TelaPesquisaTemplate3), new FrameworkPropertyMetadata(typeof(TelaPesquisaTemplate3)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TelaPesquisaTemplate), new FrameworkPropertyMetadata(typeof(TelaPesquisaTemplate)));
         }
 
         public static readonly DependencyProperty BtnApagarMarcadoTextoProperty =
-            DependencyProperty.Register("BtnApagarMarcadoTexto", typeof(string), typeof(TelaPesquisaTemplate3));
+            DependencyProperty.Register("BtnApagarMarcadoTexto", typeof(string), typeof(TelaPesquisaTemplate));
 
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(TelaPesquisaTemplate3), new FrameworkPropertyMetadata());
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(TelaPesquisaTemplate), new FrameworkPropertyMetadata());
 
-        public static readonly DependencyProperty MainProperty =
-            DependencyProperty.Register("Main", typeof(object), typeof(TelaPesquisaTemplate3), new PropertyMetadata(null));
-        public object Main
+        public static readonly DependencyProperty ContentProperty =
+            DependencyProperty.Register("Main", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
+        public object Content
         {
-            get { return GetValue(MainProperty); }
-            set { SetValue(MainProperty, value); }
+            get { return GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
         }
 
         public object CommandParameter
