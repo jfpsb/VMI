@@ -283,16 +283,12 @@
                         Value="{Binding ApagarMarcadosComando}" />
             </Style>
 
-            <Style x:Key="JanelaBase"
-                   TargetType="Window">
-                <Style.Resources>
-                    <System:String x:Key="ApagarMarcadosTextoBotao">placeholder</System:String>
-                    <Window x:Key="Owner" />
-                </Style.Resources>
+            <Style TargetType="View:TelaPesquisaTemplate2"
+                   x:Key="Blah">
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="Window">
-                            <DockPanel>
+                        <ControlTemplate>
+                            <DockPanel Background="White">
                                 <StatusBar DockPanel.Dock="Bottom">
                                     <StatusBar.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -315,17 +311,25 @@
                                     </StatusBarItem>
                                 </StatusBar>
                                 <View:TelaPesquisaMenu DockPanel.Dock="Top"
-                                                       CommandParameter="{DynamicResource Owner}"
-                                                       Template="{DynamicResource TelaPesquisaMenu}">
+                                                       Template="{DynamicResource TelaPesquisaMenu}"
+                                                       CommandParameter="{Binding CommandParameter, RelativeSource={RelativeSource AncestorType=ContentControl}}">
                                 </View:TelaPesquisaMenu>
 
-                                <ContentPresenter />
+                                <Button DockPanel.Dock="Bottom"
+                                        Padding="10px"
+                                        Margin="5,0,5,5"
+                                        Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=ContentControl}}"
+                                        HorizontalAlignment="Right"
+                                        Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
+                                        Command="{Binding ApagarMarcadosComando}" />
+
+                                <ContentControl />
+
                             </DockPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
 
     </Application.Resources>
