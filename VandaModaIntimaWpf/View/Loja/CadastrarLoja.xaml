@@ -3,10 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Loja"
         mc:Ignorable="d"
         Title="Cadastrar Loja"
-        Height="380"
+        Height="420"
         Width="500"
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
@@ -41,6 +40,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -97,7 +97,14 @@
                       ItemsSource="{Binding Path=Matrizes}"
                       SelectedItem="{Binding Path=Matriz, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="7"
+            <Label Grid.Row="7"
+                   Content="{DynamicResource aluguel_dois_pontos}" />
+            <TextBox Grid.Column="1"
+                     Grid.Row="7"
+                     MaxLength="10"
+                     Text="{Binding Loja.Aluguel, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Button Grid.Row="8"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"

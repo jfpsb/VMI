@@ -362,7 +362,6 @@
     <Compile Include="View\TelaApagarDialog.xaml.cs">
       <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TelaPesquisaMenu.cs" />
     <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
       <DependentUpon>CadastrarTipoContagem.xaml</DependentUpon>
@@ -501,6 +500,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Contagem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Despesas.png" />
+    <Resource Include="Resources\Despesas_Icon.ico" />
+    <Resource Include="Resources\Despesas_Small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />

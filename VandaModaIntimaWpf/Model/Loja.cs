@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private string _telefone;
         private string _endereco;
         private string _inscricaoestadual;
+        private double _aluguel;
         public Loja() { }
         public Loja(string nome)
         {
@@ -24,7 +25,8 @@ namespace VandaModaIntimaWpf.Model
             Nome = 3,
             Telefone = 4,
             Endereco = 5,
-            InscricaoEstadual = 6
+            InscricaoEstadual = 6,
+            Aluguel = 7
         }
 
         public string Cnpj
@@ -85,6 +87,15 @@ namespace VandaModaIntimaWpf.Model
             {
                 _inscricaoestadual = value;
                 OnPropertyChanged("InscricaoEstadual");
+            }
+        }
+        public double Aluguel
+        {
+            get => _aluguel;
+            set
+            {
+                _aluguel = value;
+                OnPropertyChanged("Aluguel");
             }
         }
 

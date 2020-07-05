@@ -88,6 +88,17 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaDespesasComando}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Despesas.png"
+                               Height="300"
+                               Width="300" />
+                        <Label Content="{DynamicResource despesas}" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </WrapPanel>
     </DockPanel>
 </Window>

@@ -33,13 +33,13 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             AbrirVisualizarContagemProdutoComando = new RelayCommand(AbrirVisualizarContagemProduto);
             AbrirCadastrarTipoContagemComando = new RelayCommand(AbrirCadastrarTipoContagem);
         }
-        public override async void GetItems(string termo)
+        public override async void PesquisaItens(string termo)
         {
             DAOContagem daoContagem = (DAOContagem)daoEntidade;
             Entidades = new ObservableCollection<EntidadeComCampo<ContagemModel>>(EntidadeComCampo<ContagemModel>.ConverterIList(await daoContagem.ListarPorLojaEPeriodo(Loja, DataInicial, DataFinal)));
         }
 
-        public override bool IsEditable(object parameter)
+        public override bool Editavel(object parameter)
         {
             return true;
         }

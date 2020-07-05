@@ -12,10 +12,10 @@ namespace VandaModaIntimaWpf.ViewModel
         void ApagarMarcados(object parameter);
         void ExportarExcel(object parameter);
         void ImportarExcel(object parameter);
-        void GetItems(string termo);
+        void PesquisaItens(string termo);
         void DisposeSession();
         bool IsThreadLocked();
-        bool IsEditable(object parameter);
+        bool Editavel(object parameter);
         void SetStatusBarItemDeletado(string mensagem);
         void SetStatusBarAguardandoExcel();
         void SetStatusBarAguardando();

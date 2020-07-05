@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                 OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
             }
         }
-        public override async void GetItems(string termo)
+        public override async void PesquisaItens(string termo)
         {
             DAOLoja daoLoja = (DAOLoja)daoEntidade;
             switch (pesquisarPor)
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                     break;
             }
         }
-        public override bool IsEditable(object parameter)
+        public override bool Editavel(object parameter)
         {
             return true;
         }

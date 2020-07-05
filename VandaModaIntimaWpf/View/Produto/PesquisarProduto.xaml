@@ -20,6 +20,42 @@
     </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_produtos_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarProduto}">
+        <View:TelaPesquisaTemplate.Menu>
+            <Menu>
+                <MenuItem Header="{DynamicResource opcoes}">
+                    <MenuItem Header="{DynamicResource cadastrar_novo}"
+                              Command="{Binding AbrirCadastrarComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Adicionar.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource importar}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Importar.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Excel (*.xlsx)"
+                                  Command="{Binding ImportarExcelComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarProduto}" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource exportar}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Exportar.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Excel (*.xlsx)"
+                                  Command="{Binding ExportarExcelComando}" />
+                        <MenuItem Header="SQL (*.sql)"
+                                  Command="{Binding ExportarSQLComando}" />
+                    </MenuItem>
+
+                    <MenuItem Header="{DynamicResource ajuda}"
+                              Command="{Binding AbrirAjudaComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Ajuda.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </View:TelaPesquisaTemplate.Menu>
         <View:TelaPesquisaTemplate.Content>
             <Grid>
                 <Grid.ColumnDefinitions>

@@ -88,6 +88,8 @@
     <System:String x:Key="apagar">Delete</System:String>
     <System:String x:Key="recebimento_de_cartao">Card Companies Deposits</System:String>
     <System:String x:Key="contagem">Inventory</System:String>
+    <System:String x:Key="despesas">Expenses</System:String>
+    <System:String x:Key="aluguel_dois_pontos">Rent Value ($):</System:String>
 
     <System:String x:Key="aguardando_usuario">Waiting For User</System:String>
     <System:String x:Key="arquivo_excel_sendo_gerado">Excel File Is Being Created. Stand By For Save File Dialog</System:String>

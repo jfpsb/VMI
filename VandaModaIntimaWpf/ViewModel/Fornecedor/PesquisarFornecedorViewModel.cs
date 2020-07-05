@@ -1,9 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -26,9 +23,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             pesquisarViewModelStrategy = new PesquisarFornecedorViewModelStrategy();
             daoEntidade = new DAOFornecedor(_session);
 
-            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_online"), Command = AbrirCadastrarOnlineComando });
-            CadastrarNovoMenuItems.Add(new MenuItem() { Header = StringResource.GetString("cadastrar_manualmente"), Command = AbrirCadastrarComando });
-
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
@@ -38,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             ((PesquisarFornecedorViewModelStrategy)pesquisarViewModelStrategy).AbrirCadastrarOnline(_session);
             OnPropertyChanged("TermoPesquisa");
         }
-        public override async void GetItems(string termo)
+        public override async void PesquisaItens(string termo)
         {
             DAOFornecedor daoFornecedor = (DAOFornecedor)daoEntidade;
             switch (pesquisarPor)
@@ -55,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
         }
 
-        public override bool IsEditable(object parameter)
+        public override bool Editavel(object parameter)
         {
             return true;
         }

@@ -58,11 +58,21 @@ namespace VandaModaIntimaWpf.View
             DependencyProperty.Register("CommandParameter", typeof(object), typeof(TelaPesquisaTemplate), new FrameworkPropertyMetadata());
 
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Main", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
+            DependencyProperty.Register("Content", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
+
+        public static readonly DependencyProperty MenuProperty =
+            DependencyProperty.Register("Menu", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
+
         public object Content
         {
             get { return GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
+        }
+
+        public object Menu
+        {
+            get { return GetValue(MenuProperty); }
+            set { SetValue(MenuProperty, value); }
         }
 
         public object CommandParameter
@@ -81,8 +91,11 @@ namespace VandaModaIntimaWpf.View
         {
             base.OnApplyTemplate();
 
-            ContentPresenter presenter = GetTemplateChild("Presenter") as ContentPresenter;
-            presenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Main") { Source = this });
+            ContentPresenter mainContentPresenter = GetTemplateChild("Presenter") as ContentPresenter;
+            mainContentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Content") { Source = this });
+
+            ContentPresenter menuContentPresenter = GetTemplateChild("Menu") as ContentPresenter;
+            menuContentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Menu") { Source = this });
         }
     }
 }

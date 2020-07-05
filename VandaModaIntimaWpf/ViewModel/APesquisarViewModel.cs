@@ -32,8 +32,6 @@ namespace VandaModaIntimaWpf.ViewModel
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
-        private ObservableCollection<MenuItem> _telaPesquisaMenuItems;
-        private ObservableCollection<MenuItem> _cadastrarNovoMenuItems; //Adiciona novos MenuItems se necessário no MenuItem de CadastrarNovo
 
         protected DAO daoEntidade;
 
@@ -55,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox);
-            AbrirEditarComando = new RelayCommand(AbrirEditar, IsEditable);
+            AbrirEditarComando = new RelayCommand(AbrirEditar, Editavel);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados);
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados);
             ExportarExcelComando = new RelayCommand(ExportarExcel);
@@ -65,15 +63,13 @@ namespace VandaModaIntimaWpf.ViewModel
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
 
             _session = SessionProvider.GetSession();
-            CadastrarNovoMenuItems = new ObservableCollection<MenuItem>();
-            TelaPesquisaMenuItems = new ObservableCollection<MenuItem>();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
             SetStatusBarAguardando();
         }
-        public abstract void GetItems(string termo);
-        public abstract bool IsEditable(object parameter);
+        public abstract void PesquisaItens(string termo);
+        public abstract bool Editavel(object parameter);
         public void AbrirCadastrar(object parameter)
         {
             var result = pesquisarViewModelStrategy.AbrirCadastrar(parameter, _session);
@@ -216,7 +212,7 @@ namespace VandaModaIntimaWpf.ViewModel
             switch (e.PropertyName)
             {
                 case "TermoPesquisa":
-                    GetItems(termoPesquisa);
+                    PesquisaItens(termoPesquisa);
                     break;
             }
         }
@@ -291,26 +287,6 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _entidades = value;
                 OnPropertyChanged("Entidades");
-            }
-        }
-
-        public ObservableCollection<MenuItem> CadastrarNovoMenuItems
-        {
-            get => _cadastrarNovoMenuItems;
-            set
-            {
-                _cadastrarNovoMenuItems = value;
-                OnPropertyChanged("CadastrarNovoMenuItems");
-            }
-        }
-
-        public ObservableCollection<MenuItem> TelaPesquisaMenuItems
-        {
-            get => _telaPesquisaMenuItems;
-            set
-            {
-                _telaPesquisaMenuItems = value;
-                OnPropertyChanged("TelaPesquisaMenuItems");
             }
         }
 

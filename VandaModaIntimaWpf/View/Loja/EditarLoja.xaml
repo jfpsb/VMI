@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Loja"
         mc:Ignorable="d"
         Title="Editar Loja"
-        Height="380"
+        Height="400"
         Width="500"
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
@@ -37,10 +37,11 @@
         </StatusBar>
         <Grid Margin="15,15,15,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="160" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -91,7 +92,14 @@
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding MatrizComboBox, Mode=TwoWay}"
                       SelectedIndex="{Binding MatrizComboBoxIndex, Mode=OneWay}" />
-            <Button Grid.Row="7"
+            <Label Grid.Row="7"
+                   Content="{DynamicResource aluguel_dois_pontos}" />
+            <TextBox Grid.Column="1"
+                     Grid.Row="7"
+                     MaxLength="10"
+                     Text="{Binding Loja.Aluguel, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEnabled}" />
+            <Button Grid.Row="8"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource salvar}"
                     Style="{StaticResource BotaoCadastrar}"

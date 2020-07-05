@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         }
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Loja.Cnpj) || string.IsNullOrEmpty(Loja.Nome))
+            if (string.IsNullOrEmpty(Loja.Cnpj) || string.IsNullOrEmpty(Loja.Nome) || Loja.Aluguel <= 0.0)
             {
                 return false;
             }

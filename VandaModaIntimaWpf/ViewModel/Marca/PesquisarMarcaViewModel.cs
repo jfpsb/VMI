@@ -14,12 +14,12 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             pesquisarViewModelStrategy = new PesquisarMarcaViewModelStrategy();
             OnPropertyChanged("TermoPesquisa");
         }
-        public override async void GetItems(string termo)
+        public override async void PesquisaItens(string termo)
         {
             DAOMarca daoMarca = (DAOMarca)daoEntidade;
             Entidades = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(await daoMarca.ListarPorNome(termo)));
         }
-        public override bool IsEditable(object parameter)
+        public override bool Editavel(object parameter)
         {
             return false;
         }

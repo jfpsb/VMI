@@ -20,6 +20,45 @@
     </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_fornecedores_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}">
+        <View:TelaPesquisaTemplate.Menu>
+            <Menu>
+                <MenuItem Header="{DynamicResource opcoes}">
+                    <MenuItem Header="{DynamicResource cadastrar_novo}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Adicionar.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="{DynamicResource cadastrar_online}"
+                                  Command="{Binding AbrirCadastrarOnlineComando}" />
+                        <MenuItem Header="{DynamicResource cadastrar_manualmente}"
+                                  Command="{Binding AbrirCadastrarComando}" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource importar}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Importar.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Excel (*.xlsx)"
+                                  Command="{Binding ImportarExcelComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource exportar}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Exportar.png" />
+                        </MenuItem.Icon>
+                        <MenuItem Header="Excel (*.xlsx)"
+                                  Command="{Binding ExportarExcelComando}" />
+                        <MenuItem Header="SQL (*.sql)"
+                                  Command="{Binding ExportarSQLComando}" />
+                    </MenuItem>
+
+                    <MenuItem Header="{DynamicResource ajuda}"
+                              Command="{Binding AbrirAjudaComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Ajuda.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </View:TelaPesquisaTemplate.Menu>
         <View:TelaPesquisaTemplate.Content>
             <Grid>
                 <Grid.ColumnDefinitions>

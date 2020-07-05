@@ -25,11 +25,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             pesquisarViewModelStrategy = new PesquisarRecebimentoCartaoViewModelStrategy();
             GetMatrizes();
             MatrizComboBoxIndex = 0;
-
-            CadastrarNovoMenuItems.Add(new System.Windows.Controls.MenuItem() { Header = StringResource.GetString("cadastrar_recebimento_cartao"), Command = AbrirCadastrarComando });
-            CadastrarNovoMenuItems.Add(new System.Windows.Controls.MenuItem() { Header = StringResource.GetString("cadastrar_operadora_cartao"), Command = AbrirCadastrarOperadoraComando });
         }
-        public override async void GetItems(string termo)
+        public override async void PesquisaItens(string termo)
         {
             DAORecebimentoCartao daoRecebimento = (DAORecebimentoCartao)daoEntidade;
             if (MatrizComboBoxIndex != 0)
@@ -46,7 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
             Matrizes.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
         }
-        public override bool IsEditable(object parameter)
+        public override bool Editavel(object parameter)
         {
             return false;
         }
