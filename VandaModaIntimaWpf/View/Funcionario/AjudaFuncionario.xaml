@@ -1,0 +1,101 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.Funcionario.AjudaFuncionario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Ajuda"
+        Width="1200"
+        Height="675"
+        Icon="/Resources/Loja_Icon.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl FontSize="16">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Excel.ico"
+                               Width="16" />
+                        <Label FontSize="16">Excel</Label>
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer>
+                    <StackPanel>
+                        <Image Source="/Resources/AjudaProdutoExcel.png"
+                               Width="Auto"
+                               VerticalAlignment="Top"
+                               Margin="30,15,30,15" />
+                        <Separator Margin="20,0,20,0" />
+                        <Label Margin="30,0,0,0"
+                               FontSize="18"
+                               FontWeight="Bold">- Importar:</Label>
+                        <TextBlock FontSize="16"
+                                   Margin="30,0,30,0"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Justify">
+                        <TextBlock Margin="30,0,0,0">Produtos</TextBlock>
+                        podem ser adicionados através de uma planilha Excel. 
+                        Entretanto, a planilha deve estar formatada de forma correta.
+                        <LineBreak />
+                        <TextBlock Margin="30,0,0,0">Para</TextBlock> cadastro de produtos, a planilha precisa ter <Run Foreground="Red">obrigatoriamente</Run> 
+                        seis colunas. Reserve a primeira linha da planilha para o cabeçalho. 
+                        <Run FontWeight="Bold">Importante:</Run> <Underline>a primeira linha da planilha obrigatoriamente deve ter os cabeçalhos ou estar vazia. Um produto na primeira linha será desconsiderado.</Underline>
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0">A ordem das colunas deve ser <Italic>(checar ordem na imagem acima)</Italic>:</TextBlock>
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run Foreground="Red"
+                                                          TextDecorations="Underline">1. Cód. De Barras</Run></TextBlock>: campo obrigatório;
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run Foreground="Red"
+                                                          TextDecorations="Underline">2. Descrição</Run></TextBlock>: campo obrigatório;
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run Foreground="Red"
+                                                          TextDecorations="Underline">3. Preço</Run></TextBlock>: campo obrigatório. Somente pode conter números;
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run TextDecorations="Underline">4. Fornecedor</Run></TextBlock>: campo não obrigatório. Pode-se utilizar o CNPJ ou nome (exatamente como cadastrado na receita federal) do fornecedor. 
+                        Certifique-se que o fornecedor está cadastrado no sistema ou ele não será atribuido ao produto;
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run TextDecorations="Underline">5. Marca</Run></TextBlock>: campo não obrigatório. Neste campo deve ser escrito o nome da marca do produto exatamente como salvo no sistema.
+                        <LineBreak />
+                        
+                        <TextBlock Margin="30,0,0,0"><Run TextDecorations="Underline">6. Cód De Barras de Fornecedor</Run></TextBlock>: campo não obrigatório. Se houver mais de um código, separá-los usando vírgula, sem adicionar espaços.
+                        <LineBreak />
+                        Exemplo: 123,124,125
+                    </TextBlock>
+                        <Separator Margin="20,10,20,0" />
+                        <Label Margin="30,0,0,0"
+                               FontSize="18"
+                               FontWeight="Bold">- Exportar:</Label>
+                        <TextBlock TextAlignment="Justify"
+                                   TextWrapping="Wrap"
+                                   Margin="30,0,30,0">
+                            <TextBlock Margin="30,0,0,0">Os</TextBlock>
+                             produtos exportados serão os que estiverem na lista de consulta no momento que o botão de exportação foi ativado.
+                            <LineBreak />
+                            <TextBlock Margin="30,0,0,0">Os</TextBlock>
+                            dados serão exportados no formato da imagem acima.
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/Adicionar.png"
+                               Width="16" />
+                        <Label FontSize="16">Cadastrar Novo</Label>
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Header="Editar"></TabItem>
+            <TabItem Header="Apagar"></TabItem>
+            <TabItem Header="Apagar Vários"></TabItem>
+        </TabControl>
+    </Grid>
+</Window>

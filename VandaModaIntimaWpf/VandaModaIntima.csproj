@@ -139,6 +139,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Funcionario\AjudaFuncionario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Funcionario\CadastrarFuncionario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Funcionario\EditarFuncionario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Funcionario\PesquisarFuncionario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Loja\AjudaLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -296,6 +312,18 @@
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
+      <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Funcionario\CadastrarFuncionario.xaml.cs">
+      <DependentUpon>CadastrarFuncionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Funcionario\EditarFuncionario.xaml.cs">
+      <DependentUpon>EditarFuncionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Funcionario\PesquisarFuncionario.xaml.cs">
+      <DependentUpon>PesquisarFuncionario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ICloseable.cs" />
     <Compile Include="View\IOpenFileDialog.cs" />
@@ -505,6 +533,11 @@
     <Resource Include="Resources\Despesas.png" />
     <Resource Include="Resources\Despesas_Icon.ico" />
     <Resource Include="Resources\Despesas_Small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Funcionario.png" />
+    <Resource Include="Resources\Funcionario_Icon.ico" />
+    <Resource Include="Resources\Funcionario_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />

@@ -90,6 +90,13 @@
     <System:String x:Key="contagem">Contagem</System:String>
     <System:String x:Key="despesas">Despesas</System:String>
     <System:String x:Key="aluguel_dois_pontos">Valor do Aluguel (R$):</System:String>
+    <System:String x:Key="cpf_dois_pontos">CPF:</System:String>
+    <System:String x:Key="funcionario_ja_existe">Este CPF Já Está Cadastrado</System:String>
+    <System:String x:Key="salario_dois_pontos">Salário (R$):</System:String>
+    <System:String x:Key="cpf_header">CPF</System:String>
+    <System:String x:Key="salario_header">Salário</System:String>
+    <System:String x:Key="apagar_funcionarios_marcados">Apagar Funcionários Marcadoso</System:String>
+    <System:String x:Key="funcionario_header">Funcionário</System:String>
 
     <System:String x:Key="aguardando_usuario">Aguardando Usuário</System:String>
     <System:String x:Key="arquivo_excel_sendo_gerado">O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar</System:String>
@@ -183,6 +190,12 @@
     <x:Array x:Key="CmbPesquisaLojaItems"
              Type="System:String">
         <System:String>CNPJ</System:String>
+        <System:String>Nome</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaFuncionarioItems"
+             Type="System:String">
+        <System:String>CPF</System:String>
         <System:String>Nome</System:String>
     </x:Array>
 

@@ -21,6 +21,8 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaLojaComando { get; set; }
         public ICommand AbrirTelaRecebimentoComando { get; set; }
         public ICommand AbrirTelaContagemComando { get; set; }
+
+        //TODO: Comando para tela de funcionário e despesas
         public VandaModaIntimaViewModel()
         {
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);

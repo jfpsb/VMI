@@ -67,6 +67,17 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaFuncionarioComando}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/Funcionario.png"
+                               Height="300"
+                               Width="300" />
+                        <Label Content="{DynamicResource funcionario_header}" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
                     Command="{Binding AbrirTelaRecebimentoComando}">
                 <Button.Content>
                     <StackPanel>
