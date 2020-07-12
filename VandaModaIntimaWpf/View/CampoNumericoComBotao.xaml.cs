@@ -12,7 +12,6 @@ namespace VandaModaIntimaWpf.View
     /// </summary>
     public partial class CampoNumericoComBotao : UserControl, INotifyPropertyChanged
     {
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataEscolhidaProperty =
             DependencyProperty.Register("DataEscolhida", typeof(DateTime), typeof(CampoNumericoComBotao), new PropertyMetadata(DateTime.Now));
 
@@ -22,8 +21,10 @@ namespace VandaModaIntimaWpf.View
         {
             InitializeComponent();
             DataEscolhida = DateTime.Now;
-            Binding binding = new Binding("DataEscolhidaString");
-            binding.Source = this;
+            Binding binding = new Binding("DataEscolhidaString")
+            {
+                Source = this
+            };
             TxtNumero.SetBinding(TextBox.TextProperty, binding);
         }
 

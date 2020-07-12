@@ -119,6 +119,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -309,6 +313,9 @@
     </Compile>
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml.cs">
+      <DependentUpon>PesquisarFolhaPagamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
