@@ -129,7 +129,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-
         public virtual async Task<bool> Merge(object objeto)
         {
             using (var transacao = session.BeginTransaction())
@@ -149,7 +148,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-
         public virtual async Task<bool> Deletar(object objeto)
         {
             using (var transacao = session.BeginTransaction())

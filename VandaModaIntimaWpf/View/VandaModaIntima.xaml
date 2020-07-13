@@ -7,7 +7,7 @@
         WindowState="Maximized"
         Closing="TelaPrincipal_Closing"
         Width="1200"
-        Height="800">
+        Height="1144.677">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaViewModel />
     </Window.DataContext>
@@ -107,6 +107,17 @@
                                Height="300"
                                Width="300" />
                         <Label Content="{DynamicResource despesas}" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource BotoesTelaInicial}"
+                    Command="{Binding AbrirTelaFolhaPagamentoComando}">
+                <Button.Content>
+                    <StackPanel>
+                        <Image Source="/Resources/FolhaPagamento.png"
+                               Height="300"
+                               Width="300" />
+                        <Label Content="{DynamicResource folha_pagamento}" />
                     </StackPanel>
                 </Button.Content>
             </Button>

@@ -98,7 +98,7 @@
     <System:String x:Key="apagar_funcionarios_marcados">Apagar Funcionários Marcados</System:String>
     <System:String x:Key="funcionario_header">Funcionário</System:String>
     <System:String x:Key="valor_a_pagar_header">Valor A Pagar</System:String>
-    <System:String x:Key="apagar_folhas_marcadas">Apagar Folhas de Pagamento Marcadas</System:String>
+    <System:String x:Key="folha_pagamento">Folha de Pagamento</System:String>
 
     <System:String x:Key="aguardando_usuario">Aguardando Usuário</System:String>
     <System:String x:Key="arquivo_excel_sendo_gerado">O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar</System:String>

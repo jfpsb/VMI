@@ -1,8 +1,8 @@
-﻿namespace VandaModaIntimaWpf.View.Loja
+﻿namespace VandaModaIntimaWpf.View.FolhaPagamento
 {
-    public partial class PesquisarLoja : APesquisarView
+    public partial class PesquisarFolhaPagamento : APesquisarView
     {
-        public PesquisarLoja()
+        public PesquisarFolhaPagamento()
         {
             InitializeComponent();
         }

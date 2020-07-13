@@ -6,6 +6,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Loja"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
                      mc:Ignorable="d"
                      Title="Pesquisar Funcionário"
                      Width="1200"
@@ -14,6 +15,9 @@
                      Icon="/Resources/Funcionario_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarFuncionarioViewModel />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_funcionarios_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}">
         <View:TelaPesquisaTemplate.Menu>

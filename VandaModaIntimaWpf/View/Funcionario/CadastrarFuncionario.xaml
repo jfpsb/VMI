@@ -4,13 +4,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Cadastrar Loja"
-        Height="340"
+        Title="Cadastrar Funcionário"
+        Height="380"
         Width="500"
         Icon="/Resources/Funcionario_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCpf}"
         Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -40,6 +40,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -87,7 +88,15 @@
                      MaxLength="10"
                      Text="{Binding Funcionario.Salario, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="6"
+            <Label Grid.Row="6"
+                   Content="{DynamicResource loja_dois_pontos}" />
+            <ComboBox Grid.Column="1"
+                      Grid.Row="6"
+                      DisplayMemberPath="Nome"
+                      ItemsSource="{Binding Path=Lojas}"
+                      SelectedItem="{Binding Path=Funcionario.Loja, Mode=TwoWay}"
+                      IsEnabled="{Binding IsEnabled}" />
+            <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"

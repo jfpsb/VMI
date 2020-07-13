@@ -1,5 +1,4 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -35,6 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             return true;
         }
 
+        //TODO: colocar strings em resources
         public override async void Salvar(object parameter)
         {
             _result = await daoLoja.Inserir(Loja);

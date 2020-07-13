@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+  <class name="Adiantamento" table="adiantamento" lazy="false">
+    <id name="Data" column="data" />
+    <many-to-one name="FolhaPagamento" class="VandaModaIntimaWpf.Model.FolhaPagamento" lazy="false" >
+      <column name="folhapagamento_mes" />
+      <column name="folhapagamento_ano" />
+      <column name="funcionario" />
+    </many-to-one>
+    <property name="Valor" column="valor" />
+  </class>
+
+</hibernate-mapping>
