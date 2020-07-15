@@ -37,7 +37,13 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar<Loja>(criteria);
         }
-
+        public async Task<IList<Loja>> ListarExcetoDeposito()
+        {
+            var criteria = CriarCriteria<Loja>();
+            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
+            criteria.AddOrder(Order.Asc("Nome"));
+            return await Listar<Loja>(criteria);
+        }
         public async Task<IList<Loja>> ListarPorNome(string termo)
         {
             var criteria = CriarCriteria<Loja>();

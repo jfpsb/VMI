@@ -100,7 +100,8 @@
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
+                    Command="{Binding SalvarComando}"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

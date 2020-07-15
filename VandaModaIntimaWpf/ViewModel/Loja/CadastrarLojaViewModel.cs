@@ -12,8 +12,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
     {
         protected DAOLoja daoLoja;
         protected LojaModel lojaModel;
-        private int matrizComboBoxIndex = 0;
-        private LojaModel _matriz;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public CadastrarLojaViewModel(ISession session)
         {
@@ -22,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             lojaModel = new LojaModel();
             lojaModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetMatrizes();
-            Matriz = Matrizes[0];
+            Loja.Matriz = Matrizes[0];
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -37,6 +35,9 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         //TODO: colocar strings em resources
         public override async void Salvar(object parameter)
         {
+            if (Loja.Matriz.Cnpj == null)
+                Loja.Matriz = null;
+
             _result = await daoLoja.Inserir(Loja);
 
             if (_result)
@@ -90,29 +91,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                     }
 
                     break;
-            }
-        }
-        public int MatrizComboBoxIndex
-        {
-            get { return matrizComboBoxIndex; }
-            set
-            {
-                matrizComboBoxIndex = value;
-                OnPropertyChanged("MatrizComboBoxIndex");
-            }
-        }
-
-        public LojaModel Matriz
-        {
-            get
-            {
-                return _matriz;
-            }
-
-            set
-            {
-                _matriz = value;
-                OnPropertyChanged("Matriz");
             }
         }
     }

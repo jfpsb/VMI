@@ -18,5 +18,10 @@ namespace VandaModaIntimaWpf.View.Funcionario
         {
             DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TxtCpf.Focus();
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             funcionario = new FuncionarioModel();
             Funcionario.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetLojas();
+            Funcionario.Loja = Lojas[0];
         }
 
         public FuncionarioModel Funcionario
@@ -37,7 +38,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 OnPropertyChanged("Funcionario");
             }
         }
-
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -61,14 +61,13 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Lojas.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
+            Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarExcetoDeposito());
         }
 
         public override void ResetaPropriedades()
         {
             Funcionario = new FuncionarioModel();
-
+            Funcionario.Loja = Lojas[0];
         }
 
         //TODO: colocar strings em resources

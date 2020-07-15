@@ -95,7 +95,7 @@
                       Grid.Row="6"
                       DisplayMemberPath="Nome"
                       ItemsSource="{Binding Path=Matrizes}"
-                      SelectedItem="{Binding Path=Matriz, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=Loja.Matriz, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="7"
                    Content="{DynamicResource aluguel_dois_pontos}" />
@@ -108,7 +108,8 @@
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
+                    Command="{Binding SalvarComando}"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

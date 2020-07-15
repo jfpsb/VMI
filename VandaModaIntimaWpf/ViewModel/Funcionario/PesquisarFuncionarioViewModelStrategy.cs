@@ -38,27 +38,27 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public string MensagemApagarMarcados()
         {
-            throw new NotImplementedException();
+            return "Tem Certeza Que Deseja Apagar os Funcionários Marcados?";
         }
 
         public string MensagemEntidadeDeletada(FuncionarioModel e)
         {
-            throw new NotImplementedException();
+            return "Funcionário " + e.Nome + " Deletado (a) Com Sucesso";
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            throw new NotImplementedException();
+            return "Funcionário Não Foi Deletado";
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            throw new NotImplementedException();
+            return "Funcionários Marcados Foram Deletados Com Sucesso";
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            throw new NotImplementedException();
+            return "Funcionários Marcados Não Foram Deletados Com Sucesso";
         }
 
         public void RestauraEntidade(FuncionarioModel original, FuncionarioModel backup)
@@ -68,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public string TelaApagarCaption()
         {
-            throw new NotImplementedException();
+            return "Apagar Funcionários";
         }
     }
 }
