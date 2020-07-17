@@ -183,7 +183,8 @@
                     Content="{DynamicResource cadastrar}"
                     ToolTip="Se Já Existir Um Mês de Referência Com A Loja Escolhida, os Valores Serão Atualizados"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
+                    Command="{Binding SalvarComando}"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

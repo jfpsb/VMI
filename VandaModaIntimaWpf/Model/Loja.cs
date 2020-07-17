@@ -130,7 +130,6 @@ namespace VandaModaIntimaWpf.Model
                 Matriz = Matriz
             };
 
-
             return loja;
         }
 

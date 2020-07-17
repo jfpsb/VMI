@@ -102,8 +102,9 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirEditar(object parameter)
         {
-            E clone = (E)EntidadeSelecionada.Entidade.Clone();
-            pesquisarViewModelStrategy.AbrirEditar(clone, _session);
+            _session.Evict(EntidadeSelecionada.Entidade);
+            //E clone = (E)EntidadeSelecionada.Entidade.Clone();
+            pesquisarViewModelStrategy.AbrirEditar(EntidadeSelecionada.Entidade, _session);
         }
         public void ChecarItensMarcados(object parameter)
         {

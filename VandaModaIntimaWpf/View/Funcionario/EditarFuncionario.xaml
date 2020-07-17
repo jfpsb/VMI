@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Editar Funcionário"
-        Height="320"
+        Height="350"
         Width="500"
         Icon="/Resources/Funcionario_Icon.ico"
         ResizeMode="NoResize"
@@ -40,6 +40,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -82,7 +83,15 @@
                      MaxLength="10"
                      Text="{Binding Funcionario.Salario, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="8"
+            <Label Grid.Row="6"
+                   Content="{DynamicResource loja_dois_pontos}" />
+            <ComboBox Grid.Column="1"
+                      Grid.Row="6"
+                      DisplayMemberPath="Nome"
+                      ItemsSource="{Binding Path=Lojas}"
+                      SelectedItem="{Binding Path=Funcionario.Loja, Mode=TwoWay}"
+                      IsEnabled="{Binding IsEnabled}" />
+            <Button Grid.Row="7"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource salvar}"
                     Style="{StaticResource BotaoCadastrar}"

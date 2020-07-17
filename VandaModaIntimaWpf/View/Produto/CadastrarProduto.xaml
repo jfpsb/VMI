@@ -88,8 +88,7 @@
                       Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Fornecedor}"
-                      SelectedIndex="{Binding Path=FornecedorComboBoxIndex, Mode=TwoWay}"
+                      SelectedItem="{Binding Produto.Fornecedor, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6"
                    Content="{DynamicResource marca_dois_pontos}" />
@@ -97,14 +96,14 @@
                       Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Marca}"
-                      SelectedIndex="{Binding Path=MarcaComboBoxIndex, Mode=TwoWay}"
+                      SelectedItem="{Binding Produto.Marca, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="8"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
+                    Command="{Binding SalvarComando}"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

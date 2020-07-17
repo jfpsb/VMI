@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.Model
         }
         public string Nome
         {
-            get => _nome;
+            get => _nome?.ToUpper();
             set
             {
                 _nome = value;
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model
         }
         public string Endereco
         {
-            get => _endereco;
+            get => _endereco?.ToUpper();
             set
             {
                 _endereco = value;

@@ -17,5 +17,10 @@ namespace VandaModaIntimaWpf.View.RecebimentoCartao
         {
             DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

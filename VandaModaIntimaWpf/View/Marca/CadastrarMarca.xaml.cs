@@ -17,5 +17,10 @@ namespace VandaModaIntimaWpf.View.Marca
         {
             DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TxtMarca.Focus();
+        }
     }
 }

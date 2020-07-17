@@ -20,7 +20,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             lojaModel = new LojaModel();
             lojaModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetMatrizes();
-            Loja.Matriz = Matrizes[0];
         }
         public override bool ValidacaoSalvar(object parameter)
         {

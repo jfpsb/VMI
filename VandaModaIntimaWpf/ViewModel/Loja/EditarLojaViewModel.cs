@@ -7,11 +7,16 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class EditarLojaViewModel : CadastrarLojaViewModel
     {
-        public EditarLojaViewModel(ISession session) : base(session) { }
+        public EditarLojaViewModel(ISession session) : base(session)
+        {
+            //if (Loja.Matriz == null)
+            //    Loja.Matriz = Matrizes[0];
+        }
 
+        //TODO: strings em resources
         public override async void Salvar(object parameter)
         {
-            if (Loja.Matriz != null && Loja.Matriz.Nome.Equals(StringResource.GetString("matriz_nao_selecionada")))
+            if (Loja.Matriz.Cnpj == null)
                 Loja.Matriz = null;
 
             _result = await daoLoja.Merge(Loja);

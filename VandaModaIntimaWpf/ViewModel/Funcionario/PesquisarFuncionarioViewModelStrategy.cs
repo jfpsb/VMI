@@ -23,7 +23,17 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public bool? AbrirEditar(FuncionarioModel entidade, ISession session)
         {
-            throw new NotImplementedException();
+            EditarFuncionarioViewModel editarFuncionarioViewModel = new EditarFuncionarioViewModel(session)
+            {
+                Funcionario = entidade
+            };
+
+            EditarFuncionario editarFuncionario = new EditarFuncionario()
+            {
+                DataContext = editarFuncionarioViewModel
+            };
+
+            return editarFuncionario.ShowDialog();
         }
 
         public void AbrirExportarSQL(object parameter, IList<FuncionarioModel> entidades)

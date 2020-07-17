@@ -17,8 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOMarca daoMarca;
         protected DAOFornecedor daoFornecedor;
         protected ProdutoModel produtoModel;
-        private int fornecedorComboBoxIndex = 0;
-        private int marcaComboBoxIndex = 0;
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public CadastrarProdutoViewModel(ISession session)
@@ -34,8 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
 
-            int novoCodBarra = daoProduto.GetMaxId();
-            Produto.CodBarra = (novoCodBarra + 1).ToString();
+            AtribuiNovoCodBarra();
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -57,10 +54,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override async void Salvar(object parameter)
         {
-            if (FornecedorComboBoxIndex == 0)
+            if (Produto.Fornecedor.Cnpj == null)
                 Produto.Fornecedor = null;
 
-            if (MarcaComboBoxIndex == 0)
+            if (Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
             _result = await daoProduto.Inserir(produtoModel);
@@ -82,8 +79,14 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Produto.Preco = 0;
             Produto.Fornecedor = Fornecedores[0];
             Produto.Marca = Marcas[0];
-        }
 
+            AtribuiNovoCodBarra();
+        }
+        private void AtribuiNovoCodBarra()
+        {
+            int novoCodBarra = daoProduto.GetMaxId();
+            Produto.CodBarra = (novoCodBarra + 1).ToString();
+        }
         public ProdutoModel Produto
         {
             get { return produtoModel; }
@@ -125,24 +128,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     }
 
                     break;
-            }
-        }
-        public int FornecedorComboBoxIndex
-        {
-            get { return fornecedorComboBoxIndex; }
-            set
-            {
-                fornecedorComboBoxIndex = value;
-                OnPropertyChanged("FornecedorComboBoxIndex");
-            }
-        }
-        public int MarcaComboBoxIndex
-        {
-            get { return marcaComboBoxIndex; }
-            set
-            {
-                marcaComboBoxIndex = value;
-                OnPropertyChanged("MarcaComboBoxIndex");
             }
         }
     }

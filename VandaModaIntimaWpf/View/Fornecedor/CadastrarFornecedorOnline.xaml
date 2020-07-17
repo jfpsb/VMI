@@ -99,7 +99,8 @@
                     Content="{DynamicResource cadastrar}"
                     Margin="5,5,5,0"
                     Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
+                    Command="{Binding SalvarComando}"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

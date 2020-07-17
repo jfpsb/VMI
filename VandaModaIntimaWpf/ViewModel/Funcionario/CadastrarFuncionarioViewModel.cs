@@ -26,7 +26,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             funcionario = new FuncionarioModel();
             Funcionario.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetLojas();
-            Funcionario.Loja = Lojas[0];
         }
 
         public FuncionarioModel Funcionario
@@ -73,6 +72,9 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         //TODO: colocar strings em resources
         public override async void Salvar(object parameter)
         {
+            if (Funcionario.Loja.Cnpj == null)
+                Funcionario.Loja = null;
+
             _result = await daoFuncionario.Inserir(Funcionario);
 
             if (_result)

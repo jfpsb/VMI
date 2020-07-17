@@ -122,6 +122,17 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Loja.Nome}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Loja.Nome}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource telefone_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Telefone}"

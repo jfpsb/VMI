@@ -138,6 +138,11 @@
                         Value="5" />
                 <Setter Property="VerticalContentAlignment"
                         Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="SelectedItem" Value="{x:Null}">
+                        <Setter Property="SelectedIndex" Value="0" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <Style TargetType="DatePicker"

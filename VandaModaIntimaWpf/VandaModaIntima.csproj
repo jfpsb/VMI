@@ -286,6 +286,7 @@
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModelStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
     <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioViewModel.cs" />
+    <Compile Include="ViewModel\Funcionario\EditarFuncionarioViewModel.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModel.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModelStrategy.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
