@@ -54,10 +54,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override async void Salvar(object parameter)
         {
-            if (Produto.Fornecedor.Cnpj == null)
+            if (Produto.Fornecedor?.Cnpj == null)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
+            if (Produto.Marca != null && Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
             _result = await daoProduto.Inserir(produtoModel);

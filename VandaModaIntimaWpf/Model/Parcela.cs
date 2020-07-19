@@ -4,32 +4,15 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Parcela : ObservableObject, ICloneable, IModel
     {
-        private int _mes;
-        private int _ano;
+        private long _id;
         private Adiantamento _adiantamento;
+        private FolhaPagamento _folhapagamento;
+        private int _numero;
         private double _valor;
         private bool _paga;
 
         public string GetContextMenuHeader => throw new NotImplementedException();
 
-        public int Mes
-        {
-            get => _mes;
-            set
-            {
-                _mes = value;
-                OnPropertyChanged("Mes");
-            }
-        }
-        public int Ano
-        {
-            get => _ano;
-            set
-            {
-                _ano = value;
-                OnPropertyChanged("Ano");
-            }
-        }
         public Adiantamento Adiantamento
         {
             get => _adiantamento;
@@ -37,6 +20,15 @@ namespace VandaModaIntimaWpf.Model
             {
                 _adiantamento = value;
                 OnPropertyChanged("Adiantamento");
+            }
+        }
+        public FolhaPagamento FolhaPagamento
+        {
+            get => _folhapagamento;
+            set
+            {
+                _folhapagamento = value;
+                OnPropertyChanged("FolhaPagamento");
             }
         }
         public double Valor
@@ -58,37 +50,36 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public int Numero
+        {
+            get => _numero;
+            set
+            {
+                _numero = value;
+                OnPropertyChanged("Numero");
+            }
+        }
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         public object Clone()
         {
             throw new NotImplementedException();
         }
-
         public object GetIdentifier()
         {
             return this;
         }
-
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() == typeof(Parcela))
-            {
-                Parcela parcela = (Parcela)obj;
-
-                if (parcela.Mes == Mes && parcela.Ano == Ano && parcela.Adiantamento.Equals(Adiantamento))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return Mes.GetHashCode() + Ano.GetHashCode() + Adiantamento.GetHashCode();
         }
     }
 }

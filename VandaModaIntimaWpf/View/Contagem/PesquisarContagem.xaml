@@ -98,8 +98,6 @@
                             Margin="5,5,0,5" />
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="5"
-                          AutoGenerateColumns="False"
-                          AlternatingRowBackground="White"
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">

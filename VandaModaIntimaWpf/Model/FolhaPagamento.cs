@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class FolhaPagamento : ObservableObject, ICloneable, IModel
     {
+        private long _id;
         private int _mes;
         private int _ano;
         private Funcionario _funcionario;
         private double _valor;
+        private double _valorAPagar;
         private bool _fechada;
+        private IList<Parcela> _parcelas = new List<Parcela>();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
 
         public int Mes
         {
@@ -29,6 +33,10 @@ namespace VandaModaIntimaWpf.Model
                 _ano = value;
                 OnPropertyChanged("Ano");
             }
+        }
+        public string MesReferencia
+        {
+            get => _mes + "/" + _ano;
         }
         public Funcionario Funcionario
         {
@@ -57,38 +65,57 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Fechada");
             }
         }
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        public IList<Parcela> Parcelas
+        {
+            get => _parcelas;
+            set
+            {
+                _parcelas = value;
+                OnPropertyChanged("Parcelas");
+            }
+        }
+
+        public double ValorAPagar
+        {
+            get
+            {
+                _valorAPagar = _funcionario.Salario;
+
+                foreach (Parcela parcela in _parcelas)
+                {
+                    _valorAPagar -= parcela.Valor;
+                }
+
+                return _valorAPagar;
+            }
+            set
+            {
+                _valorAPagar = value;
+                OnPropertyChanged("ValorAPagar");
+            }
+        }
 
         public object Clone()
         {
             throw new NotImplementedException();
         }
-
         public object GetIdentifier()
         {
-            return this;
+            return _id;
         }
-
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() == typeof(FolhaPagamento))
-            {
-                FolhaPagamento folhaPagamento = obj as FolhaPagamento;
-
-                if (folhaPagamento.Mes == Mes && folhaPagamento.Ano == Ano && folhaPagamento.Funcionario.Equals(Funcionario))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return Mes.GetHashCode() + Ano.GetHashCode() + Funcionario.GetHashCode();
         }
     }
 }

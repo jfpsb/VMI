@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class Adiantamento : ObservableObject, ICloneable, IModel
     {
+        private long _id;
+        private Funcionario _funcionario;
         private DateTime _data;
-        private FolhaPagamento _folhaPagamento;
         private double _valor;
-        private IList<Parcela> _parcelas = new List<Parcela>();
-        public string GetContextMenuHeader => throw new NotImplementedException();
+
+        public string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
 
         public DateTime Data
         {
@@ -20,25 +20,10 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Data");
             }
         }
-        public FolhaPagamento FolhaPagamento
+        public string DataString
         {
-            get => _folhaPagamento;
-            set
-            {
-                _folhaPagamento = value;
-                OnPropertyChanged("FolhaPagamento");
-            }
+            get => _data.ToString("G");
         }
-        public IList<Parcela> Parcelas
-        {
-            get => _parcelas;
-            set
-            {
-                _parcelas = value;
-                OnPropertyChanged("Parcelas");
-            }
-        }
-
         public double Valor
         {
             get => _valor;
@@ -49,6 +34,26 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        public Funcionario Funcionario
+        {
+            get => _funcionario;
+            set
+            {
+                _funcionario = value;
+                OnPropertyChanged("Funcionario");
+            }
+        }
+
         public object Clone()
         {
             throw new NotImplementedException();
@@ -56,7 +61,7 @@ namespace VandaModaIntimaWpf.Model
 
         public object GetIdentifier()
         {
-            return _data;
+            return _id;
         }
 
         public bool IsIdentical(object obj)

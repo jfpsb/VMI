@@ -240,6 +240,7 @@
     <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
     <Compile Include="Model\DAO\DAOContagemProduto.cs" />
+    <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
     <Compile Include="Model\DAO\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\DAOFuncionario.cs" />
     <Compile Include="Model\DAO\DAOLoja.cs" />
@@ -279,6 +280,8 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModel.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModelStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineViewModel.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />

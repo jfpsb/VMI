@@ -4,11 +4,10 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="Parcela" table="parcela" lazy="false">
-    <composite-id>
-      <key-property name="Mes" column="mes" />
-      <key-property name="Ano" column="ano" />
-      <key-many-to-one name="Adiantamento" column="adiantamento" class="VandaModaIntimaWpf.Model.Adiantamento" />
-    </composite-id>
+    <id name="Id" column="id" />
+    <many-to-one name="Adiantamento" class="VandaModaIntimaWpf.Model.Adiantamento" lazy="false" />
+    <many-to-one name="FolhaPagamento" class="VandaModaIntimaWpf.Model.FolhaPagamento" lazy="false" />
+    <property name="Numero" column="numero" />
     <property name="Valor" column="valor" />
     <property name="Paga" column="paga" />
   </class>

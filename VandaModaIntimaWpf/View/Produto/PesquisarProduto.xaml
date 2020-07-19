@@ -82,9 +82,7 @@
                          x:Name="TxtPesquisa" />
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="2"
-                          AutoGenerateColumns="False"
                           Name="DataGridProduto"
-                          AlternatingRowBackground="White"
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">

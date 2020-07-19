@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             funcionario = new FuncionarioModel();
             Funcionario.PropertyChanged += CadastrarViewModel_PropertyChanged;
             GetLojas();
+            Funcionario.Loja = Lojas[0];
         }
 
         public FuncionarioModel Funcionario

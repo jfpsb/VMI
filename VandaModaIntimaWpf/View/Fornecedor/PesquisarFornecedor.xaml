@@ -87,9 +87,7 @@
                          Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="3"
-                          AutoGenerateColumns="False"
                           Name="DataGridFornecedor"
-                          AlternatingRowBackground="White"
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
