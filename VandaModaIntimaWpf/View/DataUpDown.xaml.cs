@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate.Persister.Collection;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -8,29 +9,33 @@ using System.Windows.Data;
 namespace VandaModaIntimaWpf.View
 {
     /// <summary>
-    /// Interaction logic for CampoNumericoComBotao.xaml
+    /// Interaction logic for DataUpDown.xaml
     /// </summary>
-    public partial class CampoNumericoComBotao : UserControl, INotifyPropertyChanged
+    public partial class DataUpDown : UserControl, INotifyPropertyChanged
     {
-        public static readonly DependencyProperty DataEscolhidaProperty =
-            DependencyProperty.Register("DataEscolhida", typeof(DateTime), typeof(CampoNumericoComBotao), new PropertyMetadata(DateTime.Now));
+        public static readonly DependencyProperty DataProperty =
+            DependencyProperty.Register("Data", typeof(DateTime), typeof(DataUpDown), new PropertyMetadata(new PropertyChangedCallback(DataChanged)));
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public CampoNumericoComBotao()
+        public DataUpDown()
         {
             InitializeComponent();
-            DataEscolhida = DateTime.Now;
-            Binding binding = new Binding("DataEscolhidaString")
+            Binding binding = new Binding("DataString")
             {
                 Source = this
             };
             TxtNumero.SetBinding(TextBox.TextProperty, binding);
         }
 
+        private static void DataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as DataUpDown).Data = (DateTime)e.NewValue;
+        }
+
         private void BtnSomar_Click(object sender, RoutedEventArgs e)
         {
-            DateTime data = DataEscolhida;
+            DateTime data = Data;
 
             if (data.Month == 12)
             {
@@ -42,12 +47,12 @@ namespace VandaModaIntimaWpf.View
                 data = data.AddMonths(1);
             }
 
-            DataEscolhida = data;
+            Data = data;
         }
 
         private void BtnSubtrair_Click(object sender, RoutedEventArgs e)
         {
-            DateTime data = DataEscolhida;
+            DateTime data = Data;
 
             if (data.Month == 1)
             {
@@ -59,27 +64,27 @@ namespace VandaModaIntimaWpf.View
                 data = data.AddMonths(-1);
             }
 
-            DataEscolhida = data;
+            Data = data;
         }
-        public DateTime DataEscolhida
+        public DateTime Data
         {
-            get { return (DateTime)GetValue(DataEscolhidaProperty); }
+            get { return (DateTime)GetValue(DataProperty); }
             set
             {
-                SetValue(DataEscolhidaProperty, value);
-                OnPropertyChanged("DataEscolhida");
-                OnPropertyChanged("DataEscolhidaString");
+                SetValue(DataProperty, value);
+                OnPropertyChanged("Data");
+                OnPropertyChanged("DataString");
             }
         }
-        public string DataEscolhidaString
+        public string DataString
         {
-            get { return DataEscolhida.ToString("MMM/yyyy"); }
+            get { return Data.ToString("MMM/yyyy"); }
             set
             {
                 // Se o usuário não colocar a barra separando mes e ano
                 if (!value.Contains("/"))
                 {
-                    OnPropertyChanged("DataEscolhidaString");
+                    OnPropertyChanged("DataString");
                 }
                 else
                 {
@@ -124,12 +129,12 @@ namespace VandaModaIntimaWpf.View
                         ano = int.Parse(valores[1]);
 
                         // Seta data
-                        DataEscolhida = new DateTime(ano, mes, 1);
+                        Data = new DateTime(ano, mes, 1);
                     }
                     catch (FormatException fe)
                     {
                         Console.WriteLine(fe.Message);
-                        OnPropertyChanged("DataEscolhidaString");
+                        OnPropertyChanged("DataString");
                     }
                 }
             }

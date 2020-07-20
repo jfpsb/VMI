@@ -70,10 +70,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <View:CampoNumericoComBotao Grid.Column="1"
+                <View:DataUpDown Grid.Column="1"
                                             Width="230"
                                             HorizontalAlignment="Left"
-                                            DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                                            Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Content="{DynamicResource mes_de_referencia}" />
                 <Label Grid.Row="1"
                        Content="{DynamicResource loja_dois_pontos}" />

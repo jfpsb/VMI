@@ -25,6 +25,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             pesquisarViewModelStrategy = new PesquisarRecebimentoCartaoViewModelStrategy();
             GetMatrizes();
             MatrizComboBoxIndex = 0;
+
+            DataEscolhida = DateTime.Now;
         }
         public override async void PesquisaItens(string termo)
         {

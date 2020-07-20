@@ -52,8 +52,8 @@
             </Grid.RowDefinitions>
             <Label HorizontalAlignment="Right"
                    Content="{DynamicResource mes_de_referencia}" />
-            <view:CampoNumericoComBotao Grid.Column="1"
-                                        DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+            <view:DataUpDown Grid.Column="1"
+                                        Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label HorizontalAlignment="Right"
                    Grid.Row="1"
                    Content="{DynamicResource loja_dois_pontos}" />

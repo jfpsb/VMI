@@ -12,8 +12,7 @@
                      Height="450"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
-                     Closing="Pesquisar_Closing"
-                     FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
+                     Closing="Pesquisar_Closing">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarFolhaPagamentoViewModel />
     </View:APesquisarView.DataContext>
@@ -56,16 +55,16 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Content="{DynamicResource mes_de_referencia}" />
-                <View:CampoNumericoComBotao Width="150"
-                                            HorizontalAlignment="Left"
-                                            Grid.Column="1"
-                                            DataEscolhida="{Binding DataEscolhida, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                <View:DataUpDown Width="150"
+                                 HorizontalAlignment="Left"
+                                 Grid.Column="1"
+                                 Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
                 <DataGrid Grid.Row="1"
                           Grid.ColumnSpan="2"
                           Grid.RowSpan="2"
                           Name="DataGridFolhaPagamento"
                           ItemsSource="{Binding FolhaPagamentos, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                          SelectedItem="{Binding FolhaPagamento, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                     <DataGrid.RowStyle>
                         <Style>

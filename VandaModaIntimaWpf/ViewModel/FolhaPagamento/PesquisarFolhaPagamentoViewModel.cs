@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
@@ -16,6 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOFuncionario daoFuncionario;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
+        private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
         public PesquisarFolhaPagamentoViewModel()
         {
@@ -25,6 +22,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             pesquisarViewModelStrategy = new PesquisarFolhaPagamentoViewModelStrategy();
 
             ConsultaFuncionarios();
+
+            DataEscolhida = DateTime.Now.AddMonths(1);
         }
 
         public DateTime DataEscolhida
@@ -45,6 +44,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _folhaPagamentos = value;
                 OnPropertyChanged("FolhaPagamentos");
+            }
+        }
+
+        public FolhaPagamentoModel FolhaPagamento
+        {
+            get => _folhaPagamento;
+            set
+            {
+                _folhaPagamento = value;
+                OnPropertyChanged("FolhaPagamento");
             }
         }
 

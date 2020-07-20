@@ -98,7 +98,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\CampoNumericoComBotao.xaml">
+    <Page Include="View\DataUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Contagem\VisualizarContagemProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FolhaPagamento\AdicionarAdiantamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -309,8 +313,8 @@
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
     <Compile Include="View\APesquisarView.cs" />
-    <Compile Include="View\CampoNumericoComBotao.xaml.cs">
-      <DependentUpon>CampoNumericoComBotao.xaml</DependentUpon>
+    <Compile Include="View\DataUpDown.xaml.cs">
+      <DependentUpon>DataUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Contagem\AddContagemProdutoDataGrid.cs" />
     <Compile Include="View\Contagem\AdicionarContagemProduto.xaml.cs">
@@ -328,6 +332,9 @@
     </Compile>
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
+      <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml.cs">
       <DependentUpon>PesquisarFolhaPagamento.xaml</DependentUpon>
