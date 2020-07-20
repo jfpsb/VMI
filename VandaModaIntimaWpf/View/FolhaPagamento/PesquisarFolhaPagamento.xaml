@@ -9,7 +9,7 @@
                      mc:Ignorable="d"
                      Title="Pesquisar Folha de Pagamento"
                      Width="600"
-                     Height="450"
+                     Height="500"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
                      Closing="Pesquisar_Closing">
@@ -44,77 +44,118 @@
             </Menu>
         </View:TelaPesquisaTemplate.Menu>
         <View:TelaPesquisaTemplate.Content>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Content="{DynamicResource mes_de_referencia}" />
-                <View:DataUpDown Width="150"
-                                 HorizontalAlignment="Left"
-                                 Grid.Column="1"
-                                 Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
-                <DataGrid Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          Grid.RowSpan="2"
-                          Name="DataGridFolhaPagamento"
-                          ItemsSource="{Binding FolhaPagamentos, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding FolhaPagamento, Mode=OneWayToSource}"
-                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
-                    <DataGrid.RowStyle>
-                        <Style>
-                            <Setter Property="DataGridRow.ToolTip">
-                                <Setter.Value>
-                                    <DataGrid Width="275"
-                                              ItemsSource="{Binding Parcelas}">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Data do Adiantamento"
-                                                                Binding="{Binding Adiantamento.DataString}"
-                                                                IsReadOnly="True"
-                                                                Width="Auto" />
-                                            <DataGridTextColumn Header="Valor"
-                                                                Binding="{Binding Valor}"
-                                                                IsReadOnly="True"
-                                                                Width="Auto" />
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="{DynamicResource funcionario_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Funcionario.Nome}"
-                                            Width="*" />
+            <DockPanel>
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Rectangle Width="20"
+                               Height="20"
+                               Margin="5,0,0,0"
+                               Fill="PaleVioletRed" />
+                    <Label Grid.Column="1"
+                           FontWeight="Bold"
+                           Content="Folha de Pagamento Fechada" />
+                    <Rectangle Width="20"
+                               Height="20"
+                               Grid.Row="4"
+                               Margin="5,0,0,0"
+                               Fill="LightGreen" />
+                    <Label Grid.Column="1"
+                           Grid.Row="1"
+                           FontWeight="Bold"
+                           Content="Folha de Pagamento Aberta" />
+                </Grid>                
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{DynamicResource mes_de_referencia}" />
+                    <View:DataUpDown Width="150"
+                                     HorizontalAlignment="Left"
+                                     Grid.Column="1"
+                                     Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
+                    <DataGrid Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              Grid.RowSpan="2"
+                              Name="DataGridFolhaPagamento"
+                              ItemsSource="{Binding FolhaPagamentos, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding FolhaPagamento, Mode=OneWayToSource}"
+                              CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Fechada}"
+                                                 Value="True">
+                                        <Setter Property="Background"
+                                                Value="PaleVioletRed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Fechada}"
+                                                 Value="False">
+                                        <Setter Property="Background"
+                                                Value="LightGreen" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="DataGridRow.ToolTip">
+                                    <Setter.Value>
+                                        <DataGrid Width="275"
+                                                  ItemsSource="{Binding Parcelas}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Data do Adiantamento"
+                                                                    Binding="{Binding Adiantamento.DataString}"
+                                                                    IsReadOnly="True"
+                                                                    Width="Auto" />
+                                                <DataGridTextColumn Header="Valor"
+                                                                    Binding="{Binding Valor}"
+                                                                    IsReadOnly="True"
+                                                                    Width="Auto" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource funcionario_header}"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Funcionario.Nome}"
+                                                Width="*" />
 
-                        <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding MesReferencia}"
-                                            Width="Auto" />
+                            <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
+                                                IsReadOnly="True"
+                                                Binding="{Binding MesReferencia}"
+                                                Width="Auto" />
 
-                        <DataGridTextColumn Header="{DynamicResource valor_a_pagar_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding ValorAPagar}"
-                                            Width="Auto" />
+                            <DataGridTextColumn Header="{DynamicResource valor_a_pagar_header}"
+                                                IsReadOnly="True"
+                                                Binding="{Binding ValorAPagar}"
+                                                Width="Auto" />
 
-                    </DataGrid.Columns>
-                    <DataGrid.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Adicionar Adiantamento" />
-                            <Separator />
-                            <MenuItem Header="Mais Detalhes" />
-                            <Separator />
-                            <MenuItem Header="Fechar Folha de Pagamento" />
-                        </ContextMenu>
-                    </DataGrid.ContextMenu>
-                </DataGrid>
-            </Grid>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Adicionar Adiantamento" />
+                                <Separator />
+                                <MenuItem Header="Mais Detalhes" />
+                                <Separator />
+                                <MenuItem Header="Fechar Folha de Pagamento" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
+                </Grid>
+            </DockPanel>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>
 </View:APesquisarView>
