@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
         mc:Ignorable="d"
         Title="Adicionar Adiantamento"
-        Height="400"
-        Width="500">
+        WindowStartupLocation="CenterScreen"
+        Height="500"
+        Width="450">
+    <Window.Resources>
+        <ViewModel:ValorAPagarConverter x:Key="ValorAPagarConverter" />
+    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -41,23 +45,72 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Content="Valor do Adiantamento (R$):" />
-            <TextBox x:Name="TxtValor"
-                     Grid.Column="1" />
+            <Label Content="Funcionário:" />
+            <TextBox Grid.Column="1"
+                     IsReadOnly="True"
+                     Text="{Binding FolhaPagamento.Funcionario.Nome}" />
             <Label Grid.Row="1"
+                   Content="Valor do Adiantamento (R$):" />
+            <TextBox x:Name="TxtValor"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Text="{Binding Valor, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="2"
                    Content="Número de Parcelas:" />
             <TextBox Grid.Column="1"
-                     Grid.Row="1" />
-            <Label Grid.Row="2"
+                     Grid.Row="2"
+                     MaxLength="2"
+                     Text="{Binding NumParcelas, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="3"
                    Content="Início de Pagamento:" />
             <View:DataUpDown Grid.Column="1"
-                             Grid.Row="2" />
+                             Grid.Row="3"
+                             Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <DataGrid Grid.Row="4"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
+                                         Value="True">
+                                <Setter Property="Background"
+                                        Value="PaleVioletRed" />
+                                <Setter Property="ToolTip"
+                                        Value="O SOMATÓRIO DAS PARCELAS SENDO COBRADAS NESTE MÊS SUPERAM O VALOR DO SALÁRIO" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
+                                         Value="False">
+                                <Setter Property="Background"
+                                        Value="LightGreen" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="#"
+                                        IsReadOnly="True"
+                                        Width="Auto"
+                                        Binding="{Binding Numero}" />
+                    <DataGridTextColumn Header="Pagamento Em"
+                                        IsReadOnly="True"
+                                        Width="Auto"
+                                        Binding="{Binding PagamentoEm}" />
+                    <DataGridTextColumn Header="Valor (R$)"
+                                        IsReadOnly="True"
+                                        Width="*"
+                                        Binding="{Binding Valor}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Grid.ColumnSpan="2"
+                    Grid.Row="5"
+                    Style="{StaticResource BotaoCadastrar}"
+                    Command="{Binding SalvarComando}"
+                    Content="Salvar"
+                    Click="Button_Click" />
         </Grid>
     </DockPanel>
 </Window>

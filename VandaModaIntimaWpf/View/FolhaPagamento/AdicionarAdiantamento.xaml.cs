@@ -23,5 +23,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TxtValor.Focus();
+        }
     }
 }

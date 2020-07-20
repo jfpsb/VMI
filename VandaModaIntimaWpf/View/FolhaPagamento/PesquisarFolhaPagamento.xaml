@@ -110,14 +110,15 @@
                                 </Style.Triggers>
                                 <Setter Property="DataGridRow.ToolTip">
                                     <Setter.Value>
-                                        <DataGrid Width="275"
+                                        <DataGrid Width="Auto"
                                                   ItemsSource="{Binding Parcelas}">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Data do Adiantamento"
                                                                     Binding="{Binding Adiantamento.DataString}"
                                                                     IsReadOnly="True"
-                                                                    Width="Auto" />
-                                                <DataGridTextColumn Header="Valor"
+                                                                    Width="Auto"
+                                                                    FontFamily="Century Gothic"/>
+                                                <DataGridTextColumn Header="Valor Parcela (R$)"
                                                                     Binding="{Binding Valor}"
                                                                     IsReadOnly="True"
                                                                     Width="Auto" />
@@ -146,7 +147,8 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Adicionar Adiantamento" />
+                                <MenuItem Header="Adicionar Adiantamento"
+                                          Command="{Binding AbrirAdicionarAdiantamentoComando}"/>
                                 <Separator />
                                 <MenuItem Header="Mais Detalhes" />
                                 <Separator />

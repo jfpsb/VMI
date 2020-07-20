@@ -87,6 +87,8 @@
                         Value="False" />
                 <Setter Property="RowHeaderWidth"
                         Value="0" />
+                <Setter Property="FontFamily"
+                        Value="Century Gothic" />
                 <Style.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="FontWeight"
@@ -140,8 +142,10 @@
                 <Setter Property="VerticalContentAlignment"
                         Value="Center" />
                 <Style.Triggers>
-                    <Trigger Property="SelectedItem" Value="{x:Null}">
-                        <Setter Property="SelectedIndex" Value="0" />
+                    <Trigger Property="SelectedItem"
+                             Value="{x:Null}">
+                        <Setter Property="SelectedIndex"
+                                Value="0" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -189,8 +193,7 @@
                 </Style.Resources>
             </Style>
 
-            <Style x:Key="ContextMenuItemStyle"
-                   TargetType="MenuItem">
+            <Style TargetType="MenuItem">
                 <Setter Property="FontSize"
                         Value="14px" />
                 <Setter Property="Padding"
@@ -213,18 +216,14 @@
                                   IsHitTestVisible="False"
                                   Focusable="False"
                                   FontWeight="Bold"
-                                  Margin="0,3,3,0"
-                                  Style="{StaticResource ContextMenuItemStyle}" />
+                                  Margin="0,3,3,0" />
                         <Separator Margin="15,5,15,5" />
                         <MenuItem Header="{DynamicResource editar}"
-                                  Command="{Binding AbrirEditarComando}"
-                                  Style="{StaticResource ContextMenuItemStyle}" />
+                                  Command="{Binding AbrirEditarComando}" />
                         <MenuItem Header="{DynamicResource copiar}"
-                                  Command="{Binding CopiarValorCelulaComando}"
-                                  Style="{StaticResource ContextMenuItemStyle}" />
+                                  Command="{Binding CopiarValorCelulaComando}" />
                         <MenuItem Header="{DynamicResource apagar}"
-                                  Command="{Binding AbrirApagarComando}"
-                                  Style="{StaticResource ContextMenuItemStyle}" />
+                                  Command="{Binding AbrirApagarComando}" />
                         <Separator Margin="15,5,15,5" />
                         <ItemsPresenter />
                     </StackPanel>

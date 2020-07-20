@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -8,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private DateTime _data;
         private double _valor;
+        private IList<Parcela> _parcelas = new List<Parcela>();
 
         public string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
 
@@ -51,6 +53,14 @@ namespace VandaModaIntimaWpf.Model
             {
                 _funcionario = value;
                 OnPropertyChanged("Funcionario");
+            }
+        }
+
+        public IList<Parcela> Parcelas
+        {
+            get => _parcelas;
+            set { _parcelas = value;
+                OnPropertyChanged("Parcelas");
             }
         }
 

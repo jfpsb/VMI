@@ -10,6 +10,10 @@
     <property name="Ano" column="ano" />
     <property name="Valor" column="valor" />
     <property name="Fechada" column="fechada" />
+    <bag name="Parcelas" table="parcela" inverse="false" cascade="all-delete-orphan">
+      <key column="folhapagamento" />
+      <one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
+    </bag>
   </class>
 
 </hibernate-mapping>

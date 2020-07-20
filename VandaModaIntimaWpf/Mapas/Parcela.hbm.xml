@@ -5,8 +5,8 @@
 
   <class name="Parcela" table="parcela" lazy="false">
     <id name="Id" column="id" />
-    <many-to-one name="Adiantamento" class="VandaModaIntimaWpf.Model.Adiantamento" lazy="false" />
-    <many-to-one name="FolhaPagamento" class="VandaModaIntimaWpf.Model.FolhaPagamento" lazy="false" />
+    <many-to-one name="Adiantamento" not-null="true" column="adiantamento" class="VandaModaIntimaWpf.Model.Adiantamento" lazy="false" />
+    <many-to-one name="FolhaPagamento" not-null="true" column="folhapagamento" class="VandaModaIntimaWpf.Model.FolhaPagamento" lazy="false" />
     <property name="Numero" column="numero" />
     <property name="Valor" column="valor" />
     <property name="Paga" column="paga" />

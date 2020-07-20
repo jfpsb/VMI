@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.View.FolhaPagamento;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 
@@ -14,6 +16,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
+
+        public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
+
         public PesquisarFolhaPagamentoViewModel()
         {
             //TODO: excel para folha de pagamento
@@ -23,7 +28,28 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             ConsultaFuncionarios();
 
-            DataEscolhida = DateTime.Now.AddMonths(1);
+            if (DateTime.Now.Day > 5)
+            {
+                DataEscolhida = DateTime.Now.AddMonths(1);
+            }
+            else
+            {
+                DataEscolhida = DateTime.Now;
+            }
+
+            AbrirAdicionarAdiantamentoComando = new RelayCommand(AbrirAdicionarAdiantamento);
+        }
+
+        private void AbrirAdicionarAdiantamento(object obj)
+        {
+            AdicionarAdiantamentoViewModel adicionarAdiantamentoViewModel = new AdicionarAdiantamentoViewModel(_session, FolhaPagamento);
+
+            AdicionarAdiantamento adicionarAdiantamento = new AdicionarAdiantamento()
+            {
+                DataContext = adicionarAdiantamentoViewModel
+            };
+
+            adicionarAdiantamento.ShowDialog();
         }
 
         public DateTime DataEscolhida
@@ -75,7 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     folha = new FolhaPagamentoModel
                     {
-                        Id = DateTime.Now.Ticks,
+                        Id = int.Parse(string.Format("{0}{1}", DataEscolhida.Month, DataEscolhida.Year)),
                         Mes = DataEscolhida.Month,
                         Ano = DataEscolhida.Year,
                         Funcionario = funcionario

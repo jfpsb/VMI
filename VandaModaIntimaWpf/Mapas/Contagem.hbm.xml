@@ -10,10 +10,10 @@
     </composite-id>
     <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
     <property name="Finalizada" column="finalizada" />
-    <bag name="Contagens" table="contagem_produto" inverse="true" cascade="all-delete-orphan">
+    <bag name="Contagens" table="contagemproduto" inverse="true" cascade="all-delete-orphan">
       <key>
-        <column name="contagem_loja" />
         <column name="contagem_data" />
+        <column name="contagem_loja" />
       </key>
       <one-to-many class="VandaModaIntimaWpf.Model.ContagemProduto" />
     </bag>

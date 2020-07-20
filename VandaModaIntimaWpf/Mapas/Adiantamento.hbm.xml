@@ -8,6 +8,10 @@
     <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" lazy="false" />
     <property name="Data" column="data" />
     <property name="Valor" column="valor" />
+    <bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan">
+      <key column="adiantamento" />
+      <one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
+    </bag>
   </class>
 
 </hibernate-mapping>
