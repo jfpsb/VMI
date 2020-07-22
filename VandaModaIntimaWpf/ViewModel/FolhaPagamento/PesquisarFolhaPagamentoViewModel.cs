@@ -50,6 +50,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             };
 
             adicionarAdiantamento.ShowDialog();
+
+            _session.Refresh(FolhaPagamento);
+            OnPropertyChanged("TermoPesquisa");
         }
 
         public DateTime DataEscolhida
@@ -101,7 +104,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     folha = new FolhaPagamentoModel
                     {
-                        Id = int.Parse(string.Format("{0}{1}", DataEscolhida.Month, DataEscolhida.Year)),
+                        Id = string.Format("{0}{1}{2}", DataEscolhida.Month, DataEscolhida.Year, funcionario.Cpf),
                         Mes = DataEscolhida.Month,
                         Ano = DataEscolhida.Year,
                         Funcionario = funcionario

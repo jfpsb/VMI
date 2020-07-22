@@ -23,7 +23,8 @@
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
-                    <MenuItem Header="{DynamicResource cadastrar_novo}">
+                    <MenuItem Header="{DynamicResource cadastrar_novo}"
+                              Command="{Binding AbrirCadastrarComando}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/Adicionar.png" />
                         </MenuItem.Icon>

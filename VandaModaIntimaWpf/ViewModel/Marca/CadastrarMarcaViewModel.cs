@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Marca.Nome.Trim()))
+            if (string.IsNullOrEmpty(Marca.Nome?.Trim()))
                 return false;
 
             return true;

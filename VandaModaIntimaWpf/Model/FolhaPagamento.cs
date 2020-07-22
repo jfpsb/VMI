@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class FolhaPagamento : ObservableObject, ICloneable, IModel
     {
-        private int _id;
+        private string _id;
         private int _mes;
         private int _ano;
         private Funcionario _funcionario;
@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Fechada");
             }
         }
-        public int Id
+        public string Id
         {
             get => _id;
             set

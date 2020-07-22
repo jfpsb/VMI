@@ -110,7 +110,9 @@
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
                     Content="Salvar"
-                    Click="Button_Click" />
+                    Click="Button_Click"
+                    ToolTipService.ShowOnDisabled="True"
+                    ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
         </Grid>
     </DockPanel>
 </Window>

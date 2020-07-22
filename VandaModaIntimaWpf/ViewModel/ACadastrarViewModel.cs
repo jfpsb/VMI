@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         private string mensagemStatusBar;
         private string imagemStatusBar;
+        private string _botaoSalvarToolTip;
 
         protected bool _result = false; //Guarda se foi salvo com sucesso
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
@@ -90,6 +91,16 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 isEnabled = value;
                 OnPropertyChanged("IsEnabled");
+            }
+        }
+
+        public string BotaoSalvarToolTip
+        {
+            get => _botaoSalvarToolTip;
+            set
+            {
+                _botaoSalvarToolTip = value;
+                OnPropertyChanged("BotaoSalvarToolTip");
             }
         }
     }

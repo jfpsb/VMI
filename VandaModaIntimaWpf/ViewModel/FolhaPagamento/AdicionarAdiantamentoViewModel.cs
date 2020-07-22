@@ -7,9 +7,6 @@ using VandaModaIntimaWpf.Model.DAO;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Media.Media3D;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -43,15 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 Valor = 0
             };
 
-            if (now.Day > 5)
-            {
-                InicioPagamento = now.AddMonths(1);
-            }
-            else
-            {
-                InicioPagamento = now;
-            }
-
+            InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
             FolhaPagamento = folhaPagamento;
         }
 
@@ -133,7 +122,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                                 Funcionario = FolhaPagamento.Funcionario,
                                 Mes = inicio.Month,
                                 Ano = inicio.Year,
-                                Id = int.Parse(string.Format("{0}{1}", inicio.Month, inicio.Year))
+                                Id = string.Format("{0}{1}{2}", inicio.Month, inicio.Year, FolhaPagamento.Funcionario.Cpf)
                             };
                         }
 
@@ -180,16 +169,52 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void ResetaPropriedades()
         {
-            throw new NotImplementedException();
+            DateTime now = DateTime.Now;
+
+            Adiantamento = new AdiantamentoModel()
+            {
+                Data = now,
+                Id = now.Ticks,
+                Funcionario = FolhaPagamento.Funcionario,
+                Valor = 0
+            };
+            Parcelas.Clear();
+            Valor = NumParcelas = _minParcelas = 0;
         }
 
         public override async void Salvar(object parameter)
         {
             _result = await daoAdiantamento.Inserir(Adiantamento);
+
+            if (_result)
+            {
+                ResetaPropriedades();
+                await SetStatusBarSucesso("Adiantamento Adicionado Com Sucesso");
+                return;
+            }
+
+            SetStatusBarErro("Erro ao Adicionar Adiantamento");
         }
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BotaoSalvarToolTip = "";
+
+            if (NumParcelas < _minParcelas)
+            {
+                BotaoSalvarToolTip += "O NÚMERO DE PARCELAS É MENOR QUE O NÚMERO MÍNIMO\n";
+            }
+
+            if (Valor <= 0.0)
+            {
+                BotaoSalvarToolTip += "O VALOR DO ADIANTAMENTO NÃO PODE SER MENOR OU IGUAL A ZERO\n";
+            }
+
+            if (InicioPagamento.Month < FolhaPagamento.Mes)
+            {
+                BotaoSalvarToolTip += "O INÍCIO DO PAGAMENTO É ANTERIOR À DATA DA FOLHA DE PAGAMENTO\n";
+            }
+
             if (NumParcelas >= _minParcelas && Valor > 0.0 && InicioPagamento.Month >= FolhaPagamento.Mes)
                 return true;
 
