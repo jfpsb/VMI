@@ -9,7 +9,7 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class ProdutoExcelStrategy : IExcelStrategy
+    public class ProdutoExcelStrategy : IExcelStrategy
     {
         private ISession _session;
 

@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Fornecedor?.Cnpj == null)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca != null && Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
+            if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
             _result = await daoProduto.Inserir(produtoModel);
@@ -100,13 +100,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private async void GetFornecedores()
         {
             Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar<FornecedorModel>());
-            Fornecedores.Insert(0, new FornecedorModel(StringResource.GetString("fornecedor_nao_selecionado")));
+            Fornecedores.Insert(0, new FornecedorModel(GetResource.GetString("fornecedor_nao_selecionado")));
         }
 
         private async void GetMarcas()
         {
             Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar<MarcaModel>());
-            Marcas.Insert(0, new MarcaModel(StringResource.GetString("marca_nao_selecionada")));
+            Marcas.Insert(0, new MarcaModel(GetResource.GetString("marca_nao_selecionada")));
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

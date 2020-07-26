@@ -126,6 +126,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\MaisDetalhes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -252,6 +256,7 @@
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAO.cs" />
     <Compile Include="Model\DAO\DAOOperadoraCartao.cs" />
+    <Compile Include="Model\DAO\DAOParcela.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
@@ -273,6 +278,7 @@
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\IExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
@@ -286,6 +292,7 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoViewModel.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModelStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
@@ -339,6 +346,9 @@
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
+      <DependentUpon>MaisDetalhes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml.cs">
       <DependentUpon>PesquisarFolhaPagamento.xaml</DependentUpon>
     </Compile>
@@ -376,6 +386,7 @@
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\IResultReturnable.cs" />
     <Compile Include="View\IWindowClosing.cs" />
     <Compile Include="View\Loja\AjudaLoja.xaml.cs">
       <DependentUpon>AjudaLoja.xaml</DependentUpon>

@@ -13,6 +13,18 @@
                 <ResourceDictionary Source="Resources/Linguagem/PT-BR.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <BitmapImage x:Key="ImagemSucesso"
+                         UriSource="/Resources/Sucesso.png" />
+
+            <BitmapImage x:Key="ImagemErro"
+                         UriSource="/Resources/Erro.png" />
+
+            <BitmapImage x:Key="ImagemAguardando"
+                         UriSource="/Resources/Aguardando.png" />
+
+            <BitmapImage x:Key="ImagemDeletado"
+                         UriSource="/Resources/Delete.png" />
+
             <Style x:Key="Fonte"
                    TargetType="{x:Type Control}">
                 <Setter Property="FontFamily"

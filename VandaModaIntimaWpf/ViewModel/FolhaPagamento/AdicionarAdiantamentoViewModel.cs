@@ -178,8 +178,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 Funcionario = FolhaPagamento.Funcionario,
                 Valor = 0
             };
-            Parcelas.Clear();
+
             Valor = NumParcelas = _minParcelas = 0;
+
+            Parcelas.Clear();
         }
 
         public override async void Salvar(object parameter)
@@ -188,6 +190,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (_result)
             {
+                //TODO: botar strings em resources
+                foreach (var p in Parcelas)
+                {
+                    _session.Refresh(p.FolhaPagamento);
+                }
+
                 ResetaPropriedades();
                 await SetStatusBarSucesso("Adiantamento Adicionado Com Sucesso");
                 return;
@@ -200,6 +208,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             BotaoSalvarToolTip = "";
 
+            //TODO: botar strings em resources
             if (NumParcelas < _minParcelas)
             {
                 BotaoSalvarToolTip += "O NÚMERO DE PARCELAS É MENOR QUE O NÚMERO MÍNIMO\n";

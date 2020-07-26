@@ -35,32 +35,32 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public string MensagemApagarEntidadeCerteza(MarcaModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_marca"), e.Nome);
+            return string.Format(GetResource.GetString("certeza_deletar_marca"), e.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_marca_marcadas");
+            return GetResource.GetString("deseja_apagar_marca_marcadas");
         }
 
         public string MensagemEntidadeDeletada(MarcaModel e)
         {
-            return string.Format(StringResource.GetString("marca_deletada_com_sucesso"), e.Nome);
+            return string.Format(GetResource.GetString("marca_deletada_com_sucesso"), e.Nome);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("marca_nao_deletada");
+            return GetResource.GetString("marca_nao_deletada");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("marcas_deletadas_com_sucesso");
+            return GetResource.GetString("marcas_deletadas_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("marcas_nao_deletadas");
+            return GetResource.GetString("marcas_nao_deletadas");
         }
 
         public void RestauraEntidade(MarcaModel original, MarcaModel backup)
@@ -70,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_marcas");
+            return GetResource.GetString("apagar_marcas");
         }
     }
 }

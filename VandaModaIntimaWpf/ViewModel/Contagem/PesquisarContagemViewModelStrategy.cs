@@ -48,32 +48,32 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public string MensagemApagarEntidadeCerteza(ContagemModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_contagem"), e.GetContextMenuHeader);
+            return string.Format(GetResource.GetString("certeza_deletar_contagem"), e.GetContextMenuHeader);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_contagem_marcadas");
+            return GetResource.GetString("deseja_apagar_contagem_marcadas");
         }
 
         public string MensagemEntidadeDeletada(ContagemModel e)
         {
-            return string.Format(StringResource.GetString("contagem_deletada_com_sucesso"), e.GetContextMenuHeader);
+            return string.Format(GetResource.GetString("contagem_deletada_com_sucesso"), e.GetContextMenuHeader);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("contagem_nao_deletada");
+            return GetResource.GetString("contagem_nao_deletada");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("contagens_deletadas_com_sucesso");
+            return GetResource.GetString("contagens_deletadas_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("contagens_nao_deletadas");
+            return GetResource.GetString("contagens_nao_deletadas");
         }
 
         public void RestauraEntidade(ContagemModel original, ContagemModel backup)
@@ -86,7 +86,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_contagens");
+            return GetResource.GetString("apagar_contagens");
         }
 
         public void AbrirVisualizarContagemProduto(ContagemModel contagem)

@@ -37,32 +37,32 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string MensagemApagarEntidadeCerteza(RecebimentoCartaoModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_recebimento"), e.MesAno, e.Loja.Nome);
+            return string.Format(GetResource.GetString("certeza_deletar_recebimento"), e.MesAno, e.Loja.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_recebimento_marcados");
+            return GetResource.GetString("deseja_apagar_recebimento_marcados");
         }
 
         public string MensagemEntidadeDeletada(RecebimentoCartaoModel e)
         {
-            return string.Format(StringResource.GetString("recebimento_deletado_com_sucesso"), e.GetContextMenuHeader);
+            return string.Format(GetResource.GetString("recebimento_deletado_com_sucesso"), e.GetContextMenuHeader);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("recebimento_nao_deletado");
+            return GetResource.GetString("recebimento_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("recebimentos_deletados_com_sucesso");
+            return GetResource.GetString("recebimentos_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("recebimentos_nao_deletados");
+            return GetResource.GetString("recebimentos_nao_deletados");
         }
 
         public void RestauraEntidade(RecebimentoCartaoModel original, RecebimentoCartaoModel backup)
@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_recebimentos");
+            return GetResource.GetString("apagar_recebimentos");
         }
 
         public void AbrirCadastrarOperadoraCartao()

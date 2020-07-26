@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -28,17 +29,13 @@ namespace VandaModaIntimaWpf.ViewModel
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
-        private string imagemStatusBar;
+        private BitmapImage imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
 
         protected DAO daoEntidade;
 
-        protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
-        protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
-        protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
-        protected static readonly string IMAGEMDELETADO = "/Resources/Delete.png";
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
@@ -172,7 +169,7 @@ namespace VandaModaIntimaWpf.ViewModel
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
             Clipboard.SetText(valorCelula);
         }
-        public async void ExportarExcel(object parameter)
+        public virtual async void ExportarExcel(object parameter)
         {
             SetStatusBarAguardandoExcel();
             IsThreadLocked = true;
@@ -183,7 +180,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public void SetStatusBarItemDeletado(string mensagem)
         {
             MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMDELETADO;
+            ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
             OnPropertyChanged("TermoPesquisa");
         }
         public async Task ResetarStatusBar()
@@ -193,18 +190,18 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void SetStatusBarAguardandoExcel()
         {
-            MensagemStatusBar = StringResource.GetString("arquivo_excel_sendo_gerado");
-            ImagemStatusBar = IMAGEMAGUARDANDO;
+            MensagemStatusBar = GetResource.GetString("arquivo_excel_sendo_gerado");
+            ImagemStatusBar = GetResource.GetBitmapImage("ImagemAguardando");
         }
         public void SetStatusBarAguardando()
         {
-            MensagemStatusBar = StringResource.GetString("aguardando_usuario");
-            ImagemStatusBar = IMAGEMAGUARDANDO;
+            MensagemStatusBar = GetResource.GetString("aguardando_usuario");
+            ImagemStatusBar = GetResource.GetBitmapImage("ImagemAguardando");
         }
         public async void SetStatusBarExportadoComSucesso()
         {
-            MensagemStatusBar = StringResource.GetString("exportacao_excel_realizada_com_sucesso");
-            ImagemStatusBar = IMAGEMSUCESSO;
+            MensagemStatusBar = GetResource.GetString("exportacao_excel_realizada_com_sucesso");
+            ImagemStatusBar = GetResource.GetBitmapImage("ImagemSucesso");
             await Task.Delay(7000);
             SetStatusBarAguardando();
         }
@@ -254,7 +251,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("VisibilidadeBotaoApagarSelecionado");
             }
         }
-        public string ImagemStatusBar
+        public BitmapImage ImagemStatusBar
         {
             get { return imagemStatusBar; }
             set
@@ -304,7 +301,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public async void SetStatusBarErro(string mensagem)
         {
             MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMERRO;
+            ImagemStatusBar = GetResource.GetBitmapImage("ImagemErro");
             await Task.Delay(7000);
             SetStatusBarAguardando();
         }

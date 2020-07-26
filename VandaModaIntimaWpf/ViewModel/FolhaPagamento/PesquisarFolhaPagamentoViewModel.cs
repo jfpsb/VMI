@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 
@@ -18,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private IList<FuncionarioModel> _funcionarios;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
+        public ICommand AbrirMaisDetalhesComando { get; set; }
 
         public PesquisarFolhaPagamentoViewModel()
         {
@@ -25,6 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaPagamentoViewModelStrategy();
+            excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
 
             ConsultaFuncionarios();
 
@@ -38,6 +42,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
 
             AbrirAdicionarAdiantamentoComando = new RelayCommand(AbrirAdicionarAdiantamento);
+            AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
+        }
+
+        private void AbrirMaisDetalhes(object obj)
+        {
+            if (FolhaPagamento.Parcelas.Count > 0)
+            {
+                MaisDetalhesViewModel maisDetalhesViewModel = new MaisDetalhesViewModel(_session, FolhaPagamento);
+                MaisDetalhes maisDetalhes = new MaisDetalhes()
+                {
+                    DataContext = maisDetalhesViewModel
+                };
+                maisDetalhes.ShowDialog();
+
+                //_session.Refresh(FolhaPagamento);
+                OnPropertyChanged("TermoPesquisa");
+            }
         }
 
         private void AbrirAdicionarAdiantamento(object obj)
@@ -51,8 +72,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             adicionarAdiantamento.ShowDialog();
 
-            _session.Refresh(FolhaPagamento);
             OnPropertyChanged("TermoPesquisa");
+        }
+
+        public override async void ExportarExcel(object parameter)
+        {
+            SetStatusBarAguardandoExcel();
+            IsThreadLocked = true;
+            await new Excel<FolhaPagamentoModel>(excelStrategy).Salvar(new List<FolhaPagamentoModel>(FolhaPagamentos));
+            IsThreadLocked = false;
+            SetStatusBarExportadoComSucesso();
         }
 
         public DateTime DataEscolhida

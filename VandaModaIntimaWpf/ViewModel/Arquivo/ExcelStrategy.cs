@@ -17,14 +17,17 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         {
             string[] colunas = excelStrategy.GetColunas();
 
-            //Escreve cabeçalho baseado nas colunas do model e estiliza
-            for (int i = 0; i < colunas.Length; i++)
+            if (colunas != null)
             {
-                Worksheet.Cells[1, i + 1] = colunas[i];
-                Worksheet.Cells[1, i + 1].Font.Bold = true;
-                Worksheet.Cells[1, i + 1].Font.Size = 14;
-                Worksheet.Cells[1, i + 1].Interior.Color = Color.LightGray;
-                Worksheet.Cells[1, i + 1].Borders.Color = Color.Black;
+                //Escreve cabeçalho baseado nas colunas do model e estiliza
+                for (int i = 0; i < colunas.Length; i++)
+                {
+                    Worksheet.Cells[1, i + 1] = colunas[i];
+                    Worksheet.Cells[1, i + 1].Font.Bold = true;
+                    Worksheet.Cells[1, i + 1].Font.Size = 14;
+                    Worksheet.Cells[1, i + 1].Interior.Color = Color.LightGray;
+                    Worksheet.Cells[1, i + 1].Borders.Color = Color.Black;
+                }
             }
 
             excelStrategy.EscreveDados(Worksheet, l);

@@ -44,32 +44,32 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string MensagemApagarEntidadeCerteza(FornecedorModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_fornecedor"), e.Nome);
+            return string.Format(GetResource.GetString("certeza_deletar_fornecedor"), e.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_fornecedor_marcados");
+            return GetResource.GetString("deseja_apagar_fornecedor_marcados");
         }
 
         public string MensagemEntidadeDeletada(FornecedorModel e)
         {
-            return string.Format(StringResource.GetString("fornecedor_deletado_com_sucesso"), e.Nome);
+            return string.Format(GetResource.GetString("fornecedor_deletado_com_sucesso"), e.Nome);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("fornecedor_nao_deletado");
+            return GetResource.GetString("fornecedor_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("fornecedores_deletados_com_sucesso");
+            return GetResource.GetString("fornecedores_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("fornecedores_nao_deletados");
+            return GetResource.GetString("fornecedores_nao_deletados");
         }
 
         public void RestauraEntidade(FornecedorModel original, FornecedorModel backup)
@@ -84,7 +84,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_fornecedores");
+            return GetResource.GetString("apagar_fornecedores");
         }
 
         public void AbrirCadastrarOnline(ISession session)

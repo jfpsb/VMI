@@ -51,32 +51,32 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string MensagemApagarEntidadeCerteza(ProdutoModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_produto"), e.Descricao);
+            return string.Format(GetResource.GetString("certeza_deletar_produto"), e.Descricao);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_produto_marcados");
+            return GetResource.GetString("deseja_apagar_produto_marcados");
         }
 
         public string MensagemEntidadeDeletada(ProdutoModel e)
         {
-            return string.Format(StringResource.GetString("produto_deletado_com_sucesso"), e.Descricao);
+            return string.Format(GetResource.GetString("produto_deletado_com_sucesso"), e.Descricao);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("produto_nao_deletado");
+            return GetResource.GetString("produto_nao_deletado");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("produtos_deletados_com_sucesso");
+            return GetResource.GetString("produtos_deletados_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("produtos_nao_deletados");
+            return GetResource.GetString("produtos_nao_deletados");
         }
 
         public void RestauraEntidade(ProdutoModel original, ProdutoModel backup)
@@ -90,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_produtos");
+            return GetResource.GetString("apagar_produtos");
         }
     }
 }

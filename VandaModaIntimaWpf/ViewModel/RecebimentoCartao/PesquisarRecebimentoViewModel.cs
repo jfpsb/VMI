@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel(StringResource.GetString("matriz_nao_selecionada")));
+            Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
         }
         public override bool Editavel(object parameter)
         {

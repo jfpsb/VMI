@@ -70,7 +70,7 @@
                            Grid.Row="1"
                            FontWeight="Bold"
                            Content="Folha de Pagamento Aberta" />
-                </Grid>                
+                </Grid>
                 <Grid DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -116,8 +116,7 @@
                                                 <DataGridTextColumn Header="Data do Adiantamento"
                                                                     Binding="{Binding Adiantamento.DataString}"
                                                                     IsReadOnly="True"
-                                                                    Width="Auto"
-                                                                    FontFamily="Century Gothic"/>
+                                                                    Width="Auto" />
                                                 <DataGridTextColumn Header="Valor Parcela (R$)"
                                                                     Binding="{Binding Valor}"
                                                                     IsReadOnly="True"
@@ -148,9 +147,10 @@
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Adicionar Adiantamento"
-                                          Command="{Binding AbrirAdicionarAdiantamentoComando}"/>
+                                          Command="{Binding AbrirAdicionarAdiantamentoComando}" />
                                 <Separator />
-                                <MenuItem Header="Mais Detalhes" />
+                                <MenuItem Header="Mais Detalhes"
+                                          Command="{Binding AbrirMaisDetalhesComando}" />
                                 <Separator />
                                 <MenuItem Header="Fechar Folha de Pagamento" />
                             </ContextMenu>

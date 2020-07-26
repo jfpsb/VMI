@@ -49,7 +49,7 @@ namespace VandaModaIntimaWpf.Model
         }
         public double Valor
         {
-            get => _valor;
+            get => Math.Round(_valor, 2);
             set
             {
                 _valor = value;
@@ -96,12 +96,22 @@ namespace VandaModaIntimaWpf.Model
                     _valorAPagar -= parcela.Valor;
                 }
 
-                return _valorAPagar;
+                return Math.Round(_valorAPagar, 2);
             }
-            set
+        }
+
+        public double TotalAdiantamentos
+        {
+            get
             {
-                _valorAPagar = value;
-                OnPropertyChanged("ValorAPagar");
+                double total = 0;
+
+                foreach (var p in Parcelas)
+                {
+                    total += p.Valor;
+                }
+
+                return Math.Round(total, 2);
             }
         }
 

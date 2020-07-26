@@ -48,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             {
                 if (Loja.Matriz == null)
                 {
-                    Loja.Matriz = new LojaModel(StringResource.GetString("matriz_nao_selecionada"));
+                    Loja.Matriz = new LojaModel(GetResource.GetString("matriz_nao_selecionada"));
                 }
 
                 return Loja.Matriz;

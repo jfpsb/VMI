@@ -47,32 +47,32 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public string MensagemApagarEntidadeCerteza(LojaModel e)
         {
-            return string.Format(StringResource.GetString("certeza_deletar_loja"), e.Nome);
+            return string.Format(GetResource.GetString("certeza_deletar_loja"), e.Nome);
         }
 
         public string MensagemApagarMarcados()
         {
-            return StringResource.GetString("deseja_apagar_loja_marcadas");
+            return GetResource.GetString("deseja_apagar_loja_marcadas");
         }
 
         public string MensagemEntidadeDeletada(LojaModel e)
         {
-            return string.Format(StringResource.GetString("loja_deletada_com_sucesso"), e.Nome);
+            return string.Format(GetResource.GetString("loja_deletada_com_sucesso"), e.Nome);
         }
 
         public string MensagemEntidadeNaoDeletada()
         {
-            return StringResource.GetString("loja_nao_deletada");
+            return GetResource.GetString("loja_nao_deletada");
         }
 
         public string MensagemEntidadesDeletadas()
         {
-            return StringResource.GetString("lojas_deletadas_com_sucesso");
+            return GetResource.GetString("lojas_deletadas_com_sucesso");
         }
 
         public string MensagemEntidadesNaoDeletadas()
         {
-            return StringResource.GetString("lojas_nao_deletadas");
+            return GetResource.GetString("lojas_nao_deletadas");
         }
 
         public void RestauraEntidade(LojaModel original, LojaModel backup)
@@ -87,7 +87,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public string TelaApagarCaption()
         {
-            return StringResource.GetString("apagar_lojas");
+            return GetResource.GetString("apagar_lojas");
         }
     }
 }

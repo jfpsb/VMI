@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Fornecedor?.Cnpj == null)
                 Produto.Fornecedor = null;
 
-            if (Produto.Marca != null && Produto.Marca.Nome.Equals(StringResource.GetString("marca_nao_selecionada")))
+            if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
             _result = await daoProduto.Merge(produtoModel);
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
             else
             {
-                SetStatusBarErro(StringResource.GetString("erro_ao_atualizar_produto"));
+                SetStatusBarErro(GetResource.GetString("erro_ao_atualizar_produto"));
             }
         }
 
