@@ -167,8 +167,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                            <MenuItem Header="Folha de Pagamento"
-                                      Style="{StaticResource ContextMenuItemStyle}" />
+                            <MenuItem Header="Folha de Pagamento" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

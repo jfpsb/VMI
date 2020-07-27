@@ -160,8 +160,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                            <MenuItem Header="{DynamicResource detalhes}"
-                                      Style="{StaticResource ContextMenuItemStyle}" />
+                            <MenuItem Header="{DynamicResource detalhes}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

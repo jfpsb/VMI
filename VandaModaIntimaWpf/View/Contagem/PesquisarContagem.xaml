@@ -159,8 +159,7 @@
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{DynamicResource PesquisaDataGridContextMenu}">
                             <MenuItem Header="Ver Produtos"
-                                      Command="{Binding AbrirVisualizarContagemProdutoComando}"
-                                      Style="{StaticResource ContextMenuItemStyle}" />
+                                      Command="{Binding AbrirVisualizarContagemProdutoComando}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
