@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valorAPagar;
         private bool _fechada;
         private IList<Parcela> _parcelas = new List<Parcela>();
+        private IList<Bonus> _bonus = new List<Bonus>();
 
         public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
 
@@ -96,6 +97,11 @@ namespace VandaModaIntimaWpf.Model
                     _valorAPagar -= parcela.Valor;
                 }
 
+                foreach (Bonus bonus in Bonus)
+                {
+                    _valorAPagar += bonus.Valor;
+                }
+
                 return Math.Round(_valorAPagar, 2);
             }
         }
@@ -112,6 +118,16 @@ namespace VandaModaIntimaWpf.Model
                 }
 
                 return Math.Round(total, 2);
+            }
+        }
+
+        public IList<Bonus> Bonus
+        {
+            get => _bonus;
+            set
+            {
+                _bonus = value;
+                OnPropertyChanged("Bonus");
             }
         }
 

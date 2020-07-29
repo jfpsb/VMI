@@ -41,7 +41,21 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 Worksheet.Cells[linhaAtual, pColuna] = "Salário";
                 Worksheet.Cells[linhaAtual, sColuna] = folha.Funcionario.Salario;
 
+                Worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
+                Worksheet.Cells[linhaAtual, sColuna].Font.Bold = true;
+
                 linhaAtual++;
+
+                foreach(var bonus in folha.Bonus)
+                {
+                    Worksheet.Cells[linhaAtual, pColuna] = string.Format("Bônus - {0}", bonus.Descricao);
+                    Worksheet.Cells[linhaAtual, sColuna] = bonus.Valor;
+
+                    Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.LightGreen;
+                    Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.LightGreen;
+
+                    linhaAtual++;
+                }
 
                 foreach (var parcela in folha.Parcelas)
                 {
@@ -55,6 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.Yellow;
                     Worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Red;
                     Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.Yellow;
+
                     linhaAtual++;
                 }
 

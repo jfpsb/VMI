@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -15,22 +16,51 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class MaisDetalhesViewModel : ObservableObject, IResultReturnable
     {
         private ObservableCollection<Parcela> _parcelas;
+        private ObservableCollection<Bonus> _bonus;
         private DAOAdiantamento daoAdiantamento;
+        private DAOBonus daoBonus;
         private ISession _session;
         private Parcela _parcela;
+        private Bonus _bonusEscolhido;
         private string _mensagemStatusBar;
         private BitmapImage _imagemStatusBar;
         private FolhaModel _folha;
         private bool? _dialogResult = false;
 
         public ICommand DeletarAdiantamentoComando { get; set; }
+        public ICommand DeletarBonusComando { get; set; }
         public MaisDetalhesViewModel(ISession session, FolhaModel folhaPagamento)
         {
             _session = session;
             _folha = folhaPagamento;
             daoAdiantamento = new DAOAdiantamento(session);
+            daoBonus = new DAOBonus(session);
             Parcelas = new ObservableCollection<Parcela>(folhaPagamento.Parcelas);
+            Bonus = new ObservableCollection<Bonus>(folhaPagamento.Bonus);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
+            DeletarBonusComando = new RelayCommand(DeletarBonus);
+        }
+
+        private async void DeletarBonus(object obj)
+        {
+            //TODO: Colocar abertura de view em classe separada
+            //TODO: Colocar strings em resources
+            TelaApagarDialog telaApagarDialog = new TelaApagarDialog(string.Format("Tem Certeza Que Deseja Apagar o Bônus Criado Em {0}?", BonusEscolhido.DataString),
+                "Deletar Bônus");
+
+            bool? _result = telaApagarDialog.ShowDialog();
+
+            if (_result == true)
+            {
+                _folha.Bonus.Remove(BonusEscolhido);
+
+                bool resultadoDelete = await daoBonus.Deletar(BonusEscolhido);
+
+                if (resultadoDelete)
+                {
+                    SetStatusBarItemDeletado("Bônus Deletado Com Sucesso");
+                }
+            }
         }
 
         private async void DeletarAdiantamento(object obj)
@@ -65,8 +95,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             MensagemStatusBar = mensagem;
             ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
             await _session.RefreshAsync(_folha);
-            _folha = await _session.LoadAsync<FolhaModel>(_folha.Id);
             Parcelas = new ObservableCollection<Parcela>(_folha.Parcelas);
+            Bonus = new ObservableCollection<Bonus>(_folha.Bonus);
             await ResetarStatusBar();
         }
         public async Task ResetarStatusBar()
@@ -122,6 +152,26 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _mensagemStatusBar = value;
                 OnPropertyChanged("MensagemStatusBar");
+            }
+        }
+
+        public ObservableCollection<Bonus> Bonus
+        {
+            get => _bonus;
+            set
+            {
+                _bonus = value;
+                OnPropertyChanged("Bonus");
+            }
+        }
+
+        public Bonus BonusEscolhido
+        {
+            get => _bonusEscolhido;
+            set
+            {
+                _bonusEscolhido = value;
+                OnPropertyChanged("BonusEscolhido");
             }
         }
     }

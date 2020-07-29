@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
@@ -20,6 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private IList<FuncionarioModel> _funcionarios;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
+        public ICommand AbrirAdicionarBonusComando { get; set; }
         public ICommand AbrirMaisDetalhesComando { get; set; }
 
         public PesquisarFolhaPagamentoViewModel()
@@ -42,7 +42,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
 
             AbrirAdicionarAdiantamentoComando = new RelayCommand(AbrirAdicionarAdiantamento);
+            AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
+        }
+
+        private void AbrirAdicionarBonus(object obj)
+        {
+            AdicionarBonusViewModel adicionarBonusViewModel = new AdicionarBonusViewModel(_session, FolhaPagamento);
+
+            AdicionarBonus adicionarBonus = new AdicionarBonus()
+            {
+                DataContext = adicionarBonusViewModel
+            };
+
+            adicionarBonus.ShowDialog();
+
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirMaisDetalhes(object obj)
@@ -56,7 +71,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 };
                 maisDetalhes.ShowDialog();
 
-                //_session.Refresh(FolhaPagamento);
                 OnPropertyChanged("TermoPesquisa");
             }
         }

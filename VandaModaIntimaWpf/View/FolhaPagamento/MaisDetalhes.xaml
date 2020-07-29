@@ -33,24 +33,50 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <DataGrid ItemsSource="{Binding Parcelas}"
-                  SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Data do Adiantamento"
-                                    Width="*"
-                                    Binding="{Binding Adiantamento.DataString}"
-                                    IsReadOnly="True" />
-                <DataGridTextColumn Header="Valor da Parcela (R$)"
-                                    Width="Auto"
-                                    Binding="{Binding Valor}"
-                                    IsReadOnly="True" />
-            </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Deletar Adiantamento"
-                              Command="{Binding DeletarAdiantamentoComando}" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-        </DataGrid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <DataGrid ItemsSource="{Binding Parcelas}"
+                      SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Data do Adiantamento"
+                                        Width="*"
+                                        Binding="{Binding Adiantamento.DataString}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Valor da Parcela (R$)"
+                                        Width="Auto"
+                                        Binding="{Binding Valor}"
+                                        IsReadOnly="True" />
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Deletar Adiantamento"
+                                  Command="{Binding DeletarAdiantamentoComando}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Bonus}"
+                      SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Data do Bônus"
+                                        Binding="{Binding DataString}"
+                                        IsReadOnly="True"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Valor do Bônus (R$)"
+                                        Binding="{Binding Valor}"
+                                        IsReadOnly="True"
+                                        Width="Auto" />
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Deletar Bônus"
+                                  Command="{Binding DeletarBonusComando}" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
     </DockPanel>
 </Window>

@@ -1,0 +1,77 @@
+﻿using System;
+
+namespace VandaModaIntimaWpf.Model
+{
+    public class Bonus : ObservableObject, IModel
+    {
+        private long _id;
+        private FolhaPagamento _folha;
+        private DateTime _data;
+        private string _descricao;
+        private double _valor;
+
+        public string GetContextMenuHeader => string.Format("{0} - {1} - R$ {2}", Folha.MesReferencia, Folha.Funcionario.Nome, Valor);
+
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public FolhaPagamento Folha
+        {
+            get => _folha;
+            set
+            {
+                _folha = value;
+                OnPropertyChanged("Folha");
+            }
+        }
+        public string Descricao
+        {
+            get => _descricao?.ToUpper();
+            set
+            {
+                _descricao = value;
+                OnPropertyChanged("Descricao");
+            }
+        }
+        public double Valor
+        {
+            get => _valor;
+            set
+            {
+                _valor = value;
+                OnPropertyChanged("Valor");
+            }
+        }
+
+        public DateTime Data
+        {
+            get => _data;
+            set
+            {
+                _data = value;
+                OnPropertyChanged("Data");
+            }
+        }
+
+        public string DataString
+        {
+            get => Data.ToString("G");
+        }
+
+        public object GetIdentifier()
+        {
+            return Id;
+        }
+
+        public bool IsIdentical(object obj)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

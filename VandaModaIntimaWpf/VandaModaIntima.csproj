@@ -126,6 +126,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\AdicionarBonus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\MaisDetalhes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +183,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Loja\EditarLoja.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Loja\MetaLoja.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,9 +252,11 @@
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Model\Adiantamento.cs" />
+    <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\DAO\DAOAdiantamento.cs" />
+    <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
     <Compile Include="Model\DAO\DAOContagemProduto.cs" />
     <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
@@ -266,6 +276,7 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
+    <Compile Include="Model\MetaLoja.cs" />
     <Compile Include="Model\MySQLAliases.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
@@ -292,6 +303,7 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoViewModel.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModelStrategy.cs" />
@@ -346,6 +358,9 @@
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FolhaPagamento\AdicionarBonus.xaml.cs">
+      <DependentUpon>AdicionarBonus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>
     </Compile>
@@ -396,6 +411,9 @@
     </Compile>
     <Compile Include="View\Loja\EditarLoja.xaml.cs">
       <DependentUpon>EditarLoja.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Loja\MetaLoja.xaml.cs">
+      <DependentUpon>MetaLoja.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Loja\PesquisarLoja.xaml.cs">
       <DependentUpon>PesquisarLoja.xaml</DependentUpon>
@@ -604,6 +622,9 @@
     <EmbeddedResource Include="Mapas\FolhaPagamento.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\WinSCP.5.15.9\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.9\build\WinSCP.targets')" />
