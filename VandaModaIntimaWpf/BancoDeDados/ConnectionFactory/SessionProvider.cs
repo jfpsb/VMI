@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 MainSessionFactory = BuildSessionFactory();
             }
 
-            ISession _session = MainSessionFactory.OpenSession();
+            ISession _session = MainSessionFactory.WithOptions().Interceptor(new CustomInterceptor()).OpenSession();
 
             return _session;
         }

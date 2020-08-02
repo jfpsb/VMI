@@ -44,9 +44,6 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="GnatMQ.Net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GnatMQ.1.1.0.0\lib\net45\GnatMQ.Net.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -250,6 +247,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BancoDeDados\ConnectionFactory\CustomInterceptor.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\Bonus.cs" />
@@ -318,6 +316,7 @@
     <Compile Include="ViewModel\Funcionario\EditarFuncionarioViewModel.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModel.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModelStrategy.cs" />
+    <Compile Include="ViewModel\GlobalConfigs.cs" />
     <Compile Include="ViewModel\ICadastrarViewModel.cs" />
     <Compile Include="ViewModel\IPesquisarViewModelStrategy.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaViewModel.cs" />
@@ -625,6 +624,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VMIMqttBroker\VMIMqttBroker.csproj">
+      <Project>{5fdb2820-977b-417d-b9a0-b7e939c0c271}</Project>
+      <Name>VMIMqttBroker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
