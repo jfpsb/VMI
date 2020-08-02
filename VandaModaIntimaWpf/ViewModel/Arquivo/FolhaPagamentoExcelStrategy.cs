@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
     {
         public void ConfiguraColunas(Worksheet Worksheet)
         {
-            Worksheet.Columns.AutoFit();
+            Worksheet.Columns.AutoFit(); 
         }
 
         public void EscreveDados(Worksheet Worksheet, object l)
