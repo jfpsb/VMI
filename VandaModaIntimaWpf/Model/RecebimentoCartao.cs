@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -12,6 +13,23 @@ namespace VandaModaIntimaWpf.Model
         private double _recebido;
         private double _valorOperadora;
         private string _observacao;
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Mes", Mes.ToString() },
+                    { "Ano", Ano.ToString() },
+                    { "Loja", Loja.Cnpj },
+                    { "OperadoraCartao", OperadoraCartao.Nome },
+                };
+
+                return dic;
+            }
+        }
+
         public virtual int Mes
         {
             get => _mes;
@@ -144,6 +162,11 @@ namespace VandaModaIntimaWpf.Model
                 hash += OperadoraCartao.GetHashCode();
 
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
+        }
+
+        public override string ToString()
+        {
+            return Mes.ToString() + Ano.ToString() + Loja.ToString() + OperadoraCartao.ToString();
         }
     }
 }

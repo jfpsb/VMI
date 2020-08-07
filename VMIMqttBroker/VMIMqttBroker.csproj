@@ -61,7 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DatabaseLog.cs" />
     <Compile Include="ICloseable.cs" />
+    <Compile Include="ObservableObjectBroker.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MqttBrokerView.xaml">
       <Generator>MSBuild:Compile</Generator>

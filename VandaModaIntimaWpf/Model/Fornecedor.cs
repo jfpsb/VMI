@@ -24,6 +24,19 @@ namespace VandaModaIntimaWpf.Model
             Email = 5
         }
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Cnpj", Cnpj }
+                };
+
+                return dic;
+            }
+        }
+
         public Fornecedor() { }
 
         /// <summary>
@@ -144,6 +157,11 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetIdentifier()
         {
             return Cnpj;
+        }
+
+        public override string ToString()
+        {
+            return Cnpj?.ToString();
         }
     }
 }

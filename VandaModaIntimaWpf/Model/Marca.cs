@@ -26,6 +26,19 @@ namespace VandaModaIntimaWpf.Model
             _nome = nome;
         }
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Nome", Nome }
+                };
+
+                return dic;
+            }
+        }
+
         public virtual string Nome
         {
             get => _nome;
@@ -83,6 +96,11 @@ namespace VandaModaIntimaWpf.Model
         }
 
         public virtual object GetIdentifier()
+        {
+            return Nome;
+        }
+
+        public override string ToString()
         {
             return Nome;
         }

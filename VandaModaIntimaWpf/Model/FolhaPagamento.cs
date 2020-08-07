@@ -17,6 +17,19 @@ namespace VandaModaIntimaWpf.Model
 
         public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+
+                return dic;
+            }
+        }
+
         public int Mes
         {
             get => _mes;
@@ -142,6 +155,11 @@ namespace VandaModaIntimaWpf.Model
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

@@ -27,6 +27,20 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Loja", Loja.Cnpj },
+                    { "Data", Data.ToString("o") }
+                };
+
+                return dic;
+            }
+        }
+
         [JsonIgnore]
         public virtual string GetContextMenuHeader
         {
@@ -116,6 +130,11 @@ namespace VandaModaIntimaWpf.Model
             if (Loja != null) hash += Loja.GetHashCode();
             hash += Data.GetHashCode();
             return hash;
+        }
+
+        public override string ToString()
+        {
+            return Loja.ToString() + Data.ToString();
         }
     }
 }

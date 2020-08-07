@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf
         public VandaModaIntima()
         {
             InitializeComponent();
-            SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
+            LocalSessionProvider.MainSessionFactory = LocalSessionProvider.BuildSessionFactory();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)
@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf
 
         private void TelaPrincipal_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            SessionProvider.FechaSessionFactory();
+            LocalSessionProvider.FechaSessionFactory();
         }
     }
 }

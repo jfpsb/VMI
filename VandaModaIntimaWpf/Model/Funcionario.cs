@@ -23,6 +23,19 @@ namespace VandaModaIntimaWpf.Model
 
         public string GetContextMenuHeader => _cpf + " - " + _nome;
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Cpf", Cpf }
+                };
+
+                return dic;
+            }
+        }
+
         public string Cpf
         {
             get => _cpf;
@@ -102,6 +115,11 @@ namespace VandaModaIntimaWpf.Model
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Cpf?.ToString();
         }
     }
 }

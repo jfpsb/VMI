@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -25,6 +26,19 @@ namespace VandaModaIntimaWpf.Model
         }
 
         public virtual string GetContextMenuHeader => $"{Produto.CodBarra}; Quantidade: {Quant}";
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+
+                return dic;
+            }
+        }
 
         public virtual long Id
         {
@@ -90,6 +104,11 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetIdentifier()
         {
             return Id;
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

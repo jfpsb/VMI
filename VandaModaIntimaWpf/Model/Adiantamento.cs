@@ -59,8 +59,22 @@ namespace VandaModaIntimaWpf.Model
         public IList<Parcela> Parcelas
         {
             get => _parcelas;
-            set { _parcelas = value;
+            set
+            {
+                _parcelas = value;
                 OnPropertyChanged("Parcelas");
+            }
+        }
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+                return dic;
             }
         }
 
@@ -77,6 +91,11 @@ namespace VandaModaIntimaWpf.Model
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

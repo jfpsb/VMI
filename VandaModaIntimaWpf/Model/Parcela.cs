@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -12,6 +13,19 @@ namespace VandaModaIntimaWpf.Model
         private bool _paga;
 
         public string GetContextMenuHeader => throw new NotImplementedException();
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+
+                return dic;
+            }
+        }
 
         public Adiantamento Adiantamento
         {
@@ -102,6 +116,11 @@ namespace VandaModaIntimaWpf.Model
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

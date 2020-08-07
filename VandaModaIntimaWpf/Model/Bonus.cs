@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -11,6 +12,18 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
 
         public string GetContextMenuHeader => string.Format("{0} - {1} - R$ {2}", Folha.MesReferencia, Folha.Funcionario.Nome, Valor);
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+                return dic;
+            }
+        }
 
         public long Id
         {
@@ -72,6 +85,11 @@ namespace VandaModaIntimaWpf.Model
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

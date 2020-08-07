@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -6,7 +7,6 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private string _nome;
-
         public bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(TipoContagem))
@@ -19,6 +19,19 @@ namespace VandaModaIntimaWpf.Model
         }
 
         public virtual string GetContextMenuHeader => Nome;
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Id", Id.ToString() }
+                };
+
+                return dic;
+            }
+        }
 
         public virtual long Id
         {
@@ -50,6 +63,11 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetIdentifier()
         {
             return Id;
+        }
+
+        public override string ToString()
+        {
+            return Id.ToString();
         }
     }
 }

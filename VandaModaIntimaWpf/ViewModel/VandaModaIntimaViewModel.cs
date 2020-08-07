@@ -32,20 +32,11 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaFuncionarioComando { get; set; }
         public ICommand AbrirTelaDespesasComando { get; set; }
 
-        public static MqttClient MqttCliente;
-
         //TODO: Comando para tela de funcionário e despesas
         public VandaModaIntimaViewModel()
         {
             GlobalConfigs global = new GlobalConfigs();
-            MqttCliente = new MqttClient("localhost");
-            MqttCliente.Connect(GlobalConfigs.ClientId(), null, null, false, 60);
-
-            MqttCliente.MqttMsgPublishReceived += Recebido;
-
-            string topico = "teste";
-
-            MqttCliente.Subscribe(new string[] { topico }, new byte[] { 2 });
+            MqttClientInit mqttClientInit = new MqttClientInit();
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);
@@ -77,13 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         private void AbrirTelaDespesas(object obj)
         {
-            string topico = "teste";
-            MqttCliente.Publish(topico, Encoding.UTF8.GetBytes("TESTANDO PUBLISH"));
-        }
-
-        private void Recebido(object sender, MqttMsgPublishEventArgs e)
-        {
-            MessageBox.Show(Encoding.UTF8.GetString(e.Message));
+            
         }
 
         public void AbrirTelaProduto(object parameter)

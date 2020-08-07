@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -27,6 +27,19 @@ namespace VandaModaIntimaWpf.Model
             Endereco = 5,
             InscricaoEstadual = 6,
             Aluguel = 7
+        }
+
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "Cnpj", Cnpj }
+                };
+
+                return dic;
+            }
         }
 
         public string Cnpj
@@ -136,6 +149,11 @@ namespace VandaModaIntimaWpf.Model
         public object GetIdentifier()
         {
             return Cnpj;
+        }
+
+        public override string ToString()
+        {
+            return Cnpj?.ToString();
         }
     }
 }

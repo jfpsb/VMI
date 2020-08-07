@@ -25,6 +25,19 @@ namespace VandaModaIntimaWpf.Model
             CodBarraFornecedor = 7
         }
 
+        public Dictionary<string, string> DictionaryIdentifier
+        {
+            get
+            {
+                var dic = new Dictionary<string, string>
+                {
+                    { "CodBarra", CodBarra }
+                };
+
+                return dic;
+            }
+        }
+
         public virtual string CodBarra
         {
             get => _codBarra;
@@ -159,6 +172,11 @@ namespace VandaModaIntimaWpf.Model
         }
 
         public virtual object GetIdentifier()
+        {
+            return CodBarra;
+        }
+
+        public override string ToString()
         {
             return CodBarra;
         }

@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         protected virtual ObservableCollection<MySQLAliases> GetAliases(string[] exclusoes)
         {
             ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
-            var persister = SessionProvider.MainSessionFactory.GetClassMetadata(typeof(E));
+            var persister = LocalSessionProvider.MainSessionFactory.GetClassMetadata(typeof(E));
 
             aliases.Add(new MySQLAliases() { Coluna = persister.IdentifierPropertyName, Alias = persister.IdentifierPropertyName });
 
@@ -101,7 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
         }
         public void FechaJanela(object sender, CancelEventArgs e)
         {
-            SessionProvider.FechaSession(_session);
+            LocalSessionProvider.FechaSession(_session);
         }
         public MySQLAliases AliasSelecionado
         {
