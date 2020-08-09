@@ -53,5 +53,11 @@ namespace VandaModaIntimaWpf.ViewModel
                 DATABASELOG = JsonConvert.DeserializeObject<List<DatabaseLog>>(DatabaseLogJson);
             }
         }
+
+        public static void SalvaDatabaseLog()
+        {
+            string json = JsonConvert.SerializeObject(DATABASELOG, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(DATABASELOG_FILE_PATH, json);
+        }
     }
 }

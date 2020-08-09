@@ -119,6 +119,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Duplicata\DuplicataHandler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarAdiantamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,6 +255,7 @@
     <Compile Include="BancoDeDados\ConnectionFactory\RemoteSessionProvider.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\LocalSessionProvider.cs" />
     <Compile Include="BancoDeDados\DatabaseLog.cs" />
+    <Compile Include="BancoDeDados\Sincronizacao.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
@@ -270,6 +275,7 @@
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
+    <Compile Include="Model\Duplicata.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Funcionario.cs" />
@@ -301,6 +307,7 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModel.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
+    <Compile Include="ViewModel\Duplicata\DuplicataHandlerViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoViewModel.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusViewModel.cs" />
@@ -356,6 +363,9 @@
     </Compile>
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Duplicata\DuplicataHandler.xaml.cs">
+      <DependentUpon>DuplicataHandler.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>

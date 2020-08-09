@@ -9,6 +9,7 @@ using uPLibrary.Networking.M2Mqtt.Messages;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
+using VandaModaIntimaWpf.View.Duplicata;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
@@ -36,7 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public VandaModaIntimaViewModel()
         {
             GlobalConfigs global = new GlobalConfigs();
-            MqttClientInit mqttClientInit = new MqttClientInit();
+            //MqttClientInit mqttClientInit = new MqttClientInit();
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);
@@ -64,11 +65,14 @@ namespace VandaModaIntimaWpf.ViewModel
             }
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+
+            DuplicataHandler duplicataHandler = new DuplicataHandler();
+            duplicataHandler.ShowDialog();
         }
 
         private void AbrirTelaDespesas(object obj)
         {
-            
+
         }
 
         public void AbrirTelaProduto(object parameter)

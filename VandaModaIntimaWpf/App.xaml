@@ -143,6 +143,11 @@
                         Value="Center" />
             </Style>
 
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="Century Gothic" />
+            </Style>
+
             <Style TargetType="ComboBox"
                    BasedOn="{StaticResource Fonte}">
                 <Setter Property="FontSize"
@@ -241,6 +246,161 @@
                     </StackPanel>
                 </Border>
             </ControlTemplate>
+
+            <DataTemplate x:Key="DuplicataAdiantamento">
+                <Grid Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Id:"
+                           FontWeight="Bold" />
+                    <Label Grid.Column="1"
+                           Content="{Binding EntidadeLocal}" />
+                    <Label Grid.Row="1"
+                           Content="Adiantamento Remoto"
+                           Margin="5,0,0,0"
+                           Padding="0"
+                           FontWeight="Bold" />
+
+                    <Border Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Data"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1" />
+                            <Label Grid.Column="1"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   Content="Funcionário"
+                                   BorderBrush="Black"
+                                   BorderThickness="1" />
+                            <Label Grid.Column="2"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1"
+                                   Content="Valor" />
+                            <Label Grid.Column="3"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1"
+                                   Content="Nº de Parcelas" />
+
+                            <Label Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.DataString}" />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Funcionario.Nome}" />
+                            <Label Grid.Column="2"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Valor}" />
+                            <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Parcelas.Count}" />
+                        </Grid>
+                    </Border>
+
+                    <Label Grid.Row="3"
+                           Content="Adiantamento Local"
+                           Margin="5,0,0,0"
+                           Padding="0"
+                           FontWeight="Bold" />
+                    <Border Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                                <ColumnDefinition Width="Auto " />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Data"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1" />
+                            <Label Grid.Column="1"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   Content="Funcionário"
+                                   BorderBrush="Black"
+                                   BorderThickness="1" />
+                            <Label Grid.Column="2"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1"
+                                   Content="Valor" />
+                            <Label Grid.Column="3"
+                                   FontWeight="Bold"
+                                   Background="LightGray"
+                                   BorderBrush="Black"
+                                   BorderThickness="1"
+                                   Content="Nº de Parcelas" />
+
+                            <Label Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.DataString}" />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Funcionario.Nome}" />
+                            <Label Grid.Column="2"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Valor}" />
+                            <Label Grid.Column="3"
+                                   Grid.Row="1"
+                                   Content="{Binding EntidadeRemota.Parcelas.Count}" />
+                        </Grid>
+                    </Border>
+                    <Button Grid.Row="5">
+                        <TextBlock TextAlignment="Center">
+                            Desconsiderar<LineBreak />A Duplicata Local
+                        </TextBlock>
+                    </Button>
+                    <Button Grid.Column="1"
+                            Grid.Row="5">
+                        <TextBlock TextAlignment="Center">
+                            Criar Novo Adiantamento
+                            <LineBreak /> Com Os Dados Locais
+                        </TextBlock>
+                    </Button>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DuplicataBonus">
+                <Label Content="Bonus" />
+            </DataTemplate>
 
             <Style x:Key="ApagarMarcadoBotaoEstilo"
                    TargetType="Button"

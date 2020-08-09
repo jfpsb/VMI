@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Windows;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -26,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         private void Unsubscribe(object sender, MqttMsgUnsubscribedEventArgs e)
         {
-            MessageBox.Show("Unsub " + e.MessageId);
+            
         }
 
         /// <summary>
@@ -46,8 +45,6 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <param name="e"></param>
         private void MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            MessageBox.Show("HELLO " + e.Topic);
-
             if (!e.Topic.Contains(GlobalConfigs.CLIENT_ID))
             {
                 if (e.Topic.Contains("/adiantamento/"))

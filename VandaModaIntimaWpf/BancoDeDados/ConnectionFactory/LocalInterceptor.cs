@@ -72,6 +72,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             if (tx != null && MqttClientInit.MqttCliente != null && tx.WasCommitted)
             {
                 GlobalConfigs.DATABASELOG.AddRange(_logs);
+                GlobalConfigs.SalvaDatabaseLog();
             }
 
             _logs.Clear();
