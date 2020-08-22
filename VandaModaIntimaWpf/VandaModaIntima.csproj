@@ -254,8 +254,11 @@
     <Compile Include="BancoDeDados\ConnectionFactory\LocalInterceptor.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\RemoteSessionProvider.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\LocalSessionProvider.cs" />
-    <Compile Include="BancoDeDados\DatabaseLog.cs" />
-    <Compile Include="BancoDeDados\Sincronizacao.cs" />
+    <Compile Include="BancoDeDados\CouchDbClient.cs" />
+    <Compile Include="BancoDeDados\Model\CouchDbErrorResponse.cs" />
+    <Compile Include="BancoDeDados\Model\CouchDbLog.cs" />
+    <Compile Include="BancoDeDados\Model\CouchDbResponse.cs" />
+    <Compile Include="BancoDeDados\Model\CouchDbRevStatus.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
