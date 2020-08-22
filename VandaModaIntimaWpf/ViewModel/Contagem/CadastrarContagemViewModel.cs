@@ -53,14 +53,15 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             _result = await _daoContagem.Inserir(Contagem);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Contagem Cadastrada Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Contagem Cadastrada Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Contagem",
+                ObjetoSalvo = Contagem
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Contagem");
+            ChamaAposCadastrar(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)

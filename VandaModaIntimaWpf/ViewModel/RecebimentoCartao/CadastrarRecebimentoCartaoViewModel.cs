@@ -70,14 +70,15 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         {
             _result = await daoRecebimentoCartao.Inserir(Recebimentos);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Recebimento Cadastrado Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Recebimento Cadastrado Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Recebimento",
+                ObjetoSalvo = Recebimentos
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Recebimento");
+            ChamaAposCadastrar(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)

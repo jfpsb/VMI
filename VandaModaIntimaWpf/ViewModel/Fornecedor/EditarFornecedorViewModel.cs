@@ -18,21 +18,23 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
-            var result = await daoFornecedor.Merge(Fornecedor);
+            _result = await daoFornecedor.Merge(Fornecedor);
 
-            if (result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                await SetStatusBarSucesso($"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso");
-            }
-            else
-            {
-                SetStatusBarErro("Erro ao Atualizar Fornecedor");
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = $"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso",
+                MensagemErro = "Erro ao Atualizar Fornecedor",
+                ObjetoSalvo = Fornecedor
+            };
+
+            ChamaAposCadastrar(e);
         }
 
         private async void AtualizarReceita(object parameter)
         {
             SetStatusBarAguardando("Pesquisando CNPJ na Receita Federal. Aguarde.");
+
             try
             {
                 FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Fornecedor.Cnpj);
@@ -44,7 +46,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 // Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Fornecedor");
 
-                await SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");
+                SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");
             }
             catch (WebException we)
             {

@@ -66,8 +66,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
 
-            DuplicataHandler duplicataHandler = new DuplicataHandler();
-            duplicataHandler.ShowDialog();
+            //DuplicataHandler duplicataHandler = new DuplicataHandler();
+            //duplicataHandler.ShowDialog();
         }
 
         private void AbrirTelaDespesas(object obj)

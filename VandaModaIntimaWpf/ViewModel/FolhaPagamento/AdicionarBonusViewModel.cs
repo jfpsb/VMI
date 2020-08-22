@@ -50,15 +50,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             _result = await daoBonus.Inserir(Bonus);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                _session.Refresh(_folha);
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Bônus Adicionado Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Bônus Adicionado Com Sucesso",
+                MensagemErro = "Erro ao Adicionar Bônus",
+                ObjetoSalvo = Bonus
+            };
 
-            SetStatusBarErro("Erro ao Adicionar Bônus");
+            ChamaAposCadastrar(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)

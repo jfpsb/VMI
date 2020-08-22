@@ -60,16 +60,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            _result = await daoProduto.Inserir(produtoModel);
+            _result = await daoProduto.Inserir(Produto);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Produto Cadastrado Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Produto Cadastrado Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Produto",
+                ObjetoSalvo = Produto
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Produto");
+            ChamaAposCadastrar(e);
         }
 
         public override void ResetaPropriedades()

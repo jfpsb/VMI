@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private static XmlDocument configsXml;
 
         public static string CLIENT_ID;
-        public static List<DatabaseLog> DATABASELOG;
+        public static List<int> DATABASELOG;
         public GlobalConfigs()
         {
             CarregaConfigsXml();
@@ -45,13 +45,13 @@ namespace VandaModaIntimaWpf.ViewModel
 
         private static void CarregaDatabaseLog()
         {
-            DATABASELOG = new List<DatabaseLog>();
+            //DATABASELOG = new List<DatabaseLog>();
 
-            if (File.Exists(DATABASELOG_FILE_PATH))
-            {
-                string DatabaseLogJson = File.ReadAllText(DATABASELOG_FILE_PATH);
-                DATABASELOG = JsonConvert.DeserializeObject<List<DatabaseLog>>(DatabaseLogJson);
-            }
+            //if (File.Exists(DATABASELOG_FILE_PATH))
+            //{
+            //    string DatabaseLogJson = File.ReadAllText(DATABASELOG_FILE_PATH);
+            //    DATABASELOG = JsonConvert.DeserializeObject<List<DatabaseLog>>(DatabaseLogJson);
+            //}
         }
 
         public static void SalvaDatabaseLog()

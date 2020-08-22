@@ -1,5 +1,7 @@
 ﻿using NHibernate;
+using System;
 using System.ComponentModel;
+using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -21,33 +23,57 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
+
+        public delegate void AposCadastrarEventHandler(AposCadastrarEventArgs e);
+        public event AposCadastrarEventHandler AposCadastrar;
         public ICommand SalvarComando { get; set; }
         public ACadastrarViewModel()
         {
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
-            SetStatusBarAguardando(GetResource.GetString("aguardando_usuario"));
+            SetStatusBarAguardando();
+            AposCadastrar += RedefinirTela;
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();
         public abstract bool ValidacaoSalvar(object parameter);
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
-
-        public virtual async Task SetStatusBarSucesso(string mensagem)
+        private async void RedefinirTela(AposCadastrarEventArgs e)
+        {
+            if (e.SalvoComSucesso)
+            {
+                ResetaPropriedades();
+                SetStatusBarSucesso(e.MensagemSucesso);
+                await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
+                SetStatusBarAguardando();
+            }
+            else
+            {
+                SetStatusBarErro(e.MensagemErro);
+            }
+        }
+        protected virtual void ChamaAposCadastrar(AposCadastrarEventArgs e)
+        {
+            AposCadastrar?.Invoke(e);
+        }
+        protected void SetStatusBarSucesso(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMSUCESSO;
-            await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
-            SetStatusBarAguardando(GetResource.GetString("aguardando_usuario"));
         }
-        public void SetStatusBarAguardando(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMAGUARDANDO;
-        }
-        public virtual void SetStatusBarErro(string mensagem)
+        protected void SetStatusBarErro(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMERRO;
+        }
+        private void SetStatusBarAguardando()
+        {
+            MensagemStatusBar = GetResource.GetString("aguardando_usuario");
+            ImagemStatusBar = IMAGEMAGUARDANDO;
+        }
+        protected void SetStatusBarAguardando(string mensagem)
+        {
+            MensagemStatusBar = mensagem;
+            ImagemStatusBar = IMAGEMAGUARDANDO;
         }
         /// <summary>
         /// Método utilizado nas telas de ediçao para saber se houve edição.
@@ -93,7 +119,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("IsEnabled");
             }
         }
-
         public string BotaoSalvarToolTip
         {
             get => _botaoSalvarToolTip;

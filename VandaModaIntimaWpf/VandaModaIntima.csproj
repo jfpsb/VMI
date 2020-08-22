@@ -296,6 +296,7 @@
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
+    <Compile Include="ViewModel\AposCadastrarEventArgs.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />

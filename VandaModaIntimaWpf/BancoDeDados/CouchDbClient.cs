@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
         private static string Url = "http://{0}:{1}/{2}";
         private static string Server = "localhost";
         private static string Port = "5984";
-        private static string Database = "VMI_Log";
+        private static string Database = "vmi_log";
 
         public CouchDbClient()
         {
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
         }
         public CouchDbResponse DeleteDocument(string id)
         {
-            CouchDbResponse couchDbPUTOk = new CouchDbResponse();
+            CouchDbResponse couchDbResponse = new CouchDbResponse();
             string tipoRequisicao = "DELETE";
             string requisicaoUrl = string.Format("{0}/{1}/{2}", Url, Database, id);
 
@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
                         var responseText = reader.ReadToEnd();
                         if (httpResponse.StatusCode == HttpStatusCode.OK)
                         {
-                            couchDbPUTOk = JsonConvert.DeserializeObject<CouchDbResponse>(responseText);
+                            couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(responseText);
                         }
                         else
                         {
@@ -58,7 +58,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             }
 
-            return couchDbPUTOk;
+            return couchDbResponse;
         }
         public CouchDbLog<E> FindById<E>(string id, bool revs_info = false)
         {
@@ -96,7 +96,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
         }
         private CouchDbResponse RunPUTRequest(string url)
         {
-            CouchDbResponse couchDbPUTOk = new CouchDbResponse();
+            CouchDbResponse couchDbResponse = new CouchDbResponse();
             string tipoRequisicao = "PUT";
             string requisicaoUrl = url;
 
@@ -112,7 +112,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
                         var responseText = reader.ReadToEnd();
                         if (httpResponse.StatusCode == HttpStatusCode.OK)
                         {
-                            couchDbPUTOk = JsonConvert.DeserializeObject<CouchDbResponse>(responseText);
+                            couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(responseText);
                         }
                         else
                         {
@@ -123,7 +123,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             }
 
-            return couchDbPUTOk;
+            return couchDbResponse;
         }
     }
 }

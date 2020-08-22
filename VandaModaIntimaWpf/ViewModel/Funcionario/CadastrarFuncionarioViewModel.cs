@@ -78,14 +78,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             _result = await daoFuncionario.Inserir(Funcionario);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Funcionário Cadastrado Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Funcionário Cadastrado Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Funcionário",
+                ObjetoSalvo = Funcionario
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Funcionário");
+            ChamaAposCadastrar(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)

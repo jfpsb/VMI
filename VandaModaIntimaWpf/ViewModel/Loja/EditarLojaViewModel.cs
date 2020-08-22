@@ -21,14 +21,15 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             _result = await daoLoja.Merge(Loja);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                await SetStatusBarSucesso($"Loja {Loja.Cnpj} Atualizada Com Sucesso");
-            }
-            else
-            {
-                SetStatusBarErro("Erro ao Atualizar Loja");
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = $"Loja {Loja.Cnpj} Atualizada Com Sucesso",
+                MensagemErro = "Erro ao Atualizar Loja",
+                ObjetoSalvo = Loja
+            };
+
+            ChamaAposCadastrar(e);
         }
 
         public new LojaModel Loja

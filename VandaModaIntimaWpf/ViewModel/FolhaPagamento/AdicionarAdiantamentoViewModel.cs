@@ -42,6 +42,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
             FolhaPagamento = folhaPagamento;
+
+            AposCadastrar += RefreshFolhasPagamento;
         }
 
         public FolhaPagamentoModel FolhaPagamento
@@ -188,20 +190,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             _result = await daoAdiantamento.Inserir(Adiantamento);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                //TODO: botar strings em resources
-                foreach (var p in Parcelas)
-                {
-                    _session.Refresh(p.FolhaPagamento);
-                }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Adiantamento Adicionado Com Sucesso",
+                MensagemErro = "Erro ao Adicionar Adiantamento",
+                ObjetoSalvo = Adiantamento
+            };
 
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Adiantamento Adicionado Com Sucesso");
-                return;
+            ChamaAposCadastrar(e);
+        }
+        private void RefreshFolhasPagamento(AposCadastrarEventArgs e)
+        {
+            //TODO: botar strings em resources
+            foreach (var p in Parcelas)
+            {
+                _session.Refresh(p.FolhaPagamento);
             }
-
-            SetStatusBarErro("Erro ao Adicionar Adiantamento");
         }
 
         public override bool ValidacaoSalvar(object parameter)

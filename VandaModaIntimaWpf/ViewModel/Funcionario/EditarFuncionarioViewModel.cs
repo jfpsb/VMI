@@ -18,14 +18,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             _result = await daoFuncionario.Merge(Funcionario);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                await SetStatusBarSucesso($"Funcionário {Funcionario.Nome} Atualizado Com Sucesso");
-            }
-            else
-            {
-                SetStatusBarErro("Erro ao Atualizar Funcionário");
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = $"Funcionário {Funcionario.Nome} Atualizado Com Sucesso",
+                MensagemErro = "Erro ao Atualizar Funcionário",
+                ObjetoSalvo = Funcionario
+            };
+
+            ChamaAposCadastrar(e);
         }
     }
 }

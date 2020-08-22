@@ -29,14 +29,15 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         {
             _result = await daoMarca.Inserir(marcaModel);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Marca Cadastrada Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Marca Cadastrada Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Marca",
+                ObjetoSalvo = marcaModel
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Marca");
+            ChamaAposCadastrar(e);
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

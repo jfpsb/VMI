@@ -46,14 +46,15 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             _result = await _daoContagem.Merge(Contagem);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                await SetStatusBarSucesso("Contagem Atualizada Com Sucesso");
-            }
-            else
-            {
-                SetStatusBarErro("Erro ao Atualizar Contagem");
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Contagem Atualizada Com Sucesso",
+                MensagemErro = "Erro ao Atualizar Contagem",
+                ObjetoSalvo = Contagem
+            };
+
+            ChamaAposCadastrar(e);
         }
 
         private void AbrirAdicionarContagemProduto(object parameter)

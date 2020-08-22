@@ -23,16 +23,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            _result = await daoProduto.Merge(produtoModel);
+            _result = await daoProduto.Merge(Produto);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                await SetStatusBarSucesso($"Produto {Produto.CodBarra} Atualizado Com Sucesso");
-            }
-            else
-            {
-                SetStatusBarErro(GetResource.GetString("erro_ao_atualizar_produto"));
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = $"Produto {Produto.CodBarra} Atualizado Com Sucesso",
+                MensagemErro = GetResource.GetString("erro_ao_atualizar_produto"),
+                ObjetoSalvo = Produto
+            };
+
+            ChamaAposCadastrar(e);
         }
 
         public new ProdutoModel Produto

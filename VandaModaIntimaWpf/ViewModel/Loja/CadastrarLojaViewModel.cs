@@ -39,14 +39,15 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             _result = await daoLoja.Inserir(Loja);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Loja Cadastrada Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Loja Cadastrada Com Sucesso",
+                MensagemErro = "Erro ao Cadastrar Loja",
+                ObjetoSalvo = Loja
+            };
 
-            SetStatusBarErro("Erro ao Cadastrar Loja");
+            ChamaAposCadastrar(e);
         }
 
         public override void ResetaPropriedades()

@@ -21,14 +21,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             _result = await daoFornecedor.Inserir(Fornecedor);
 
-            if (_result)
+            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
             {
-                ResetaPropriedades();
-                await SetStatusBarSucesso("Fornecedor Cadastrado Com Sucesso");
-                return;
-            }
+                SalvoComSucesso = _result,
+                MensagemSucesso = "Fornecedor Cadastrado Com Sucesso",
+                MensagemErro = "Erro Ao Cadastrar Fornecedor",
+                ObjetoSalvo = Fornecedor
+            };
 
-            SetStatusBarErro("Erro Ao Cadastrar Fornecedor");
+            ChamaAposCadastrar(e);
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
