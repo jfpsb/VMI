@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -12,8 +13,9 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private bool _paga;
 
+        [JsonIgnore]
         public string GetContextMenuHeader => throw new NotImplementedException();
-
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -77,6 +79,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Numero");
             }
         }
+
+        [JsonProperty(PropertyName = "MySqlId")]
         public long Id
         {
             get => _id;

@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.Model
             _nome = nome;
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -49,6 +50,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
             get => _produtos;
@@ -71,6 +73,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
 
         public Fornecedor Fornecedor

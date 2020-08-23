@@ -7,6 +7,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
+using Newtonsoft.Json;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -43,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
             FolhaPagamento = folhaPagamento;
 
-            AposCadastrar += RefreshFolhasPagamento;
+            AposCriarDocumento += RefreshFolhasPagamento;
         }
 
         public FolhaPagamentoModel FolhaPagamento
@@ -188,19 +189,20 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async void Salvar(object parameter)
         {
-            _result = await daoAdiantamento.Inserir(Adiantamento);
+            string adiantamentoJson = JsonConvert.SerializeObject(Adiantamento);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Adiantamento.Id.ToString(), adiantamentoJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Adiantamento Adicionado Com Sucesso",
                 MensagemErro = "Erro ao Adicionar Adiantamento",
                 ObjetoSalvo = Adiantamento
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
-        private void RefreshFolhasPagamento(AposCadastrarEventArgs e)
+        private void RefreshFolhasPagamento(AposCriarDocumentoEventArgs e)
         {
             //TODO: botar strings em resources
             foreach (var p in Parcelas)
@@ -233,6 +235,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 return true;
 
             return false;
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

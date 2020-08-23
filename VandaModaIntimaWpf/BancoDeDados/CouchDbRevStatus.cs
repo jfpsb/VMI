@@ -1,4 +1,4 @@
-﻿namespace VandaModaIntimaWpf.BancoDeDados.Model
+﻿namespace VandaModaIntimaWpf.BancoDeDados
 {
     public class CouchDbRevStatus
     {

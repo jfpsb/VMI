@@ -1,6 +1,8 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Windows;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -23,17 +25,42 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            _result = await daoProduto.Merge(Produto);
+            string produtoJson = JsonConvert.SerializeObject(Produto);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, produtoJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = $"Produto {Produto.CodBarra} Atualizado Com Sucesso",
-                MensagemErro = GetResource.GetString("erro_ao_atualizar_produto"),
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Atualização de Produto Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Atualização de Produto",
                 ObjetoSalvo = Produto
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
+        }
+
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoProduto.Merge(Produto);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Produto Atualizado com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Produto",
+                    ObjetoSalvo = Produto
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
+            else
+            {
+                //TODO: Reverter update
+                //CouchDbResponse couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, );
+                //Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
+            }
         }
 
         public new ProdutoModel Produto

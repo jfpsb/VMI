@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -37,17 +38,18 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             if (Loja.Matriz.Cnpj == null)
                 Loja.Matriz = null;
 
-            _result = await daoLoja.Inserir(Loja);
+            string lojaJson = JsonConvert.SerializeObject(Loja);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Loja.Cnpj, lojaJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = "Loja Cadastrada Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Loja",
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Inserção de Loja Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Inserção de Loja",
                 ObjetoSalvo = Loja
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override void ResetaPropriedades()
@@ -92,6 +94,11 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
                     break;
             }
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

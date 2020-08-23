@@ -27,6 +27,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get

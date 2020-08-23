@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -19,17 +20,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
-            _result = await daoFornecedor.Inserir(Fornecedor);
+            string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Fornecedor Cadastrado Com Sucesso",
                 MensagemErro = "Erro Ao Cadastrar Fornecedor",
                 ObjetoSalvo = Fornecedor
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -69,6 +71,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             return true;
         }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public FornecedorModel Fornecedor
         {
             get { return fornecedor; }

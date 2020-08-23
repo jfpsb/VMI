@@ -1,24 +1,26 @@
 ﻿using Newtonsoft.Json;
-using NHibernate.Mapping;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
-    public class CouchDbLog<E>
+    public class CouchDbLog
     {
-        [JsonProperty("id")]
+        [JsonProperty("_id")]
         public string Id { get; set; }
 
-        [JsonProperty("rev")]
+        [JsonProperty("_rev", NullValueHandling = NullValueHandling.Ignore)]
         public string Rev { get; set; }
 
-        [JsonProperty("tipo")]
+        [JsonProperty("_tipo")]
         public string Tipo { get; set; }
 
-        [JsonProperty("entidade")]
-        public E Entidade { get; set; }
+        [JsonProperty("_revs_info")]
+        public List<CouchDbRevStatus> RevsInfo { internal get; set; } = new List<CouchDbRevStatus>();
 
-        [JsonProperty("revs_info")]
-        public List<CouchDbRevStatus> RevsInfo = new List<CouchDbRevStatus>();
+        public virtual void AtribuiCampos(object o)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

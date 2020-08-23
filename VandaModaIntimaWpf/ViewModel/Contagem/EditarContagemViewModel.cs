@@ -8,6 +8,7 @@ using ContagemProdutoModel = VandaModaIntimaWpf.Model.ContagemProduto;
 using VandaModaIntimaWpf.View.Produto;
 using NHibernate;
 using VandaModaIntimaWpf.ViewModel.Produto;
+using Newtonsoft.Json;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
@@ -44,17 +45,18 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public override async void Salvar(object parameter)
         {
-            _result = await _daoContagem.Merge(Contagem);
+            string contagemJson = JsonConvert.SerializeObject(Contagem);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Contagem.ToString(), contagemJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Contagem Atualizada Com Sucesso",
                 MensagemErro = "Erro ao Atualizar Contagem",
                 ObjetoSalvo = Contagem
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         private void AbrirAdicionarContagemProduto(object parameter)

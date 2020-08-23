@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string _nome;
         private IList<string> _identificadoresBanco = new List<string>();
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -54,6 +56,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
 
         public virtual object Clone()

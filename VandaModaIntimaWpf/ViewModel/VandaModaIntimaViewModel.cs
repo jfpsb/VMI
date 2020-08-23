@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Contagem;
@@ -37,6 +38,10 @@ namespace VandaModaIntimaWpf.ViewModel
         public VandaModaIntimaViewModel()
         {
             GlobalConfigs global = new GlobalConfigs();
+
+            //Autenticando CouchDB
+            CouchDbClient.GetAuthenticationCookie();
+
             //MqttClientInit mqttClientInit = new MqttClientInit();
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);

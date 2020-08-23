@@ -1,12 +1,13 @@
 ﻿using FinancerData;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
+using System.Linq;
 using System.Windows.Input;
 using System.Xml.Linq;
 using VandaModaIntimaWpf.Model.DAO;
@@ -68,17 +69,18 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public override async void Salvar(object parameter)
         {
-            _result = await daoRecebimentoCartao.Inserir(Recebimentos);
+            //string bonusJson = JsonConvert.SerializeObject(Recebimentos);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Recebimentos);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Recebimento Cadastrado Com Sucesso",
                 MensagemErro = "Erro ao Cadastrar Recebimento",
                 ObjetoSalvo = Recebimentos
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -226,6 +228,11 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         {
             // Calcula os totais quando os recebimentos são inseridos no DataGrid pela primeira vez
             CalculaTotais();
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

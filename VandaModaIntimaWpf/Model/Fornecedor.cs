@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -24,6 +25,7 @@ namespace VandaModaIntimaWpf.Model
             Email = 5
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -106,6 +108,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual IList<ProdutoModel> Produtos
         {
             get => _produtos;
@@ -132,6 +135,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
 
         public virtual object Clone()

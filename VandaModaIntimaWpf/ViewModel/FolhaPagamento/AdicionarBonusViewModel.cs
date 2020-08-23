@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
@@ -38,6 +39,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ResetaPropriedades()
         {
             Bonus = new Bonus();
@@ -48,17 +54,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             Bonus.Data = DateTime.Now;
 
-            _result = await daoBonus.Inserir(Bonus);
+            string bonusJson = JsonConvert.SerializeObject(Bonus);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Bonus.Id.ToString(), bonusJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Bônus Adicionado Com Sucesso",
                 MensagemErro = "Erro ao Adicionar Bônus",
                 ObjetoSalvo = Bonus
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)

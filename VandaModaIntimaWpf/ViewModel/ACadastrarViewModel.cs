@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Resources;
 
@@ -15,6 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected ISession _session;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
+        protected CouchDbClient couchDbClient;
         private string mensagemStatusBar;
         private string imagemStatusBar;
         private string _botaoSalvarToolTip;
@@ -24,22 +26,28 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
 
-        public delegate void AposCadastrarEventHandler(AposCadastrarEventArgs e);
-        public event AposCadastrarEventHandler AposCadastrar;
+        public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
+        public delegate void AposInserirBDEventHandler(AposInserirBDEventArgs e);
+
+        public event AposCriarDocumentoEventHandler AposCriarDocumento;
+        public event AposInserirBDEventHandler AposInserirBD;
         public ICommand SalvarComando { get; set; }
         public ACadastrarViewModel()
         {
+            couchDbClient = new CouchDbClient();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             SetStatusBarAguardando();
-            AposCadastrar += RedefinirTela;
+            AposCriarDocumento += InserirNoBancoDeDados;
+            AposInserirBD += RedefinirTela;
         }
         public abstract void Salvar(object parameter);
         public abstract void ResetaPropriedades();
         public abstract bool ValidacaoSalvar(object parameter);
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
-        private async void RedefinirTela(AposCadastrarEventArgs e)
+        public abstract void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e);
+        private async void RedefinirTela(AposInserirBDEventArgs e)
         {
-            if (e.SalvoComSucesso)
+            if (e.InseridoComSucesso)
             {
                 ResetaPropriedades();
                 SetStatusBarSucesso(e.MensagemSucesso);
@@ -51,9 +59,14 @@ namespace VandaModaIntimaWpf.ViewModel
                 SetStatusBarErro(e.MensagemErro);
             }
         }
-        protected virtual void ChamaAposCadastrar(AposCadastrarEventArgs e)
+        protected virtual void ChamaAposCriarDocumento(AposCriarDocumentoEventArgs e)
         {
-            AposCadastrar?.Invoke(e);
+            AposCriarDocumento?.Invoke(e);
+        }
+
+        protected virtual void ChamaAposInserirNoBD(AposInserirBDEventArgs e)
+        {
+            AposInserirBD?.Invoke(e);
         }
         protected void SetStatusBarSucesso(string mensagem)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -25,6 +26,7 @@ namespace VandaModaIntimaWpf.Model
             CodBarraFornecedor = 7
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -111,6 +113,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string FornecedorNome
         {
             get
@@ -122,6 +125,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string MarcaNome
         {
             get
@@ -148,6 +152,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
 
         public virtual object Clone()
@@ -166,6 +171,7 @@ namespace VandaModaIntimaWpf.Model
 
             return p;
         }
+
         public virtual string[] GetColunas()
         {
             return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM", "Cód. De Barras de Fornecedor" };

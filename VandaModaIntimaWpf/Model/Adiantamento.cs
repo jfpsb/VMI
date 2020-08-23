@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -11,6 +12,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private IList<Parcela> _parcelas = new List<Parcela>();
 
+        [JsonIgnore]
         public string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
 
         public DateTime Data
@@ -22,6 +24,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Data");
             }
         }
+
+        [JsonIgnore]
         public string DataString
         {
             get => _data.ToString("G");
@@ -36,6 +40,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonProperty(PropertyName = "MySqlId")]
         public long Id
         {
             get => _id;
@@ -66,6 +71,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get

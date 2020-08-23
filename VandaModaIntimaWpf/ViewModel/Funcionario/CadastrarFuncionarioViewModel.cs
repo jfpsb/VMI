@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -76,17 +77,18 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             if (Funcionario.Loja.Cnpj == null)
                 Funcionario.Loja = null;
 
-            _result = await daoFuncionario.Inserir(Funcionario);
+            string funcionarioJson = JsonConvert.SerializeObject(Funcionario);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Funcionario.Cpf, funcionarioJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = "Funcionário Cadastrado Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Funcionário",
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Inserção de Funcionário Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Inserção de Funcionário",
                 ObjetoSalvo = Funcionario
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -95,6 +97,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 return false;
 
             return true;
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

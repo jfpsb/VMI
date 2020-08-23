@@ -1,10 +1,9 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.View;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using TipoContagemModel = VandaModaIntimaWpf.Model.TipoContagem;
@@ -51,17 +50,18 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Contagem.Data = DateTime.Now;
             Contagem.Finalizada = false;
 
-            _result = await _daoContagem.Inserir(Contagem);
+            string contagemJson = JsonConvert.SerializeObject(Contagem);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Contagem.ToString(), contagemJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Contagem Cadastrada Com Sucesso",
                 MensagemErro = "Erro ao Cadastrar Contagem",
                 ObjetoSalvo = Contagem
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -77,6 +77,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private async void GetTiposContagem()
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public ContagemModel Contagem

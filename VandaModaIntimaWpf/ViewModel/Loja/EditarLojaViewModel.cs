@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System.Windows;
 using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
@@ -19,17 +20,18 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             if (Loja.Matriz.Cnpj == null)
                 Loja.Matriz = null;
 
-            _result = await daoLoja.Merge(Loja);
+            string lojaJson = JsonConvert.SerializeObject(Loja);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Loja.Cnpj, lojaJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = $"Loja {Loja.Cnpj} Atualizada Com Sucesso",
-                MensagemErro = "Erro ao Atualizar Loja",
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Atualização de Loja Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Atualização de Loja",
                 ObjetoSalvo = Loja
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public new LojaModel Loja

@@ -1,9 +1,6 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using NHibernate;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
@@ -16,17 +13,45 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             if (Funcionario.Loja.Cnpj == null)
                 Funcionario.Loja = null;
 
-            _result = await daoFuncionario.Merge(Funcionario);
+            string funcionarioJson = JsonConvert.SerializeObject(Funcionario);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Funcionario.Cpf, funcionarioJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = $"Funcionário {Funcionario.Nome} Atualizado Com Sucesso",
-                MensagemErro = "Erro ao Atualizar Funcionário",
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Atualização de Funcionário Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Atualização de Funcionário",
                 ObjetoSalvo = Funcionario
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
+        }
+
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (Funcionario.Loja.Cnpj == null)
+                Funcionario.Loja = null;
+
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoFuncionario.Merge(Funcionario);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Funcionário Atualizado com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Funcionário",
+                    ObjetoSalvo = Funcionario
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
+            else
+            {
+                //TODO: Reverter update
+                //CouchDbResponse couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, );
+                //Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valorOperadora;
         private string _observacao;
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -49,6 +50,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual string MesAno => $"{Mes}/{Ano}";
 
         public virtual Loja Loja
@@ -89,6 +91,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public virtual double Diferenca
         {
             get
@@ -125,6 +128,7 @@ namespace VandaModaIntimaWpf.Model
             return false;
         }
 
+        [JsonIgnore]
         public virtual string GetContextMenuHeader => $"{MesAno} - {Loja.Nome}";
 
         public virtual object Clone()

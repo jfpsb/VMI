@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -27,17 +28,18 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override async void Salvar(object parameter)
         {
-            _result = await daoMarca.Inserir(marcaModel);
+            string marcaJson = JsonConvert.SerializeObject(Marca);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Marca.Nome, marcaJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = "Marca Cadastrada Com Sucesso",
                 MensagemErro = "Erro ao Cadastrar Marca",
                 ObjetoSalvo = marcaModel
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -74,6 +76,11 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 return false;
 
             return true;
+        }
+
+        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

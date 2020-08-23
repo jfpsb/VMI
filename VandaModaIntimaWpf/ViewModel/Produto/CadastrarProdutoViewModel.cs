@@ -1,8 +1,10 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -25,9 +27,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoProduto = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);
             daoFornecedor = new DAOFornecedor(_session);
-            produtoModel = new ProdutoModel();
+            Produto = new ProdutoModel();
 
-            produtoModel.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Produto.PropertyChanged += CadastrarViewModel_PropertyChanged;
 
             GetFornecedores();
             GetMarcas();
@@ -60,17 +62,18 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            _result = await daoProduto.Inserir(Produto);
+            string produtoJson = JsonConvert.SerializeObject(Produto);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, produtoJson);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
-                MensagemSucesso = "Produto Cadastrado Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Produto",
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = "LOG de Inserção de Produto Criado com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Inserção de Produto",
                 ObjetoSalvo = Produto
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
         }
 
         public override void ResetaPropriedades()
@@ -129,6 +132,29 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     }
 
                     break;
+            }
+        }
+
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoProduto.Inserir(Produto);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Produto Inserido com Sucesso",
+                    MensagemErro = "Erro ao Inserir Produto",
+                    ObjetoSalvo = Produto
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
+            else
+            {
+                CouchDbResponse couchDbResponse = await couchDbClient.DeleteDocument(e.CouchDbResponse.Id);
+                Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
             }
         }
     }

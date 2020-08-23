@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.IO;
 using System.Net;
@@ -18,17 +19,45 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
-            _result = await daoFornecedor.Merge(Fornecedor);
+            //_result = await daoFornecedor.Merge(Fornecedor);
 
-            AposCadastrarEventArgs e = new AposCadastrarEventArgs()
+            string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
+            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
+
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
-                SalvoComSucesso = _result,
+                CouchDbResponse = couchDbResponse,
                 MensagemSucesso = $"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso",
                 MensagemErro = "Erro ao Atualizar Fornecedor",
                 ObjetoSalvo = Fornecedor
             };
 
-            ChamaAposCadastrar(e);
+            ChamaAposCriarDocumento(e);
+        }
+
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoFornecedor.Merge(Fornecedor);
+
+                string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
+                var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
+
+                AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
+                {
+                    CouchDbResponse = couchDbResponse,
+                    MensagemSucesso = $"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Fornecedor",
+                    ObjetoSalvo = Fornecedor
+                };
+
+                ChamaAposCriarDocumento(e2);
+            }
+            else
+            {
+                //TODO: Reverter update
+            }
         }
 
         private async void AtualizarReceita(object parameter)

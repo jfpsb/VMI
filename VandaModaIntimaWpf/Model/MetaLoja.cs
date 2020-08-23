@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -11,8 +12,10 @@ namespace VandaModaIntimaWpf.Model
         private int _ano;
         private double _valor;
 
+        [JsonIgnore]
         public string GetContextMenuHeader => throw new NotImplementedException();
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
@@ -26,6 +29,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonProperty(PropertyName = "MySqlId")]
         public string Id
         {
             get => _id;
@@ -72,9 +76,10 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public string MesReferencia
         {
-            get => string.Format("{0}/{1} - {2}", _mes, _ano, _valor);
+            get => string.Format("{0}/{1} - R$ {2}", _mes, _ano, _valor);
         }
 
         public object GetIdentifier()

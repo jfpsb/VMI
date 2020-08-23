@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -21,8 +22,10 @@ namespace VandaModaIntimaWpf.Model
             Telefone = 5
         }
 
+        [JsonIgnore]
         public string GetContextMenuHeader => _cpf + " - " + _nome;
 
+        [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
             get
