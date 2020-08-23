@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         public override async void Salvar(object parameter)
         {
             string marcaJson = JsonConvert.SerializeObject(Marca);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Marca.Nome, marcaJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Marca.Nome, marcaJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

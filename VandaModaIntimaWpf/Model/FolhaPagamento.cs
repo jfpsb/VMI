@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class FolhaPagamento : ObservableObject, ICloneable, IModel
+    public class FolhaPagamento : AModel, ICloneable, IModel
     {
         private string _id;
         private int _mes;
@@ -161,6 +162,25 @@ namespace VandaModaIntimaWpf.Model
         {
             return _id;
         }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Funcionario))
+            {
+                NHibernateUtil.Initialize(Funcionario);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Parcelas))
+            {
+                NHibernateUtil.Initialize(Parcelas);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Bonus))
+            {
+                NHibernateUtil.Initialize(Bonus);
+            }
+        }
+
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();

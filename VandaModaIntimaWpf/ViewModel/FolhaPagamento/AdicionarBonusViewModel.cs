@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Bonus.Data = DateTime.Now;
 
             string bonusJson = JsonConvert.SerializeObject(Bonus);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Bonus.Id.ToString(), bonusJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Bonus.Id.ToString(), bonusJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

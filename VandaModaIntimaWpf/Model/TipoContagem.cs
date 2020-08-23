@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class TipoContagem : ObservableObject, ICloneable, IModel
+    public class TipoContagem : AModel, ICloneable, IModel
     {
         private long _id;
         private string _nome;
@@ -71,6 +71,11 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Id.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException("TipoContagem Não Possui Propriedades Com Lazy Loading");
         }
     }
 }

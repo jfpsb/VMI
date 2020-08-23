@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                 Loja.Matriz = null;
 
             string lojaJson = JsonConvert.SerializeObject(Loja);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Loja.Cnpj, lojaJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Loja.Cnpj, lojaJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

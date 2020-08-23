@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 Funcionario.Loja = null;
 
             string funcionarioJson = JsonConvert.SerializeObject(Funcionario);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Funcionario.Cpf, funcionarioJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Funcionario.Cpf, funcionarioJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

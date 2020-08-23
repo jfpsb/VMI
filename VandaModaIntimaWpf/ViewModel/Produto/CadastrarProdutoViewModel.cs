@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
 
-            AtribuiNovoCodBarra();
+            //AtribuiNovoCodBarra();
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 Produto.Marca = null;
 
             string produtoJson = JsonConvert.SerializeObject(Produto);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, produtoJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Produto.CodBarra, produtoJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

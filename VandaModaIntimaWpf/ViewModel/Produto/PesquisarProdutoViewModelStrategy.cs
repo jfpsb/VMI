@@ -30,10 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public bool? AbrirEditar(ProdutoModel clone, ISession session)
         {
-            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(session)
-            {
-                Produto = clone
-            };
+            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(session, clone);
 
             EditarProduto editar = new EditarProduto()
             {

@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Adiantamento : ObservableObject, ICloneable, IModel
+    public class Adiantamento : AModel, ICloneable, IModel
     {
         private long _id;
         private Funcionario _funcionario;
@@ -92,6 +93,19 @@ namespace VandaModaIntimaWpf.Model
         public object GetIdentifier()
         {
             return _id;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Funcionario))
+            {
+                NHibernateUtil.Initialize(Funcionario);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Parcelas))
+            {
+                NHibernateUtil.Initialize(Parcelas);
+            }
         }
 
         public bool IsIdentical(object obj)

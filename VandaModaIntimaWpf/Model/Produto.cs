@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -6,7 +7,7 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Produto : ObservableObject, ICloneable, IModel
+    public class Produto : AModel, ICloneable, IModel
     {
         private string _codBarra;
         private FornecedorModel _fornecedor;
@@ -27,7 +28,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -137,7 +138,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(Produto))
             {
@@ -185,6 +186,24 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return CodBarra;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Codigos))
+            {
+                NHibernateUtil.Initialize(Codigos);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Fornecedor))
+            {
+                NHibernateUtil.Initialize(Codigos);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Marca))
+            {
+                NHibernateUtil.Initialize(Codigos);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class RecebimentoCartao : ObservableObject, ICloneable, IModel
+    public class RecebimentoCartao : AModel, ICloneable, IModel
     {
         private int _mes;
         private int _ano;
@@ -171,6 +171,11 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Mes.ToString() + Ano.ToString() + Loja.ToString() + OperadoraCartao.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException("RecebimentoCartao Não Possui Propriedades com Lazy Loading");
         }
     }
 }

@@ -190,7 +190,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public override async void Salvar(object parameter)
         {
             string adiantamentoJson = JsonConvert.SerializeObject(Adiantamento);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Adiantamento.Id.ToString(), adiantamentoJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Adiantamento.Id.ToString(), adiantamentoJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
-using System.Windows;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados;
+using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -12,9 +12,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoViewModel : CadastrarProdutoViewModel
     {
-        public EditarProdutoViewModel(ISession session) : base(session)
+        private CouchDbProdutoLog ultimoLog;
+        public EditarProdutoViewModel(ISession session, ProdutoModel produto) : base(session)
         {
-
+            Produto = produto;
+            GetUltimoLog();
         }
 
         public override async void Salvar(object parameter)
@@ -25,8 +27,18 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
 
-            string produtoJson = JsonConvert.SerializeObject(Produto);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, produtoJson);
+            CouchDbResponse couchDbResponse;
+
+            if (ultimoLog != null)
+            {
+                ultimoLog.AtribuiCampos(Produto);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+            }
+            else
+            {
+                string jsonData = JsonConvert.SerializeObject(Produto);
+                couchDbResponse = await couchDbClient.CreateDocument(Produto.CodBarra, jsonData);
+            }
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
@@ -48,6 +60,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
                     InseridoComSucesso = _result,
+                    IssoEUmUpdate = true,
                     MensagemSucesso = "Produto Atualizado com Sucesso",
                     MensagemErro = "Erro ao Atualizar Produto",
                     ObjetoSalvo = Produto
@@ -63,6 +76,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
+        private async void GetUltimoLog()
+        {
+            ultimoLog = (CouchDbProdutoLog)await couchDbClient.FindById(Produto.CodBarra);
+        }
+
         public new ProdutoModel Produto
         {
             get { return produtoModel; }
@@ -72,8 +90,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 FornecedorComboBox = value.Fornecedor;
                 MarcaComboBox = value.Marca;
                 OnPropertyChanged("Produto");
-                //OnPropertyChanged("FornecedorComboBox");
-                //OnPropertyChanged("MarcaComboBox");
             }
         }
 

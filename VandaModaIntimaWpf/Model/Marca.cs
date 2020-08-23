@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Marca : ObservableObject, ICloneable, IModel
+    public class Marca : AModel, ICloneable, IModel
     {
         private string _nome;
         private Fornecedor _fornecedor;
@@ -66,7 +67,7 @@ namespace VandaModaIntimaWpf.Model
             if (obj != null && obj.GetType() == typeof(Marca))
             {
                 Marca marca = (Marca)obj;
-                return marca.Nome.Equals(Nome) 
+                return marca.Nome.Equals(Nome)
                        && marca.Fornecedor.Equals(Fornecedor);
             }
 
@@ -106,6 +107,19 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Nome;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Fornecedor))
+            {
+                NHibernateUtil.Initialize(Fornecedor);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Produtos))
+            {
+                NHibernateUtil.Initialize(Produtos);
+            }
         }
     }
 }

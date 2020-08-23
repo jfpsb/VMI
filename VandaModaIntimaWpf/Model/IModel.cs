@@ -9,9 +9,11 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         Dictionary<string, string> DictionaryIdentifier { get; }
+
         bool IsIdentical(object obj);
 
         [JsonIgnore]
         string GetContextMenuHeader { get; }
+        void InicializaLazyLoad();
     }
 }

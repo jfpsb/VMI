@@ -46,7 +46,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public override async void Salvar(object parameter)
         {
             string contagemJson = JsonConvert.SerializeObject(Contagem);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Contagem.ToString(), contagemJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), contagemJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
@@ -99,13 +99,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirEditarProduto(object p)
         {
-            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(_session)
-            {
-                Produto = ContagemProduto.Produto
-            };
-
+            EditarProdutoViewModel editarProdutoViewModel = new EditarProdutoViewModel(_session, ContagemProduto.Produto);
             EditarProduto editar = new EditarProduto() { DataContext = editarProdutoViewModel };
-
             editar.ShowDialog();
         }
 

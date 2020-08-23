@@ -5,7 +5,7 @@
 
   <class name="FolhaPagamento" table="folhapagamento" lazy="false">
     <id name="Id" column="id" />
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" lazy="false" />
+    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
     <property name="Mes" column="mes" />
     <property name="Ano" column="ano" />
     <property name="Valor" column="valor" />

@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override async void Salvar(object parameter)
         {
             string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, fornecedorJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

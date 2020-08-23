@@ -5,7 +5,7 @@
 
   <class name="Fornecedor" table="fornecedor" dynamic-insert="true" lazy="false">
     <id name="Cnpj" column="cnpj"></id>
-    <bag name="Produtos" table="produto" lazy="true" inverse="true">
+    <bag name="Produtos" table="produto" inverse="true">
       <key column="fornecedor" />
       <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>

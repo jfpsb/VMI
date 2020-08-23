@@ -5,7 +5,7 @@
 
   <class name="Adiantamento" table="adiantamento" lazy="false">
     <id name="Id" column="id" />
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" lazy="false" />
+    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
     <property name="Data" column="data" />
     <property name="Valor" column="valor" />
     <bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan">

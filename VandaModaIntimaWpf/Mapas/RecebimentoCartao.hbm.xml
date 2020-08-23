@@ -7,7 +7,7 @@
     <composite-id>
       <key-property name="Mes" column="mes" />
       <key-property name="Ano" column="ano" />
-      <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" />
+      <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" lazy="false" />
       <key-many-to-one name="OperadoraCartao" column="operadoracartao" class="VandaModaIntimaWpf.Model.OperadoraCartao" lazy="false" />
     </composite-id>
     <property name="Recebido" column="recebido" />

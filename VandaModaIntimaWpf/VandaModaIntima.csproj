@@ -27,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>VMIIcon.ico</ApplicationIcon>
@@ -277,6 +279,7 @@
     <Compile Include="BancoDeDados\CouchDbRevStatus.cs" />
     <Compile Include="BancoDeDados\Model\CouchDbTipoContagemLog.cs" />
     <Compile Include="Model\Adiantamento.cs" />
+    <Compile Include="Model\AModel.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />

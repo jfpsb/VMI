@@ -5,11 +5,11 @@
 
   <class name="Funcionario" table="funcionario" dynamic-insert="true" lazy="false">
     <id name="Cpf" column="cpf"></id>
-    <bag name="FolhaPagamentos" table="folhapagamento" lazy="true" inverse="true">
+    <bag name="FolhaPagamentos" table="folhapagamento" inverse="true">
       <key column="funcionario" />
       <one-to-many class="VandaModaIntimaWpf.Model.FolhaPagamento" />
     </bag>
-    <many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" lazy="false" />
+    <many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
     <property name="Nome" column="nome" />
     <property name="Salario" column="salario" />
     <property name="Endereco" column="endereco" />

@@ -49,7 +49,9 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             if (e.InseridoComSucesso)
             {
-                ResetaPropriedades();
+                if (!e.IssoEUmUpdate)
+                    ResetaPropriedades();
+
                 SetStatusBarSucesso(e.MensagemSucesso);
                 await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
                 SetStatusBarAguardando();

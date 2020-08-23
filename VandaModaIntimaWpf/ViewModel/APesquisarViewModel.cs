@@ -99,8 +99,16 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirEditar(object parameter)
         {
+            try
+            {
+                EntidadeSelecionada.Entidade.InicializaLazyLoad();
+            }
+            catch (NotImplementedException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
             _session.Evict(EntidadeSelecionada.Entidade);
-            //E clone = (E)EntidadeSelecionada.Entidade.Clone();
             pesquisarViewModelStrategy.AbrirEditar(EntidadeSelecionada.Entidade, _session);
         }
         public void ChecarItensMarcados(object parameter)

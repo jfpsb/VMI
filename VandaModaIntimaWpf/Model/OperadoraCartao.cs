@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class OperadoraCartao : ObservableObject, ICloneable, IModel
+    public class OperadoraCartao : AModel, ICloneable, IModel
     {
         private string _nome;
         private IList<string> _identificadoresBanco = new List<string>();
@@ -49,7 +49,7 @@ namespace VandaModaIntimaWpf.Model
             if (obj != null && obj.GetType() == typeof(OperadoraCartao))
             {
                 OperadoraCartao operadoraCartao = (OperadoraCartao)obj;
-                return operadoraCartao.Nome.Equals(Nome) 
+                return operadoraCartao.Nome.Equals(Nome)
                        && operadoraCartao.IdentificadoresBanco.SequenceEqual(IdentificadoresBanco);
             }
 
@@ -71,6 +71,11 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Nome;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException("OperadoraCartao Não Possui Propriedades Que Usam Lazy Loading");
         }
     }
 }

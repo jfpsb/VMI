@@ -70,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public override async void Salvar(object parameter)
         {
             //string bonusJson = JsonConvert.SerializeObject(Recebimentos);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Recebimentos);
+            var couchDbResponse = await couchDbClient.CreateDocument(Recebimentos);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

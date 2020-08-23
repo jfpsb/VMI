@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Contagem : ObservableObject, ICloneable, IModel
+    public class Contagem : AModel, ICloneable, IModel
     {
         private Loja _loja;
         private DateTime _data;
@@ -47,7 +48,6 @@ namespace VandaModaIntimaWpf.Model
         {
             get { return _loja.Cnpj; }
         }
-
         public virtual Loja Loja
         {
             get => _loja;
@@ -136,6 +136,14 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Loja.ToString() + Data.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Contagens))
+            {
+                NHibernateUtil.Initialize(Contagens);
+            }
         }
     }
 }

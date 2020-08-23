@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
             return RunPUTRequest(url);
         }
 
-        public async Task<CouchDbResponse> CreateOrUpdateDocument(string id, string jsonData)
+        public async Task<CouchDbResponse> CreateDocument(string id, string jsonData)
         {
             CouchDbResponse couchDbResponse = new CouchDbResponse();
             GetAuthenticationCookie();
@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-        public async Task<CouchDbResponse> CreateOrUpdateDocument<E>(IList<E> collection)
+        public async Task<CouchDbResponse> CreateDocument<E>(IList<E> collection)
         {
             CouchDbResponse couchDbResponse = new CouchDbResponse();
             GetAuthenticationCookie();
@@ -202,6 +202,24 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
+
+        public async Task<CouchDbResponse> UpdateDocument(CouchDbLog couchDbLog)
+        {
+            CouchDbResponse couchDbResponse = new CouchDbResponse();
+            GetAuthenticationCookie();
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+            string jsonData = JsonConvert.SerializeObject(couchDbLog);
+            var httpContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage result = await httpClient.PutAsync(string.Format("/{0}/{1}", Database, couchDbLog.Id), httpContent);
+
+            if (result.IsSuccessStatusCode)
+            {
+                couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
+                Console.WriteLine(result.Content.ReadAsStringAsync().Result);
+            }
+
+            return couchDbResponse;
+        }
         public async Task<CouchDbResponse> DeleteDocument(string id)
         {
             CouchDbResponse couchDbResponse = new CouchDbResponse();
@@ -217,84 +235,72 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-        public CouchDbLog FindById(string id, bool revs_info = false)
+        public async Task<CouchDbLog> FindById(string id, bool revs_info = false)
         {
             CouchDbLog log = null;
-            string tipoRequisicao = "GET";
-            string requisicaoUrl = string.Format("{0}/{1}/{2}", CouchDbAddress, Database, id);
+            GetAuthenticationCookie();
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
 
+            string requestUri = "/{0}/{1}";
             if (revs_info)
-                requisicaoUrl = string.Format("{0}?revs_info=true", requisicaoUrl);
-
-            var httpRequest = WebRequest.CreateHttp(requisicaoUrl);
-            httpRequest.Method = tipoRequisicao;
-
-            using (var httpResponse = (HttpWebResponse)httpRequest.GetResponse())
             {
-                using (var stream = httpResponse.GetResponseStream())
+                requestUri += "?revs_info=true";
+            }
+
+            HttpResponseMessage result = await httpClient.GetAsync(string.Format(requestUri, Database, id));
+
+            if (result.IsSuccessStatusCode)
+            {
+                string responseText = result.Content.ReadAsStringAsync().Result;
+                log = JsonConvert.DeserializeObject<CouchDbLog>(responseText);
+
+                switch (log.Tipo)
                 {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var responseText = reader.ReadToEnd();
-
-                        if (httpResponse.StatusCode == HttpStatusCode.OK)
-                        {
-                            log = JsonConvert.DeserializeObject<CouchDbLog>(responseText);
-
-                            switch (log.Tipo)
-                            {
-                                case "adiantamento":
-                                    log = JsonConvert.DeserializeObject<CouchDbAdiantamentoLog>(responseText);
-                                    break;
-                                case "bonus":
-                                    log = JsonConvert.DeserializeObject<CouchDbBonusLog>(responseText);
-                                    break;
-                                case "contagem":
-                                    log = JsonConvert.DeserializeObject<CouchDbContagemLog>(responseText);
-                                    break;
-                                case "contagemproduto":
-                                    log = JsonConvert.DeserializeObject<CouchDbContagemProdutoLog>(responseText);
-                                    break;
-                                case "folhapagamento":
-                                    log = JsonConvert.DeserializeObject<CouchDbFolhaPagamentoLog>(responseText);
-                                    break;
-                                case "fornecedor":
-                                    log = JsonConvert.DeserializeObject<CouchDbFornecedorLog>(responseText);
-                                    break;
-                                case "funcionario":
-                                    log = JsonConvert.DeserializeObject<CouchDbFuncionarioLog>(responseText);
-                                    break;
-                                case "loja":
-                                    log = JsonConvert.DeserializeObject<CouchDbLojaLog>(responseText);
-                                    break;
-                                case "marca":
-                                    log = JsonConvert.DeserializeObject<CouchDbMarcaLog>(responseText);
-                                    break;
-                                case "metaloja":
-                                    log = JsonConvert.DeserializeObject<CouchDbMetaLojaLog>(responseText);
-                                    break;
-                                case "operadoracartao":
-                                    log = JsonConvert.DeserializeObject<CouchDbOperadoraCartaoLog>(responseText);
-                                    break;
-                                case "parcela":
-                                    log = JsonConvert.DeserializeObject<CouchDbParcelaLog>(responseText);
-                                    break;
-                                case "produto":
-                                    log = JsonConvert.DeserializeObject<CouchDbProdutoLog>(responseText);
-                                    break;
-                                case "recebimentocartao":
-                                    log = JsonConvert.DeserializeObject<CouchDbRecebimentoCartaoLog>(responseText);
-                                    break;
-                                case "tipocontagem":
-                                    log = JsonConvert.DeserializeObject<CouchDbTipoContagemLog>(responseText);
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine(responseText);
-                        }
-                    }
+                    case "adiantamento":
+                        log = JsonConvert.DeserializeObject<CouchDbAdiantamentoLog>(responseText);
+                        break;
+                    case "bonus":
+                        log = JsonConvert.DeserializeObject<CouchDbBonusLog>(responseText);
+                        break;
+                    case "contagem":
+                        log = JsonConvert.DeserializeObject<CouchDbContagemLog>(responseText);
+                        break;
+                    case "contagemproduto":
+                        log = JsonConvert.DeserializeObject<CouchDbContagemProdutoLog>(responseText);
+                        break;
+                    case "folhapagamento":
+                        log = JsonConvert.DeserializeObject<CouchDbFolhaPagamentoLog>(responseText);
+                        break;
+                    case "fornecedor":
+                        log = JsonConvert.DeserializeObject<CouchDbFornecedorLog>(responseText);
+                        break;
+                    case "funcionario":
+                        log = JsonConvert.DeserializeObject<CouchDbFuncionarioLog>(responseText);
+                        break;
+                    case "loja":
+                        log = JsonConvert.DeserializeObject<CouchDbLojaLog>(responseText);
+                        break;
+                    case "marca":
+                        log = JsonConvert.DeserializeObject<CouchDbMarcaLog>(responseText);
+                        break;
+                    case "metaloja":
+                        log = JsonConvert.DeserializeObject<CouchDbMetaLojaLog>(responseText);
+                        break;
+                    case "operadoracartao":
+                        log = JsonConvert.DeserializeObject<CouchDbOperadoraCartaoLog>(responseText);
+                        break;
+                    case "parcela":
+                        log = JsonConvert.DeserializeObject<CouchDbParcelaLog>(responseText);
+                        break;
+                    case "produto":
+                        log = JsonConvert.DeserializeObject<CouchDbProdutoLog>(responseText);
+                        break;
+                    case "recebimentocartao":
+                        log = JsonConvert.DeserializeObject<CouchDbRecebimentoCartaoLog>(responseText);
+                        break;
+                    case "tipocontagem":
+                        log = JsonConvert.DeserializeObject<CouchDbTipoContagemLog>(responseText);
+                        break;
                 }
             }
 

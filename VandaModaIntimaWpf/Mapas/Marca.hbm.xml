@@ -5,8 +5,8 @@
 
   <class name="Marca" table="marca" dynamic-insert="true" lazy="false">
     <id name="Nome" column="nome" />
-    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" lazy="false" />
-    <bag name="Produtos" table="produto" lazy="true" inverse="true">
+    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
+    <bag name="Produtos" table="produto" inverse="true">
       <key column="marca" />
       <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>

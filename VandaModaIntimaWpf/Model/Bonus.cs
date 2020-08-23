@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Bonus : ObservableObject, IModel
+    public class Bonus : AModel, IModel
     {
         private long _id;
         private FolhaPagamento _folha;
@@ -84,6 +84,11 @@ namespace VandaModaIntimaWpf.Model
         public object GetIdentifier()
         {
             return Id;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException("Bonus Não Possui Propriedades Que Usam Lazy Loading");
         }
 
         public bool IsIdentical(object obj)

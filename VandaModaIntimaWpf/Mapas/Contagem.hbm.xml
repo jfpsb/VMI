@@ -5,10 +5,10 @@
 
   <class name="Contagem" table="contagem" lazy="false">
     <composite-id>
-      <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" />
+      <key-many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" lazy="false" />
       <key-property name="Data" column="data" />
     </composite-id>
-    <many-to-one name="TipoContagem" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
+    <many-to-one name="TipoContagem" lazy="false" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
     <property name="Finalizada" column="finalizada" />
     <bag name="Contagens" table="contagemproduto" inverse="true" cascade="all-delete-orphan">
       <key>

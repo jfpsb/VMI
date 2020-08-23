@@ -12,7 +12,9 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         [JsonProperty("_rev", NullValueHandling = NullValueHandling.Ignore)]
         public string Rev { get; set; }
 
-        [JsonProperty("_tipo")]
+        [JsonProperty(PropertyName = "_deleted")]
+        public bool Deleted { get; set; }
+
         public string Tipo { get; set; }
 
         [JsonProperty("_revs_info")]

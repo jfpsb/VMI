@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Parcela : ObservableObject, ICloneable, IModel
+    public class Parcela : AModel, ICloneable, IModel
     {
         private long _id;
         private Adiantamento _adiantamento;
@@ -15,6 +16,7 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public string GetContextMenuHeader => throw new NotImplementedException();
+
         [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
         {
@@ -117,6 +119,20 @@ namespace VandaModaIntimaWpf.Model
         {
             return _id;
         }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Adiantamento))
+            {
+                NHibernateUtil.Initialize(Adiantamento);
+            }
+
+            if (!NHibernateUtil.IsInitialized(FolhaPagamento))
+            {
+                NHibernateUtil.Initialize(FolhaPagamento);
+            }
+        }
+
         public bool IsIdentical(object obj)
         {
             throw new NotImplementedException();

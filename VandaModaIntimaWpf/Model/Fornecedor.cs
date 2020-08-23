@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -6,7 +7,7 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Fornecedor : ObservableObject, ICloneable, IModel
+    public class Fornecedor : AModel, ICloneable, IModel
     {
         private string _cnpj;
         private string _nome;
@@ -166,6 +167,14 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Cnpj?.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Produtos))
+            {
+                NHibernateUtil.Initialize(Produtos);
+            }
         }
     }
 }

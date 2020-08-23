@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             //_result = await daoFornecedor.Merge(Fornecedor);
 
             string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, fornecedorJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 _result = await daoFornecedor.Merge(Fornecedor);
 
                 string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
-                var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Fornecedor.Cnpj, fornecedorJson);
+                var couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, fornecedorJson);
 
                 AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
                 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class ContagemProduto : ObservableObject, ICloneable, IModel
+    public class ContagemProduto : AModel, ICloneable, IModel
     {
         private long _id;
         private Contagem _contagem;
@@ -99,7 +99,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Contagem");
             }
         }
-
         public virtual object Clone()
         {
             throw new NotImplementedException();
@@ -113,6 +112,11 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Id.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException("ContagemProduto Não Possui Propriedades Que Usam Lazy Loading");
         }
     }
 }

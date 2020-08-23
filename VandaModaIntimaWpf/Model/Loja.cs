@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Loja : ObservableObject, ICloneable, IModel
+    public class Loja : AModel, ICloneable, IModel
     {
         private string _cnpj;
         private Loja _matriz;
@@ -157,6 +158,14 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Cnpj?.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(Matriz))
+            {
+                NHibernateUtil.Initialize(Matriz);
+            }
         }
     }
 }

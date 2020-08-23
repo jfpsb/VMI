@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Contagem.Finalizada = false;
 
             string contagemJson = JsonConvert.SerializeObject(Contagem);
-            var couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Contagem.ToString(), contagemJson);
+            var couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), contagemJson);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {

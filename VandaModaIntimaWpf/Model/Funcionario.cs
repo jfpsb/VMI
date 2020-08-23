@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Funcionario : ObservableObject, ICloneable, IModel
+    public class Funcionario : AModel, ICloneable, IModel
     {
         private string _cpf;
         private Loja _loja;
@@ -123,6 +124,19 @@ namespace VandaModaIntimaWpf.Model
         public override string ToString()
         {
             return Cpf?.ToString();
+        }
+
+        public void InicializaLazyLoad()
+        {
+            if (!NHibernateUtil.IsInitialized(FolhaPagamentos))
+            {
+                NHibernateUtil.Initialize(FolhaPagamentos);
+            }
+
+            if (!NHibernateUtil.IsInitialized(Loja))
+            {
+                NHibernateUtil.Initialize(Loja);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class MetaLoja : ObservableObject, IModel
+    public class MetaLoja : AModel, IModel
     {
         private string _id;
         private Loja _loja;
@@ -85,6 +85,11 @@ namespace VandaModaIntimaWpf.Model
         public object GetIdentifier()
         {
             return _id;
+        }
+
+        public void InicializaLazyLoad()
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsIdentical(object obj)
