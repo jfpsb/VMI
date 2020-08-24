@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
@@ -19,8 +20,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOMarca daoMarca;
         protected DAOFornecedor daoFornecedor;
         protected ProdutoModel produtoModel;
+
+        private string _codigoFornecedor;
+
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
+        public ObservableCollection<string> CodigosFornecedor { get; set; }
+        public ICommand InserirCodigoComando { get; set; }
         public CadastrarProdutoViewModel(ISession session)
         {
             _session = session;
@@ -30,12 +36,34 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Produto = new ProdutoModel();
 
             Produto.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            InserirCodigoComando = new RelayCommand(InserirCodigo, ValidaCodigoFornecedor);
 
             GetFornecedores();
             GetMarcas();
+            CodigosFornecedor = new ObservableCollection<string>();
 
-            //AtribuiNovoCodBarra();
+            AtribuiNovoCodBarra();
         }
+
+        private bool ValidaCodigoFornecedor(object arg)
+        {
+            return CodigoFornecedor != null && !(CodigoFornecedor.Length == 0);
+        }
+
+        private void InserirCodigo(object obj)
+        {
+            if (!CodigosFornecedor.Contains(CodigoFornecedor))
+            {
+                CodigosFornecedor.Add(CodigoFornecedor);
+                CodigoFornecedor = string.Empty;
+                SetStatusBarAguardando();
+            }
+            else
+            {
+                SetStatusBarErro("Código Já Está Inserido");
+            }
+        }
+
         public override bool ValidacaoSalvar(object parameter)
         {
             if (string.IsNullOrEmpty(Produto.CodBarra) || string.IsNullOrEmpty(Produto.Descricao))
@@ -61,6 +89,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
+
+            Produto.Codigos = CodigosFornecedor;
 
             string produtoJson = JsonConvert.SerializeObject(Produto);
             var couchDbResponse = await couchDbClient.CreateDocument(Produto.CodBarra, produtoJson);
@@ -98,6 +128,20 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 produtoModel = value;
                 OnPropertyChanged("Produto");
+            }
+        }
+
+        public string CodigoFornecedor
+        {
+            get
+            {
+                return _codigoFornecedor;
+            }
+
+            set
+            {
+                _codigoFornecedor = value;
+                OnPropertyChanged("CodigoFornecedor");
             }
         }
 

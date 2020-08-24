@@ -3,11 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Cadastrar Produto"
-        Height="400"
+        Height="550"
         Width="500"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
@@ -50,6 +48,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
             <TextBox Grid.Column="1"
@@ -98,7 +98,32 @@
                       DisplayMemberPath="Nome"
                       SelectedItem="{Binding Produto.Marca, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="8"
+            <DataGrid x:Name="CodigoFornecedorDataGrid"
+                      Grid.Row="7"
+                      Grid.ColumnSpan="2"
+                      Width="350"
+                      CanUserAddRows="True"
+                      CanUserDeleteRows="True"
+                      ItemsSource="{Binding CodigosFornecedor}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Códigos de Barras de Fornecedor"
+                                        Binding="{Binding}"
+                                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Row="8"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal"
+                        Width="350">
+                <TextBox Width="220"
+                         Text="{Binding CodigoFornecedor, UpdateSourceTrigger=PropertyChanged}" />
+                <Button HorizontalAlignment="Right"
+                        Command="{Binding InserirCodigoComando}"
+                        Click="Button_Click_1">
+                    Inserir Código
+                </Button>
+            </StackPanel>
+            <Button Grid.Row="9"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"

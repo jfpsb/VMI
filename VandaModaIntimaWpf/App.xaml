@@ -94,7 +94,7 @@
                 <Setter Property="Margin"
                         Value="5" />
                 <Setter Property="CanUserAddRows"
-                        Value="False" />
+                        Value="True" />
                 <Setter Property="AutoGenerateColumns"
                         Value="False" />
                 <Setter Property="RowHeaderWidth"

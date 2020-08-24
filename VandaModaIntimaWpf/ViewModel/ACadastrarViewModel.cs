@@ -80,7 +80,7 @@ namespace VandaModaIntimaWpf.ViewModel
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMERRO;
         }
-        private void SetStatusBarAguardando()
+        protected void SetStatusBarAguardando()
         {
             MensagemStatusBar = GetResource.GetString("aguardando_usuario");
             ImagemStatusBar = IMAGEMAGUARDANDO;

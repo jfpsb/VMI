@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.Model;
@@ -16,6 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public EditarProdutoViewModel(ISession session, ProdutoModel produto) : base(session)
         {
             Produto = produto;
+            CodigosFornecedor = new ObservableCollection<string>(Produto.Codigos);
             GetUltimoLog();
         }
 
@@ -26,6 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Produto.Marca = null;
+
+            Produto.Codigos = CodigosFornecedor;
 
             CouchDbResponse couchDbResponse;
 
