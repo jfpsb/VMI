@@ -81,5 +81,15 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             CadastrarOperadoraCartao cadastrarOperadoraCartao = new CadastrarOperadoraCartao();
             cadastrarOperadoraCartao.ShowDialog();
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Recebimento de Cartão Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Recebimento de Cartão Como Deletado";
+        }
     }
 }

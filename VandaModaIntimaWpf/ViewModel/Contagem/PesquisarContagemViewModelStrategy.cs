@@ -101,5 +101,15 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             CadastrarTipoContagem cadastrarTipoContagem = new CadastrarTipoContagem();
             cadastrarTipoContagem.ShowDialog();
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Contagem Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Contagem Como Deletado";
+        }
     }
 }

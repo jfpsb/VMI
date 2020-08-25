@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {
     public class LocalInterceptor : EmptyInterceptor
     {
-        private static readonly string topico = "{0}/vandamodaintima/{1}/{2}/{3}";
+        //private static readonly string topico = "{0}/vandamodaintima/{1}/{2}/{3}";
 
         //private List<DatabaseLog> _logs;
 

@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private async void ResultadoInsercao(AposInserirBDEventArgs e)
         {
             //Se foi inserido com sucesso
-            if (e.InseridoComSucesso)
+            if (e.CouchDbResponse.Ok)
             {
                 //TODO: adicionar em lista para enviar por MQTT
             }
@@ -67,14 +67,14 @@ namespace VandaModaIntimaWpf.ViewModel
                 else
                 {
                     //Reverte criação de documento
-                    CouchDbResponse couchDbResponse = await couchDbClient.DeleteDocument(e.CouchDbResponse.Id);
+                    CouchDbResponse couchDbResponse = await couchDbClient.DeleteDocument(e.CouchDbResponse.Id, e.CouchDbResponse.Rev);
                     Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
                 }
             }
         }
         private async void RedefinirTela(AposInserirBDEventArgs e)
         {
-            if (e.InseridoComSucesso)
+            if (e.CouchDbResponse.Ok)
             {
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades();

@@ -72,5 +72,15 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         {
             return GetResource.GetString("apagar_marcas");
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Marca Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Marca Como Deletado";
+        }
     }
 }

@@ -80,5 +80,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             return "Apagar Funcionários";
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Funcionário Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Funcionário Como Deletado";
+        }
     }
 }

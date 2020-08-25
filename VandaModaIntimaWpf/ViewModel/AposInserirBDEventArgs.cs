@@ -2,7 +2,7 @@
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public class AposInserirBDEventArgs : AposACadastrarViewModelEventArgs
+    public class AposInserirBDEventArgs : AposSalvarEditarEventArgs
     {
         public bool InseridoComSucesso;
         /// <summary>

@@ -194,6 +194,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                 ChamaAposInserirNoBD(e2);
             }
+            else
+            {
+                SetStatusBarErro(e.MensagemErro);
+            }
         }
     }
 }

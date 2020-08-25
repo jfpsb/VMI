@@ -89,5 +89,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             return GetResource.GetString("apagar_produtos");
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Produto Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Produto Como Deletado";
+        }
     }
 }

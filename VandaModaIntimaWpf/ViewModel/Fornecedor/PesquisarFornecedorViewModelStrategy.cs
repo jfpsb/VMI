@@ -96,5 +96,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             };
             cadastrarFornecedorOnline.ShowDialog();
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Fornecedor Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Fornecedor Como Deletado";
+        }
     }
 }

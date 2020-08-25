@@ -220,12 +220,12 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-        public async Task<CouchDbResponse> DeleteDocument(string id)
+        public async Task<CouchDbResponse> DeleteDocument(string id, string rev)
         {
             CouchDbResponse couchDbResponse = new CouchDbResponse();
             GetAuthenticationCookie();
             CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
-            HttpResponseMessage result = await httpClient.DeleteAsync(string.Format("{0}/{1}/{2}", CouchDbAddress, Database, id));
+            HttpResponseMessage result = await httpClient.DeleteAsync(string.Format("{0}/{1}/{2}?rev={3}", CouchDbAddress, Database, id, rev));
 
             if (result.IsSuccessStatusCode)
             {

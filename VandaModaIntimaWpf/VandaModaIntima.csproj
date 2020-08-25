@@ -316,8 +316,10 @@
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="ViewModel\ACadastrarViewModel.cs" />
     <Compile Include="ViewModel\APesquisarViewModel.cs" />
-    <Compile Include="ViewModel\AposACadastrarViewModelEventArgs.cs" />
+    <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
+    <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposCriarDocumentoEventArgs.cs" />
+    <Compile Include="ViewModel\AposDeletarDocumentoEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />

@@ -66,5 +66,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             throw new NotImplementedException();
         }
+
+        public string MensagemDocumentoDeletado()
+        {
+            return "LOG de Folha de Pagamento Marcado Como Deletado Com Sucesso";
+        }
+
+        public string MensagemDocumentoNaoDeletado()
+        {
+            return "Erro ao Marcar LOG de Folha de Pagamento Como Deletado";
+        }
     }
 }
