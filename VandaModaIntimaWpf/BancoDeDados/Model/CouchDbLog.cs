@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
-    public class CouchDbLog
+    public class CouchDbLog : ICloneable
     {
         [JsonProperty("_id")]
         public string Id { get; set; }
@@ -23,6 +23,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         public virtual void AtribuiCampos(object o)
         {
             throw new NotImplementedException();
+        }
+
+        public virtual object Clone()
+        {
+            throw new NotImplementedException("Clone Não Foi Implementado");
         }
     }
 }

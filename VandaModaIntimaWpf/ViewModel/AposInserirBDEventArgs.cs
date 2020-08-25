@@ -1,4 +1,6 @@
-﻿namespace VandaModaIntimaWpf.ViewModel
+﻿using VandaModaIntimaWpf.BancoDeDados;
+
+namespace VandaModaIntimaWpf.ViewModel
 {
     public class AposInserirBDEventArgs : AposACadastrarViewModelEventArgs
     {
@@ -7,5 +9,6 @@
         /// Indica se Operação foi um Update
         /// </summary>
         public bool IssoEUmUpdate;
+        public CouchDbResponse CouchDbResponse;
     }
 }

@@ -5,7 +5,9 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using VandaModaIntimaWpf.BancoDeDados.Model;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -19,18 +21,26 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override async void Salvar(object parameter)
         {
-            //_result = await daoFornecedor.Merge(Fornecedor);
+            CouchDbResponse couchDbResponse;
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
-            string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
-            var couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, fornecedorJson);
-
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            if (ultimoLog != null)
             {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = $"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso",
-                MensagemErro = "Erro ao Atualizar Fornecedor",
-                ObjetoSalvo = Fornecedor
-            };
+                e.CouchDbLog = (CouchDbFornecedorLog)ultimoLog.Clone();
+                ultimoLog.AtribuiCampos(Fornecedor);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
+            }
+            else
+            {
+                string jsonData = JsonConvert.SerializeObject(Fornecedor);
+                couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, jsonData);
+            }
+
+            e.CouchDbResponse = couchDbResponse;
+            e.MensagemSucesso = "LOG de Atualização de Fornecedor Criado com Sucesso";
+            e.MensagemErro = "Erro ao Criar Log de Atualização de Fornecedor";
+            e.ObjetoSalvo = Fornecedor;
 
             ChamaAposCriarDocumento(e);
         }
@@ -41,22 +51,17 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 _result = await daoFornecedor.Merge(Fornecedor);
 
-                string fornecedorJson = JsonConvert.SerializeObject(Fornecedor);
-                var couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, fornecedorJson);
-
-                AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
-                    CouchDbResponse = couchDbResponse,
-                    MensagemSucesso = $"Fornecedor {Fornecedor.Cnpj} Atualizado Com Sucesso",
+                    InseridoComSucesso = _result,
+                    IssoEUmUpdate = true,
+                    MensagemSucesso = "Fornecedor Atualizado com Sucesso",
                     MensagemErro = "Erro ao Atualizar Fornecedor",
-                    ObjetoSalvo = Fornecedor
+                    ObjetoSalvo = Fornecedor,
+                    CouchDbLog = e.CouchDbLog
                 };
 
-                ChamaAposCriarDocumento(e2);
-            }
-            else
-            {
-                //TODO: Reverter update
+                ChamaAposInserirNoBD(e2);
             }
         }
 

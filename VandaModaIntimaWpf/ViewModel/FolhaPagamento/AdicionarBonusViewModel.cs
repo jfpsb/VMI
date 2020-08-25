@@ -39,9 +39,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoBonus.Inserir(Bonus);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Bonus Inserido com Sucesso",
+                    MensagemErro = "Erro ao Inserir Bonus",
+                    ObjetoSalvo = Bonus,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
 
         public override void ResetaPropriedades()

@@ -99,9 +99,23 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             return true;
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoFuncionario.Inserir(Funcionario);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Funcionario Inserido com Sucesso",
+                    MensagemErro = "Erro ao Inserir Funcionario",
+                    ObjetoSalvo = Funcionario,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
     }
 }

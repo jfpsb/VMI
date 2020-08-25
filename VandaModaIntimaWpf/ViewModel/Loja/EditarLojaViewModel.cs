@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System.Windows;
+using VandaModaIntimaWpf.BancoDeDados;
+using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -10,8 +11,8 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
     {
         public EditarLojaViewModel(ISession session) : base(session)
         {
-            //if (Loja.Matriz == null)
-            //    Loja.Matriz = Matrizes[0];
+            if (Loja.Matriz == null)
+                Loja.Matriz = Matrizes[0];
         }
 
         //TODO: strings em resources
@@ -20,18 +21,48 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             if (Loja.Matriz.Cnpj == null)
                 Loja.Matriz = null;
 
-            string lojaJson = JsonConvert.SerializeObject(Loja);
-            var couchDbResponse = await couchDbClient.CreateDocument(Loja.Cnpj, lojaJson);
+            CouchDbResponse couchDbResponse;
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            if (ultimoLog != null)
             {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "LOG de Atualização de Loja Criado com Sucesso",
-                MensagemErro = "Erro ao Criar Log de Atualização de Loja",
-                ObjetoSalvo = Loja
-            };
+                e.CouchDbLog = (CouchDbLojaLog)ultimoLog.Clone();
+                ultimoLog.AtribuiCampos(Loja);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
+            }
+            else
+            {
+                string jsonData = JsonConvert.SerializeObject(Loja);
+                couchDbResponse = await couchDbClient.CreateDocument(Loja.Cnpj, jsonData);
+            }
+
+            e.CouchDbResponse = couchDbResponse;
+            e.MensagemSucesso = "LOG de Atualização de Loja Criado com Sucesso";
+            e.MensagemErro = "Erro ao Criar Log de Atualização de Loja";
+            e.ObjetoSalvo = Loja;
 
             ChamaAposCriarDocumento(e);
+        }
+
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoLoja.Merge(Loja);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    IssoEUmUpdate = true,
+                    MensagemSucesso = "Loja Atualizada com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Loja",
+                    ObjetoSalvo = Loja,
+                    CouchDbLog = e.CouchDbLog
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
 
         public new LojaModel Loja

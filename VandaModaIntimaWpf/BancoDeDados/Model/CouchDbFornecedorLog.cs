@@ -11,5 +11,23 @@
         {
             Tipo = "fornecedor";
         }
+        public override object Clone()
+        {
+            CouchDbFornecedorLog log = new CouchDbFornecedorLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                Cnpj = Cnpj,
+                Nome = Nome,
+                Fantasia = Fantasia,
+                Email = Email,
+                Telefone = Telefone
+            };
+
+            return log;
+        }
     }
 }

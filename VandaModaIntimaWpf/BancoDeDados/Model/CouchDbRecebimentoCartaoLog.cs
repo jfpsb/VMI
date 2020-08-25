@@ -15,5 +15,25 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "recebimentocartao";
         }
+        public override object Clone()
+        {
+            CouchDbRecebimentoCartaoLog log = new CouchDbRecebimentoCartaoLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                Mes = Mes,
+                Ano = Ano,
+                Loja = Loja,
+                OperadoraCartao = OperadoraCartao,
+                Recebido = Recebido,
+                ValorOperadora = ValorOperadora,
+                Observacao = Observacao
+            };
+
+            return log;
+        }
     }
 }

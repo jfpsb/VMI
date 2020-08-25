@@ -15,5 +15,25 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "loja";
         }
+        public override object Clone()
+        {
+            CouchDbLojaLog log = new CouchDbLojaLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                Cnpj = Cnpj,
+                Matriz = Matriz,
+                Nome = Nome,
+                Telefone = Telefone,
+                Endereco = Endereco,
+                Inscricaoestadual = Inscricaoestadual,
+                Aluguel = Aluguel
+            };
+
+            return log;
+        }
     }
 }

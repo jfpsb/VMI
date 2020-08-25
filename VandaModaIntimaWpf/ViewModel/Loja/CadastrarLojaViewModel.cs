@@ -96,9 +96,23 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             }
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoLoja.Inserir(Loja);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Loja Inserida com Sucesso",
+                    MensagemErro = "Erro ao Inserir Loja",
+                    ObjetoSalvo = Loja,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
     }
 }

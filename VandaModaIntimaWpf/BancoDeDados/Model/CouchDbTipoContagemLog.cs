@@ -8,5 +8,20 @@
         {
             Tipo = "tipocontagem";
         }
+        public override object Clone()
+        {
+            CouchDbTipoContagemLog log = new CouchDbTipoContagemLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                MySqlId = MySqlId,
+                Nome = Nome
+            };
+
+            return log;
+        }
     }
 }

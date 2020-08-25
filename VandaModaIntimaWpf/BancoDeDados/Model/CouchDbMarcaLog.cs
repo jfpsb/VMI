@@ -10,5 +10,20 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "marca";
         }
+        public override object Clone()
+        {
+            CouchDbMarcaLog log = new CouchDbMarcaLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                Nome = Nome,
+                Fornecedor = Fornecedor
+            };
+
+            return log;
+        }
     }
 }

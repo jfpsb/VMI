@@ -13,7 +13,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoViewModel : CadastrarProdutoViewModel
     {
-        private CouchDbProdutoLog ultimoLog;
         public EditarProdutoViewModel(ISession session, ProdutoModel produto) : base(session)
         {
             Produto = produto;
@@ -32,11 +31,14 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Produto.Codigos = CodigosFornecedor;
 
             CouchDbResponse couchDbResponse;
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
             if (ultimoLog != null)
             {
+                e.CouchDbLog = (CouchDbProdutoLog)ultimoLog.Clone();
                 ultimoLog.AtribuiCampos(Produto);
                 couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
             }
             else
             {
@@ -44,13 +46,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 couchDbResponse = await couchDbClient.CreateDocument(Produto.CodBarra, jsonData);
             }
 
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "LOG de Atualização de Produto Criado com Sucesso",
-                MensagemErro = "Erro ao Criar Log de Atualização de Produto",
-                ObjetoSalvo = Produto
-            };
+            e.CouchDbResponse = couchDbResponse;
+            e.MensagemSucesso = "LOG de Atualização de Produto Criado com Sucesso";
+            e.MensagemErro = "Erro ao Criar Log de Atualização de Produto";
+            e.ObjetoSalvo = Produto;
 
             ChamaAposCriarDocumento(e);
         }
@@ -67,16 +66,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     IssoEUmUpdate = true,
                     MensagemSucesso = "Produto Atualizado com Sucesso",
                     MensagemErro = "Erro ao Atualizar Produto",
-                    ObjetoSalvo = Produto
+                    ObjetoSalvo = Produto,
+                    CouchDbLog = e.CouchDbLog
                 };
 
                 ChamaAposInserirNoBD(e2);
-            }
-            else
-            {
-                //TODO: Reverter update
-                //CouchDbResponse couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, );
-                //Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
             }
         }
 

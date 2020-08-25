@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
     class CadastrarContagemViewModel : ACadastrarViewModel
     {
-        protected DAOContagem _daoContagem;
+        protected DAOContagem daoContagem;
         private DAOTipoContagem _daoTipoContagem;
         private DAOLoja _daoLoja;
         private ContagemModel _contagem;
@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             _daoLoja = new DAOLoja(_session);
             _daoTipoContagem = new DAOTipoContagem(_session);
-            _daoContagem = new DAOContagem(_session);
+            daoContagem = new DAOContagem(_session);
 
             GetLojas();
             GetTiposContagem();
@@ -79,9 +79,23 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoContagem.Inserir(Contagem);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Contagem Inserida com Sucesso",
+                    MensagemErro = "Erro ao Inserir Contagem",
+                    ObjetoSalvo = Contagem,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
 
         public ContagemModel Contagem

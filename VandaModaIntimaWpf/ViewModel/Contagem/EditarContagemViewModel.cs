@@ -9,6 +9,8 @@ using VandaModaIntimaWpf.View.Produto;
 using NHibernate;
 using VandaModaIntimaWpf.ViewModel.Produto;
 using Newtonsoft.Json;
+using VandaModaIntimaWpf.BancoDeDados;
+using VandaModaIntimaWpf.BancoDeDados.Model;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
@@ -45,18 +47,48 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public override async void Salvar(object parameter)
         {
-            string contagemJson = JsonConvert.SerializeObject(Contagem);
-            var couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), contagemJson);
+            CouchDbResponse couchDbResponse;
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            if (ultimoLog != null)
             {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Contagem Atualizada Com Sucesso",
-                MensagemErro = "Erro ao Atualizar Contagem",
-                ObjetoSalvo = Contagem
-            };
+                e.CouchDbLog = (CouchDbContagemLog)ultimoLog.Clone();
+                ultimoLog.AtribuiCampos(Contagem);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
+            }
+            else
+            {
+                string jsonData = JsonConvert.SerializeObject(Contagem);
+                couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), jsonData);
+            }
+
+            e.CouchDbResponse = couchDbResponse;
+            e.MensagemSucesso = "LOG de Atualização de Contagem Criado com Sucesso";
+            e.MensagemErro = "Erro ao Criar Log de Atualização de Contagem";
+            e.ObjetoSalvo = Contagem;
 
             ChamaAposCriarDocumento(e);
+        }
+
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoContagem.Merge(Contagem);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    IssoEUmUpdate = true,
+                    MensagemSucesso = "Contagem Atualizada com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Contagem",
+                    ObjetoSalvo = Contagem,
+                    CouchDbLog = e.CouchDbLog
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
 
         private void AbrirAdicionarContagemProduto(object parameter)

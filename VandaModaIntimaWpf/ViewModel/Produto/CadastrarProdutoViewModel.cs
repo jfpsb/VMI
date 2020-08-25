@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -190,15 +188,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     InseridoComSucesso = _result,
                     MensagemSucesso = "Produto Inserido com Sucesso",
                     MensagemErro = "Erro ao Inserir Produto",
-                    ObjetoSalvo = Produto
+                    ObjetoSalvo = Produto,
+                    CouchDbResponse = e.CouchDbResponse
                 };
 
                 ChamaAposInserirNoBD(e2);
-            }
-            else
-            {
-                CouchDbResponse couchDbResponse = await couchDbClient.DeleteDocument(e.CouchDbResponse.Id);
-                Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
             }
         }
     }

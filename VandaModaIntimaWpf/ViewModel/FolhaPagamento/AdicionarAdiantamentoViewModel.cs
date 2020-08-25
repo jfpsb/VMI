@@ -237,9 +237,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return false;
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoAdiantamento.Inserir(Adiantamento);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Adiantamento Inserido com Sucesso",
+                    MensagemErro = "Erro ao Inserir Adiantamento",
+                    ObjetoSalvo = Adiantamento,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
     }
 }

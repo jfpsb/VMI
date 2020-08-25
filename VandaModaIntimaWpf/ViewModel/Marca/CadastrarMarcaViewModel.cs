@@ -34,9 +34,9 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
                 CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Marca Cadastrada Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Marca",
-                ObjetoSalvo = marcaModel
+                MensagemSucesso = "LOG de Inserção de Marca Criado Com Sucesso",
+                MensagemErro = "Erro ao Criar LOG de Inserção de Marca",
+                ObjetoSalvo = Marca
             };
 
             ChamaAposCriarDocumento(e);
@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             switch (e.PropertyName)
             {
                 case "Nome":
-                    MarcaModel marca = (MarcaModel) await daoMarca.ListarPorId(Marca.Nome);
+                    MarcaModel marca = (MarcaModel)await daoMarca.ListarPorId(Marca.Nome);
 
                     if (marca != null)
                     {
@@ -78,9 +78,23 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             return true;
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoMarca.Inserir(Marca);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Marca Inserida com Sucesso",
+                    MensagemErro = "Erro ao Inserir Marca",
+                    ObjetoSalvo = Marca,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
     }
 }

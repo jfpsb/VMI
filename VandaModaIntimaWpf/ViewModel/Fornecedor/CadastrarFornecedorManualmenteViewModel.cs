@@ -26,8 +26,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
                 CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Fornecedor Cadastrado Com Sucesso",
-                MensagemErro = "Erro Ao Cadastrar Fornecedor",
+                MensagemSucesso = "LOG de Inserção de Fornecedor Criado Com Sucesso",
+                MensagemErro = "Erro ao Criar Log de Inserção de Fornecedor",
                 ObjetoSalvo = Fornecedor
             };
 
@@ -72,9 +72,23 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             return true;
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoFornecedor.Inserir(Fornecedor);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Fornecedor Inserido com Sucesso",
+                    MensagemErro = "Erro ao Inserir Fornecedor",
+                    ObjetoSalvo = Fornecedor,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
 
         public FornecedorModel Fornecedor

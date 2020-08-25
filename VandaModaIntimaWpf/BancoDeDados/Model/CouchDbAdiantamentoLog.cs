@@ -26,5 +26,23 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Funcionario = a.Funcionario;
             Parcelas = new List<Parcela>(a.Parcelas);
         }
+        public override object Clone()
+        {
+            CouchDbAdiantamentoLog log = new CouchDbAdiantamentoLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                MySqlId = MySqlId,
+                Data = Data,
+                Valor = Valor,
+                Funcionario = Funcionario,
+                Parcelas = new List<Parcela>(Parcelas)
+            };
+
+            return log;
+        }
     }
 }

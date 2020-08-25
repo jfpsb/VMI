@@ -15,5 +15,23 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "contagem";
         }
+        public override object Clone()
+        {
+            CouchDbContagemLog log = new CouchDbContagemLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                Loja = Loja,
+                Data = Data,
+                Finalizada = Finalizada,
+                TipoContagem = TipoContagem,
+                Contagens = new List<ContagemProduto>(Contagens)
+            };
+
+            return log;
+        }
     }
 }

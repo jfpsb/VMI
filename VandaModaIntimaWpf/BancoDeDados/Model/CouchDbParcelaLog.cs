@@ -14,5 +14,24 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "parcela";
         }
+        public override object Clone()
+        {
+            CouchDbParcelaLog log = new CouchDbParcelaLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                MySqlId = MySqlId,
+                Adiantamento = Adiantamento,
+                Folhapagamento = Folhapagamento,
+                Numero = Numero,
+                Valor = Valor,
+                Paga = Paga
+            };
+
+            return log;
+        }
     }
 }

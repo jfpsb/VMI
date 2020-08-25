@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using VandaModaIntimaWpf.BancoDeDados;
+using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
@@ -13,25 +15,32 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             if (Funcionario.Loja.Cnpj == null)
                 Funcionario.Loja = null;
 
-            string funcionarioJson = JsonConvert.SerializeObject(Funcionario);
-            var couchDbResponse = await couchDbClient.CreateDocument(Funcionario.Cpf, funcionarioJson);
+            CouchDbResponse couchDbResponse;
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            if (ultimoLog != null)
             {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "LOG de Atualização de Funcionário Criado com Sucesso",
-                MensagemErro = "Erro ao Criar Log de Atualização de Funcionário",
-                ObjetoSalvo = Funcionario
-            };
+                e.CouchDbLog = (CouchDbFuncionarioLog)ultimoLog.Clone();
+                ultimoLog.AtribuiCampos(Funcionario);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
+            }
+            else
+            {
+                string jsonData = JsonConvert.SerializeObject(Funcionario);
+                couchDbResponse = await couchDbClient.CreateDocument(Funcionario.Cpf, jsonData);
+            }
+
+            e.CouchDbResponse = couchDbResponse;
+            e.MensagemSucesso = "LOG de Atualização de Funcionario Criado com Sucesso";
+            e.MensagemErro = "Erro ao Criar Log de Atualização de Funcionario";
+            e.ObjetoSalvo = Funcionario;
 
             ChamaAposCriarDocumento(e);
         }
 
         public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            if (Funcionario.Loja.Cnpj == null)
-                Funcionario.Loja = null;
-
             if (e.CouchDbResponse.Ok)
             {
                 _result = await daoFuncionario.Merge(Funcionario);
@@ -39,18 +48,14 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
                     InseridoComSucesso = _result,
-                    MensagemSucesso = "Funcionário Atualizado com Sucesso",
-                    MensagemErro = "Erro ao Atualizar Funcionário",
-                    ObjetoSalvo = Funcionario
+                    IssoEUmUpdate = true,
+                    MensagemSucesso = "Funcionario Atualizado com Sucesso",
+                    MensagemErro = "Erro ao Atualizar Funcionario",
+                    ObjetoSalvo = Funcionario,
+                    CouchDbLog = e.CouchDbLog
                 };
 
                 ChamaAposInserirNoBD(e2);
-            }
-            else
-            {
-                //TODO: Reverter update
-                //CouchDbResponse couchDbResponse = await couchDbClient.CreateOrUpdateDocument(Produto.CodBarra, );
-                //Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
             }
         }
     }

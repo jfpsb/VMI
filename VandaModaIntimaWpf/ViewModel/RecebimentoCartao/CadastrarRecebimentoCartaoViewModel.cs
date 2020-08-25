@@ -69,14 +69,13 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public override async void Salvar(object parameter)
         {
-            //string bonusJson = JsonConvert.SerializeObject(Recebimentos);
             var couchDbResponse = await couchDbClient.CreateDocument(Recebimentos);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
                 CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Recebimento Cadastrado Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Recebimento",
+                MensagemSucesso = "LOG de Inserção de Recebimento de Cartão Criado Com Sucesso",
+                MensagemErro = "Erro ao Criar LOG de Inserção de Recebimento de Cartão",
                 ObjetoSalvo = Recebimentos
             };
 
@@ -230,9 +229,23 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             CalculaTotais();
         }
 
-        public override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoRecebimentoCartao.Inserir(Recebimentos);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = "Recebimentos de Cartão Inseridos com Sucesso",
+                    MensagemErro = "Erro ao Inserir Recebimentos de Cartão",
+                    ObjetoSalvo = Recebimentos,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
         }
     }
 }

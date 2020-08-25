@@ -29,5 +29,26 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Ncm = p.Ncm;
             Codigos = p.Codigos.ToList();
         }
+
+        public override object Clone()
+        {
+            CouchDbProdutoLog log = new CouchDbProdutoLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                CodBarra = CodBarra,
+                Fornecedor = Fornecedor,
+                Marca = Marca,
+                Descricao = Descricao,
+                Preco = Preco,
+                Ncm = Ncm,
+                Codigos = new List<string>(Codigos)
+            };
+
+            return log;
+        }
     }
 }

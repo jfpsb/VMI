@@ -18,5 +18,27 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "folhapagamento";
         }
+        public override object Clone()
+        {
+            CouchDbFolhaPagamentoLog log = new CouchDbFolhaPagamentoLog()
+            {
+                Id = Id,
+                Rev = Rev,
+                Deleted = Deleted,
+                Tipo = Tipo,
+                RevsInfo = RevsInfo,
+                MySqlId = MySqlId,
+                Mes = Mes,
+                Ano = Ano,
+                Funcionario = Funcionario,
+                Valor = Valor,
+                ValorAPagar = ValorAPagar,
+                Fechada = Fechada,
+                Parcelas = new List<Parcela>(Parcelas),
+                Bonus = new List<Bonus>(Bonus)
+            };
+
+            return log;
+        }
     }
 }
