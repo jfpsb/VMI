@@ -6,48 +6,20 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
-    class CadastrarMarcaViewModel : ACadastrarViewModel
+    class CadastrarMarcaViewModel : ACadastrarViewModel<MarcaModel>
     {
-        protected DAOMarca daoMarca;
-        private MarcaModel marcaModel;
-        public CadastrarMarcaViewModel(ISession session)
+        public CadastrarMarcaViewModel(ISession session) : base(session)
         {
-            _session = session;
-            daoMarca = new DAOMarca(_session);
-            marcaModel = new MarcaModel();
+            cadastrarViewModelStrategy = new CadastrarMarcaViewModelStrategy();
+            daoEntidade = new DAOMarca(_session);
+            Entidade = new MarcaModel();
         }
-        public MarcaModel Marca
-        {
-            get { return marcaModel; }
-            set
-            {
-                marcaModel = value;
-                OnPropertyChanged("Marca");
-            }
-        }
-
-        public override async void Salvar(object parameter)
-        {
-            string marcaJson = JsonConvert.SerializeObject(Marca);
-            var couchDbResponse = await couchDbClient.CreateDocument(Marca.Nome, marcaJson);
-
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "LOG de Inserção de Marca Criado Com Sucesso",
-                MensagemErro = "Erro ao Criar LOG de Inserção de Marca",
-                ObjetoSalvo = Marca
-            };
-
-            ChamaAposCriarDocumento(e);
-        }
-
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "Nome":
-                    MarcaModel marca = (MarcaModel)await daoMarca.ListarPorId(Marca.Nome);
+                    MarcaModel marca = (MarcaModel)await daoEntidade.ListarPorId(Entidade.Nome);
 
                     if (marca != null)
                     {
@@ -66,35 +38,21 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override void ResetaPropriedades()
         {
-            Marca = new MarcaModel();
-            Marca.Nome = string.Empty;
+            Entidade = new MarcaModel();
+            Entidade.Nome = string.Empty;
         }
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Marca.Nome?.Trim()))
+            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
                 return false;
 
             return true;
         }
 
-        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        protected override void ExecutarAntesCriarDocumento()
         {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoMarca.Inserir(Marca);
 
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    MensagemSucesso = "Marca Inserida com Sucesso",
-                    MensagemErro = "Erro ao Inserir Marca",
-                    ObjetoSalvo = Marca,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
         }
     }
 }

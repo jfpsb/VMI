@@ -155,7 +155,7 @@ namespace VandaModaIntimaWpf.Model
             return Cnpj;
         }
 
-        public override string ToString()
+        public string CouchDbId()
         {
             return Cnpj?.ToString();
         }

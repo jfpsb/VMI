@@ -7,15 +7,11 @@ using VandaModaIntimaWpf.Model.DAO;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
-using Newtonsoft.Json;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class AdicionarAdiantamentoViewModel : ACadastrarViewModel
+    public class AdicionarAdiantamentoViewModel : ACadastrarViewModel<FolhaPagamentoModel>
     {
-        DAOAdiantamento daoAdiantamento;
-        DAOFolhaPagamento daoFolha;
-        private FolhaPagamentoModel _folhaPagamento;
         private DateTime _inicioPagamento;
         private int _numParcelas;
         private double _valor;
@@ -23,11 +19,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private AdiantamentoModel _adiantamento;
         private int _minParcelas;
 
-        public AdicionarAdiantamentoViewModel(ISession session, FolhaPagamentoModel folhaPagamento)
+        public AdicionarAdiantamentoViewModel(ISession session, FolhaPagamentoModel folhaPagamento) : base(session)
         {
-            _session = session;
-            daoAdiantamento = new DAOAdiantamento(_session);
-            daoFolha = new DAOFolhaPagamento(_session);
+            cadastrarViewModelStrategy = new CadastrarAdiantamentoViewModelStrategy();
+            daoEntidade = new DAOFolhaPagamento(session);
             PropertyChanged += CadastrarViewModel_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
@@ -42,21 +37,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             };
 
             InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
-            FolhaPagamento = folhaPagamento;
+            Entidade = folhaPagamento;
 
             AposCriarDocumento += RefreshFolhasPagamento;
         }
-
-        public FolhaPagamentoModel FolhaPagamento
-        {
-            get => _folhaPagamento;
-            set
-            {
-                _folhaPagamento = value;
-                OnPropertyChanged("FolhaPagamento");
-            }
-        }
-
         public DateTime InicioPagamento
         {
             get => _inicioPagamento;
@@ -106,6 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            DAOFolhaPagamento daoFolha = (DAOFolhaPagamento)daoEntidade;
             switch (e.PropertyName)
             {
                 case "NumParcelas":
@@ -116,16 +101,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     for (int i = 0; i < NumParcelas; i++)
                     {
-                        FolhaPagamentoModel folha = await daoFolha.ListarPorMesAnoFuncionario(FolhaPagamento.Funcionario, inicio.Month, inicio.Year);
+                        FolhaPagamentoModel folha = await daoFolha.ListarPorMesAnoFuncionario(Entidade.Funcionario, inicio.Month, inicio.Year);
 
                         if (folha == null)
                         {
                             folha = new FolhaPagamentoModel()
                             {
-                                Funcionario = FolhaPagamento.Funcionario,
+                                Funcionario = Entidade.Funcionario,
                                 Mes = inicio.Month,
                                 Ano = inicio.Year,
-                                Id = string.Format("{0}{1}{2}", inicio.Month, inicio.Year, FolhaPagamento.Funcionario.Cpf)
+                                Id = string.Format("{0}{1}{2}", inicio.Month, inicio.Year, Entidade.Funcionario.Cpf)
                             };
                         }
 
@@ -151,14 +136,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 case "Valor":
                     Adiantamento.Valor = Valor;
 
-                    if (Valor < FolhaPagamento.Funcionario.Salario)
+                    if (Valor < Entidade.Funcionario.Salario)
                     {
                         _minParcelas = 1;
                     }
                     else
                     {
                         _minParcelas = 2;
-                        while ((Valor / _minParcelas) > FolhaPagamento.Funcionario.Salario)
+                        while ((Valor / _minParcelas) > Entidade.Funcionario.Salario)
                         {
                             _minParcelas++;
                         }
@@ -178,29 +163,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 Data = now,
                 Id = now.Ticks,
-                Funcionario = FolhaPagamento.Funcionario,
+                Funcionario = Entidade.Funcionario,
                 Valor = 0
             };
 
             Valor = NumParcelas = _minParcelas = 0;
 
             Parcelas.Clear();
-        }
-
-        public override async void Salvar(object parameter)
-        {
-            string adiantamentoJson = JsonConvert.SerializeObject(Adiantamento);
-            var couchDbResponse = await couchDbClient.CreateDocument(Adiantamento.Id.ToString(), adiantamentoJson);
-
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Adiantamento Adicionado Com Sucesso",
-                MensagemErro = "Erro ao Adicionar Adiantamento",
-                ObjetoSalvo = Adiantamento
-            };
-
-            ChamaAposCriarDocumento(e);
         }
         private void RefreshFolhasPagamento(AposCriarDocumentoEventArgs e)
         {
@@ -226,34 +195,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 BotaoSalvarToolTip += "O VALOR DO ADIANTAMENTO NÃO PODE SER MENOR OU IGUAL A ZERO\n";
             }
 
-            if (InicioPagamento.Month < FolhaPagamento.Mes)
+            if (InicioPagamento.Month < Entidade.Mes)
             {
                 BotaoSalvarToolTip += "O INÍCIO DO PAGAMENTO É ANTERIOR À DATA DA FOLHA DE PAGAMENTO\n";
             }
 
-            if (NumParcelas >= _minParcelas && Valor > 0.0 && InicioPagamento.Month >= FolhaPagamento.Mes)
+            if (NumParcelas >= _minParcelas && Valor > 0.0 && InicioPagamento.Month >= Entidade.Mes)
                 return true;
 
             return false;
         }
 
-        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        protected override void ExecutarAntesCriarDocumento()
         {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoAdiantamento.Inserir(Adiantamento);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    MensagemSucesso = "Adiantamento Inserido com Sucesso",
-                    MensagemErro = "Erro ao Inserir Adiantamento",
-                    ObjetoSalvo = Adiantamento,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
         }
     }
 }

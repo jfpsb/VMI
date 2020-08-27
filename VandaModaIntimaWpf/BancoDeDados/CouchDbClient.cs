@@ -86,7 +86,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
                     case Contagem c:
                         CouchDbContagemLog CLog = new CouchDbContagemLog()
                         {
-                            Id = c.ToString()
+                            Id = c.CouchDbId()
                         };
                         CLog.AtribuiCampos(c);
                         couchDbBulkDocs.Docs.Add(CLog);
@@ -174,7 +174,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
                     case RecebimentoCartao rc:
                         CouchDbRecebimentoCartaoLog rcLog = new CouchDbRecebimentoCartaoLog()
                         {
-                            Id = rc.ToString()
+                            Id = rc.CouchDbId()
                         };
                         rcLog.AtribuiCampos(rc);
                         couchDbBulkDocs.Docs.Add(rcLog);

@@ -10,25 +10,23 @@ using TipoContagemModel = VandaModaIntimaWpf.Model.TipoContagem;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
-    class CadastrarContagemViewModel : ACadastrarViewModel
+    class CadastrarContagemViewModel : ACadastrarViewModel<ContagemModel>
     {
         protected DAOContagem daoContagem;
         private DAOTipoContagem _daoTipoContagem;
         private DAOLoja _daoLoja;
-        private ContagemModel _contagem;
 
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ObservableCollection<TipoContagemModel> TiposContagem { get; set; }
 
-        public CadastrarContagemViewModel(ISession session)
+        public CadastrarContagemViewModel(ISession session) : base(session)
         {
-            _session = session;
-
-            Contagem = new ContagemModel();
+            Entidade = new ContagemModel();
+            cadastrarViewModelStrategy = new CadastrarContagemViewModelStrategy();
 
             _daoLoja = new DAOLoja(_session);
             _daoTipoContagem = new DAOTipoContagem(_session);
-            daoContagem = new DAOContagem(_session);
+            daoEntidade = new DAOContagem(_session);
 
             GetLojas();
             GetTiposContagem();
@@ -40,76 +38,27 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public override void ResetaPropriedades()
         {
-            Contagem = new ContagemModel();
-            Contagem.TipoContagem = TiposContagem[0];
-            Contagem.Loja = Lojas[0];
+            Entidade = new ContagemModel();
+            Entidade.TipoContagem = TiposContagem[0];
+            Entidade.Loja = Lojas[0];
         }
-
-        public override async void Salvar(object parameter)
-        {
-            Contagem.Data = DateTime.Now;
-            Contagem.Finalizada = false;
-
-            string contagemJson = JsonConvert.SerializeObject(Contagem);
-            var couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), contagemJson);
-
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "Contagem Cadastrada Com Sucesso",
-                MensagemErro = "Erro ao Cadastrar Contagem",
-                ObjetoSalvo = Contagem
-            };
-
-            ChamaAposCriarDocumento(e);
-        }
-
         public override bool ValidacaoSalvar(object parameter)
         {
             return true;
         }
-
         private async void GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await _daoLoja.Listar<LojaModel>());
         }
-
         private async void GetTiposContagem()
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
         }
 
-        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        protected override void ExecutarAntesCriarDocumento()
         {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoContagem.Inserir(Contagem);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    MensagemSucesso = "Contagem Inserida com Sucesso",
-                    MensagemErro = "Erro ao Inserir Contagem",
-                    ObjetoSalvo = Contagem,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
-        }
-
-        public ContagemModel Contagem
-        {
-            get
-            {
-                return _contagem;
-            }
-
-            set
-            {
-                _contagem = value;
-                OnPropertyChanged("Contagem");
-            }
+            Entidade.Data = DateTime.Now;
+            Entidade.Finalizada = false;
         }
     }
 }

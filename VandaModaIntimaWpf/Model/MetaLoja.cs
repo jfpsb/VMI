@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public override string ToString()
+        public string CouchDbId()
         {
             return Id.ToString();
         }

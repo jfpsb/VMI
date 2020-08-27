@@ -3,6 +3,7 @@ using NHibernate;
 using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
@@ -19,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
         }
-        public override async void Salvar(object parameter)
+        protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {
             CouchDbResponse couchDbResponse;
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
@@ -27,56 +28,39 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             if (ultimoLog != null)
             {
                 e.CouchDbLog = (CouchDbFornecedorLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(Fornecedor);
+                ultimoLog.AtribuiCampos(Entidade);
                 couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
                 e.CouchDbLog.Rev = couchDbResponse.Rev;
             }
             else
             {
-                string jsonData = JsonConvert.SerializeObject(Fornecedor);
-                couchDbResponse = await couchDbClient.CreateDocument(Fornecedor.Cnpj, jsonData);
+                string jsonData = JsonConvert.SerializeObject(Entidade);
+                couchDbResponse = await couchDbClient.CreateDocument(Entidade.Cnpj, jsonData);
             }
 
             e.CouchDbResponse = couchDbResponse;
             e.MensagemSucesso = "LOG de Atualização de Fornecedor Criado com Sucesso";
             e.MensagemErro = "Erro ao Criar Log de Atualização de Fornecedor";
-            e.ObjetoSalvo = Fornecedor;
+            e.ObjetoSalvo = Entidade;
 
-            ChamaAposCriarDocumento(e);
+            return e;
         }
-
         public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoFornecedor.Merge(Fornecedor);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    IssoEUmUpdate = true,
-                    MensagemSucesso = "Fornecedor Atualizado com Sucesso",
-                    MensagemErro = "Erro ao Atualizar Fornecedor",
-                    ObjetoSalvo = Fornecedor,
-                    CouchDbLog = e.CouchDbLog
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
+            await AtualizarNoBancoDeDados(e);
         }
-
         private async void AtualizarReceita(object parameter)
         {
             SetStatusBarAguardando("Pesquisando CNPJ na Receita Federal. Aguarde.");
 
             try
             {
-                FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Fornecedor.Cnpj);
+                FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
 
-                Fornecedor.Nome = result.Nome;
-                Fornecedor.Fantasia = result.Fantasia;
-                Fornecedor.Email = result.Email;
-                Fornecedor.Telefone = result.Telefone;
+                Entidade.Nome = result.Nome;
+                Entidade.Fantasia = result.Fantasia;
+                Entidade.Email = result.Email;
+                Entidade.Telefone = result.Telefone;
                 // Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Fornecedor");
 

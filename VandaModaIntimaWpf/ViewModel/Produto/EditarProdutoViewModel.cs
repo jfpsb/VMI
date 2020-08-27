@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.Model;
-using VandaModaIntimaWpf.Resources;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -15,79 +14,55 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
     {
         public EditarProdutoViewModel(ISession session, ProdutoModel produto) : base(session)
         {
-            Produto = produto;
-            CodigosFornecedor = new ObservableCollection<string>(Produto.Codigos);
+            Entidade = produto;
+            CodigosFornecedor = new ObservableCollection<string>(Entidade.Codigos);
             GetUltimoLog();
         }
-
-        public override async void Salvar(object parameter)
+        protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {
-            if (Produto.Fornecedor?.Cnpj == null)
-                Produto.Fornecedor = null;
-
-            if (Produto.Marca != null && Produto.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
-                Produto.Marca = null;
-
-            Produto.Codigos = CodigosFornecedor;
-
             CouchDbResponse couchDbResponse;
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
 
             if (ultimoLog != null)
             {
                 e.CouchDbLog = (CouchDbProdutoLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(Produto);
+                ultimoLog.AtribuiCampos(Entidade);
                 couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
                 e.CouchDbLog.Rev = couchDbResponse.Rev;
             }
             else
             {
-                string jsonData = JsonConvert.SerializeObject(Produto);
-                couchDbResponse = await couchDbClient.CreateDocument(Produto.CodBarra, jsonData);
+                string jsonData = JsonConvert.SerializeObject(Entidade);
+                couchDbResponse = await couchDbClient.CreateDocument(Entidade.CouchDbId(), jsonData);
             }
 
             e.CouchDbResponse = couchDbResponse;
-            e.MensagemSucesso = "LOG de Atualização de Produto Criado com Sucesso";
-            e.MensagemErro = "Erro ao Criar Log de Atualização de Produto";
-            e.ObjetoSalvo = Produto;
+            e.MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoAtualizadoSucesso();
+            e.MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoAtualizado();
+            e.ObjetoSalvo = Entidade;
 
-            ChamaAposCriarDocumento(e);
+            return e;
         }
 
         public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoProduto.Merge(Produto);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    IssoEUmUpdate = true,
-                    MensagemSucesso = "Produto Atualizado com Sucesso",
-                    MensagemErro = "Erro ao Atualizar Produto",
-                    ObjetoSalvo = Produto,
-                    CouchDbLog = e.CouchDbLog
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
+            await AtualizarNoBancoDeDados(e);
         }
 
         private async void GetUltimoLog()
         {
-            ultimoLog = (CouchDbProdutoLog)await couchDbClient.FindById(Produto.CodBarra);
+            ultimoLog = (CouchDbProdutoLog)await couchDbClient.FindById(Entidade.CodBarra);
         }
 
-        public new ProdutoModel Produto
+        public new ProdutoModel Entidade
         {
-            get { return produtoModel; }
+            get { return Entidade; }
             set
             {
-                produtoModel = value;
+                Entidade = value;
                 FornecedorComboBox = value.Fornecedor;
                 MarcaComboBox = value.Marca;
-                OnPropertyChanged("Produto");
+                OnPropertyChanged("Entidade");
             }
         }
 
@@ -95,17 +70,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             get
             {
-                if (Produto.Fornecedor == null)
+                if (Entidade.Fornecedor == null)
                 {
-                    Produto.Fornecedor = Fornecedores[0];
+                    Entidade.Fornecedor = Fornecedores[0];
                 }
 
-                return Produto.Fornecedor;
+                return Entidade.Fornecedor;
             }
 
             set
             {
-                Produto.Fornecedor = value;
+                Entidade.Fornecedor = value;
                 OnPropertyChanged("FornecedorComboBox");
             }
         }
@@ -114,17 +89,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             get
             {
-                if (Produto.Marca == null)
+                if (Entidade.Marca == null)
                 {
-                    Produto.Marca = Marcas[0];
+                    Entidade.Marca = Marcas[0];
                 }
 
-                return Produto.Marca;
+                return Entidade.Marca;
             }
 
             set
             {
-                Produto.Marca = value;
+                Entidade.Marca = value;
                 OnPropertyChanged("MarcaComboBox");
             }
         }

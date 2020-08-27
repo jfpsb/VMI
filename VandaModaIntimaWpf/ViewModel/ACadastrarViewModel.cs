@@ -1,26 +1,30 @@
-﻿using NHibernate;
+﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.ComponentModel;
-using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public abstract class ACadastrarViewModel : ObservableObject, ICadastrarViewModel
+    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarViewModel where E : class, IModel, ICloneable
     {
         protected ISession _session;
+        protected DAO daoEntidade;
+        protected ICadastrarViewModelStrategy<E> cadastrarViewModelStrategy;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
         private string mensagemStatusBar;
         private string imagemStatusBar;
         private string _botaoSalvarToolTip;
+        private E _entidade;
 
         protected bool _result = false; //Guarda se foi salvo com sucesso
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
@@ -28,27 +32,97 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         protected CouchDbProdutoLog ultimoLog;
 
+        public delegate void AntesDeCriarDocumentoEventHandler();
         public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
         public delegate void AposInserirBDEventHandler(AposInserirBDEventArgs e);
 
         public event AposCriarDocumentoEventHandler AposCriarDocumento;
         public event AposInserirBDEventHandler AposInserirBD;
+        public event AntesDeCriarDocumentoEventHandler AntesDeCriarDocumento;
         public ICommand SalvarComando { get; set; }
-        public ACadastrarViewModel()
+        public ACadastrarViewModel(ISession session)
         {
+            _session = session;
             couchDbClient = new CouchDbClient();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             SetStatusBarAguardando();
+            AntesDeCriarDocumento += ExecutarAntesCriarDocumento;
             AposCriarDocumento += InserirNoBancoDeDados;
             AposInserirBD += ResultadoInsercao;
             AposInserirBD += RedefinirTela;
         }
 
-        public abstract void Salvar(object parameter);
+        protected abstract void ExecutarAntesCriarDocumento();
+
+        public virtual async void Salvar(object parameter)
+        {
+            ChamaAntesDeCriarDocumento();
+            var e = await ExecutarSalvar();
+            ChamaAposCriarDocumento(e);
+        }
+        protected async virtual Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
+        {
+            string entidadeJson = JsonConvert.SerializeObject(Entidade);
+            var couchDbResponse = await couchDbClient.CreateDocument(Entidade.CouchDbId(), entidadeJson);
+
+            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            {
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoCriadoComSucesso(),
+                MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoCriado(),
+                ObjetoSalvo = Entidade
+            };
+
+            return e;
+        }
         public abstract void ResetaPropriedades();
         public abstract bool ValidacaoSalvar(object parameter);
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
-        public abstract void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e);
+        public virtual async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoEntidade.Inserir(Entidade);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
+                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
+                    ObjetoSalvo = Entidade,
+                    CouchDbResponse = e.CouchDbResponse
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
+            else
+            {
+                SetStatusBarErro(e.MensagemErro);
+            }
+        }
+        protected async Task AtualizarNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                _result = await daoEntidade.Merge(Entidade);
+
+                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
+                {
+                    InseridoComSucesso = _result,
+                    IssoEUmUpdate = true,
+                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeAtualizadaSucesso(),
+                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeNaoAtualizada(),
+                    ObjetoSalvo = Entidade,
+                    CouchDbLog = e.CouchDbLog
+                };
+
+                ChamaAposInserirNoBD(e2);
+            }
+            else
+            {
+                SetStatusBarErro(e.MensagemErro);
+            }
+        }
         private async void ResultadoInsercao(AposInserirBDEventArgs e)
         {
             //Se foi inserido com sucesso
@@ -87,6 +161,10 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 SetStatusBarErro(e.MensagemErro);
             }
+        }
+        protected virtual void ChamaAntesDeCriarDocumento()
+        {
+            AntesDeCriarDocumento?.Invoke();
         }
         protected virtual void ChamaAposCriarDocumento(AposCriarDocumentoEventArgs e)
         {
@@ -168,6 +246,20 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _botaoSalvarToolTip = value;
                 OnPropertyChanged("BotaoSalvarToolTip");
+            }
+        }
+
+        public E Entidade
+        {
+            get
+            {
+                return _entidade;
+            }
+
+            set
+            {
+                _entidade = value;
+                OnPropertyChanged("Entidade");
             }
         }
     }

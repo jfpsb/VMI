@@ -1,13 +1,12 @@
 ﻿using FinancerData;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Linq;
 using VandaModaIntimaWpf.Model.DAO;
@@ -19,9 +18,8 @@ using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
 namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 {
-    class CadastrarRecebimentoCartaoViewModel : ACadastrarViewModel
+    class CadastrarRecebimentoCartaoViewModel : ACadastrarViewModel<RecebimentoCartaoModel>
     {
-        private DAO daoRecebimentoCartao;
         private DAO daoOperadoraCartao;
         private DAOLoja daoLoja;
         private int matrizComboBoxIndex;
@@ -33,10 +31,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private double totalOperadora;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoCartaoViewModel(ISession session)
+        public CadastrarRecebimentoCartaoViewModel(ISession session) : base(session)
         {
-            _session = session;
-            daoRecebimentoCartao = new DAORecebimentoCartao(_session);
+            cadastrarViewModelStrategy = new CadastrarRecebimentoViewModelStrategy();
             daoOperadoraCartao = new DAOOperadoraCartao(_session);
             daoLoja = new DAOLoja(_session);
 
@@ -67,19 +64,19 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             MatrizComboBoxIndex = 0;
         }
 
-        public override async void Salvar(object parameter)
+        protected override async Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {
             var couchDbResponse = await couchDbClient.CreateDocument(Recebimentos);
 
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
             {
                 CouchDbResponse = couchDbResponse,
-                MensagemSucesso = "LOG de Inserção de Recebimento de Cartão Criado Com Sucesso",
-                MensagemErro = "Erro ao Criar LOG de Inserção de Recebimento de Cartão",
+                MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoCriadoComSucesso(),
+                MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoCriado(),
                 ObjetoSalvo = Recebimentos
             };
 
-            ChamaAposCriarDocumento(e);
+            return e;
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -233,19 +230,24 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         {
             if (e.CouchDbResponse.Ok)
             {
-                _result = await daoRecebimentoCartao.Inserir(Recebimentos);
+                _result = await daoEntidade.Inserir(Recebimentos);
 
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
                     InseridoComSucesso = _result,
-                    MensagemSucesso = "Recebimentos de Cartão Inseridos com Sucesso",
-                    MensagemErro = "Erro ao Inserir Recebimentos de Cartão",
+                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
+                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
                     ObjetoSalvo = Recebimentos,
                     CouchDbResponse = e.CouchDbResponse
                 };
 
                 ChamaAposInserirNoBD(e2);
             }
+        }
+
+        protected override void ExecutarAntesCriarDocumento()
+        {
+
         }
     }
 }

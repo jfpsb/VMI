@@ -11,6 +11,7 @@ using VandaModaIntimaWpf.ViewModel.Produto;
 using Newtonsoft.Json;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.Model;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
@@ -40,12 +41,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             AbrirEditarProdutoComando = new RelayCommand(AbrirEditarProduto);
             _daoProduto = new DAOProduto(_session);
             _daoContagemProduto = new DAOContagemProduto(_session);
-            Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
+            Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             Quantidade = 1;
             GetProdutos();
         }
-
-        public override async void Salvar(object parameter)
+        protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {
             CouchDbResponse couchDbResponse;
             AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
@@ -53,55 +53,37 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             if (ultimoLog != null)
             {
                 e.CouchDbLog = (CouchDbContagemLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(Contagem);
+                ultimoLog.AtribuiCampos(Entidade);
                 couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
                 e.CouchDbLog.Rev = couchDbResponse.Rev;
             }
             else
             {
-                string jsonData = JsonConvert.SerializeObject(Contagem);
-                couchDbResponse = await couchDbClient.CreateDocument(Contagem.ToString(), jsonData);
+                string jsonData = JsonConvert.SerializeObject(Entidade);
+                couchDbResponse = await couchDbClient.CreateDocument(Entidade.CouchDbId(), jsonData);
             }
 
             e.CouchDbResponse = couchDbResponse;
-            e.MensagemSucesso = "LOG de Atualização de Contagem Criado com Sucesso";
-            e.MensagemErro = "Erro ao Criar Log de Atualização de Contagem";
-            e.ObjetoSalvo = Contagem;
+            e.MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoAtualizadoSucesso();
+            e.MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoAtualizado();
+            e.ObjetoSalvo = Entidade;
 
-            ChamaAposCriarDocumento(e);
+            return e;
         }
-
-        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoContagem.Merge(Contagem);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    InseridoComSucesso = _result,
-                    IssoEUmUpdate = true,
-                    MensagemSucesso = "Contagem Atualizada com Sucesso",
-                    MensagemErro = "Erro ao Atualizar Contagem",
-                    ObjetoSalvo = Contagem,
-                    CouchDbLog = e.CouchDbLog
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
-        }
-
         private void AbrirAdicionarContagemProduto(object parameter)
         {
             EditarContagemViewModelJanela.AbrirAdicionarContagemProduto(this);
         }
-
+        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
+        {
+            await AtualizarNoBancoDeDados(e);
+        }
         private async void InserirContagem(object parameter)
         {
             ContagemProdutoModel contagemProduto = new ContagemProdutoModel
             {
                 Id = DateTime.Now.Ticks,
-                Contagem = Contagem,
+                Contagem = Entidade,
                 Produto = Produto,
                 Quant = Quantidade
             };
@@ -110,8 +92,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             if (_result)
             {
-                _session.Refresh(Contagem);
-                Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
+                _session.Refresh(Entidade);
+                Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
                 PesquisaProdutoTxtBox = string.Empty;
                 Quantidade = 1;
                 IsTxtPesquisaFocused = true;
@@ -124,8 +106,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             if (_result)
             {
-                _session.Refresh(Contagem);
-                Contagens = new ObservableCollection<ContagemProdutoModel>(Contagem.Contagens);
+                _session.Refresh(Entidade);
+                Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             }
         }
 

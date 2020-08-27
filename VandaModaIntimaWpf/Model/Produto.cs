@@ -183,7 +183,7 @@ namespace VandaModaIntimaWpf.Model
             return CodBarra;
         }
 
-        public override string ToString()
+        public string CouchDbId()
         {
             return CodBarra;
         }

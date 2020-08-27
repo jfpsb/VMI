@@ -12,14 +12,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public CadastrarFornecedorOnlineViewModel(ISession session) : base(session)
         {
             _session = session;
-            PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Fornecedor.Cnpj?.Length == 14; });
+            PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
         }
 
         public async void PesquisarFornecedor(object parameter)
         {
             try
             {
-                Fornecedor = await new RequisicaoReceitaFederal().GetFornecedor(Fornecedor.Cnpj);
+                Entidade = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
                 SetStatusBarSucessoPesquisa();
             }
             catch (WebException we)

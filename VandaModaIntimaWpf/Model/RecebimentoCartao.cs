@@ -168,9 +168,9 @@ namespace VandaModaIntimaWpf.Model
             return Mes.GetHashCode() + Ano.GetHashCode() + hash;
         }
 
-        public override string ToString()
+        public string CouchDbId()
         {
-            return Mes.ToString() + Ano.ToString() + Loja.ToString() + OperadoraCartao.ToString();
+            return Mes.ToString() + Ano.ToString() + Loja.CouchDbId() + OperadoraCartao.CouchDbId();
         }
 
         public void InicializaLazyLoad()

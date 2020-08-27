@@ -104,7 +104,7 @@ namespace VandaModaIntimaWpf.Model
             return Nome;
         }
 
-        public override string ToString()
+        public string CouchDbId()
         {
             return Nome;
         }
