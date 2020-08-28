@@ -49,7 +49,7 @@
             <Label Content="{DynamicResource loja_dois_pontos}" />
             <ComboBox x:Name="CmbLoja"
                       Grid.Column="1"
-                      SelectedItem="{Binding Contagem.Loja}"
+                      SelectedItem="{Binding Entidade.Loja}"
                       ItemsSource="{Binding Lojas}"
                       DisplayMemberPath="Nome"
                       HorizontalAlignment="Stretch"
@@ -59,7 +59,7 @@
                    Content="{DynamicResource tipo_contagem_dois_pontos}" />
             <ComboBox Grid.Column="1"
                       Grid.Row="1"
-                      SelectedItem="{Binding Contagem.TipoContagem}"
+                      SelectedItem="{Binding Entidade.TipoContagem}"
                       ItemsSource="{Binding TiposContagem}"
                       DisplayMemberPath="Nome"
                       HorizontalAlignment="Stretch"

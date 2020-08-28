@@ -17,20 +17,20 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         protected ISession _session;
         protected DAO daoEntidade;
-        protected ICadastrarViewModelStrategy<E> cadastrarViewModelStrategy;
+        protected ICadastrarViewModelStrategy cadastrarViewModelStrategy;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
-        private string mensagemStatusBar;
-        private string imagemStatusBar;
-        private string _botaoSalvarToolTip;
-        private E _entidade;
-
+        protected E _entidade;
         protected bool _result = false; //Guarda se foi salvo com sucesso
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
-        protected CouchDbProdutoLog ultimoLog;
+        protected CouchDbLog ultimoLog;
+
+        private string mensagemStatusBar;
+        private string imagemStatusBar;
+        private string _botaoSalvarToolTip;
 
         public delegate void AntesDeCriarDocumentoEventHandler();
         public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
@@ -48,8 +48,15 @@ namespace VandaModaIntimaWpf.ViewModel
             SetStatusBarAguardando();
             AntesDeCriarDocumento += ExecutarAntesCriarDocumento;
             AposCriarDocumento += InserirNoBancoDeDados;
+            AposCriarDocumento += ConsultaUltimoLogNovamente;
             AposInserirBD += ResultadoInsercao;
             AposInserirBD += RedefinirTela;
+            PropertyChanged += GetUltimoLog;
+        }
+
+        private void ConsultaUltimoLogNovamente(AposCriarDocumentoEventArgs e)
+        {
+            OnPropertyChanged("Entidade");
         }
 
         protected abstract void ExecutarAntesCriarDocumento();
@@ -75,8 +82,28 @@ namespace VandaModaIntimaWpf.ViewModel
 
             return e;
         }
+        protected async void GetUltimoLog(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Entidade":
+                    ultimoLog = await couchDbClient.FindById(Entidade.CouchDbId());
+                    break;
+            }
+        }
         public abstract void ResetaPropriedades();
         public abstract bool ValidacaoSalvar(object parameter);
+        /// <summary>
+        /// Executa toda vez que uma propriedade da entidade é modificada
+        /// </summary>
+        /// <param name="sender">Objeto Onde Originou Evento</param>
+        /// <param name="e">Argumentos do Evento de PropertyChanged</param>
+        public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
+        /// <summary>
+        /// Executa toda vez que uma propriedade da ViewModel é modificada
+        /// </summary>
+        /// <param name="sender">Objeto Onde Originou Evento</param>
+        /// <param name="e">Argumentos do Evento de PropertyChanged</param>
         public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
         public virtual async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
@@ -113,7 +140,8 @@ namespace VandaModaIntimaWpf.ViewModel
                     MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeAtualizadaSucesso(),
                     MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeNaoAtualizada(),
                     ObjetoSalvo = Entidade,
-                    CouchDbLog = e.CouchDbLog
+                    CouchDbLog = e.CouchDbLog,
+                    CouchDbResponse = e.CouchDbResponse
                 };
 
                 ChamaAposInserirNoBD(e2);

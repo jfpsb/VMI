@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.View.RecebimentoCartao
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
+            DialogResult = ((ACadastrarViewModel<Model.RecebimentoCartao>)DataContext).ResultadoSalvar();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -6,6 +6,6 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         void Salvar(object parameter);
         bool ValidacaoSalvar(object parameter);
-        void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
+        void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
     }
 }

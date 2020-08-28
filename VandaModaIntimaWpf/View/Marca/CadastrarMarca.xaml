@@ -48,7 +48,7 @@
             <Label Content="{DynamicResource nome_dois_pontos}" />
             <TextBox x:Name="TxtMarca"
                      Grid.Column="1"
-                     Text="{Binding Marca.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="25" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"

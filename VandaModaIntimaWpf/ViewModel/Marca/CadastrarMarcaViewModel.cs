@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NHibernate;
+﻿using NHibernate;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -14,7 +13,13 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             daoEntidade = new DAOMarca(_session);
             Entidade = new MarcaModel();
         }
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

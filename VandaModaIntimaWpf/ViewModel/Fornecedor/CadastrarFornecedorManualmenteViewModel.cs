@@ -15,9 +15,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             cadastrarViewModelStrategy = new CadastrarFornecedorViewModelStrategy();
             daoFornecedor = new DAOFornecedor(_session);
             Entidade = new FornecedorModel();
-            Entidade.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Entidade.PropertyChanged += Entidade_PropertyChanged;
         }
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

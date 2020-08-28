@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NHibernate;
+﻿using NHibernate;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +11,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
     class CadastrarContagemViewModel : ACadastrarViewModel<ContagemModel>
     {
-        protected DAOContagem daoContagem;
         private DAOTipoContagem _daoTipoContagem;
         private DAOLoja _daoLoja;
 
@@ -31,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             GetLojas();
             GetTiposContagem();
         }
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -59,6 +57,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             Entidade.Data = DateTime.Now;
             Entidade.Finalizada = false;
+        }
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

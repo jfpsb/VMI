@@ -48,7 +48,7 @@
             </Grid.RowDefinitions>
             <Label Content="{DynamicResource id_dois_pontos}" />
             <TextBox Grid.Column="1"
-                     Text="{Binding TipoContagem.Id, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Id, UpdateSourceTrigger=PropertyChanged}"
                      IsReadOnly="True" />
             <Label Grid.Row="2"
                    Content="{DynamicResource nome_dois_pontos}" />
@@ -56,7 +56,7 @@
                      Grid.Column="1"
                      Grid.Row="2"
                      MaxLength="50"
-                     Text="{Binding TipoContagem.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="3"
                     Grid.ColumnSpan="2"

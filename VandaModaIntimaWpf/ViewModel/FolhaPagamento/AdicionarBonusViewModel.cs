@@ -20,7 +20,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade = new Bonus() { Id = DateTime.Now.Ticks };
             Entidade.Folha = folha;
         }
+
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
 
         }

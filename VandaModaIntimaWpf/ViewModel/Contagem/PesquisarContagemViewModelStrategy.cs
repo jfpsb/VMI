@@ -28,10 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public bool? AbrirEditar(ContagemModel clone, ISession session)
         {
-            EditarContagemViewModel editarContagemViewModel = new EditarContagemViewModel(session)
-            {
-                Contagem = clone
-            };
+            EditarContagemViewModel editarContagemViewModel = new EditarContagemViewModel(session);
+            editarContagemViewModel.Entidade = clone;
 
             EditarContagem editarContagem = new EditarContagem()
             {

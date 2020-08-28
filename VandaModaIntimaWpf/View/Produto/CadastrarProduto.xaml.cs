@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.View.Produto
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
+            DialogResult = ((ACadastrarViewModel<Model.Produto>)DataContext).ResultadoSalvar();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

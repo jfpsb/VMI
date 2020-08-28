@@ -27,10 +27,8 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public bool? AbrirEditar(LojaModel clone, ISession session)
         {
-            EditarLojaViewModel editarLojaViewModel = new EditarLojaViewModel(session)
-            {
-                Loja = clone
-            };
+            EditarLojaViewModel editarLojaViewModel = new EditarLojaViewModel(session);
+            editarLojaViewModel.Entidade = clone;
 
             EditarLoja editar = new EditarLoja()
             {

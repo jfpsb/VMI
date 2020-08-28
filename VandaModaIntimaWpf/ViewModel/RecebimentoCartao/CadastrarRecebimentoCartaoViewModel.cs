@@ -47,13 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         }
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                case "ValorOperadora":
-                    // Calcula os totais quando mudo o valor na célula do DataGrid
-                    CalculaTotais();
-                    break;
-            }
+            
         }
 
         public override void ResetaPropriedades()
@@ -159,7 +153,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     recebimento.OperadoraCartao = rpo.Key;
                     recebimento.Recebido = rpo.Value;
 
-                    recebimento.PropertyChanged += CadastrarViewModel_PropertyChanged;
+                    recebimento.PropertyChanged += Entidade_PropertyChanged;
 
                     Recebimentos.Add(recebimento);
                 }
@@ -248,6 +242,17 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         protected override void ExecutarAntesCriarDocumento()
         {
 
+        }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "ValorOperadora":
+                    // Calcula os totais quando mudo o valor na célula do DataGrid
+                    CalculaTotais();
+                    break;
+            }
         }
     }
 }

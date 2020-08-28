@@ -54,7 +54,7 @@
             <Label Content="{DynamicResource cnpj_dois_pontos}" />
             <TextBox x:Name="TxtCnpj"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Cnpj, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="14" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
@@ -66,25 +66,25 @@
                    Content="{DynamicResource nome_dois_pontos}" />
             <TextBox Grid.Row="2"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="3"
                    Content="{DynamicResource nome_fantasia_dois_pontos}" />
             <TextBox Grid.Row="3"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Fantasia, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="4"
                    Content="{DynamicResource telefone_dois_pontos}" />
             <TextBox Grid.Row="4"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5"
                    Content="{DynamicResource email_dois_pontos}" />
             <TextBox Grid.Row="5"
                      Grid.Column="1"
-                     Text="{Binding Fornecedor.Email, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="6"
                     Grid.ColumnSpan="2"

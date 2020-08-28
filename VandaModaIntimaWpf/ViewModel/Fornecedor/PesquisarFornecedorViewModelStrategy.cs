@@ -23,10 +23,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public bool? AbrirEditar(FornecedorModel clone, ISession session)
         {
-            EditarFornecedorViewModel viewModel = new EditarFornecedorViewModel(session)
-            {
-                Fornecedor = clone
-            };
+            EditarFornecedorViewModel viewModel = new EditarFornecedorViewModel(session);
+            viewModel.Entidade = clone;
 
             EditarFornecedor editarFornecedor = new EditarFornecedor()
             {

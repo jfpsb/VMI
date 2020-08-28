@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoFornecedor = new DAOFornecedor(_session);
             Entidade = new ProdutoModel();
 
-            Entidade.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Entidade.PropertyChanged += Entidade_PropertyChanged;
             InserirCodigoComando = new RelayCommand(InserirCodigo, ValidaCodigoFornecedor);
 
             GetFornecedores();
@@ -111,7 +111,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar<MarcaModel>());
             Marcas.Insert(0, new MarcaModel(GetResource.GetString("marca_nao_selecionada")));
         }
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -141,6 +141,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 Entidade.Marca = null;
 
             Entidade.Codigos = CodigosFornecedor;
+        }
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

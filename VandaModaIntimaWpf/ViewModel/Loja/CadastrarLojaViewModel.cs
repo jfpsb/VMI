@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             cadastrarViewModelStrategy = new CadastrarLojaViewModelStrategy();
             daoEntidade = new DAOLoja(_session);
             Entidade = new LojaModel();
-            Entidade.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Entidade.PropertyChanged += Entidade_PropertyChanged;
             GetMatrizes();
         }
         public override bool ValidacaoSalvar(object parameter)
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
         }
 
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -67,6 +67,11 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         {
             if (Entidade.Matriz.Cnpj == null)
                 Entidade.Matriz = null;
+        }
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

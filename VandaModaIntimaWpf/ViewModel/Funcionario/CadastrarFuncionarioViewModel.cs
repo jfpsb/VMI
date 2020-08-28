@@ -20,11 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             daoEntidade = new DAOFuncionario(_session);
             daoLoja = new DAOLoja(_session);
             Entidade = new FuncionarioModel();
-            Entidade.PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Entidade.PropertyChanged += Entidade_PropertyChanged;
             GetLojas();
             Entidade.Loja = Lojas[0];
         }
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -66,6 +66,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             if (Entidade.Loja.Cnpj == null)
                 Entidade.Loja = null;
+        }
+
+        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

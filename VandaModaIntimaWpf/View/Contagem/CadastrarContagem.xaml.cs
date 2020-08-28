@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Contagem
@@ -15,7 +16,7 @@ namespace VandaModaIntimaWpf.View.Contagem
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DialogResult = ((ACadastrarViewModel)DataContext).ResultadoSalvar();
+            DialogResult = ((ACadastrarViewModel<Model.Contagem>)DataContext).ResultadoSalvar();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

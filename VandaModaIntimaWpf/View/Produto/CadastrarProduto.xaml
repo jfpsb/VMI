@@ -53,7 +53,7 @@
             </Grid.RowDefinitions>
             <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
             <TextBox Grid.Column="1"
-                     Text="{Binding Produto.CodBarra, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="15" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
@@ -66,20 +66,20 @@
             <TextBox x:Name="TxtDescricao"
                      Grid.Column="1"
                      Grid.Row="2"
-                     Text="{Binding Produto.Descricao, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="100"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="3"
                    Content="{DynamicResource preco_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="3"
-                     Text="{Binding Produto.Preco, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Preco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="4"
                    Content="{DynamicResource ncm_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="4"
-                     Text="{Binding Produto.Ncm, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}"
                      MaxLength="8" />
             <Label Grid.Row="5"
@@ -88,7 +88,7 @@
                       Grid.Row="5"
                       ItemsSource="{Binding Fornecedores}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Fornecedor, Mode=TwoWay}"
+                      SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6"
                    Content="{DynamicResource marca_dois_pontos}" />
@@ -96,7 +96,7 @@
                       Grid.Row="6"
                       ItemsSource="{Binding Marcas}"
                       DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Produto.Marca, Mode=TwoWay}"
+                      SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <DataGrid x:Name="CodigoFornecedorDataGrid"
                       Grid.Row="7"

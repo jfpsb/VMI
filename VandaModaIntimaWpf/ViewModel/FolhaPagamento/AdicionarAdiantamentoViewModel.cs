@@ -209,5 +209,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         protected override void ExecutarAntesCriarDocumento()
         {
         }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

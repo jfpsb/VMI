@@ -52,7 +52,7 @@
             <Label Content="{DynamicResource cpf_dois_pontos}" />
             <TextBox x:Name="TxtCpf"
                      Grid.Column="1"
-                     Text="{Binding Funcionario.Cpf, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged}"
                      MaxLength="11" />
             <Label Grid.Row="1"
                    Grid.ColumnSpan="2"
@@ -65,28 +65,28 @@
             <TextBox Grid.Column="1"
                      Grid.Row="2"
                      MaxLength="45"
-                     Text="{Binding Funcionario.Nome, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="3"
                    Content="{DynamicResource telefone_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="3"
                      MaxLength="100"
-                     Text="{Binding Funcionario.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="4"
                    Content="{DynamicResource endereco_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="4"
                      MaxLength="200"
-                     Text="{Binding Funcionario.Endereco, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="5"
                    Content="{DynamicResource salario_dois_pontos}" />
             <TextBox Grid.Column="1"
                      Grid.Row="5"
                      MaxLength="10"
-                     Text="{Binding Funcionario.Salario, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Entidade.Salario, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6"
                    Content="{DynamicResource loja_dois_pontos}" />
@@ -94,7 +94,7 @@
                       Grid.Row="6"
                       DisplayMemberPath="Nome"
                       ItemsSource="{Binding Path=Lojas}"
-                      SelectedItem="{Binding Path=Funcionario.Loja, Mode=TwoWay}"
+                      SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
             <Button Grid.Row="7"
                     Grid.ColumnSpan="2"

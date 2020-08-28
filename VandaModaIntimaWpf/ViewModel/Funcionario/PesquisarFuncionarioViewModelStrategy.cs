@@ -23,10 +23,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public bool? AbrirEditar(FuncionarioModel entidade, ISession session)
         {
-            EditarFuncionarioViewModel editarFuncionarioViewModel = new EditarFuncionarioViewModel(session)
-            {
-                Funcionario = entidade
-            };
+            EditarFuncionarioViewModel editarFuncionarioViewModel = new EditarFuncionarioViewModel(session);
+            editarFuncionarioViewModel.Entidade = entidade;
 
             EditarFuncionario editarFuncionario = new EditarFuncionario()
             {

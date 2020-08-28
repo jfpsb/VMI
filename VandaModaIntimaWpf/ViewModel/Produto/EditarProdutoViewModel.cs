@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados;
@@ -16,7 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             Entidade = produto;
             CodigosFornecedor = new ObservableCollection<string>(Entidade.Codigos);
-            GetUltimoLog();
         }
         protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {
@@ -43,29 +43,21 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             return e;
         }
-
         public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
         {
             await AtualizarNoBancoDeDados(e);
         }
-
-        private async void GetUltimoLog()
-        {
-            ultimoLog = (CouchDbProdutoLog)await couchDbClient.FindById(Entidade.CodBarra);
-        }
-
         public new ProdutoModel Entidade
         {
-            get { return Entidade; }
+            get { return _entidade; }
             set
             {
-                Entidade = value;
+                _entidade = value;
                 FornecedorComboBox = value.Fornecedor;
                 MarcaComboBox = value.Marca;
                 OnPropertyChanged("Entidade");
             }
         }
-
         public FornecedorModel FornecedorComboBox
         {
             get
@@ -84,7 +76,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 OnPropertyChanged("FornecedorComboBox");
             }
         }
-
         public MarcaModel MarcaComboBox
         {
             get
