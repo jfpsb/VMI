@@ -15,9 +15,6 @@
                      Icon="/Resources/Produto_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarProdutoViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_produtos_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarProduto}">
         <View:TelaPesquisaTemplate.Menu>

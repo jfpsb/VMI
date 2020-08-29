@@ -27,7 +27,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,7 +36,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>VMIIcon.ico</ApplicationIcon>
@@ -237,10 +235,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TelaApagarDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,8 +308,8 @@
     <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Resources\StringResource.cs" />
-    <Compile Include="ViewModel\ACadastrarViewModel.cs" />
-    <Compile Include="ViewModel\APesquisarViewModel.cs" />
+    <Compile Include="ViewModel\ACadastrarVM.cs" />
+    <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposCriarDocumentoEventArgs.cs" />
@@ -329,56 +323,69 @@
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\CadastrarContagemViewModel.cs" />
-    <Compile Include="ViewModel\Contagem\CadastrarContagemViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\EditarContagemViewModel.cs" />
-    <Compile Include="ViewModel\Contagem\EditarContagemViewModelJanela.cs" />
-    <Compile Include="ViewModel\Contagem\PesquisarContagemViewModel.cs" />
-    <Compile Include="ViewModel\Contagem\PesquisarContagemViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoViewModel.cs" />
+    <Compile Include="ViewModel\Contagem\CadastrarContagemVM.cs" />
+    <Compile Include="ViewModel\Contagem\CadastrarContMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Contagem\EditarContagemVM.cs" />
+    <Compile Include="ViewModel\Contagem\EditarContagemVMJanela.cs" />
+    <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
+    <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Duplicata\DuplicataHandlerViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoViewModel.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusViewModel.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoViewModelStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusViewModelStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaViewModelStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesViewModel.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModel.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaPagamentoViewModelStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteViewModel.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineViewModel.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Fornecedor\EditarFornecedorViewModel.cs" />
-    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModel.cs" />
-    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornManualmenteVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Fornecedor\EditarFornecedorVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\PesquisarFornMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioViewModel.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Funcionario\EditarFuncionarioViewModel.cs" />
-    <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModel.cs" />
-    <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Funcionario\CadastrarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\CadastrarFuncMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Funcionario\EditarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\PesquisarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\PesquisarFuncMsgVMStrategy.cs" />
     <Compile Include="ViewModel\GlobalConfigs.cs" />
-    <Compile Include="ViewModel\ICadastrarViewModel.cs" />
-    <Compile Include="ViewModel\ICadastrarViewModelStrategy.cs" />
-    <Compile Include="ViewModel\IPesquisarViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Loja\CadastrarLojaViewModel.cs" />
-    <Compile Include="ViewModel\Loja\CadastrarLojaViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Loja\EditarLojaViewModel.cs" />
-    <Compile Include="ViewModel\Loja\PesquisarLojaViewModel.cs" />
-    <Compile Include="ViewModel\Loja\PesquisarLojaViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Marca\CadastrarMarcaViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Marca\PesquisarMarcaViewModelStrategy.cs" />
+    <Compile Include="ViewModel\ICadastrarVM.cs" />
+    <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
+    <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Loja\CadastrarLojaVM.cs" />
+    <Compile Include="ViewModel\Loja\CadastrarLojaMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Loja\EditarLojaVM.cs" />
+    <Compile Include="ViewModel\Loja\PesquisarLojaVM.cs" />
+    <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Marca\CadastrarMarcaMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\MqttClientInit.cs" />
-    <Compile Include="ViewModel\Produto\CadastrarProdutoViewModelStrategy.cs" />
-    <Compile Include="ViewModel\Produto\PesquisarProdutoViewModelStrategy.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoCartaoViewModel.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoViewModelStrategy.cs" />
+    <Compile Include="ViewModel\Produto\CadastrarProdutoMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\FormatoDoubleDataGrid.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoCartaoViewModelStrategy.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoViewModel.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFolhaService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFuncService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqLojaService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqMarcaService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
@@ -435,14 +442,14 @@
     </Compile>
     <Compile Include="View\ICloseable.cs" />
     <Compile Include="View\IOpenFileDialog.cs" />
-    <Compile Include="ViewModel\IPesquisarViewModel.cs" />
-    <Compile Include="ViewModel\Marca\CadastrarMarcaViewModel.cs" />
-    <Compile Include="ViewModel\Marca\PesquisarMarcaViewModel.cs" />
-    <Compile Include="ViewModel\Produto\CadastrarProdutoViewModel.cs" />
-    <Compile Include="ViewModel\Produto\EditarProdutoViewModel.cs" />
-    <Compile Include="ViewModel\Produto\PesquisarProdutoViewModel.cs" />
+    <Compile Include="ViewModel\IPesquisarVM.cs" />
+    <Compile Include="ViewModel\Marca\CadastrarMarcaVM.cs" />
+    <Compile Include="ViewModel\Marca\PesquisarMarcaVM.cs" />
+    <Compile Include="ViewModel\Produto\CadastrarProdutoVM.cs" />
+    <Compile Include="ViewModel\Produto\EditarProdutoVM.cs" />
+    <Compile Include="ViewModel\Produto\PesquisarProdutoVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="ViewModel\VandaModaIntimaViewModel.cs" />
+    <Compile Include="ViewModel\VandaModaIntimaVM.cs" />
     <Compile Include="View\Fornecedor\CadastrarFornecedorManualmente.xaml.cs">
       <DependentUpon>CadastrarFornecedorManualmente.xaml</DependentUpon>
     </Compile>
@@ -498,9 +505,6 @@
     </Compile>
     <Compile Include="View\SQL\ExportarSQL.xaml.cs">
       <DependentUpon>ExportarSQL.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaApagarDialog.xaml.cs">
-      <DependentUpon>TelaApagarDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
@@ -689,5 +693,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

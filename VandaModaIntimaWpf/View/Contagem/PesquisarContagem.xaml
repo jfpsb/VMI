@@ -15,9 +15,6 @@
                      Icon="/Resources/Contagem_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=CmbLoja}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarContagemViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_contagens_marcadas}"
                                 CommandParameter="{Binding ElementName=TelaPesquisarContagem}">
         <View:TelaPesquisaTemplate.Menu>

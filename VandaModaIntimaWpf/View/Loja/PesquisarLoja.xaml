@@ -1,4 +1,4 @@
-﻿    <View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
                      x:Class="VandaModaIntimaWpf.View.Loja.PesquisarLoja"
                      x:Name="TelaPesquisarLoja"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -15,9 +15,6 @@
                      Icon="/Resources/Loja_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarLojaViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_lojas_marcadas}"
                                CommandParameter="{Binding ElementName=TelaPesquisarLoja}">
         <View:TelaPesquisaTemplate.Menu>

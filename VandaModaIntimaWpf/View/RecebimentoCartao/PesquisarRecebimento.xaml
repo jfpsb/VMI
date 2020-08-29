@@ -14,9 +14,6 @@
                      Icon="/Resources/Credit_Card_Icon.ico"
                      WindowStartupLocation="CenterScreen"
                      Closing="Pesquisar_Closing">
-    <Window.DataContext>
-        <ViewModel:PesquisarRecebimentoViewModel />
-    </Window.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_recebimentos_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}">
         <View:TelaPesquisaTemplate.Menu>

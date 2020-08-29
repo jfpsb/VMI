@@ -6,11 +6,8 @@
         Title="Vanda Moda Íntima"
         WindowState="Maximized"
         Closing="TelaPrincipal_Closing"
-        Width="1200"
-        Height="1144.677">
-    <Window.DataContext>
-        <ViewModel:VandaModaIntimaViewModel />
-    </Window.DataContext>
+        Width="1366"
+        Height="780">
     <DockPanel>
         <Menu>
             <MenuItem Header="Opções"

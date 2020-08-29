@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.View.Contagem
         public VisualizarContagemProduto(ContagemModel contagem)
         {
             InitializeComponent();
-            DataContext = new VisualizarContagemProdutoViewModel(contagem);
+            DataContext = new VisualizarContagemProdutoVM(contagem);
         }
     }
 }

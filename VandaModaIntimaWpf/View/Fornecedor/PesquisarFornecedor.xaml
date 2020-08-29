@@ -15,9 +15,6 @@
                      Icon="/Resources/Fornecedor_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarFornecedorViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_fornecedores_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}">
         <View:TelaPesquisaTemplate.Menu>

@@ -15,9 +15,6 @@
                      Icon="/Resources/Funcionario_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarFuncionarioViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_funcionarios_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}">
         <View:TelaPesquisaTemplate.Menu>

@@ -9,14 +9,14 @@ namespace VandaModaIntimaWpf.View
     {
         public void Pesquisar_Closing(object sender, CancelEventArgs e)
         {
-            if (((IPesquisarViewModel)DataContext).IsThreadLocked())
+            if (((IPesquisarVM)DataContext).IsThreadLocked())
             {
                 e.Cancel = true;
             }
             else
             {
                 //Fecha sessao
-                ((IPesquisarViewModel)DataContext).DisposeSession();
+                ((IPesquisarVM)DataContext).DisposeSession();
             }
         }
 

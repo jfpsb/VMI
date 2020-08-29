@@ -52,6 +52,10 @@ namespace VandaModaIntimaWpf.BancoDeDados
                 couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
                 Console.WriteLine(result.Content.ReadAsStringAsync().Result);
             }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Criar Documento. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
+            }
 
             return couchDbResponse;
         }
@@ -199,6 +203,10 @@ namespace VandaModaIntimaWpf.BancoDeDados
                 couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
                 Console.WriteLine(result.Content.ReadAsStringAsync().Result);
             }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Criar Documentos. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
+            }
 
             return couchDbResponse;
         }
@@ -217,6 +225,10 @@ namespace VandaModaIntimaWpf.BancoDeDados
                 couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
                 Console.WriteLine(result.Content.ReadAsStringAsync().Result);
             }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Atualizar Documento. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
+            }
 
             return couchDbResponse;
         }
@@ -231,6 +243,10 @@ namespace VandaModaIntimaWpf.BancoDeDados
             {
                 couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
                 Console.WriteLine(result.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Deletar Documento. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
             }
 
             return couchDbResponse;

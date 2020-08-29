@@ -15,9 +15,6 @@
                      WindowStartupLocation="CenterScreen"
                      ResizeMode="NoResize"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarMarcaViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_marcas_marcadas}"
                                CommandParameter="{Binding ElementName=TelaPesquisarMarca}">
         <View:TelaPesquisaTemplate.Menu>

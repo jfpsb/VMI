@@ -13,9 +13,6 @@
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
                      Closing="Pesquisar_Closing">
-    <View:APesquisarView.DataContext>
-        <ViewModel:PesquisarFolhaPagamentoViewModel />
-    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarFolhaPagamento}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
