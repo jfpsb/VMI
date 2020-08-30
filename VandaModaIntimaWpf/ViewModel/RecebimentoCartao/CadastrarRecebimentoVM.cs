@@ -1,4 +1,5 @@
 ﻿using FinancerData;
+using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
 using NHibernate;
 using System;
@@ -35,8 +36,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public CadastrarRecebimentoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             cadastrarViewModelStrategy = new CadastrarRecebMsgVMStrategy();
-            daoOperadoraCartao = new DAOOperadoraCartao(_session);
-            daoLoja = new DAOLoja(_session);
+            daoEntidade = new DAORecebimentoCartao(session);
+            daoOperadoraCartao = new DAOOperadoraCartao(session);
+            daoLoja = new DAOLoja(session);
 
             AbrirOfxComando = new RelayCommand(AbrirOfx, ValidaAbrirOfx);
 
@@ -48,7 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         }
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         public override void ResetaPropriedades()

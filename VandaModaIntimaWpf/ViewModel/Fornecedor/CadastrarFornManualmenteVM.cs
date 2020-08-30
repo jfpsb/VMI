@@ -9,12 +9,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class CadastrarFornManualmenteVM : ACadastrarViewModel<FornecedorModel>
     {
-        protected DAOFornecedor daoFornecedor;
-
         public CadastrarFornManualmenteVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             cadastrarViewModelStrategy = new CadastrarFornMsgVMStrategy();
-            daoFornecedor = new DAOFornecedor(_session);
+            daoEntidade = new DAOFornecedor(_session);
             Entidade = new FornecedorModel();
             Entidade.PropertyChanged += Entidade_PropertyChanged;
         }
@@ -29,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             switch (e.PropertyName)
             {
                 case "Cnpj":
-                    var result = await daoFornecedor.ListarPorId(Entidade.Cnpj);
+                    var result = await daoEntidade.ListarPorId(Entidade.Cnpj);
 
                     if (result != null)
                     {

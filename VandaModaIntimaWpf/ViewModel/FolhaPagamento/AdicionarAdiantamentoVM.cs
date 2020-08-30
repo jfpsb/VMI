@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
             Entidade = folhaPagamento;
 
-            AposCriarDocumento += RefreshFolhasPagamento;
+            AposInserirBD += RefreshFolhasPagamento;
         }
         public DateTime InicioPagamento
         {
@@ -172,9 +172,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             Parcelas.Clear();
         }
-        private void RefreshFolhasPagamento(AposCriarDocumentoEventArgs e)
+        private void RefreshFolhasPagamento(AposInserirBDEventArgs e)
         {
-            //TODO: botar strings em resources
             foreach (var p in Parcelas)
             {
                 _session.Refresh(p.FolhaPagamento);

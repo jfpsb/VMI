@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
