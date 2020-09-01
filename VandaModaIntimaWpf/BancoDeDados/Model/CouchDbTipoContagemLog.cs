@@ -1,4 +1,6 @@
-﻿namespace VandaModaIntimaWpf.BancoDeDados.Model
+﻿using VandaModaIntimaWpf.Model;
+
+namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
     public class CouchDbTipoContagemLog : CouchDbLog
     {
@@ -7,6 +9,12 @@
         public CouchDbTipoContagemLog()
         {
             Tipo = "tipocontagem";
+        }
+        public override void AtribuiCampos(object o)
+        {
+            TipoContagem t = (TipoContagem)o;
+            MySqlId = t.Id;
+            Nome = t.Nome;
         }
         public override object Clone()
         {

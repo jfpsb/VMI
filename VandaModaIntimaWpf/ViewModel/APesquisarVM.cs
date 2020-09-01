@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel
     /// <summary>
     /// Classe abstrata para ViewModels de pesquisa
     /// </summary>
-    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : class, IModel, ICloneable
+    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : class, IModel
     {
         protected ISession _session;
         protected ExcelStrategy excelStrategy;
@@ -71,9 +71,9 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
-            couchDbClient = new CouchDbClient();
+            couchDbClient = CouchDbClient.Instancia;
 
-            _session = LocalSessionProvider.GetSession();
+            _session = SessionProvider.GetSession();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
@@ -305,7 +305,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("TermoPesquisa");
             }
         }
-
         public bool IsThreadLocked
         {
             get { return _threadLocked; }
@@ -372,7 +371,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public void DisposeSession()
         {
-            LocalSessionProvider.FechaSession(_session);
+            SessionProvider.FechaSession(_session);
         }
 
         bool IPesquisarVM.IsThreadLocked()

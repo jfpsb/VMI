@@ -14,6 +14,16 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "bonus";
         }
+        public override void AtribuiCampos(object o)
+        {
+            Bonus b = (Bonus)o;
+
+            MySqlId = b.Id;
+            Folha = b.Folha;
+            Data = b.Data;
+            Descricao = b.Descricao;
+            Valor = b.Valor;
+        }
         public override object Clone()
         {
             CouchDbBonusLog log = new CouchDbBonusLog()

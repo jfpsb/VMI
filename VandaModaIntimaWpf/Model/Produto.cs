@@ -7,7 +7,7 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Produto : AModel, ICloneable, IModel
+    public class Produto : AModel, IModel
     {
         private string _codBarra;
         private FornecedorModel _fornecedor;
@@ -155,23 +155,6 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
-
-        public virtual object Clone()
-        {
-            Produto p = new Produto
-            {
-                CodBarra = CodBarra,
-                Descricao = Descricao,
-                Preco = Preco,
-                Fornecedor = Fornecedor,
-                Marca = Marca,
-                Ncm = Ncm,
-                Codigos = new List<string>(Codigos)
-            };
-
-
-            return p;
-        }
 
         public virtual string[] GetColunas()
         {

@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NHibernate.Mapping;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados.Model;
@@ -15,7 +12,7 @@ using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.BancoDeDados
 {
-    public class CouchDbClient
+    public sealed class CouchDbClient
     {
         private static string CouchDbAddress = "http://{0}:{1}";
         private static string Server = "localhost";
@@ -28,7 +25,9 @@ namespace VandaModaIntimaWpf.BancoDeDados
         private static string AuthCouchDbCookieKeyName = "AuthSession";
         private static string AuthCookie = null;
 
-        public CouchDbClient()
+        private static readonly Lazy<CouchDbClient> lazyClient = new Lazy<CouchDbClient>(() => new CouchDbClient());
+
+        private CouchDbClient()
         {
             GetAuthenticationCookie();
         }
@@ -254,69 +253,73 @@ namespace VandaModaIntimaWpf.BancoDeDados
         public async Task<CouchDbLog> FindById(string id, bool revs_info = false)
         {
             CouchDbLog log = null;
-            GetAuthenticationCookie();
-            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
 
-            string requestUri = "/{0}/{1}";
-            if (revs_info)
+            if (id != null)
             {
-                requestUri += "?revs_info=true";
-            }
+                GetAuthenticationCookie();
+                CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
 
-            HttpResponseMessage result = await httpClient.GetAsync(string.Format(requestUri, Database, id));
-
-            if (result.IsSuccessStatusCode)
-            {
-                string responseText = result.Content.ReadAsStringAsync().Result;
-                log = JsonConvert.DeserializeObject<CouchDbLog>(responseText);
-
-                switch (log.Tipo)
+                string requestUri = "/{0}/{1}";
+                if (revs_info)
                 {
-                    case "adiantamento":
-                        log = JsonConvert.DeserializeObject<CouchDbAdiantamentoLog>(responseText);
-                        break;
-                    case "bonus":
-                        log = JsonConvert.DeserializeObject<CouchDbBonusLog>(responseText);
-                        break;
-                    case "contagem":
-                        log = JsonConvert.DeserializeObject<CouchDbContagemLog>(responseText);
-                        break;
-                    case "contagemproduto":
-                        log = JsonConvert.DeserializeObject<CouchDbContagemProdutoLog>(responseText);
-                        break;
-                    case "folhapagamento":
-                        log = JsonConvert.DeserializeObject<CouchDbFolhaPagamentoLog>(responseText);
-                        break;
-                    case "fornecedor":
-                        log = JsonConvert.DeserializeObject<CouchDbFornecedorLog>(responseText);
-                        break;
-                    case "funcionario":
-                        log = JsonConvert.DeserializeObject<CouchDbFuncionarioLog>(responseText);
-                        break;
-                    case "loja":
-                        log = JsonConvert.DeserializeObject<CouchDbLojaLog>(responseText);
-                        break;
-                    case "marca":
-                        log = JsonConvert.DeserializeObject<CouchDbMarcaLog>(responseText);
-                        break;
-                    case "metaloja":
-                        log = JsonConvert.DeserializeObject<CouchDbMetaLojaLog>(responseText);
-                        break;
-                    case "operadoracartao":
-                        log = JsonConvert.DeserializeObject<CouchDbOperadoraCartaoLog>(responseText);
-                        break;
-                    case "parcela":
-                        log = JsonConvert.DeserializeObject<CouchDbParcelaLog>(responseText);
-                        break;
-                    case "produto":
-                        log = JsonConvert.DeserializeObject<CouchDbProdutoLog>(responseText);
-                        break;
-                    case "recebimentocartao":
-                        log = JsonConvert.DeserializeObject<CouchDbRecebimentoCartaoLog>(responseText);
-                        break;
-                    case "tipocontagem":
-                        log = JsonConvert.DeserializeObject<CouchDbTipoContagemLog>(responseText);
-                        break;
+                    requestUri += "?revs_info=true";
+                }
+
+                HttpResponseMessage result = await httpClient.GetAsync(string.Format(requestUri, Database, id));
+
+                if (result.IsSuccessStatusCode)
+                {
+                    string responseText = result.Content.ReadAsStringAsync().Result;
+                    log = JsonConvert.DeserializeObject<CouchDbLog>(responseText);
+
+                    switch (log.Tipo)
+                    {
+                        case "adiantamento":
+                            log = JsonConvert.DeserializeObject<CouchDbAdiantamentoLog>(responseText);
+                            break;
+                        case "bonus":
+                            log = JsonConvert.DeserializeObject<CouchDbBonusLog>(responseText);
+                            break;
+                        case "contagem":
+                            log = JsonConvert.DeserializeObject<CouchDbContagemLog>(responseText);
+                            break;
+                        case "contagemproduto":
+                            log = JsonConvert.DeserializeObject<CouchDbContagemProdutoLog>(responseText);
+                            break;
+                        case "folhapagamento":
+                            log = JsonConvert.DeserializeObject<CouchDbFolhaPagamentoLog>(responseText);
+                            break;
+                        case "fornecedor":
+                            log = JsonConvert.DeserializeObject<CouchDbFornecedorLog>(responseText);
+                            break;
+                        case "funcionario":
+                            log = JsonConvert.DeserializeObject<CouchDbFuncionarioLog>(responseText);
+                            break;
+                        case "loja":
+                            log = JsonConvert.DeserializeObject<CouchDbLojaLog>(responseText);
+                            break;
+                        case "marca":
+                            log = JsonConvert.DeserializeObject<CouchDbMarcaLog>(responseText);
+                            break;
+                        case "metaloja":
+                            log = JsonConvert.DeserializeObject<CouchDbMetaLojaLog>(responseText);
+                            break;
+                        case "operadoracartao":
+                            log = JsonConvert.DeserializeObject<CouchDbOperadoraCartaoLog>(responseText);
+                            break;
+                        case "parcela":
+                            log = JsonConvert.DeserializeObject<CouchDbParcelaLog>(responseText);
+                            break;
+                        case "produto":
+                            log = JsonConvert.DeserializeObject<CouchDbProdutoLog>(responseText);
+                            break;
+                        case "recebimentocartao":
+                            log = JsonConvert.DeserializeObject<CouchDbRecebimentoCartaoLog>(responseText);
+                            break;
+                        case "tipocontagem":
+                            log = JsonConvert.DeserializeObject<CouchDbTipoContagemLog>(responseText);
+                            break;
+                    }
                 }
             }
 
@@ -355,7 +358,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
             return couchDbResponse;
         }
 
-        public static void GetAuthenticationCookie()
+        public void GetAuthenticationCookie()
         {
             if (AuthCookie == null)
             {
@@ -399,6 +402,14 @@ namespace VandaModaIntimaWpf.BancoDeDados
                 {
                     throw new HttpRequestException(string.Concat("Authentication failure: ", authResult.ReasonPhrase));
                 }
+            }
+        }
+
+        public static CouchDbClient Instancia
+        {
+            get
+            {
+                return lazyClient.Value;
             }
         }
     }

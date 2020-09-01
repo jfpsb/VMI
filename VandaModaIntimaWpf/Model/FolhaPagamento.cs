@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class FolhaPagamento : AModel, ICloneable, IModel
+    public class FolhaPagamento : AModel, IModel
     {
         private string _id;
         private int _mes;
@@ -154,10 +154,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object Clone()
-        {
-            throw new NotImplementedException();
-        }
         public object GetIdentifier()
         {
             return _id;

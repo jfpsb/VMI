@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Bonus : AModel, IModel, ICloneable
+    public class Bonus : AModel, IModel
     {
         private long _id;
         private FolhaPagamento _folha;
@@ -99,11 +99,6 @@ namespace VandaModaIntimaWpf.Model
         public string CouchDbId()
         {
             return Id.ToString();
-        }
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
     }
 }

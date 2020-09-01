@@ -1,4 +1,6 @@
-﻿namespace VandaModaIntimaWpf.BancoDeDados.Model
+﻿using VandaModaIntimaWpf.Model;
+
+namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
     public class CouchDbFornecedorLog : CouchDbLog
     {
@@ -10,6 +12,15 @@
         public CouchDbFornecedorLog()
         {
             Tipo = "fornecedor";
+        }
+        public override void AtribuiCampos(object o)
+        {
+            Fornecedor f = (Fornecedor)o;
+            Cnpj = f.Cnpj;
+            Nome = f.Nome;
+            Fantasia = f.Fantasia;
+            Email = f.Email;
+            Telefone = f.Telefone;
         }
         public override object Clone()
         {

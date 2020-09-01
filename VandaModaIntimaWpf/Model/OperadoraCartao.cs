@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class OperadoraCartao : AModel, ICloneable, IModel
+    public class OperadoraCartao : AModel, IModel
     {
         private string _nome;
         private IList<string> _identificadoresBanco = new List<string>();
@@ -59,10 +59,6 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
 
-        public virtual object Clone()
-        {
-            throw new NotImplementedException();
-        }
         public virtual object GetIdentifier()
         {
             return Nome;

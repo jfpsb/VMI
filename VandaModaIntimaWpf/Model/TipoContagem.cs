@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class TipoContagem : AModel, ICloneable, IModel
+    public class TipoContagem : AModel, IModel
     {
         private long _id;
         private string _nome;
@@ -56,11 +56,6 @@ namespace VandaModaIntimaWpf.Model
                 _nome = value;
                 OnPropertyChanged("Nome");
             }
-        }
-
-        public virtual object Clone()
-        {
-            throw new NotImplementedException();
         }
 
         public virtual object GetIdentifier()

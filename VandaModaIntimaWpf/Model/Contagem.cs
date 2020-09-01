@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Contagem : AModel, ICloneable, IModel
+    public class Contagem : AModel, IModel
     {
         private Loja _loja;
         private DateTime _data;
@@ -96,16 +96,6 @@ namespace VandaModaIntimaWpf.Model
                 _contagens = value;
                 OnPropertyChanged("Contagens");
             }
-        }
-
-        public virtual object Clone()
-        {
-            Contagem contagem = new Contagem();
-            contagem.Loja = Loja;
-            contagem.Data = Data;
-            contagem.TipoContagem = TipoContagem;
-            contagem.Finalizada = Finalizada;
-            return contagem;
         }
 
         public virtual object GetIdentifier()

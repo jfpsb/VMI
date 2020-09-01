@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Loja : AModel, ICloneable, IModel
+    public class Loja : AModel, IModel
     {
         private string _cnpj;
         private Loja _matriz;
@@ -134,21 +134,6 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public string GetContextMenuHeader => Nome;
-
-        public object Clone()
-        {
-            Loja loja = new Loja
-            {
-                Cnpj = Cnpj,
-                Nome = Nome,
-                Telefone = Telefone,
-                Endereco = Endereco,
-                InscricaoEstadual = InscricaoEstadual,
-                Matriz = Matriz
-            };
-
-            return loja;
-        }
 
         public object GetIdentifier()
         {

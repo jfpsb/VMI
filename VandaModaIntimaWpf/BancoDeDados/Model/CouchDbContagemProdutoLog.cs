@@ -12,6 +12,15 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "contagemproduto";
         }
+        public override void AtribuiCampos(object o)
+        {
+            ContagemProduto cp = (ContagemProduto)o;
+
+            MySqlId = cp.Id;
+            Contagem = cp.Contagem;
+            Produto = cp.Produto;
+            Quant = cp.Quant;
+        }
         public override object Clone()
         {
             CouchDbContagemProdutoLog log = new CouchDbContagemProdutoLog()

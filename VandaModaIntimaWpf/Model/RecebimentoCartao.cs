@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class RecebimentoCartao : AModel, ICloneable, IModel
+    public class RecebimentoCartao : AModel, IModel
     {
         private int _mes;
         private int _ano;
@@ -130,11 +130,6 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => $"{MesAno} - {Loja.Nome}";
-
-        public virtual object Clone()
-        {
-            throw new NotImplementedException();
-        }
 
         public virtual object GetIdentifier()
         {

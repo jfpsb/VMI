@@ -14,7 +14,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : class, IModel, ICloneable
+    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : class, IModel
     {
         protected ISession _session;
         protected DAO daoEntidade;
@@ -46,18 +46,18 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             _session = session;
             MessageBoxService = messageBoxService;
-            couchDbClient = new CouchDbClient();
+            couchDbClient = CouchDbClient.Instancia;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             SetStatusBarAguardando();
             AntesDeCriarDocumento += ExecutarAntesCriarDocumento;
             AposCriarDocumento += InserirNoBancoDeDados;
-            AposCriarDocumento += ConsultaUltimoLogNovamente;
+            AposCriarDocumento += GetUltimoLogAposCriarDoc;
             AposInserirBD += ResultadoInsercao;
             AposInserirBD += RedefinirTela;
             PropertyChanged += GetUltimoLog;
         }
 
-        private void ConsultaUltimoLogNovamente(AposCriarDocumentoEventArgs e)
+        private void GetUltimoLogAposCriarDoc(AposCriarDocumentoEventArgs e)
         {
             OnPropertyChanged("Entidade");
         }
@@ -166,7 +166,9 @@ namespace VandaModaIntimaWpf.ViewModel
             //Se foi inserido com sucesso
             if (e.CouchDbResponse.Ok)
             {
-                //TODO: adicionar em lista para enviar por MQTT
+                GlobalConfigs.Instancia.AddLogAEnviar(e.CouchDbLog.Id);
+                GlobalConfigs.Instancia.SalvarLogsAEnviarEmJson();
+                GlobalConfigs.Instancia.EnviarLogsMqtt();
             }
             else
             {

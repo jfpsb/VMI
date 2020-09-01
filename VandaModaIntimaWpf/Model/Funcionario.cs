@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Funcionario : AModel, ICloneable, IModel
+    public class Funcionario : AModel, IModel
     {
         private string _cpf;
         private Loja _loja;
@@ -104,11 +104,6 @@ namespace VandaModaIntimaWpf.Model
                 _folhaPagamentos = value;
                 OnPropertyChanged("FolhaPagamentos");
             }
-        }
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
 
         public object GetIdentifier()

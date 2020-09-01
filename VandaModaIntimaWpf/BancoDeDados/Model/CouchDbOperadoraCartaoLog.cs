@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
@@ -9,6 +10,12 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         public CouchDbOperadoraCartaoLog()
         {
             Tipo = "operadoracartao";
+        }
+        public override void AtribuiCampos(object o)
+        {
+            OperadoraCartao c = (OperadoraCartao)o;
+            Nome = c.Nome;
+            IdentificadoresBanco = new List<string>(c.IdentificadoresBanco);
         }
         public override object Clone()
         {

@@ -22,12 +22,12 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
 
         public virtual void AtribuiCampos(object o)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Atribui Campos Não Foi Implementado: " + GetType().Name);
         }
 
         public virtual object Clone()
         {
-            throw new NotImplementedException("Clone Não Foi Implementado");
+            throw new NotImplementedException("Clone Não Foi Implementado: " + GetType().Name);
         }
     }
 }

@@ -2,26 +2,31 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 using VandaModaIntimaWpf.BancoDeDados;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public class GlobalConfigs
+    public sealed class GlobalConfigs
     {
         private static readonly string CONFIGS_FILE_PATH = @"Config.xml";
-        private static readonly string DATABASELOG_FILE_PATH = @"DatabaseLog.json";
+        private static readonly string LOGSAENVIAR_FILE_PATH = @"LogsAEnviar.json";
         private static XmlDocument configsXml;
+        private static readonly Lazy<GlobalConfigs> lazyConfigs = new Lazy<GlobalConfigs>(() => new GlobalConfigs());
 
-        public static string CLIENT_ID;
-        public static List<int> DATABASELOG;
-        public GlobalConfigs()
+        public string CLIENT_ID;
+        private static Queue<string> LOGS_A_ENVIAR;
+
+        public static GlobalConfigs Instancia => lazyConfigs.Value;
+
+        private GlobalConfigs()
         {
             CarregaConfigsXml();
-            CarregaDatabaseLog();
+            CarregaLogsAEnviar();
         }
 
-        private static void CarregaConfigsXml()
+        private void CarregaConfigsXml()
         {
             configsXml = new XmlDocument();
 
@@ -43,21 +48,40 @@ namespace VandaModaIntimaWpf.ViewModel
             CLIENT_ID = clientIdNode.InnerText;
         }
 
-        private static void CarregaDatabaseLog()
+        private static void CarregaLogsAEnviar()
         {
-            //DATABASELOG = new List<DatabaseLog>();
-
-            //if (File.Exists(DATABASELOG_FILE_PATH))
-            //{
-            //    string DatabaseLogJson = File.ReadAllText(DATABASELOG_FILE_PATH);
-            //    DATABASELOG = JsonConvert.DeserializeObject<List<DatabaseLog>>(DatabaseLogJson);
-            //}
+            if (File.Exists(LOGSAENVIAR_FILE_PATH))
+            {
+                string logsAEnviarJson = File.ReadAllText(LOGSAENVIAR_FILE_PATH);
+                LOGS_A_ENVIAR = JsonConvert.DeserializeObject<Queue<string>>(logsAEnviarJson);
+            }
+            else
+            {
+                LOGS_A_ENVIAR = new Queue<string>();
+            }
         }
 
-        public static void SalvaDatabaseLog()
+        public void AddLogAEnviar(string id)
         {
-            string json = JsonConvert.SerializeObject(DATABASELOG, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(DATABASELOG_FILE_PATH, json);
+            LOGS_A_ENVIAR.Enqueue(id);
+        }
+
+        public void SalvarLogsAEnviarEmJson()
+        {
+            File.WriteAllText(LOGSAENVIAR_FILE_PATH, JsonConvert.SerializeObject(LOGS_A_ENVIAR));
+        }
+
+        public void EnviarLogsMqtt()
+        {
+            while (LOGS_A_ENVIAR.Count > 0)
+            {
+                string id = LOGS_A_ENVIAR.Peek();
+                var log = CouchDbClient.Instancia.FindById(id);
+                string logJson = JsonConvert.SerializeObject(log);
+                MqttClientWrapper.Instancia.Client.Publish($"{CLIENT_ID}/vandamodaintima/{log.Result.Tipo}/{log.Result.Id}", Encoding.UTF8.GetBytes(logJson));
+            }
+
+            SalvarLogsAEnviarEmJson();
         }
     }
 }

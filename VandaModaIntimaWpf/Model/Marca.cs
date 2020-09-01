@@ -6,7 +6,7 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Marca : AModel, ICloneable, IModel
+    public class Marca : AModel, IModel
     {
         private string _nome;
         private Fornecedor _fornecedor;
@@ -86,12 +86,6 @@ namespace VandaModaIntimaWpf.Model
                 _fornecedor = value;
                 OnPropertyChanged("Fornecedor");
             }
-        }
-
-        public virtual object Clone()
-        {
-            Marca m = new Marca { Nome = Nome };
-            return m;
         }
 
         public virtual string[] GetColunas()

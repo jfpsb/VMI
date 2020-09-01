@@ -10,6 +10,12 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "marca";
         }
+        public override void AtribuiCampos(object o)
+        {
+            Marca m = (Marca)o;
+            Nome = m.Nome;
+            Fornecedor = m.Fornecedor;
+        }
         public override object Clone()
         {
             CouchDbMarcaLog log = new CouchDbMarcaLog()

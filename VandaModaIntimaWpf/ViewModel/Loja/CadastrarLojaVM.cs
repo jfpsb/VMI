@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         }
         protected override void ExecutarAntesCriarDocumento()
         {
-            if (Entidade.Matriz.Cnpj == null)
+            if (Entidade.Matriz?.Cnpj == null)
                 Entidade.Matriz = null;
         }
 

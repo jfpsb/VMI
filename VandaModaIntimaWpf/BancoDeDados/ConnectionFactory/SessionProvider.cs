@@ -1,13 +1,15 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Context;
 using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {
     /// <summary>
     /// Classe estática responsável pelas Sessions necessárias para o uso de banco de dados com NHibernate.
     /// </summary>
-    public static class RemoteSessionProvider
+    public static class SessionProvider
     {
         /// <summary>
         /// Variável que guardará a configuração necessária contida em hibernate.cfg.xml.
@@ -26,7 +28,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         public static ISessionFactory BuildSessionFactory()
         {
             MainConfiguration = new Configuration();
-            MainConfiguration.Configure("hibernateRemoto.cfg.xml");
+            MainConfiguration.Configure("hibernateLocal.cfg.xml");
             return MainConfiguration.BuildSessionFactory();
         }
 
@@ -37,7 +39,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                 MainSessionFactory = BuildSessionFactory();
             }
 
-            ISession _session = MainSessionFactory.WithOptions().Interceptor(new LocalInterceptor()).OpenSession();
+            ISession _session = MainSessionFactory.OpenSession();
 
             return _session;
         }

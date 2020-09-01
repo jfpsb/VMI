@@ -18,6 +18,19 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "folhapagamento";
         }
+        public override void AtribuiCampos(object o)
+        {
+            FolhaPagamento fp = (FolhaPagamento)o;
+            MySqlId = fp.Id;
+            Mes = fp.Mes;
+            Ano = fp.Ano;
+            Funcionario = fp.Funcionario;
+            Valor = fp.Valor;
+            ValorAPagar = fp.ValorAPagar;
+            Fechada = fp.Fechada;
+            Parcelas = new List<Parcela>(fp.Parcelas);
+            Bonus = new List<Bonus>(fp.Bonus);
+        }
         public override object Clone()
         {
             CouchDbFolhaPagamentoLog log = new CouchDbFolhaPagamentoLog()

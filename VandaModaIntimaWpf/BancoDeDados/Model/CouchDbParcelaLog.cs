@@ -14,6 +14,16 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "parcela";
         }
+        public override void AtribuiCampos(object o)
+        {
+            Parcela p = (Parcela)o;
+            MySqlId = p.Id;
+            Adiantamento = p.Adiantamento;
+            Folhapagamento = p.FolhaPagamento;
+            Numero = p.Numero;
+            Valor = p.Valor;
+            Paga = p.Paga;
+        }
         public override object Clone()
         {
             CouchDbParcelaLog log = new CouchDbParcelaLog()

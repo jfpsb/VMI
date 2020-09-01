@@ -15,6 +15,17 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "recebimentocartao";
         }
+        public override void AtribuiCampos(object o)
+        {
+            RecebimentoCartao r = (RecebimentoCartao)o;
+            Mes = r.Mes;
+            Ano = r.Ano;
+            Loja = r.Loja;
+            OperadoraCartao = r.OperadoraCartao;
+            Recebido = r.Recebido;
+            ValorOperadora = r.ValorOperadora;
+            Observacao = r.Observacao;
+        }
         public override object Clone()
         {
             CouchDbRecebimentoCartaoLog log = new CouchDbRecebimentoCartaoLog()

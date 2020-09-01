@@ -247,9 +247,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BancoDeDados\ConnectionFactory\LocalInterceptor.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\RemoteSessionProvider.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\LocalSessionProvider.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="BancoDeDados\CouchDbBulkDocs.cs" />
     <Compile Include="BancoDeDados\CouchDbClient.cs" />
     <Compile Include="BancoDeDados\CouchDbCredentials.cs" />
@@ -364,7 +362,7 @@
     <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\MqttClientInit.cs" />
+    <Compile Include="ViewModel\MqttClientWrapper.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />
@@ -382,9 +380,11 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\APesquisarProdutoVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IAPesquisarVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />

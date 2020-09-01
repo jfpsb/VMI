@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Adiantamento : AModel, ICloneable, IModel
+    public class Adiantamento : AModel, IModel
     {
         private long _id;
         private Funcionario _funcionario;
@@ -83,11 +83,6 @@ namespace VandaModaIntimaWpf.Model
                 };
                 return dic;
             }
-        }
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
 
         public object GetIdentifier()

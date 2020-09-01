@@ -15,6 +15,17 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         {
             Tipo = "loja";
         }
+        public override void AtribuiCampos(object o)
+        {
+            Loja l = (Loja)o;
+            Cnpj = l.Cnpj;
+            Matriz = l.Matriz;
+            Nome = l.Nome;
+            Telefone = l.Telefone;
+            Endereco = l.Endereco;
+            Inscricaoestadual = l.Endereco;
+            Aluguel = l.Aluguel;
+        }
         public override object Clone()
         {
             CouchDbLojaLog log = new CouchDbLojaLog()

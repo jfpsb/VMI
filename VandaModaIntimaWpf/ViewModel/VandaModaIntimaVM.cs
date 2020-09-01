@@ -26,10 +26,8 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbreTelaPesquisaService = abreTelaPesquisaService;
 
-            GlobalConfigs global = new GlobalConfigs();
-
             //Autenticando CouchDB
-            CouchDbClient.GetAuthenticationCookie();
+            CouchDbClient.Instancia.GetAuthenticationCookie();
 
             //MqttClientInit mqttClientInit = new MqttClientInit();
 
