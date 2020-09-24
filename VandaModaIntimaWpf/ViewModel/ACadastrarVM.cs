@@ -166,9 +166,12 @@ namespace VandaModaIntimaWpf.ViewModel
             //Se foi inserido com sucesso
             if (e.CouchDbResponse.Ok)
             {
-                GlobalConfigs.Instancia.AddLogAEnviar(e.CouchDbLog.Id);
-                GlobalConfigs.Instancia.SalvarLogsAEnviarEmJson();
-                GlobalConfigs.Instancia.EnviarLogsMqtt();
+                if (e.CouchDbLog != null)
+                {
+                    GlobalConfigs.Instancia.AddLogAEnviar(e.CouchDbLog.Id);
+                    GlobalConfigs.Instancia.SalvarLogsAEnviarEmJson();
+                    GlobalConfigs.Instancia.EnviarLogsMqtt();
+                }
             }
             else
             {

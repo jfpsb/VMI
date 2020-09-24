@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -114,12 +115,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
         public override int GetMaxId()
         {
-            var criteria = CriarCriteria<Produto>();
-
-            criteria.SetProjection(Projections.ProjectionList()
-                .Add(Projections.Max(Projections.Cast(NHibernateUtil.Int32, Projections.Property("CodBarra")))));
-
-            return int.Parse(criteria.UniqueResult().ToString());
+            throw new NotImplementedException();
         }
     }
 }

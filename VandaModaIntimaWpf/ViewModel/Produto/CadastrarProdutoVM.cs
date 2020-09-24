@@ -37,8 +37,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
             CodigosFornecedor = new ObservableCollection<string>();
-
-            AtribuiNovoCodBarra();
         }
         private bool ValidaCodigoFornecedor(object arg)
         {
@@ -81,13 +79,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Entidade.Preco = 0;
             Entidade.Fornecedor = Fornecedores[0];
             Entidade.Marca = Marcas[0];
-
-            AtribuiNovoCodBarra();
-        }
-        private void AtribuiNovoCodBarra()
-        {
-            int novoCodBarra = daoEntidade.GetMaxId();
-            Entidade.CodBarra = (novoCodBarra + 1).ToString();
         }
         public string CodigoFornecedor
         {

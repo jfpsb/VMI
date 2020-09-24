@@ -44,6 +44,8 @@
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
 
+                    <MenuItem Header="Imprimir" Click="MenuItem_Click"></MenuItem>
+
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>

@@ -3,7 +3,6 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
