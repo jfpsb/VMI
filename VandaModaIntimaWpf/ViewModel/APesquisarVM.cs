@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
         private IMessageBoxService MessageBoxService;
-        private IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
+        protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
 
         protected CouchDbClient couchDbClient;
         protected DAO daoEntidade;
@@ -47,6 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public event AposDeletarDocumentoEventHandler AposDeletarDocumento;
         public event AposDeletarDoBDEventHandler AposDeletarDoBD;
         public ICommand AbrirCadastrarComando { get; set; }
+        public ICommand AbrirImprimirComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
         public ICommand AbrirEditarComando { get; set; }
         public ICommand AbrirAjudaComando { get; set; }
@@ -62,6 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrePelaTelaPesquisaService = abrePelaTelaPesquisaService;
 
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
+            AbrirImprimirComando = new RelayCommand(AbrirImprimir);
             AbrirApagarComando = new RelayCommand(AbrirApagarMsgBox);
             AbrirEditarComando = new RelayCommand(AbrirEditar, Editavel);
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados);
@@ -84,6 +86,10 @@ namespace VandaModaIntimaWpf.ViewModel
         }
 
         public abstract void PesquisaItens(string termo);
+        public void AbrirImprimir(object parameter)
+        {
+            AbrePelaTelaPesquisaService.AbrirImprimir(EntidadeComCampo<E>.ConverterIList(Entidades));
+        }
         public abstract bool Editavel(object parameter);
         protected virtual void ChamaAposDeletarDocumento(AposDeletarDocumentoEventArgs e)
         {

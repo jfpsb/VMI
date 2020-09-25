@@ -42,9 +42,9 @@
                                   Command="{Binding ExportarExcelComando}" />
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
+                        <MenuItem Header="Imprimir"
+                                  Command="{Binding AbrirImprimirComando}" />
                     </MenuItem>
-
-                    <MenuItem Header="Imprimir" Click="MenuItem_Click"></MenuItem>
 
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">

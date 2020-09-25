@@ -1,9 +1,6 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -33,6 +30,11 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         }
 
         public void AbrirExportarSQL(IList<Model.Marca> entidades)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AbrirImprimir(IList<Model.Marca> lista)
         {
             throw new NotImplementedException();
         }

@@ -45,5 +45,11 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             ExportarSQL importarExportarSQL = new ExportarSQL(new ExportarSQLProduto());
             importarExportarSQL.ShowDialog();
         }
+
+        public void AbrirImprimir(IList<Model.Produto> lista)
+        {
+            TelaRelatorioProduto telaRelatorioProduto = new TelaRelatorioProduto(lista);
+            telaRelatorioProduto.Show();
+        }
     }
 }

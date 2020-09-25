@@ -38,5 +38,10 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             ExportarSQL importarExportarSQL = new ExportarSQL(new ExportarSQLFornecedor());
             importarExportarSQL.ShowDialog();
         }
+
+        public void AbrirImprimir(IList<Model.Fornecedor> lista)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

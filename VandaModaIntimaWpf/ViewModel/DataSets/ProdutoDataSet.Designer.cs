@@ -30,6 +30,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         private MarcaDataTable tableMarca;
         
+        private global::System.Data.DataRelation relationProduto_Fornecedor;
+        
+        private global::System.Data.DataRelation relationProduto_Marca;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -242,6 +246,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                     this.tableMarca.InitVars();
                 }
             }
+            this.relationProduto_Fornecedor = this.Relations["Produto_Fornecedor"];
+            this.relationProduto_Marca = this.Relations["Produto_Marca"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -258,21 +264,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             base.Tables.Add(this.tableFornecedor);
             this.tableMarca = new MarcaDataTable();
             base.Tables.Add(this.tableMarca);
-            global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_Produto_Fornecedor", new global::System.Data.DataColumn[] {
+            this.relationProduto_Fornecedor = new global::System.Data.DataRelation("Produto_Fornecedor", new global::System.Data.DataColumn[] {
                         this.tableProduto.fornecedorColumn}, new global::System.Data.DataColumn[] {
-                        this.tableFornecedor.cnpjColumn});
-            this.tableFornecedor.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.None;
-            fkc.UpdateRule = global::System.Data.Rule.None;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_Produto_Marca", new global::System.Data.DataColumn[] {
+                        this.tableFornecedor.cnpjColumn}, false);
+            this.Relations.Add(this.relationProduto_Fornecedor);
+            this.relationProduto_Marca = new global::System.Data.DataRelation("Produto_Marca", new global::System.Data.DataColumn[] {
                         this.tableProduto.marcaColumn}, new global::System.Data.DataColumn[] {
-                        this.tableMarca.nomeColumn});
-            this.tableMarca.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.None;
-            fkc.UpdateRule = global::System.Data.Rule.None;
+                        this.tableMarca.nomeColumn}, false);
+            this.Relations.Add(this.relationProduto_Marca);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -557,14 +556,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnmarca);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("cod_barra", new global::System.Data.DataColumn[] {
                                 this.columncod_barra}, true));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnfornecedor}, false));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
-                                this.columnmarca}, false));
                 this.columncod_barra.AllowDBNull = false;
                 this.columncod_barra.Unique = true;
-                this.columnfornecedor.Unique = true;
-                this.columnmarca.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -788,11 +781,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FornecedorRow AddFornecedorRow(string cnpj, string nome) {
+            public FornecedorRow AddFornecedorRow(ProdutoRow parentProdutoRowByProduto_Fornecedor, string nome) {
                 FornecedorRow rowFornecedorRow = ((FornecedorRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        cnpj,
+                        null,
                         nome};
+                if ((parentProdutoRowByProduto_Fornecedor != null)) {
+                    columnValuesArray[0] = parentProdutoRowByProduto_Fornecedor[4];
+                }
                 rowFornecedorRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFornecedorRow);
                 return rowFornecedorRow;
@@ -1050,10 +1046,13 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public MarcaRow AddMarcaRow(string nome) {
+            public MarcaRow AddMarcaRow(ProdutoRow parentProdutoRowByProduto_Marca) {
                 MarcaRow rowMarcaRow = ((MarcaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        nome};
+                        null};
+                if ((parentProdutoRowByProduto_Marca != null)) {
+                    columnValuesArray[0] = parentProdutoRowByProduto_Marca[5];
+                }
                 rowMarcaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMarcaRow);
                 return rowMarcaRow;
@@ -1385,6 +1384,28 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public void SetmarcaNull() {
                 this[this.tableProduto.marcaColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public FornecedorRow[] GetFornecedorRows() {
+                if ((this.Table.ChildRelations["Produto_Fornecedor"] == null)) {
+                    return new FornecedorRow[0];
+                }
+                else {
+                    return ((FornecedorRow[])(base.GetChildRows(this.Table.ChildRelations["Produto_Fornecedor"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public MarcaRow[] GetMarcaRows() {
+                if ((this.Table.ChildRelations["Produto_Marca"] == null)) {
+                    return new MarcaRow[0];
+                }
+                else {
+                    return ((MarcaRow[])(base.GetChildRows(this.Table.ChildRelations["Produto_Marca"])));
+                }
+            }
         }
         
         /// <summary>
@@ -1430,6 +1451,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProdutoRow ProdutoRow {
+                get {
+                    return ((ProdutoRow)(this.GetParentRow(this.Table.ParentRelations["Produto_Fornecedor"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Produto_Fornecedor"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsnomeNull() {
                 return this.IsNull(this.tableFornecedor.nomeColumn);
             }
@@ -1463,6 +1495,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 }
                 set {
                     this[this.tableMarca.nomeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProdutoRow ProdutoRow {
+                get {
+                    return ((ProdutoRow)(this.GetParentRow(this.Table.ParentRelations["Produto_Marca"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["Produto_Marca"]);
                 }
             }
         }

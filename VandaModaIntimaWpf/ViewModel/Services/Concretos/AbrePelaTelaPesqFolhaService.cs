@@ -26,5 +26,10 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         {
             throw new NotImplementedException();
         }
+
+        public void AbrirImprimir(IList<Model.FolhaPagamento> lista)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

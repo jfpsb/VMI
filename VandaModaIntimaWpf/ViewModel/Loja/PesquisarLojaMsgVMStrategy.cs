@@ -1,9 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
-using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.View.Loja;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
+﻿using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja

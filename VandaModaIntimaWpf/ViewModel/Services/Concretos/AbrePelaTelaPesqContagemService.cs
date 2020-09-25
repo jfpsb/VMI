@@ -42,5 +42,10 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         {
             throw new NotImplementedException();
         }
+
+        public void AbrirImprimir(IList<Model.Contagem> lista)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

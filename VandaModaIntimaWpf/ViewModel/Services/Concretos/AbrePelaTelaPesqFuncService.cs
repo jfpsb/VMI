@@ -1,9 +1,6 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -38,6 +35,11 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         }
 
         public void AbrirExportarSQL(IList<Model.Funcionario> entidades)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AbrirImprimir(IList<Model.Funcionario> lista)
         {
             throw new NotImplementedException();
         }

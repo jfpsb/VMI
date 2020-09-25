@@ -1,9 +1,6 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.View.OperadoraCartao;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
@@ -43,6 +40,11 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             //TODO: implementar ViewModel
             CadastrarOperadoraCartao cadastrarOperadoraCartao = new CadastrarOperadoraCartao();
             cadastrarOperadoraCartao.ShowDialog();
+        }
+
+        public void AbrirImprimir(IList<Model.RecebimentoCartao> lista)
+        {
+            throw new NotImplementedException();
         }
     }
 }
