@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+  <class name="ProdutoGrade" table="produto_grade" lazy="false">
+    <id name="CodBarra" column="cod_barra" />
+    <many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" />
+    <property name="Preco" column="preco" />
+    <bag name="SubGrades" table="sub_grade" inverse="false" cascade="all-delete-orphan">
+      <key column="produto" />        
+      <one-to-many class="VandaModaIntimaWpf.Model.SubGrade"/>
+    </bag>
+  </class>
+
+</hibernate-mapping>

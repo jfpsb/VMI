@@ -17,7 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public EditarProdutoVM(ISession session, ProdutoModel produto, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             Entidade = produto;
-            CodigosFornecedor = new ObservableCollection<string>(Entidade.Codigos);
         }
         protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {

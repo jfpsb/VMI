@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -15,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _descricao;
         private double _preco;
         private string _ncm;
-        private IList<string> _codigos = new List<string>();
+        private IList<ProdutoGrade> _grades = new List<ProdutoGrade>();
         public enum Colunas
         {
             CodBarra = 1,
@@ -24,7 +23,6 @@ namespace VandaModaIntimaWpf.Model
             Fornecedor = 4,
             Marca = 5,
             Ncm = 6,
-            CodBarraFornecedor = 7
         }
 
         [JsonIgnore]
@@ -104,16 +102,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual IList<string> Codigos
-        {
-            get => _codigos;
-            set
-            {
-                _codigos = value;
-                OnPropertyChanged("Codigos");
-            }
-        }
-
         [JsonIgnore]
         public virtual string FornecedorNome
         {
@@ -156,9 +144,23 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
 
+        public IList<ProdutoGrade> Grades
+        {
+            get
+            {
+                return _grades;
+            }
+
+            set
+            {
+                _grades = value;
+                OnPropertyChanged("Grades");
+            }
+        }
+
         public virtual string[] GetColunas()
         {
-            return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM", "Cód. De Barras de Fornecedor" };
+            return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };
         }
 
         public virtual object GetIdentifier()
@@ -173,19 +175,18 @@ namespace VandaModaIntimaWpf.Model
 
         public void InicializaLazyLoad()
         {
-            if (!NHibernateUtil.IsInitialized(Codigos))
+            if (!NHibernateUtil.IsInitialized(Grades))
             {
-                NHibernateUtil.Initialize(Codigos);
+                NHibernateUtil.Initialize(Grades);
             }
-
             if (!NHibernateUtil.IsInitialized(Fornecedor))
             {
-                NHibernateUtil.Initialize(Codigos);
+                NHibernateUtil.Initialize(Fornecedor);
             }
 
             if (!NHibernateUtil.IsInitialized(Marca))
             {
-                NHibernateUtil.Initialize(Codigos);
+                NHibernateUtil.Initialize(Marca);
             }
         }
     }

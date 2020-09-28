@@ -12,7 +12,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         public string Descricao { get; set; }
         public double Preco { get; set; }
         public string Ncm { get; set; }
-        public List<string> Codigos { get; set; } = new List<string>();
         public CouchDbProdutoLog()
         {
             Tipo = "produto";
@@ -27,7 +26,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Descricao = p.Descricao;
             Preco = p.Preco;
             Ncm = p.Ncm;
-            Codigos = p.Codigos.ToList();
         }
 
         public override object Clone()
@@ -44,8 +42,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
                 Marca = Marca,
                 Descricao = Descricao,
                 Preco = Preco,
-                Ncm = Ncm,
-                Codigos = new List<string>(Codigos)
+                Ncm = Ncm
             };
 
             return log;

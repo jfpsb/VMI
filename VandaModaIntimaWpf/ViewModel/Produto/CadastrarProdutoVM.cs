@@ -21,7 +21,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
-        public ObservableCollection<string> CodigosFornecedor { get; set; }
         public ICommand InserirCodigoComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
@@ -32,28 +31,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Entidade = new ProdutoModel();
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
-            InserirCodigoComando = new RelayCommand(InserirCodigo, ValidaCodigoFornecedor);
 
             GetFornecedores();
             GetMarcas();
-            CodigosFornecedor = new ObservableCollection<string>();
-        }
-        private bool ValidaCodigoFornecedor(object arg)
-        {
-            return CodigoFornecedor != null && !(CodigoFornecedor.Length == 0);
-        }
-        private void InserirCodigo(object obj)
-        {
-            if (!CodigosFornecedor.Contains(CodigoFornecedor))
-            {
-                CodigosFornecedor.Add(CodigoFornecedor);
-                CodigoFornecedor = string.Empty;
-                SetStatusBarAguardando();
-            }
-            else
-            {
-                SetStatusBarErro("Código Já Está Inserido");
-            }
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -131,8 +111,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             if (Entidade.Marca != null && Entidade.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
                 Entidade.Marca = null;
-
-            Entidade.Codigos = CodigosFornecedor;
         }
 
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

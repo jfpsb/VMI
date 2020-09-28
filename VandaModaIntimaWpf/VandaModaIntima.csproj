@@ -303,9 +303,11 @@
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\Duplicata.cs" />
+    <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Funcionario.cs" />
+    <Compile Include="Model\Grade.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
@@ -315,8 +317,11 @@
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Parcela.cs" />
     <Compile Include="Model\Produto.cs" />
+    <Compile Include="Model\ProdutoGrade.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
+    <Compile Include="Model\SubGrade.cs" />
     <Compile Include="Model\TipoContagem.cs" />
+    <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
@@ -726,12 +731,6 @@
     <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VMIMqttBroker\VMIMqttBroker.csproj">
-      <Project>{5fdb2820-977b-417d-b9a0-b7e939c0c271}</Project>
-      <Name>VMIMqttBroker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="hibernateRemoto.cfg.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -739,6 +738,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\TipoGrade.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Grade.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ProdutoGrade.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\SubGrade.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

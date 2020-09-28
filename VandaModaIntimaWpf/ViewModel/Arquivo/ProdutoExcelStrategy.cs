@@ -38,21 +38,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 if (!string.IsNullOrEmpty(lista[i].Ncm))
                     Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
-
-                if (lista[i].Codigos.Count > 0)
-                {
-                    string codigos = "";
-
-                    foreach (string codigo in lista[i].Codigos)
-                    {
-                        codigos += $"{codigo},";
-                    }
-
-                    // Remove vírgula no final da string
-                    codigos = codigos.Remove(codigos.Length - 1);
-
-                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarraFornecedor] = codigos;
-                }
             }
         }
 
@@ -86,7 +71,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 var fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
                 var marca = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
                 var ncm = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm]).Value;
-                var cod_barra_fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarraFornecedor]).Value;
 
                 if (cod_barra == null || descricao == null || preco == null)
                 {
@@ -106,16 +90,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 if (!string.IsNullOrEmpty(ncm) && !ncm.ToString().Equals("NÃO POSSUI"))
                     produto.Ncm = ncm.ToString();
 
-                if (!string.IsNullOrEmpty(cod_barra_fornecedor))
-                {
-                    string[] codigos = cod_barra_fornecedor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    foreach (string s in codigos)
-                    {
-                        produto.Codigos.Add(s);
-                    }
-                }
-
                 produtos.Add(produto);
             }
 
@@ -124,8 +98,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         public void ConfiguraColunas(Worksheet Worksheet)
         {
             Worksheet.Range["A1", "F1"].EntireColumn.AutoFit();
-            Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].ColumnWidth = 100;
-            Worksheet.Columns[ProdutoModel.Colunas.CodBarraFornecedor].EntireColumn.WrapText = true;
         }
     }
 }

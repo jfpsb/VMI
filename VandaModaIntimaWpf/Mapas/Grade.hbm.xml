@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+  <class name="Grade" table="grade" lazy="false">
+    <id name="Id" column="id" />
+    <many-to-one name="TipoGrade" class="VandaModaIntimaWpf.Model.TipoGrade" column="tipo" />
+    <property name="Nome" column="nome" />
+  </class>
+
+</hibernate-mapping>
