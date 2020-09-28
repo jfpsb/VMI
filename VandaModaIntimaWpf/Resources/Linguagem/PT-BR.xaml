@@ -51,7 +51,7 @@
     <System:String x:Key="apagar_lojas_marcadas">Apagar Lojas Marcadas</System:String>
     <System:String x:Key="marca_ja_existe_sistema">Esta Marca Já Existe No Sistema</System:String>
     <System:String x:Key="apagar_marcas_marcadas">Apagar Marcas Marcadas</System:String>
-    <System:String x:Key="codigo_de_barras_dois_pontos">Código de Barra:</System:String>
+    <System:String x:Key="codigo_de_barras_dois_pontos">Código de Barras:</System:String>
     <System:String x:Key="ncm_dois_pontos">NCM:</System:String>
     <System:String x:Key="fornecedor_dois_pontos">Fornecedor:</System:String>
     <System:String x:Key="fornecedor_header">Fornecedor</System:String>

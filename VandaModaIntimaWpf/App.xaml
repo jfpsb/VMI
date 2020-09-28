@@ -54,6 +54,12 @@
                         Value="CadetBlue" />
             </Style>
 
+            <Style TargetType="TabControl"
+                   BasedOn="{StaticResource Fonte}">
+                <Setter Property="FontSize"
+                        Value="16" />
+            </Style>
+
             <Style x:Key="BotaoCadastrar"
                    TargetType="Button"
                    BasedOn="{StaticResource Fonte}">

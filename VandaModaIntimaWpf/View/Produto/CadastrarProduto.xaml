@@ -6,8 +6,8 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
         mc:Ignorable="d"
         Title="Cadastrar Produto"
-        Height="550"
-        Width="500"
+        Height="750"
+        Width="610"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -35,101 +35,172 @@
                        Content="{Binding MensagemStatusBar}" />
             </StatusBarItem>
         </StatusBar>
-        <Grid Margin="15,15,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="15" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   Content="{DynamicResource produto_ja_existe_sistema}"
-                   HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red" />
-            <Label Grid.Row="2"
-                   Content="{DynamicResource descricao_dois_pontos}" />
-            <TextBox x:Name="TxtDescricao"
-                     Grid.Column="1"
-                     Grid.Row="2"
-                     Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="100"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="3"
-                   Content="{DynamicResource preco_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="3"
-                     Text="{Binding Entidade.Preco, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4"
-                   Content="{DynamicResource ncm_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="4"
-                     Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}"
-                     MaxLength="8" />
-            <Label Grid.Row="5"
-                   Content="{DynamicResource fornecedor_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="5"
-                      ItemsSource="{Binding Fornecedores}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
-                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="6"
-                   Content="{DynamicResource marca_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="6"
-                      ItemsSource="{Binding Marcas}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
-                      IsEnabled="{Binding IsEnabled}" />
-            <DataGrid x:Name="CodigoFornecedorDataGrid"
-                      Grid.Row="7"
-                      Grid.ColumnSpan="2"
-                      Width="350"
-                      CanUserAddRows="True"
-                      CanUserDeleteRows="True"
-                      ItemsSource="{Binding CodigosFornecedor}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Códigos de Barras de Fornecedor"
-                                        Binding="{Binding}"
-                                        Width="*" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Grid.Row="8"
-                        Grid.ColumnSpan="2"
-                        Orientation="Horizontal"
-                        Width="350">
-                <TextBox Width="220"
-                         Text="{Binding CodigoFornecedor, UpdateSourceTrigger=PropertyChanged}" />
-                <Button HorizontalAlignment="Right"
-                        Command="{Binding InserirCodigoComando}"
-                        Click="Button_Click_1">
-                    Inserir Código
-                </Button>
-            </StackPanel>
-            <Button Grid.Row="9"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource cadastrar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Click="Button_Click" />
-        </Grid>
+        <TabControl>
+            <TabItem Header="Dados de Produto">
+                <Grid Margin="15,15,15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
+                             MaxLength="15" />
+                    <Label Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Content="{DynamicResource produto_ja_existe_sistema}"
+                           HorizontalAlignment="Right"
+                           Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+                           Foreground="Red" />
+                    <Label Grid.Row="2"
+                           Content="{DynamicResource descricao_dois_pontos}" />
+                    <TextBox x:Name="TxtDescricao"
+                             Grid.Column="1"
+                             Grid.Row="2"
+                             Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}"
+                             MaxLength="100"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="3"
+                           Content="{DynamicResource preco_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="3"
+                             Text="{Binding Entidade.Preco, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="4"
+                           Content="{DynamicResource ncm_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="4"
+                             Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}"
+                             MaxLength="8" />
+                    <Label Grid.Row="5"
+                           Content="{DynamicResource fornecedor_dois_pontos}" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="5"
+                              ItemsSource="{Binding Fornecedores}"
+                              DisplayMemberPath="Nome"
+                              SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
+                              IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="6"
+                           Content="{DynamicResource marca_dois_pontos}" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="6"
+                              ItemsSource="{Binding Marcas}"
+                              DisplayMemberPath="Nome"
+                              SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
+                              IsEnabled="{Binding IsEnabled}" />
+                    <Button Grid.Row="9"
+                            Width="Auto"
+                            Padding="15"
+                            Margin="1"
+                            FontSize="24"
+                            Grid.ColumnSpan="2"
+                            VerticalAlignment="Bottom"
+                            Content="{DynamicResource cadastrar}"
+                            Command="{Binding SalvarComando}"
+                            Click="Button_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Grades">
+                <Grid Margin="15,15,15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1.5*" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.ColumnSpan="2" />
+                    <Label Grid.Row="1"
+                           Content="{DynamicResource preco_dois_pontos}" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="2" />
+                    <Label Grid.Row="3"
+                           Content="Tipo de Grade:" />
+                    <ComboBox Grid.Row="3"
+                              Grid.Column="1" />
+                    <Button Grid.Column="3"
+                            Grid.Row="3"
+                            Width="28"
+                            ToolTip="Inserir Novo Tipo de Grade">
+                        <Image Source="/Resources/Grade_Icon.ico" />
+                    </Button>
+                    <Label Grid.Row="4"
+                           Content="Grade:" />
+                    <ComboBox Grid.Row="4"
+                              Grid.Column="1" />
+                    <Button Grid.Column="3"
+                            Grid.Row="4"
+                            Width="28"
+                            ToolTip="Inserir Nova Grade">
+                        <Image Source="/Resources/Grade_Icon.ico" />
+                    </Button>
+                    <Button Content="Inserir Em Formação de Grade"
+                            Grid.Row="5"
+                            Foreground="Red"
+                            Width="Auto"
+                            Padding="10" />
+                    <Button Content="Inserir Formação Atual em Grade"
+                            FontWeight="Bold"
+                            Grid.Row="5"
+                            Foreground="Green"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Width="Auto"
+                            Padding="10" />
+                    <Label Grid.Row="6"
+                           FontSize="16"
+                           Foreground="Red"
+                           Content="Formação da Grade:"
+                           FontWeight="Bold" />
+                    <DataGrid Grid.Row="7"
+                              Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tipo"
+                                                Width="*" />
+                            <DataGridTextColumn Header="Nome"
+                                                Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="8"
+                           FontSize="18"
+                           Foreground="Green"
+                           Content="Grades do Produto:"
+                           FontWeight="Bold" />
+                    <DataGrid Grid.Row="9"
+                              Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource cod_barra_header}" />
+                            <DataGridTextColumn Header="{DynamicResource preco_header}" />
+                            <DataGridTextColumn Header="Descrição da Grade" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>

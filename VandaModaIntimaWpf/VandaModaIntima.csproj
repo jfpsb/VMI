@@ -751,5 +751,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapas\SubGrade.hbm.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Grade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Grade_Icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -38,6 +38,25 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public string SubGradesToString
+        {
+            get
+            {
+                string str = "";
+
+                for (int i = 0; i < SubGrades.Count; i++)
+                {
+                    str += $"{SubGrades[i].Grade.Nome}";
+                    if ((i + 1) != SubGrades.Count)
+                    {
+                        str += " - ";
+                    }
+                }
+
+                return str;
+            }
+        }
+
         public string CodBarra
         {
             get
