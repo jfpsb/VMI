@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Cadastrar Produto"
         Height="750"
-        Width="610"
+        Width="625"
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -53,7 +53,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
+                    <Label Content="Código:" />
                     <TextBox Grid.Column="1"
                              Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="15" />
@@ -133,16 +133,21 @@
                     </Grid.RowDefinitions>
                     <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
                     <TextBox Grid.Column="1"
-                             Grid.ColumnSpan="2" />
+                             Grid.ColumnSpan="2"
+                             Text="{Binding ProdutoGrade.CodBarra, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Grid.Row="1"
                            Content="{DynamicResource preco_dois_pontos}" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
-                             Grid.ColumnSpan="2" />
+                             Grid.ColumnSpan="2"
+                             Text="{Binding ProdutoGrade.Preco, UpdateSourceTrigger=PropertyChanged}" />
                     <Label Grid.Row="3"
                            Content="Tipo de Grade:" />
                     <ComboBox Grid.Row="3"
-                              Grid.Column="1" />
+                              Grid.Column="1"
+                              ItemsSource="{Binding TiposGrade}"
+                              SelectedItem="{Binding TipoGrade, Mode=TwoWay}"
+                              DisplayMemberPath="Nome" />
                     <Button Grid.Column="3"
                             Grid.Row="3"
                             Width="28"
@@ -152,7 +157,10 @@
                     <Label Grid.Row="4"
                            Content="Grade:" />
                     <ComboBox Grid.Row="4"
-                              Grid.Column="1" />
+                              Grid.Column="1"
+                              ItemsSource="{Binding Grades}"
+                              SelectedItem="{Binding SubGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="Nome" />
                     <Button Grid.Column="3"
                             Grid.Row="4"
                             Width="28"
@@ -163,7 +171,8 @@
                             Grid.Row="5"
                             Foreground="Red"
                             Width="Auto"
-                            Padding="10" />
+                            Padding="10"
+                            Command="{Binding InserirFormacaoGradeComando}" />
                     <Button Content="Inserir Formação Atual em Grade"
                             FontWeight="Bold"
                             Grid.Row="5"
@@ -178,12 +187,16 @@
                            Content="Formação da Grade:"
                            FontWeight="Bold" />
                     <DataGrid Grid.Row="7"
-                              Grid.ColumnSpan="3">
+                              Grid.ColumnSpan="3"
+                              CanUserAddRows="False"
+                              ItemsSource="{Binding SubGrades, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tipo"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding TipoGrade.Nome}"/>
                             <DataGridTextColumn Header="Nome"
-                                                Width="*" />
+                                                Width="*"
+                                                Binding="{Binding Nome}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Grid.Row="8"
@@ -196,7 +209,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource cod_barra_header}" />
                             <DataGridTextColumn Header="{DynamicResource preco_header}" />
-                            <DataGridTextColumn Header="Descrição da Grade" Width="*" />
+                            <DataGridTextColumn Header="Descrição da Grade"
+                                                Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

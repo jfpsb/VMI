@@ -294,14 +294,17 @@
     <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
     <Compile Include="Model\DAO\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\DAOFuncionario.cs" />
+    <Compile Include="Model\DAO\DAOGrade.cs" />
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAO.cs" />
     <Compile Include="Model\DAO\DAOOperadoraCartao.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
+    <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
+    <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\Duplicata.cs" />
     <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
