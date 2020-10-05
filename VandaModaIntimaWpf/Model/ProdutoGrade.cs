@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -8,8 +9,9 @@ namespace VandaModaIntimaWpf.Model
         private string _codBarra;
         private Produto _produto;
         private double _preco;
-        private IList<SubGrade> _subGrades = new List<SubGrade>();
+        private ICollection<SubGrade> _subGrades = new List<SubGrade>();
 
+        [JsonIgnore]
         public Produto Produto
         {
             get
@@ -24,7 +26,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<SubGrade> SubGrades
+        public ICollection<SubGrade> SubGrades
         {
             get
             {
@@ -34,7 +36,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _subGrades = value;
-                OnPropertyChanged("Grades");
+                OnPropertyChanged("SubGrades");
             }
         }
 
@@ -44,13 +46,11 @@ namespace VandaModaIntimaWpf.Model
             {
                 string str = "";
 
-                for (int i = 0; i < SubGrades.Count; i++)
+                var enumerator = SubGrades.GetEnumerator();
+
+                while(enumerator.MoveNext())
                 {
-                    str += $"{SubGrades[i].Grade.Nome}";
-                    if ((i + 1) != SubGrades.Count)
-                    {
-                        str += " - ";
-                    }
+                    str += $"{enumerator.Current.Grade.Nome}";
                 }
 
                 return str;

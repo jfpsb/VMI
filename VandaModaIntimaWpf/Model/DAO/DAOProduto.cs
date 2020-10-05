@@ -27,8 +27,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             var criteria = CriarCriteria<Produto>();
 
+            criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.Add(Restrictions.Like("Descricao", "%" + descricao + "%"));
             criteria.AddOrder(Order.Asc("Descricao"));
+            criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
             return await Listar<Produto>(criteria);
         }
@@ -41,8 +43,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.Add(Restrictions.Disjunction()
                 .Add(Restrictions.Like("CodBarra", "%" + termo + "%"))
-                //Tem que usar 'elements' porque no mapa de Produto os códigos estão mapeados como element
-                .Add(Restrictions.Like("Codigos.elements", "%" + termo + "%"))
                 .Add(Restrictions.Like("Descricao", termo)));
 
             //Por causa do groupby eu tenho que especificar as propriedades que quero recuperar no select
@@ -66,26 +66,10 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             var criteria = CriarCriteria<Produto>();
 
-            criteria.CreateAlias("Codigos", "Codigos", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
-
-            criteria.Add(Restrictions.Disjunction()
-                .Add(Restrictions.Like("CodBarra", "%" + codigo + "%"))
-                //Tem que usar 'elements' porque no mapa de Produto os códigos estão mapeados como element
-                .Add(Restrictions.Like("Codigos.elements", "%" + codigo + "%")));
-
-            //Por causa do groupby eu tenho que especificar as propriedades que quero recuperar no select
-            //criteria.SetProjection(Projections.ProjectionList()
-            //    .Add(Projections.Property("CodBarra"), "CodBarra")
-            //    .Add(Projections.Property("Descricao"), "Descricao")
-            //    .Add(Projections.Property("Preco"), "Preco")
-            //    .Add(Projections.Property("Fornecedor"), "Fornecedor")
-            //    .Add(Projections.Property("Marca"), "Marca")
-            //    .Add(Projections.Property("Ncm"), "Ncm")
-            //    .Add(Projections.Property("Codigos.elements")));
-
+            criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
+            criteria.Add(Restrictions.Like("CodBarra", "%" + codigo + "%"));
             criteria.AddOrder(Order.Asc("CodBarra"));
-
-            criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());            
+            criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
             return await Listar<Produto>(criteria);
         }

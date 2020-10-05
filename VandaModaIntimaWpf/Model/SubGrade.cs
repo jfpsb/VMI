@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -8,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private ProdutoGrade _produtoGrade;
         private Grade _grade;
 
+        [JsonIgnore]
         public ProdutoGrade ProdutoGrade
         {
             get
@@ -18,7 +20,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _produtoGrade = value;
-                OnPropertyChanged("ProdutoGrande");
+                OnPropertyChanged("ProdutoGrade");
             }
         }
 
@@ -32,7 +34,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _grade = value;
-                OnPropertyChanged("Grande");
+                OnPropertyChanged("Grade");
             }
         }
 
@@ -74,7 +76,15 @@ namespace VandaModaIntimaWpf.Model
 
         public override int GetHashCode()
         {
-            return ProdutoGrade.GetHashCode() + Grade.GetHashCode();
+            int hash = 0;
+
+            if (ProdutoGrade != null)
+                hash += ProdutoGrade.GetHashCode();
+
+            if (Grade != null)
+                hash += Grade.GetHashCode();
+
+            return hash;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _descricao;
         private double _preco;
         private string _ncm;
-        private IList<ProdutoGrade> _grades = new List<ProdutoGrade>();
+        private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
         public enum Colunas
         {
             CodBarra = 1,
@@ -144,7 +144,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
 
-        public IList<ProdutoGrade> Grades
+        public ICollection<ProdutoGrade> Grades
         {
             get
             {

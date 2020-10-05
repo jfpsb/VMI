@@ -70,18 +70,5 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             File.WriteAllText(LOGSAENVIAR_FILE_PATH, JsonConvert.SerializeObject(LOGS_A_ENVIAR));
         }
-
-        public void EnviarLogsMqtt()
-        {
-            while (LOGS_A_ENVIAR.Count > 0)
-            {
-                string id = LOGS_A_ENVIAR.Peek();
-                var log = CouchDbClient.Instancia.FindById(id);
-                string logJson = JsonConvert.SerializeObject(log);
-                MqttClientWrapper.Instancia.Client.Publish($"{CLIENT_ID}/vandamodaintima/{log.Result.Tipo}/{log.Result.Id}", Encoding.UTF8.GetBytes(logJson));
-            }
-
-            SalvarLogsAEnviarEmJson();
-        }
     }
 }

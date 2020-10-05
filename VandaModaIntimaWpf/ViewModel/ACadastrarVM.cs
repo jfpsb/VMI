@@ -141,7 +141,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             if (e.CouchDbResponse.Ok)
             {
-                _result = await daoEntidade.Merge(Entidade);
+                _result = await daoEntidade.Atualizar(Entidade);
 
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
@@ -170,7 +170,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 {
                     GlobalConfigs.Instancia.AddLogAEnviar(e.CouchDbLog.Id);
                     GlobalConfigs.Instancia.SalvarLogsAEnviarEmJson();
-                    GlobalConfigs.Instancia.EnviarLogsMqtt();
                 }
             }
             else

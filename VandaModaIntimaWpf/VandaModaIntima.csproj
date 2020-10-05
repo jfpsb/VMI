@@ -303,6 +303,7 @@
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
+    <Compile Include="Model\DAO\DAOSubGrade.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\Duplicata.cs" />
@@ -390,7 +391,6 @@
     <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\MqttClientWrapper.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />

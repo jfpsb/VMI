@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.View.Produto
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TxtDescricao.Focus();
+            TxtCodBarra.Focus();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

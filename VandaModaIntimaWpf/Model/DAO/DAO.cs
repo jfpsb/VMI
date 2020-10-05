@@ -143,9 +143,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await transacao.RollbackAsync();
                     Console.WriteLine("ERRO AO FAZER MERGE >>> " + ex.Message);
+                    return false;
                 }
-
-                return false;
             }
         }
         public virtual async Task<bool> Deletar(object objeto)

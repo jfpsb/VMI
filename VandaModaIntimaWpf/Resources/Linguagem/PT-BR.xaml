@@ -58,7 +58,7 @@
     <System:String x:Key="marca_header">Marca</System:String>
     <System:String x:Key="ncm_header">NCM</System:String>
     <System:String x:Key="marca_dois_pontos">Marca:</System:String>
-    <System:String x:Key="produto_ja_existe_sistema">Este Produto Já Existe No Sistema</System:String>
+    <System:String x:Key="produto_ja_existe_sistema">Este Códido de Produto Já Existe No Sistema</System:String>
     <System:String x:Key="descricao_dois_pontos">Descrição:</System:String>
     <System:String x:Key="preco_dois_pontos">Preço:</System:String>
     <System:String x:Key="apagar_produtos_marcados">Apagar Produtos Marcados</System:String>

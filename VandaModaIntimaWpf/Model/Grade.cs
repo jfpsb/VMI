@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
         private int _id;
         private TipoGrade _tipoGrade;
         private string _nome;
+        private IList<ProdutoGrade> _produtoGrades;
 
         public int Id
         {
@@ -55,6 +56,16 @@ namespace VandaModaIntimaWpf.Model
 
         public string GetContextMenuHeader => Nome;
 
+        public IList<ProdutoGrade> ProdutoGrades
+        {
+            get => _produtoGrades;
+            set
+            {
+                _produtoGrades = value;
+                OnPropertyChanged("ProdutoGrades");
+            }
+        }
+
         public string CouchDbId()
         {
             return Id.ToString();
@@ -67,7 +78,7 @@ namespace VandaModaIntimaWpf.Model
 
         public void InicializaLazyLoad()
         {
-            
+
         }
 
         public bool IsIdentical(object obj)

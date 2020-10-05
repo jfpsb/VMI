@@ -10,8 +10,8 @@
     <property name="Descricao" column="descricao" />
     <property name="Preco" column="preco" />
     <property name="Ncm" column="ncm" />
-    <bag name="Grades" table="produto_grade" inverse="false" cascade="all-delete-orphan">
-      <key column="cod_barra" />
+    <bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan" lazy="false">
+      <key column="produto" />
       <one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
     </bag>
   </class>

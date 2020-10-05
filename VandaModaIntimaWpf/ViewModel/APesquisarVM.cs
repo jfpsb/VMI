@@ -185,8 +185,11 @@ namespace VandaModaIntimaWpf.ViewModel
                 Console.WriteLine(e.Message);
             }
 
-            _session.Evict(EntidadeSelecionada.Entidade);
+            
             AbrePelaTelaPesquisaService.AbrirEditar(EntidadeSelecionada.Entidade, _session);
+
+            _session.Evict(EntidadeSelecionada.Entidade);
+            OnPropertyChanged("TermoPesquisa");
         }
         public void ChecarItensMarcados(object parameter)
         {

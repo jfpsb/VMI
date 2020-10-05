@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.Model;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -17,6 +17,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public EditarProdutoVM(ISession session, ProdutoModel produto, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             Entidade = produto;
+            ProdutoGrade.Produto = Entidade;
+            ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
         }
         protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
         {

@@ -1,6 +1,9 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -24,16 +27,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private string _codigoFornecedor;
         private TipoGrade _tipoGrade;
-        private Grade _subGrade;
-        private ObservableCollection<Grade> _subGrades;
-        private ObservableCollection<Grade> _grades;
-        private ObservableCollection<TipoGrade> tiposGrade;
-        private ProdutoGrade _produtoGrade;
-        private ObservableCollection<ProdutoGrade> _produtoGrades;
+        private Grade _grade; // Guarda a grade atualmente selecionada na ComboxBox de Grades
+        private ObservableCollection<Grade> _grades; // Guarda a lista de grades presentes no DataGrid de grade em formação
+        private ObservableCollection<Grade> _gradesComboBox;
+        private ObservableCollection<TipoGrade> tiposGrade; // Coleção usada na ComboBox de Tipo de Grade
+        private ProdutoGrade _produtoGrade; // Guarda ProdutoGrade sendo formada
+        private ObservableCollection<ProdutoGrade> _produtoGrades; // Guarda listagem de Grades do Produto já completamente formadas
 
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public ICommand InserirFormacaoGradeComando { get; set; }
+        public ICommand InserirFormacaoAtualGradeComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             cadastrarViewModelStrategy = new CadastrarProdutoMsgVMStrategy();
@@ -45,21 +49,82 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoGrade = new DAOGrade(_session);
             Entidade = new ProdutoModel();
             ProdutoGrade = new ProdutoGrade();
-            SubGrades = new ObservableCollection<Grade>();
+            ProdutoGrades = new ObservableCollection<ProdutoGrade>();
+            Grades = new ObservableCollection<Grade>();
 
             InserirFormacaoGradeComando = new RelayCommand(InserirFormacaoGrade);
+            InserirFormacaoAtualGradeComando = new RelayCommand(InserirFormacaoAtualGrade, ValidaInserirFormacaoAtualGrade);
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += GetGrades;
+
+            AntesDeCriarDocumento += CadastrarProdutoVM_AntesDeCriarDocumento;
 
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
         }
 
+        private void CadastrarProdutoVM_AntesDeCriarDocumento()
+        {
+            Entidade.Grades.Clear();
+            foreach (var g in ProdutoGrades)
+            {
+                Entidade.Grades.Add(g);
+            }
+        }
+
+        private bool ValidaInserirFormacaoAtualGrade(object arg)
+        {
+            if (string.IsNullOrEmpty(ProdutoGrade.CodBarra))
+                return false;
+
+            if (string.IsNullOrEmpty(ProdutoGrade.Preco.ToString()) || ProdutoGrade.Preco <= 0.0)
+                return false;
+
+            if (Grades.Count == 0)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Insere a formação atual de grade na listagem de grade formada
+        /// </summary>
+        /// <param name="obj"></param>
+        private void InserirFormacaoAtualGrade(object obj)
+        {
+            ProdutoGrade.Produto = Entidade;
+
+            foreach (var grade in Grades)
+            {
+                SubGrade subGrade = new SubGrade
+                {
+                    ProdutoGrade = ProdutoGrade,
+                    Grade = grade
+                };
+                ProdutoGrade.SubGrades.Add(subGrade);
+            }
+
+            Grades.Clear();
+
+            ProdutoGrades.Add(ProdutoGrade);
+            Entidade.Grades.Add(ProdutoGrade);
+
+            // Reseta ProdutoGrade
+            ProdutoGrade = new ProdutoGrade()
+            {
+                Produto = Entidade
+            };
+        }
+
+        /// <summary>
+        /// Insere a grade na lista de grade ainda em formação
+        /// </summary>
+        /// <param name="obj"></param>
         private void InserirFormacaoGrade(object obj)
         {
-            SubGrades.Add(SubGrade);
+            Grades.Add(Grade);
         }
 
         private async void GetGrades(object sender, PropertyChangedEventArgs e)
@@ -67,10 +132,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "TipoGrade":
-                    Grades = new ObservableCollection<Grade>(await daoGrade.ListarPorTipoGrade(TipoGrade));
+                    GradesComboBox = new ObservableCollection<Grade>(await daoGrade.ListarPorTipoGrade(TipoGrade));
                     break;
-                case "Grades":
-                    SubGrade = Grades[0];
+                case "GradesComboBox":
+                    Grade = GradesComboBox[0];
                     break;
                 case "TiposGrade":
                     TipoGrade = TiposGrade[0];
@@ -127,23 +192,23 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public Grade SubGrade
+        public Grade Grade
         {
-            get => _subGrade;
+            get => _grade;
             set
             {
-                _subGrade = value;
-                OnPropertyChanged("SubGrade");
+                _grade = value;
+                OnPropertyChanged("Grade");
             }
         }
 
-        public ObservableCollection<Grade> Grades
+        public ObservableCollection<Grade> GradesComboBox
         {
-            get => _grades;
+            get => _gradesComboBox;
             set
             {
-                _grades = value;
-                OnPropertyChanged("Grades");
+                _gradesComboBox = value;
+                OnPropertyChanged("GradesComboBox");
             }
         }
 
@@ -177,13 +242,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ObservableCollection<Grade> SubGrades
+        public ObservableCollection<Grade> Grades
         {
-            get => _subGrades;
+            get => _grades;
             set
             {
-                _subGrades = value;
-                OnPropertyChanged("SubGrades");
+                _grades = value;
+                OnPropertyChanged("Grades");
             }
         }
 
@@ -218,6 +283,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                         VisibilidadeAvisoItemJaExiste = Visibility.Collapsed;
                         IsEnabled = true;
                     }
+
+                    ProdutoGrade.Produto = Entidade;
 
                     break;
             }

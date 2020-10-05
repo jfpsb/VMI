@@ -11,7 +11,7 @@
         Icon="/Resources/Produto_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=TxtDescricao}"
+        FocusManager.FocusedElement="{Binding ElementName=TxtCodBarra}"
         Closing="Window_Closing">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
@@ -54,7 +54,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label Content="Código:" />
-                    <TextBox Grid.Column="1"
+                    <TextBox x:Name="TxtCodBarra"
+                             Grid.Column="1"
                              Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="15" />
                     <Label Grid.Row="1"
@@ -65,8 +66,7 @@
                            Foreground="Red" />
                     <Label Grid.Row="2"
                            Content="{DynamicResource descricao_dois_pontos}" />
-                    <TextBox x:Name="TxtDescricao"
-                             Grid.Column="1"
+                    <TextBox Grid.Column="1"
                              Grid.Row="2"
                              Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}"
                              MaxLength="100"
@@ -158,8 +158,8 @@
                            Content="Grade:" />
                     <ComboBox Grid.Row="4"
                               Grid.Column="1"
-                              ItemsSource="{Binding Grades}"
-                              SelectedItem="{Binding SubGrade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding GradesComboBox}"
+                              SelectedItem="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               DisplayMemberPath="Nome" />
                     <Button Grid.Column="3"
                             Grid.Row="4"
@@ -180,7 +180,8 @@
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             Width="Auto"
-                            Padding="10" />
+                            Padding="10"
+                            Command="{Binding InserirFormacaoAtualGradeComando}" />
                     <Label Grid.Row="6"
                            FontSize="16"
                            Foreground="Red"
@@ -189,14 +190,14 @@
                     <DataGrid Grid.Row="7"
                               Grid.ColumnSpan="3"
                               CanUserAddRows="False"
-                              ItemsSource="{Binding SubGrades, UpdateSourceTrigger=PropertyChanged}">
+                              ItemsSource="{Binding Grades, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tipo"
                                                 Width="*"
-                                                Binding="{Binding TipoGrade.Nome}"/>
+                                                Binding="{Binding TipoGrade.Nome}" />
                             <DataGridTextColumn Header="Nome"
                                                 Width="*"
-                                                Binding="{Binding Nome}"/>
+                                                Binding="{Binding Nome}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Grid.Row="8"
@@ -205,11 +206,16 @@
                            Content="Grades do Produto:"
                            FontWeight="Bold" />
                     <DataGrid Grid.Row="9"
-                              Grid.ColumnSpan="3">
+                              Grid.ColumnSpan="3"
+                              CanUserAddRows="False"
+                              ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource cod_barra_header}" />
-                            <DataGridTextColumn Header="{DynamicResource preco_header}" />
+                            <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
+                                                Binding="{Binding CodBarra}" />
+                            <DataGridTextColumn Header="{DynamicResource preco_header}"
+                                                Binding="{Binding Preco}" />
                             <DataGridTextColumn Header="Descrição da Grade"
+                                                Binding="{Binding SubGradesToString}"
                                                 Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
