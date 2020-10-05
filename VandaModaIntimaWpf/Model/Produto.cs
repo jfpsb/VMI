@@ -81,7 +81,16 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Descricao");
             }
         }
+        public virtual string PossuiGrades
+        {
+            get
+            {
+                if (Grades.Count == 0)
+                    return "NÃO";
 
+                return "SIM";
+            }
+        }
         public virtual double Preco
         {
             get => _preco;

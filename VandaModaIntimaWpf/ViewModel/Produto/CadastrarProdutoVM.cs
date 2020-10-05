@@ -58,14 +58,21 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += GetGrades;
 
-            AntesDeCriarDocumento += CadastrarProdutoVM_AntesDeCriarDocumento;
+            AntesDeCriarDocumento += AoApertarEmSalvar;
+            AposInserirBD += LimpaGrades;
 
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
         }
 
-        private void CadastrarProdutoVM_AntesDeCriarDocumento()
+        private void LimpaGrades(AposInserirBDEventArgs e)
+        {
+            Grades.Clear();
+            ProdutoGrades.Clear();
+        }
+
+        private void AoApertarEmSalvar()
         {
             Entidade.Grades.Clear();
             foreach (var g in ProdutoGrades)
@@ -114,7 +121,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             // Reseta ProdutoGrade
             ProdutoGrade = new ProdutoGrade()
             {
-                Produto = Entidade
+                Produto = Entidade,
+                Preco = Entidade.Preco
             };
         }
 
@@ -287,6 +295,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     ProdutoGrade.Produto = Entidade;
 
                     break;
+                case "Preco":
+                    ProdutoGrade.Preco = Entidade.Preco;
+                    break;
             }
         }
         protected override void ExecutarAntesCriarDocumento()
@@ -300,7 +311,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new System.NotImplementedException();
+
         }
     }
 }

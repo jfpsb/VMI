@@ -48,10 +48,13 @@ namespace VandaModaIntimaWpf.Model
 
                 var enumerator = SubGrades.GetEnumerator();
 
-                while(enumerator.MoveNext())
+                while (enumerator.MoveNext())
                 {
-                    str += $"{enumerator.Current.Grade.Nome}";
+                    str += $"{enumerator.Current.Grade.TipoGrade.Nome} {enumerator.Current.Grade.Nome}";
+                    str += "/";
                 }
+
+                str = str.Remove(str.LastIndexOf("/"), 1);
 
                 return str;
             }

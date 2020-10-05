@@ -9,7 +9,6 @@
         Height="750"
         Width="625"
         Icon="/Resources/Produto_Icon.ico"
-        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCodBarra}"
         Closing="Window_Closing">

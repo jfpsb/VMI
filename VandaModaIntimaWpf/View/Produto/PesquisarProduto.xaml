@@ -118,6 +118,11 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="Possui Grades"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.PossuiGrades}"
+                                            Width="Auto">
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Preco}"
