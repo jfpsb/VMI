@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return _nome;
+                return _nome?.ToUpper();
             }
 
             set
@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.Model
 
         public void InicializaLazyLoad()
         {
-            
+
         }
 
         public bool IsIdentical(object obj)

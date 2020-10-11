@@ -92,7 +92,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             _result = await _daoContagemProduto.Inserir(contagemProduto);
 
-            if (_result)
+            if (_result != null)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
@@ -106,7 +106,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             _result = await _daoContagemProduto.Deletar(ContagemProduto);
 
-            if (_result)
+            if (_result != null)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);

@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
         protected E _entidade;
-        protected bool _result = false; //Guarda se foi salvo com sucesso
+        protected object _result = null; //Guarda item salvo
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
@@ -123,10 +123,9 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
-                    InseridoComSucesso = _result,
                     MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
                     MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
-                    ObjetoSalvo = Entidade,
+                    ObjetoSalvo = _result,
                     CouchDbResponse = e.CouchDbResponse
                 };
 
@@ -145,7 +144,6 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
-                    InseridoComSucesso = _result,
                     IssoEUmUpdate = true,
                     MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeAtualizadaSucesso(),
                     MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeNaoAtualizada(),
@@ -240,8 +238,8 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <summary>
         /// Método utilizado nas telas de ediçao para saber se houve edição.
         /// </summary>
-        /// <returns>True se a entidade foi editada, senão, False</returns>
-        public bool ResultadoSalvar()
+        /// <returns>Objeto se a entidade foi editada, senão, null</returns>
+        public object ResultadoSalvar()
         {
             return _result;
         }

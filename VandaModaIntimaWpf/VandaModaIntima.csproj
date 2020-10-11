@@ -183,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Grade\CadastrarGrade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Loja\AjudaLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -248,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TipoGrade\CadastrarTipoGrade.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -381,6 +389,7 @@
     <Compile Include="ViewModel\Funcionario\PesquisarFuncVM.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncMsgVMStrategy.cs" />
     <Compile Include="ViewModel\GlobalConfigs.cs" />
+    <Compile Include="ViewModel\Grade\CadastrarGradeVM.cs" />
     <Compile Include="ViewModel\ICadastrarVM.cs" />
     <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
     <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
@@ -399,6 +408,7 @@
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFolhaService.cs" />
@@ -417,6 +427,8 @@
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
+    <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVM.cs" />
+    <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVMStrategy.cs" />
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\DataUpDown.xaml.cs">
       <DependentUpon>DataUpDown.xaml</DependentUpon>
@@ -467,6 +479,9 @@
     </Compile>
     <Compile Include="View\Funcionario\PesquisarFuncionario.xaml.cs">
       <DependentUpon>PesquisarFuncionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Grade\CadastrarGrade.xaml.cs">
+      <DependentUpon>CadastrarGrade.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ICloseable.cs" />
     <Compile Include="View\IOpenFileDialog.cs" />
@@ -546,6 +561,9 @@
     <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
       <DependentUpon>CadastrarTipoContagem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TipoGrade\CadastrarTipoGrade.xaml.cs">
+      <DependentUpon>CadastrarTipoGrade.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VandaModaIntima.xaml.cs">
       <DependentUpon>VandaModaIntima.xaml</DependentUpon>
@@ -760,5 +778,6 @@
   <ItemGroup>
     <Resource Include="Resources\Grade_Icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,6 @@ namespace VandaModaIntimaWpf.ViewModel
 {
     public class AposInserirBDEventArgs : AposSalvarEditarEventArgs
     {
-        public bool InseridoComSucesso;
         /// <summary>
         /// Indica se Operação foi um Update
         /// </summary>

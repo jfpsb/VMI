@@ -16,8 +16,12 @@ namespace VandaModaIntimaWpf.View.TipoContagem
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (DataContext != null)
-                DialogResult = ((ACadastrarViewModel<Model.TipoContagem>)DataContext).ResultadoSalvar();
+            //TODO: Ver forma de arrumar isso pra não ter código repetido em cada WindowClosing de cada tela
+            var result = ((ACadastrarViewModel<Model.TipoContagem>)DataContext).ResultadoSalvar();
+            if (result != null)
+                DialogResult = true;
+            else
+                DialogResult = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -150,7 +150,8 @@
                     <Button Grid.Column="3"
                             Grid.Row="3"
                             Width="28"
-                            ToolTip="Inserir Novo Tipo de Grade">
+                            ToolTip="Inserir Novo Tipo de Grade"
+                            Command="{Binding AbreTelaCadastrarTipoGradeComando}">
                         <Image Source="/Resources/Grade_Icon.ico" />
                     </Button>
                     <Label Grid.Row="4"
@@ -163,7 +164,8 @@
                     <Button Grid.Column="3"
                             Grid.Row="4"
                             Width="28"
-                            ToolTip="Inserir Nova Grade">
+                            ToolTip="Inserir Nova Grade"
+                            Command="{Binding AbreTelaCadastrarGradeComando}">
                         <Image Source="/Resources/Grade_Icon.ico" />
                     </Button>
                     <Button Content="Inserir Em Formação de Grade"

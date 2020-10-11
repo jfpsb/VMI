@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
         }
 
-        public override async Task<bool> Inserir(object objeto)
+        public override async Task<object> Inserir(object objeto)
         {
             Adiantamento adiantamento = objeto as Adiantamento;
 
@@ -23,9 +23,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                         await session.SaveAsync(p.FolhaPagamento);
                     }
 
-                    await session.SaveAsync(objeto);
+                    var result = await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    return true;
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
                 }
 
-                return false;
+                return null;
             }
         }
 

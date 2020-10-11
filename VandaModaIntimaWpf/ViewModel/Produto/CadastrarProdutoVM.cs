@@ -1,15 +1,13 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -26,21 +24,25 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOProdutoGrade daoProdutoGrade;
 
         private string _codigoFornecedor;
-        private TipoGrade _tipoGrade;
-        private Grade _grade; // Guarda a grade atualmente selecionada na ComboxBox de Grades
-        private ObservableCollection<Grade> _grades; // Guarda a lista de grades presentes no DataGrid de grade em formação
-        private ObservableCollection<Grade> _gradesComboBox;
-        private ObservableCollection<TipoGrade> tiposGrade; // Coleção usada na ComboBox de Tipo de Grade
+        private Model.TipoGrade _tipoGrade;
+        private Model.Grade _grade; // Guarda a grade atualmente selecionada na ComboxBox de Grades
+        private ObservableCollection<Model.Grade> _grades; // Guarda a lista de grades presentes no DataGrid de grade em formação
+        private ObservableCollection<Model.Grade> _gradesComboBox;
+        private ObservableCollection<Model.TipoGrade> tiposGrade; // Coleção usada na ComboBox de Tipo de Grade
         private ProdutoGrade _produtoGrade; // Guarda ProdutoGrade sendo formada
         private ObservableCollection<ProdutoGrade> _produtoGrades; // Guarda listagem de Grades do Produto já completamente formadas
+        private AbrePelaTelaCadastroDeProduto abrePelaTelaCadastroDeProduto;
 
         public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
         public ObservableCollection<MarcaModel> Marcas { get; set; }
         public ICommand InserirFormacaoGradeComando { get; set; }
         public ICommand InserirFormacaoAtualGradeComando { get; set; }
+        public ICommand AbreTelaCadastrarTipoGradeComando { get; set; }
+        public ICommand AbreTelaCadastrarGradeComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             cadastrarViewModelStrategy = new CadastrarProdutoMsgVMStrategy();
+            abrePelaTelaCadastroDeProduto = new AbrePelaTelaCadastroDeProduto();
             daoEntidade = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);
             daoFornecedor = new DAOFornecedor(_session);
@@ -50,10 +52,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Entidade = new ProdutoModel();
             ProdutoGrade = new ProdutoGrade();
             ProdutoGrades = new ObservableCollection<ProdutoGrade>();
-            Grades = new ObservableCollection<Grade>();
+            Grades = new ObservableCollection<Model.Grade>();
 
             InserirFormacaoGradeComando = new RelayCommand(InserirFormacaoGrade);
             InserirFormacaoAtualGradeComando = new RelayCommand(InserirFormacaoAtualGrade, ValidaInserirFormacaoAtualGrade);
+            AbreTelaCadastrarGradeComando = new RelayCommand(AbreTelaCadastrarGrade);
+            AbreTelaCadastrarTipoGradeComando = new RelayCommand(AbreTelaCadastrarTipoGrade);
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += GetGrades;
@@ -64,6 +68,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
+        }
+
+        private void AbreTelaCadastrarTipoGrade(object obj)
+        {
+            abrePelaTelaCadastroDeProduto.AbrirTelaCadastrarTipoGrade(_session);
+            OnPropertyChanged("TiposGrade");
+        }
+
+        private void AbreTelaCadastrarGrade(object obj)
+        {
+            abrePelaTelaCadastroDeProduto.AbrirTelaCadastrarGrade(_session);
         }
 
         private void LimpaGrades(AposInserirBDEventArgs e)
@@ -140,7 +155,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "TipoGrade":
-                    GradesComboBox = new ObservableCollection<Grade>(await daoGrade.ListarPorTipoGrade(TipoGrade));
+                    GradesComboBox = new ObservableCollection<Model.Grade>(await daoGrade.ListarPorTipoGrade(TipoGrade));
                     break;
                 case "GradesComboBox":
                     Grade = GradesComboBox[0];
@@ -190,7 +205,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public TipoGrade TipoGrade
+        public Model.TipoGrade TipoGrade
         {
             get => _tipoGrade;
             set
@@ -200,7 +215,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public Grade Grade
+        public Model.Grade Grade
         {
             get => _grade;
             set
@@ -210,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ObservableCollection<Grade> GradesComboBox
+        public ObservableCollection<Model.Grade> GradesComboBox
         {
             get => _gradesComboBox;
             set
@@ -220,7 +235,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ObservableCollection<TipoGrade> TiposGrade
+        public ObservableCollection<Model.TipoGrade> TiposGrade
         {
             get => tiposGrade;
             set
@@ -250,7 +265,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        public ObservableCollection<Grade> Grades
+        public ObservableCollection<Model.Grade> Grades
         {
             get => _grades;
             set
@@ -272,7 +287,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         }
         private async void GetTiposGrade()
         {
-            TiposGrade = new ObservableCollection<TipoGrade>(await daoTipoGrade.Listar<TipoGrade>());
+            TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar<Model.TipoGrade>());
         }
         public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

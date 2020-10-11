@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return _nome;
+                return _nome?.ToUpper();
             }
 
             set

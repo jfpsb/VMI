@@ -231,10 +231,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
                 AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
                 {
-                    InseridoComSucesso = _result,
                     MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
                     MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
-                    ObjetoSalvo = Recebimentos,
+                    ObjetoSalvo = _result,
                     CouchDbResponse = e.CouchDbResponse
                 };
 

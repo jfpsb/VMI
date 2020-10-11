@@ -9,7 +9,7 @@
 
         public string MensagemDocumentoCriadoComSucesso()
         {
-            return "LOG de Crição de Loja Foi Criado Com Sucesso";
+            return "LOG de Criação de Loja Foi Criado Com Sucesso";
         }
 
         public string MensagemDocumentoNaoAtualizado()
@@ -39,7 +39,7 @@
 
         public string MensagemEntidadeNaoAtualizada()
         {
-            return "Erro ao Atualizar Fornecedor";
+            return "Erro ao Atualizar Loja";
         }
     }
 }

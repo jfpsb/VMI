@@ -25,8 +25,16 @@ namespace VandaModaIntimaWpf.Model.DAO
             var criteria = CriarCriteria<Grade>();
             criteria.CreateAlias("TipoGrade", "TipoGrade");
             criteria.Add(Restrictions.Eq("TipoGrade.Id", tipoGrade.Id));
+            criteria.AddOrder(Order.Asc("Nome"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
             return await Listar<Grade>(criteria);
+        }
+
+        public async Task<Grade> ListarPorNome(string nome)
+        {
+            var criteria = CriarCriteria<Grade>();
+            criteria.Add(Restrictions.Like("Nome", nome));
+            return await criteria.UniqueResultAsync<Grade>();
         }
     }
 }

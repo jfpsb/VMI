@@ -14,16 +14,15 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public virtual async Task<bool> Inserir(object objeto)
+        public virtual async Task<object> Inserir(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    await session.SaveAsync(objeto);
+                    var result = await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-
-                    return true;
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -33,7 +32,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
                 }
 
-                return false;
+                return null;
             }
         }
         public virtual async Task<bool> Inserir<E>(IList<E> objetos) where E : class, IModel
@@ -48,7 +47,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                     }
 
                     await transacao.CommitAsync();
-
                     return true;
                 }
                 catch (Exception ex)
