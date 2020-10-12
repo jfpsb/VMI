@@ -1,6 +1,4 @@
-﻿using VandaModaIntimaWpf.BancoDeDados;
-
-namespace VandaModaIntimaWpf.ViewModel
+﻿namespace VandaModaIntimaWpf.ViewModel
 {
     public class AposInserirBDEventArgs : AposSalvarEditarEventArgs
     {
@@ -8,6 +6,5 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Indica se Operação foi um Update
         /// </summary>
         public bool IssoEUmUpdate;
-        public CouchDbResponse CouchDbResponse;
     }
 }

@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy(_session));
-            pesquisarViewModelStrategy = new PesquisarFornMsgVMStrategy();
+            pesquisarViewModelStrategy = new PesquisarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
 
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         private void AbrirCadastrarOnline(object p)
         {
-            ((PesquisarFornMsgVMStrategy)pesquisarViewModelStrategy).AbrirCadastrarOnline(_session);
+            ((PesquisarFornecedorVMStrategy)pesquisarViewModelStrategy).AbrirCadastrarOnline(_session);
             OnPropertyChanged("TermoPesquisa");
         }
         public override async void PesquisaItens(string termo)

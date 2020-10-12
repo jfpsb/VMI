@@ -35,24 +35,18 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public ICommand AbrirOfxComando { get; set; }
         public CadastrarRecebimentoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarRecebMsgVMStrategy();
+            viewModelStrategy = new CadastrarRecebimentoVMStrategy();
             daoEntidade = new DAORecebimentoCartao(session);
             daoOperadoraCartao = new DAOOperadoraCartao(session);
             daoLoja = new DAOLoja(session);
 
             AbrirOfxComando = new RelayCommand(AbrirOfx, ValidaAbrirOfx);
 
-            PropertyChanged += CadastrarViewModel_PropertyChanged;
             Recebimentos.CollectionChanged += RecebimentosChanged;
 
             GetMatrizes();
             DataEscolhida = DateTime.Now;
         }
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-
-        }
-
         public override void ResetaPropriedades()
         {
             DataEscolhida = DateTime.Now;
@@ -61,19 +55,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             MatrizComboBoxIndex = 0;
         }
 
-        protected override async Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
+        protected override Task<AposInserirBDEventArgs> ExecutarSalvar()
         {
-            var couchDbResponse = await couchDbClient.CreateDocument(Recebimentos);
-
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoCriadoComSucesso(),
-                MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoCriado(),
-                ObjetoSalvo = Recebimentos
-            };
-
-            return e;
+            //TODO: Arrumar inserção de recebimentos
+            return null;
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -156,7 +141,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     recebimento.OperadoraCartao = rpo.Key;
                     recebimento.Recebido = rpo.Value;
 
-                    recebimento.PropertyChanged += Entidade_PropertyChanged;
+                    recebimento.PropertyChanged += ChecaPropriedadesRecebimento;
 
                     Recebimentos.Add(recebimento);
                 }
@@ -222,31 +207,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             // Calcula os totais quando os recebimentos são inseridos no DataGrid pela primeira vez
             CalculaTotais();
         }
-
-        public override async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoEntidade.Inserir(Recebimentos);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
-                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
-                    ObjetoSalvo = _result,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-
-        }
-
-        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void ChecaPropriedadesRecebimento(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

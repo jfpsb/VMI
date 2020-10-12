@@ -22,9 +22,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public AdicionarAdiantamentoVM(ISession session, FolhaPagamentoModel folhaPagamento, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarAdiantMsgVMStrategy();
+            viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAOFolhaPagamento(session);
-            PropertyChanged += CadastrarViewModel_PropertyChanged;
+            PropertyChanged += AdicionarAdiantamento_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
             var now = DateTime.Now;
@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             InicioPagamento = new DateTime(folhaPagamento.Ano, folhaPagamento.Mes, 1);
             Entidade = folhaPagamento;
 
-            AposInserirBD += RefreshFolhasPagamento;
+            AposInserirNoBancoDeDados += RefreshFolhasPagamento;
         }
         public DateTime InicioPagamento
         {
@@ -89,7 +89,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public override async void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public async void AdicionarAdiantamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             DAOFolhaPagamento daoFolha = (DAOFolhaPagamento)daoEntidade;
             switch (e.PropertyName)
@@ -204,15 +204,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 return true;
 
             return false;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-        }
-
-        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

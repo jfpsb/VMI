@@ -11,18 +11,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public CadastrarFornManualmenteVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarFornMsgVMStrategy();
+            viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
             Entidade = new FornecedorModel();
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
+            Entidade.PropertyChanged += ChecaPropriedadesFornecedor;
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public async void ChecaPropriedadesFornecedor(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -58,11 +53,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
 
             return true;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-
         }
     }
 }

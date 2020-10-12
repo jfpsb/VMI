@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand AbreTelaCadastrarGradeComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarProdutoMsgVMStrategy();
+            viewModelStrategy = new CadastrarProdutoVMStrategy();
             abrePelaTelaCadastroDeProduto = new AbrePelaTelaCadastroDeProduto();
             daoEntidade = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);
@@ -59,15 +59,25 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             AbreTelaCadastrarGradeComando = new RelayCommand(AbreTelaCadastrarGrade);
             AbreTelaCadastrarTipoGradeComando = new RelayCommand(AbreTelaCadastrarTipoGrade);
 
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
+            Entidade.PropertyChanged += ChecaPropriedadesProduto;
             PropertyChanged += GetGrades;
+            AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
 
-            AntesDeCriarDocumento += AoApertarEmSalvar;
-            AposInserirBD += LimpaGrades;
+            AntesDeCriarDocumento += AdicionaGradesEmEntidade;
+            AposInserirNoBancoDeDados += LimpaGrades;
 
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
+        }
+
+        private void ConfiguraProdutoAntesDeInserir()
+        {
+            if (Entidade.Fornecedor?.Cnpj == null)
+                Entidade.Fornecedor = null;
+
+            if (Entidade.Marca != null && Entidade.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
+                Entidade.Marca = null;
         }
 
         private void AbreTelaCadastrarTipoGrade(object obj)
@@ -87,7 +97,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ProdutoGrades.Clear();
         }
 
-        private void AoApertarEmSalvar()
+        private void AdicionaGradesEmEntidade()
         {
             Entidade.Grades.Clear();
             foreach (var g in ProdutoGrades)
@@ -289,7 +299,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar<Model.TipoGrade>());
         }
-        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public async void ChecaPropriedadesProduto(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -314,19 +324,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     ProdutoGrade.Preco = Entidade.Preco;
                     break;
             }
-        }
-        protected override void ExecutarAntesCriarDocumento()
-        {
-            if (Entidade.Fornecedor?.Cnpj == null)
-                Entidade.Fornecedor = null;
-
-            if (Entidade.Marca != null && Entidade.Marca.Nome.Equals(GetResource.GetString("marca_nao_selecionada")))
-                Entidade.Marca = null;
-        }
-
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-
         }
     }
 }

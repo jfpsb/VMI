@@ -18,12 +18,12 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         protected ISession _session;
         protected DAO daoEntidade;
-        protected ICadastrarVMStrategy cadastrarViewModelStrategy;
+        protected ICadastrarVMStrategy viewModelStrategy;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
         protected E _entidade;
-        protected object _result = null; //Guarda item salvo
+        protected object _identifier = null; //Guarda item salvo
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
@@ -35,12 +35,14 @@ namespace VandaModaIntimaWpf.ViewModel
         private IMessageBoxService MessageBoxService;
 
         public delegate void AntesDeCriarDocumentoEventHandler();
+        public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
         public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
-        public delegate void AposInserirBDEventHandler(AposInserirBDEventArgs e);
+        public delegate void AposInserirNoBancoDeDadosEventHandler(AposInserirBDEventArgs e);
 
         public event AposCriarDocumentoEventHandler AposCriarDocumento;
-        public event AposInserirBDEventHandler AposInserirBD;
+        public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
         public event AntesDeCriarDocumentoEventHandler AntesDeCriarDocumento;
+        public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
         public ICommand SalvarComando { get; set; }
         public ACadastrarViewModel(ISession session, IMessageBoxService messageBoxService)
         {
@@ -48,13 +50,48 @@ namespace VandaModaIntimaWpf.ViewModel
             MessageBoxService = messageBoxService;
             couchDbClient = CouchDbClient.Instancia;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
+
             SetStatusBarAguardando();
-            AntesDeCriarDocumento += ExecutarAntesCriarDocumento;
-            AposCriarDocumento += InserirNoBancoDeDados;
+
+            AposCriarDocumento += ResultadoCriacaoDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
-            AposInserirBD += ResultadoInsercao;
-            AposInserirBD += RedefinirTela;
-            PropertyChanged += GetUltimoLog;
+
+            AposInserirNoBancoDeDados += ResultadoInsercao;
+            AposInserirNoBancoDeDados += CriarDocumento;
+            AposInserirNoBancoDeDados += RedefinirTela;
+
+            PropertyChanged += GetUltimoLogDeEntidade;
+        }
+
+        private void ResultadoCriacaoDocumento(AposCriarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+            {
+                Console.WriteLine(e.MensagemSucesso);
+            }
+            else
+            {
+                Console.WriteLine(e.MensagemErro);
+            }
+        }
+
+        private async void CriarDocumento(AposInserirBDEventArgs e)
+        {
+            AntesDeCriarDocumento?.Invoke();
+
+            E entidadeInserida = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+            string entidadeJson = JsonConvert.SerializeObject(entidadeInserida);
+            var couchDbResponse = await couchDbClient.CreateDocument(entidadeInserida.CouchDbId(), entidadeJson);
+
+            AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
+            {
+                CouchDbResponse = couchDbResponse,
+                MensagemSucesso = viewModelStrategy.MensagemDocumentoSalvoComSucesso(),
+                MensagemErro = viewModelStrategy.MensagemDocumentoNaoSalvo(),
+                IdentificadorEntidade = e.IdentificadorEntidade
+            };
+
+            AposCriarDocumento?.Invoke(e2);
         }
 
         private void GetUltimoLogAposCriarDoc(AposCriarDocumentoEventArgs e)
@@ -62,37 +99,33 @@ namespace VandaModaIntimaWpf.ViewModel
             OnPropertyChanged("Entidade");
         }
 
-        protected abstract void ExecutarAntesCriarDocumento();
-
         public virtual async void Salvar(object parameter)
         {
             try
             {
-                ChamaAntesDeCriarDocumento();
+                AntesDeInserirNoBancoDeDados?.Invoke();
                 var e = await ExecutarSalvar();
-                ChamaAposCriarDocumento(e);
+                AposInserirNoBancoDeDados?.Invoke(e);
             }
             catch (Exception e)
             {
                 MessageBoxService.Show(e.Message);
             }
         }
-        protected async virtual Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
+        protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar()
         {
-            string entidadeJson = JsonConvert.SerializeObject(Entidade);
-            var couchDbResponse = await couchDbClient.CreateDocument(Entidade.CouchDbId(), entidadeJson);
+            _identifier = await daoEntidade.InserirOuAtualizar(Entidade);
 
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs()
+            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoCriadoComSucesso(),
-                MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoCriado(),
-                ObjetoSalvo = Entidade
+                IdentificadorEntidade = _identifier,
+                MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
+                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar()
             };
 
             return e;
         }
-        protected async void GetUltimoLog(object sender, PropertyChangedEventArgs e)
+        protected async void GetUltimoLogDeEntidade(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -101,94 +134,35 @@ namespace VandaModaIntimaWpf.ViewModel
                     break;
             }
         }
+
+        /// <summary>
+        /// Retorna as propriedades da entidade a seus valores iniciais
+        /// </summary>
         public abstract void ResetaPropriedades();
+
+        /// <summary>
+        /// Realiza os testes para determinar se todos os requisitos necessários para permitir o cadastro foram atingidos
+        /// </summary>
+        /// <param name="parameter">Parâmetro do comando</param>
+        /// <returns></returns>
         public abstract bool ValidacaoSalvar(object parameter);
-        /// <summary>
-        /// Executa toda vez que uma propriedade da entidade é modificada
-        /// </summary>
-        /// <param name="sender">Objeto Onde Originou Evento</param>
-        /// <param name="e">Argumentos do Evento de PropertyChanged</param>
-        public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
-        /// <summary>
-        /// Executa toda vez que uma propriedade da ViewModel é modificada
-        /// </summary>
-        /// <param name="sender">Objeto Onde Originou Evento</param>
-        /// <param name="e">Argumentos do Evento de PropertyChanged</param>
-        public abstract void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e);
-        public virtual async void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoEntidade.Inserir(Entidade);
 
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeInseridaSucesso(),
-                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeErroAoInserir(),
-                    ObjetoSalvo = _result,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
-            else
-            {
-                SetStatusBarErro(e.MensagemErro);
-            }
-        }
-        protected async Task AtualizarNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
-                _result = await daoEntidade.Atualizar(Entidade);
-
-                AposInserirBDEventArgs e2 = new AposInserirBDEventArgs()
-                {
-                    IssoEUmUpdate = true,
-                    MensagemSucesso = cadastrarViewModelStrategy.MensagemEntidadeAtualizadaSucesso(),
-                    MensagemErro = cadastrarViewModelStrategy.MensagemEntidadeNaoAtualizada(),
-                    ObjetoSalvo = Entidade,
-                    CouchDbLog = e.CouchDbLog,
-                    CouchDbResponse = e.CouchDbResponse
-                };
-
-                ChamaAposInserirNoBD(e2);
-            }
-            else
-            {
-                SetStatusBarErro(e.MensagemErro);
-            }
-        }
         private async void ResultadoInsercao(AposInserirBDEventArgs e)
         {
             //Se foi inserido com sucesso
-            if (e.CouchDbResponse.Ok)
+            if (e.IdentificadorEntidade != null)
             {
-                if (e.CouchDbLog != null)
-                {
-                    GlobalConfigs.Instancia.AddLogAEnviar(e.CouchDbLog.Id);
-                    GlobalConfigs.Instancia.SalvarLogsAEnviarEmJson();
-                }
+                Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+                SetStatusBarSucesso(e.MensagemSucesso);
             }
             else
             {
-                if (e.IssoEUmUpdate)
-                {
-                    //Reverte criação de documento de update
-                    CouchDbResponse couchDbResponse = await couchDbClient.UpdateDocument(e.CouchDbLog);
-                    Console.WriteLine(string.Format("REVERTENDO UPDATE DE LOG {0}. Resultado: {1}", couchDbResponse.Id, couchDbResponse.Ok));
-                }
-                else
-                {
-                    //Reverte criação de documento
-                    CouchDbResponse couchDbResponse = await couchDbClient.DeleteDocument(e.CouchDbResponse.Id, e.CouchDbResponse.Rev);
-                    Console.WriteLine(string.Format("DELETANDO {0}: {1}", couchDbResponse.Id, couchDbResponse.Ok));
-                }
+                SetStatusBarErro(e.MensagemErro);
             }
         }
         private async void RedefinirTela(AposInserirBDEventArgs e)
         {
-            if (e.CouchDbResponse.Ok)
+            if (e.IdentificadorEntidade != null)
             {
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades();
@@ -202,18 +176,9 @@ namespace VandaModaIntimaWpf.ViewModel
                 SetStatusBarErro(e.MensagemErro);
             }
         }
-        protected virtual void ChamaAntesDeCriarDocumento()
-        {
-            AntesDeCriarDocumento?.Invoke();
-        }
-        protected virtual void ChamaAposCriarDocumento(AposCriarDocumentoEventArgs e)
-        {
-            AposCriarDocumento?.Invoke(e);
-        }
-
         protected virtual void ChamaAposInserirNoBD(AposInserirBDEventArgs e)
         {
-            AposInserirBD?.Invoke(e);
+            AposInserirNoBancoDeDados?.Invoke(e);
         }
         protected void SetStatusBarSucesso(string mensagem)
         {
@@ -241,7 +206,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns>Objeto se a entidade foi editada, senão, null</returns>
         public object ResultadoSalvar()
         {
-            return _result;
+            return _identifier;
         }
         public string MensagemStatusBar
         {

@@ -8,44 +8,21 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
 {
     public class CadastrarTipoGradeVMStrategy : ICadastrarVMStrategy
     {
-        public string MensagemDocumentoAtualizadoSucesso()
-        {
-            return "LOG de Atualização de Tipo de Grade Foi Criado Com Sucesso";
-        }
-
-        public string MensagemDocumentoCriadoComSucesso()
+        public string MensagemDocumentoSalvoComSucesso()
         {
             return "LOG de Criação de Tipo de Grade Foi Criado Com Sucesso";
         }
-
-        public string MensagemDocumentoNaoAtualizado()
-        {
-            return "Erro ao Criar LOG de Atualização de Tipo de Grade";
-        }
-
-        public string MensagemDocumentoNaoCriado()
+        public string MensagemDocumentoNaoSalvo()
         {
             return "Erro ao Criar LOG de Criação de Tipo de Grade";
         }
-
-        public string MensagemEntidadeAtualizadaSucesso()
-        {
-            return "Tipo de Grade Foi Atualizado Com Sucesso";
-        }
-
-        public string MensagemEntidadeErroAoInserir()
+        public string MensagemEntidadeErroAoSalvar()
         {
             return "Erro ao Inserir Tipo de Grade";
         }
-
-        public string MensagemEntidadeInseridaSucesso()
+        public string MensagemEntidadeSalvaComSucesso()
         {
             return "Tipo de Grade Foi Inserido Com Sucesso";
-        }
-
-        public string MensagemEntidadeNaoAtualizada()
-        {
-            return "Erro ao Atualizar Tipo de Grade";
         }
     }
 }

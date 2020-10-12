@@ -8,10 +8,6 @@ using ContagemProdutoModel = VandaModaIntimaWpf.Model.ContagemProduto;
 using VandaModaIntimaWpf.View.Produto;
 using NHibernate;
 using VandaModaIntimaWpf.ViewModel.Produto;
-using Newtonsoft.Json;
-using VandaModaIntimaWpf.BancoDeDados;
-using VandaModaIntimaWpf.BancoDeDados.Model;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
@@ -37,6 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public EditarContagemVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
+            viewModelStrategy = new EditarContagemVMStrategy();
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);
             InserirContagemComando = new RelayCommand(InserirContagem);
             RemoverContagemProdutoComando = new RelayCommand(RemoverContagemProduto);
@@ -47,38 +44,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Quantidade = 1;
             GetProdutos();
         }
-        protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
-        {
-            CouchDbResponse couchDbResponse;
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
-
-            if (ultimoLog != null)
-            {
-                e.CouchDbLog = (CouchDbContagemLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(Entidade);
-                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
-                e.CouchDbLog.Rev = couchDbResponse.Rev;
-            }
-            else
-            {
-                string jsonData = JsonConvert.SerializeObject(Entidade);
-                couchDbResponse = await couchDbClient.CreateDocument(Entidade.CouchDbId(), jsonData);
-            }
-
-            e.CouchDbResponse = couchDbResponse;
-            e.MensagemSucesso = cadastrarViewModelStrategy.MensagemDocumentoAtualizadoSucesso();
-            e.MensagemErro = cadastrarViewModelStrategy.MensagemDocumentoNaoAtualizado();
-            e.ObjetoSalvo = Entidade;
-
-            return e;
-        }
         private void AbrirAdicionarContagemProduto(object parameter)
         {
             EditarContagemVMJanela.AbrirAdicionarContagemProduto(this);
-        }
-        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            await AtualizarNoBancoDeDados(e);
         }
         private async void InserirContagem(object parameter)
         {
@@ -90,9 +58,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
                 Quant = Quantidade
             };
 
-            _result = await _daoContagemProduto.Inserir(contagemProduto);
+            _identifier = await _daoContagemProduto.Inserir(contagemProduto);
 
-            if (_result != null)
+            if (_identifier != null)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
@@ -104,9 +72,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private async void RemoverContagemProduto(object parameter)
         {
-            _result = await _daoContagemProduto.Deletar(ContagemProduto);
+            _identifier = await _daoContagemProduto.Deletar(ContagemProduto);
 
-            if (_result != null)
+            if (_identifier != null)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);

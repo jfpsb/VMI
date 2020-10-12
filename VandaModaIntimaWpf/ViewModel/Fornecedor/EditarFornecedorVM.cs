@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json;
-using NHibernate;
-using System;
+﻿using NHibernate;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -19,36 +12,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public ICommand AtualizarReceitaComando { get; set; }
         public EditarFornecedorVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
+            viewModelStrategy = new EditarFornecedorVMStrategy();
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
-        }
-        protected async override Task<AposCriarDocumentoEventArgs> ExecutarSalvar()
-        {
-            CouchDbResponse couchDbResponse;
-            AposCriarDocumentoEventArgs e = new AposCriarDocumentoEventArgs();
-
-            if (ultimoLog != null)
-            {
-                e.CouchDbLog = (CouchDbFornecedorLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(Entidade);
-                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
-                e.CouchDbLog.Rev = couchDbResponse.Rev;
-            }
-            else
-            {
-                string jsonData = JsonConvert.SerializeObject(Entidade);
-                couchDbResponse = await couchDbClient.CreateDocument(Entidade.Cnpj, jsonData);
-            }
-
-            e.CouchDbResponse = couchDbResponse;
-            e.MensagemSucesso = "LOG de Atualização de Fornecedor Criado com Sucesso";
-            e.MensagemErro = "Erro ao Criar Log de Atualização de Fornecedor";
-            e.ObjetoSalvo = Entidade;
-
-            return e;
-        }
-        public async override void InserirNoBancoDeDados(AposCriarDocumentoEventArgs e)
-        {
-            await AtualizarNoBancoDeDados(e);
         }
         private async void AtualizarReceita(object parameter)
         {

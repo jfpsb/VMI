@@ -15,13 +15,13 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
         {
             Entidade = new Model.TipoGrade();
             daoEntidade = new DAOTipoGrade(session);
-            cadastrarViewModelStrategy = new CadastrarTipoGradeVMStrategy();
+            viewModelStrategy = new CadastrarTipoGradeVMStrategy();
             GetTipoGrades();
-            PropertyChanged += CadastrarViewModel_PropertyChanged;
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
+            PropertyChanged += CadastrarTipoGrade_PropertyChanged;
+            Entidade.PropertyChanged += ChecaPropriedadesTipoGrade;
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public void CadastrarTipoGrade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
             }
         }
 
-        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public async void ChecaPropriedadesTipoGrade(object sender, PropertyChangedEventArgs e)
         {
             DAOTipoGrade daoTipoGrade = (DAOTipoGrade)daoEntidade;
             switch (e.PropertyName)
@@ -64,16 +64,10 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
             SetStatusBarAguardando();
             return true;
         }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-
-        }
         private async void GetTipoGrades()
         {
             TipoGrades = new ObservableCollection<Model.TipoGrade>(await daoEntidade.Listar<Model.TipoGrade>());
         }
-
         public ObservableCollection<Model.TipoGrade> TipoGrades
         {
             get => _tipoGrades;
@@ -83,7 +77,6 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
                 OnPropertyChanged("TipoGrades");
             }
         }
-
         public Model.TipoGrade TipoGradePesquisa
         {
             get => _tipoGradePesquisa;

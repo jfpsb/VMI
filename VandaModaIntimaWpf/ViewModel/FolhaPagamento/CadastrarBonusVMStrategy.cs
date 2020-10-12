@@ -1,23 +1,22 @@
 ﻿namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class CadastrarFolhaVMStrategy : ICadastrarVMStrategy
+    class CadastrarBonusVMStrategy : ICadastrarVMStrategy
     {
         public string MensagemDocumentoSalvoComSucesso()
         {
-            return "LOG de Criação de Folha de Pagamento Foi Criado Com Sucesso";
+            return "LOG de Criação de Bônus Foi Criado Com Sucesso";
         }
         public string MensagemDocumentoNaoSalvo()
         {
-            return "Erro ao Criar LOG de Criação de Folha de Pagamento";
+            return "Erro ao Criar LOG de Criação de Bônus";
         }
         public string MensagemEntidadeErroAoSalvar()
         {
-            return "Erro ao Inserir Folha de Pagamento";
+            return "Erro ao Inserir Bônus";
         }
-
         public string MensagemEntidadeSalvaComSucesso()
         {
-            return "Folha de Pagamento Foi Inserida Com Sucesso";
+            return "Bônus Foi Inserido Com Sucesso";
         }
     }
 }

@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.Funcionario clone, ISession session)
         {
-            EditarFuncVM editarFuncionarioViewModel = new EditarFuncVM(session, new MessageBoxService());
+            EditarFuncionarioVM editarFuncionarioViewModel = new EditarFuncionarioVM(session, new MessageBoxService());
             editarFuncionarioViewModel.Entidade = clone;
 
             EditarFuncionario editarFuncionario = new EditarFuncionario()

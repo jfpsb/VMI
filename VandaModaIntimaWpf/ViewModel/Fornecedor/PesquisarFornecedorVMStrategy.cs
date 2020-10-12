@@ -10,7 +10,7 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class PesquisarFornMsgVMStrategy : IPesquisarMsgVMStrategy<FornecedorModel>
+    class PesquisarFornecedorVMStrategy : IPesquisarMsgVMStrategy<FornecedorModel>
     {
         public string MensagemApagarEntidadeCerteza(FornecedorModel e)
         {

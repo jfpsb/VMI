@@ -18,12 +18,12 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
             daoEntidade = new DAOGrade(session);
             daoTipoGrade = new DAOTipoGrade(session);
             Entidade = new Model.Grade();
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
-            PropertyChanged += CadastrarViewModel_PropertyChanged;
+            Entidade.PropertyChanged += ChecaPropriedadesGrade;
+            PropertyChanged += CadastrarGrade_PropertyChanged;
             GetTipoGrades();
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void CadastrarGrade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
             }
         }
 
-        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void ChecaPropriedadesGrade(object sender, PropertyChangedEventArgs e)
         {
             DAOGrade daoGrade = (DAOGrade)daoEntidade;
             switch (e.PropertyName)
@@ -58,11 +58,6 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
                 return false;
 
             return true;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-
         }
         private async void GetTipoGrades()
         {

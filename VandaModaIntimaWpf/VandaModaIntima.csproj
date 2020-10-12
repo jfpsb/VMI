@@ -127,10 +127,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Duplicata\DuplicataHandler.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\FolhaPagamento\AdicionarAdiantamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -351,9 +347,10 @@
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemVM.cs" />
-    <Compile Include="ViewModel\Contagem\CadastrarContMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Contagem\CadastrarContagemVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\EditarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\EditarContagemVMJanela.cs" />
+    <Compile Include="ViewModel\Contagem\EditarContagemVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
@@ -365,45 +362,53 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Duplicata\DuplicataHandlerViewModel.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\EditarAdiantamentoVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\EditarBonusVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\EditarFolhaVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornManualmenteVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\EditarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\PesquisarFornMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
     <Compile Include="ViewModel\Funcionario\CadastrarFuncVM.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Funcionario\EditarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVMStrategy.cs" />
+    <Compile Include="ViewModel\Funcionario\EditarFuncionarioVMStrategy.cs" />
+    <Compile Include="ViewModel\Funcionario\EditarFuncionarioVM.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncVM.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncMsgVMStrategy.cs" />
     <Compile Include="ViewModel\GlobalConfigs.cs" />
     <Compile Include="ViewModel\Grade\CadastrarGradeVM.cs" />
+    <Compile Include="ViewModel\Grade\CadastrarGradeVMStrategy.cs" />
     <Compile Include="ViewModel\ICadastrarVM.cs" />
     <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
     <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaVM.cs" />
-    <Compile Include="ViewModel\Loja\CadastrarLojaMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Loja\CadastrarLojaVMStrategy.cs" />
     <Compile Include="ViewModel\Loja\EditarLojaVM.cs" />
+    <Compile Include="ViewModel\Loja\EditarLojaVMStrategy.cs" />
     <Compile Include="ViewModel\Loja\PesquisarLojaVM.cs" />
     <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Marca\CadastrarMarcaMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Marca\CadastrarMarcaVMStrategy.cs" />
+    <Compile Include="ViewModel\Marca\EditarMarcaVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Produto\CadastrarProdutoMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Produto\CadastrarProdutoVMStrategy.cs" />
+    <Compile Include="ViewModel\Produto\EditarProdutoVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\FormatoDoubleDataGrid.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
@@ -449,9 +454,6 @@
     </Compile>
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Duplicata\DuplicataHandler.xaml.cs">
-      <DependentUpon>DuplicataHandler.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>

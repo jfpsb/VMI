@@ -14,12 +14,20 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public CadastrarLojaVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarLojaMsgVMStrategy();
+            viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);
             Entidade = new LojaModel();
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
+            Entidade.PropertyChanged += ChecaPropriedadesLoja;
             GetMatrizes();
+            AntesDeInserirNoBancoDeDados += ConfiguraLojaAntesDeInserir;
         }
+
+        private void ConfiguraLojaAntesDeInserir()
+        {
+            if (Entidade.Matriz?.Cnpj == null)
+                Entidade.Matriz = null;
+        }
+
         public override bool ValidacaoSalvar(object parameter)
         {
             if (string.IsNullOrEmpty(Entidade.Cnpj) || string.IsNullOrEmpty(Entidade.Nome) || Entidade.Aluguel <= 0.0)
@@ -42,7 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
         }
 
-        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public async void ChecaPropriedadesLoja(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -62,16 +70,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
                     break;
             }
-        }
-        protected override void ExecutarAntesCriarDocumento()
-        {
-            if (Entidade.Matriz?.Cnpj == null)
-                Entidade.Matriz = null;
-        }
-
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

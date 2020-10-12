@@ -21,25 +21,31 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public CadastrarContagemVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             Entidade = new ContagemModel();
-            cadastrarViewModelStrategy = new CadastrarContMsgVMStrategy();
+            viewModelStrategy = new CadastrarContagemVMStrategy();
 
             _daoLoja = new DAOLoja(_session);
             _daoTipoContagem = new DAOTipoContagem(_session);
             daoEntidade = new DAOContagem(_session);
 
+            AntesDeInserirNoBancoDeDados += ConfiguraContagem;
+
             GetLojas();
             GetTiposContagem();
         }
-        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        private void ConfiguraContagem()
         {
-            throw new NotImplementedException();
+            Entidade.Data = DateTime.Now;
+            Entidade.Finalizada = false;
         }
 
         public override void ResetaPropriedades()
         {
-            Entidade = new ContagemModel();
-            Entidade.TipoContagem = TiposContagem[0];
-            Entidade.Loja = Lojas[0];
+            Entidade = new ContagemModel
+            {
+                TipoContagem = TiposContagem[0],
+                Loja = Lojas[0]
+            };
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -52,17 +58,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private async void GetTiposContagem()
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-            Entidade.Data = DateTime.Now;
-            Entidade.Finalizada = false;
-        }
-
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

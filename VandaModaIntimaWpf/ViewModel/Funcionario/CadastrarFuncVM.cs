@@ -17,15 +17,26 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public CadastrarFuncVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarFuncMsgVMStrategy();
+            viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);
             daoLoja = new DAOLoja(_session);
-            Entidade = new FuncionarioModel();
-            Entidade.PropertyChanged += Entidade_PropertyChanged;
+
             GetLojas();
+
+            Entidade = new FuncionarioModel();
             Entidade.Loja = Lojas[0];
+            Entidade.PropertyChanged += ChecaPropriedadesFuncionario;
+
+            AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
         }
-        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        private void ConfiguraFuncionarioAntesDeInserir()
+        {
+            if (Entidade.Loja.Cnpj == null)
+                Entidade.Loja = null;
+        }
+
+        public async void ChecaPropriedadesFuncionario(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -61,17 +72,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 return false;
 
             return true;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-            if (Entidade.Loja.Cnpj == null)
-                Entidade.Loja = null;
-        }
-
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -10,17 +10,12 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
     {
         public CadastrarMarcaVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
-            cadastrarViewModelStrategy = new CadastrarMarcaMsgVMStrategy();
+            viewModelStrategy = new CadastrarMarcaVMStrategy();
             daoEntidade = new DAOMarca(_session);
             Entidade = new MarcaModel();
+            Entidade.PropertyChanged += ChecaPropriedadesMarca;
         }
-
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            
-        }
-
-        public override async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void ChecaPropriedadesMarca(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -54,11 +49,6 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
                 return false;
 
             return true;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-
         }
     }
 }

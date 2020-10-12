@@ -15,26 +15,26 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public AdicionarBonusVM(ISession session, FolhaModel folha, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             daoEntidade = new DAOBonus(session);
-            cadastrarViewModelStrategy = new CadastrarBonusMsgVMStrategy();
+            viewModelStrategy = new CadastrarBonusVMStrategy();
             _folha = folha;
+
+            AntesDeInserirNoBancoDeDados += ConfiguraBonus;
 
             Entidade = new Bonus() { Id = DateTime.Now.Ticks };
             Entidade.Folha = folha;
         }
 
-        public override void CadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ConfiguraBonus()
         {
-            throw new NotImplementedException();
+            Entidade.Data = DateTime.Now;
         }
 
-        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-
-        }
         public override void ResetaPropriedades()
         {
-            Entidade = new Bonus();
-            Entidade.Folha = _folha;
+            Entidade = new Bonus
+            {
+                Folha = _folha
+            };
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -43,11 +43,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 return false;
 
             return true;
-        }
-
-        protected override void ExecutarAntesCriarDocumento()
-        {
-            Entidade.Data = DateTime.Now;
         }
     }
 }

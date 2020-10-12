@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
     /// </summary>
     public static class EditarContagemVMJanela
     {
+        //TODO: Colocar essa abertura de janela em um service
         public static void AbrirAdicionarContagemProduto(object viewModel)
         {
             AdicionarContagemProduto adicionarContagemProduto = new AdicionarContagemProduto
