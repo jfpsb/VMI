@@ -61,9 +61,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             Entidade.PropertyChanged += ChecaPropriedadesProduto;
             PropertyChanged += GetGrades;
-            AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
 
-            AntesDeCriarDocumento += AdicionaGradesEmEntidade;
+            AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
+            AntesDeInserirNoBancoDeDados += AdicionaGradesEmEntidade;
+
             AposInserirNoBancoDeDados += LimpaGrades;
 
             GetFornecedores();
@@ -93,8 +94,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void LimpaGrades(AposInserirBDEventArgs e)
         {
-            Grades.Clear();
-            ProdutoGrades.Clear();
+            if (e.IdentificadorEntidade != null && !e.IssoEUmUpdate)
+            {
+                Grades.Clear();
+                ProdutoGrades.Clear();
+            }
         }
 
         private void AdicionaGradesEmEntidade()

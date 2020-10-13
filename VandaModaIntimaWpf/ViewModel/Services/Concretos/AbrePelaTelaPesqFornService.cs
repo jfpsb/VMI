@@ -25,8 +25,8 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.Fornecedor clone, ISession session)
         {
-            EditarFornecedorVM viewModel = new EditarFornecedorVM(session, new MessageBoxService());
-            viewModel.Entidade = clone;
+            EditarFornecedorVM viewModel = new EditarFornecedorVM(session, clone, new MessageBoxService());
+            //viewModel.Entidade = clone;
 
             EditarFornecedor editarFornecedor = new EditarFornecedor() { DataContext = viewModel };
 

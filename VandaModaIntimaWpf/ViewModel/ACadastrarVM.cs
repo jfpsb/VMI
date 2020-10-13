@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
 
             AposInserirNoBancoDeDados += ResultadoInsercao;
-            AposInserirNoBancoDeDados += CriarDocumento;
+            AposInserirNoBancoDeDados += SalvarDocumento;
             AposInserirNoBancoDeDados += RedefinirTela;
 
             PropertyChanged += GetUltimoLogDeEntidade;
@@ -75,13 +75,25 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
-        private async void CriarDocumento(AposInserirBDEventArgs e)
+        private async void SalvarDocumento(AposInserirBDEventArgs e)
         {
             AntesDeCriarDocumento?.Invoke();
+            CouchDbResponse couchDbResponse;
 
             E entidadeInserida = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-            string entidadeJson = JsonConvert.SerializeObject(entidadeInserida);
-            var couchDbResponse = await couchDbClient.CreateDocument(entidadeInserida.CouchDbId(), entidadeJson);
+
+            if (ultimoLog == null)
+            {
+                string entidadeJson = JsonConvert.SerializeObject(entidadeInserida);
+                couchDbResponse = await couchDbClient.CreateDocument(entidadeInserida.CouchDbId(), entidadeJson);
+            }
+            else
+            {
+                e.CouchDbLog = (CouchDbLog)ultimoLog.Clone();
+                ultimoLog.AtribuiCampos(entidadeInserida);
+                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
+                e.CouchDbLog.Rev = couchDbResponse.Rev;
+            }
 
             AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
             {
@@ -118,6 +130,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
+                IssoEUmUpdate = ultimoLog != null,
                 IdentificadorEntidade = _identifier,
                 MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
                 MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar()
@@ -130,7 +143,8 @@ namespace VandaModaIntimaWpf.ViewModel
             switch (e.PropertyName)
             {
                 case "Entidade":
-                    ultimoLog = await couchDbClient.FindById(Entidade.CouchDbId());
+                    if (_entidade.CouchDbId() != null)
+                        ultimoLog = await couchDbClient.FindById(_entidade.CouchDbId());
                     break;
             }
         }
