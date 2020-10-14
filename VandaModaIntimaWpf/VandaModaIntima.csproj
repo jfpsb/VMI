@@ -375,7 +375,7 @@
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornManualmenteVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorVM.cs" />
@@ -383,7 +383,7 @@
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVM.cs" />
     <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVM.cs" />
     <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVMStrategy.cs" />
     <Compile Include="ViewModel\Funcionario\EditarFuncionarioVMStrategy.cs" />
     <Compile Include="ViewModel\Funcionario\EditarFuncionarioVM.cs" />

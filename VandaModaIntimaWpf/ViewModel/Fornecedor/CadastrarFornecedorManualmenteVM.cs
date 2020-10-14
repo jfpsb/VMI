@@ -7,9 +7,9 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class CadastrarFornManualmenteVM : ACadastrarViewModel<FornecedorModel>
+    class CadastrarFornecedorManualmenteVM : ACadastrarViewModel<FornecedorModel>
     {
-        public CadastrarFornManualmenteVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
@@ -45,10 +45,21 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Entidade.Cnpj)
-                || string.IsNullOrEmpty(Entidade.Nome)
-                || Entidade.Cnpj.Length != 14)
+            if (string.IsNullOrEmpty(Entidade.Nome))
             {
+                SetStatusBarErro("O Campo de Nome Não Pode Ser Vazio");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Entidade.Cnpj))
+            {
+                SetStatusBarErro("O Campo de CNPJ Não Pode Ser Vazio");
+                return false;
+            }
+
+            if (Entidade.Cnpj.Length != 14)
+            {
+                SetStatusBarErro("O Campo de CNPJ Deve Possuir 14 Dígitos");
                 return false;
             }
 

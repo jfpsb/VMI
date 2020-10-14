@@ -7,7 +7,7 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class EditarFornecedorVM : CadastrarFornManualmenteVM
+    class EditarFornecedorVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand AtualizarReceitaComando { get; set; }
         public EditarFornecedorVM(ISession session, FornecedorModel fornecedor, IMessageBoxService messageBoxService) : base(session, messageBoxService)

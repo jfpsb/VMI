@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             SetStatusBarAguardando();
 
-            AposCriarDocumento += ResultadoCriacaoDocumento;
+            AposCriarDocumento += ResultadoSalvarDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
 
             AposInserirNoBancoDeDados += ResultadoInsercao;
@@ -62,8 +62,11 @@ namespace VandaModaIntimaWpf.ViewModel
 
             PropertyChanged += GetUltimoLogDeEntidade;
         }
-
-        private void ResultadoCriacaoDocumento(AposCriarDocumentoEventArgs e)
+        /// <summary>
+        /// Escreve no console da aplicação se houve erro ou falha ao salvar documento do CouchDb
+        /// </summary>
+        /// <param name="e"></param>
+        private void ResultadoSalvarDocumento(AposCriarDocumentoEventArgs e)
         {
             if (e.CouchDbResponse.Ok)
             {
@@ -74,7 +77,10 @@ namespace VandaModaIntimaWpf.ViewModel
                 Console.WriteLine(e.MensagemErro);
             }
         }
-
+        /// <summary>
+        /// Salva documento do CouchDb após operação de Salvar no Banco de Dados
+        /// </summary>
+        /// <param name="e"></param>
         private async void SalvarDocumento(AposInserirBDEventArgs e)
         {
             AntesDeCriarDocumento?.Invoke();
@@ -110,7 +116,10 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             OnPropertyChanged("Entidade");
         }
-
+        /// <summary>
+        /// Método atrelado ao comando do botão Salvar
+        /// </summary>
+        /// <param name="parameter">Parâmetro da View</param>
         public virtual async void Salvar(object parameter)
         {
             try
@@ -124,6 +133,10 @@ namespace VandaModaIntimaWpf.ViewModel
                 MessageBoxService.Show(e.Message);
             }
         }
+        /// <summary>
+        /// Executa a operação de salvar entidade
+        /// </summary>
+        /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
         protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar()
         {
             _identifier = await daoEntidade.InserirOuAtualizar(Entidade);
@@ -138,6 +151,11 @@ namespace VandaModaIntimaWpf.ViewModel
 
             return e;
         }
+        /// <summary>
+        /// Consulta e atribui o último log do CouchDb salvo dessa entidade
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Parâmetros de evento</param>
         protected async void GetUltimoLogDeEntidade(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -160,7 +178,10 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <param name="parameter">Parâmetro do comando</param>
         /// <returns></returns>
         public abstract bool ValidacaoSalvar(object parameter);
-
+        /// <summary>
+        /// Checa o resultado da inserção da entidade e retorna ao usuário
+        /// </summary>
+        /// <param name="e">Parâmetros do evento</param>
         private async void ResultadoInsercao(AposInserirBDEventArgs e)
         {
             //Se foi inserido com sucesso
@@ -174,10 +195,15 @@ namespace VandaModaIntimaWpf.ViewModel
                 SetStatusBarErro(e.MensagemErro);
             }
         }
+        /// <summary>
+        /// Redefine os campos do formulário para os valores padrões
+        /// </summary>
+        /// <param name="e"></param>
         private async void RedefinirTela(AposInserirBDEventArgs e)
         {
             if (e.IdentificadorEntidade != null)
             {
+                // Se a operação for um Update não há alteração no formulário
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades();
 
@@ -190,25 +216,36 @@ namespace VandaModaIntimaWpf.ViewModel
                 SetStatusBarErro(e.MensagemErro);
             }
         }
-        protected virtual void ChamaAposInserirNoBD(AposInserirBDEventArgs e)
-        {
-            AposInserirNoBancoDeDados?.Invoke(e);
-        }
+        /// <summary>
+        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar em caso de sucesso em uma operação
+        /// </summary>
+        /// <param name="mensagem">Mensagem a ser mostrada</param>
         protected void SetStatusBarSucesso(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMSUCESSO;
         }
+        /// <summary>
+        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar em caso de erro em uma operação
+        /// </summary>
+        /// <param name="mensagem">Mensagem a ser mostrada</param>
         protected void SetStatusBarErro(string mensagem)
         {
             MensagemStatusBar = mensagem;
             ImagemStatusBar = IMAGEMERRO;
         }
+        /// <summary>
+        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar mostrando que a aplicação está esperando que o usuário realize alguma ação
+        /// </summary>
         protected void SetStatusBarAguardando()
         {
             MensagemStatusBar = GetResource.GetString("aguardando_usuario");
             ImagemStatusBar = IMAGEMAGUARDANDO;
         }
+        /// <summary>
+        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar mostrando que a aplicação está esperando que o usuário realize alguma ação
+        /// </summary>
+        /// <param name="mensagem">Mensagem a ser mostrada</param>
         protected void SetStatusBarAguardando(string mensagem)
         {
             MensagemStatusBar = mensagem;

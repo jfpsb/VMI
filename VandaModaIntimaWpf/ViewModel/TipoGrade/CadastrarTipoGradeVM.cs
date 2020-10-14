@@ -49,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Entidade.Nome))
+            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
             {
                 SetStatusBarErro("Nome Não Pode Ser Vazio");
                 return false;

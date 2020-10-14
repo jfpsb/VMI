@@ -10,12 +10,12 @@ using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
-    public class CadastrarFuncVM : ACadastrarViewModel<FuncionarioModel>
+    public class CadastrarFuncionarioVM : ACadastrarViewModel<FuncionarioModel>
     {
         private DAOLoja daoLoja;
         public ObservableCollection<LojaModel> Lojas { get; set; }
 
-        public CadastrarFuncVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarFuncionarioVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);
@@ -70,6 +70,24 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             if (string.IsNullOrEmpty(Entidade.Cpf) || string.IsNullOrEmpty(Entidade.Nome) || Entidade.Salario <= 0.0)
                 return false;
+
+            if (string.IsNullOrEmpty(Entidade.Cpf?.Trim()))
+            {
+                SetStatusBarErro("O Campo de CPF Não Pode Ser Vazio");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
+            {
+                SetStatusBarErro("O Campo de Nome Não Pode Ser Vazio");
+                return false;
+            }
+
+            if (Entidade.Salario.ToString()?.Trim().Length == 0 || Entidade.Salario <= 0.0)
+            {
+                SetStatusBarErro("O Campo de Salário Não Pode Ser Vazio Ou Inválido");
+                return false;
+            }
 
             return true;
         }

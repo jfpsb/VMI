@@ -6,7 +6,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class CadastrarFornOnlineVM : CadastrarFornManualmenteVM
+    class CadastrarFornOnlineVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand PesquisarComando { get; set; }
 

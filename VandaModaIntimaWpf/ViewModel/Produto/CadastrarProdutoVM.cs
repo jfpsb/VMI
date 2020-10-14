@@ -182,18 +182,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Entidade.CodBarra) || string.IsNullOrEmpty(Entidade.Descricao))
+            if (string.IsNullOrEmpty(Entidade.CodBarra?.Trim()) || string.IsNullOrEmpty(Entidade.Descricao))
             {
+                SetStatusBarErro("Código ou Descrição Não Podem Ser Vazios");
                 return false;
             }
 
-            if (Entidade.Preco.ToString().Equals(string.Empty) || Entidade.Preco == 0)
+            if (Entidade.Preco.ToString().Equals(string.Empty) || Entidade.Preco <= 0)
             {
+                SetStatusBarErro("Preço Não Pode Ser Vazio Ou Inválido");
                 return false;
             }
-
-            if (!IsEnabled)
-                return false;
 
             return true;
         }
