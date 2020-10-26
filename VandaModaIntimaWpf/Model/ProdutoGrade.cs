@@ -6,6 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ProdutoGrade : AModel, IModel
     {
+        private long _id;
         private string _codBarra;
         private Produto _produto;
         private double _preco;
@@ -90,11 +91,25 @@ namespace VandaModaIntimaWpf.Model
 
         public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => $"{CodBarra}";
+        public string GetContextMenuHeader => $"{CodBarra} - {SubGradesToString}";
+
+        public long Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         public string CouchDbId()
         {
-            return CodBarra;
+            return Id.ToString();
         }
 
         public object GetIdentifier()

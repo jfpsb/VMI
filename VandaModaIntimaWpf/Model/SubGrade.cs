@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
 
         public string CouchDbId()
         {
-            return ProdutoGrade.CodBarra + Grade.Id;
+            return ProdutoGrade.Id.ToString() + Grade.Id;
         }
 
         public object GetIdentifier()
@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.Model
             if (obj.GetType() == typeof(SubGrade))
             {
                 SubGrade subGrade = obj as SubGrade;
-                if (subGrade.ProdutoGrade.CodBarra == ProdutoGrade.CodBarra && subGrade.Grade.Id == Grade.Id)
+                if (subGrade.ProdutoGrade.Id == ProdutoGrade.Id && subGrade.Grade.Id == Grade.Id)
                     return true;
             }
 

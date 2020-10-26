@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.Model
 
         public string CouchDbId()
         {
-            return ProdutoGrade.Produto.CodBarra + ProdutoGrade.CodBarra + Loja.Cnpj;
+            return ProdutoGrade.Id.ToString() + Loja.Cnpj;
         }
 
         public object GetIdentifier()

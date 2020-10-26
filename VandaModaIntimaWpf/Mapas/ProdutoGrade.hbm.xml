@@ -4,8 +4,11 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="ProdutoGrade" table="produto_grade" lazy="false">
-    <id name="CodBarra" column="cod_barra" />
+    <id name="Id" column="id">
+      <generator class="increment" />
+    </id>
     <many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" />
+    <property name="CodBarra" column="cod_barra" />
     <property name="Preco" column="preco" />
     <bag name="SubGrades" table="sub_grade" inverse="true" cascade="all-delete-orphan" lazy="false">
       <key column="produto_grade" />        
