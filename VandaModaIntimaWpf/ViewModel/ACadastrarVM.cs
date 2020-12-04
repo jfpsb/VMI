@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
 
             AposInserirNoBancoDeDados += ResultadoInsercao;
-            AposInserirNoBancoDeDados += SalvarDocumento;
+            //AposInserirNoBancoDeDados += SalvarDocumento;
             AposInserirNoBancoDeDados += RedefinirTela;
 
             PropertyChanged += GetUltimoLogDeEntidade;

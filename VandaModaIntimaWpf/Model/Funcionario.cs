@@ -13,7 +13,8 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private double _salario;
         private string _telefone;
-        private IList<FolhaPagamento> _folhaPagamentos = new List<FolhaPagamento>();
+        private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
+        private IList<Bonus> _bonus = new List<Bonus>();
         public enum Colunas
         {
             Cpf = 1,
@@ -96,13 +97,22 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<FolhaPagamento> FolhaPagamentos
+        public IList<Adiantamento> Adiantamentos
         {
-            get => _folhaPagamentos;
+            get => _adiantamentos;
             set
             {
-                _folhaPagamentos = value;
-                OnPropertyChanged("FolhaPagamentos");
+                _adiantamentos = value;
+                OnPropertyChanged("Adiantamentos");
+            }
+        }
+        public IList<Bonus> Bonus
+        {
+            get => _bonus;
+            set
+            {
+                _bonus = value;
+                OnPropertyChanged("Bonus");
             }
         }
 
@@ -123,11 +133,6 @@ namespace VandaModaIntimaWpf.Model
 
         public void InicializaLazyLoad()
         {
-            if (!NHibernateUtil.IsInitialized(FolhaPagamentos))
-            {
-                NHibernateUtil.Initialize(FolhaPagamentos);
-            }
-
             if (!NHibernateUtil.IsInitialized(Loja))
             {
                 NHibernateUtil.Initialize(Loja);

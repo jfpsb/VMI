@@ -46,35 +46,10 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 linhaAtual++;
 
-                foreach(var bonus in folha.Bonus)
-                {
-                    Worksheet.Cells[linhaAtual, pColuna] = string.Format("Bônus - {0}", bonus.Descricao);
-                    Worksheet.Cells[linhaAtual, sColuna] = bonus.Valor;
-
-                    Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.LightGreen;
-                    Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.LightGreen;
-
-                    linhaAtual++;
-                }
-
-                foreach (var parcela in folha.Parcelas)
-                {
-                    Adiantamento ad = parcela.Adiantamento;
-
-                    Worksheet.Cells[linhaAtual, pColuna] = string.Format("Adiantamento em {0} de R$ {1} - Parcela {2} de {3}",
-                        ad.Data.ToString("d"), ad.Valor, parcela.Numero, ad.Parcelas.Count);
-                    Worksheet.Cells[linhaAtual, sColuna] = parcela.Valor;
-
-                    Worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Red;
-                    Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.Yellow;
-                    Worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Red;
-                    Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.Yellow;
-
-                    linhaAtual++;
-                }
+                //TODO: arrumar exportacao de folha de pagamento
 
                 Worksheet.Cells[linhaAtual, pColuna] = "Total Em Adiantamentos";
-                Worksheet.Cells[linhaAtual, sColuna] = folha.TotalAdiantamentos;
+                //Worksheet.Cells[linhaAtual, sColuna] = folha.TotalAdiantamentos;
                 Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.SkyBlue;
                 Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.SkyBlue;
                 Worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Red;
@@ -83,7 +58,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 linhaAtual++;
 
                 Worksheet.Cells[linhaAtual, pColuna] = "Total A Receber";
-                Worksheet.Cells[linhaAtual, sColuna] = folha.ValorAPagar;
+                //Worksheet.Cells[linhaAtual, sColuna] = folha.ValorAPagar;
 
                 Worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Blue;
                 Worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Blue;

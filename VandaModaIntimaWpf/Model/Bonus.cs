@@ -7,13 +7,15 @@ namespace VandaModaIntimaWpf.Model
     public class Bonus : AModel, IModel
     {
         private long _id;
-        private FolhaPagamento _folha;
+        private Funcionario _funcionario;
         private DateTime _data;
         private string _descricao;
         private double _valor;
+        private int _mesReferencia;
+        private int _anoReferencia;
 
         [JsonIgnore]
-        public string GetContextMenuHeader => string.Format("{0} - {1} - R$ {2}", Folha.MesReferencia, Folha.Funcionario.Nome, Valor);
+        public string GetContextMenuHeader => string.Format("R$ {0}", Valor);
 
         public Dictionary<string, string> DictionaryIdentifier
         {
@@ -37,13 +39,13 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public FolhaPagamento Folha
+        public Funcionario Funcionario
         {
-            get => _folha;
+            get => _funcionario;
             set
             {
-                _folha = value;
-                OnPropertyChanged("Folha");
+                _funcionario = value;
+                OnPropertyChanged("Funcionario");
             }
         }
         public string Descricao
@@ -79,6 +81,24 @@ namespace VandaModaIntimaWpf.Model
         public string DataString
         {
             get => Data.ToString("G");
+        }
+        public int MesReferencia
+        {
+            get => _mesReferencia;
+            set
+            {
+                _mesReferencia = value;
+                OnPropertyChanged("MesReferencia");
+            }
+        }
+        public int AnoReferencia
+        {
+            get => _anoReferencia;
+            set
+            {
+                _anoReferencia = value;
+                OnPropertyChanged("AnoReferencia");
+            }
         }
 
         public object GetIdentifier()

@@ -5,15 +5,20 @@
 
   <class name="Funcionario" table="funcionario" dynamic-insert="true" lazy="false">
     <id name="Cpf" column="cpf"></id>
-    <bag name="FolhaPagamentos" table="folhapagamento" inverse="true">
-      <key column="funcionario" />
-      <one-to-many class="VandaModaIntimaWpf.Model.FolhaPagamento" />
-    </bag>
     <many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
     <property name="Nome" column="nome" />
     <property name="Salario" column="salario" />
     <property name="Endereco" column="endereco" />
     <property name="Telefone" column="telefone" />
+
+    <bag name="Adiantamentos" table="adiantamento" inverse="true" cascade="all-delete-orphan">
+      <key column="funcionario" />
+      <one-to-many class="VandaModaIntimaWpf.Model.Adiantamento" />
+    </bag>
+    <bag name="Bonus" table="bonus" inverse="true" cascade="all-delete-orphan">
+      <key column="funcionario" />
+      <one-to-many class="VandaModaIntimaWpf.Model.Bonus" />
+    </bag>
   </class>
 
 </hibernate-mapping>

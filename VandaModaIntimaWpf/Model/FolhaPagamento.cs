@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -12,10 +13,8 @@ namespace VandaModaIntimaWpf.Model
         private int _ano;
         private Funcionario _funcionario;
         private double _valor;
-        private double _valorAPagar;
         private bool _fechada;
         private IList<Parcela> _parcelas = new List<Parcela>();
-        private IList<Bonus> _bonus = new List<Bonus>();
 
         [JsonIgnore]
         public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
@@ -97,60 +96,23 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public IList<Parcela> Parcelas
         {
-            get => _parcelas;
-            set
+            get
             {
-                _parcelas = value;
-                OnPropertyChanged("Parcelas");
+                var listaDeParcelas = Funcionario.Adiantamentos.SelectMany(s => s.Parcelas);
+                var parcelas = listaDeParcelas.Where(w => w.MesAPagar == Mes && w.AnoAPagar == Ano);
+                return parcelas.ToList();
             }
         }
 
         [JsonIgnore]
-        public double ValorAPagar
-        {
-            get
-            {
-                _valorAPagar = _funcionario.Salario;
-
-                foreach (Parcela parcela in _parcelas)
-                {
-                    _valorAPagar -= parcela.Valor;
-                }
-
-                foreach (Bonus bonus in Bonus)
-                {
-                    _valorAPagar += bonus.Valor;
-                }
-
-                return Math.Round(_valorAPagar, 2);
-            }
-        }
-
-        [JsonIgnore]
-        public double TotalAdiantamentos
-        {
-            get
-            {
-                double total = 0;
-
-                foreach (var p in Parcelas)
-                {
-                    total += p.Valor;
-                }
-
-                return Math.Round(total, 2);
-            }
-        }
-
         public IList<Bonus> Bonus
         {
-            get => _bonus;
-            set
+            get
             {
-                _bonus = value;
-                OnPropertyChanged("Bonus");
+                return Funcionario.Bonus.Where(w => w.MesReferencia == Mes && w.AnoReferencia == Ano).ToList();
             }
         }
 
@@ -164,16 +126,6 @@ namespace VandaModaIntimaWpf.Model
             if (!NHibernateUtil.IsInitialized(Funcionario))
             {
                 NHibernateUtil.Initialize(Funcionario);
-            }
-
-            if (!NHibernateUtil.IsInitialized(Parcelas))
-            {
-                NHibernateUtil.Initialize(Parcelas);
-            }
-
-            if (!NHibernateUtil.IsInitialized(Bonus))
-            {
-                NHibernateUtil.Initialize(Bonus);
             }
         }
 

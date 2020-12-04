@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
     public class CouchDbBonusLog : CouchDbLog
     {
         public long MySqlId { get; set; }
-        public FolhaPagamento Folha { get; set; }
+        public Funcionario Funcionario { get; set; }
         public DateTime Data { get; set; }
         public string Descricao { get; set; }
         public double Valor { get; set; }
@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Bonus b = (Bonus)o;
 
             MySqlId = b.Id;
-            Folha = b.Folha;
+            Funcionario = b.Funcionario;
             Data = b.Data;
             Descricao = b.Descricao;
             Valor = b.Valor;
@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
                 Tipo = Tipo,
                 RevsInfo = RevsInfo,
                 MySqlId = MySqlId,
-                Folha = Folha,
+                Funcionario = Funcionario,
                 Data = Data,
                 Descricao = Descricao,
                 Valor = Valor

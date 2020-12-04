@@ -65,22 +65,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirMaisDetalhes(object obj)
         {
-            if (FolhaPagamento.Parcelas.Count > 0)
-            {
-                MaisDetalhesVM maisDetalhesViewModel = new MaisDetalhesVM(_session, FolhaPagamento, new MessageBoxService());
-                MaisDetalhes maisDetalhes = new MaisDetalhes()
-                {
-                    DataContext = maisDetalhesViewModel
-                };
-                maisDetalhes.ShowDialog();
+            //if (FolhaPagamento.Parcelas.Count > 0)
+            //{
+            //    MaisDetalhesVM maisDetalhesViewModel = new MaisDetalhesVM(_session, FolhaPagamento, new MessageBoxService());
+            //    MaisDetalhes maisDetalhes = new MaisDetalhes()
+            //    {
+            //        DataContext = maisDetalhesViewModel
+            //    };
+            //    maisDetalhes.ShowDialog();
 
-                OnPropertyChanged("TermoPesquisa");
-            }
+            //    OnPropertyChanged("TermoPesquisa");
+            //}
         }
 
         private void AbrirAdicionarAdiantamento(object obj)
         {
-            AdicionarAdiantamentoVM adicionarAdiantamentoViewModel = new AdicionarAdiantamentoVM(_session, FolhaPagamento, new MessageBoxService());
+            AdicionarAdiantamentoVM adicionarAdiantamentoViewModel = new AdicionarAdiantamentoVM(_session, FolhaPagamento.Funcionario, new MessageBoxService());
 
             AdicionarAdiantamento adicionarAdiantamento = new AdicionarAdiantamento()
             {

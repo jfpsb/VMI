@@ -9,10 +9,11 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private Adiantamento _adiantamento;
-        private FolhaPagamento _folhapagamento;
         private int _numero;
         private double _valor;
         private bool _paga;
+        private int _mesAPagar;
+        private int _anoAPagar;
 
         [JsonIgnore]
         public string GetContextMenuHeader => throw new NotImplementedException();
@@ -40,19 +41,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Adiantamento");
             }
         }
-        public FolhaPagamento FolhaPagamento
-        {
-            get => _folhapagamento;
-            set
-            {
-                _folhapagamento = value;
-                OnPropertyChanged("FolhaPagamento");
-            }
-        }
-        public string PagamentoEm
-        {
-            get => FolhaPagamento.Mes + "/" + FolhaPagamento.Ano;
-        }
+
         public double Valor
         {
             get => Math.Round(_valor, 2);
@@ -93,22 +82,28 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        /// <summary>
-        /// Retorna valor acumulado de parcelas sendo cobradas no mesmo mês que esta parcela
-        /// </summary>
-        public double ValorAcumulado
+        public int MesAPagar
         {
-            get
+            get => _mesAPagar;
+            set
             {
-                double valor = Valor;
-
-                foreach (Parcela p in FolhaPagamento.Parcelas)
-                {
-                    valor += p.Valor;
-                }
-
-                return FolhaPagamento.Funcionario.Salario - valor;
+                _mesAPagar = value;
+                OnPropertyChanged("MesAPagar");
             }
+        }
+        public int AnoAPagar
+        {
+            get => _anoAPagar;
+            set
+            {
+                _anoAPagar = value;
+                OnPropertyChanged("AnoAPagar");
+            }
+        }
+
+        public string PagamentoEm
+        {
+            get => $"{MesAPagar}/{AnoAPagar}";
         }
 
         public object GetIdentifier()
@@ -121,11 +116,6 @@ namespace VandaModaIntimaWpf.Model
             if (!NHibernateUtil.IsInitialized(Adiantamento))
             {
                 NHibernateUtil.Initialize(Adiantamento);
-            }
-
-            if (!NHibernateUtil.IsInitialized(FolhaPagamento))
-            {
-                NHibernateUtil.Initialize(FolhaPagamento);
             }
         }
 

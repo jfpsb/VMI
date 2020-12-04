@@ -86,7 +86,7 @@
             <TextBox Grid.Column="1"
                      Grid.Row="5"
                      MaxLength="10"
-                     Text="{Binding Entidade.Salario, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Salario, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6"
                    Content="{DynamicResource loja_dois_pontos}" />

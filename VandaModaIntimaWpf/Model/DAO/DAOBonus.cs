@@ -15,9 +15,9 @@ namespace VandaModaIntimaWpf.Model.DAO
             throw new NotImplementedException();
         }
 
-        public override Task<object> ListarPorId(object id)
+        public override async Task<object> ListarPorId(object id)
         {
-            throw new NotImplementedException();
+            return await session.GetAsync<Bonus>(id);
         }
     }
 }

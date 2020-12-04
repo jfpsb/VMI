@@ -40,8 +40,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             _folha = folhaPagamento;
             daoAdiantamento = new DAOAdiantamento(session);
             daoBonus = new DAOBonus(session);
-            Parcelas = new ObservableCollection<Parcela>(folhaPagamento.Parcelas);
-            Bonus = new ObservableCollection<Bonus>(folhaPagamento.Bonus);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
         }
@@ -57,8 +55,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                _folha.Bonus.Remove(BonusEscolhido);
-
                 bool resultadoDelete = await daoBonus.Deletar(BonusEscolhido);
 
                 if (resultadoDelete)
@@ -79,12 +75,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                foreach (var p in Parcela.Adiantamento.Parcelas)
-                {
-                    FolhaModel f = p.FolhaPagamento;
-                    f.Parcelas.Remove(p);
-                }
-
                 bool resultadoDelete = await daoAdiantamento.Deletar(Parcela.Adiantamento);
 
                 if (resultadoDelete)
@@ -100,8 +90,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             MensagemStatusBar = mensagem;
             ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
             await _session.RefreshAsync(_folha);
-            Parcelas = new ObservableCollection<Parcela>(_folha.Parcelas);
-            Bonus = new ObservableCollection<Bonus>(_folha.Bonus);
             await ResetarStatusBar();
         }
         public async Task ResetarStatusBar()

@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+        xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Adicionar Bônus"
-        Height="280"
+        Height="320"
         Width="450"
         WindowStartupLocation="CenterScreen">
     <DockPanel>
@@ -42,19 +43,20 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Folha de Pagamento:" />
             <TextBox Grid.Column="1"
                      IsReadOnly="True"
                      IsEnabled="False"
-                     Text="{Binding Entidade.Folha.MesReferencia, Mode=OneWay}" />
+                     Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
             <Label Grid.Row="1"
                    Content="Funcionário:" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
                      IsEnabled="False"
                      IsReadOnly="True"
-                     Text="{Binding Entidade.Folha.Funcionario.Nome}" />
+                     Text="{Binding Entidade.Funcionario.Nome}" />
             <Label Grid.Row="2"
                    Content="Descrição:" />
             <TextBox x:Name="TxtDescricao"
@@ -66,7 +68,12 @@
                    Content="Valor:" />
             <TextBox Grid.Row="3"
                      Grid.Column="1"
-                     Text="{Binding Entidade.Valor}" />
+                     Text="{Binding Valor}" />
+            <Label Grid.Row="4"
+                   Content="Início de Pagamento:" />
+            <View:DataUpDown Grid.Column="1"
+                             Grid.Row="4"
+                             Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.ColumnSpan="2"
                     Grid.Row="5"
                     Style="{StaticResource BotaoCadastrar}"

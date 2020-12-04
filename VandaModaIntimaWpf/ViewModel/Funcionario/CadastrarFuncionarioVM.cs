@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
     public class CadastrarFuncionarioVM : ACadastrarViewModel<FuncionarioModel>
     {
         private DAOLoja daoLoja;
+        private string _salarioString;
         public ObservableCollection<LojaModel> Lojas { get; set; }
 
         public CadastrarFuncionarioVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
@@ -23,11 +24,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             GetLojas();
 
-            Entidade = new FuncionarioModel();
-            Entidade.Loja = Lojas[0];
+            Entidade = new FuncionarioModel
+            {
+                Loja = Lojas[0]
+            };
             Entidade.PropertyChanged += ChecaPropriedadesFuncionario;
 
             AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
+
+            Salario = "";
         }
 
         private void ConfiguraFuncionarioAntesDeInserir()
@@ -63,12 +68,14 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         public override void ResetaPropriedades()
         {
-            Entidade = new FuncionarioModel();
-            Entidade.Loja = Lojas[0];
+            Entidade = new FuncionarioModel
+            {
+                Loja = Lojas[0]
+            };
         }
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Entidade.Cpf) || string.IsNullOrEmpty(Entidade.Nome) || Entidade.Salario <= 0.0)
+            if (string.IsNullOrEmpty(Entidade.Cpf) || string.IsNullOrEmpty(Entidade.Nome))
                 return false;
 
             if (string.IsNullOrEmpty(Entidade.Cpf?.Trim()))
@@ -83,13 +90,26 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 return false;
             }
 
-            if (Entidade.Salario.ToString()?.Trim().Length == 0 || Entidade.Salario <= 0.0)
+            double salario;
+            if (Salario.Trim().Length == 0 || !double.TryParse(Salario, out salario) || salario <= 0.0)
             {
                 SetStatusBarErro("O Campo de Salário Não Pode Ser Vazio Ou Inválido");
                 return false;
             }
 
+            Entidade.Salario = salario;
+
             return true;
+        }
+
+        public string Salario
+        {
+            get => _salarioString;
+            set
+            {
+                _salarioString = value;
+                OnPropertyChanged("Salario");
+            }
         }
     }
 }

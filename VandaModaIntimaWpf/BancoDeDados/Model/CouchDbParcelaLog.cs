@@ -6,10 +6,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
     {
         public long MySqlId { get; set; }
         public Adiantamento Adiantamento { get; set; }
-        public FolhaPagamento Folhapagamento { get; set; }
         public int Numero { get; set; }
         public double Valor { get; set; }
         public bool Paga { get; set; }
+        public int MesAPagar { get; set; }
+        public int AnoAPagar { get; set; }
         public CouchDbParcelaLog()
         {
             Tipo = "parcela";
@@ -19,10 +20,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Parcela p = (Parcela)o;
             MySqlId = p.Id;
             Adiantamento = p.Adiantamento;
-            Folhapagamento = p.FolhaPagamento;
             Numero = p.Numero;
             Valor = p.Valor;
             Paga = p.Paga;
+            MesAPagar = p.MesAPagar;
+            AnoAPagar = p.AnoAPagar;
         }
         public override object Clone()
         {
@@ -35,10 +37,11 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
                 RevsInfo = RevsInfo,
                 MySqlId = MySqlId,
                 Adiantamento = Adiantamento,
-                Folhapagamento = Folhapagamento,
                 Numero = Numero,
                 Valor = Valor,
-                Paga = Paga
+                Paga = Paga,
+                MesAPagar = MesAPagar,
+                AnoAPagar = AnoAPagar
             };
 
             return log;

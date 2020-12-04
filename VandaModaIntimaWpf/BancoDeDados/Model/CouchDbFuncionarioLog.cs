@@ -11,7 +11,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
         public string Endereco { get; set; }
         public double Salario { get; set; }
         public string Telefone { get; set; }
-        public IList<FolhaPagamento> FolhaPagamentos { get; set; } = new List<FolhaPagamento>();
         public CouchDbFuncionarioLog()
         {
             Tipo = "funcionario";
@@ -25,7 +24,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Endereco = f.Endereco;
             Salario = f.Salario;
             Telefone = f.Telefone;
-            FolhaPagamentos = new List<FolhaPagamento>(f.FolhaPagamentos);
         }
         public override object Clone()
         {
@@ -42,7 +40,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
                 Endereco = Endereco,
                 Salario = Salario,
                 Telefone = Telefone,
-                FolhaPagamentos = new List<FolhaPagamento>(FolhaPagamentos)
             };
 
             return log;

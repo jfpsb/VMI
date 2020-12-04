@@ -10,14 +10,6 @@
     <property name="Ano" column="ano" />
     <property name="Valor" column="valor" />
     <property name="Fechada" column="fechada" />
-    <bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan">
-      <key column="folhapagamento" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
-    </bag>
-    <bag name="Bonus" table="bonus" inverse="true" cascade="all-delete-orphan">
-      <key column="folhapagamento" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Bonus" />
-    </bag>
   </class>
 
 </hibernate-mapping>
