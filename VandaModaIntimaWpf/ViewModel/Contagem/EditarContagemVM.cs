@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public EditarContagemVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
             viewModelStrategy = new EditarContagemVMStrategy();
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);
@@ -42,7 +42,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             _daoContagemProduto = new DAOContagemProduto(_session);
             Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             Quantidade = 1;
-            issoEUmUpdate = true;
             GetProdutos();
         }
         private void AbrirAdicionarContagemProduto(object parameter)

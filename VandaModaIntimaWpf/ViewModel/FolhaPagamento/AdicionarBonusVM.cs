@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private string _valor;
         private DateTime _inicioPagamento;
 
-        public AdicionarBonusVM(ISession session, FolhaModel folha, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public AdicionarBonusVM(ISession session, FolhaModel folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             daoEntidade = new DAOBonus(session);
             viewModelStrategy = new CadastrarBonusVMStrategy();

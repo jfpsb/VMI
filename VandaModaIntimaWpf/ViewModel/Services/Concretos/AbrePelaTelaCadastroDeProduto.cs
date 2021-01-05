@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
     {
         public void AbrirTelaCadastrarTipoGrade(ISession session)
         {
-            CadastrarTipoGradeVM viewModel = new CadastrarTipoGradeVM(session, new MessageBoxService());
+            CadastrarTipoGradeVM viewModel = new CadastrarTipoGradeVM(session, new MessageBoxService(), false);
             CadastrarTipoGrade cadastrarTipoGrade = new CadastrarTipoGrade()
             {
                 DataContext = viewModel
@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaCadastrarGrade(ISession session)
         {
-            CadastrarGradeVM viewModel = new CadastrarGradeVM(session, new MessageBoxService());
+            CadastrarGradeVM viewModel = new CadastrarGradeVM(session, new MessageBoxService(), false);
             CadastrarGrade cadastrarGrade = new CadastrarGrade()
             {
                 DataContext = viewModel

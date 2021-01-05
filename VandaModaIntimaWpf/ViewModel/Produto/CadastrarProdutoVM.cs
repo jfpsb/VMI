@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand InserirFormacaoAtualGradeComando { get; set; }
         public ICommand AbreTelaCadastrarTipoGradeComando { get; set; }
         public ICommand AbreTelaCadastrarGradeComando { get; set; }
-        public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
             abrePelaTelaCadastroDeProduto = new AbrePelaTelaCadastroDeProduto();

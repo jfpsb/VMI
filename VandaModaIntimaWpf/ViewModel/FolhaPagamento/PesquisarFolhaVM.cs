@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarBonus(object obj)
         {
-            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, new MessageBoxService());
+            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, new MessageBoxService(), false);
 
             AdicionarBonus adicionarBonus = new AdicionarBonus()
             {
@@ -80,7 +80,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarAdiantamento(object obj)
         {
-            AdicionarAdiantamentoVM adicionarAdiantamentoViewModel = new AdicionarAdiantamentoVM(_session, FolhaPagamento.Funcionario, new MessageBoxService());
+            AdicionarAdiantamentoVM adicionarAdiantamentoViewModel = new AdicionarAdiantamentoVM(_session, FolhaPagamento.Funcionario, new MessageBoxService(), false);
 
             AdicionarAdiantamento adicionarAdiantamento = new AdicionarAdiantamento()
             {

@@ -49,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public void AbrirCadastrarOnline(ISession session)
         {
-            CadastrarFornOnlineVM viewModel = new CadastrarFornOnlineVM(session, new MessageBoxService());
+            CadastrarFornOnlineVM viewModel = new CadastrarFornOnlineVM(session, new MessageBoxService(), false);
             CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
             {
                 DataContext = viewModel

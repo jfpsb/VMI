@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
     public class CadastrarLojaVM : ACadastrarViewModel<LojaModel>
     {
         public ObservableCollection<LojaModel> Matrizes { get; set; }
-        public CadastrarLojaVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarLojaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);

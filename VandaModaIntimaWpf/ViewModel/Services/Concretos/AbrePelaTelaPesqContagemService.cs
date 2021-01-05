@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirCadastrar(ISession session)
         {
-            CadastrarContagemVM cadastrarContagemViewModel = new CadastrarContagemVM(session, new MessageBoxService());
+            CadastrarContagemVM cadastrarContagemViewModel = new CadastrarContagemVM(session, new MessageBoxService(), false);
             CadastrarContagem cadastrarContagem = new CadastrarContagem()
             {
                 DataContext = cadastrarContagemViewModel

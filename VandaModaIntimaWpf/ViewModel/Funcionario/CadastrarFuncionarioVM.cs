@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private string _salarioString;
         public ObservableCollection<LojaModel> Lojas { get; set; }
 
-        public CadastrarFuncionarioVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarFuncionarioVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);

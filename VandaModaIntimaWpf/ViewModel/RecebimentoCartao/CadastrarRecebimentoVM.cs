@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private double totalOperadora;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarRecebimentoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarRecebimentoVMStrategy();
             daoEntidade = new DAORecebimentoCartao(session);

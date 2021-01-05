@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornOnlineVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarFornOnlineVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });

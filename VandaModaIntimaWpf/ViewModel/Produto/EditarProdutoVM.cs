@@ -10,13 +10,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoVM : CadastrarProdutoVM
     {
-        public EditarProdutoVM(ISession session, ProdutoModel produto, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public EditarProdutoVM(ISession session, ProdutoModel produto, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
             viewModelStrategy = new EditarProdutoVMStrategy();
             Entidade = produto;
             ProdutoGrade.Produto = Entidade;
             ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
-            issoEUmUpdate = true;
         }
         public new ProdutoModel Entidade
         {

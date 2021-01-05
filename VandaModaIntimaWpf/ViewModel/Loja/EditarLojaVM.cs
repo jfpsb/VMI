@@ -7,14 +7,12 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class EditarLojaVM : CadastrarLojaVM
     {
-        public EditarLojaVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public EditarLojaVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
             viewModelStrategy = new EditarLojaVMStrategy();
 
             if (Entidade.Matriz == null)
                 Entidade.Matriz = Matrizes[0];
-
-            issoEUmUpdate = true;
         }
         public LojaModel MatrizComboBox
         {

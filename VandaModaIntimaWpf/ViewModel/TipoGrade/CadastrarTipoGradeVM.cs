@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
     {
         private ObservableCollection<Model.TipoGrade> _tipoGrades;
         private Model.TipoGrade _tipoGradePesquisa;
-        public CadastrarTipoGradeVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarTipoGradeVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             Entidade = new Model.TipoGrade();
             daoEntidade = new DAOTipoGrade(session);

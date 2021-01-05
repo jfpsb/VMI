@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private int _minParcelas;
         private DateTime _dataAtual;
 
-        public AdicionarAdiantamentoVM(ISession session, Model.Funcionario funcionario, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public AdicionarAdiantamentoVM(ISession session, Model.Funcionario funcionario, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAOAdiantamento(session);

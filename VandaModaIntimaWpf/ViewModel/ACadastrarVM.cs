@@ -28,8 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         protected CouchDbLog ultimoLog;
-        protected bool issoEUmUpdate;
 
+        private bool issoEUmUpdate;
         private string mensagemStatusBar;
         private string imagemStatusBar;
         private string _botaoSalvarToolTip;
@@ -45,9 +45,16 @@ namespace VandaModaIntimaWpf.ViewModel
         public event AntesDeCriarDocumentoEventHandler AntesDeCriarDocumento;
         public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
         public ICommand SalvarComando { get; set; }
-        public ACadastrarViewModel(ISession session, IMessageBoxService messageBoxService)
+        /// <summary>
+        /// Construtor abstrato para ViewModel de telas de cadastro de entidade
+        /// </summary>
+        /// <param name="session">Session do Hibernate que será usada na tela de cadastro</param>
+        /// <param name="messageBoxService">Serviço de MessageBox que será usado na tela de cadastro</param>
+        /// <param name="issoEUmUpdate">Marca se esta ViewModel está sendo usada em uma tela de cadastro ou tela de edição de entidade</param>
+        public ACadastrarViewModel(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate)
         {
             _session = session;
+            this.issoEUmUpdate = issoEUmUpdate;
             MessageBoxService = messageBoxService;
             couchDbClient = CouchDbClient.Instancia;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);

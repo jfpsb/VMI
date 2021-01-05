@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class CadastrarFornecedorManualmenteVM : ACadastrarViewModel<FornecedorModel>
     {
-        public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
+        public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
