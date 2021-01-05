@@ -12,6 +12,7 @@
     <System:String x:Key="cod_barra_header">Cód. De Barra</System:String>
     <System:String x:Key="descricao_header">Descrição</System:String>
     <System:String x:Key="preco_header">Preço</System:String>
+    <System:String x:Key="preco_custo_header">Preço de Custo</System:String>
     <System:String x:Key="quantidade_header">Quantidade</System:String>
     <System:String x:Key="inserir">Inserir</System:String>
     <System:String x:Key="quantidade_dois_pontos">Quantidade:</System:String>
@@ -19,6 +20,7 @@
     <System:String x:Key="data_dois_pontos">Data:</System:String>
     <System:String x:Key="finalizada_dois_pontos">Finalizada:</System:String>
     <System:String x:Key="produto_header">Produto</System:String>
+    <System:String x:Key="margem_lucro_header">Margem De Lucro (%)</System:String>
     <System:String x:Key="salvar">Salvar</System:String>
     <System:String x:Key="adicionar_contagem_produto">Adicionar Contagem de Produto</System:String>
     <System:String x:Key="periodo_dois_pontos">Período:</System:String>
@@ -61,6 +63,7 @@
     <System:String x:Key="produto_ja_existe_sistema">Este Códido de Produto Já Existe No Sistema</System:String>
     <System:String x:Key="descricao_dois_pontos">Descrição:</System:String>
     <System:String x:Key="preco_dois_pontos">Preço:</System:String>
+    <System:String x:Key="preco_custo_dois_pontos">Preço de Custo:</System:String>
     <System:String x:Key="apagar_produtos_marcados">Apagar Produtos Marcados</System:String>
     <System:String x:Key="mes_de_referencia">Mês de Referência:</System:String>
     <System:String x:Key="mes_referencia_header">Mês Referência</System:String>

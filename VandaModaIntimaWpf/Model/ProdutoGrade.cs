@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string _codBarra;
         private Produto _produto;
         private double _preco;
+        private double _precoCusto;
         private ICollection<SubGrade> _subGrades = new List<SubGrade>();
 
         [JsonIgnore]
@@ -41,6 +42,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
         public string SubGradesToString
         {
             get
@@ -55,7 +57,8 @@ namespace VandaModaIntimaWpf.Model
                     str += "/";
                 }
 
-                str = str.Remove(str.LastIndexOf("/"), 1);
+                if (!string.IsNullOrEmpty(str))
+                    str = str.Remove(str.LastIndexOf("/"), 1);
 
                 return str;
             }
@@ -86,6 +89,41 @@ namespace VandaModaIntimaWpf.Model
             {
                 _preco = value;
                 OnPropertyChanged("Preco");
+            }
+        }
+
+        public double PrecoCusto
+        {
+            get => _precoCusto;
+            set
+            {
+                _precoCusto = value;
+                OnPropertyChanged("PrecoCusto");
+                OnPropertyChanged("MargemDeLucro");
+            }
+        }
+
+        public double MargemDeLucro
+        {
+            get
+            {
+                if (PrecoCusto == 0.0)
+                    return 0;
+
+                return Math.Truncate((Preco - PrecoCusto) / Preco * 10000) / 100;
+            }
+            set
+            {
+                if (PrecoCusto != 0.0)
+                {
+                    if (value >= 100)
+                        MargemDeLucro = 99.9;
+
+                    if (value < 0)
+                        MargemDeLucro = 0;
+
+                    Preco = Math.Round(PrecoCusto / (1 - (value / 100)), 2, MidpointRounding.AwayFromZero);
+                }
             }
         }
 

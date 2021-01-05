@@ -12,6 +12,7 @@
     <System:String x:Key="cod_barra_header">Barcode</System:String>
     <System:String x:Key="descricao_header">Description</System:String>
     <System:String x:Key="preco_header">Price</System:String>
+    <System:String x:Key="preco_custo_header">Cost Price</System:String>
     <System:String x:Key="quantidade_header">Quantity</System:String>
     <System:String x:Key="inserir">Insert</System:String>
     <System:String x:Key="quantidade_dois_pontos">Quantity:</System:String>
@@ -27,6 +28,7 @@
     <System:String x:Key="tipo_contagem_header">Inventory Type</System:String>
     <System:String x:Key="finalizada_header">Finished</System:String>
     <System:String x:Key="apagar_contagens_marcadas">Delete Marked Inventories</System:String>
+    <System:String x:Key="margem_lucro_header">Profit Margin (%)</System:String>
     <System:String x:Key="apagar_fornecedores_marcados">Delete Marked Suppliers</System:String>
     <System:String x:Key="cnpj_dois_pontos">EIN:</System:String>
     <System:String x:Key="nome_dois_pontos">Company Name:</System:String>
@@ -61,6 +63,7 @@
     <System:String x:Key="produto_ja_existe_sistema">This Product Already Exists In The System</System:String>
     <System:String x:Key="descricao_dois_pontos">Description:</System:String>
     <System:String x:Key="preco_dois_pontos">Price:</System:String>
+    <System:String x:Key="preco_custo_dois_pontos">Cost Price:</System:String>
     <System:String x:Key="apagar_produtos_marcados">Delete Marked Products</System:String>
     <System:String x:Key="mes_de_referencia">Month/Year:</System:String>
     <System:String x:Key="mes_referencia_header">Month/Year</System:String>

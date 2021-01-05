@@ -9,7 +9,8 @@
     </id>
     <many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" />
     <property name="CodBarra" column="cod_barra" />
-    <property name="Preco" column="preco" />
+    <property name="Preco" column="preco_venda" />
+    <property name="PrecoCusto" column="preco_custo" />
     <bag name="SubGrades" table="sub_grade" inverse="true" cascade="all-delete-orphan" lazy="false">
       <key column="produto_grade" />        
       <one-to-many class="VandaModaIntimaWpf.Model.SubGrade"/>
