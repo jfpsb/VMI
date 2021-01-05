@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public EditarFuncionarioVM(ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService)
         {
             viewModelStrategy = new EditarFuncionarioVMStrategy();
+            issoEUmUpdate = true;
         }
     }
 }

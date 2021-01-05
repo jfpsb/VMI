@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             viewModelStrategy = new EditarFornecedorVMStrategy();
             Entidade = fornecedor;
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
+            issoEUmUpdate = true;
         }
         private async void AtualizarReceita(object parameter)
         {

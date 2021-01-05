@@ -28,6 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         protected CouchDbLog ultimoLog;
+        protected bool issoEUmUpdate;
 
         private string mensagemStatusBar;
         private string imagemStatusBar;
@@ -60,7 +61,9 @@ namespace VandaModaIntimaWpf.ViewModel
             //AposInserirNoBancoDeDados += SalvarDocumento;
             AposInserirNoBancoDeDados += RedefinirTela;
 
-            PropertyChanged += GetUltimoLogDeEntidade;
+            //PropertyChanged += GetUltimoLogDeEntidade;
+
+            issoEUmUpdate = false;
         }
         /// <summary>
         /// Escreve no console da aplicação se houve erro ou falha ao salvar documento do CouchDb
@@ -143,7 +146,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
-                IssoEUmUpdate = ultimoLog != null,
+                IssoEUmUpdate = issoEUmUpdate,
                 IdentificadorEntidade = _identifier,
                 MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
                 MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar()

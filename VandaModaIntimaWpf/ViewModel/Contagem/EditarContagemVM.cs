@@ -42,6 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             _daoContagemProduto = new DAOContagemProduto(_session);
             Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             Quantidade = 1;
+            issoEUmUpdate = true;
             GetProdutos();
         }
         private void AbrirAdicionarContagemProduto(object parameter)

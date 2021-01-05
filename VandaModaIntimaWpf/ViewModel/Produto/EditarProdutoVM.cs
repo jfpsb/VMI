@@ -16,6 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Entidade = produto;
             ProdutoGrade.Produto = Entidade;
             ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
+            issoEUmUpdate = true;
         }
         public new ProdutoModel Entidade
         {

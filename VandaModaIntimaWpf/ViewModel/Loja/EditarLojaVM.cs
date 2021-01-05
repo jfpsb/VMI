@@ -13,6 +13,8 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             if (Entidade.Matriz == null)
                 Entidade.Matriz = Matrizes[0];
+
+            issoEUmUpdate = true;
         }
         public LojaModel MatrizComboBox
         {
