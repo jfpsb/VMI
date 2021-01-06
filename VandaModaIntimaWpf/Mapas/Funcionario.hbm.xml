@@ -10,6 +10,7 @@
     <property name="Salario" column="salario" />
     <property name="Endereco" column="endereco" />
     <property name="Telefone" column="telefone" />
+    <property name="ChavePIX" column="chave_pix" />
 
     <bag name="Adiantamentos" table="adiantamento" inverse="true" cascade="all-delete-orphan">
       <key column="funcionario" />

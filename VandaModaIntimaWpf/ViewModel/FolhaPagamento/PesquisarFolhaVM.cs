@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class PesquisarFolhaVM : APesquisarViewModel<FolhaPagamentoModel>
     {
         private DAOFuncionario daoFuncionario;
+        private DAOBonus daoBonus;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
@@ -30,6 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             //TODO: excel para folha de pagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
+            daoBonus = new DAOBonus(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
 
@@ -156,6 +158,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         Funcionario = funcionario
                     };
                 }
+
+                folha.Bonus = await daoBonus.ListarPorFuncionarioComBonusMensal(funcionario, DataEscolhida.Month, DataEscolhida.Year);
 
                 folhas.Add(folha);
             }

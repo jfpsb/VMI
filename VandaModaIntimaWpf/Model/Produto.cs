@@ -153,7 +153,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
 
-        public ICollection<ProdutoGrade> Grades
+        public virtual ICollection<ProdutoGrade> Grades
         {
             get
             {
@@ -177,12 +177,12 @@ namespace VandaModaIntimaWpf.Model
             return CodBarra;
         }
 
-        public string CouchDbId()
+        public virtual string CouchDbId()
         {
             return CodBarra;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Grades))
             {

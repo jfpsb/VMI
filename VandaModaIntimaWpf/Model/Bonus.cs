@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private int _mesReferencia;
         private int _anoReferencia;
+        private bool _pagamentoMensal;
 
         [JsonIgnore]
         public string GetContextMenuHeader => string.Format("R$ {0}", Valor);
@@ -98,6 +99,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _anoReferencia = value;
                 OnPropertyChanged("AnoReferencia");
+            }
+        }
+
+        public bool PagamentoMensal
+        {
+            get => _pagamentoMensal;
+            set
+            {
+                _pagamentoMensal = value;
+                OnPropertyChanged("PagamentoMensal");
             }
         }
 

@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private double _salario;
         private string _telefone;
+        private string _chavePIX;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         public enum Colunas
@@ -94,6 +95,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _loja = value;
                 OnPropertyChanged("Loja");
+            }
+        }
+
+        public string ChavePIX
+        {
+            get => _chavePIX;
+            set
+            {
+                _chavePIX = value;
+                OnPropertyChanged("ChavePIX");
             }
         }
 

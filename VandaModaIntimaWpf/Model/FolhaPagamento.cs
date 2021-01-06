@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private bool _fechada;
         private IList<Parcela> _parcelas = new List<Parcela>();
+        private IList<Bonus> _bonus = new List<Bonus>();
 
         [JsonIgnore]
         public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
@@ -112,7 +113,12 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return Funcionario.Bonus.Where(w => w.MesReferencia == Mes && w.AnoReferencia == Ano).ToList();
+                return _bonus;
+            }
+            set
+            {
+                _bonus = value;
+                OnPropertyChanged("Bonus");
             }
         }
 

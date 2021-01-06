@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private string _inscricaoestadual;
         private double _aluguel;
+        
         public Loja() { }
         public Loja(string nome)
         {
