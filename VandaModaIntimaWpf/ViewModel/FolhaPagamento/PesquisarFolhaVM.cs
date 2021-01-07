@@ -22,6 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private IList<FuncionarioModel> _funcionarios;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
+        public ICommand AbrirAdicionarHoraExtraComando { get; set; }
         public ICommand AbrirAdicionarBonusComando { get; set; }
         public ICommand AbrirMaisDetalhesComando { get; set; }
 
@@ -48,7 +49,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             AbrirAdicionarAdiantamentoComando = new RelayCommand(AbrirAdicionarAdiantamento);
             AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
+            AbrirAdicionarHoraExtraComando = new RelayCommand(AbrirHoraExtra);
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
+        }
+
+        private void AbrirHoraExtra(object obj)
+        {
+            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, new MessageBoxService(), false);
+
+            AdicionarHoraExtra adicionarHoraExtra = new AdicionarHoraExtra()
+            {
+                DataContext = adicionarBonusViewModel
+            };
+
+            adicionarHoraExtra.ShowDialog();
+
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirAdicionarBonus(object obj)

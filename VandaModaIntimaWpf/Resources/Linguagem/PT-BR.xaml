@@ -205,4 +205,10 @@
         <System:String>Nome</System:String>
     </x:Array>
 
+    <x:Array x:Key="CmbDescricaoHoraExtra"
+             Type="System:String">
+        <System:String>HORA EXTRA C/100%</System:String>
+        <System:String>HORA EXTRA C/055%</System:String>
+    </x:Array>
+
 </ResourceDictionary>

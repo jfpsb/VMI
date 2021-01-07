@@ -129,6 +129,10 @@
                                                                         Binding="{Binding DataString}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
+                                                    <DataGridTextColumn Header="Descrição"
+                                                                        Binding="{Binding Descricao}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
                                                     <DataGridTextColumn Header="Valor do Bônus (R$)"
                                                                         Binding="{Binding Valor}"
                                                                         IsReadOnly="True"
@@ -163,6 +167,8 @@
                                           Command="{Binding AbrirAdicionarAdiantamentoComando}" />
                                 <MenuItem Header="Adicionar Bônus"
                                           Command="{Binding AbrirAdicionarBonusComando}" />
+                                <MenuItem Header="Adicionar Hora Extra"
+                                          Command="{Binding AbrirAdicionarHoraExtraComando}" />
                                 <Separator />
                                 <MenuItem Header="Mais Detalhes"
                                           Command="{Binding AbrirMaisDetalhesComando}" />

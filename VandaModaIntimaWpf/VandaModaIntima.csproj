@@ -205,6 +205,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\AdicionarHoraExtra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\MaisDetalhes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -530,6 +534,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarBonus.xaml.cs">
       <DependentUpon>AdicionarBonus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
+      <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>
