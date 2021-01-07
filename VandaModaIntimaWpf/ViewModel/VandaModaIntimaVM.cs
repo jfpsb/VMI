@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
@@ -25,6 +30,15 @@ namespace VandaModaIntimaWpf.ViewModel
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
             AbreTelaPesquisaService = abreTelaPesquisaService;
+
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.calendario.com.br/?json=true&ano=2021&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA");
+            //WebResponse response = request.GetResponse();
+            //using (Stream responseStream = response.GetResponseStream())
+            //{
+            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+            //    //Console.WriteLine(reader.ReadToEnd());
+            //    var dataFeriado = JsonConvert.DeserializeObject<DataFeriado[]>(reader.ReadToEnd());
+            //}
 
             //Autenticando CouchDB
             CouchDbClient.Instancia.GetAuthenticationCookie();

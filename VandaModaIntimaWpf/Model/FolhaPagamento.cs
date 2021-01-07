@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
@@ -14,8 +15,14 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private double _valor;
         private bool _fechada;
-        private IList<Parcela> _parcelas = new List<Parcela>();
         private IList<Bonus> _bonus = new List<Bonus>();
+        private TabelasINSS[] TabelasINSS;
+
+        public FolhaPagamento()
+        {
+            var tabelasJson = File.ReadAllText("Resources/tabelas_inss.json");
+            TabelasINSS = JsonConvert.DeserializeObject<TabelasINSS[]>(tabelasJson);
+        }
 
         [JsonIgnore]
         public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
@@ -109,6 +116,47 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
+        public double DescontoINSS
+        {
+            get
+            {
+                TabelasINSS tabela = null;
+
+                for (int i = TabelasINSS.Length - 1; i >= 0; i--)
+                {
+                    if (Ano >= TabelasINSS[i].vigencia.Year && Mes >= TabelasINSS[i].vigencia.Month)
+                        tabela = TabelasINSS[i];
+                }
+
+                double desconto = 0.0;
+
+                for (int i = 0; i < tabela.faixas.Length; i++)
+                {
+                    if (SalarioComHoraExtra > tabela.faixas[i])
+                    {
+                        desconto += tabela.faixas[i] * tabela.porcentagens[i];
+                    }
+                    else
+                    {
+                        if (i == 0)
+                        {
+                            desconto += SalarioComHoraExtra * tabela.porcentagens[i];
+                        }
+                        else
+                        {
+                            var diferenca = SalarioComHoraExtra - tabela.faixas[i - 1];
+                            desconto += diferenca * tabela.porcentagens[i];
+                        }
+
+                        break;
+                    }
+                }
+
+                return Math.Round(desconto, 2, MidpointRounding.AwayFromZero);
+            }
+        }
+
+        [JsonIgnore]
         public IList<Bonus> Bonus
         {
             get
@@ -119,6 +167,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _bonus = value;
                 OnPropertyChanged("Bonus");
+            }
+        }
+
+        [JsonIgnore]
+        private double SalarioComHoraExtra
+        {
+            get
+            {
+                var bonusHoraExtra = Bonus.Where(w => w.Descricao.StartsWith("HORA EXTRA")).ToList();
+                return bonusHoraExtra.Sum(s => s.Valor) + Funcionario.Salario;
             }
         }
 

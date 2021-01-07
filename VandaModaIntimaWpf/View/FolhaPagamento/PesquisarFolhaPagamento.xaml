@@ -139,6 +139,7 @@
                                                                         Width="Auto" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
+                                            <Label Content="{Binding DescontoINSS}" />
                                         </StackPanel>
                                     </Setter.Value>
                                 </Setter>

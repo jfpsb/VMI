@@ -365,6 +365,7 @@
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
+    <Compile Include="Model\Converters\TabelaINSSDataConverter.cs" />
     <Compile Include="Model\DAO\DAOAdiantamento.cs" />
     <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -384,6 +385,7 @@
     <Compile Include="Model\DAO\DAOSubGrade.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
+    <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Duplicata.cs" />
     <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
@@ -402,6 +404,7 @@
     <Compile Include="Model\ProdutoGrade.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
     <Compile Include="Model\SubGrade.cs" />
+    <Compile Include="Model\TabelasINSS.cs" />
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Resources\StringResource.cs" />
@@ -675,6 +678,9 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\tabelas_inss.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ViewModel\DataSets\ProdutoDataSet.xsc">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
