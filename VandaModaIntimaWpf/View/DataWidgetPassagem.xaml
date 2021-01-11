@@ -9,6 +9,22 @@
              Height="Auto"
              Margin="5">
     <UserControl.Resources>
+        <Style TargetType="ToolTip">
+            <Style.Resources>
+                <Style TargetType="ContentPresenter">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping"
+                                    Value="Wrap" />
+                        </Style>
+                    </Style.Resources>
+                </Style>
+            </Style.Resources>
+            <Setter Property="MaxWidth"
+                    Value="200" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
         <ControlTemplate x:Key="BtnSemMouseOver"
                          TargetType="{x:Type Button}">
             <Border x:Name="border"
@@ -87,5 +103,6 @@
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Template="{DynamicResource BtnSemMouseOver}" />
+
     </Grid>
 </UserControl>

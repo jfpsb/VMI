@@ -59,7 +59,10 @@ namespace VandaModaIntimaWpf.View
                     GradientStopFundo.Color = Colors.Yellow;
                     IsDiaUtil = false;
                 }
-                else if (value.ToLower().Equals("feriado nacional") || value.ToLower().Equals("feriado estadual") || value.ToLower().Equals("dia não útil"))
+                else if (value.ToLower().Equals("feriado nacional")
+                    || value.ToLower().Equals("feriado estadual")
+                    || value.ToLower().Equals("feriado municipal")
+                    || value.ToLower().Equals("dia não útil"))
                 {
                     GradientStopFundo.Color = Colors.Red;
                     IsDiaUtil = false;
@@ -68,6 +71,15 @@ namespace VandaModaIntimaWpf.View
                 {
                     GradientStopFundo.Color = Colors.Green;
                     IsDiaUtil = true;
+                }
+
+                if (value.ToLower().Equals("feriado nacional")
+                    || value.ToLower().Equals("feriado estadual")
+                    || value.ToLower().Equals("feriado municipal")
+                    || value.ToLower().Equals("facultativo"))
+                {
+                    BorderThickness = new Thickness(0, 0, 0, 2);
+                    BorderBrush = Brushes.Black;
                 }
 
                 OnPropertyChanged("TipoDia");

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Media;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View;
 
@@ -89,9 +90,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     var feriado = datasFeriados.FirstOrDefault(s => s.Date.Day == dateTime.Day && s.Date.Month == dateTime.Month);
 
-                    if (feriado != null)
+                    if (feriado != null && dateTime.DayOfWeek != DayOfWeek.Sunday)
                     {
                         dataWidgetPassagem.TipoDia = feriado.Type;
+                        dataWidgetPassagem.BtnAlternaDiaUtil.ToolTip = $"Nome: {feriado.Name}\nTipo: {feriado.Type}\nDescrição: {feriado.Description}";
                     }
 
                     Widgets.Add(dataWidgetPassagem);

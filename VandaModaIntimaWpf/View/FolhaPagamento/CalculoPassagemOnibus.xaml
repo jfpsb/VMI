@@ -9,9 +9,17 @@
         Title="Cálculo de Pagamento de Passagem Ônibus"
         Height="Auto"
         SizeToContent="Height"
-        Width="400"
+        Width="430"
+        MinWidth="430"
         WindowStartupLocation="CenterScreen">
     <StackPanel Height="Auto">
+        <Menu>
+            <MenuItem Header="{DynamicResource opcoes}"
+                      Margin="0"
+                      Padding="0">
+                <MenuItem Header="Adicionar Bônus de Passagem Nos Funcionários" />
+            </MenuItem>
+        </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -83,24 +91,17 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <!--<ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <view:DataWidgetPassagem />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>-->
         </ItemsControl>
-        <Grid>
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Label Content="Total em Passagem (R$):"
-                   HorizontalAlignment="Right"
-                   FontSize="15" />
-            <Label Content="{Binding TotalPassagem}"
-                   Grid.Column="1"
-                   FontSize="15"
-                   FontWeight="Bold" />
+            <TextBlock Text="{Binding TotalPassagem, StringFormat='Total Em Passagem: {0:C}', ConverterCulture=pt-BR}"
+                       Grid.Column="1"
+                       FontSize="15"
+                       Margin="0, 0, 5, 0"
+                       FontWeight="Bold" />
         </Grid>
         <Grid Margin="10, 15, 0, 0">
             <Grid.ColumnDefinitions>
