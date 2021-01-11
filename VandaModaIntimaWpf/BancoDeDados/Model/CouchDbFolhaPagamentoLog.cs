@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Mes = fp.Mes;
             Ano = fp.Ano;
             Funcionario = fp.Funcionario;
-            Valor = fp.Valor;
+            Valor = fp.ValorATransferir;
             Fechada = fp.Fechada;
         }
         public override object Clone()

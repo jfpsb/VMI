@@ -8,7 +8,7 @@
     <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
     <property name="Mes" column="mes" />
     <property name="Ano" column="ano" />
-    <property name="Valor" column="valor" />
+    <property name="ValorATransferir" column="valor" />
     <property name="Fechada" column="fechada" />
   </class>
 

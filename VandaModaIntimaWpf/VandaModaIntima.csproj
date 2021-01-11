@@ -197,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DataWidgetPassagem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarAdiantamento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FolhaPagamento\AdicionarHoraExtra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -365,6 +373,7 @@
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
+    <Compile Include="Model\Converters\CalculoPassagemDataConverter.cs" />
     <Compile Include="Model\Converters\TabelaINSSDataConverter.cs" />
     <Compile Include="Model\DAO\DAOAdiantamento.cs" />
     <Compile Include="Model\DAO\DAOBonus.cs" />
@@ -445,6 +454,7 @@
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoPassagemOnibusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\EditarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\EditarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\EditarFolhaVMStrategy.cs" />
@@ -532,6 +542,9 @@
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DataWidgetPassagem.xaml.cs">
+      <DependentUpon>DataWidgetPassagem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
     </Compile>
@@ -540,6 +553,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
       <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml.cs">
+      <DependentUpon>CalculoPassagemOnibus.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>
@@ -678,6 +694,9 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Feriados\2021.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -863,6 +882,8 @@
   <ItemGroup>
     <Resource Include="Resources\Grade_Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Money_Sign.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

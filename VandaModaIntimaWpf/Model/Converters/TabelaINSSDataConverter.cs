@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model.Converters
     {
         public TabelaINSSDataConverter()
         {
-            base.DateTimeFormat = "MM/yyyy";
+            DateTimeFormat = "MM/yyyy";
         }
     }
 }

@@ -6,9 +6,16 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TabelasINSS
     {
-        [JsonConverter(typeof(TabelaINSSDataConverter))]
-        public DateTime vigencia { get; set; }
-        public double[] faixas { get; set; }
-        public double[] porcentagens { get; set; }
+        [JsonConverter(typeof(TabelaINSSDataConverter)), JsonProperty("vigencia")]
+        public DateTime Vigencia { get; set; }
+
+        [JsonProperty("faixas")]
+        public double[] Faixas { get; set; }
+
+        [JsonProperty("porcentagens")]
+        public double[] Porcentagens { get; set; }
+
+        [JsonProperty("salariofamilia")]
+        public double SalarioFamilia { get; set; }
     }
 }

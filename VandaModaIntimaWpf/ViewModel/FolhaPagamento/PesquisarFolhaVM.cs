@@ -25,6 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
         public ICommand AbrirAdicionarBonusComando { get; set; }
         public ICommand AbrirMaisDetalhesComando { get; set; }
+        public ICommand AbrirCalculoPassagemComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -38,6 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             ConsultaFuncionarios();
 
+            //TODO: Arrumar para quinto dia ÚTIL do mês
             if (DateTime.Now.Day > 5)
             {
                 DataEscolhida = DateTime.Now.AddMonths(1);
@@ -51,6 +53,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
             AbrirAdicionarHoraExtraComando = new RelayCommand(AbrirHoraExtra);
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
+            AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
+        }
+
+        private void AbrirCalculoPassagem(object obj)
+        {
+            CalculoPassagemOnibusVM onibusVM = new CalculoPassagemOnibusVM();
+            CalculoPassagemOnibus calculoPassagemOnibus = new CalculoPassagemOnibus()
+            {
+                DataContext = onibusVM
+            };
+            calculoPassagemOnibus.ShowDialog();
         }
 
         private void AbrirHoraExtra(object obj)
@@ -176,6 +189,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
 
                 folha.Bonus = await daoBonus.ListarPorFuncionarioComBonusMensal(funcionario, DataEscolhida.Month, DataEscolhida.Year);
+
+                if (folha.Funcionario.SalarioFamilia)
+                {
+                    Model.Bonus salarioFamiliaBonus = new Model.Bonus()
+                    {
+                        Id = DateTime.Now.Ticks,
+                        Funcionario = funcionario,
+                        Data = DateTime.Parse(folha.MesReferencia),
+                        Descricao = "SALÁRIO FAMÍLIA",
+                        Valor = folha.TabelaINSS.SalarioFamilia * folha.Funcionario.NumDependentes,
+                        MesReferencia = folha.Mes,
+                        AnoReferencia = folha.Ano
+                    };
+
+                    folha.Bonus.Add(salarioFamiliaBonus);
+                }
 
                 folhas.Add(folha);
             }

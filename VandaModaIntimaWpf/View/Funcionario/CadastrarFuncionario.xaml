@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Cadastrar Funcionário"
-        Height="420"
+        Height="525"
         Width="500"
         Icon="/Resources/Funcionario_Icon.ico"
         ResizeMode="NoResize"
@@ -40,6 +40,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -93,18 +96,40 @@
                    Content="Chave PIX:" />
             <TextBox Grid.Column="1"
                      Grid.Row="6"
-                     MaxLength="10"
                      Text="{Binding Entidade.ChavePIX, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="7"
+                   Content="Recebe Passagem:" />
+            <CheckBox Grid.Row="7"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      IsChecked="{Binding Entidade.RecebePassagem}"
+                      Margin="5, 10, 0, 10" />
+            <Label Grid.Row="8"
+                   Content="Recebe Salário Família:" />
+            <CheckBox Grid.Row="8"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      IsChecked="{Binding Entidade.SalarioFamilia}"
+                      Margin="5, 10, 0, 10" />
+            <Label Grid.Row="9"
+                   Content="Núm. De Dependentes:" />
+            <TextBox Grid.Column="1"
+                     Grid.Row="9"
+                     MaxLength="2"
+                     IsEnabled="{Binding Entidade.SalarioFamilia}"
+                     Text="{Binding Entidade.NumDependentes, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="10"
                    Content="{DynamicResource loja_dois_pontos}" />
             <ComboBox Grid.Column="1"
-                      Grid.Row="7"
+                      Grid.Row="10"
                       DisplayMemberPath="Nome"
                       ItemsSource="{Binding Path=Lojas}"
                       SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
                       IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="8"
+            <Button Grid.Row="11"
                     Grid.ColumnSpan="2"
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"

@@ -184,13 +184,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             if (string.IsNullOrEmpty(Entidade.CodBarra?.Trim()) || string.IsNullOrEmpty(Entidade.Descricao))
             {
-                SetStatusBarErro("Código ou Descrição Não Podem Ser Vazios");
                 return false;
             }
 
             if (Entidade.Preco.ToString().Equals(string.Empty) || Entidade.Preco <= 0)
             {
-                SetStatusBarErro("Preço Não Pode Ser Vazio Ou Inválido");
                 return false;
             }
 

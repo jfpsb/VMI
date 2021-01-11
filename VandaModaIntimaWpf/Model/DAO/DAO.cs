@@ -230,5 +230,10 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             return session.CreateCriteria<E>();
         }
+
+        public ICriteria CriarCriteria<E>(string alias) where E : class, IModel
+        {
+            return session.CreateCriteria<E>(alias);
+        }
     }
 }

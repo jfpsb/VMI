@@ -1,6 +1,8 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO

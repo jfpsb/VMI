@@ -28,8 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             {
                 Loja = Lojas[0]
             };
-            Entidade.PropertyChanged += ChecaPropriedadesFuncionario;
 
+            Entidade.PropertyChanged += Entidade_PropertyChanged;
             AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
 
             Salario = "";
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 Entidade.Loja = null;
         }
 
-        public async void ChecaPropriedadesFuncionario(object sender, PropertyChangedEventArgs e)
+        public async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -59,6 +59,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                         IsEnabled = true;
                     }
 
+                    break;
+
+                case "SalarioFamilia":
+                    if (!Entidade.SalarioFamilia)
+                        Entidade.NumDependentes = 0;
                     break;
             }
         }
@@ -80,20 +85,20 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             if (string.IsNullOrEmpty(Entidade.Cpf?.Trim()))
             {
-                SetStatusBarErro("O Campo de CPF Não Pode Ser Vazio");
                 return false;
             }
 
             if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
             {
-                SetStatusBarErro("O Campo de Nome Não Pode Ser Vazio");
                 return false;
             }
+
+            if (Entidade.SalarioFamilia && Entidade.NumDependentes <= 0)
+                return false;
 
             double salario;
             if (Salario.Trim().Length == 0 || !double.TryParse(Salario, out salario) || salario <= 0.0)
             {
-                SetStatusBarErro("O Campo de Salário Não Pode Ser Vazio Ou Inválido");
                 return false;
             }
 

@@ -16,12 +16,32 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private bool _fechada;
         private IList<Bonus> _bonus = new List<Bonus>();
-        private TabelasINSS[] TabelasINSS;
+        private TabelasINSS[] tabelasINSS;
+        private TabelasINSS _tabelaINSS;
 
         public FolhaPagamento()
         {
             var tabelasJson = File.ReadAllText("Resources/tabelas_inss.json");
-            TabelasINSS = JsonConvert.DeserializeObject<TabelasINSS[]>(tabelasJson);
+            tabelasINSS = JsonConvert.DeserializeObject<TabelasINSS[]>(tabelasJson);
+
+            PropertyChanged += FolhaPagamento_PropertyChanged;
+        }
+
+        private void FolhaPagamento_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Mes") || e.PropertyName.Equals("Ano"))
+            {
+                DeterminaTabelaINSS();
+            }
+        }
+
+        private void DeterminaTabelaINSS()
+        {
+            for (int i = tabelasINSS.Length - 1; i >= 0; i--)
+            {
+                if (Ano >= tabelasINSS[i].Vigencia.Year && Mes >= tabelasINSS[i].Vigencia.Month)
+                    _tabelaINSS = tabelasINSS[i];
+            }
         }
 
         [JsonIgnore]
@@ -74,7 +94,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public double Valor
+        public double ValorATransferir
         {
             get => Math.Round(_valor, 2);
             set
@@ -120,32 +140,24 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                TabelasINSS tabela = null;
-
-                for (int i = TabelasINSS.Length - 1; i >= 0; i--)
-                {
-                    if (Ano >= TabelasINSS[i].vigencia.Year && Mes >= TabelasINSS[i].vigencia.Month)
-                        tabela = TabelasINSS[i];
-                }
-
                 double desconto = 0.0;
 
-                for (int i = 0; i < tabela.faixas.Length; i++)
+                for (int i = 0; i < TabelaINSS.Faixas.Length; i++)
                 {
-                    if (SalarioComHoraExtra > tabela.faixas[i])
+                    if (SalarioComHoraExtra > TabelaINSS.Faixas[i])
                     {
-                        desconto += tabela.faixas[i] * tabela.porcentagens[i];
+                        desconto += TabelaINSS.Faixas[i] * TabelaINSS.Porcentagens[i];
                     }
                     else
                     {
                         if (i == 0)
                         {
-                            desconto += SalarioComHoraExtra * tabela.porcentagens[i];
+                            desconto += SalarioComHoraExtra * TabelaINSS.Porcentagens[i];
                         }
                         else
                         {
-                            var diferenca = SalarioComHoraExtra - tabela.faixas[i - 1];
-                            desconto += diferenca * tabela.porcentagens[i];
+                            var diferenca = SalarioComHoraExtra - TabelaINSS.Faixas[i - 1];
+                            desconto += diferenca * TabelaINSS.Porcentagens[i];
                         }
 
                         break;
@@ -177,6 +189,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 var bonusHoraExtra = Bonus.Where(w => w.Descricao.StartsWith("HORA EXTRA")).ToList();
                 return bonusHoraExtra.Sum(s => s.Valor) + Funcionario.Salario;
+            }
+        }
+
+        public TabelasINSS TabelaINSS
+        {
+            get => _tabelaINSS;
+            set
+            {
+                _tabelaINSS = value;
+                OnPropertyChanged("TabelaINSS");
             }
         }
 
