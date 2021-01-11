@@ -15,9 +15,9 @@
     <StackPanel Height="Auto">
         <Menu>
             <MenuItem Header="{DynamicResource opcoes}"
-                      Margin="0"
-                      Padding="0">
-                <MenuItem Header="Adicionar Bônus de Passagem Nos Funcionários" />
+                      Margin="0">
+                <MenuItem Header="Adicionar Bônus de Passagem À Folha"
+                          Command="{Binding AbrirAdicionarBonusPassagemComando}" />
             </MenuItem>
         </Menu>
         <Grid>

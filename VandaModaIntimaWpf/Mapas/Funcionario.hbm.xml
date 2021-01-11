@@ -14,6 +14,7 @@
     <property name="SalarioFamilia" column="salario_familia" />
     <property name="NumDependentes" column="num_dependentes" />
     <property name="RecebePassagem" column="recebe_passagem" />
+    <property name="DescontoINSS" column="desconto_inss" />
 
     <bag name="Adiantamentos" table="adiantamento" inverse="true" cascade="all-delete-orphan">
       <key column="funcionario" />

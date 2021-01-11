@@ -39,6 +39,17 @@ namespace VandaModaIntimaWpf.Model.DAO
             return await Listar<Funcionario>(criteria);
         }
 
+        public async Task<IList<Funcionario>> ListarQuemRecebePassagem()
+        {
+            var criteria = CriarCriteria<Funcionario>();
+
+            criteria.Add(Restrictions.Eq("RecebePassagem", true));
+
+            criteria.AddOrder(Order.Asc("Nome"));
+
+            return await Listar<Funcionario>(criteria);
+        }
+
         public override int GetMaxId()
         {
             throw new NotImplementedException();

@@ -31,7 +31,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade = new AdiantamentoModel()
             {
                 Data = _dataAtual,
-                Id = _dataAtual.Ticks,
                 Funcionario = funcionario,
                 Valor = 0
             };
@@ -89,7 +88,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     {
                         ParcelaModel p = new ParcelaModel
                         {
-                            Id = DateTime.Now.Ticks,
                             Numero = i + 1,
                             Paga = false,
                             Valor = Valor / NumParcelas,

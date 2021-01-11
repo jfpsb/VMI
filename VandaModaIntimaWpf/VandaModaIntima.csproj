@@ -209,6 +209,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\AdicionarBonusPassagemFuncionario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarHoraExtra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -450,6 +454,7 @@
     </Compile>
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
@@ -550,6 +555,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarBonus.xaml.cs">
       <DependentUpon>AdicionarBonus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\AdicionarBonusPassagemFuncionario.xaml.cs">
+      <DependentUpon>AdicionarBonusPassagemFuncionario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
       <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>

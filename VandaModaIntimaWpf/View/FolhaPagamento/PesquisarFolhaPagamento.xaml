@@ -140,6 +140,7 @@
                                                                         Width="Auto" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
+                                            <Label Content="{Binding DescontoINSS}" />
                                         </StackPanel>
                                     </Setter.Value>
                                 </Setter>
@@ -158,7 +159,7 @@
 
                             <DataGridTextColumn Header="{DynamicResource valor_a_pagar_header}"
                                                 IsReadOnly="True"
-                                                Binding="{Binding ValorAPagar}"
+                                                Binding="{Binding ValorATransferir}"
                                                 Width="Auto" />
 
                         </DataGrid.Columns>

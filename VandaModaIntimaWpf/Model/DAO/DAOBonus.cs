@@ -21,12 +21,10 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             var criteria = CriarCriteria<Bonus>();
 
-            criteria.Add(Restrictions.Disjunction()
-                .Add(Restrictions.Eq("PagamentoMensal", true))
-                .Add(Restrictions.Conjunction()
-                .Add(Restrictions.Eq("Funcionario", funcionario))
-                .Add(Restrictions.Eq("MesReferencia", mes))
-                .Add(Restrictions.Eq("AnoReferencia", ano))));
+            var conjunction1 = Restrictions.Conjunction().Add(Restrictions.Eq("MesReferencia", mes)).Add(Restrictions.Eq("AnoReferencia", ano));
+            var disjunction1 = Restrictions.Disjunction().Add(conjunction1).Add(Restrictions.Eq("PagamentoMensal", true));
+
+            criteria.Add(disjunction1).Add(Restrictions.Eq("Funcionario", funcionario));
 
             return await Listar<Bonus>(criteria);
         }

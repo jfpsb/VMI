@@ -30,7 +30,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             Entidade = new Bonus()
             {
-                Id = DateTime.Now.Ticks,
                 Funcionario = folha.Funcionario
             };
 

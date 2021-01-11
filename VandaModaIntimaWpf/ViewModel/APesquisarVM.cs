@@ -377,7 +377,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("Entidades");
             }
         }
-
         public void DisposeSession()
         {
             SessionProvider.FechaSession(_session);

@@ -17,6 +17,7 @@ namespace VandaModaIntimaWpf.Model
         private bool _salarioFamilia;
         private bool _recebePassagem;
         private int _numDependentes;
+        private bool _descontoINSS;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         public enum Colunas
@@ -156,6 +157,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _recebePassagem = value;
                 OnPropertyChanged("RecebePassagem");
+            }
+        }
+
+        public bool DescontoINSS
+        {
+            get => _descontoINSS;
+            set
+            {
+                _descontoINSS = value;
+                OnPropertyChanged("DescontoINSS");
             }
         }
 

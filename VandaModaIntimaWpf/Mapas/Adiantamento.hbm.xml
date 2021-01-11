@@ -4,7 +4,11 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="Adiantamento" table="adiantamento" lazy="false">
-    <id name="Id" column="id" />
+    <id name="Id" column="id" type="Int64">
+      <generator class="hilo">
+        <param name="max_lo">1024</param>
+      </generator>
+    </id>
     <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
     <property name="Data" column="data" />
     <property name="Valor" column="valor" />

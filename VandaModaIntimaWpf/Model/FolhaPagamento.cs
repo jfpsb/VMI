@@ -13,7 +13,6 @@ namespace VandaModaIntimaWpf.Model
         private int _mes;
         private int _ano;
         private Funcionario _funcionario;
-        private double _valor;
         private bool _fechada;
         private IList<Bonus> _bonus = new List<Bonus>();
         private TabelasINSS[] tabelasINSS;
@@ -96,11 +95,16 @@ namespace VandaModaIntimaWpf.Model
         }
         public double ValorATransferir
         {
-            get => Math.Round(_valor, 2);
-            set
+            get
             {
-                _valor = value;
-                OnPropertyChanged("Valor");
+                var bonuses = Math.Round(Bonus.Sum(s => s.Valor), 2, MidpointRounding.AwayFromZero);
+                var adiantamentos = Math.Round(Parcelas.Sum(s => s.Valor), 2, MidpointRounding.AwayFromZero);
+                var atransferir = Funcionario.Salario + bonuses - adiantamentos;
+
+                if (Funcionario.DescontoINSS)
+                    atransferir -= DescontoINSS;
+                
+                return Math.Round(atransferir, 2, MidpointRounding.AwayFromZero);
             }
         }
         public bool Fechada

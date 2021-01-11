@@ -8,9 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -21,13 +24,27 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime _dataEscolhida;
         private double _totalPassagem;
 
-        public CalculoPassagemOnibusVM()
+        public ICommand AbrirAdicionarBonusPassagemComando { get; set; }
+
+        public CalculoPassagemOnibusVM(DateTime dataEscolhida)
         {
             PropertyChanged += CalculaDatas;
 
             Widgets = new BindingList<DataWidgetPassagem>();
             Widgets.ListChanged += CalcultaTotalPassagem;
-            DataEscolhida = DateTime.Now;
+            DataEscolhida = dataEscolhida;
+
+            AbrirAdicionarBonusPassagemComando = new RelayCommand(AbrirAdicionarBonusPassagem);
+        }
+
+        private void AbrirAdicionarBonusPassagem(object obj)
+        {
+            AdicionarBonusPassagemFuncionarioVM adicionarBonusVM = new AdicionarBonusPassagemFuncionarioVM(DataEscolhida, TotalPassagem, new MessageBoxService());
+            AdicionarBonusPassagemFuncionario adicionarBonus = new AdicionarBonusPassagemFuncionario()
+            {
+                DataContext = adicionarBonusVM
+            };
+            adicionarBonus.ShowDialog();
         }
 
         private void CalcultaTotalPassagem(object sender, ListChangedEventArgs e)
