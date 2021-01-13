@@ -134,6 +134,7 @@
                     Content="{DynamicResource cadastrar}"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
+                    ToolTip="{Binding BtnSalvarToolTip}"
                     Click="Button_Click" />
         </Grid>
     </DockPanel>

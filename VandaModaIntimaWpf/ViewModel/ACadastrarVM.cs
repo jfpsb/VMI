@@ -33,6 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string mensagemStatusBar;
         private string imagemStatusBar;
         private string _botaoSalvarToolTip;
+        private string _btnSalvarToolTip;
         private IMessageBoxService MessageBoxService;
 
         public delegate void AntesDeCriarDocumentoEventHandler();
@@ -326,6 +327,16 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _entidade = value;
                 OnPropertyChanged("Entidade");
+            }
+        }
+
+        public string BtnSalvarToolTip
+        {
+            get => _btnSalvarToolTip;
+            set
+            {
+                _btnSalvarToolTip = value;
+                OnPropertyChanged("BtnSalvarToolTip");
             }
         }
     }

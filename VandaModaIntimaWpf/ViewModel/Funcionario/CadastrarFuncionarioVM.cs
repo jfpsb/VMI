@@ -30,9 +30,21 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             };
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
+            PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
             AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
 
             Salario = "";
+        }
+
+        private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Entidade"))
+            {
+                if (Entidade.Salario != 0.0)
+                {
+                    Salario = Entidade.Salario.ToString();
+                }
+            }
         }
 
         private void ConfiguraFuncionarioAntesDeInserir()
@@ -80,31 +92,31 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (string.IsNullOrEmpty(Entidade.Cpf) || string.IsNullOrEmpty(Entidade.Nome))
-                return false;
-
-            if (string.IsNullOrEmpty(Entidade.Cpf?.Trim()))
             {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
-            {
-                return false;
+                BtnSalvarToolTip += "CPF Ou Nome Não Podem Ser Vazios!\n";
+                valido = false;
             }
 
             if (Entidade.SalarioFamilia && Entidade.NumDependentes <= 0)
-                return false;
+            {
+                BtnSalvarToolTip += "Informe Um Número Válido de Dependentes!\n";
+                valido = false;
+            }
 
-            double salario;
+            double salario = 0.0;
             if (Salario.Trim().Length == 0 || !double.TryParse(Salario, out salario) || salario <= 0.0)
             {
-                return false;
+                BtnSalvarToolTip += "Informe Um Valor Válido de Salário!\n";
+                valido = false;
             }
 
             Entidade.Salario = salario;
 
-            return true;
+            return valido;
         }
 
         public string Salario
