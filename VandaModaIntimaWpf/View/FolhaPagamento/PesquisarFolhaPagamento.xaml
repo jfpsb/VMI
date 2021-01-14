@@ -117,8 +117,8 @@
                                                                         Binding="{Binding Adiantamento.DataString}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
-                                                    <DataGridTextColumn Header="Valor Parcela (R$)"
-                                                                        Binding="{Binding Valor}"
+                                                    <DataGridTextColumn Header="Valor Parcela"
+                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
                                                 </DataGrid.Columns>
@@ -134,8 +134,8 @@
                                                                         Binding="{Binding Descricao}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
-                                                    <DataGridTextColumn Header="Valor do Bônus (R$)"
-                                                                        Binding="{Binding Valor}"
+                                                    <DataGridTextColumn Header="Valor do Bônus"
+                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
                                                 </DataGrid.Columns>

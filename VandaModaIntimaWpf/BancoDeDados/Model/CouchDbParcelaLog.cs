@@ -23,8 +23,8 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Numero = p.Numero;
             Valor = p.Valor;
             Paga = p.Paga;
-            MesAPagar = p.MesAPagar;
-            AnoAPagar = p.AnoAPagar;
+            MesAPagar = p.Mes;
+            AnoAPagar = p.Ano;
         }
         public override object Clone()
         {

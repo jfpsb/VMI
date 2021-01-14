@@ -17,7 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);
             Entidade = new LojaModel();
-            Entidade.PropertyChanged += ChecaPropriedadesLoja;
             GetMatrizes();
             AntesDeInserirNoBancoDeDados += ConfiguraLojaAntesDeInserir;
         }
@@ -63,7 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
         }
 
-        public async void ChecaPropriedadesLoja(object sender, PropertyChangedEventArgs e)
+        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

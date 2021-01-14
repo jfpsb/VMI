@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -128,6 +129,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade.Valor = valor;
 
             return true;
+        }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public string Valor

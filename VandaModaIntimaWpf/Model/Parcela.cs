@@ -12,8 +12,8 @@ namespace VandaModaIntimaWpf.Model
         private int _numero;
         private double _valor;
         private bool _paga;
-        private int _mesAPagar;
-        private int _anoAPagar;
+        private int _mes;
+        private int _ano;
 
         [JsonIgnore]
         public string GetContextMenuHeader => throw new NotImplementedException();
@@ -71,6 +71,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public string NumeroComTotal
+        {
+            get => $"{Numero}/{Adiantamento.Parcelas.Count}";
+        }
+
         [JsonProperty(PropertyName = "MySqlId")]
         public long Id
         {
@@ -82,28 +87,38 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public int MesAPagar
+        public int Mes
         {
-            get => _mesAPagar;
+            get => _mes;
             set
             {
-                _mesAPagar = value;
-                OnPropertyChanged("MesAPagar");
+                _mes = value;
+                OnPropertyChanged("Mes");
             }
         }
-        public int AnoAPagar
+        public int Ano
         {
-            get => _anoAPagar;
+            get => _ano;
             set
             {
-                _anoAPagar = value;
-                OnPropertyChanged("AnoAPagar");
+                _ano = value;
+                OnPropertyChanged("Ano");
             }
         }
 
-        public string PagamentoEm
+        [JsonIgnore]
+        public string Vencimento
         {
-            get => $"{MesAPagar}/{AnoAPagar}";
+            get
+            {
+                DateTime refer = new DateTime(Ano, Mes, 1);
+                return refer.AddMonths(1).ToString("MM/yyyy");
+            }
+        }
+
+        public string FolhaReferencia
+        {
+            get => $"{Mes}/{Ano}";
         }
 
         public object GetIdentifier()

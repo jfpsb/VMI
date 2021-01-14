@@ -20,7 +20,7 @@ using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
 namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 {
-    class CadastrarRecebimentoVM : ACadastrarViewModel<RecebimentoCartaoModel>
+    public class CadastrarRecebimentoVM : ACadastrarViewModel<RecebimentoCartaoModel>
     {
         private DAO daoOperadoraCartao;
         private DAOLoja daoLoja;
@@ -216,6 +216,11 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     CalculaTotais();
                     break;
             }
+        }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

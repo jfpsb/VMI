@@ -9,7 +9,7 @@
         Title="Adicionar Adiantamento"
         WindowStartupLocation="CenterScreen"
         Height="500"
-        Width="450">
+        Width="475">
     <Window.Resources>
         <ViewModel:ValorAPagarConverter x:Key="ValorAPagarConverter" />
     </Window.Resources>
@@ -50,7 +50,7 @@
             </Grid.RowDefinitions>
             <Label Content="Funcionário:" />
             <TextBox Grid.Column="1"
-                     IsReadOnly="True"
+                     IsEnabled="False"
                      Text="{Binding Entidade.Funcionario.Nome}" />
             <Label Grid.Row="1"
                    Content="Valor do Adiantamento (R$):" />
@@ -65,7 +65,8 @@
                      MaxLength="2"
                      Text="{Binding NumParcelas, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="3"
-                   Content="Início de Pagamento:" />
+                   Content="Folha Referência Inicial:"
+                   ToolTip="Escolha A Folha de Pagamento Em Que Será Inserida a Primeira Parcela a Ser Paga" />
             <View:DataUpDown Grid.Column="1"
                              Grid.Row="3"
                              Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -95,14 +96,18 @@
                                         IsReadOnly="True"
                                         Width="Auto"
                                         Binding="{Binding Numero}" />
-                    <DataGridTextColumn Header="Pagamento Em"
+                    <DataGridTextColumn Header="Folha Referência"
                                         IsReadOnly="True"
                                         Width="Auto"
-                                        Binding="{Binding PagamentoEm}" />
+                                        Binding="{Binding FolhaReferencia}" />
+                    <DataGridTextColumn Header="Vencimento"
+                                        IsReadOnly="True"
+                                        Width="Auto"
+                                        Binding="{Binding Vencimento}" />
                     <DataGridTextColumn Header="Valor (R$)"
                                         IsReadOnly="True"
                                         Width="*"
-                                        Binding="{Binding Valor}" />
+                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
                 </DataGrid.Columns>
             </DataGrid>
             <Button Grid.ColumnSpan="2"

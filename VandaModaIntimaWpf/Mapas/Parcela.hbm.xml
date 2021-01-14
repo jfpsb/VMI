@@ -13,8 +13,8 @@
     <property name="Numero" column="numero" />
     <property name="Valor" column="valor" />
     <property name="Paga" column="paga" />
-    <property name="MesAPagar" column="mes_a_pagar" />
-    <property name="AnoAPagar" column="ano_a_pagar" />
+    <property name="Mes" column="mes" />
+    <property name="Ano" column="ano" />
   </class>
 
 </hibernate-mapping>

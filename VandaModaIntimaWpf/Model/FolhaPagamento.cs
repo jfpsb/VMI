@@ -103,7 +103,7 @@ namespace VandaModaIntimaWpf.Model
 
                 if (Funcionario.DescontoINSS)
                     atransferir -= DescontoINSS;
-                
+
                 return Math.Round(atransferir, 2, MidpointRounding.AwayFromZero);
             }
         }
@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 var listaDeParcelas = Funcionario.Adiantamentos.SelectMany(s => s.Parcelas);
-                var parcelas = listaDeParcelas.Where(w => w.MesAPagar == Mes && w.AnoAPagar == Ano);
+                var parcelas = listaDeParcelas.Where(w => w.Mes == Mes && w.Ano == Ano);
                 return parcelas.ToList();
             }
         }
@@ -183,6 +183,15 @@ namespace VandaModaIntimaWpf.Model
             {
                 _bonus = value;
                 OnPropertyChanged("Bonus");
+            }
+        }
+
+        [JsonIgnore]
+        public double TotalBonus
+        {
+            get
+            {
+                return Bonus.Sum(s => s.Valor);
             }
         }
 

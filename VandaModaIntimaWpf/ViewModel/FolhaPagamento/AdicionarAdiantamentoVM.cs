@@ -17,25 +17,25 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private double _valor;
         private ObservableCollection<ParcelaModel> _parcelas;
         private int _minParcelas;
-        private DateTime _dataAtual;
+        private DateTime _dataEscolhida;
 
-        public AdicionarAdiantamentoVM(ISession session, Model.Funcionario funcionario, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarAdiantamentoVM(ISession session, DateTime dataEscolhida, Model.Funcionario funcionario, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAOAdiantamento(session);
             PropertyChanged += AdicionarAdiantamento_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
-            _dataAtual = DateTime.Now;
+            _dataEscolhida = dataEscolhida;
 
             Entidade = new AdiantamentoModel()
             {
-                Data = _dataAtual,
+                Data = _dataEscolhida,
                 Funcionario = funcionario,
                 Valor = 0
             };
 
-            InicioPagamento = new DateTime(_dataAtual.Year, _dataAtual.Month, 1);
+            InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
         }
         public DateTime InicioPagamento
         {
@@ -92,8 +92,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             Paga = false,
                             Valor = Valor / NumParcelas,
                             Adiantamento = Entidade,
-                            MesAPagar = inicio.Month,
-                            AnoAPagar = inicio.Year
+                            Mes = inicio.Month,
+                            Ano = inicio.Year
                         };
 
                         Entidade.Parcelas.Add(p);
@@ -127,14 +127,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ResetaPropriedades()
         {
-            _dataAtual = DateTime.Now;
-
             Entidade = new AdiantamentoModel()
             {
-                Data = _dataAtual,
-                Id = _dataAtual.Ticks,
+                Data = _dataEscolhida,
+                Id = _dataEscolhida.Ticks,
                 Funcionario = Entidade.Funcionario,
                 Valor = 0
             };
@@ -147,22 +150,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public override bool ValidacaoSalvar(object parameter)
         {
             BotaoSalvarToolTip = "";
+            bool valido = true;
 
             //TODO: botar strings em resources
             if (NumParcelas < _minParcelas)
             {
                 BotaoSalvarToolTip += "O NÚMERO DE PARCELAS É MENOR QUE O NÚMERO MÍNIMO\n";
+                valido = false;
             }
 
             if (Valor <= 0.0)
             {
                 BotaoSalvarToolTip += "O VALOR DO ADIANTAMENTO NÃO PODE SER MENOR OU IGUAL A ZERO\n";
+                valido = false;
             }
 
-            if (NumParcelas >= _minParcelas && Valor > 0.0)
-                return true;
-
-            return false;
+            return valido;
         }
     }
 }

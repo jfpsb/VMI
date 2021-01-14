@@ -59,5 +59,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
         }
+
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

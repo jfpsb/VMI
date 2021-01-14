@@ -14,10 +14,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
             Entidade = new FornecedorModel();
-            Entidade.PropertyChanged += ChecaPropriedadesFornecedor;
         }
 
-        public async void ChecaPropriedadesFornecedor(object sender, PropertyChangedEventArgs e)
+        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -38,6 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     break;
             }
         }
+
         public override void ResetaPropriedades()
         {
             Entidade = new FornecedorModel();

@@ -18,7 +18,6 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
             viewModelStrategy = new CadastrarTipoGradeVMStrategy();
             GetTipoGrades();
             PropertyChanged += CadastrarTipoGrade_PropertyChanged;
-            Entidade.PropertyChanged += ChecaPropriedadesTipoGrade;
         }
 
         public void CadastrarTipoGrade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -27,17 +26,6 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
             {
                 case "Entidade":
                     GetTipoGrades();
-                    break;
-            }
-        }
-
-        public async void ChecaPropriedadesTipoGrade(object sender, PropertyChangedEventArgs e)
-        {
-            DAOTipoGrade daoTipoGrade = (DAOTipoGrade)daoEntidade;
-            switch (e.PropertyName)
-            {
-                case "Nome":
-                    TipoGradePesquisa = await daoTipoGrade.ListarPorNome(Entidade.Nome);
                     break;
             }
         }
@@ -68,6 +56,18 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
         {
             TipoGrades = new ObservableCollection<Model.TipoGrade>(await daoEntidade.Listar<Model.TipoGrade>());
         }
+
+        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            DAOTipoGrade daoTipoGrade = (DAOTipoGrade)daoEntidade;
+            switch (e.PropertyName)
+            {
+                case "Nome":
+                    TipoGradePesquisa = await daoTipoGrade.ListarPorNome(Entidade.Nome);
+                    break;
+            }
+        }
+
         public ObservableCollection<Model.TipoGrade> TipoGrades
         {
             get => _tipoGrades;

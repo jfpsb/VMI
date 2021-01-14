@@ -59,7 +59,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             AbreTelaCadastrarGradeComando = new RelayCommand(AbreTelaCadastrarGrade);
             AbreTelaCadastrarTipoGradeComando = new RelayCommand(AbreTelaCadastrarTipoGrade);
 
-            Entidade.PropertyChanged += ChecaPropriedadesProduto;
             PropertyChanged += GetGrades;
 
             AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
@@ -300,7 +299,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar<Model.TipoGrade>());
         }
-        public async void ChecaPropriedadesProduto(object sender, PropertyChangedEventArgs e)
+        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

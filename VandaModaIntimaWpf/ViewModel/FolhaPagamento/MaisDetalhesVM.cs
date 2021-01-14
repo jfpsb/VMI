@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -42,6 +43,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoBonus = new DAOBonus(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
+
+            Parcelas = new ObservableCollection<Parcela>(_folha.Parcelas);
+            Bonus = new ObservableCollection<Bonus>(_folha.Bonus);
         }
 
         private async void DeletarBonus(object obj)
@@ -156,6 +160,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 _bonus = value;
                 OnPropertyChanged("Bonus");
             }
+        }
+
+        public double TotalBonus
+        {
+            get => _folha.TotalBonus;
+        }
+
+        public double TotalParcelas
+        {
+            get => _folha.Parcelas.Sum(s => s.Valor);
         }
 
         public Bonus BonusEscolhido

@@ -14,7 +14,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : class, IModel
+    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : ObservableObject, IModel
     {
         protected ISession _session;
         protected DAO daoEntidade;
@@ -178,6 +178,8 @@ namespace VandaModaIntimaWpf.ViewModel
             }
         }
 
+        public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
+
         /// <summary>
         /// Retorna as propriedades da entidade a seus valores iniciais
         /// </summary>
@@ -326,6 +328,7 @@ namespace VandaModaIntimaWpf.ViewModel
             set
             {
                 _entidade = value;
+                _entidade.PropertyChanged += Entidade_PropertyChanged;
                 OnPropertyChanged("Entidade");
             }
         }

@@ -13,9 +13,23 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             viewModelStrategy = new CadastrarMarcaVMStrategy();
             daoEntidade = new DAOMarca(_session);
             Entidade = new MarcaModel();
-            Entidade.PropertyChanged += ChecaPropriedadesMarca;
         }
-        private async void ChecaPropriedadesMarca(object sender, PropertyChangedEventArgs e)
+
+        public override void ResetaPropriedades()
+        {
+            Entidade = new MarcaModel();
+            Entidade.Nome = string.Empty;
+        }
+
+        public override bool ValidacaoSalvar(object parameter)
+        {
+            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
+                return false;
+
+            return true;
+        }
+
+        public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -35,20 +49,6 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
                     break;
             }
-        }
-
-        public override void ResetaPropriedades()
-        {
-            Entidade = new MarcaModel();
-            Entidade.Nome = string.Empty;
-        }
-
-        public override bool ValidacaoSalvar(object parameter)
-        {
-            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
-                return false;
-
-            return true;
         }
     }
 }

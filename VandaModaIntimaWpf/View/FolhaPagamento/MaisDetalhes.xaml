@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Mais Detalhes"
         Height="450"
-        Width="450"
+        Width="525"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="Window_Closing">
@@ -36,7 +36,9 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <DataGrid ItemsSource="{Binding Parcelas}"
                       SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
@@ -45,9 +47,13 @@
                                         Width="*"
                                         Binding="{Binding Adiantamento.DataString}"
                                         IsReadOnly="True" />
-                    <DataGridTextColumn Header="Valor da Parcela (R$)"
+                    <DataGridTextColumn Header="# Parcela"
                                         Width="Auto"
-                                        Binding="{Binding Valor}"
+                                        Binding="{Binding NumeroComTotal}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Valor da Parcela"
+                                        Width="Auto"
+                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                         IsReadOnly="True" />
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
@@ -57,7 +63,13 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
-            <DataGrid Grid.Row="1"
+            <TextBlock Grid.Row="1"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TotalParcelas, StringFormat='Total Em Adiantamentos: {0:C}', ConverterCulture=pt-BR}"
+                       FontSize="16"
+                       Margin="0, 0, 5, 0"
+                       FontWeight="Bold" />
+            <DataGrid Grid.Row="2"
                       ItemsSource="{Binding Bonus}"
                       SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
                 <DataGrid.Columns>
@@ -65,8 +77,12 @@
                                         Binding="{Binding DataString}"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Valor do Bônus (R$)"
-                                        Binding="{Binding Valor}"
+                    <DataGridTextColumn Header="Descrição"
+                                        Binding="{Binding Descricao}"
+                                        IsReadOnly="True"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Valor do Bônus"
+                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                         IsReadOnly="True"
                                         Width="Auto" />
                 </DataGrid.Columns>
@@ -77,6 +93,12 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
+            <TextBlock Grid.Row="3"
+                       HorizontalAlignment="Right"
+                       Text="{Binding TotalBonus, StringFormat='Total Em Bônus: {0:C}', ConverterCulture=pt-BR}"
+                       FontSize="16"
+                       Margin="0, 0, 5, 0"
+                       FontWeight="Bold" />
         </Grid>
     </DockPanel>
 </Window>

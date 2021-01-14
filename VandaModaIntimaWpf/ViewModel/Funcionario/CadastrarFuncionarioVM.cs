@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 Entidade.Loja = null;
         }
 
-        public async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        override public async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
