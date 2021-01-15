@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FolhaPagamentoDataSet" targetNamespace="http://tempuri.org/FolhaPagamentoDataSet.xsd" xmlns:mstns="http://tempuri.org/FolhaPagamentoDataSet.xsd" xmlns="http://tempuri.org/FolhaPagamentoDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="FolhaPagamentoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FolhaPagamentoDataSet" msprop:Generator_UserDSName="FolhaPagamentoDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="FolhaPagamento" msprop:Generator_TableClassName="FolhaPagamentoDataTable" msprop:Generator_TableVarName="tableFolhaPagamento" msprop:Generator_TablePropName="FolhaPagamento" msprop:Generator_RowDeletingName="FolhaPagamentoRowDeleting" msprop:Generator_RowChangingName="FolhaPagamentoRowChanging" msprop:Generator_RowEvHandlerName="FolhaPagamentoRowChangeEventHandler" msprop:Generator_RowDeletedName="FolhaPagamentoRowDeleted" msprop:Generator_UserTableName="FolhaPagamento" msprop:Generator_RowChangedName="FolhaPagamentoRowChanged" msprop:Generator_RowEvArgName="FolhaPagamentoRowChangeEvent" msprop:Generator_RowClassName="FolhaPagamentoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="mes" msprop:Generator_ColumnVarNameInTable="columnmes" msprop:Generator_ColumnPropNameInRow="mes" msprop:Generator_ColumnPropNameInTable="mesColumn" msprop:Generator_UserColumnName="mes" type="xs:string" minOccurs="0" />
+              <xs:element name="ano" msprop:Generator_ColumnVarNameInTable="columnano" msprop:Generator_ColumnPropNameInRow="ano" msprop:Generator_ColumnPropNameInTable="anoColumn" msprop:Generator_UserColumnName="ano" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Funcionario" msprop:Generator_TableClassName="FuncionarioDataTable" msprop:Generator_TableVarName="tableFuncionario" msprop:Generator_TablePropName="Funcionario" msprop:Generator_RowDeletingName="FuncionarioRowDeleting" msprop:Generator_RowChangingName="FuncionarioRowChanging" msprop:Generator_RowEvHandlerName="FuncionarioRowChangeEventHandler" msprop:Generator_RowDeletedName="FuncionarioRowDeleted" msprop:Generator_UserTableName="Funcionario" msprop:Generator_RowChangedName="FuncionarioRowChanged" msprop:Generator_RowEvArgName="FuncionarioRowChangeEvent" msprop:Generator_RowClassName="FuncionarioRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="cpf" msprop:Generator_ColumnVarNameInTable="columncpf" msprop:Generator_ColumnPropNameInRow="cpf" msprop:Generator_ColumnPropNameInTable="cpfColumn" msprop:Generator_UserColumnName="cpf" type="xs:string" />
+              <xs:element name="nome" msprop:Generator_ColumnVarNameInTable="columnnome" msprop:Generator_ColumnPropNameInRow="nome" msprop:Generator_ColumnPropNameInTable="nomeColumn" msprop:Generator_UserColumnName="nome" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Bonus" msprop:Generator_TableClassName="BonusDataTable" msprop:Generator_TableVarName="tableBonus" msprop:Generator_TablePropName="Bonus" msprop:Generator_RowDeletingName="BonusRowDeleting" msprop:Generator_RowChangingName="BonusRowChanging" msprop:Generator_RowEvHandlerName="BonusRowChangeEventHandler" msprop:Generator_RowDeletedName="BonusRowDeleted" msprop:Generator_UserTableName="Bonus" msprop:Generator_RowChangedName="BonusRowChanged" msprop:Generator_RowEvArgName="BonusRowChangeEvent" msprop:Generator_RowClassName="BonusRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Parcelas" msprop:Generator_TableClassName="ParcelasDataTable" msprop:Generator_TableVarName="tableParcelas" msprop:Generator_TablePropName="Parcelas" msprop:Generator_RowDeletingName="ParcelasRowDeleting" msprop:Generator_RowChangingName="ParcelasRowChanging" msprop:Generator_RowEvHandlerName="ParcelasRowChangeEventHandler" msprop:Generator_RowDeletedName="ParcelasRowDeleted" msprop:Generator_UserTableName="Parcelas" msprop:Generator_RowChangedName="ParcelasRowChanged" msprop:Generator_RowEvArgName="ParcelasRowChangeEvent" msprop:Generator_RowClassName="ParcelasRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:FolhaPagamento" />
+      <xs:field xpath="mstns:mes" />
+    </xs:unique>
+    <xs:unique name="FuncionarioKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Funcionario" />
+      <xs:field xpath="mstns:cpf" />
+    </xs:unique>
+    <xs:unique name="BonusKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Bonus" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="ParcelasKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Parcelas" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:keyref name="FK_FolhaPagamento_Parcelas" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Parcelas" />
+      <xs:field xpath="mstns:valor" />
+    </xs:keyref>
+    <xs:keyref name="FK_FolhaPagamento_Bonus" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Bonus" />
+      <xs:field xpath="mstns:valor" />
+    </xs:keyref>
+    <xs:keyref name="FK_FolhaPagamento_Funcionario" refer="Constraint1" msdata:ConstraintOnly="true">
+      <xs:selector xpath=".//mstns:Funcionario" />
+      <xs:field xpath="mstns:cpf" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

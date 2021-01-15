@@ -132,7 +132,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirHoraExtra(object obj)
         {
-            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, new MessageBoxService(), false);
+            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, new MessageBoxService(), false);
 
             AdicionarHoraExtra adicionarHoraExtra = new AdicionarHoraExtra()
             {
@@ -145,7 +145,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarBonus(object obj)
         {
-            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, new MessageBoxService(), false);
+            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, new MessageBoxService(), false);
 
             AdicionarBonus adicionarBonus = new AdicionarBonus()
             {

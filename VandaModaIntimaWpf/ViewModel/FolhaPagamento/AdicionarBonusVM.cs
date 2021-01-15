@@ -18,14 +18,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private int _descricaoHoraExtra;
         private int _quantHoras;
         private int _quantMinutos;
+        private DateTime dataEscolhida;
         private double valorHora;
 
-        public AdicionarBonusVM(ISession session, FolhaModel folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             daoEntidade = new DAOBonus(session);
             viewModelStrategy = new CadastrarBonusVMStrategy();
             Folha = folha;
             CmbDescricaoHoraExtra = Application.Current.Resources["CmbDescricaoHoraExtra"] as string[];
+            this.dataEscolhida = dataEscolhida;
 
             AntesDeInserirNoBancoDeDados += ConfiguraBonus;
 
@@ -37,10 +39,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             PropertyChanged += AdicionarBonusVM_PropertyChanged;
 
             valorHora = Folha.Funcionario.Salario / 220;
-            InicioPagamento = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
         }
 
-        private void AdicionarBonusVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void AdicionarBonusVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -113,10 +115,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void ResetaPropriedades()
         {
+            QuantHoras = 0;
+            QuantMinutos = 0;
+
             Entidade = new Bonus
             {
                 Funcionario = Folha.Funcionario
             };
+
+            InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -133,7 +140,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         public string Valor

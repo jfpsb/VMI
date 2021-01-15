@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void ResetaPropriedades()
@@ -137,7 +137,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade = new AdiantamentoModel()
             {
                 Data = _dataEscolhida,
-                Id = _dataEscolhida.Ticks,
                 Funcionario = Entidade.Funcionario,
                 Valor = 0
             };
