@@ -1,11 +1,6 @@
-﻿using Microsoft.Office.Interop.Excel;
-using NHibernate;
-using System;
+﻿using NHibernate;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View.Produto.Relatorios;
@@ -23,7 +18,6 @@ namespace VandaModaIntimaWpf.View.Produto
         public TelaRelatorioProduto()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
-
             InitializeComponent();
         }
 

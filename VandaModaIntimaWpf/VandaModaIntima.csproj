@@ -245,6 +245,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\FolhaPagamento\TelaRelatorioFolha.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -460,6 +464,11 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
+    <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
@@ -467,6 +476,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DataSets\ParcelaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataSets\ProdutoDataSet.cs">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
@@ -595,11 +609,26 @@
     <Compile Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml.cs">
       <DependentUpon>PesquisarFolhaPagamento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioBonus.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatorioBonus.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RelatorioFolhaPagamento.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioParcela.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatorioParcela.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\TelaRelatorioFolha.xaml.cs">
+      <DependentUpon>TelaRelatorioFolha.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
@@ -724,9 +753,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioFolhaPagamento.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioParcela.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Produto\Relatorios\RelatorioProduto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -743,6 +780,17 @@
     <None Include="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ViewModel\DataSets\BonusDataSet.xsc">
+      <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\BonusDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BonusDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\BonusDataSet.xss">
+      <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </None>
     <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xsc">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </None>
@@ -753,6 +801,17 @@
     </None>
     <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xss">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\ParcelaDataSet.xsc">
+      <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\ParcelaDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ParcelaDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\ParcelaDataSet.xss">
+      <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
     </None>
     <None Include="ViewModel\DataSets\ProdutoDataSet.xsc">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>

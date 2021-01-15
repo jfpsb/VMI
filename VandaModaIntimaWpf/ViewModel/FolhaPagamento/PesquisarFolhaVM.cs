@@ -32,6 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarBonusComando { get; set; }
         public ICommand AbrirMaisDetalhesComando { get; set; }
         public ICommand AbrirCalculoPassagemComando { get; set; }
+        public ICommand AbrirImprimirFolhaComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -57,6 +58,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarHoraExtraComando = new RelayCommand(AbrirHoraExtra);
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
             AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
+            AbrirImprimirFolhaComando = new RelayCommand(AbrirImprimirFolha);
+        }
+
+        private void AbrirImprimirFolha(object obj)
+        {
+            TelaRelatorioFolha telaRelatorioFolha = new TelaRelatorioFolha(FolhaPagamento);
+            telaRelatorioFolha.Show();
         }
 
         private DateTime RetornaQuintoDiaUtil()

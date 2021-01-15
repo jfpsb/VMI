@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ParcelaDataSet" targetNamespace="http://tempuri.org/ParcelaDataSet.xsd" xmlns:mstns="http://tempuri.org/ParcelaDataSet.xsd" xmlns="http://tempuri.org/ParcelaDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ParcelaDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ParcelaDataSet" msprop:Generator_UserDSName="ParcelaDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Parcela" msprop:Generator_TableClassName="ParcelaDataTable" msprop:Generator_TableVarName="tableParcela" msprop:Generator_RowChangedName="ParcelaRowChanged" msprop:Generator_TablePropName="Parcela" msprop:Generator_RowDeletingName="ParcelaRowDeleting" msprop:Generator_RowChangingName="ParcelaRowChanging" msprop:Generator_RowEvHandlerName="ParcelaRowChangeEventHandler" msprop:Generator_RowDeletedName="ParcelaRowDeleted" msprop:Generator_RowClassName="ParcelaRow" msprop:Generator_UserTableName="Parcela" msprop:Generator_RowEvArgName="ParcelaRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
+              <xs:element name="numero" msprop:Generator_ColumnVarNameInTable="columnnumero" msprop:Generator_ColumnPropNameInRow="numero" msprop:Generator_ColumnPropNameInTable="numeroColumn" msprop:Generator_UserColumnName="numero" type="xs:string" minOccurs="0" />
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
+              <xs:element name="paga" msprop:Generator_ColumnVarNameInTable="columnpaga" msprop:Generator_ColumnPropNameInRow="paga" msprop:Generator_ColumnPropNameInTable="pagaColumn" msprop:Generator_UserColumnName="paga" type="xs:string" minOccurs="0" />
+              <xs:element name="data_adiantamento" msprop:Generator_ColumnVarNameInTable="columndata_adiantamento" msprop:Generator_ColumnPropNameInRow="data_adiantamento" msprop:Generator_ColumnPropNameInTable="data_adiantamentoColumn" msprop:Generator_UserColumnName="data_adiantamento" type="xs:string" minOccurs="0" />
+              <xs:element name="numero_com_total" msprop:Generator_ColumnVarNameInTable="columnnumero_com_total" msprop:Generator_ColumnPropNameInRow="numero_com_total" msprop:Generator_ColumnPropNameInTable="numero_com_totalColumn" msprop:Generator_UserColumnName="numero_com_total" type="xs:string" minOccurs="0" />
+              <xs:element name="total_adiantamentos" msprop:Generator_ColumnVarNameInTable="columntotal_adiantamentos" msprop:Generator_ColumnPropNameInRow="total_adiantamentos" msprop:Generator_ColumnPropNameInTable="total_adiantamentosColumn" msprop:Generator_UserColumnName="total_adiantamentos" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

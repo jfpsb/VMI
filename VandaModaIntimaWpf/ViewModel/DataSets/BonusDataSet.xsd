@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BonusDataSet" targetNamespace="http://tempuri.org/BonusDataSet.xsd" xmlns:mstns="http://tempuri.org/BonusDataSet.xsd" xmlns="http://tempuri.org/BonusDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="BonusDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BonusDataSet" msprop:Generator_UserDSName="BonusDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Bonus" msprop:Generator_TableClassName="BonusDataTable" msprop:Generator_TableVarName="tableBonus" msprop:Generator_TablePropName="Bonus" msprop:Generator_RowDeletingName="BonusRowDeleting" msprop:Generator_RowChangingName="BonusRowChanging" msprop:Generator_RowEvHandlerName="BonusRowChangeEventHandler" msprop:Generator_RowDeletedName="BonusRowDeleted" msprop:Generator_UserTableName="Bonus" msprop:Generator_RowChangedName="BonusRowChanged" msprop:Generator_RowEvArgName="BonusRowChangeEvent" msprop:Generator_RowClassName="BonusRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="data" msprop:Generator_ColumnVarNameInTable="columndata" msprop:Generator_ColumnPropNameInRow="data" msprop:Generator_ColumnPropNameInTable="dataColumn" msprop:Generator_UserColumnName="data" type="xs:string" minOccurs="0" />
+              <xs:element name="descricao" msprop:Generator_ColumnVarNameInTable="columndescricao" msprop:Generator_ColumnPropNameInRow="descricao" msprop:Generator_ColumnPropNameInTable="descricaoColumn" msprop:Generator_UserColumnName="descricao" type="xs:string" minOccurs="0" />
+              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
+              <xs:element name="total_bonus" msprop:Generator_ColumnVarNameInTable="columntotal_bonus" msprop:Generator_ColumnPropNameInRow="total_bonus" msprop:Generator_ColumnPropNameInTable="total_bonusColumn" msprop:Generator_UserColumnName="total_bonus" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="BonusKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Bonus" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

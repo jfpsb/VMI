@@ -16,14 +16,14 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class RelatorioFolhaPagamento : ReportClass {
+    public class RelatorioBonus : ReportClass {
         
-        public RelatorioFolhaPagamento() {
+        public RelatorioBonus() {
         }
         
         public override string ResourceName {
             get {
-                return "RelatorioFolhaPagamento.rpt";
+                return "RelatorioBonus.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         
         public override string FullResourceName {
             get {
-                return "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioFolhaPagamento.rpt";
+                return "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioBonus.rpt";
             }
             set {
                 // Do nothing
@@ -74,7 +74,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,25 +82,17 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[5];
+                return this.ReportDefinition.Sections[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRelatorioFolhaPagamento : Component, ICachedReport {
+    public class CachedRelatorioBonus : Component, ICachedReport {
         
-        public CachedRelatorioFolhaPagamento() {
+        public CachedRelatorioBonus() {
         }
         
         [Browsable(false)]
@@ -137,7 +129,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            RelatorioFolhaPagamento rpt = new RelatorioFolhaPagamento();
+            RelatorioBonus rpt = new RelatorioBonus();
             rpt.Site = this.Site;
             return rpt;
         }

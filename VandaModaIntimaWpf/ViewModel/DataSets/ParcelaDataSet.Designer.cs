@@ -20,17 +20,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("FolhaPagamentoDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ParcelaDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class FolhaPagamentoDataSet : global::System.Data.DataSet {
+    public partial class ParcelaDataSet : global::System.Data.DataSet {
         
-        private FolhaPagamentoDataTable tableFolhaPagamento;
+        private ParcelaDataTable tableParcela;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public FolhaPagamentoDataSet() {
+        public ParcelaDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected FolhaPagamentoDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ParcelaDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["FolhaPagamento"] != null)) {
-                    base.Tables.Add(new FolhaPagamentoDataTable(ds.Tables["FolhaPagamento"]));
+                if ((ds.Tables["Parcela"] != null)) {
+                    base.Tables.Add(new ParcelaDataTable(ds.Tables["Parcela"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public FolhaPagamentoDataTable FolhaPagamento {
+        public ParcelaDataTable Parcela {
             get {
-                return this.tableFolhaPagamento;
+                return this.tableParcela;
             }
         }
         
@@ -127,7 +127,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            FolhaPagamentoDataSet cln = ((FolhaPagamentoDataSet)(base.Clone()));
+            ParcelaDataSet cln = ((ParcelaDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["FolhaPagamento"] != null)) {
-                    base.Tables.Add(new FolhaPagamentoDataTable(ds.Tables["FolhaPagamento"]));
+                if ((ds.Tables["Parcela"] != null)) {
+                    base.Tables.Add(new ParcelaDataTable(ds.Tables["Parcela"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableFolhaPagamento = ((FolhaPagamentoDataTable)(base.Tables["FolhaPagamento"]));
+            this.tableParcela = ((ParcelaDataTable)(base.Tables["Parcela"]));
             if ((initTable == true)) {
-                if ((this.tableFolhaPagamento != null)) {
-                    this.tableFolhaPagamento.InitVars();
+                if ((this.tableParcela != null)) {
+                    this.tableParcela.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "FolhaPagamentoDataSet";
+            this.DataSetName = "ParcelaDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/FolhaPagamentoDataSet.xsd";
+            this.Namespace = "http://tempuri.org/ParcelaDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableFolhaPagamento = new FolhaPagamentoDataTable();
-            base.Tables.Add(this.tableFolhaPagamento);
+            this.tableParcela = new ParcelaDataTable();
+            base.Tables.Add(this.tableParcela);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeFolhaPagamento() {
+        private bool ShouldSerializeParcela() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            FolhaPagamentoDataSet ds = new FolhaPagamentoDataSet();
+            ParcelaDataSet ds = new ParcelaDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,33 +270,33 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void FolhaPagamentoRowChangeEventHandler(object sender, FolhaPagamentoRowChangeEvent e);
+        public delegate void ParcelaRowChangeEventHandler(object sender, ParcelaRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class FolhaPagamentoDataTable : global::System.Data.TypedTableBase<FolhaPagamentoRow> {
+        public partial class ParcelaDataTable : global::System.Data.TypedTableBase<ParcelaRow> {
             
-            private global::System.Data.DataColumn columnmes;
+            private global::System.Data.DataColumn columnid;
             
-            private global::System.Data.DataColumn columnano;
+            private global::System.Data.DataColumn columnnumero;
             
-            private global::System.Data.DataColumn columnfuncionario;
+            private global::System.Data.DataColumn columnvalor;
             
-            private global::System.Data.DataColumn columnmesreferencia;
+            private global::System.Data.DataColumn columnpaga;
             
-            private global::System.Data.DataColumn columnvencimento;
+            private global::System.Data.DataColumn columndata_adiantamento;
             
-            private global::System.Data.DataColumn columnvalor_a_transferir;
+            private global::System.Data.DataColumn columnnumero_com_total;
             
-            private global::System.Data.DataColumn columndesconto_inss;
+            private global::System.Data.DataColumn columntotal_adiantamentos;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoDataTable() {
-                this.TableName = "FolhaPagamento";
+            public ParcelaDataTable() {
+                this.TableName = "Parcela";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -304,7 +304,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal FolhaPagamentoDataTable(global::System.Data.DataTable table) {
+            internal ParcelaDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -321,64 +321,64 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected FolhaPagamentoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected ParcelaDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn mesColumn {
+            public global::System.Data.DataColumn idColumn {
                 get {
-                    return this.columnmes;
+                    return this.columnid;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn anoColumn {
+            public global::System.Data.DataColumn numeroColumn {
                 get {
-                    return this.columnano;
+                    return this.columnnumero;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn funcionarioColumn {
+            public global::System.Data.DataColumn valorColumn {
                 get {
-                    return this.columnfuncionario;
+                    return this.columnvalor;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn mesreferenciaColumn {
+            public global::System.Data.DataColumn pagaColumn {
                 get {
-                    return this.columnmesreferencia;
+                    return this.columnpaga;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn vencimentoColumn {
+            public global::System.Data.DataColumn data_adiantamentoColumn {
                 get {
-                    return this.columnvencimento;
+                    return this.columndata_adiantamento;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn valor_a_transferirColumn {
+            public global::System.Data.DataColumn numero_com_totalColumn {
                 get {
-                    return this.columnvalor_a_transferir;
+                    return this.columnnumero_com_total;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn desconto_inssColumn {
+            public global::System.Data.DataColumn total_adiantamentosColumn {
                 get {
-                    return this.columndesconto_inss;
+                    return this.columntotal_adiantamentos;
                 }
             }
             
@@ -393,59 +393,51 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow this[int index] {
+            public ParcelaRow this[int index] {
                 get {
-                    return ((FolhaPagamentoRow)(this.Rows[index]));
+                    return ((ParcelaRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowChanging;
+            public event ParcelaRowChangeEventHandler ParcelaRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowChanged;
+            public event ParcelaRowChangeEventHandler ParcelaRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowDeleting;
+            public event ParcelaRowChangeEventHandler ParcelaRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowDeleted;
+            public event ParcelaRowChangeEventHandler ParcelaRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddFolhaPagamentoRow(FolhaPagamentoRow row) {
+            public void AddParcelaRow(ParcelaRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string desconto_inss) {
-                FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
+            public ParcelaRow AddParcelaRow(string id, string numero, string valor, string paga, string data_adiantamento, string numero_com_total, string total_adiantamentos) {
+                ParcelaRow rowParcelaRow = ((ParcelaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        mes,
-                        ano,
-                        funcionario,
-                        mesreferencia,
-                        vencimento,
-                        valor_a_transferir,
-                        desconto_inss};
-                rowFolhaPagamentoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowFolhaPagamentoRow);
-                return rowFolhaPagamentoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow FindBymesano(string mes, string ano) {
-                return ((FolhaPagamentoRow)(this.Rows.Find(new object[] {
-                            mes,
-                            ano})));
+                        id,
+                        numero,
+                        valor,
+                        paga,
+                        data_adiantamento,
+                        numero_com_total,
+                        total_adiantamentos};
+                rowParcelaRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowParcelaRow);
+                return rowParcelaRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                FolhaPagamentoDataTable cln = ((FolhaPagamentoDataTable)(base.Clone()));
+                ParcelaDataTable cln = ((ParcelaDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -453,72 +445,64 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new FolhaPagamentoDataTable();
+                return new ParcelaDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnmes = base.Columns["mes"];
-                this.columnano = base.Columns["ano"];
-                this.columnfuncionario = base.Columns["funcionario"];
-                this.columnmesreferencia = base.Columns["mesreferencia"];
-                this.columnvencimento = base.Columns["vencimento"];
-                this.columnvalor_a_transferir = base.Columns["valor_a_transferir"];
-                this.columndesconto_inss = base.Columns["desconto_inss"];
+                this.columnid = base.Columns["id"];
+                this.columnnumero = base.Columns["numero"];
+                this.columnvalor = base.Columns["valor"];
+                this.columnpaga = base.Columns["paga"];
+                this.columndata_adiantamento = base.Columns["data_adiantamento"];
+                this.columnnumero_com_total = base.Columns["numero_com_total"];
+                this.columntotal_adiantamentos = base.Columns["total_adiantamentos"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnmes = new global::System.Data.DataColumn("mes", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmes);
-                this.columnano = new global::System.Data.DataColumn("ano", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnano);
-                this.columnfuncionario = new global::System.Data.DataColumn("funcionario", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfuncionario);
-                this.columnmesreferencia = new global::System.Data.DataColumn("mesreferencia", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmesreferencia);
-                this.columnvencimento = new global::System.Data.DataColumn("vencimento", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnvencimento);
-                this.columnvalor_a_transferir = new global::System.Data.DataColumn("valor_a_transferir", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnvalor_a_transferir);
-                this.columndesconto_inss = new global::System.Data.DataColumn("desconto_inss", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndesconto_inss);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnmes}, false));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
-                                this.columnmes,
-                                this.columnano}, true));
-                this.columnmes.AllowDBNull = false;
-                this.columnmes.Unique = true;
-                this.columnano.AllowDBNull = false;
+                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columnnumero = new global::System.Data.DataColumn("numero", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnumero);
+                this.columnvalor = new global::System.Data.DataColumn("valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvalor);
+                this.columnpaga = new global::System.Data.DataColumn("paga", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpaga);
+                this.columndata_adiantamento = new global::System.Data.DataColumn("data_adiantamento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndata_adiantamento);
+                this.columnnumero_com_total = new global::System.Data.DataColumn("numero_com_total", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnumero_com_total);
+                this.columntotal_adiantamentos = new global::System.Data.DataColumn("total_adiantamentos", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotal_adiantamentos);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow NewFolhaPagamentoRow() {
-                return ((FolhaPagamentoRow)(this.NewRow()));
+            public ParcelaRow NewParcelaRow() {
+                return ((ParcelaRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new FolhaPagamentoRow(builder);
+                return new ParcelaRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(FolhaPagamentoRow);
+                return typeof(ParcelaRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.FolhaPagamentoRowChanged != null)) {
-                    this.FolhaPagamentoRowChanged(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.ParcelaRowChanged != null)) {
+                    this.ParcelaRowChanged(this, new ParcelaRowChangeEvent(((ParcelaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -526,8 +510,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.FolhaPagamentoRowChanging != null)) {
-                    this.FolhaPagamentoRowChanging(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.ParcelaRowChanging != null)) {
+                    this.ParcelaRowChanging(this, new ParcelaRowChangeEvent(((ParcelaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -535,8 +519,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.FolhaPagamentoRowDeleted != null)) {
-                    this.FolhaPagamentoRowDeleted(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.ParcelaRowDeleted != null)) {
+                    this.ParcelaRowDeleted(this, new ParcelaRowChangeEvent(((ParcelaRow)(e.Row)), e.Action));
                 }
             }
             
@@ -544,14 +528,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.FolhaPagamentoRowDeleting != null)) {
-                    this.FolhaPagamentoRowDeleting(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.ParcelaRowDeleting != null)) {
+                    this.ParcelaRowDeleting(this, new ParcelaRowChangeEvent(((ParcelaRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveFolhaPagamentoRow(FolhaPagamentoRow row) {
+            public void RemoveParcelaRow(ParcelaRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -560,7 +544,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                FolhaPagamentoDataSet ds = new FolhaPagamentoDataSet();
+                ParcelaDataSet ds = new ParcelaDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -578,7 +562,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "FolhaPagamentoDataTable";
+                attribute2.FixedValue = "ParcelaDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -622,177 +606,211 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class FolhaPagamentoRow : global::System.Data.DataRow {
+        public partial class ParcelaRow : global::System.Data.DataRow {
             
-            private FolhaPagamentoDataTable tableFolhaPagamento;
+            private ParcelaDataTable tableParcela;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal FolhaPagamentoRow(global::System.Data.DataRowBuilder rb) : 
+            internal ParcelaRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableFolhaPagamento = ((FolhaPagamentoDataTable)(this.Table));
+                this.tableParcela = ((ParcelaDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string mes {
-                get {
-                    return ((string)(this[this.tableFolhaPagamento.mesColumn]));
-                }
-                set {
-                    this[this.tableFolhaPagamento.mesColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ano {
-                get {
-                    return ((string)(this[this.tableFolhaPagamento.anoColumn]));
-                }
-                set {
-                    this[this.tableFolhaPagamento.anoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string funcionario {
+            public string id {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.funcionarioColumn]));
+                        return ((string)(this[this.tableParcela.idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'funcionario\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'Parcela\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.funcionarioColumn] = value;
+                    this[this.tableParcela.idColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string mesreferencia {
+            public string numero {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.mesreferenciaColumn]));
+                        return ((string)(this[this.tableParcela.numeroColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'mesreferencia\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'numero\' in table \'Parcela\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.mesreferenciaColumn] = value;
+                    this[this.tableParcela.numeroColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string vencimento {
+            public string valor {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.vencimentoColumn]));
+                        return ((string)(this[this.tableParcela.valorColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'vencimento\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'valor\' in table \'Parcela\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.vencimentoColumn] = value;
+                    this[this.tableParcela.valorColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string valor_a_transferir {
+            public string paga {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.valor_a_transferirColumn]));
+                        return ((string)(this[this.tableParcela.pagaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'valor_a_transferir\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'paga\' in table \'Parcela\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.valor_a_transferirColumn] = value;
+                    this[this.tableParcela.pagaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string desconto_inss {
+            public string data_adiantamento {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.desconto_inssColumn]));
+                        return ((string)(this[this.tableParcela.data_adiantamentoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'desconto_inss\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'data_adiantamento\' in table \'Parcela\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.desconto_inssColumn] = value;
+                    this[this.tableParcela.data_adiantamentoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsfuncionarioNull() {
-                return this.IsNull(this.tableFolhaPagamento.funcionarioColumn);
+            public string numero_com_total {
+                get {
+                    try {
+                        return ((string)(this[this.tableParcela.numero_com_totalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'numero_com_total\' in table \'Parcela\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableParcela.numero_com_totalColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetfuncionarioNull() {
-                this[this.tableFolhaPagamento.funcionarioColumn] = global::System.Convert.DBNull;
+            public string total_adiantamentos {
+                get {
+                    try {
+                        return ((string)(this[this.tableParcela.total_adiantamentosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'total_adiantamentos\' in table \'Parcela\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableParcela.total_adiantamentosColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsmesreferenciaNull() {
-                return this.IsNull(this.tableFolhaPagamento.mesreferenciaColumn);
+            public bool IsidNull() {
+                return this.IsNull(this.tableParcela.idColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetmesreferenciaNull() {
-                this[this.tableFolhaPagamento.mesreferenciaColumn] = global::System.Convert.DBNull;
+            public void SetidNull() {
+                this[this.tableParcela.idColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsvencimentoNull() {
-                return this.IsNull(this.tableFolhaPagamento.vencimentoColumn);
+            public bool IsnumeroNull() {
+                return this.IsNull(this.tableParcela.numeroColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetvencimentoNull() {
-                this[this.tableFolhaPagamento.vencimentoColumn] = global::System.Convert.DBNull;
+            public void SetnumeroNull() {
+                this[this.tableParcela.numeroColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isvalor_a_transferirNull() {
-                return this.IsNull(this.tableFolhaPagamento.valor_a_transferirColumn);
+            public bool IsvalorNull() {
+                return this.IsNull(this.tableParcela.valorColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setvalor_a_transferirNull() {
-                this[this.tableFolhaPagamento.valor_a_transferirColumn] = global::System.Convert.DBNull;
+            public void SetvalorNull() {
+                this[this.tableParcela.valorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isdesconto_inssNull() {
-                return this.IsNull(this.tableFolhaPagamento.desconto_inssColumn);
+            public bool IspagaNull() {
+                return this.IsNull(this.tableParcela.pagaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setdesconto_inssNull() {
-                this[this.tableFolhaPagamento.desconto_inssColumn] = global::System.Convert.DBNull;
+            public void SetpagaNull() {
+                this[this.tableParcela.pagaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isdata_adiantamentoNull() {
+                return this.IsNull(this.tableParcela.data_adiantamentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setdata_adiantamentoNull() {
+                this[this.tableParcela.data_adiantamentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isnumero_com_totalNull() {
+                return this.IsNull(this.tableParcela.numero_com_totalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setnumero_com_totalNull() {
+                this[this.tableParcela.numero_com_totalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Istotal_adiantamentosNull() {
+                return this.IsNull(this.tableParcela.total_adiantamentosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Settotal_adiantamentosNull() {
+                this[this.tableParcela.total_adiantamentosColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -800,22 +818,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class FolhaPagamentoRowChangeEvent : global::System.EventArgs {
+        public class ParcelaRowChangeEvent : global::System.EventArgs {
             
-            private FolhaPagamentoRow eventRow;
+            private ParcelaRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRowChangeEvent(FolhaPagamentoRow row, global::System.Data.DataRowAction action) {
+            public ParcelaRowChangeEvent(ParcelaRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow Row {
+            public ParcelaRow Row {
                 get {
                     return this.eventRow;
                 }

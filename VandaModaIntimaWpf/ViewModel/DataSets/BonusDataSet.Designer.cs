@@ -20,17 +20,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("FolhaPagamentoDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("BonusDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class FolhaPagamentoDataSet : global::System.Data.DataSet {
+    public partial class BonusDataSet : global::System.Data.DataSet {
         
-        private FolhaPagamentoDataTable tableFolhaPagamento;
+        private BonusDataTable tableBonus;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public FolhaPagamentoDataSet() {
+        public BonusDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected FolhaPagamentoDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected BonusDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["FolhaPagamento"] != null)) {
-                    base.Tables.Add(new FolhaPagamentoDataTable(ds.Tables["FolhaPagamento"]));
+                if ((ds.Tables["Bonus"] != null)) {
+                    base.Tables.Add(new BonusDataTable(ds.Tables["Bonus"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public FolhaPagamentoDataTable FolhaPagamento {
+        public BonusDataTable Bonus {
             get {
-                return this.tableFolhaPagamento;
+                return this.tableBonus;
             }
         }
         
@@ -127,7 +127,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            FolhaPagamentoDataSet cln = ((FolhaPagamentoDataSet)(base.Clone()));
+            BonusDataSet cln = ((BonusDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["FolhaPagamento"] != null)) {
-                    base.Tables.Add(new FolhaPagamentoDataTable(ds.Tables["FolhaPagamento"]));
+                if ((ds.Tables["Bonus"] != null)) {
+                    base.Tables.Add(new BonusDataTable(ds.Tables["Bonus"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableFolhaPagamento = ((FolhaPagamentoDataTable)(base.Tables["FolhaPagamento"]));
+            this.tableBonus = ((BonusDataTable)(base.Tables["Bonus"]));
             if ((initTable == true)) {
-                if ((this.tableFolhaPagamento != null)) {
-                    this.tableFolhaPagamento.InitVars();
+                if ((this.tableBonus != null)) {
+                    this.tableBonus.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "FolhaPagamentoDataSet";
+            this.DataSetName = "BonusDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/FolhaPagamentoDataSet.xsd";
+            this.Namespace = "http://tempuri.org/BonusDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableFolhaPagamento = new FolhaPagamentoDataTable();
-            base.Tables.Add(this.tableFolhaPagamento);
+            this.tableBonus = new BonusDataTable();
+            base.Tables.Add(this.tableBonus);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeFolhaPagamento() {
+        private bool ShouldSerializeBonus() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            FolhaPagamentoDataSet ds = new FolhaPagamentoDataSet();
+            BonusDataSet ds = new BonusDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,33 +270,29 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void FolhaPagamentoRowChangeEventHandler(object sender, FolhaPagamentoRowChangeEvent e);
+        public delegate void BonusRowChangeEventHandler(object sender, BonusRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class FolhaPagamentoDataTable : global::System.Data.TypedTableBase<FolhaPagamentoRow> {
+        public partial class BonusDataTable : global::System.Data.TypedTableBase<BonusRow> {
             
-            private global::System.Data.DataColumn columnmes;
+            private global::System.Data.DataColumn columnid;
             
-            private global::System.Data.DataColumn columnano;
+            private global::System.Data.DataColumn columndata;
             
-            private global::System.Data.DataColumn columnfuncionario;
+            private global::System.Data.DataColumn columndescricao;
             
-            private global::System.Data.DataColumn columnmesreferencia;
+            private global::System.Data.DataColumn columnvalor;
             
-            private global::System.Data.DataColumn columnvencimento;
-            
-            private global::System.Data.DataColumn columnvalor_a_transferir;
-            
-            private global::System.Data.DataColumn columndesconto_inss;
+            private global::System.Data.DataColumn columntotal_bonus;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoDataTable() {
-                this.TableName = "FolhaPagamento";
+            public BonusDataTable() {
+                this.TableName = "Bonus";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -304,7 +300,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal FolhaPagamentoDataTable(global::System.Data.DataTable table) {
+            internal BonusDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -321,64 +317,48 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected FolhaPagamentoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected BonusDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn mesColumn {
+            public global::System.Data.DataColumn idColumn {
                 get {
-                    return this.columnmes;
+                    return this.columnid;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn anoColumn {
+            public global::System.Data.DataColumn dataColumn {
                 get {
-                    return this.columnano;
+                    return this.columndata;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn funcionarioColumn {
+            public global::System.Data.DataColumn descricaoColumn {
                 get {
-                    return this.columnfuncionario;
+                    return this.columndescricao;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn mesreferenciaColumn {
+            public global::System.Data.DataColumn valorColumn {
                 get {
-                    return this.columnmesreferencia;
+                    return this.columnvalor;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn vencimentoColumn {
+            public global::System.Data.DataColumn total_bonusColumn {
                 get {
-                    return this.columnvencimento;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn valor_a_transferirColumn {
-                get {
-                    return this.columnvalor_a_transferir;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn desconto_inssColumn {
-                get {
-                    return this.columndesconto_inss;
+                    return this.columntotal_bonus;
                 }
             }
             
@@ -393,59 +373,56 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow this[int index] {
+            public BonusRow this[int index] {
                 get {
-                    return ((FolhaPagamentoRow)(this.Rows[index]));
+                    return ((BonusRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowChanging;
+            public event BonusRowChangeEventHandler BonusRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowChanged;
+            public event BonusRowChangeEventHandler BonusRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowDeleting;
+            public event BonusRowChangeEventHandler BonusRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event FolhaPagamentoRowChangeEventHandler FolhaPagamentoRowDeleted;
+            public event BonusRowChangeEventHandler BonusRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddFolhaPagamentoRow(FolhaPagamentoRow row) {
+            public void AddBonusRow(BonusRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string desconto_inss) {
-                FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
+            public BonusRow AddBonusRow(string id, string data, string descricao, string valor, string total_bonus) {
+                BonusRow rowBonusRow = ((BonusRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        mes,
-                        ano,
-                        funcionario,
-                        mesreferencia,
-                        vencimento,
-                        valor_a_transferir,
-                        desconto_inss};
-                rowFolhaPagamentoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowFolhaPagamentoRow);
-                return rowFolhaPagamentoRow;
+                        id,
+                        data,
+                        descricao,
+                        valor,
+                        total_bonus};
+                rowBonusRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowBonusRow);
+                return rowBonusRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow FindBymesano(string mes, string ano) {
-                return ((FolhaPagamentoRow)(this.Rows.Find(new object[] {
-                            mes,
-                            ano})));
+            public BonusRow FindByid(string id) {
+                return ((BonusRow)(this.Rows.Find(new object[] {
+                            id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                FolhaPagamentoDataTable cln = ((FolhaPagamentoDataTable)(base.Clone()));
+                BonusDataTable cln = ((BonusDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -453,72 +430,62 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new FolhaPagamentoDataTable();
+                return new BonusDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columnmes = base.Columns["mes"];
-                this.columnano = base.Columns["ano"];
-                this.columnfuncionario = base.Columns["funcionario"];
-                this.columnmesreferencia = base.Columns["mesreferencia"];
-                this.columnvencimento = base.Columns["vencimento"];
-                this.columnvalor_a_transferir = base.Columns["valor_a_transferir"];
-                this.columndesconto_inss = base.Columns["desconto_inss"];
+                this.columnid = base.Columns["id"];
+                this.columndata = base.Columns["data"];
+                this.columndescricao = base.Columns["descricao"];
+                this.columnvalor = base.Columns["valor"];
+                this.columntotal_bonus = base.Columns["total_bonus"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnmes = new global::System.Data.DataColumn("mes", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmes);
-                this.columnano = new global::System.Data.DataColumn("ano", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnano);
-                this.columnfuncionario = new global::System.Data.DataColumn("funcionario", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfuncionario);
-                this.columnmesreferencia = new global::System.Data.DataColumn("mesreferencia", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmesreferencia);
-                this.columnvencimento = new global::System.Data.DataColumn("vencimento", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnvencimento);
-                this.columnvalor_a_transferir = new global::System.Data.DataColumn("valor_a_transferir", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnvalor_a_transferir);
-                this.columndesconto_inss = new global::System.Data.DataColumn("desconto_inss", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndesconto_inss);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnmes}, false));
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
-                                this.columnmes,
-                                this.columnano}, true));
-                this.columnmes.AllowDBNull = false;
-                this.columnmes.Unique = true;
-                this.columnano.AllowDBNull = false;
+                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columndata = new global::System.Data.DataColumn("data", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndata);
+                this.columndescricao = new global::System.Data.DataColumn("descricao", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndescricao);
+                this.columnvalor = new global::System.Data.DataColumn("valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvalor);
+                this.columntotal_bonus = new global::System.Data.DataColumn("total_bonus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotal_bonus);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("BonusKey1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
+                this.columnid.AllowDBNull = false;
+                this.columnid.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow NewFolhaPagamentoRow() {
-                return ((FolhaPagamentoRow)(this.NewRow()));
+            public BonusRow NewBonusRow() {
+                return ((BonusRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new FolhaPagamentoRow(builder);
+                return new BonusRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(FolhaPagamentoRow);
+                return typeof(BonusRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.FolhaPagamentoRowChanged != null)) {
-                    this.FolhaPagamentoRowChanged(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.BonusRowChanged != null)) {
+                    this.BonusRowChanged(this, new BonusRowChangeEvent(((BonusRow)(e.Row)), e.Action));
                 }
             }
             
@@ -526,8 +493,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.FolhaPagamentoRowChanging != null)) {
-                    this.FolhaPagamentoRowChanging(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.BonusRowChanging != null)) {
+                    this.BonusRowChanging(this, new BonusRowChangeEvent(((BonusRow)(e.Row)), e.Action));
                 }
             }
             
@@ -535,8 +502,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.FolhaPagamentoRowDeleted != null)) {
-                    this.FolhaPagamentoRowDeleted(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.BonusRowDeleted != null)) {
+                    this.BonusRowDeleted(this, new BonusRowChangeEvent(((BonusRow)(e.Row)), e.Action));
                 }
             }
             
@@ -544,14 +511,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.FolhaPagamentoRowDeleting != null)) {
-                    this.FolhaPagamentoRowDeleting(this, new FolhaPagamentoRowChangeEvent(((FolhaPagamentoRow)(e.Row)), e.Action));
+                if ((this.BonusRowDeleting != null)) {
+                    this.BonusRowDeleting(this, new BonusRowChangeEvent(((BonusRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveFolhaPagamentoRow(FolhaPagamentoRow row) {
+            public void RemoveBonusRow(BonusRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -560,7 +527,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                FolhaPagamentoDataSet ds = new FolhaPagamentoDataSet();
+                BonusDataSet ds = new BonusDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -578,7 +545,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "FolhaPagamentoDataTable";
+                attribute2.FixedValue = "BonusDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -622,177 +589,138 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class FolhaPagamentoRow : global::System.Data.DataRow {
+        public partial class BonusRow : global::System.Data.DataRow {
             
-            private FolhaPagamentoDataTable tableFolhaPagamento;
+            private BonusDataTable tableBonus;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal FolhaPagamentoRow(global::System.Data.DataRowBuilder rb) : 
+            internal BonusRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableFolhaPagamento = ((FolhaPagamentoDataTable)(this.Table));
+                this.tableBonus = ((BonusDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string mes {
+            public string id {
                 get {
-                    return ((string)(this[this.tableFolhaPagamento.mesColumn]));
+                    return ((string)(this[this.tableBonus.idColumn]));
                 }
                 set {
-                    this[this.tableFolhaPagamento.mesColumn] = value;
+                    this[this.tableBonus.idColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ano {
-                get {
-                    return ((string)(this[this.tableFolhaPagamento.anoColumn]));
-                }
-                set {
-                    this[this.tableFolhaPagamento.anoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string funcionario {
+            public string data {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.funcionarioColumn]));
+                        return ((string)(this[this.tableBonus.dataColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'funcionario\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'data\' in table \'Bonus\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.funcionarioColumn] = value;
+                    this[this.tableBonus.dataColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string mesreferencia {
+            public string descricao {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.mesreferenciaColumn]));
+                        return ((string)(this[this.tableBonus.descricaoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'mesreferencia\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'descricao\' in table \'Bonus\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.mesreferenciaColumn] = value;
+                    this[this.tableBonus.descricaoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string vencimento {
+            public string valor {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.vencimentoColumn]));
+                        return ((string)(this[this.tableBonus.valorColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'vencimento\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'valor\' in table \'Bonus\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.vencimentoColumn] = value;
+                    this[this.tableBonus.valorColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string valor_a_transferir {
+            public string total_bonus {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.valor_a_transferirColumn]));
+                        return ((string)(this[this.tableBonus.total_bonusColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'valor_a_transferir\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'total_bonus\' in table \'Bonus\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.valor_a_transferirColumn] = value;
+                    this[this.tableBonus.total_bonusColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string desconto_inss {
-                get {
-                    try {
-                        return ((string)(this[this.tableFolhaPagamento.desconto_inssColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'desconto_inss\' in table \'FolhaPagamento\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableFolhaPagamento.desconto_inssColumn] = value;
-                }
+            public bool IsdataNull() {
+                return this.IsNull(this.tableBonus.dataColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsfuncionarioNull() {
-                return this.IsNull(this.tableFolhaPagamento.funcionarioColumn);
+            public void SetdataNull() {
+                this[this.tableBonus.dataColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetfuncionarioNull() {
-                this[this.tableFolhaPagamento.funcionarioColumn] = global::System.Convert.DBNull;
+            public bool IsdescricaoNull() {
+                return this.IsNull(this.tableBonus.descricaoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsmesreferenciaNull() {
-                return this.IsNull(this.tableFolhaPagamento.mesreferenciaColumn);
+            public void SetdescricaoNull() {
+                this[this.tableBonus.descricaoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetmesreferenciaNull() {
-                this[this.tableFolhaPagamento.mesreferenciaColumn] = global::System.Convert.DBNull;
+            public bool IsvalorNull() {
+                return this.IsNull(this.tableBonus.valorColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsvencimentoNull() {
-                return this.IsNull(this.tableFolhaPagamento.vencimentoColumn);
+            public void SetvalorNull() {
+                this[this.tableBonus.valorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetvencimentoNull() {
-                this[this.tableFolhaPagamento.vencimentoColumn] = global::System.Convert.DBNull;
+            public bool Istotal_bonusNull() {
+                return this.IsNull(this.tableBonus.total_bonusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isvalor_a_transferirNull() {
-                return this.IsNull(this.tableFolhaPagamento.valor_a_transferirColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setvalor_a_transferirNull() {
-                this[this.tableFolhaPagamento.valor_a_transferirColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isdesconto_inssNull() {
-                return this.IsNull(this.tableFolhaPagamento.desconto_inssColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setdesconto_inssNull() {
-                this[this.tableFolhaPagamento.desconto_inssColumn] = global::System.Convert.DBNull;
+            public void Settotal_bonusNull() {
+                this[this.tableBonus.total_bonusColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -800,22 +728,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class FolhaPagamentoRowChangeEvent : global::System.EventArgs {
+        public class BonusRowChangeEvent : global::System.EventArgs {
             
-            private FolhaPagamentoRow eventRow;
+            private BonusRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRowChangeEvent(FolhaPagamentoRow row, global::System.Data.DataRowAction action) {
+            public BonusRowChangeEvent(BonusRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow Row {
+            public BonusRow Row {
                 get {
                     return this.eventRow;
                 }
