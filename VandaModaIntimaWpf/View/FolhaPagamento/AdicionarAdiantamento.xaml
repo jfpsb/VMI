@@ -45,6 +45,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -65,12 +66,18 @@
                      MaxLength="2"
                      Text="{Binding NumParcelas, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="3"
+                   Content="Descrição:" />
+            <TextBox Grid.Column="1"
+                     Grid.Row="3"
+                     MaxLength="100"
+                     Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="4"
                    Content="Folha Referência Inicial:"
                    ToolTip="Escolha A Folha de Pagamento Em Que Será Inserida a Primeira Parcela a Ser Paga" />
             <View:DataUpDown Grid.Column="1"
-                             Grid.Row="3"
+                             Grid.Row="4"
                              Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <DataGrid Grid.Row="4"
+            <DataGrid Grid.Row="5"
                       Grid.ColumnSpan="2"
                       ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.RowStyle>
@@ -104,14 +111,14 @@
                                         IsReadOnly="True"
                                         Width="Auto"
                                         Binding="{Binding Vencimento}" />
-                    <DataGridTextColumn Header="Valor (R$)"
+                    <DataGridTextColumn Header="Valor"
                                         IsReadOnly="True"
                                         Width="*"
                                         Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
                 </DataGrid.Columns>
             </DataGrid>
             <Button Grid.ColumnSpan="2"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Style="{StaticResource BotaoCadastrar}"
                     Command="{Binding SalvarComando}"
                     Content="Salvar"

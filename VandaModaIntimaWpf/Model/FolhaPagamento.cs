@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -227,33 +228,11 @@ namespace VandaModaIntimaWpf.Model
             {
                 DateTime mesSeguinteFolha = new DateTime(Ano, Mes, 5).AddMonths(1);
                 DateTime quintoDiaUtil = mesSeguinteFolha;
-
-                if (!File.Exists($"Resources/Feriados/{mesSeguinteFolha.Year}.json"))
-                {
-                    try
-                    {
-                        //TODO: Colocar essa consulta do arquivo de feriados em uma classe estática
-                        string url = string.Format("https://api.calendario.com.br/?json=true&ano={0}&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA", mesSeguinteFolha.Year);
-                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                        WebResponse response = request.GetResponse();
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                            File.WriteAllText($"Resources/Feriados/{mesSeguinteFolha.Year}.json", reader.ReadToEnd());
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-
-                var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{mesSeguinteFolha.Year}.json");
-                var datasFeriados = JsonConvert.DeserializeObject<DataFeriado[]>(datasFeriadosJson);
+                var datasFeriados = FeriadoJsonUtil.RetornaListagemDeFeriados(mesSeguinteFolha.Year);
 
                 int quintoFlag = 0;
 
-                foreach (var dia in AllDatesInMonth(mesSeguinteFolha.Year, mesSeguinteFolha.Month))
+                foreach (var dia in DateTimeUtil.RetornaDiasEmMes(mesSeguinteFolha.Year, mesSeguinteFolha.Month))
                 {
                     if (dia.DayOfWeek == DayOfWeek.Sunday)
                         continue;
@@ -275,16 +254,6 @@ namespace VandaModaIntimaWpf.Model
                 }
 
                 return quintoDiaUtil;
-            }
-        }
-
-        //TODO: Colocar esse método de retornar todos os dias de um mês em classe estática
-        private IEnumerable<DateTime> AllDatesInMonth(int year, int month)
-        {
-            int days = DateTime.DaysInMonth(year, month);
-            for (int day = 1; day <= days; day++)
-            {
-                yield return new DateTime(year, month, day);
             }
         }
 

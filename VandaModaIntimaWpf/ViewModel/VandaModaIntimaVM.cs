@@ -26,19 +26,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaFuncionarioComando { get; set; }
         public ICommand AbrirTelaDespesasComando { get; set; }
 
-        //TODO: Comando para tela de funcionário e despesas
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
             AbreTelaPesquisaService = abreTelaPesquisaService;
-
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.calendario.com.br/?json=true&ano=2021&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA");
-            //WebResponse response = request.GetResponse();
-            //using (Stream responseStream = response.GetResponseStream())
-            //{
-            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-            //    //Console.WriteLine(reader.ReadToEnd());
-            //    var dataFeriado = JsonConvert.DeserializeObject<DataFeriado[]>(reader.ReadToEnd());
-            //}
 
             //Autenticando CouchDB
             CouchDbClient.Instancia.GetAuthenticationCookie();

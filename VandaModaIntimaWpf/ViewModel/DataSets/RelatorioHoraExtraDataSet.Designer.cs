@@ -20,17 +20,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ProdutoDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("RelatorioHoraExtra")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ProdutoDataSet : global::System.Data.DataSet {
+    public partial class RelatorioHoraExtraDataSet : global::System.Data.DataSet {
         
-        private ProdutoDataTable tableProduto;
+        private HoraExtraDataTable tableHoraExtra;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ProdutoDataSet() {
+        public RelatorioHoraExtraDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected ProdutoDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected RelatorioHoraExtraDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -54,8 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Produto"] != null)) {
-                    base.Tables.Add(new ProdutoDataTable(ds.Tables["Produto"]));
+                if ((ds.Tables["HoraExtra"] != null)) {
+                    base.Tables.Add(new HoraExtraDataTable(ds.Tables["HoraExtra"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ProdutoDataTable Produto {
+        public HoraExtraDataTable HoraExtra {
             get {
-                return this.tableProduto;
+                return this.tableHoraExtra;
             }
         }
         
@@ -127,7 +127,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ProdutoDataSet cln = ((ProdutoDataSet)(base.Clone()));
+            RelatorioHoraExtraDataSet cln = ((RelatorioHoraExtraDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -152,8 +152,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Produto"] != null)) {
-                    base.Tables.Add(new ProdutoDataTable(ds.Tables["Produto"]));
+                if ((ds.Tables["HoraExtra"] != null)) {
+                    base.Tables.Add(new HoraExtraDataTable(ds.Tables["HoraExtra"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableProduto = ((ProdutoDataTable)(base.Tables["Produto"]));
+            this.tableHoraExtra = ((HoraExtraDataTable)(base.Tables["HoraExtra"]));
             if ((initTable == true)) {
-                if ((this.tableProduto != null)) {
-                    this.tableProduto.InitVars();
+                if ((this.tableHoraExtra != null)) {
+                    this.tableHoraExtra.InitVars();
                 }
             }
         }
@@ -199,18 +199,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ProdutoDataSet";
+            this.DataSetName = "RelatorioHoraExtra";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ProdutoDataSet.xsd";
+            this.Namespace = "http://tempuri.org/RelatorioHoraExtra.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableProduto = new ProdutoDataTable();
-            base.Tables.Add(this.tableProduto);
+            this.tableHoraExtra = new HoraExtraDataTable();
+            base.Tables.Add(this.tableHoraExtra);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeProduto() {
+        private bool ShouldSerializeHoraExtra() {
             return false;
         }
         
@@ -225,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ProdutoDataSet ds = new ProdutoDataSet();
+            RelatorioHoraExtraDataSet ds = new RelatorioHoraExtraDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -270,31 +270,29 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void ProdutoRowChangeEventHandler(object sender, ProdutoRowChangeEvent e);
+        public delegate void HoraExtraRowChangeEventHandler(object sender, HoraExtraRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ProdutoDataTable : global::System.Data.TypedTableBase<ProdutoRow> {
+        public partial class HoraExtraDataTable : global::System.Data.TypedTableBase<HoraExtraRow> {
             
-            private global::System.Data.DataColumn columncod_barra;
+            private global::System.Data.DataColumn columnnome_funcionario;
             
-            private global::System.Data.DataColumn columndescricao;
+            private global::System.Data.DataColumn columnnome_loja;
             
-            private global::System.Data.DataColumn columnpreco;
+            private global::System.Data.DataColumn columnhora_100;
             
-            private global::System.Data.DataColumn columnncm;
+            private global::System.Data.DataColumn columnhora_55;
             
-            private global::System.Data.DataColumn columnfornecedor_nome;
-            
-            private global::System.Data.DataColumn columnmarca_nome;
+            private global::System.Data.DataColumn columnmes_referencia;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoDataTable() {
-                this.TableName = "Produto";
+            public HoraExtraDataTable() {
+                this.TableName = "HoraExtra";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -302,7 +300,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ProdutoDataTable(global::System.Data.DataTable table) {
+            internal HoraExtraDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -319,56 +317,48 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected ProdutoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected HoraExtraDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn cod_barraColumn {
+            public global::System.Data.DataColumn nome_funcionarioColumn {
                 get {
-                    return this.columncod_barra;
+                    return this.columnnome_funcionario;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn descricaoColumn {
+            public global::System.Data.DataColumn nome_lojaColumn {
                 get {
-                    return this.columndescricao;
+                    return this.columnnome_loja;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn precoColumn {
+            public global::System.Data.DataColumn hora_100Column {
                 get {
-                    return this.columnpreco;
+                    return this.columnhora_100;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ncmColumn {
+            public global::System.Data.DataColumn hora_55Column {
                 get {
-                    return this.columnncm;
+                    return this.columnhora_55;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn fornecedor_nomeColumn {
+            public global::System.Data.DataColumn mes_referenciaColumn {
                 get {
-                    return this.columnfornecedor_nome;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn marca_nomeColumn {
-                get {
-                    return this.columnmarca_nome;
+                    return this.columnmes_referencia;
                 }
             }
             
@@ -383,57 +373,49 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRow this[int index] {
+            public HoraExtraRow this[int index] {
                 get {
-                    return ((ProdutoRow)(this.Rows[index]));
+                    return ((HoraExtraRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProdutoRowChangeEventHandler ProdutoRowChanging;
+            public event HoraExtraRowChangeEventHandler HoraExtraRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProdutoRowChangeEventHandler ProdutoRowChanged;
+            public event HoraExtraRowChangeEventHandler HoraExtraRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProdutoRowChangeEventHandler ProdutoRowDeleting;
+            public event HoraExtraRowChangeEventHandler HoraExtraRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProdutoRowChangeEventHandler ProdutoRowDeleted;
+            public event HoraExtraRowChangeEventHandler HoraExtraRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddProdutoRow(ProdutoRow row) {
+            public void AddHoraExtraRow(HoraExtraRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRow AddProdutoRow(string cod_barra, string descricao, string preco, string ncm, string fornecedor_nome, string marca_nome) {
-                ProdutoRow rowProdutoRow = ((ProdutoRow)(this.NewRow()));
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_55, string mes_referencia) {
+                HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        cod_barra,
-                        descricao,
-                        preco,
-                        ncm,
-                        fornecedor_nome,
-                        marca_nome};
-                rowProdutoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowProdutoRow);
-                return rowProdutoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRow FindBycod_barra(string cod_barra) {
-                return ((ProdutoRow)(this.Rows.Find(new object[] {
-                            cod_barra})));
+                        nome_funcionario,
+                        nome_loja,
+                        hora_100,
+                        hora_55,
+                        mes_referencia};
+                rowHoraExtraRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowHoraExtraRow);
+                return rowHoraExtraRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                ProdutoDataTable cln = ((ProdutoDataTable)(base.Clone()));
+                HoraExtraDataTable cln = ((HoraExtraDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -441,65 +423,58 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new ProdutoDataTable();
+                return new HoraExtraDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
-                this.columncod_barra = base.Columns["cod_barra"];
-                this.columndescricao = base.Columns["descricao"];
-                this.columnpreco = base.Columns["preco"];
-                this.columnncm = base.Columns["ncm"];
-                this.columnfornecedor_nome = base.Columns["fornecedor_nome"];
-                this.columnmarca_nome = base.Columns["marca_nome"];
+                this.columnnome_funcionario = base.Columns["nome_funcionario"];
+                this.columnnome_loja = base.Columns["nome_loja"];
+                this.columnhora_100 = base.Columns["hora_100"];
+                this.columnhora_55 = base.Columns["hora_55"];
+                this.columnmes_referencia = base.Columns["mes_referencia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columncod_barra = new global::System.Data.DataColumn("cod_barra", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncod_barra);
-                this.columndescricao = new global::System.Data.DataColumn("descricao", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndescricao);
-                this.columnpreco = new global::System.Data.DataColumn("preco", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnpreco);
-                this.columnncm = new global::System.Data.DataColumn("ncm", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnncm);
-                this.columnfornecedor_nome = new global::System.Data.DataColumn("fornecedor_nome", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnfornecedor_nome);
-                this.columnmarca_nome = new global::System.Data.DataColumn("marca_nome", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmarca_nome);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("cod_barra", new global::System.Data.DataColumn[] {
-                                this.columncod_barra}, true));
-                this.columncod_barra.AllowDBNull = false;
-                this.columncod_barra.Unique = true;
+                this.columnnome_funcionario = new global::System.Data.DataColumn("nome_funcionario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnome_funcionario);
+                this.columnnome_loja = new global::System.Data.DataColumn("nome_loja", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnome_loja);
+                this.columnhora_100 = new global::System.Data.DataColumn("hora_100", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_100);
+                this.columnhora_55 = new global::System.Data.DataColumn("hora_55", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_55);
+                this.columnmes_referencia = new global::System.Data.DataColumn("mes_referencia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmes_referencia);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRow NewProdutoRow() {
-                return ((ProdutoRow)(this.NewRow()));
+            public HoraExtraRow NewHoraExtraRow() {
+                return ((HoraExtraRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ProdutoRow(builder);
+                return new HoraExtraRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(ProdutoRow);
+                return typeof(HoraExtraRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.ProdutoRowChanged != null)) {
-                    this.ProdutoRowChanged(this, new ProdutoRowChangeEvent(((ProdutoRow)(e.Row)), e.Action));
+                if ((this.HoraExtraRowChanged != null)) {
+                    this.HoraExtraRowChanged(this, new HoraExtraRowChangeEvent(((HoraExtraRow)(e.Row)), e.Action));
                 }
             }
             
@@ -507,8 +482,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.ProdutoRowChanging != null)) {
-                    this.ProdutoRowChanging(this, new ProdutoRowChangeEvent(((ProdutoRow)(e.Row)), e.Action));
+                if ((this.HoraExtraRowChanging != null)) {
+                    this.HoraExtraRowChanging(this, new HoraExtraRowChangeEvent(((HoraExtraRow)(e.Row)), e.Action));
                 }
             }
             
@@ -516,8 +491,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.ProdutoRowDeleted != null)) {
-                    this.ProdutoRowDeleted(this, new ProdutoRowChangeEvent(((ProdutoRow)(e.Row)), e.Action));
+                if ((this.HoraExtraRowDeleted != null)) {
+                    this.HoraExtraRowDeleted(this, new HoraExtraRowChangeEvent(((HoraExtraRow)(e.Row)), e.Action));
                 }
             }
             
@@ -525,14 +500,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.ProdutoRowDeleting != null)) {
-                    this.ProdutoRowDeleting(this, new ProdutoRowChangeEvent(((ProdutoRow)(e.Row)), e.Action));
+                if ((this.HoraExtraRowDeleting != null)) {
+                    this.HoraExtraRowDeleting(this, new HoraExtraRowChangeEvent(((HoraExtraRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveProdutoRow(ProdutoRow row) {
+            public void RemoveHoraExtraRow(HoraExtraRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -541,7 +516,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ProdutoDataSet ds = new ProdutoDataSet();
+                RelatorioHoraExtraDataSet ds = new RelatorioHoraExtraDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -559,7 +534,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ProdutoDataTable";
+                attribute2.FixedValue = "HoraExtraDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -603,166 +578,155 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ProdutoRow : global::System.Data.DataRow {
+        public partial class HoraExtraRow : global::System.Data.DataRow {
             
-            private ProdutoDataTable tableProduto;
+            private HoraExtraDataTable tableHoraExtra;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ProdutoRow(global::System.Data.DataRowBuilder rb) : 
+            internal HoraExtraRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableProduto = ((ProdutoDataTable)(this.Table));
+                this.tableHoraExtra = ((HoraExtraDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string cod_barra {
-                get {
-                    return ((string)(this[this.tableProduto.cod_barraColumn]));
-                }
-                set {
-                    this[this.tableProduto.cod_barraColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string descricao {
+            public string nome_funcionario {
                 get {
                     try {
-                        return ((string)(this[this.tableProduto.descricaoColumn]));
+                        return ((string)(this[this.tableHoraExtra.nome_funcionarioColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'descricao\' in table \'Produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'nome_funcionario\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProduto.descricaoColumn] = value;
+                    this[this.tableHoraExtra.nome_funcionarioColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string preco {
+            public string nome_loja {
                 get {
                     try {
-                        return ((string)(this[this.tableProduto.precoColumn]));
+                        return ((string)(this[this.tableHoraExtra.nome_lojaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'preco\' in table \'Produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'nome_loja\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProduto.precoColumn] = value;
+                    this[this.tableHoraExtra.nome_lojaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ncm {
+            public string hora_100 {
                 get {
                     try {
-                        return ((string)(this[this.tableProduto.ncmColumn]));
+                        return ((string)(this[this.tableHoraExtra.hora_100Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ncm\' in table \'Produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_100\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProduto.ncmColumn] = value;
+                    this[this.tableHoraExtra.hora_100Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string fornecedor_nome {
+            public string hora_55 {
                 get {
                     try {
-                        return ((string)(this[this.tableProduto.fornecedor_nomeColumn]));
+                        return ((string)(this[this.tableHoraExtra.hora_55Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'fornecedor_nome\' in table \'Produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_55\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProduto.fornecedor_nomeColumn] = value;
+                    this[this.tableHoraExtra.hora_55Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string marca_nome {
+            public string mes_referencia {
                 get {
                     try {
-                        return ((string)(this[this.tableProduto.marca_nomeColumn]));
+                        return ((string)(this[this.tableHoraExtra.mes_referenciaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'marca_nome\' in table \'Produto\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mes_referencia\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableProduto.marca_nomeColumn] = value;
+                    this[this.tableHoraExtra.mes_referenciaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdescricaoNull() {
-                return this.IsNull(this.tableProduto.descricaoColumn);
+            public bool Isnome_funcionarioNull() {
+                return this.IsNull(this.tableHoraExtra.nome_funcionarioColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdescricaoNull() {
-                this[this.tableProduto.descricaoColumn] = global::System.Convert.DBNull;
+            public void Setnome_funcionarioNull() {
+                this[this.tableHoraExtra.nome_funcionarioColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsprecoNull() {
-                return this.IsNull(this.tableProduto.precoColumn);
+            public bool Isnome_lojaNull() {
+                return this.IsNull(this.tableHoraExtra.nome_lojaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetprecoNull() {
-                this[this.tableProduto.precoColumn] = global::System.Convert.DBNull;
+            public void Setnome_lojaNull() {
+                this[this.tableHoraExtra.nome_lojaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsncmNull() {
-                return this.IsNull(this.tableProduto.ncmColumn);
+            public bool Ishora_100Null() {
+                return this.IsNull(this.tableHoraExtra.hora_100Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetncmNull() {
-                this[this.tableProduto.ncmColumn] = global::System.Convert.DBNull;
+            public void Sethora_100Null() {
+                this[this.tableHoraExtra.hora_100Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isfornecedor_nomeNull() {
-                return this.IsNull(this.tableProduto.fornecedor_nomeColumn);
+            public bool Ishora_55Null() {
+                return this.IsNull(this.tableHoraExtra.hora_55Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setfornecedor_nomeNull() {
-                this[this.tableProduto.fornecedor_nomeColumn] = global::System.Convert.DBNull;
+            public void Sethora_55Null() {
+                this[this.tableHoraExtra.hora_55Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Ismarca_nomeNull() {
-                return this.IsNull(this.tableProduto.marca_nomeColumn);
+            public bool Ismes_referenciaNull() {
+                return this.IsNull(this.tableHoraExtra.mes_referenciaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setmarca_nomeNull() {
-                this[this.tableProduto.marca_nomeColumn] = global::System.Convert.DBNull;
+            public void Setmes_referenciaNull() {
+                this[this.tableHoraExtra.mes_referenciaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -770,22 +734,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class ProdutoRowChangeEvent : global::System.EventArgs {
+        public class HoraExtraRowChangeEvent : global::System.EventArgs {
             
-            private ProdutoRow eventRow;
+            private HoraExtraRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRowChangeEvent(ProdutoRow row, global::System.Data.DataRowAction action) {
+            public HoraExtraRowChangeEvent(HoraExtraRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProdutoRow Row {
+            public HoraExtraRow Row {
                 get {
                     return this.eventRow;
                 }

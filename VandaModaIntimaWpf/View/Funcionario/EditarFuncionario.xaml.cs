@@ -7,7 +7,6 @@ namespace VandaModaIntimaWpf.View.Funcionario
     /// </summary>
     public partial class EditarFuncionario : Window, ICloseable
     {
-        //TODO: implementar ViewModel, atualizar Model
         public EditarFuncionario()
         {
             InitializeComponent();

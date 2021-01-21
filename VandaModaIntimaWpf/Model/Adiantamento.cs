@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private DateTime _data;
         private double _valor;
+        private string _descricao;
         private IList<Parcela> _parcelas = new List<Parcela>();
 
         [JsonIgnore]
@@ -82,6 +83,16 @@ namespace VandaModaIntimaWpf.Model
                     { "Id", Id.ToString() }
                 };
                 return dic;
+            }
+        }
+
+        public string Descricao
+        {
+            get => _descricao;
+            set
+            {
+                _descricao = value;
+                OnPropertyChanged("Descricao");
             }
         }
 

@@ -16,6 +16,7 @@
     <property name="MesReferencia" column="mes_referencia" />
     <property name="AnoReferencia" column="ano_referencia" />
     <property name="PagamentoMensal" column="pagamento_mensal" />
+    <property name="BaseCalculo" column="base_calculo" />
   </class>
 
 </hibernate-mapping>

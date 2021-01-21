@@ -1,8 +1,4 @@
-﻿using NHibernate;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
+﻿using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Produto.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
@@ -13,8 +9,6 @@ namespace VandaModaIntimaWpf.View.Produto
     /// </summary>
     public partial class TelaRelatorioProduto : System.Windows.Window
     {
-        private DAOFornecedor daoFornecedor;
-        private DAOMarca daoMarca;
         public TelaRelatorioProduto()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
@@ -24,35 +18,9 @@ namespace VandaModaIntimaWpf.View.Produto
         public TelaRelatorioProduto(IList<Model.Produto> produtos)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
-
             InitializeComponent();
 
-            ISession session = SessionProvider.GetSession();
-            daoFornecedor = new DAOFornecedor(session);
-            daoMarca = new DAOMarca(session);
-
-            var fornecedores = GetFornecedores().Result;
-            var marcas = GetMarcas().Result;
-
-            fornecedores.Add(new Model.Fornecedor("NÃO POSSUI"));
-            marcas.Add(new Model.Marca("NÃO POSSUI"));
-
             ProdutoDataSet produtoDataSet = new ProdutoDataSet();
-
-            foreach (var f in fornecedores)
-            {
-                var frow = produtoDataSet.Fornecedor.NewFornecedorRow();
-                frow.cnpj = f.Cnpj;
-                frow.nome = f.Nome;
-                produtoDataSet.Fornecedor.AddFornecedorRow(frow);
-            }            
-
-            foreach (var m in marcas)
-            {
-                var mrow = produtoDataSet.Marca.NewMarcaRow();
-                mrow.nome = m.Nome;
-                produtoDataSet.Marca.AddMarcaRow(mrow);
-            }
 
             foreach (var produto in produtos)
             {
@@ -60,20 +28,20 @@ namespace VandaModaIntimaWpf.View.Produto
 
                 if (produto.Fornecedor != null)
                 {
-                    prow.fornecedor = produto.Fornecedor.Cnpj;
+                    prow.fornecedor_nome = produto.Fornecedor.Nome;
                 }
                 else
                 {
-                    prow.fornecedor = "0";
+                    prow.fornecedor_nome = "NÃO POSSUI";
                 }
 
                 if (produto.Marca != null)
                 {
-                    prow.marca = produto.Marca.Nome;
+                    prow.marca_nome = produto.Marca.Nome;
                 }
                 else
                 {
-                    prow.marca = "NÃO POSSUI";
+                    prow.marca_nome = "NÃO POSSUI";
                 }
 
                 if (!string.IsNullOrEmpty(produto.Ncm))
@@ -92,20 +60,9 @@ namespace VandaModaIntimaWpf.View.Produto
                 produtoDataSet.Produto.AddProdutoRow(prow);
             }
 
-            SessionProvider.FechaSession(session);
             var report = new RelatorioProduto();
             report.SetDataSource(produtoDataSet);
             ProdutoReport.ViewerCore.ReportSource = report;
-        }
-
-        private async Task<IList<Model.Fornecedor>> GetFornecedores()
-        {
-            return await daoFornecedor.Listar<Model.Fornecedor>();
-        }
-
-        private async Task<IList<Model.Marca>> GetMarcas()
-        {
-            return await daoMarca.Listar<Model.Marca>();
         }
     }
 }

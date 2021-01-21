@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private int _mesReferencia;
         private int _anoReferencia;
         private bool _pagamentoMensal;
+        private double _base_calculo;
 
         [JsonIgnore]
         public string GetContextMenuHeader => string.Format("R$ {0}", Valor);
@@ -109,6 +110,48 @@ namespace VandaModaIntimaWpf.Model
             {
                 _pagamentoMensal = value;
                 OnPropertyChanged("PagamentoMensal");
+            }
+        }
+
+        public double BaseCalculo
+        {
+            get => _base_calculo;
+            set
+            {
+                _base_calculo = value;
+                OnPropertyChanged("BaseCalculo");
+            }
+        }
+
+        [JsonIgnore]
+        public double HoraExtra100
+        {
+            get
+            {
+                if (Descricao.Equals("HORA EXTRA C/100%"))
+                {
+                    var valorHora = BaseCalculo / 220;
+                    var qntHoras = Valor / (valorHora * 2);
+                    return Math.Round(qntHoras, 2, MidpointRounding.AwayFromZero);
+                }
+
+                return 0.0;
+            }
+        }
+
+        [JsonIgnore]
+        public double HoraExtra55
+        {
+            get
+            {
+                if (Descricao.Equals("HORA EXTRA C/055%"))
+                {
+                    var valorHora = BaseCalculo / 220;
+                    var qntHoras = Valor / (valorHora * 1.55);
+                    return Math.Round(qntHoras, 2, MidpointRounding.AwayFromZero);
+                }
+
+                return 0.0;
             }
         }
 

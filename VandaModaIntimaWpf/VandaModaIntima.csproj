@@ -119,6 +119,9 @@
       <HintPath>..\packages\CrystalReports.Shared.13.0.4000\lib\net40\CrystalDecisions.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -135,7 +138,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.5.3.1\lib\net461\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.5.3.3\lib\net461\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
@@ -246,6 +249,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\FolhaPagamento\TelaRelatorioFolha.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FolhaPagamento\TelaRelatorioHoraExtra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FolhaPagamento\VisualizarHoraExtra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -441,6 +452,8 @@
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Resources\StringResource.cs" />
+    <Compile Include="Util\DateTimeUtil.cs" />
+    <Compile Include="Util\FeriadoJsonUtil.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
@@ -490,6 +503,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DataSets\RelatorioHoraExtraDataSet.cs">
+      <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DataSets\RelatorioHoraExtraDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
@@ -505,6 +526,7 @@
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\VisualizarHoraExtraVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorVMStrategy.cs" />
@@ -621,6 +643,12 @@
       <DependentUpon>RelatorioFolhaPagamento.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtra.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RelatorioHoraExtra.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\FolhaPagamento\Relatorios\RelatorioParcela.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -629,6 +657,12 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\TelaRelatorioFolha.xaml.cs">
       <DependentUpon>TelaRelatorioFolha.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\TelaRelatorioHoraExtra.xaml.cs">
+      <DependentUpon>TelaRelatorioHoraExtra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\VisualizarHoraExtra.xaml.cs">
+      <DependentUpon>VisualizarHoraExtra.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
@@ -761,6 +795,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioFolhaPagamento.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtra.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioHoraExtra.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioParcela.cs</LastGenOutput>
@@ -823,6 +861,17 @@
     </None>
     <None Include="ViewModel\DataSets\ProdutoDataSet.xss">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\RelatorioHoraExtraDataSet.xsc">
+      <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\RelatorioHoraExtraDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RelatorioHoraExtraDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\RelatorioHoraExtraDataSet.xss">
+      <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

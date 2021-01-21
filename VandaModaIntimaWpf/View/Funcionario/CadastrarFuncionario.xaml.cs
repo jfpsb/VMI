@@ -8,7 +8,6 @@ namespace VandaModaIntimaWpf.View.Funcionario
     /// </summary>
     public partial class CadastrarFuncionario : Window
     {
-        //TODO: implementar ViewModel, atualizar Model
         public CadastrarFuncionario()
         {
             InitializeComponent();

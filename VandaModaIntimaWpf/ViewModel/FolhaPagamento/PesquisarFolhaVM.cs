@@ -33,6 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirMaisDetalhesComando { get; set; }
         public ICommand AbrirCalculoPassagemComando { get; set; }
         public ICommand AbrirImprimirFolhaComando { get; set; }
+        public ICommand AbrirVisualizarHoraExtraComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -59,6 +60,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
             AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
             AbrirImprimirFolhaComando = new RelayCommand(AbrirImprimirFolha);
+            AbrirVisualizarHoraExtraComando = new RelayCommand(AbrirVisualizarHoraExtra);
+        }
+
+        private void AbrirVisualizarHoraExtra(object obj)
+        {
+            VisualizarHoraExtraVM visualizarHoraExtraVM = new VisualizarHoraExtraVM(DataEscolhida, new MessageBoxService(), null);
+            VisualizarHoraExtra visualizarHoraExtra = new VisualizarHoraExtra
+            {
+                DataContext = visualizarHoraExtraVM
+            };
+            visualizarHoraExtra.ShowDialog();
         }
 
         private void AbrirImprimirFolha(object obj)
