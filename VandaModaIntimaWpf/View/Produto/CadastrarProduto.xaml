@@ -74,7 +74,7 @@
                            Content="{DynamicResource preco_dois_pontos}" />
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
-                             Text="{Binding Entidade.Preco, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Entidade.Preco, ConverterCulture=pt-BR}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="4"
                            Content="{DynamicResource ncm_dois_pontos}" />
@@ -128,7 +128,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="1.5*" />                        
+                        <RowDefinition Height="1.5*" />
                     </Grid.RowDefinitions>
                     <Label Content="{DynamicResource codigo_de_barras_dois_pontos}" />
                     <TextBox Grid.Column="1"
@@ -139,13 +139,13 @@
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
                              Grid.ColumnSpan="2"
-                             Text="{Binding ProdutoGrade.Preco, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding ProdutoGrade.Preco, ConverterCulture=pt-BR}" />
                     <Label Grid.Row="2"
                            Content="{DynamicResource preco_custo_dois_pontos}" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
                              Grid.ColumnSpan="2"
-                             Text="{Binding ProdutoGrade.PrecoCusto, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding ProdutoGrade.PrecoCusto, ConverterCulture=pt-BR}" />
                     <Label Grid.Row="3"
                            Content="Tipo de Grade:" />
                     <ComboBox Grid.Row="3"

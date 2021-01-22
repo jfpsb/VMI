@@ -9,7 +9,8 @@
         Title="Visualização de Hora Extra"
         Height="500"
         Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Hora_Extra_Icon.ico">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

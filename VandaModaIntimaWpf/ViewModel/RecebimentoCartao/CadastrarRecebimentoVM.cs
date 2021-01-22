@@ -63,12 +63,16 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (MatrizComboBoxIndex == 0 || Recebimentos.Count == 0)
             {
-                return false;
+                BtnSalvarToolTip += "Escolha Uma Matriz Ou Insira Recebimentos Na Lista!";
+                valido = false;
             }
 
-            return true;
+            return valido;
         }
         private bool ValidaAbrirOfx(object parameter)
         {

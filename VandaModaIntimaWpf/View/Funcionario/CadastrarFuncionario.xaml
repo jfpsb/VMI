@@ -90,7 +90,7 @@
             <TextBox Grid.Column="1"
                      Grid.Row="5"
                      MaxLength="10"
-                     Text="{Binding Salario, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Salario, ConverterCulture=pt-BR}"
                      IsEnabled="{Binding IsEnabled}" />
             <Label Grid.Row="6"
                    Content="Chave PIX:" />

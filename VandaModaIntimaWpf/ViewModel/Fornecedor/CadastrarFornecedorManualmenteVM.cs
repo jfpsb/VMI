@@ -45,25 +45,28 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (string.IsNullOrEmpty(Entidade.Nome))
             {
-                SetStatusBarErro("O Campo de Nome Não Pode Ser Vazio");
-                return false;
+                BtnSalvarToolTip += "O Campo de Nome Não Pode Ser Vazio!\n";
+                valido = false;
             }
 
             if (string.IsNullOrEmpty(Entidade.Cnpj))
             {
-                SetStatusBarErro("O Campo de CNPJ Não Pode Ser Vazio");
-                return false;
+                BtnSalvarToolTip += "O Campo de CNPJ Não Pode Ser Vazio!\n";
+                valido = false;
             }
 
             if (Entidade.Cnpj.Length != 14)
             {
-                SetStatusBarErro("O Campo de CNPJ Deve Possuir 14 Dígitos");
-                return false;
+                BtnSalvarToolTip += "O Campo de CNPJ Deve Possuir 14 Dígitos!";
+                valido = false;
             }
 
-            return true;
+            return valido;
         }
     }
 }

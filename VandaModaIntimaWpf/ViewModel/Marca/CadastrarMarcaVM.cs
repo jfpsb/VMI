@@ -23,10 +23,16 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
-                return false;
+            BtnSalvarToolTip = "";
+            bool valido = true;
 
-            return true;
+            if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
+            {
+                BtnSalvarToolTip += "Nome de Marca Não Pode Ser Vazio!";
+                valido = false;
+            }
+
+            return valido;
         }
 
         public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)

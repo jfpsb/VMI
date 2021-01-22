@@ -69,7 +69,7 @@
                    Content="Valor:" />
             <TextBox Grid.Row="3"
                      Grid.Column="1"
-                     Text="{Binding Valor}" />
+                     Text="{Binding Valor, ConverterCulture=pt-BR}" />
             <Label Grid.Row="4"
                    Content="Início de Pagamento:" />
             <View:DataUpDown Grid.Column="1"

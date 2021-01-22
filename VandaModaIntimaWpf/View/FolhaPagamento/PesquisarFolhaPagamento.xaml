@@ -17,19 +17,25 @@
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
-                    <MenuItem Header="Gerar Planilha De Horas Extras"
-                              Command="{Binding PlanilhaExcelHoraExtraComando}">
+                    <MenuItem Header="Cálculo de Passagem de Ônibus"
+                              Command="{Binding AbrirCalculoPassagemComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Onibus.png" />
+                        </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Visualizar Horas Extras"
+                              Command="{Binding AbrirVisualizarHoraExtraComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Hora_Extra.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/Ajuda.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Cálculo de Passagem de Ônibus"
-                              Command="{Binding AbrirCalculoPassagemComando}" />
-                    <MenuItem Header="Visualizar Horas Extras"
-                              Command="{Binding AbrirVisualizarHoraExtraComando}" />
                 </MenuItem>
             </Menu>
         </View:TelaPesquisaTemplate.Menu>

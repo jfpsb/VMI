@@ -37,20 +37,24 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
             {
-                SetStatusBarErro("Nome Não Pode Ser Vazio");
-                return false;
+                BtnSalvarToolTip += "Nome Não Pode Ser Vazio!\n";
+                valido = false;
             }
 
             if (TipoGradePesquisa != null)
             {
-                SetStatusBarErro("Já Existe Um Tipo De Grade Com Esse Nome");
-                return false;
+                BtnSalvarToolTip += "Já Existe Um Tipo De Grade Com Esse Nome!\n";
+                valido = false;
             }
 
             SetStatusBarAguardando();
-            return true;
+
+            return valido;
         }
         private async void GetTipoGrades()
         {

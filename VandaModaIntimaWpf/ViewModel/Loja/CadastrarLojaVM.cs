@@ -29,25 +29,28 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (string.IsNullOrEmpty(Entidade.Cnpj?.Trim()))
             {
-                SetStatusBarErro("O Campo de CNPJ Não Pode Ser Vazio");
-                return false;
+                BtnSalvarToolTip += "O Campo de CNPJ Não Pode Ser Vazio!\n";
+                valido = false;
             }
 
             if (string.IsNullOrEmpty(Entidade.Nome?.Trim()))
             {
-                SetStatusBarErro("O Campo de Nome Não Pode Ser Vazio");
-                return false;
+                BtnSalvarToolTip += "O Campo de Nome Não Pode Ser Vazio!\n";
+                valido = false;
             }
 
             if (Entidade.Aluguel.ToString()?.Trim().Length == 0 || Entidade.Aluguel <= 0.0)
             {
-                SetStatusBarErro("O Campo de Aluguel Não Pode Ser Vazio Ou Inválido");
+                BtnSalvarToolTip += "O Campo de Aluguel Não Pode Ser Vazio Ou Inválido!\n";
                 return false;
             }
 
-            return true;
+            return valido;
         }
         public override void ResetaPropriedades()
         {

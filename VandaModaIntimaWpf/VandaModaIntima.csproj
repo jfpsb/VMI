@@ -1046,6 +1046,12 @@
   <ItemGroup>
     <Resource Include="Resources\Money_Sign.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Hora_Extra.png" />
+    <Resource Include="Resources\Hora_Extra_Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Onibus.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

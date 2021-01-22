@@ -105,7 +105,7 @@
             <TextBox Grid.Row="5"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
-                     Text="{Binding Valor}"
+                     Text="{Binding Valor, ConverterCulture=pt-BR}"
                      IsEnabled="False" />
             <Label Grid.Row="6"
                    Content="Início de Pagamento:" />

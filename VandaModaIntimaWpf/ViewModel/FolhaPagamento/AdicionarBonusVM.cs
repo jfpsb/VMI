@@ -111,6 +111,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void ConfiguraBonus()
         {
             Entidade.Data = DateTime.Now;
+            Entidade.BaseCalculo = Folha.Funcionario.Salario;
         }
 
         public override void ResetaPropriedades()

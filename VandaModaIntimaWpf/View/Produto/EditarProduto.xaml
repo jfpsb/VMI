@@ -69,7 +69,7 @@
                            Content="{DynamicResource preco_dois_pontos}"></Label>
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
-                             Text="{Binding Entidade.Preco, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                             Text="{Binding Entidade.Preco, ConverterCulture=pt-BR, Mode=TwoWay}" />
                     <Label Grid.Row="4"
                            Content="{DynamicResource ncm_dois_pontos}" />
                     <TextBox Grid.Column="1"

@@ -50,13 +50,22 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (string.IsNullOrEmpty(Entidade.Nome))
-                return false;
+            {
+                BtnSalvarToolTip += "O Nome Da Grade Não Pode Ser Vazio!\n";
+                valido = false;
+            }
 
             if (GradePesquisa != null)
-                return false;
+            {
+                BtnSalvarToolTip += "Essa Grade Já Está Cadastrada!\n";
+                valido = false;
+            }
 
-            return true;
+            return valido;
         }
         private async void GetTipoGrades()
         {

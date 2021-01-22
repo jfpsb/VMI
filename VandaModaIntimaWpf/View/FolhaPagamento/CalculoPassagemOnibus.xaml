@@ -11,7 +11,8 @@
         SizeToContent="Height"
         Width="430"
         MinWidth="430"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Icon="/Resources/Onibus.png">
     <StackPanel Height="Auto">
         <Menu>
             <MenuItem Header="{DynamicResource opcoes}"
