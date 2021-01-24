@@ -6,9 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
@@ -22,6 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
+        private DAOBonusMensal daoBonusMensal;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
@@ -34,6 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirCalculoPassagemComando { get; set; }
         public ICommand AbrirImprimirFolhaComando { get; set; }
         public ICommand AbrirVisualizarHoraExtraComando { get; set; }
+        public ICommand FecharFolhaPagamentoComando { get; set; }
+        public ICommand FecharFolhasAbertasComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -41,6 +46,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             //TODO: excel para folha de pagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
+            daoBonusMensal = new DAOBonusMensal(_session);
             daoBonus = new DAOBonus(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
@@ -61,6 +67,73 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
             AbrirImprimirFolhaComando = new RelayCommand(AbrirImprimirFolha);
             AbrirVisualizarHoraExtraComando = new RelayCommand(AbrirVisualizarHoraExtra);
+            FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
+            FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
+        }
+
+        /// <summary>
+        /// Fecha todas as folhas de pagamento abertas que estão atualmente sendo listadas.
+        /// </summary>
+        /// <param name="obj"></param>
+        private async void FecharFolhasAbertas(object obj)
+        {
+            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Fechar Todas As Folhas de Pagamento Referentes À {FolhaPagamentos[0].MesReferencia}? Essa Ação Não Pode Ser Revertida.",
+                $"Fechar Folhas - {FolhaPagamentos[0].MesReferencia}", MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
+
+            if (resultMessageBox == MessageBoxResult.Yes)
+            {
+                var folhasAbertas = FolhaPagamentos.Where(w => w.Fechada == false).ToList();
+
+                foreach (var folhaAberta in folhasAbertas)
+                {
+                    folhaAberta.Fechada = true;
+                }
+
+                var result = await daoEntidade.InserirOuAtualizar(folhasAbertas);
+
+                if (result)
+                {
+                    //TODO: SYNC após inserir/atualizar
+                    MessageBoxService.Show("Todas As Folhas de Pagamento Foram Fechadas Com Sucesso!");
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    MessageBoxService.Show("Erro Ao Fechar Folhas de Pagamento!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fecha folha de pagamento atualmente selecionada.
+        /// </summary>
+        /// <param name="obj"></param>
+        private async void FecharFolhaPagamento(object obj)
+        {
+            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Fechar a Folha de Pagamento de {FolhaPagamento.Funcionario.Nome} Referente À {FolhaPagamento.MesReferencia}? Essa Ação Não Pode Ser Revertida.",
+                $"Fechar Folha - {FolhaPagamento.Funcionario.Nome} - {FolhaPagamento.MesReferencia}", MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
+
+            if (resultMessageBox == MessageBoxResult.Yes)
+            {
+                FolhaPagamento.Fechada = true;
+
+                var result = await daoEntidade.InserirOuAtualizar(FolhaPagamento);
+
+                if (result)
+                {
+                    //TODO: SYNC após inserir/atualizar
+                    MessageBoxService.Show("Folha de Pagamento Fechada Com Sucesso!");
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                else
+                {
+                    MessageBoxService.Show("Erro Ao Fechar Folha de Pagamento!");
+                }
+            }
         }
 
         private void AbrirVisualizarHoraExtra(object obj)
@@ -108,7 +181,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             int quintoFlag = 0;
 
-            foreach (var dia in AllDatesInMonth(DataEscolhida.Year, DataEscolhida.Month))
+            foreach (var dia in DateTimeUtil.RetornaDiasEmMes(DataEscolhida.Year, DataEscolhida.Month))
             {
                 if (dia.DayOfWeek == DayOfWeek.Sunday)
                     continue;
@@ -128,15 +201,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
 
             return new DateTime(DataEscolhida.Year, DataEscolhida.Month, 5);
-        }
-
-        private IEnumerable<DateTime> AllDatesInMonth(int year, int month)
-        {
-            int days = DateTime.DaysInMonth(year, month);
-            for (int day = 1; day <= days; day++)
-            {
-                yield return new DateTime(year, month, day);
-            }
         }
 
         private void AbrirCalculoPassagem(object obj)
@@ -263,30 +327,63 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     folha = new FolhaPagamentoModel
                     {
-                        Id = string.Format("{0}{1}{2}", DataEscolhida.Month, DataEscolhida.Year, funcionario.Cpf),
                         Mes = DataEscolhida.Month,
                         Ano = DataEscolhida.Year,
-                        Funcionario = funcionario
-                    };
-                }
-
-                folha.Bonus = await daoBonus.ListarPorFuncionarioComBonusMensal(funcionario, DataEscolhida.Month, DataEscolhida.Year);
-
-                if (folha.Funcionario.SalarioFamilia)
-                {
-                    Model.Bonus salarioFamiliaBonus = new Model.Bonus()
-                    {
-                        Id = DateTime.Now.Ticks,
                         Funcionario = funcionario,
-                        Data = DateTime.Parse(folha.MesReferencia),
-                        Descricao = "SALÁRIO FAMÍLIA",
-                        Valor = folha.TabelaINSS.SalarioFamilia * folha.Funcionario.NumDependentes,
-                        MesReferencia = folha.Mes,
-                        AnoReferencia = folha.Ano
+                        BaseCalculo = funcionario.Salario
                     };
-
-                    folha.Bonus.Add(salarioFamiliaBonus);
                 }
+
+                //Lista todos os bônus (inclusive bônus cancelados)
+                folha.Bonus = await daoBonus.ListarPorFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
+
+                if (!folha.Fechada)
+                {
+                    //Lista os bônus mensais do funcionário
+                    var bonusMensais = await daoBonusMensal.ListarBonusMensais(funcionario);
+
+                    foreach (var bonusMensal in bonusMensais)
+                    {
+                        //Checa se o bônus mensal já existe na lista de bônus de funcionário
+                        var bonusJaExiste = folha.Bonus.Any(a => a.Descricao.Equals(bonusMensal.Descricao));
+
+                        if (bonusJaExiste)
+                            continue;
+
+                        //Se não existe cria o bônus
+                        Bonus bonus = new Bonus
+                        {
+                            Funcionario = funcionario,
+                            Data = new DateTime(folha.Ano, folha.Mes, 1),
+                            Descricao = bonusMensal.Descricao,
+                            Valor = bonusMensal.Valor,
+                            MesReferencia = folha.Mes,
+                            AnoReferencia = folha.Ano,
+                            BaseCalculo = funcionario.Salario,
+                            BonusMensal = true
+                        };
+
+                        folha.Bonus.Add(bonus);
+                    }
+
+                    if (folha.Funcionario.SalarioFamilia)
+                    {
+                        Model.Bonus salarioFamiliaBonus = new Model.Bonus()
+                        {
+                            Funcionario = funcionario,
+                            Data = DateTime.Parse(folha.MesReferencia),
+                            Descricao = "SALÁRIO FAMÍLIA",
+                            Valor = folha.TabelaINSS.SalarioFamilia * folha.Funcionario.NumDependentes,
+                            MesReferencia = folha.Mes,
+                            AnoReferencia = folha.Ano
+                        };
+
+                        folha.Bonus.Add(salarioFamiliaBonus);
+                    }
+                }
+
+                //Depois da checagem acima, removo os bônus cancelados da listagem
+                folha.Bonus = folha.Bonus.Where(w => w.BonusCancelado == false).ToList();
 
                 folhas.Add(folha);
             }

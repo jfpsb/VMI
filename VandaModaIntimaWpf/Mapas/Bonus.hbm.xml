@@ -15,7 +15,8 @@
     <property name="Valor" column="valor" />
     <property name="MesReferencia" column="mes_referencia" />
     <property name="AnoReferencia" column="ano_referencia" />
-    <property name="PagamentoMensal" column="pagamento_mensal" />
+    <property name="BonusMensal" column="bonus_mensal" />
+    <property name="BonusCancelado" column="bonus_cancelado" />
     <property name="BaseCalculo" column="base_calculo" />
   </class>
 

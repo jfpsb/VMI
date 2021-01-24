@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private Bonus _bonusEscolhido;
         private string _mensagemStatusBar;
         private BitmapImage _imagemStatusBar;
-        private FolhaModel _folha;
+        private FolhaModel _folhaPagamento;
         private bool? _dialogResult = false;
         private IMessageBoxService MessageBoxService;
 
@@ -38,20 +38,20 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             MessageBoxService = messageBoxService;
 
             _session = session;
-            _folha = folhaPagamento;
+            FolhaPagamento = folhaPagamento;
             daoAdiantamento = new DAOAdiantamento(session);
             daoBonus = new DAOBonus(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
 
-            Parcelas = new ObservableCollection<Parcela>(_folha.Parcelas);
-            Bonus = new ObservableCollection<Bonus>(_folha.Bonus);
+            Parcelas = new ObservableCollection<Parcela>(FolhaPagamento.Parcelas);
+            Bonus = new ObservableCollection<Bonus>(FolhaPagamento.Bonus);
         }
 
         private async void DeletarBonus(object obj)
         {
             //TODO: Colocar strings em resources
-            MessageBoxResult telaApagar = MessageBoxService.Show(string.Format("Tem Certeza Que Deseja Apagar o Bônus Criado Em {0}?", BonusEscolhido.DataString),
+            MessageBoxResult telaApagar = MessageBoxService.Show(string.Format("Tem Certeza Que Deseja Apagar o Bônus Criado Em {0}?", BonusEscolhido.Data.ToString("dd/MM/yyyy")),
                 "Deletar Bônus",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question,
@@ -59,11 +59,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                bool resultadoDelete = await daoBonus.Deletar(BonusEscolhido);
+                bool result;
+                if (BonusEscolhido.BonusMensal)
+                {
+                    BonusEscolhido.BonusCancelado = true;
+                    result = await daoBonus.InserirOuAtualizar(BonusEscolhido);
+                }
+                else
+                {
+                    result = await daoBonus.Deletar(BonusEscolhido);
+                }
 
-                if (resultadoDelete)
+                if (result)
                 {
                     SetStatusBarItemDeletado("Bônus Deletado Com Sucesso");
+                    Bonus.Remove(BonusEscolhido);
                 }
             }
         }
@@ -83,7 +93,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (resultadoDelete)
                 {
-                    SetStatusBarItemDeletado("Adiantamento Deletado Com Sucesso");
+                    SetStatusBarItemDeletado("Adiantamento Deletado Com Sucesso!");
                 }
             }
         }
@@ -93,7 +103,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             _dialogResult = true;
             MensagemStatusBar = mensagem;
             ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
-            await _session.RefreshAsync(_folha);
+            await _session.RefreshAsync(FolhaPagamento);
             await ResetarStatusBar();
         }
         public async Task ResetarStatusBar()
@@ -164,12 +174,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public double TotalBonus
         {
-            get => _folha.TotalBonus;
+            get => FolhaPagamento.TotalBonus;
         }
 
         public double TotalParcelas
         {
-            get => _folha.Parcelas.Sum(s => s.Valor);
+            get => FolhaPagamento.Parcelas.Sum(s => s.Valor);
         }
 
         public Bonus BonusEscolhido
@@ -179,6 +189,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _bonusEscolhido = value;
                 OnPropertyChanged("BonusEscolhido");
+            }
+        }
+
+        public FolhaModel FolhaPagamento
+        {
+            get => _folhaPagamento;
+            set
+            {
+                _folhaPagamento = value;
+                OnPropertyChanged("FolhaPagamento");
             }
         }
     }

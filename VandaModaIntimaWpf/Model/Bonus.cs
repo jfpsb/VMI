@@ -13,8 +13,9 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private int _mesReferencia;
         private int _anoReferencia;
-        private bool _pagamentoMensal;
         private double _base_calculo;
+        private bool _bonusMensal;
+        private bool _bonusCancelado;
 
         [JsonIgnore]
         public string GetContextMenuHeader => string.Format("R$ {0}", Valor);
@@ -103,16 +104,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool PagamentoMensal
-        {
-            get => _pagamentoMensal;
-            set
-            {
-                _pagamentoMensal = value;
-                OnPropertyChanged("PagamentoMensal");
-            }
-        }
-
         public double BaseCalculo
         {
             get => _base_calculo;
@@ -132,7 +123,7 @@ namespace VandaModaIntimaWpf.Model
                 {
                     var valorHora = BaseCalculo / 220;
                     var qntHoras = Valor / (valorHora * 2);
-                    return Math.Round(qntHoras, 2, MidpointRounding.AwayFromZero);
+                    return qntHoras;
                 }
 
                 return 0.0;
@@ -148,10 +139,30 @@ namespace VandaModaIntimaWpf.Model
                 {
                     var valorHora = BaseCalculo / 220;
                     var qntHoras = Valor / (valorHora * 1.55);
-                    return Math.Round(qntHoras, 2, MidpointRounding.AwayFromZero);
+                    return qntHoras;
                 }
 
                 return 0.0;
+            }
+        }
+
+        public bool BonusCancelado
+        {
+            get => _bonusCancelado;
+            set
+            {
+                _bonusCancelado = value;
+                OnPropertyChanged("BonusCancelado");
+            }
+        }
+
+        public bool BonusMensal
+        {
+            get => _bonusMensal;
+            set
+            {
+                _bonusMensal = value;
+                OnPropertyChanged("BonusMensal");
             }
         }
 

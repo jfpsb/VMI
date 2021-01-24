@@ -23,11 +23,11 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
         protected E _entidade;
-        protected object _identifier = null; //Guarda item salvo
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         protected CouchDbLog ultimoLog;
+        protected bool _result;
 
         private bool issoEUmUpdate;
         private string mensagemStatusBar;
@@ -150,14 +150,15 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
         protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar()
         {
-            _identifier = await daoEntidade.InserirOuAtualizar(Entidade);
+            _result = await daoEntidade.InserirOuAtualizar(Entidade);
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = issoEUmUpdate,
-                IdentificadorEntidade = _identifier,
+                IdentificadorEntidade = Entidade.GetIdentifier(),
                 MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar()
+                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
+                Sucesso = _result
             };
 
             return e;
@@ -270,7 +271,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns>Objeto se a entidade foi editada, senão, null</returns>
         public object ResultadoSalvar()
         {
-            return _identifier;
+            return _result;
         }
         public string MensagemStatusBar
         {

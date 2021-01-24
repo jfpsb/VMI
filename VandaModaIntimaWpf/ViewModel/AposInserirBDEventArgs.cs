@@ -6,5 +6,6 @@
         /// Indica se Operação foi um Update
         /// </summary>
         public bool IssoEUmUpdate;
+        public bool Sucesso;
     }
 }

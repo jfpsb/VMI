@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -20,10 +21,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private int _quantMinutos;
         private DateTime dataEscolhida;
         private double valorHora;
+        private DAOBonusMensal daoBonusMensal;
 
         public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             daoEntidade = new DAOBonus(session);
+            daoBonusMensal = new DAOBonusMensal(session);
             viewModelStrategy = new CadastrarBonusVMStrategy();
             Folha = folha;
             CmbDescricaoHoraExtra = Application.Current.Resources["CmbDescricaoHoraExtra"] as string[];
@@ -40,6 +43,25 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             valorHora = Folha.Funcionario.Salario / 220;
             InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
+
+            AposInserirNoBancoDeDados += SalvarBonusMensal;
+        }
+
+        private async void SalvarBonusMensal(AposInserirBDEventArgs e)
+        {
+            var bonusInserido = await daoEntidade.ListarPorId(e.IdentificadorEntidade) as Bonus;
+
+            if (e.Sucesso && bonusInserido.BonusMensal)
+            {
+                BonusMensal bonusMensal = new BonusMensal
+                {
+                    Descricao = bonusInserido.Descricao,
+                    Valor = bonusInserido.Valor,
+                    Funcionario = bonusInserido.Funcionario
+                };
+
+                await daoBonusMensal.Inserir(bonusMensal);
+            }
         }
 
         private void AdicionarBonusVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -85,7 +107,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 QuantMinutos = 0;
             }
 
-            return Convert.ToDouble(QuantHoras) + (Convert.ToDouble(QuantMinutos) / 60);
+            return Convert.ToDouble(QuantHoras) + (Convert.ToDouble(QuantMinutos) / 60.0);
         }
 
         /// <summary>
@@ -98,7 +120,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (DescricaoHoraExtra == 0)
             {
                 Entidade.Descricao = CmbDescricaoHoraExtra[0];
-                Valor = Math.Round(quantHorasTotal * valorHora * 2, 2, MidpointRounding.AwayFromZero).ToString();
+                Valor = (quantHorasTotal * valorHora * 2).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
             }
             //Hora Extra C 55%
             else
@@ -116,13 +138,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void ResetaPropriedades()
         {
-            QuantHoras = 0;
-            QuantMinutos = 0;
-
             Entidade = new Bonus
             {
                 Funcionario = Folha.Funcionario
             };
+
+            QuantHoras = 0;
+            QuantMinutos = 0;
+
+            Entidade.Descricao = string.Empty;
+            Entidade.Valor = 0.0;
 
             InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
         }

@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
 {
     public class CouchDbFolhaPagamentoLog : CouchDbLog
     {
-        public string MySqlId { get; set; }
+        public long MySqlId { get; set; }
         public int Mes { get; set; }
         public int Ano { get; set; }
         public Funcionario Funcionario { get; set; }

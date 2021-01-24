@@ -17,14 +17,13 @@ namespace VandaModaIntimaWpf.Model.DAO
         /// </summary>
         /// <param name="funcionario">Funcionário que terá os bônus pesquisados</param>
         /// <returns></returns>
-        public async Task<IList<Bonus>> ListarPorFuncionarioComBonusMensal(Funcionario funcionario, int mes, int ano)
+        public async Task<IList<Bonus>> ListarPorFuncionario(Funcionario funcionario, int mes, int ano)
         {
             var criteria = CriarCriteria<Bonus>();
 
-            var conjunction1 = Restrictions.Conjunction().Add(Restrictions.Eq("MesReferencia", mes)).Add(Restrictions.Eq("AnoReferencia", ano));
-            var disjunction1 = Restrictions.Disjunction().Add(conjunction1).Add(Restrictions.Eq("PagamentoMensal", true));
-
-            criteria.Add(disjunction1).Add(Restrictions.Eq("Funcionario", funcionario));
+            criteria.Add(Restrictions.Eq("MesReferencia", mes))
+                .Add(Restrictions.Eq("AnoReferencia", ano))
+                .Add(Restrictions.Eq("Funcionario", funcionario));
 
             return await Listar<Bonus>(criteria);
         }

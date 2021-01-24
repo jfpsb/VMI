@@ -6,10 +6,7 @@
   <class name="ContagemProduto" table="contagemproduto" lazy="false">
     <id name="Id" column="id" />
     <many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" lazy="false" />
-    <many-to-one name="Contagem" class="VandaModaIntimaWpf.Model.Contagem" lazy="false" >
-      <column name="contagem_loja" />
-      <column name="contagem_data" />
-    </many-to-one>
+    <many-to-one name="Contagem" class="VandaModaIntimaWpf.Model.Contagem" column ="contagem" lazy="false" />
     <property name="Quant" column="quant" />
   </class>
 

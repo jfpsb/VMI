@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public virtual async Task<object> Inserir(object objeto)
+        public virtual async Task<bool> Inserir(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     var result = await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
-                    return result;
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
                 }
 
-                return null;
+                return false;
             }
         }
         public virtual async Task<bool> Inserir<E>(IList<E> objetos) where E : class, IModel
@@ -59,7 +59,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<object> InserirOuAtualizar(object objeto)
+        public virtual async Task<bool> InserirOuAtualizar(object objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
-                    return ((IModel)objeto).GetIdentifier();
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -77,12 +77,11 @@ namespace VandaModaIntimaWpf.Model.DAO
                         Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
                 }
 
-                return null;
+                return false;
             }
         }
-        public virtual async Task<List<object>> InserirOuAtualizar<E>(IList<E> objetos) where E : class, IModel
+        public virtual async Task<bool> InserirOuAtualizar<E>(IList<E> objetos) where E : class, IModel
         {
-            List<object> identificadores = new List<object>();
             using (var transacao = session.BeginTransaction())
             {
                 try
@@ -94,12 +93,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                     await transacao.CommitAsync();
 
-                    foreach (E e in objetos)
-                    {
-                        identificadores.Add(e.GetIdentifier());
-                    }
-
-                    return identificadores;
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -109,7 +103,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         Console.WriteLine("ERRO AO INSERIR LISTA >>> " + ex.InnerException.Message);
                 }
 
-                return null;
+                return false;
             }
         }
         public virtual async Task<bool> Atualizar(object objeto)

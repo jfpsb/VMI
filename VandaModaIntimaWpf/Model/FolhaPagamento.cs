@@ -2,21 +2,21 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class FolhaPagamento : AModel, IModel
     {
-        private string _id;
+        private long _id;
         private int _mes;
         private int _ano;
         private Funcionario _funcionario;
         private bool _fechada;
+        private double _baseCalculo;
         private IList<Bonus> _bonus = new List<Bonus>();
         private TabelasINSS[] tabelasINSS;
         private TabelasINSS _tabelaINSS;
@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.Model
             PropertyChanged += FolhaPagamento_PropertyChanged;
         }
 
-        private void FolhaPagamento_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void FolhaPagamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("Mes") || e.PropertyName.Equals("Ano"))
             {
@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string GetContextMenuHeader => _mes + "/" + _ano + " - " + _funcionario.Nome;
+        public string GetContextMenuHeader => $"{MesReferencia} - {_funcionario.Nome}";
 
         [JsonIgnore]
         public Dictionary<string, string> DictionaryIdentifier
@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public string MesReferencia
         {
-            get => _mes + "/" + _ano;
+            get => new DateTime(Ano, Mes, 1).ToString("MM/yyyy");
         }
         public Funcionario Funcionario
         {
@@ -101,14 +101,14 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 var atransferir = Funcionario.Salario + TotalBonus - TotalAdiantamentos - DescontoINSS;
-                return Math.Round(atransferir, 2, MidpointRounding.AwayFromZero);
+                return atransferir;
             }
         }
         public double TotalAdiantamentos
         {
             get
             {
-                return Math.Round(Parcelas.Sum(s => s.Valor), 2, MidpointRounding.AwayFromZero);
+                return Parcelas.Sum(s => s.Valor);
             }
         }
         public bool Fechada
@@ -122,7 +122,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public string Id
+        public long Id
         {
             get => _id;
             set
@@ -175,7 +175,7 @@ namespace VandaModaIntimaWpf.Model
                     }
                 }
 
-                return Math.Round(desconto, 2, MidpointRounding.AwayFromZero);
+                return desconto;
             }
         }
 
@@ -198,7 +198,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return Math.Round(Bonus.Sum(s => s.Valor), 2, MidpointRounding.AwayFromZero);
+                return Bonus.Sum(s => s.Valor);
             }
         }
 
@@ -208,7 +208,7 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 var bonusHoraExtra = Bonus.Where(w => w.Descricao.StartsWith("HORA EXTRA")).ToList();
-                return bonusHoraExtra.Sum(s => s.Valor) + Funcionario.Salario;
+                return bonusHoraExtra.Sum(s => s.Valor) + BaseCalculo;
             }
         }
 
@@ -254,6 +254,16 @@ namespace VandaModaIntimaWpf.Model
                 }
 
                 return quintoDiaUtil;
+            }
+        }
+
+        public double BaseCalculo
+        {
+            get => _baseCalculo;
+            set
+            {
+                _baseCalculo = value;
+                OnPropertyChanged("BaseCalculo");
             }
         }
 

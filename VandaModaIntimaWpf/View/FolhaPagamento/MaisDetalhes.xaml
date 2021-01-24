@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
         mc:Ignorable="d"
         Title="Mais Detalhes"
         Height="450"
@@ -11,6 +12,9 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="Window_Closing">
+    <Window.Resources>
+        <ViewModel:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -59,7 +63,8 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Deletar Adiantamento"
-                                  Command="{Binding DeletarAdiantamentoComando}" />
+                                  Command="{Binding DeletarAdiantamentoComando}"
+                                  IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
@@ -89,7 +94,8 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Deletar Bônus"
-                                  Command="{Binding DeletarBonusComando}" />
+                                  Command="{Binding DeletarBonusComando}"
+                                  IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

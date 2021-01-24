@@ -105,7 +105,7 @@ namespace VandaModaIntimaWpf.BancoDeDados
                     case FolhaPagamento fp:
                         CouchDbFolhaPagamentoLog fpLog = new CouchDbFolhaPagamentoLog()
                         {
-                            Id = fp.Id
+                            Id = fp.Id.ToString()
                         };
                         fpLog.AtribuiCampos(fp);
                         couchDbBulkDocs.Docs.Add(fpLog);

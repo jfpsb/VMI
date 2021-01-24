@@ -8,11 +8,14 @@
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
                      mc:Ignorable="d"
                      Title="Pesquisar Folha de Pagamento"
-                     Width="600"
-                     Height="500"
+                     Width="850"
+                     Height="600"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
                      Closing="Pesquisar_Closing">
+    <Window.Resources>
+        <ViewModel:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
     <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarFolhaPagamento}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
@@ -29,6 +32,8 @@
                             <Image Source="/Resources/Hora_Extra.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Fechar Todas as Folhas Abertas"
+                              Command="{Binding FecharFolhasAbertasComando}" />
                     <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
@@ -53,7 +58,7 @@
                     <Rectangle Width="20"
                                Height="20"
                                Margin="5,0,0,0"
-                               Fill="PaleVioletRed" />
+                               Fill="IndianRed" />
                     <Label Grid.Column="1"
                            FontWeight="Bold"
                            Content="Folha de Pagamento Fechada" />
@@ -96,7 +101,7 @@
                                     <DataTrigger Binding="{Binding Fechada}"
                                                  Value="True">
                                         <Setter Property="Background"
-                                                Value="PaleVioletRed" />
+                                                Value="IndianRed" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Fechada}"
                                                  Value="False">
@@ -155,27 +160,42 @@
                                                 Binding="{Binding MesReferencia}"
                                                 Width="Auto" />
 
+                            <DataGridTextColumn Header="{DynamicResource vencimento_header}"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Vencimento, StringFormat='dd/MM/yyyy'}"
+                                                Width="Auto" />
+
                             <DataGridTextColumn Header="{DynamicResource valor_a_pagar_header}"
                                                 IsReadOnly="True"
                                                 Binding="{Binding ValorATransferir, StringFormat='C', ConverterCulture=pt-BR}"
+                                                Width="Auto" />
+
+                            <DataGridTextColumn Header="Base de Cálculo"
+                                                IsReadOnly="True"
+                                                Binding="{Binding BaseCalculo, StringFormat='C', ConverterCulture=pt-BR}"
                                                 Width="Auto" />
 
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Adicionar Adiantamento"
-                                          Command="{Binding AbrirAdicionarAdiantamentoComando}" />
+                                          Command="{Binding AbrirAdicionarAdiantamentoComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <MenuItem Header="Adicionar Bônus"
-                                          Command="{Binding AbrirAdicionarBonusComando}" />
+                                          Command="{Binding AbrirAdicionarBonusComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <MenuItem Header="Adicionar Hora Extra"
-                                          Command="{Binding AbrirAdicionarHoraExtraComando}" />
+                                          Command="{Binding AbrirAdicionarHoraExtraComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <Separator />
                                 <MenuItem Header="Mais Detalhes"
                                           Command="{Binding AbrirMaisDetalhesComando}" />
                                 <MenuItem Header="Imprimir"
                                           Command="{Binding AbrirImprimirFolhaComando}" />
                                 <Separator />
-                                <MenuItem Header="Fechar Folha de Pagamento" />
+                                <MenuItem Header="Fechar Folha de Pagamento"
+                                          Command="{Binding FecharFolhaPagamentoComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                             </ContextMenu>
                         </DataGrid.ContextMenu>
                     </DataGrid>

@@ -77,10 +77,11 @@
                              Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Label Grid.Row="5"
                    Content="Repetir Bônus Todo Mês:" />
-            <CheckBox Grid.Row="5" Grid.Column="1"
+            <CheckBox Grid.Row="5"
+                      Grid.Column="1"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      IsChecked="{Binding Entidade.PagamentoMensal}"/>
+                      IsChecked="{Binding Entidade.BonusMensal}" />
             <Button Grid.ColumnSpan="2"
                     Grid.Row="6"
                     Style="{StaticResource BotaoCadastrar}"

@@ -36,7 +36,8 @@ namespace VandaModaIntimaWpf.ViewModel
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
-        private IMessageBoxService MessageBoxService;
+
+        protected IMessageBoxService MessageBoxService;
         protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
 
         protected CouchDbClient couchDbClient;
@@ -185,7 +186,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 Console.WriteLine(e.Message);
             }
 
-            
+
             AbrePelaTelaPesquisaService.AbrirEditar(EntidadeSelecionada.Entidade, _session);
 
             _session.Evict(EntidadeSelecionada.Entidade);

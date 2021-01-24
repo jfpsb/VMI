@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Contagem : AModel, IModel
     {
+        private long _id;
         private Loja _loja;
         private DateTime _data;
         private bool _finalizada;
@@ -98,29 +99,20 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonProperty(PropertyName = "MySqlId")]
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         public virtual object GetIdentifier()
         {
-            return this;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
-            if (obj.GetType() == typeof(Contagem))
-            {
-                Contagem that = (Contagem)obj;
-                if (Loja.Equals(that.Loja) && Data.Equals(that.Data)) return true;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-            if (Loja != null) hash += Loja.GetHashCode();
-            hash += Data.GetHashCode();
-            return hash;
+            return Id;
         }
 
         public string CouchDbId()

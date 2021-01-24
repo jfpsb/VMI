@@ -58,9 +58,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
                 Quant = Quantidade
             };
 
-            _identifier = await _daoContagemProduto.Inserir(contagemProduto);
+            _result = await _daoContagemProduto.Inserir(contagemProduto);
 
-            if (_identifier != null)
+            if (_result)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
@@ -72,9 +72,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private async void RemoverContagemProduto(object parameter)
         {
-            _identifier = await _daoContagemProduto.Deletar(ContagemProduto);
+            _result = await _daoContagemProduto.Deletar(ContagemProduto);
 
-            if (_identifier != null)
+            if (_result)
             {
                 _session.Refresh(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
