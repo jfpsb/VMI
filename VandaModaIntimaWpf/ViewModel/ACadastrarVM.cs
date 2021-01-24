@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using NHibernate;
+﻿using NHibernate;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
-using VandaModaIntimaWpf.BancoDeDados.Model;
+using VandaModaIntimaWpf.BancoDeDados.CouchDb;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
@@ -26,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
         protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
         protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
-        protected CouchDbLog ultimoLog;
+        protected CouchDbLog UltimoLog;
         protected bool _result;
 
         private bool issoEUmUpdate;
@@ -38,8 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public delegate void AntesDeCriarDocumentoEventHandler();
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
-        public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
-        public delegate void AposInserirNoBancoDeDadosEventHandler(AposInserirBDEventArgs e);
+        public delegate void AposCriarDocumentoEventHandler(AposSalvarDocumentoEventArgs e);
+        public delegate void AposInserirNoBancoDeDadosEventHandler(AposSalvarEventArgs e);
 
         public event AposCriarDocumentoEventHandler AposCriarDocumento;
         public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
@@ -65,65 +64,83 @@ namespace VandaModaIntimaWpf.ViewModel
             AposCriarDocumento += ResultadoSalvarDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
 
-            AposInserirNoBancoDeDados += ResultadoInsercao;
-            //AposInserirNoBancoDeDados += SalvarDocumento;
+            AposInserirNoBancoDeDados += MensagemAposInserirNoBancoDeDados;
+            AposInserirNoBancoDeDados += SalvarDocumento;
             AposInserirNoBancoDeDados += RedefinirTela;
 
-            //PropertyChanged += GetUltimoLogDeEntidade;
+            PropertyChanged += ACadastrarViewModel_PropertyChanged;
 
             issoEUmUpdate = false;
         }
+
+        private async void ACadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Entidade":
+                    if (_entidade.CouchDbId() != null)
+                        UltimoLog = await couchDbClient.FindById(Entidade.CouchDbId(), Entidade.GetType().Name.ToLower());
+                    break;
+            }
+        }
+
         /// <summary>
         /// Escreve no console da aplicação se houve erro ou falha ao salvar documento do CouchDb
         /// </summary>
         /// <param name="e"></param>
-        private void ResultadoSalvarDocumento(AposCriarDocumentoEventArgs e)
+        private void ResultadoSalvarDocumento(AposSalvarDocumentoEventArgs e)
         {
             if (e.CouchDbResponse.Ok)
             {
-                Console.WriteLine(e.MensagemSucesso);
+                Console.WriteLine(viewModelStrategy.MensagemDocumentoSalvoComSucesso());
             }
             else
             {
-                Console.WriteLine(e.MensagemErro);
+                Console.WriteLine(viewModelStrategy.MensagemDocumentoNaoSalvo());
             }
         }
         /// <summary>
         /// Salva documento do CouchDb após operação de Salvar no Banco de Dados
         /// </summary>
         /// <param name="e"></param>
-        private async void SalvarDocumento(AposInserirBDEventArgs e)
+        private async void SalvarDocumento(AposSalvarEventArgs e)
         {
-            AntesDeCriarDocumento?.Invoke();
-            CouchDbResponse couchDbResponse;
-
-            E entidadeInserida = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-
-            if (ultimoLog == null)
+            if (e.Sucesso)
             {
-                string entidadeJson = JsonConvert.SerializeObject(entidadeInserida);
-                couchDbResponse = await couchDbClient.CreateDocument(entidadeInserida.CouchDbId(), entidadeJson);
+                AntesDeCriarDocumento?.Invoke();
+
+                CouchDbResponse couchDbResponse;
+
+                if (UltimoLog == null)
+                {
+                    UltimoLog = new CouchDbLog
+                    {
+                        Id = Entidade.CouchDbId(),
+                        TipoEntidade = Entidade.GetType().Name.ToLower(),
+                        UltimaAlteracao = DateTime.Now,
+                        Operacao = "insert"
+                    };
+
+                    couchDbResponse = await couchDbClient.CreateDocument(UltimoLog);
+                }
+                else
+                {
+                    UltimoLog.UltimaAlteracao = DateTime.Now;
+                    UltimoLog.Sincronizado = false;
+                    UltimoLog.Operacao = "update";
+                    couchDbResponse = await couchDbClient.UpdateDocument(UltimoLog);
+                }
+
+                AposSalvarDocumentoEventArgs e2 = new AposSalvarDocumentoEventArgs()
+                {
+                    CouchDbResponse = couchDbResponse
+                };
+
+                AposCriarDocumento?.Invoke(e2);
             }
-            else
-            {
-                e.CouchDbLog = (CouchDbLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(entidadeInserida);
-                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
-                e.CouchDbLog.Rev = couchDbResponse.Rev;
-            }
-
-            AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = viewModelStrategy.MensagemDocumentoSalvoComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemDocumentoNaoSalvo(),
-                IdentificadorEntidade = e.IdentificadorEntidade
-            };
-
-            AposCriarDocumento?.Invoke(e2);
         }
 
-        private void GetUltimoLogAposCriarDoc(AposCriarDocumentoEventArgs e)
+        private void GetUltimoLogAposCriarDoc(AposSalvarDocumentoEventArgs e)
         {
             OnPropertyChanged("Entidade");
         }
@@ -148,35 +165,17 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Executa a operação de salvar entidade
         /// </summary>
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
-        protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar()
+        protected async virtual Task<AposSalvarEventArgs> ExecutarSalvar()
         {
             _result = await daoEntidade.InserirOuAtualizar(Entidade);
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposSalvarEventArgs e = new AposSalvarEventArgs()
             {
-                IssoEUmUpdate = issoEUmUpdate,
-                IdentificadorEntidade = Entidade.GetIdentifier(),
-                MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
+                IsUpdate = issoEUmUpdate,
                 Sucesso = _result
             };
 
             return e;
-        }
-        /// <summary>
-        /// Consulta e atribui o último log do CouchDb salvo dessa entidade
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Parâmetros de evento</param>
-        protected async void GetUltimoLogDeEntidade(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Entidade":
-                    if (_entidade.CouchDbId() != null)
-                        ultimoLog = await couchDbClient.FindById(_entidade.CouchDbId());
-                    break;
-            }
         }
 
         public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
@@ -193,41 +192,40 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns></returns>
         public abstract bool ValidacaoSalvar(object parameter);
         /// <summary>
-        /// Checa o resultado da inserção da entidade e retorna ao usuário
+        /// Informa Ao Usuário O Resultado da Inserção
         /// </summary>
         /// <param name="e">Parâmetros do evento</param>
-        private async void ResultadoInsercao(AposInserirBDEventArgs e)
+        private void MensagemAposInserirNoBancoDeDados(AposSalvarEventArgs e)
         {
             //Se foi inserido com sucesso
-            if (e.IdentificadorEntidade != null)
+            if (e.Sucesso)
             {
-                Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-                SetStatusBarSucesso(e.MensagemSucesso);
+                SetStatusBarSucesso(viewModelStrategy.MensagemEntidadeSalvaComSucesso());
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                SetStatusBarErro(viewModelStrategy.MensagemEntidadeErroAoSalvar());
             }
         }
         /// <summary>
         /// Redefine os campos do formulário para os valores padrões
         /// </summary>
         /// <param name="e"></param>
-        private async void RedefinirTela(AposInserirBDEventArgs e)
+        protected async void RedefinirTela(AposSalvarEventArgs e)
         {
-            if (e.IdentificadorEntidade != null)
+            if (e.Sucesso)
             {
                 // Se a operação for um Update não há alteração no formulário
-                if (!e.IssoEUmUpdate)
+                if (!e.IsUpdate)
                     ResetaPropriedades();
 
-                SetStatusBarSucesso(e.MensagemSucesso);
+                SetStatusBarSucesso(viewModelStrategy.MensagemEntidadeSalvaComSucesso());
                 await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
                 SetStatusBarAguardando();
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                SetStatusBarErro(viewModelStrategy.MensagemEntidadeErroAoSalvar());
             }
         }
         /// <summary>

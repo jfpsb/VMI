@@ -381,28 +381,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="BancoDeDados\CouchDbBulkDocs.cs" />
-    <Compile Include="BancoDeDados\CouchDbClient.cs" />
-    <Compile Include="BancoDeDados\CouchDbCredentials.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbAdiantamentoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbBonusLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbContagemLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbContagemProdutoLog.cs" />
-    <Compile Include="BancoDeDados\CouchDbErrorResponse.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFolhaPagamentoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFornecedorLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFuncionarioLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbLojaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbMarcaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbMetaLojaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbOperadoraCartaoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbParcelaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbProdutoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbRecebimentoCartaoLog.cs" />
-    <Compile Include="BancoDeDados\CouchDbResponse.cs" />
-    <Compile Include="BancoDeDados\CouchDbRevStatus.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbTipoContagemLog.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbBulkDocs.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbClient.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbCredentials.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbErrorResponse.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbLog.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbResponse.cs" />
+    <Compile Include="BancoDeDados\CouchDb\CouchDbRevStatus.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Model\Bonus.cs" />
@@ -459,10 +444,9 @@
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
-    <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
-    <Compile Include="ViewModel\AposCriarDocumentoEventArgs.cs" />
+    <Compile Include="ViewModel\AposSalvarEventArgs.cs" />
+    <Compile Include="ViewModel\AposSalvarDocumentoEventArgs.cs" />
     <Compile Include="ViewModel\AposDeletarDocumentoEventArgs.cs" />
-    <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />
@@ -1059,5 +1043,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapas\BonusMensal.hbm.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

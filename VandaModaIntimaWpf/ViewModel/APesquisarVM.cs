@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
-using VandaModaIntimaWpf.BancoDeDados.Model;
+using VandaModaIntimaWpf.BancoDeDados.CouchDb;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
@@ -44,9 +44,9 @@ namespace VandaModaIntimaWpf.ViewModel
         protected DAO daoEntidade;
 
         public delegate void AposDeletarDocumentoEventHandler(AposDeletarDocumentoEventArgs e);
-        public delegate void AposDeletarDoBDEventHandler(AposDeletarDoBDEventArgs e);
+        public delegate void AposDeletarDoBDEventHandler(AposDeletarDoBDEventArgs<E> e);
         public event AposDeletarDocumentoEventHandler AposDeletarDocumento;
-        public event AposDeletarDoBDEventHandler AposDeletarDoBD;
+        public event AposDeletarDoBDEventHandler AposDeletarEntidadeDoBancoDeDados;
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirImprimirComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
@@ -80,10 +80,44 @@ namespace VandaModaIntimaWpf.ViewModel
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
 
-            AposDeletarDocumento += DeletarEntidadeDoBD;
-            AposDeletarDoBD += InformaResultadoDeletarBD;
+            AposDeletarEntidadeDoBancoDeDados += MensagemAposDeletarEntidade;
+            AposDeletarEntidadeDoBancoDeDados += DeletarDocumento;
+            AposDeletarDocumento += SincronizarLog;
 
             SetStatusBarAguardando();
+        }
+
+        private void SincronizarLog(AposDeletarDocumentoEventArgs e)
+        {
+
+        }
+
+        private async void DeletarDocumento(AposDeletarDoBDEventArgs<E> e)
+        {
+            if (e.Sucesso)
+            {
+                CouchDbLog couchDbLog = await couchDbClient.FindById(e.Entidade.CouchDbId(), e.Entidade.GetType().Name.ToLower());
+                CouchDbResponse couchDbResponse;
+
+                if (couchDbLog != null)
+                {
+                    couchDbLog.Operacao = "delete";
+                    couchDbLog.UltimaAlteracao = DateTime.Now;
+                    couchDbResponse = await couchDbClient.DeleteDocument(couchDbLog);
+                }
+                else
+                {
+                    //Se não existe log
+                    couchDbResponse = new CouchDbResponse() { Ok = true };
+                }
+
+                AposDeletarDocumentoEventArgs e2 = new AposDeletarDocumentoEventArgs()
+                {
+                    CouchDbResponse = couchDbResponse
+                };
+
+                ChamaAposDeletarDocumento(e2);
+            }
         }
 
         public abstract void PesquisaItens(string termo);
@@ -96,9 +130,9 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AposDeletarDocumento?.Invoke(e);
         }
-        protected virtual void ChamaAposDeletarDoBD(AposDeletarDoBDEventArgs e)
+        protected virtual void ChamaAposDeletarDoBD(AposDeletarDoBDEventArgs<E> e)
         {
-            AposDeletarDoBD?.Invoke(e);
+            AposDeletarEntidadeDoBancoDeDados?.Invoke(e);
         }
         public void AbrirCadastrar(object parameter)
         {
@@ -119,60 +153,28 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (telaApagarDialog.Equals(MessageBoxResult.Yes))
             {
-                CouchDbLog couchDbLog = await couchDbClient.FindById(EntidadeSelecionada.Entidade.ToString());
-                CouchDbResponse couchDbResponse;
-
-                if (couchDbLog != null)
-                {
-                    couchDbResponse = await couchDbClient.DeleteDocument(couchDbLog.Id, couchDbLog.Rev);
-                }
-                else
-                {
-                    //Se não existe log
-                    couchDbResponse = new CouchDbResponse() { Ok = true };
-                }
-
-                AposDeletarDocumentoEventArgs e = new AposDeletarDocumentoEventArgs()
-                {
-                    CouchDbResponse = couchDbResponse,
-                    MensagemSucesso = pesquisarViewModelStrategy.MensagemDocumentoDeletado(),
-                    MensagemErro = pesquisarViewModelStrategy.MensagemDocumentoNaoDeletado()
-                };
-
-                ChamaAposDeletarDocumento(e);
-            }
-        }
-        private async void DeletarEntidadeDoBD(AposDeletarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
                 bool deletado = await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
 
-                AposDeletarDoBDEventArgs e2 = new AposDeletarDoBDEventArgs()
+                AposDeletarDoBDEventArgs<E> e = new AposDeletarDoBDEventArgs<E>()
                 {
-                    DeletadoComSucesso = deletado,
-                    MensagemSucesso = pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade),
-                    MensagemErro = pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada()
+                    Sucesso = deletado,
+                    Entidade = EntidadeSelecionada.Entidade
                 };
 
-                ChamaAposDeletarDoBD(e2);
-            }
-            else
-            {
-                SetStatusBarErro(e.MensagemErro);
+                ChamaAposDeletarDoBD(e);
             }
         }
-        private async void InformaResultadoDeletarBD(AposDeletarDoBDEventArgs e)
+        private async void MensagemAposDeletarEntidade(AposDeletarDoBDEventArgs<E> e)
         {
-            if (e.DeletadoComSucesso)
+            if (e.Sucesso)
             {
-                SetStatusBarItemDeletado(e.MensagemSucesso);
+                SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadeDeletada(e.Entidade));
                 OnPropertyChanged("TermoPesquisa");
                 await ResetarStatusBar();
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                SetStatusBarErro(pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada());
             }
         }
         public void AbrirEditar(object parameter)
@@ -231,6 +233,17 @@ namespace VandaModaIntimaWpf.ViewModel
                 {
                     SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
                     VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+
+                    foreach (var apagado in AApagar)
+                    {
+                        AposDeletarDoBDEventArgs<E> e = new AposDeletarDoBDEventArgs<E>()
+                        {
+                            Sucesso = true,
+                            Entidade = apagado
+                        };
+
+                        ChamaAposDeletarDoBD(e);
+                    }
                 }
                 else
                 {

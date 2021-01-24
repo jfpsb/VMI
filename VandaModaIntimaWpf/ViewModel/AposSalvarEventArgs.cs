@@ -2,9 +2,9 @@
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public class AposDeletarDoBDEventArgs<E> : EventArgs
+    public class AposSalvarEventArgs : EventArgs
     {
         public bool Sucesso { get; set; }
-        public E Entidade { get; set; }
+        public bool IsUpdate { get; set; }
     }
 }

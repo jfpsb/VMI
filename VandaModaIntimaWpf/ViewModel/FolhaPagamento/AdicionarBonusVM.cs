@@ -44,20 +44,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             valorHora = Folha.Funcionario.Salario / 220;
             InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
 
+            //Removo RedefinirTela e adiciono novamente para que SalvarBonusMensal execute antes
+            AposInserirNoBancoDeDados -= RedefinirTela;
             AposInserirNoBancoDeDados += SalvarBonusMensal;
+            AposInserirNoBancoDeDados += RedefinirTela;
         }
 
-        private async void SalvarBonusMensal(AposInserirBDEventArgs e)
+        private async void SalvarBonusMensal(AposSalvarEventArgs e)
         {
-            var bonusInserido = await daoEntidade.ListarPorId(e.IdentificadorEntidade) as Bonus;
-
-            if (e.Sucesso && bonusInserido.BonusMensal)
+            if (e.Sucesso && Entidade.BonusMensal)
             {
                 BonusMensal bonusMensal = new BonusMensal
                 {
-                    Descricao = bonusInserido.Descricao,
-                    Valor = bonusInserido.Valor,
-                    Funcionario = bonusInserido.Funcionario
+                    Descricao = Entidade.Descricao,
+                    Valor = Entidade.Valor,
+                    Funcionario = Entidade.Funcionario
                 };
 
                 await daoBonusMensal.Inserir(bonusMensal);

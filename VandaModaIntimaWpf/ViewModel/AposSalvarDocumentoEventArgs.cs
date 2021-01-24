@@ -2,8 +2,9 @@
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public class AposCriarDocumentoEventArgs : AposSalvarEditarEventArgs
+    public class AposSalvarDocumentoEventArgs : AposSalvarEventArgs
     {
+        
         public CouchDbResponse CouchDbResponse { get; set; }
     }
 }

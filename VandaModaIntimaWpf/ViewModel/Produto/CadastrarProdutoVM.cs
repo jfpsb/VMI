@@ -91,9 +91,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             abrePelaTelaCadastroDeProduto.AbrirTelaCadastrarGrade(_session);
         }
 
-        private void LimpaGrades(AposInserirBDEventArgs e)
+        private void LimpaGrades(AposSalvarEventArgs e)
         {
-            if (e.IdentificadorEntidade != null && !e.IssoEUmUpdate)
+            if (e.Sucesso && !e.IsUpdate)
             {
                 Grades.Clear();
                 ProdutoGrades.Clear();
