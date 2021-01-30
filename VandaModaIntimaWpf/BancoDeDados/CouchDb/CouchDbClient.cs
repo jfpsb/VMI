@@ -59,7 +59,6 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-
         public async Task<CouchDbResponse> UpdateDocument(CouchDbLog couchDbLog)
         {
             GetAuthenticationCookie();
@@ -101,7 +100,6 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-
         private CouchDbResponse RunPUTRequest(string url)
         {
             CouchDbResponse couchDbResponse = new CouchDbResponse();
@@ -134,6 +132,49 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
+        public async Task<CouchDbLogFindResult> ListarDocumentosDataMaiorOuIgual(DateTime data, string tipoEntidade)
+        {
+            GetAuthenticationCookie();
+            CouchDbLogFindResult couchDbLogFindResult;
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+            string jsonData = $"{{\"selector\": {{\"ultimaAlteracao\": {{\"$gte\": \"{data:O}\"}}}}}}";
+            var httpContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage result = await httpClient.PostAsync($"/{tipoEntidade}/_find", httpContent);
+
+            if (result.IsSuccessStatusCode)
+            {
+                couchDbLogFindResult = JsonConvert.DeserializeObject<CouchDbLogFindResult>(result.Content.ReadAsStringAsync().Result);
+                Console.WriteLine(result.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Listar Documentos. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
+            }
+
+            return couchDbLogFindResult;
+        }
+
+        public async Task<CouchDbLogFindResult> ListarDocumentosNaoSincronizados(string tipoEntidade)
+        {
+            GetAuthenticationCookie();
+            CouchDbLogFindResult couchDbLogFindResult;
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+            string jsonData = $"{{\"selector\": {{\"sincronizado\": {{\"$eq\": false}}}}}}";
+            var httpContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            HttpResponseMessage result = await httpClient.PostAsync($"/{tipoEntidade}/_find", httpContent);
+
+            if (result.IsSuccessStatusCode)
+            {
+                couchDbLogFindResult = JsonConvert.DeserializeObject<CouchDbLogFindResult>(result.Content.ReadAsStringAsync().Result);
+                Console.WriteLine(result.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Listar Documentos. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
+            }
+
+            return couchDbLogFindResult;
+        }
 
         public async Task<CouchDbLog> FindById(string id, string database, bool revs_info = false)
         {
@@ -161,7 +202,6 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return log;
         }
-
         public void GetAuthenticationCookie()
         {
             if (AuthCookie == null)
@@ -208,7 +248,6 @@ namespace VandaModaIntimaWpf.BancoDeDados
                 }
             }
         }
-
         public static CouchDbClient Instancia
         {
             get

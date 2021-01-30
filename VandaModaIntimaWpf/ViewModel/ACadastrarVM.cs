@@ -63,6 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposCriarDocumento += ResultadoSalvarDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
+            AposCriarDocumento += SincronizarLocalComRemoto;
 
             AposInserirNoBancoDeDados += MensagemAposInserirNoBancoDeDados;
             AposInserirNoBancoDeDados += SalvarDocumento;
@@ -71,6 +72,12 @@ namespace VandaModaIntimaWpf.ViewModel
             PropertyChanged += ACadastrarViewModel_PropertyChanged;
 
             issoEUmUpdate = false;
+        }
+
+        private void SincronizarLocalComRemoto(AposSalvarDocumentoEventArgs e)
+        {
+            if (e.CouchDbResponse.Ok)
+                Sincronizacao.SincronizaLocalComRemoto(_session);
         }
 
         private async void ACadastrarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -33,7 +34,14 @@ namespace VandaModaIntimaWpf.ViewModel
             //Autenticando CouchDB
             CouchDbClient.Instancia.GetAuthenticationCookie();
 
-            //MqttClientInit mqttClientInit = new MqttClientInit();
+            //TODO: Mover para tela de inicialização da aplicação que ainda será implementada
+            // Criando Session Factories do NHibernate
+            SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
+            SessionProvider.RemoteSessionFactory = SessionProvider.BuildRemoteSessionFactory();
+
+            var session = SessionProvider.GetSession();
+            Sincronizacao.SincronizaLocalComRemoto(session);
+            SessionProvider.FechaSession(session);
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);

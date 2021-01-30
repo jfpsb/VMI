@@ -15,13 +15,19 @@ namespace VandaModaIntimaWpf.BancoDeDados.CouchDb
         [JsonProperty(PropertyName = "_deleted")]
         public bool Deleted { get; set; }
 
+        [JsonProperty("tipoEntidade")]
         public string TipoEntidade { get; set; }
 
         [JsonProperty("_revs_info")]
         public List<CouchDbRevStatus> RevsInfo { internal get; set; } = new List<CouchDbRevStatus>();
 
+        [JsonProperty("sincronizado")]
         public bool Sincronizado { get; set; }
+
+        [JsonProperty("ultimaAlteracao")]
         public DateTime UltimaAlteracao { get; set; }
+
+        [JsonProperty("operacao")]
         public string Operacao { get; set; }
     }
 }
