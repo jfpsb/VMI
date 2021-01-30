@@ -29,10 +29,10 @@ namespace VandaModaIntimaWpf.BancoDeDados
             GetAuthenticationCookie();
         }
 
-        public CouchDbResponse CreateDatabase(string database)
+        public async Task<CouchDbResponse> CreateDatabase(string database)
         {
             string url = string.Format("{0}/{1}", CouchDbAddress, database);
-            return RunPUTRequest(url);
+            return await RunPUTRequest(url);
         }
 
         public async Task<CouchDbResponse> CreateDocument(CouchDbLog log)
@@ -100,40 +100,32 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbResponse;
         }
-        private CouchDbResponse RunPUTRequest(string url)
+        private async Task<CouchDbResponse> RunPUTRequest(string url)
         {
-            CouchDbResponse couchDbResponse = new CouchDbResponse();
-            string tipoRequisicao = "PUT";
-            string requisicaoUrl = url;
+            GetAuthenticationCookie();
 
-            var httpRequest = WebRequest.CreateHttp(requisicaoUrl);
-            httpRequest.Method = tipoRequisicao;
-            httpRequest.ContentType = "application/json";
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+            HttpResponseMessage result = await httpClient.PutAsync(url, null);
 
-            using (var httpResponse = (HttpWebResponse)httpRequest.GetResponse())
+            CouchDbResponse couchDbResponse;
+
+            if (result.IsSuccessStatusCode)
             {
-                using (var stream = httpResponse.GetResponseStream())
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        var responseText = reader.ReadToEnd();
-                        if (httpResponse.StatusCode == HttpStatusCode.OK)
-                        {
-                            couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(responseText);
-                        }
-                        else
-                        {
-                            Console.WriteLine(responseText);
-                        }
-                    }
-                }
-
+                couchDbResponse = JsonConvert.DeserializeObject<CouchDbResponse>(result.Content.ReadAsStringAsync().Result);
+                Console.WriteLine(result.Content.ReadAsStringAsync().Result);
+            }
+            else
+            {
+                throw new Exception(string.Format("Erro Ao Requisitar PUT. Status Code: {0};\n\nMensagem: {1}", result.StatusCode.ToString(), result.Content.ReadAsStringAsync().Result));
             }
 
             return couchDbResponse;
         }
         public async Task<CouchDbLogFindResult> ListarDocumentosDataMaiorOuIgual(DateTime data, string tipoEntidade)
         {
+            if (!await ExisteBancoDeDados(tipoEntidade))
+                await CreateDatabase(tipoEntidade);
+
             GetAuthenticationCookie();
             CouchDbLogFindResult couchDbLogFindResult;
             CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
@@ -153,11 +145,13 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbLogFindResult;
         }
-
         public async Task<CouchDbLogFindResult> ListarDocumentosNaoSincronizados(string tipoEntidade)
         {
+            if (!await ExisteBancoDeDados(tipoEntidade))
+                await CreateDatabase(tipoEntidade);
+
             GetAuthenticationCookie();
-            CouchDbLogFindResult couchDbLogFindResult;
+            CouchDbLogFindResult couchDbLogFindResult = new CouchDbLogFindResult();
             CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
             string jsonData = $"{{\"selector\": {{\"sincronizado\": {{\"$eq\": false}}}}}}";
             var httpContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -175,7 +169,6 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return couchDbLogFindResult;
         }
-
         public async Task<CouchDbLog> FindById(string id, string database, bool revs_info = false)
         {
             CouchDbLog log = null;
@@ -202,9 +195,9 @@ namespace VandaModaIntimaWpf.BancoDeDados
 
             return log;
         }
-        public void GetAuthenticationCookie()
+        public async void GetAuthenticationCookie()
         {
-            if (AuthCookie == null)
+            if (!await ChecaSessaoValida())
             {
                 if (httpClient == null)
                 {
@@ -247,6 +240,25 @@ namespace VandaModaIntimaWpf.BancoDeDados
                     throw new HttpRequestException(string.Concat("Authentication failure: ", authResult.ReasonPhrase));
                 }
             }
+        }
+        public async Task<bool> ChecaSessaoValida()
+        {
+            if (AuthCookie != null)
+            {
+                CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+                HttpResponseMessage result = await httpClient.GetAsync($"/_session");
+                return result.IsSuccessStatusCode;
+            }
+
+            return false;
+        }
+        private async Task<bool> ExisteBancoDeDados(string nome)
+        {
+            GetAuthenticationCookie();
+            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+            HttpResponseMessage result = await httpClient.GetAsync($"/{nome}");
+
+            return result.IsSuccessStatusCode;
         }
         public static CouchDbClient Instancia
         {

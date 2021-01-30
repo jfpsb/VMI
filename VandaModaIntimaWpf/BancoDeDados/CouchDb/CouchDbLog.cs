@@ -24,6 +24,9 @@ namespace VandaModaIntimaWpf.BancoDeDados.CouchDb
         [JsonProperty("sincronizado")]
         public bool Sincronizado { get; set; }
 
+        [JsonProperty("replicado")]
+        public bool Replicado { get; set; }
+
         [JsonProperty("ultimaAlteracao")]
         public DateTime UltimaAlteracao { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
