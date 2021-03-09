@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposCriarDocumento += ResultadoSalvarDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
-            AposCriarDocumento += SincronizarLocalComRemoto;
+            //AposCriarDocumento += SincronizarLocalComRemoto;
 
             AposInserirNoBancoDeDados += MensagemAposInserirNoBancoDeDados;
             AposInserirNoBancoDeDados += SalvarDocumento;

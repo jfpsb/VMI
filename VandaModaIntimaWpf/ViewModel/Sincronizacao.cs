@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System;
+using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.BancoDeDados.CouchDb;
@@ -61,6 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"ERRO INSERT SYNC: {ex.Message}\n{ex.StackTrace}");
+                                MessageBox.Show($"ERRO INSERT SYNC: {ex.Message}\n{ex.StackTrace}");
                                 return;
                             }
                             break;
@@ -76,6 +78,7 @@ namespace VandaModaIntimaWpf.ViewModel
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"ERRO UPDATE SYNC: {ex.Message}\n{ex.StackTrace}");
+                                MessageBox.Show($"ERRO UPDATE SYNC: {ex.Message}\n{ex.StackTrace}");
                                 return;
                             }
                             break;
@@ -91,6 +94,7 @@ namespace VandaModaIntimaWpf.ViewModel
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"ERRO DELETE SYNC: {ex.Message}\n{ex.StackTrace}");
+                                MessageBox.Show($"ERRO DELETE SYNC: {ex.Message}\n{ex.StackTrace}");
                                 return;
                             }
                             break;

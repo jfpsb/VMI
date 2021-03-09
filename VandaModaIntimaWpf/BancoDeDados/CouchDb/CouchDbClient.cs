@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.CouchDb;
 
 namespace VandaModaIntimaWpf.BancoDeDados
@@ -243,20 +244,35 @@ namespace VandaModaIntimaWpf.BancoDeDados
         }
         public async Task<bool> ChecaSessaoValida()
         {
-            if (AuthCookie != null)
+            try
             {
-                CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
-                HttpResponseMessage result = await httpClient.GetAsync($"/_session");
-                return result.IsSuccessStatusCode;
+                if (AuthCookie != null)
+                {
+                    CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+                    HttpResponseMessage result = await httpClient.GetAsync($"/_session");
+                    return result.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ChecaSessaoValida:" + ex.Message);
             }
 
             return false;
         }
         private async Task<bool> ExisteBancoDeDados(string nome)
         {
-            GetAuthenticationCookie();
-            CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
-            HttpResponseMessage result = await httpClient.GetAsync($"/{nome}");
+            HttpResponseMessage result = new HttpResponseMessage() { StatusCode = HttpStatusCode.NotFound };
+            try
+            {
+                GetAuthenticationCookie();
+                CookieContainer.Add(new Uri(CouchDbAddress), new Cookie(AuthCouchDbCookieKeyName, AuthCookie));
+                result = await httpClient.GetAsync($"/{nome}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ExisteBancoDeDados: " + ex.Message);
+            }
 
             return result.IsSuccessStatusCode;
         }

@@ -37,11 +37,11 @@ namespace VandaModaIntimaWpf.ViewModel
             //TODO: Mover para tela de inicialização da aplicação que ainda será implementada
             // Criando Session Factories do NHibernate
             SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
-            SessionProvider.RemoteSessionFactory = SessionProvider.BuildRemoteSessionFactory();
+            //SessionProvider.RemoteSessionFactory = SessionProvider.BuildRemoteSessionFactory();
 
-            var session = SessionProvider.GetSession();
-            Sincronizacao.SincronizaLocalComRemoto(session);
-            SessionProvider.FechaSession(session);
+            //var session = SessionProvider.GetSession();
+            //Sincronizacao.SincronizaLocalComRemoto(session);
+            //SessionProvider.FechaSession(session);
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);

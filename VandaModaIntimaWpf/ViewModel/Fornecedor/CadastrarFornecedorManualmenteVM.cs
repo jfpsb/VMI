@@ -60,7 +60,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 valido = false;
             }
 
-            if (Entidade.Cnpj.Length != 14)
+            if (Entidade.Cnpj?.Length != 14)
             {
                 BtnSalvarToolTip += "O Campo de CNPJ Deve Possuir 14 Dígitos!";
                 valido = false;
