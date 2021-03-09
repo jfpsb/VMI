@@ -165,16 +165,15 @@
                                                 Binding="{Binding Vencimento, StringFormat='dd/MM/yyyy'}"
                                                 Width="Auto" />
 
+                            <DataGridTextColumn Header="Salário Líquido"
+                                                IsReadOnly="True"
+                                                Binding="{Binding SalarioLiquido, StringFormat='C', ConverterCulture=pt-BR}"
+                                                Width="Auto" />
+
                             <DataGridTextColumn Header="{DynamicResource valor_a_pagar_header}"
                                                 IsReadOnly="True"
                                                 Binding="{Binding ValorATransferir, StringFormat='C', ConverterCulture=pt-BR}"
                                                 Width="Auto" />
-
-                            <DataGridTextColumn Header="Base de Cálculo"
-                                                IsReadOnly="True"
-                                                Binding="{Binding BaseCalculo, StringFormat='C', ConverterCulture=pt-BR}"
-                                                Width="Auto" />
-
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>

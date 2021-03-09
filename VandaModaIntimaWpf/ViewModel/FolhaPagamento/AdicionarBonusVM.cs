@@ -15,12 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private FolhaModel _folha;
         private string _valor;
         private DateTime _inicioPagamento;
-        private string[] _cmbDescricaoHoraExtra;
-        private int _descricaoHoraExtra;
-        private int _quantHoras;
-        private int _quantMinutos;
         private DateTime dataEscolhida;
-        private double valorHora;
         private DAOBonusMensal daoBonusMensal;
 
         public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
@@ -29,7 +24,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoBonusMensal = new DAOBonusMensal(session);
             viewModelStrategy = new CadastrarBonusVMStrategy();
             Folha = folha;
-            CmbDescricaoHoraExtra = Application.Current.Resources["CmbDescricaoHoraExtra"] as string[];
             this.dataEscolhida = dataEscolhida;
 
             AntesDeInserirNoBancoDeDados += ConfiguraBonus;
@@ -41,7 +35,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             PropertyChanged += AdicionarBonusVM_PropertyChanged;
 
-            valorHora = Folha.Funcionario.Salario / 220;
             InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
 
             AposInserirNoBancoDeDados += SalvarBonusMensal;
@@ -72,68 +65,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     Entidade.MesReferencia = InicioPagamento.Month;
                     Entidade.AnoReferencia = InicioPagamento.Year;
                     break;
-
-                case "DescricaoHoraExtra":
-                    CalculaValor(CalculaHorasTotal());
-                    break;
-
-                case "QuantHoras":
-                    CalculaValor(CalculaHorasTotal());
-                    break;
-
-                case "QuantMinutos":
-                    CalculaValor(CalculaHorasTotal());
-                    break;
-            }
-        }
-
-        private double CalculaHorasTotal()
-        {
-            if (QuantHoras < 0)
-            {
-                QuantHoras = 0;
-            }
-            else if (QuantHoras > 99)
-            {
-                QuantHoras = 99;
-            }
-
-            if (QuantMinutos > 59)
-            {
-                QuantMinutos = 59;
-            }
-            else if (QuantMinutos < 0)
-            {
-                QuantMinutos = 0;
-            }
-
-            return Convert.ToDouble(QuantHoras) + (Convert.ToDouble(QuantMinutos) / 60.0);
-        }
-
-        /// <summary>
-        /// Calcula o valor da hora extra e configura a descrição do bônus
-        /// </summary>
-        /// <param name="quantHorasTotal"></param>
-        private void CalculaValor(double quantHorasTotal)
-        {
-            //Hora Extra C 100%
-            if (DescricaoHoraExtra == 0)
-            {
-                Entidade.Descricao = CmbDescricaoHoraExtra[0];
-                Valor = (quantHorasTotal * valorHora * 2).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-            }
-            //Hora Extra C 55%
-            else
-            {
-                Entidade.Descricao = CmbDescricaoHoraExtra[1];
-                Valor = Math.Round(quantHorasTotal * valorHora * 1.55, 2, MidpointRounding.AwayFromZero).ToString();
             }
         }
 
         private void ConfiguraBonus()
         {
             Entidade.Data = DateTime.Now;
-            Entidade.BaseCalculo = Folha.Funcionario.Salario;
         }
 
         public override void ResetaPropriedades()
@@ -142,9 +79,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 Funcionario = Folha.Funcionario
             };
-
-            QuantHoras = 0;
-            QuantMinutos = 0;
 
             Entidade.Descricao = string.Empty;
             Entidade.Valor = 0.0;
@@ -195,44 +129,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _folha = value;
                 OnPropertyChanged("Folha");
-            }
-        }
-
-        public string[] CmbDescricaoHoraExtra
-        {
-            get => _cmbDescricaoHoraExtra;
-            set
-            {
-                _cmbDescricaoHoraExtra = value;
-                OnPropertyChanged("CmbDescricaoHoraExtra");
-            }
-        }
-        public int DescricaoHoraExtra
-        {
-            get => _descricaoHoraExtra;
-            set
-            {
-                _descricaoHoraExtra = value;
-                OnPropertyChanged("DescricaoHoraExtra");
-            }
-        }
-
-        public int QuantHoras
-        {
-            get => _quantHoras;
-            set
-            {
-                _quantHoras = value;
-                OnPropertyChanged("QuantHoras");
-            }
-        }
-        public int QuantMinutos
-        {
-            get => _quantMinutos;
-            set
-            {
-                _quantMinutos = value;
-                OnPropertyChanged("QuantMinutos");
             }
         }
     }

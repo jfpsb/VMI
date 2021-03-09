@@ -11,13 +11,9 @@ namespace VandaModaIntimaWpf.Model
         private Loja _loja;
         private string _nome;
         private string _endereco;
-        private double _salario;
         private string _telefone;
         private string _chavePIX;
-        private bool _salarioFamilia;
         private bool _recebePassagem;
-        private int _numDependentes;
-        private bool _descontoINSS;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         public enum Colunas
@@ -73,15 +69,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Endereco");
             }
         }
-        public double Salario
-        {
-            get => _salario;
-            set
-            {
-                _salario = value;
-                OnPropertyChanged("Salario");
-            }
-        }
         public string Telefone
         {
             get => _telefone;
@@ -130,26 +117,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Bonus");
             }
         }
-
-        public bool SalarioFamilia
-        {
-            get => _salarioFamilia;
-            set
-            {
-                _salarioFamilia = value;
-                OnPropertyChanged("SalarioFamilia");
-            }
-        }
-        public int NumDependentes
-        {
-            get => _numDependentes;
-            set
-            {
-                _numDependentes = value;
-                OnPropertyChanged("NumDependentes");
-            }
-        }
-
         public bool RecebePassagem
         {
             get => _recebePassagem;
@@ -159,17 +126,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("RecebePassagem");
             }
         }
-
-        public bool DescontoINSS
-        {
-            get => _descontoINSS;
-            set
-            {
-                _descontoINSS = value;
-                OnPropertyChanged("DescontoINSS");
-            }
-        }
-
         public object GetIdentifier()
         {
             return _cpf;

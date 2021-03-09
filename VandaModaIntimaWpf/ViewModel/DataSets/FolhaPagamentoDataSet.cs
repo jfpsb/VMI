@@ -4,11 +4,11 @@
 
     partial class FolhaPagamentoDataSet
     {
-        partial class FuncionarioDataTable
+        partial class FolhaPagamentoDataTable
         {
         }
 
-        partial class FolhaPagamentoDataTable
+        partial class FuncionarioDataTable
         {
         }
     }

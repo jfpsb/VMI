@@ -13,7 +13,6 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private int _mesReferencia;
         private int _anoReferencia;
-        private double _base_calculo;
         private bool _bonusMensal;
         private bool _bonusCancelado;
 
@@ -103,49 +102,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("AnoReferencia");
             }
         }
-
-        public double BaseCalculo
-        {
-            get => _base_calculo;
-            set
-            {
-                _base_calculo = value;
-                OnPropertyChanged("BaseCalculo");
-            }
-        }
-
-        [JsonIgnore]
-        public double HoraExtra100
-        {
-            get
-            {
-                if (Descricao.Equals("HORA EXTRA C/100%"))
-                {
-                    var valorHora = BaseCalculo / 220;
-                    var qntHoras = Valor / (valorHora * 2);
-                    return qntHoras;
-                }
-
-                return 0.0;
-            }
-        }
-
-        [JsonIgnore]
-        public double HoraExtra55
-        {
-            get
-            {
-                if (Descricao.Equals("HORA EXTRA C/055%"))
-                {
-                    var valorHora = BaseCalculo / 220;
-                    var qntHoras = Valor / (valorHora * 1.55);
-                    return qntHoras;
-                }
-
-                return 0.0;
-            }
-        }
-
         public bool BonusCancelado
         {
             get => _bonusCancelado;

@@ -420,6 +420,7 @@
     <Compile Include="Model\DAO\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\DAOFuncionario.cs" />
     <Compile Include="Model\DAO\DAOGrade.cs" />
+    <Compile Include="Model\DAO\DAOHoraExtra.cs" />
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAO.cs" />
@@ -438,6 +439,7 @@
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Funcionario.cs" />
     <Compile Include="Model\Grade.cs" />
+    <Compile Include="Model\HoraExtra.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
@@ -453,6 +455,7 @@
     <Compile Include="Model\TabelasINSS.cs" />
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Model\TipoGrade.cs" />
+    <Compile Include="Model\TipoHoraExtra.cs" />
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
@@ -517,6 +520,7 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />

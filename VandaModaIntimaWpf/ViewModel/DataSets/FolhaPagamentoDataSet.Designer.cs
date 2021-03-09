@@ -291,9 +291,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnvalor_a_transferir;
             
-            private global::System.Data.DataColumn columndesconto_inss;
-            
-            private global::System.Data.DataColumn columnsalario_base;
+            private global::System.Data.DataColumn columnsalario_liquido;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -378,17 +376,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn desconto_inssColumn {
+            public global::System.Data.DataColumn salario_liquidoColumn {
                 get {
-                    return this.columndesconto_inss;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn salario_baseColumn {
-                get {
-                    return this.columnsalario_base;
+                    return this.columnsalario_liquido;
                 }
             }
             
@@ -429,7 +419,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string desconto_inss, string salario_base) {
+            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string salario_liquido) {
                 FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mes,
@@ -438,8 +428,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         mesreferencia,
                         vencimento,
                         valor_a_transferir,
-                        desconto_inss,
-                        salario_base};
+                        salario_liquido};
                 rowFolhaPagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFolhaPagamentoRow);
                 return rowFolhaPagamentoRow;
@@ -476,8 +465,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnmesreferencia = base.Columns["mesreferencia"];
                 this.columnvencimento = base.Columns["vencimento"];
                 this.columnvalor_a_transferir = base.Columns["valor_a_transferir"];
-                this.columndesconto_inss = base.Columns["desconto_inss"];
-                this.columnsalario_base = base.Columns["salario_base"];
+                this.columnsalario_liquido = base.Columns["salario_liquido"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -495,10 +483,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnvencimento);
                 this.columnvalor_a_transferir = new global::System.Data.DataColumn("valor_a_transferir", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalor_a_transferir);
-                this.columndesconto_inss = new global::System.Data.DataColumn("desconto_inss", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndesconto_inss);
-                this.columnsalario_base = new global::System.Data.DataColumn("salario_base", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnsalario_base);
+                this.columnsalario_liquido = new global::System.Data.DataColumn("salario_liquido", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsalario_liquido);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnmes}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
@@ -735,33 +721,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string desconto_inss {
+            public string salario_liquido {
                 get {
                     try {
-                        return ((string)(this[this.tableFolhaPagamento.desconto_inssColumn]));
+                        return ((string)(this[this.tableFolhaPagamento.salario_liquidoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'desconto_inss\' in table \'FolhaPagamento\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'salario_liquido\' in table \'FolhaPagamento\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableFolhaPagamento.desconto_inssColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string salario_base {
-                get {
-                    try {
-                        return ((string)(this[this.tableFolhaPagamento.salario_baseColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'salario_base\' in table \'FolhaPagamento\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableFolhaPagamento.salario_baseColumn] = value;
+                    this[this.tableFolhaPagamento.salario_liquidoColumn] = value;
                 }
             }
             
@@ -815,26 +785,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isdesconto_inssNull() {
-                return this.IsNull(this.tableFolhaPagamento.desconto_inssColumn);
+            public bool Issalario_liquidoNull() {
+                return this.IsNull(this.tableFolhaPagamento.salario_liquidoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setdesconto_inssNull() {
-                this[this.tableFolhaPagamento.desconto_inssColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Issalario_baseNull() {
-                return this.IsNull(this.tableFolhaPagamento.salario_baseColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setsalario_baseNull() {
-                this[this.tableFolhaPagamento.salario_baseColumn] = global::System.Convert.DBNull;
+            public void Setsalario_liquidoNull() {
+                this[this.tableFolhaPagamento.salario_liquidoColumn] = global::System.Convert.DBNull;
             }
         }
         

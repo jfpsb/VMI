@@ -329,8 +329,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     {
                         Mes = DataEscolhida.Month,
                         Ano = DataEscolhida.Year,
-                        Funcionario = funcionario,
-                        BaseCalculo = funcionario.Salario
+                        Funcionario = funcionario
                     };
                 }
 
@@ -359,26 +358,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             Valor = bonusMensal.Valor,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano,
-                            BaseCalculo = funcionario.Salario,
                             BonusMensal = true
                         };
 
                         folha.Bonus.Add(bonus);
-                    }
-
-                    if (folha.Funcionario.SalarioFamilia)
-                    {
-                        Model.Bonus salarioFamiliaBonus = new Model.Bonus()
-                        {
-                            Funcionario = funcionario,
-                            Data = DateTime.Parse(folha.MesReferencia),
-                            Descricao = "SALÁRIO FAMÍLIA",
-                            Valor = folha.TabelaINSS.SalarioFamilia * folha.Funcionario.NumDependentes,
-                            MesReferencia = folha.Mes,
-                            AnoReferencia = folha.Ano
-                        };
-
-                        folha.Bonus.Add(salarioFamiliaBonus);
                     }
                 }
 

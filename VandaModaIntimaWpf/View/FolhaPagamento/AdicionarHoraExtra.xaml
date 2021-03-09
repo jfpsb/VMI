@@ -7,7 +7,7 @@
         xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Adicionar Hora Extra"
-        Height="390"
+        Height="275"
         Width="425"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -64,13 +64,6 @@
                      IsReadOnly="True"
                      Grid.ColumnSpan="3"
                      Text="{Binding Entidade.Funcionario.Nome}" />
-            <Label Grid.Row="2"
-                   Content="Salário Base (R$):" />
-            <TextBox Grid.Row="2"
-                     Grid.Column="1"
-                     IsEnabled="False"
-                     Grid.ColumnSpan="3"
-                     Text="{Binding Entidade.Funcionario.Salario}" />
             <Label Grid.Row="3"
                    Content="Descrição:" />
             <ComboBox x:Name="CmbDescricao"
@@ -100,19 +93,6 @@
                      HorizontalContentAlignment="Center"
                      VerticalContentAlignment="Center"
                      Text="{Binding QuantMinutos, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="5"
-                   Content="Valor:" />
-            <TextBox Grid.Row="5"
-                     Grid.Column="1"
-                     Grid.ColumnSpan="3"
-                     Text="{Binding Valor, ConverterCulture=pt-BR}"
-                     IsEnabled="False" />
-            <Label Grid.Row="6"
-                   Content="Início de Pagamento:" />
-            <View:DataUpDown Grid.Column="1"
-                             Grid.Row="6"
-                             Grid.ColumnSpan="3"
-                             Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Button Grid.ColumnSpan="4"
                     Grid.Row="7"
                     Style="{StaticResource BotaoCadastrar}"

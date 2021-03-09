@@ -106,22 +106,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     OnPropertyChanged("NumParcelas");
                     break;
                 case "Valor":
-                    Entidade.Valor = Valor;
+                    //TODO: fazer campo de valor máximo de parcela
+                    //Entidade.Valor = Valor;
 
-                    if (Valor < Entidade.Funcionario.Salario)
-                    {
-                        _minParcelas = 1;
-                    }
-                    else
-                    {
-                        _minParcelas = 2;
-                        while ((Valor / _minParcelas) > Entidade.Funcionario.Salario)
-                        {
-                            _minParcelas++;
-                        }
-                    }
+                    //if (Valor < Entidade.Funcionario.Salario)
+                    //{
+                    //    _minParcelas = 1;
+                    //}
+                    //else
+                    //{
+                    //    _minParcelas = 2;
+                    //    while ((Valor / _minParcelas) > Entidade.Funcionario.Salario)
+                    //    {
+                    //        _minParcelas++;
+                    //    }
+                    //}
 
-                    NumParcelas = _minParcelas;
+                    //NumParcelas = _minParcelas;
 
                     break;
             }

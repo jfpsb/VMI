@@ -38,9 +38,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 Range pCelula = Worksheet.Cells[linhaAtual, pColuna]; //Primeira célula desta folha
 
-                Worksheet.Cells[linhaAtual, pColuna] = "Salário";
-                Worksheet.Cells[linhaAtual, sColuna] = folha.Funcionario.Salario;
-
                 Worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
                 Worksheet.Cells[linhaAtual, sColuna].Font.Bold = true;
 

@@ -22,7 +22,6 @@ namespace VandaModaIntimaWpf.BancoDeDados.Model
             Loja = f.Loja;
             Nome = f.Nome;
             Endereco = f.Endereco;
-            Salario = f.Salario;
             Telefone = f.Telefone;
         }
         public override object Clone()

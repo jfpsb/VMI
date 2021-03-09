@@ -38,13 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Entidade"))
-            {
-                if (Entidade.Salario != 0.0)
-                {
-                    Salario = Entidade.Salario.ToString();
-                }
-            }
+
         }
 
         private void ConfiguraFuncionarioAntesDeInserir()
@@ -72,11 +66,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                     }
 
                     break;
-
-                case "SalarioFamilia":
-                    if (!Entidade.SalarioFamilia)
-                        Entidade.NumDependentes = 0;
-                    break;
             }
         }
         private async void GetLojas()
@@ -100,21 +89,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 BtnSalvarToolTip += "CPF Ou Nome Não Podem Ser Vazios!\n";
                 valido = false;
             }
-
-            if (Entidade.SalarioFamilia && Entidade.NumDependentes <= 0)
-            {
-                BtnSalvarToolTip += "Informe Um Número Válido de Dependentes!\n";
-                valido = false;
-            }
-
-            double salario = 0.0;
-            if (Salario.Trim().Length == 0 || !double.TryParse(Salario, out salario) || salario <= 0.0)
-            {
-                BtnSalvarToolTip += "Informe Um Valor Válido de Salário!\n";
-                valido = false;
-            }
-
-            Entidade.Salario = salario;
 
             return valido;
         }
