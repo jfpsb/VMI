@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public class DAOHoraExtra : DAO
+    public class DAOTipoHoraExtra : DAO
     {
-        public DAOHoraExtra(ISession session) : base(session)
+        public DAOTipoHoraExtra(ISession session) : base(session)
         {
         }
 
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async override Task<object> ListarPorId(object id)
         {
-            return await session.LoadAsync<HoraExtra>(id);
+            return await session.LoadAsync<TipoHoraExtra>(id);
         }
     }
 }

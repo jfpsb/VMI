@@ -12,7 +12,7 @@
   <xs:element name="ParcelaDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ParcelaDataSet" msprop:Generator_UserDSName="ParcelaDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Parcela" msprop:Generator_TableClassName="ParcelaDataTable" msprop:Generator_TableVarName="tableParcela" msprop:Generator_RowChangedName="ParcelaRowChanged" msprop:Generator_TablePropName="Parcela" msprop:Generator_RowDeletingName="ParcelaRowDeleting" msprop:Generator_RowChangingName="ParcelaRowChanging" msprop:Generator_RowEvHandlerName="ParcelaRowChangeEventHandler" msprop:Generator_RowDeletedName="ParcelaRowDeleted" msprop:Generator_RowClassName="ParcelaRow" msprop:Generator_UserTableName="Parcela" msprop:Generator_RowEvArgName="ParcelaRowChangeEvent">
+        <xs:element name="Parcela" msprop:Generator_TableClassName="ParcelaDataTable" msprop:Generator_TableVarName="tableParcela" msprop:Generator_TablePropName="Parcela" msprop:Generator_RowDeletingName="ParcelaRowDeleting" msprop:Generator_RowChangingName="ParcelaRowChanging" msprop:Generator_RowEvHandlerName="ParcelaRowChangeEventHandler" msprop:Generator_RowDeletedName="ParcelaRowDeleted" msprop:Generator_UserTableName="Parcela" msprop:Generator_RowChangedName="ParcelaRowChanged" msprop:Generator_RowEvArgName="ParcelaRowChangeEvent" msprop:Generator_RowClassName="ParcelaRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
@@ -22,6 +22,7 @@
               <xs:element name="data_adiantamento" msprop:Generator_ColumnVarNameInTable="columndata_adiantamento" msprop:Generator_ColumnPropNameInRow="data_adiantamento" msprop:Generator_ColumnPropNameInTable="data_adiantamentoColumn" msprop:Generator_UserColumnName="data_adiantamento" type="xs:string" minOccurs="0" />
               <xs:element name="numero_com_total" msprop:Generator_ColumnVarNameInTable="columnnumero_com_total" msprop:Generator_ColumnPropNameInRow="numero_com_total" msprop:Generator_ColumnPropNameInTable="numero_com_totalColumn" msprop:Generator_UserColumnName="numero_com_total" type="xs:string" minOccurs="0" />
               <xs:element name="total_adiantamentos" msprop:Generator_ColumnVarNameInTable="columntotal_adiantamentos" msprop:Generator_ColumnPropNameInRow="total_adiantamentos" msprop:Generator_ColumnPropNameInTable="total_adiantamentosColumn" msprop:Generator_UserColumnName="total_adiantamentos" type="xs:string" minOccurs="0" />
+              <xs:element name="descricao" msprop:Generator_ColumnVarNameInTable="columndescricao" msprop:Generator_ColumnPropNameInRow="descricao" msprop:Generator_ColumnPropNameInTable="descricaoColumn" msprop:Generator_UserColumnName="descricao" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

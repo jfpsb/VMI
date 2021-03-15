@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             MatrizComboBoxIndex = 0;
         }
 
-        protected override Task<AposInserirBDEventArgs> ExecutarSalvar()
+        protected override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
         {
             //TODO: Arrumar inserção de recebimentos
             return null;

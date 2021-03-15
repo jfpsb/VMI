@@ -143,7 +143,6 @@
                                                                         Width="Auto" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
-                                            <Label Content="{Binding DescontoINSS}" />
                                         </StackPanel>
                                     </Setter.Value>
                                 </Setter>
@@ -177,6 +176,9 @@
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
+                                <MenuItem Header="Adicionar Salário Líquido"
+                                          Command="{Binding AbrirAdicionarSalarioLiquidoComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <MenuItem Header="Adicionar Adiantamento"
                                           Command="{Binding AbrirAdicionarAdiantamentoComando}"
                                           IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />

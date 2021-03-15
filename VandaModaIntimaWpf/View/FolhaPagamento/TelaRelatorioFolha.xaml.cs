@@ -58,6 +58,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 prow.data_adiantamento = parcela.Adiantamento.DataString;
                 prow.numero_com_total = parcela.NumeroComTotal;
                 prow.total_adiantamentos = FolhaPagamento.TotalAdiantamentos.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                prow.descricao = parcela.Adiantamento.Descricao;
 
                 parcelaDataSet.Parcela.AddParcelaRow(prow);
             }

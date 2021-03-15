@@ -91,7 +91,7 @@ namespace VandaModaIntimaWpf.Model
             get => _descricao;
             set
             {
-                _descricao = value;
+                _descricao = value?.ToUpper();
                 OnPropertyChanged("Descricao");
             }
         }

@@ -83,12 +83,12 @@ namespace VandaModaIntimaWpf.Model
 
         public string CouchDbId()
         {
-            throw new NotImplementedException();
+            return Id.ToString();
         }
 
         public object GetIdentifier()
         {
-            throw new NotImplementedException();
+            return Id;
         }
 
         public void InicializaLazyLoad()

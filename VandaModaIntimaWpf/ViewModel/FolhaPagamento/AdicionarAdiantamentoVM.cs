@@ -18,6 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<ParcelaModel> _parcelas;
         private int _minParcelas;
         private DateTime _dataEscolhida;
+        private double _valorMaximoParcela;
 
         public AdicionarAdiantamentoVM(ISession session, DateTime dataEscolhida, Model.Funcionario funcionario, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -36,6 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             };
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
+            ValorMaximoParcela = 300;
         }
         public DateTime InicioPagamento
         {
@@ -74,6 +76,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
+        public double ValorMaximoParcela
+        {
+            get => _valorMaximoParcela;
+            set
+            {
+                _valorMaximoParcela = value;
+                OnPropertyChanged("ValorMaximoParcela");
+            }
+        }
+
         public void AdicionarAdiantamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -106,31 +118,37 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     OnPropertyChanged("NumParcelas");
                     break;
                 case "Valor":
-                    //TODO: fazer campo de valor máximo de parcela
-                    //Entidade.Valor = Valor;
-
-                    //if (Valor < Entidade.Funcionario.Salario)
-                    //{
-                    //    _minParcelas = 1;
-                    //}
-                    //else
-                    //{
-                    //    _minParcelas = 2;
-                    //    while ((Valor / _minParcelas) > Entidade.Funcionario.Salario)
-                    //    {
-                    //        _minParcelas++;
-                    //    }
-                    //}
-
-                    //NumParcelas = _minParcelas;
-
+                    CalculaNumParcelas();
+                    break;
+                case "ValorMaximoParcela":
+                    CalculaNumParcelas();
                     break;
             }
         }
 
+        private void CalculaNumParcelas()
+        {
+            Entidade.Valor = Valor;
+
+            if (Valor < ValorMaximoParcela)
+            {
+                _minParcelas = 1;
+            }
+            else
+            {
+                _minParcelas = 2;
+                while ((Valor / _minParcelas) > ValorMaximoParcela)
+                {
+                    _minParcelas++;
+                }
+            }
+
+            NumParcelas = _minParcelas;
+        }
+
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         public override void ResetaPropriedades()

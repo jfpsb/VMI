@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string imagemStatusBar;
         private string _botaoSalvarToolTip;
         private string _btnSalvarToolTip;
-        private IMessageBoxService MessageBoxService;
+        protected IMessageBoxService MessageBoxService;
 
         public delegate void AntesDeCriarDocumentoEventHandler();
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
@@ -136,7 +136,7 @@ namespace VandaModaIntimaWpf.ViewModel
             try
             {
                 AntesDeInserirNoBancoDeDados?.Invoke();
-                var e = await ExecutarSalvar();
+                var e = await ExecutarSalvar(parameter);
                 AposInserirNoBancoDeDados?.Invoke(e);
             }
             catch (Exception e)
@@ -148,7 +148,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Executa a operação de salvar entidade
         /// </summary>
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
-        protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar()
+        protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
         {
             _result = await daoEntidade.InserirOuAtualizar(Entidade);
 
@@ -158,7 +158,8 @@ namespace VandaModaIntimaWpf.ViewModel
                 IdentificadorEntidade = Entidade.GetIdentifier(),
                 MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
                 MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
-                Sucesso = _result
+                Sucesso = _result,
+                Parametro = parametro
             };
 
             return e;

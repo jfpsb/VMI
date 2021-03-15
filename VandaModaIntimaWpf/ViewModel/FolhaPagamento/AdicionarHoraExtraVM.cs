@@ -1,5 +1,5 @@
 ﻿using NHibernate;
-using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -10,21 +10,26 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class AdicionarHoraExtraVM : ACadastrarViewModel<Model.HoraExtra>
     {
         private Model.FolhaPagamento _folha;
-        private Model.TipoHoraExtra tipoHoraExtra;
-        private int _horas;
-        private int _minutos;
+        private DAOTipoHoraExtra daoTipoHoraExtra;
+
+        public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
+        public int CmbDescricaoIndex { get; set; }
 
         public AdicionarHoraExtraVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             daoEntidade = new DAOHoraExtra(session);
-            _folha = folha;
+            daoTipoHoraExtra = new DAOTipoHoraExtra(session);
+            Folha = folha;
+
+            GetTiposHoraExtra();
+            CmbDescricaoIndex = 0;
 
             Entidade = new Model.HoraExtra()
             {
-                Ano = _folha.Ano,
-                Mes = _folha.Mes,
-                Funcionario = _folha.Funcionario,
-                TipoHoraExtra = TipoHoraExtra
+                Ano = Folha.Ano,
+                Mes = Folha.Mes,
+                Funcionario = Folha.Funcionario,
+                TipoHoraExtra = TiposHoraExtra[0]
             };
         }
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -36,50 +41,67 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             Entidade = new Model.HoraExtra()
             {
-                Ano = _folha.Ano,
-                Mes = _folha.Mes,
-                Funcionario = _folha.Funcionario,
-                TipoHoraExtra = TipoHoraExtra,
+                Ano = Folha.Ano,
+                Mes = Folha.Mes,
+                Funcionario = Folha.Funcionario,
+                TipoHoraExtra = TiposHoraExtra[0],
                 Horas = 0,
                 Minutos = 0
             };
+
+            CmbDescricaoIndex = 0;
         }
 
         public override bool ValidacaoSalvar(object parameter)
         {
+            BtnSalvarToolTip = "";
+            bool valido = true;
+
             if (Entidade.Horas == 0 && Entidade.Minutos == 0)
             {
-                return false;
+                BtnSalvarToolTip += "Horas e Minutos Não Podem Ser Iguais a Zero!\n";
+                valido = false;
             }
 
-            return true;
+            if (Entidade.Horas < 0)
+            {
+                BtnSalvarToolTip += "Valor de Horas Não Pode Ser Menor Que Zero!\n";
+                valido = false;
+            }
+
+            if (Entidade.Horas > 99)
+            {
+                BtnSalvarToolTip += "Valor de Horas É Alto Demais!\n";
+                valido = false;
+            }
+
+            if (Entidade.Minutos >= 60)
+            {
+                BtnSalvarToolTip += "Valor de Minutos Não Pode Ser Maior Ou Igual a 60!\n";
+                valido = false;
+            }
+
+            if (Entidade.Minutos < 0)
+            {
+                BtnSalvarToolTip += "Valor de Minutos Não Pode Ser Menor Que Zero!\n";
+                valido = false;
+            }
+
+            return valido;
         }
 
-        public TipoHoraExtra TipoHoraExtra
+        private async void GetTiposHoraExtra()
         {
-            get => tipoHoraExtra;
-            set
-            {
-                tipoHoraExtra = value;
-                OnPropertyChanged("TipoHoraExtra");
-            }
+            TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar<Model.TipoHoraExtra>());
         }
-        public int Horas
+
+        public Model.FolhaPagamento Folha
         {
-            get => _horas;
+            get => _folha;
             set
             {
-                _horas = value;
-                OnPropertyChanged("Horas");
-            }
-        }
-        public int Minutos
-        {
-            get => _minutos;
-            set
-            {
-                _minutos = value;
-                OnPropertyChanged("Minutos");
+                _folha = value;
+                OnPropertyChanged("Folha");
             }
         }
     }

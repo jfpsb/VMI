@@ -7,99 +7,78 @@
         xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Adicionar Hora Extra"
-        Height="275"
+        Height="250"
         Width="425"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,5,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="Folha de Pagamento:" />
-            <TextBox Grid.Column="1"
-                     IsReadOnly="True"
-                     IsEnabled="False"
-                     Grid.ColumnSpan="3"
-                     Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
-            <Label Grid.Row="1"
-                   Content="Funcionário:" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="1"
-                     IsEnabled="False"
-                     IsReadOnly="True"
-                     Grid.ColumnSpan="3"
-                     Text="{Binding Entidade.Funcionario.Nome}" />
-            <Label Grid.Row="3"
-                   Content="Descrição:" />
-            <ComboBox x:Name="CmbDescricao"
-                      Grid.Row="3"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="3"
-                      ItemsSource="{DynamicResource CmbDescricaoHoraExtra}"
-                      SelectedIndex="{Binding DescricaoHoraExtra}" />
-            <Label Grid.Row="4"
-                   Content="Quant. De Horas:" />
-            <TextBox Grid.Row="4"
-                     Grid.Column="1"
-                     MaxLength="2"
-                     HorizontalContentAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Text="{Binding QuantHoras, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Content=":"
-                   Grid.Row="4"
-                   FontWeight="Bold"
-                   FontSize="24"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Grid.Column="2" />
-            <TextBox Grid.Row="4"
-                     Grid.Column="3"
-                     MaxLength="2"
-                     HorizontalContentAlignment="Center"
-                     VerticalContentAlignment="Center"
-                     Text="{Binding QuantMinutos, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.ColumnSpan="4"
-                    Grid.Row="7"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Content="Salvar"
-                    ToolTipService.ShowOnDisabled="True"
-                    ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,5,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Folha de Pagamento:" />
+        <TextBox Grid.Column="1"
+                 IsReadOnly="True"
+                 IsEnabled="False"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
+        <Label Grid.Row="1"
+               Content="Funcionário:" />
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 IsEnabled="False"
+                 IsReadOnly="True"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding Folha.Funcionario.Nome}" />
+        <Label Grid.Row="3"
+               Content="Descrição:" />
+        <ComboBox x:Name="CmbDescricao"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="3"
+                  DisplayMemberPath="Descricao"
+                  ItemsSource="{Binding Path=TiposHoraExtra}"
+                  SelectedItem="{Binding Path=Entidade.TipoHoraExtra, Mode=TwoWay}"
+                  SelectedIndex="{Binding CmbDescricaoIndex}" />
+        <Label Grid.Row="4"
+               Content="Quant. De Horas:" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 MaxLength="2"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding Entidade.Horas, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content=":"
+               Grid.Row="4"
+               FontWeight="Bold"
+               FontSize="24"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Grid.Column="2" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="3"
+                 MaxLength="2"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding Entidade.Minutos, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.ColumnSpan="4"
+                Grid.Row="7"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Content="Salvar"
+                ToolTipService.ShowOnDisabled="True"
+                ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
+    </Grid>
 </Window>

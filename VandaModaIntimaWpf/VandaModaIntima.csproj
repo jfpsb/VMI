@@ -236,6 +236,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +436,7 @@
     <Compile Include="Model\DAO\DAOSubGrade.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
+    <Compile Include="Model\DAO\DAOTipoHoraExtra.cs" />
     <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Duplicata.cs" />
     <Compile Include="Model\Estoque.cs" />
@@ -521,6 +526,8 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />
@@ -628,6 +635,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
       <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml.cs">
+      <DependentUpon>AdicionarSalarioLiquido.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml.cs">
       <DependentUpon>CalculoPassagemOnibus.xaml</DependentUpon>
@@ -1062,6 +1072,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\BonusMensal.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\HoraExtra.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\TipoHoraExtra.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

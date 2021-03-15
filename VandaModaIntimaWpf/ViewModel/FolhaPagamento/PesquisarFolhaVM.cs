@@ -39,6 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirVisualizarHoraExtraComando { get; set; }
         public ICommand FecharFolhaPagamentoComando { get; set; }
         public ICommand FecharFolhasAbertasComando { get; set; }
+        public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -69,6 +70,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirVisualizarHoraExtraComando = new RelayCommand(AbrirVisualizarHoraExtra);
             FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
+            AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
+        }
+
+        private void AbrirAdicionarSalarioLiquido(object obj)
+        {
+            AdicionarSalarioLiquidoVM viewModel = new AdicionarSalarioLiquidoVM(_session, _folhaPagamento, new MessageBoxService());
+            AdicionarSalarioLiquido view = new AdicionarSalarioLiquido
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         /// <summary>
@@ -216,11 +229,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirHoraExtra(object obj)
         {
-            AdicionarBonusVM adicionarBonusViewModel = new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, new MessageBoxService(), false);
+            AdicionarHoraExtraVM adicionarHoraExtraVM = new AdicionarHoraExtraVM(_session, FolhaPagamento, new MessageBoxService(), false);
 
             AdicionarHoraExtra adicionarHoraExtra = new AdicionarHoraExtra()
             {
-                DataContext = adicionarBonusViewModel
+                DataContext = adicionarHoraExtraVM
             };
 
             adicionarHoraExtra.ShowDialog();
