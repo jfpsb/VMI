@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
@@ -282,11 +283,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async void ExportarExcel(object parameter)
         {
-            SetStatusBarAguardandoExcel();
+            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
             IsThreadLocked = true;
             await new Excel<FolhaPagamentoModel>(excelStrategy).Salvar(new List<FolhaPagamentoModel>(FolhaPagamentos));
             IsThreadLocked = false;
-            SetStatusBarExportadoComSucesso();
+            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
         }
 
         public DateTime DataEscolhida

@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         private async void AtualizarReceita(object parameter)
         {
-            SetStatusBarAguardando("Pesquisando CNPJ na Receita Federal. Aguarde.");
+            MessageBoxService.Show("Pesquisando CNPJ na Receita Federal. Aguarde.");
 
             try
             {
@@ -32,22 +32,22 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 //// Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Entidade");
 
-                SetStatusBarSucesso("Pesquisa Realizada Com Sucesso.");
+                MessageBoxService.Show("Pesquisa Realizada Com Sucesso.");
             }
             catch (WebException we)
             {
                 if (we.Message.Contains("429"))
                 {
-                    SetStatusBarErro("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.");
+                    MessageBoxService.Show("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.");
                 }
                 else
                 {
-                    SetStatusBarErro(we.Message);
+                    MessageBoxService.Show(we.Message);
                 }
             }
             catch (InvalidDataException ide)
             {
-                SetStatusBarErro(ide.Message);
+                MessageBoxService.Show(ide.Message);
             }
         }
     }

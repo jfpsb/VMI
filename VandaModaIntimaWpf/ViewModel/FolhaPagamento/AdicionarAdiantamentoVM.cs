@@ -167,19 +167,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            BotaoSalvarToolTip = "";
+            BtnSalvarToolTip = "";
             bool valido = true;
 
             //TODO: botar strings em resources
             if (NumParcelas < _minParcelas)
             {
-                BotaoSalvarToolTip += "O NÚMERO DE PARCELAS É MENOR QUE O NÚMERO MÍNIMO\n";
+                BtnSalvarToolTip += "O NÚMERO DE PARCELAS É MENOR QUE O NÚMERO MÍNIMO\n";
                 valido = false;
             }
 
             if (Valor <= 0.0)
             {
-                BotaoSalvarToolTip += "O VALOR DO ADIANTAMENTO NÃO PODE SER MENOR OU IGUAL A ZERO\n";
+                BtnSalvarToolTip += "O VALOR DO ADIANTAMENTO NÃO PODE SER MENOR OU IGUAL A ZERO\n";
                 valido = false;
             }
 

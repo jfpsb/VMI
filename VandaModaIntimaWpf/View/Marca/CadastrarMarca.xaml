@@ -6,63 +6,40 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
         mc:Ignorable="d"
         Title="Cadastrar Marca"
-        Height="200"
+        Height="175"
         Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Marca_Icon.ico"
         FocusManager.FocusedElement="{Binding ElementName=TxtMarca}"
         Closing="Window_Closing">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15, 15, 15, 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource nome_dois_pontos}" />
-            <TextBox x:Name="TxtMarca"
-                     Grid.Column="1"
-                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="25" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red"
-                   Content="{DynamicResource marca_ja_existe_sistema}" />
-            <Button Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource cadastrar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    IsEnabled="{Binding IsEnabled}"
-                    Command="{Binding SalvarComando}"
-                    Click="Button_Click" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15, 15, 15, 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="{DynamicResource nome_dois_pontos}" />
+        <TextBox x:Name="TxtMarca"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="25" />
+        <Label Grid.Row="1"
+               Grid.ColumnSpan="2"
+               HorizontalAlignment="Right"
+               Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+               Foreground="Red"
+               Content="{DynamicResource marca_ja_existe_sistema}" />
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource cadastrar}"
+                Style="{StaticResource BotaoCadastrar}"
+                IsEnabled="{Binding IsEnabled}"
+                Command="{Binding SalvarComando}"
+                Click="Button_Click" />
+    </Grid>
 </Window>

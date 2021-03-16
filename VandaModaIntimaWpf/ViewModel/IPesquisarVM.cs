@@ -17,12 +17,6 @@ namespace VandaModaIntimaWpf.ViewModel
         void DisposeSession();
         bool IsThreadLocked();
         bool Editavel(object parameter);
-        void SetStatusBarItemDeletado(string mensagem);
-        void SetStatusBarAguardandoExcel();
-        void SetStatusBarAguardando();
-        void SetStatusBarExportadoComSucesso();
-        void SetStatusBarErro(string mensagem);
         void AbrirExportarSQL(object parameter);
-        Task ResetarStatusBar();
     }
 }

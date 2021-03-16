@@ -7,70 +7,47 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Contagem"
         mc:Ignorable="d"
         Title="Cadastrar Contagem"
-        Height="230"
-        Width="450"
+        Height="200"
+        Width="430"
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=CmbLoja}"
         Closing="Window_Closing">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,15,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource loja_dois_pontos}" />
-            <ComboBox x:Name="CmbLoja"
-                      Grid.Column="1"
-                      SelectedItem="{Binding Entidade.Loja}"
-                      ItemsSource="{Binding Lojas}"
-                      DisplayMemberPath="Nome"
-                      HorizontalAlignment="Stretch"
-                      SelectedIndex="0"
-                      Margin="5,5,0,5" />
-            <Label Grid.Row="1"
-                   Content="{DynamicResource tipo_contagem_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="1"
-                      SelectedItem="{Binding Entidade.TipoContagem}"
-                      ItemsSource="{Binding TiposContagem}"
-                      DisplayMemberPath="Nome"
-                      HorizontalAlignment="Stretch"
-                      SelectedIndex="0"
-                      Margin="5,5,0,5" />
-            <Button Grid.Row="7"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource cadastrar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Click="Button_Click" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,15,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="{DynamicResource loja_dois_pontos}" />
+        <ComboBox x:Name="CmbLoja"
+                  Grid.Column="1"
+                  SelectedItem="{Binding Entidade.Loja}"
+                  ItemsSource="{Binding Lojas}"
+                  DisplayMemberPath="Nome"
+                  HorizontalAlignment="Stretch"
+                  SelectedIndex="0"
+                  Margin="5,5,0,5" />
+        <Label Grid.Row="1"
+               Content="{DynamicResource tipo_contagem_dois_pontos}" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="1"
+                  SelectedItem="{Binding Entidade.TipoContagem}"
+                  ItemsSource="{Binding TiposContagem}"
+                  DisplayMemberPath="Nome"
+                  HorizontalAlignment="Stretch"
+                  SelectedIndex="0"
+                  Margin="5,5,0,5" />
+        <Button Grid.Row="7"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource cadastrar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Click="Button_Click" />
+    </Grid>
 </Window>

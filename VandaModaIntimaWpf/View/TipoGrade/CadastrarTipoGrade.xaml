@@ -10,60 +10,37 @@
         ResizeMode="NoResize"
         Height="375"
         Width="375">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,15,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource nome_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     MaxLength="45"
-                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="1"
-                   Content="Tipos Já Cadastrados:"
-                   FontWeight="Bold" />
-            <DataGrid Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      ItemsSource="{Binding TipoGrades, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nome"
-                                        Width="*"
-                                        Binding="{Binding Nome}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Grid.Row="3"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource cadastrar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,15,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="{DynamicResource nome_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 MaxLength="45"
+                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="1"
+               Content="Tipos Já Cadastrados:"
+               FontWeight="Bold" />
+        <DataGrid Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding TipoGrades, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome"
+                                    Width="*"
+                                    Binding="{Binding Nome}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource cadastrar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}" />
+    </Grid>
 </Window>

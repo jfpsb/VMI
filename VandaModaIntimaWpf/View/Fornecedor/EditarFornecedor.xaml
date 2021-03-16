@@ -6,99 +6,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Editar Fornecedor"
-        Height="350"
+        Height="325"
         Width="525"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtNome}">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,15,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Button Grid.Column="1"
-                    Grid.Row="0"
-                    Height="20"
-                    Width="20"
-                    Background="Transparent"
-                    HorizontalAlignment="Right"
-                    Margin="0, 0, 5, 0"
-                    BorderThickness="0"
-                    ToolTip="{DynamicResource atualizar_consultando_receita_federal}"
-                    Command="{Binding AtualizarReceitaComando}">
-                <Image Source="/Resources/Atualizar_Icon.ico" />
-            </Button>
-            <Label Grid.Row="1"
-                   Content="{DynamicResource cnpj_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="1"
-                     Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="False"
-                     ToolTip="O Campo de CNPJ Não Pode Ser Alterado" />
-            <Label Grid.Row="2"
-                   Content="{DynamicResource nome_dois_pontos}" />
-            <TextBox x:Name="TxtNome"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="150" />
-            <Label Grid.Row="3"
-                   Content="{DynamicResource nome_fantasia_dois_pontos}" />
-            <TextBox Grid.Row="3"
-                     Grid.Column="1"
-                     MaxLength="60"
-                     Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="4"
-                   Content="{DynamicResource telefone_dois_pontos}" />
-            <TextBox Grid.Row="4"
-                     Grid.Column="1"
-                     MaxLength="100"
-                     Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5"
-                   Content="{DynamicResource email_dois_pontos}" />
-            <TextBox Grid.Row="5"
-                     Grid.Column="1"
-                     MaxLength="50"
-                     Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="6"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource salvar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    CommandParameter="{Binding ElementName=TelaEditarFornecedor}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,15,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Column="1"
+                Grid.Row="0"
+                Height="20"
+                Width="20"
+                Background="Transparent"
+                HorizontalAlignment="Right"
+                Margin="0, 0, 5, 0"
+                BorderThickness="0"
+                ToolTip="{DynamicResource atualizar_consultando_receita_federal}"
+                Command="{Binding AtualizarReceitaComando}">
+            <Image Source="/Resources/Atualizar_Icon.ico" />
+        </Button>
+        <Label Grid.Row="1"
+               Content="{DynamicResource cnpj_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="1"
+                 Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="False"
+                 ToolTip="O Campo de CNPJ Não Pode Ser Alterado" />
+        <Label Grid.Row="2"
+               Content="{DynamicResource nome_dois_pontos}" />
+        <TextBox x:Name="TxtNome"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="150" />
+        <Label Grid.Row="3"
+               Content="{DynamicResource nome_fantasia_dois_pontos}" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 MaxLength="60"
+                 Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="4"
+               Content="{DynamicResource telefone_dois_pontos}" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 MaxLength="100"
+                 Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="5"
+               Content="{DynamicResource email_dois_pontos}" />
+        <TextBox Grid.Row="5"
+                 Grid.Column="1"
+                 MaxLength="50"
+                 Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="6"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource salvar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                CommandParameter="{Binding ElementName=TelaEditarFornecedor}" />
+    </Grid>
 </Window>

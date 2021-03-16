@@ -52,8 +52,6 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
                 valido = false;
             }
 
-            SetStatusBarAguardando();
-
             return valido;
         }
         private async void GetTipoGrades()

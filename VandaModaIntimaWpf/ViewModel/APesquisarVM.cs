@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.BancoDeDados.Model;
@@ -32,7 +30,6 @@ namespace VandaModaIntimaWpf.ViewModel
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
-        private BitmapImage imagemStatusBar;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
@@ -82,8 +79,6 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposDeletarDocumento += DeletarEntidadeDoBD;
             AposDeletarDoBD += InformaResultadoDeletarBD;
-
-            SetStatusBarAguardando();
         }
 
         public abstract void PesquisaItens(string termo);
@@ -159,20 +154,19 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro);
             }
         }
-        private async void InformaResultadoDeletarBD(AposDeletarDoBDEventArgs e)
+        private void InformaResultadoDeletarBD(AposDeletarDoBDEventArgs e)
         {
             if (e.DeletadoComSucesso)
             {
-                SetStatusBarItemDeletado(e.MensagemSucesso);
+                MessageBoxService.Show(e.MensagemSucesso);
                 OnPropertyChanged("TermoPesquisa");
-                await ResetarStatusBar();
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro);
             }
         }
         public void AbrirEditar(object parameter)
@@ -229,12 +223,12 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 if (resultDeletar)
                 {
-                    SetStatusBarItemDeletado(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
+                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
                     VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
                 }
                 else
                 {
-                    SetStatusBarErro(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
+                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
                 }
             }
         }
@@ -263,39 +257,11 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public virtual async void ExportarExcel(object parameter)
         {
-            SetStatusBarAguardandoExcel();
+            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
             IsThreadLocked = true;
             await new Excel<E>(excelStrategy).Salvar(EntidadeComCampo<E>.ConverterIList(Entidades));
             IsThreadLocked = false;
-            SetStatusBarExportadoComSucesso();
-        }
-        public void SetStatusBarItemDeletado(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
-            OnPropertyChanged("TermoPesquisa");
-        }
-        public async Task ResetarStatusBar()
-        {
-            await Task.Delay(7000); //Espera 7 segundos para resetar StatusBar
-            SetStatusBarAguardando();
-        }
-        public void SetStatusBarAguardandoExcel()
-        {
-            MensagemStatusBar = GetResource.GetString("arquivo_excel_sendo_gerado");
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemAguardando");
-        }
-        public void SetStatusBarAguardando()
-        {
-            MensagemStatusBar = GetResource.GetString("aguardando_usuario");
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemAguardando");
-        }
-        public async void SetStatusBarExportadoComSucesso()
-        {
-            MensagemStatusBar = GetResource.GetString("exportacao_excel_realizada_com_sucesso");
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemSucesso");
-            await Task.Delay(7000);
-            SetStatusBarAguardando();
+            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
         }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -342,15 +308,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("VisibilidadeBotaoApagarSelecionado");
             }
         }
-        public BitmapImage ImagemStatusBar
-        {
-            get { return imagemStatusBar; }
-            set
-            {
-                imagemStatusBar = value;
-                OnPropertyChanged("ImagemStatusBar");
-            }
-        }
         public DataGridCellInfo CelulaSelecionada
         {
             get { return celulaSelecionada; }
@@ -382,20 +339,10 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             SessionProvider.FechaSession(_session);
         }
-
         bool IPesquisarVM.IsThreadLocked()
         {
             return _threadLocked;
         }
-
-        public async void SetStatusBarErro(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemErro");
-            await Task.Delay(7000);
-            SetStatusBarAguardando();
-        }
-
         public async void AbrirExportarSQL(object parameter)
         {
             AbrePelaTelaPesquisaService.AbrirExportarSQL(await daoEntidade.Listar<E>());

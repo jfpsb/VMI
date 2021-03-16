@@ -5,111 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Cadastrar Loja"
-        Height="420"
+        Height="400"
         Width="500"
         Icon="/Resources/Loja_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
         Closing="Window_Closing">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,5,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource cnpj_dois_pontos}" />
-            <TextBox x:Name="TxtCnpj"
-                     Grid.Column="1"
-                     Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="14" />
-            <Label Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   Content="{DynamicResource loja_ja_existe_sistema}"
-                   HorizontalAlignment="Right"
-                   Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-                   Foreground="Red" />
-            <Label Grid.Row="2"
-                   Content="{DynamicResource nome_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="2"
-                     MaxLength="45"
-                     Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="3"
-                   Content="{DynamicResource telefone_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="3"
-                     MaxLength="100"
-                     Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="4"
-                   Content="{DynamicResource endereco_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="4"
-                     MaxLength="200"
-                     Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="5"
-                   Content="{DynamicResource inscricao_estadual_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="5"
-                     MaxLength="10"
-                     Text="{Binding Entidade.InscricaoEstadual, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="6"
-                   Content="{DynamicResource matriz_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="6"
-                      DisplayMemberPath="Nome"
-                      ItemsSource="{Binding Path=Matrizes}"
-                      SelectedItem="{Binding Path=Entidade.Matriz, Mode=TwoWay}"
-                      IsEnabled="{Binding IsEnabled}" />
-            <Label Grid.Row="7"
-                   Content="{DynamicResource aluguel_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="7"
-                     MaxLength="10"
-                     Text="{Binding Entidade.Aluguel, ConverterCulture=pt-BR}"
-                     IsEnabled="{Binding IsEnabled}" />
-            <Button Grid.Row="8"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource cadastrar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Click="Button_Click" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,5,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="{DynamicResource cnpj_dois_pontos}" />
+        <TextBox x:Name="TxtCnpj"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="14" />
+        <Label Grid.Row="1"
+               Grid.ColumnSpan="2"
+               Content="{DynamicResource loja_ja_existe_sistema}"
+               HorizontalAlignment="Right"
+               Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+               Foreground="Red" />
+        <Label Grid.Row="2"
+               Content="{DynamicResource nome_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="2"
+                 MaxLength="45"
+                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="3"
+               Content="{DynamicResource telefone_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="3"
+                 MaxLength="100"
+                 Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="4"
+               Content="{DynamicResource endereco_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="4"
+                 MaxLength="200"
+                 Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="5"
+               Content="{DynamicResource inscricao_estadual_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="5"
+                 MaxLength="10"
+                 Text="{Binding Entidade.InscricaoEstadual, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="6"
+               Content="{DynamicResource matriz_dois_pontos}" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="6"
+                  DisplayMemberPath="Nome"
+                  ItemsSource="{Binding Path=Matrizes}"
+                  SelectedItem="{Binding Path=Entidade.Matriz, Mode=TwoWay}"
+                  IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="7"
+               Content="{DynamicResource aluguel_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="7"
+                 MaxLength="10"
+                 Text="{Binding Entidade.Aluguel, ConverterCulture=pt-BR}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Button Grid.Row="8"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource cadastrar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Click="Button_Click" />
+    </Grid>
 </Window>

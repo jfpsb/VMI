@@ -10,86 +10,63 @@
         Height="340"
         Width="450"
         WindowStartupLocation="CenterScreen">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,5,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="Folha de Pagamento:" />
-            <TextBox Grid.Column="1"
-                     IsReadOnly="True"
-                     IsEnabled="False"
-                     Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
-            <Label Grid.Row="1"
-                   Content="Funcionário:" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="1"
-                     IsEnabled="False"
-                     IsReadOnly="True"
-                     Text="{Binding Entidade.Funcionario.Nome}" />
-            <Label Grid.Row="2"
-                   Content="Descrição:" />
-            <TextBox x:Name="TxtDescricao"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     MaxLength="100"
-                     Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="3"
-                   Content="Valor:" />
-            <TextBox Grid.Row="3"
-                     Grid.Column="1"
-                     Text="{Binding Valor, ConverterCulture=pt-BR}" />
-            <Label Grid.Row="4"
-                   Content="Início de Pagamento:" />
-            <View:DataUpDown Grid.Column="1"
-                             Grid.Row="4"
-                             Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="5"
-                   Content="Repetir Bônus Todo Mês:" />
-            <CheckBox Grid.Row="5"
-                      Grid.Column="1"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsChecked="{Binding Entidade.BonusMensal}" />
-            <Button Grid.ColumnSpan="2"
-                    Grid.Row="6"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Content="Salvar"
-                    Click="Button_Click"
-                    ToolTipService.ShowOnDisabled="True"
-                    ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,5,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Folha de Pagamento:" />
+        <TextBox Grid.Column="1"
+                 IsReadOnly="True"
+                 IsEnabled="False"
+                 Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
+        <Label Grid.Row="1"
+               Content="Funcionário:" />
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 IsEnabled="False"
+                 IsReadOnly="True"
+                 Text="{Binding Entidade.Funcionario.Nome}" />
+        <Label Grid.Row="2"
+               Content="Descrição:" />
+        <TextBox x:Name="TxtDescricao"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 MaxLength="100"
+                 Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="3"
+               Content="Valor:" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Text="{Binding Valor, ConverterCulture=pt-BR}" />
+        <Label Grid.Row="4"
+               Content="Início de Pagamento:" />
+        <View:DataUpDown Grid.Column="1"
+                         Grid.Row="4"
+                         Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="5"
+               Content="Repetir Bônus Todo Mês:" />
+        <CheckBox Grid.Row="5"
+                  Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding Entidade.BonusMensal}" />
+        <Button Grid.ColumnSpan="2"
+                Grid.Row="6"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Content="Salvar"
+                Click="Button_Click"
+                ToolTipService.ShowOnDisabled="True"
+                ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
+    </Grid>
 </Window>

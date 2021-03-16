@@ -15,96 +15,73 @@
     <Window.Resources>
         <ViewModel:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <DataGrid ItemsSource="{Binding Parcelas}"
-                      SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Data do Adiantamento"
-                                        Width="*"
-                                        Binding="{Binding Adiantamento.DataString}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Header="# Parcela"
-                                        Width="Auto"
-                                        Binding="{Binding NumeroComTotal}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Header="Valor da Parcela"
-                                        Width="Auto"
-                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
-                                        IsReadOnly="True" />
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Deletar Adiantamento"
-                                  Command="{Binding DeletarAdiantamentoComando}"
-                                  IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-            <TextBlock Grid.Row="1"
-                       HorizontalAlignment="Right"
-                       Text="{Binding TotalParcelas, StringFormat='Total Em Adiantamentos: {0:C}', ConverterCulture=pt-BR}"
-                       FontSize="16"
-                       Margin="0, 0, 5, 0"
-                       FontWeight="Bold" />
-            <DataGrid Grid.Row="2"
-                      ItemsSource="{Binding Bonus}"
-                      SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Data do Bônus"
-                                        Binding="{Binding DataString}"
-                                        IsReadOnly="True"
-                                        Width="*" />
-                    <DataGridTextColumn Header="Descrição"
-                                        Binding="{Binding Descricao}"
-                                        IsReadOnly="True"
-                                        Width="*" />
-                    <DataGridTextColumn Header="Valor do Bônus"
-                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
-                                        IsReadOnly="True"
-                                        Width="Auto" />
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Deletar Bônus"
-                                  Command="{Binding DeletarBonusComando}"
-                                  IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-            <TextBlock Grid.Row="3"
-                       HorizontalAlignment="Right"
-                       Text="{Binding TotalBonus, StringFormat='Total Em Bônus: {0:C}', ConverterCulture=pt-BR}"
-                       FontSize="16"
-                       Margin="0, 0, 5, 0"
-                       FontWeight="Bold" />
-        </Grid>
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Parcelas}"
+                  SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data do Adiantamento"
+                                    Width="*"
+                                    Binding="{Binding Adiantamento.DataString}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="# Parcela"
+                                    Width="Auto"
+                                    Binding="{Binding NumeroComTotal}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Valor da Parcela"
+                                    Width="Auto"
+                                    Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Deletar Adiantamento"
+                              Command="{Binding DeletarAdiantamentoComando}"
+                              IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Right"
+                   Text="{Binding TotalParcelas, StringFormat='Total Em Adiantamentos: {0:C}', ConverterCulture=pt-BR}"
+                   FontSize="16"
+                   Margin="0, 0, 5, 0"
+                   FontWeight="Bold" />
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Bonus}"
+                  SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data do Bônus"
+                                    Binding="{Binding DataString}"
+                                    IsReadOnly="True"
+                                    Width="*" />
+                <DataGridTextColumn Header="Descrição"
+                                    Binding="{Binding Descricao}"
+                                    IsReadOnly="True"
+                                    Width="*" />
+                <DataGridTextColumn Header="Valor do Bônus"
+                                    Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
+                                    IsReadOnly="True"
+                                    Width="Auto" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Deletar Bônus"
+                              Command="{Binding DeletarBonusComando}"
+                              IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <TextBlock Grid.Row="3"
+                   HorizontalAlignment="Right"
+                   Text="{Binding TotalBonus, StringFormat='Total Em Bônus: {0:C}', ConverterCulture=pt-BR}"
+                   FontSize="16"
+                   Margin="0, 0, 5, 0"
+                   FontWeight="Bold" />
+    </Grid>
 </Window>

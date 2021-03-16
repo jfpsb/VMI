@@ -447,33 +447,20 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type View:TelaPesquisaTemplate}">
-                            <DockPanel Background="White">
-                                <StatusBar DockPanel.Dock="Bottom">
-                                    <StatusBar.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                            </Grid>
-                                        </ItemsPanelTemplate>
-                                    </StatusBar.ItemsPanel>
-                                    <StatusBarItem HorizontalAlignment="Right">
-                                        <Image Height="15"
-                                               Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-                                    </StatusBarItem>
-                                    <StatusBarItem Grid.Column="1"
-                                                   HorizontalAlignment="Stretch">
-                                        <Label HorizontalAlignment="Right"
-                                               Content="{Binding MensagemStatusBar}" />
-                                    </StatusBarItem>
-                                </StatusBar>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
                                 <ContentPresenter x:Name="Menu"
-                                                  DockPanel.Dock="Top" />
+                                                  Grid.Row="0" />
 
-                                <Button DockPanel.Dock="Bottom"
+                                <ContentPresenter x:Name="Presenter"
+                                                  Grid.Row="1" />
+
+                                <Button Grid.Row="2"
                                         Padding="10px"
                                         Margin="5,0,5,5"
                                         Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=Control}}"
@@ -481,9 +468,7 @@
                                         Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
                                         Command="{Binding ApagarMarcadosComando}" />
 
-                                <ContentPresenter x:Name="Presenter" />
-
-                            </DockPanel>
+                            </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

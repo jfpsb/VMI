@@ -16,175 +16,152 @@
     <Window.Resources>
         <ViewModel:FormatoDoubleDataGrid x:Key="formatoDoubleDataGrid" />
     </Window.Resources>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,15,15,0">
+    <Grid Margin="15,15,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Right"
+               Content="{DynamicResource mes_de_referencia}" />
+        <view:DataUpDown Grid.Column="1"
+                         Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Label HorizontalAlignment="Right"
+               Grid.Row="1"
+               Content="{DynamicResource loja_dois_pontos}" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="1"
+                  ItemsSource="{Binding Matrizes}"
+                  DisplayMemberPath="Nome"
+                  SelectedItem="{Binding Matriz}"
+                  SelectedIndex="{Binding MatrizComboBoxIndex}" />
+        <Label HorizontalAlignment="Right"
+               Grid.Row="2"
+               Content="{DynamicResource arquivo_ofx}" />
+        <Button Grid.Column="1"
+                Grid.Row="2"
+                Command="{Binding AbrirOfxComando}"
+                Content="{DynamicResource selecione_o_arquivo}" />
+        <DataGrid Grid.Row="3"
+                  Grid.ColumnSpan="2"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="White"
+                  ItemsSource="{Binding Recebimentos, IsAsync=True, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding MesAno}"
+                                    Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding MesAno}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Loja.Nome}"
+                                    Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Loja.Nome}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource operadora_cartao_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding OperadoraCartao.Nome}"
+                                    Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding OperadoraCartao.Nome}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource recebido_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Recebido}"
+                                    Width="*">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Recebido}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
+                                    Binding="{Binding ValorOperadora, Converter={StaticResource formatoDoubleDataGrid}}"
+                                    Width="*">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding ValorOperadora}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource diferenca_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Diferenca}"
+                                    Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Diferenca}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource observacao_header}"
+                                    Binding="{Binding Observacao}"
+                                    Width="200">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Observacao}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Column="0"
+              Grid.Row="4">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label HorizontalAlignment="Right"
-                   Content="{DynamicResource mes_de_referencia}" />
-            <view:DataUpDown Grid.Column="1"
-                                        Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Label HorizontalAlignment="Right"
+            <Label FontWeight="Bold"
+                   Content="{DynamicResource total_recebido_dois_pontos}" />
+            <Label Grid.Column="1"
+                   Grid.Row="0"
+                   FontWeight="Bold"
+                   Content="{Binding TotalRecebido}" />
+            <Label Grid.Row="1"
+                   FontWeight="Bold"
+                   Content="{DynamicResource total_fornecido_operadora_dois_pontos}" />
+            <Label Grid.Column="1"
                    Grid.Row="1"
-                   Content="{DynamicResource loja_dois_pontos}" />
-            <ComboBox Grid.Column="1"
-                      Grid.Row="1"
-                      ItemsSource="{Binding Matrizes}"
-                      DisplayMemberPath="Nome"
-                      SelectedItem="{Binding Matriz}"
-                      SelectedIndex="{Binding MatrizComboBoxIndex}" />
-            <Label HorizontalAlignment="Right"
-                   Grid.Row="2"
-                   Content="{DynamicResource arquivo_ofx}" />
-            <Button Grid.Column="1"
-                    Grid.Row="2"
-                    Command="{Binding AbrirOfxComando}"
-                    Content="{DynamicResource selecione_o_arquivo}" />
-            <DataGrid Grid.Row="3"
-                      Grid.ColumnSpan="2"
-                      AutoGenerateColumns="False"
-                      AlternatingRowBackground="White"
-                      ItemsSource="{Binding Recebimentos, IsAsync=True, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding MesAno}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding MesAno}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource loja_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Loja.Nome}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Loja.Nome}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource operadora_cartao_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding OperadoraCartao.Nome}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding OperadoraCartao.Nome}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource recebido_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Recebido}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Recebido}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
-                                        Binding="{Binding ValorOperadora, Converter={StaticResource formatoDoubleDataGrid}}"
-                                        Width="*">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding ValorOperadora}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource diferenca_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Diferenca}"
-                                        Width="Auto">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Diferenca}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource observacao_header}"
-                                        Binding="{Binding Observacao}"
-                                        Width="200">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Observacao}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Grid Grid.Column="0"
-                  Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Label FontWeight="Bold"
-                       Content="{DynamicResource total_recebido_dois_pontos}" />
-                <Label Grid.Column="1"
-                       Grid.Row="0"
-                       FontWeight="Bold"
-                       Content="{Binding TotalRecebido}" />
-                <Label Grid.Row="1"
-                       FontWeight="Bold"
-                       Content="{DynamicResource total_fornecido_operadora_dois_pontos}" />
-                <Label Grid.Column="1"
-                       Grid.Row="1"
-                       FontWeight="Bold"
-                       Content="{Binding TotalOperadora}"></Label>
-            </Grid>
-            <Button Grid.Row="4"
-                    Grid.Column="1"
-                    Width="190"
-                    Content="{DynamicResource cadastrar}"
-                    ToolTip="Se Já Existir Um Mês de Referência Com A Loja Escolhida, os Valores Serão Atualizados"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Click="Button_Click" />
+                   FontWeight="Bold"
+                   Content="{Binding TotalOperadora}"></Label>
         </Grid>
-    </DockPanel>
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                Width="190"
+                Content="{DynamicResource cadastrar}"
+                ToolTip="Se Já Existir Um Mês de Referência Com A Loja Escolhida, os Valores Serão Atualizados"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Click="Button_Click" />
+    </Grid>
 </Window>

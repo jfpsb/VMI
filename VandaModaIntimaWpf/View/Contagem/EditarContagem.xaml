@@ -12,121 +12,98 @@
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=CmbTipoContagem}">
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,15,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="{DynamicResource data_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Text="{Binding Entidade.Data, StringFormat='dd/MM/yyyy HH:mm:ss'}"
-                     IsReadOnly="True"
-                     HorizontalAlignment="Stretch" />
-            <Label Grid.Row="1"
-                   Content="{DynamicResource loja_dois_pontos}" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="1"
-                     Text="{Binding Entidade.Loja.Cnpj}"
-                     IsReadOnly="True"
-                     HorizontalAlignment="Stretch" />
-            <Label Grid.Row="2"
-                   Content="{DynamicResource tipo_contagem_dois_pontos}" />
-            <ComboBox x:Name="CmbTipoContagem"
-                      Grid.Column="1"
-                      Grid.Row="2"
-                      SelectedItem="{Binding Entidade.TipoContagem}"
-                      ItemsSource="{Binding TiposContagem}"
-                      DisplayMemberPath="Nome"
-                      HorizontalAlignment="Stretch"
-                      SelectedIndex="0"
-                      Margin="5" />
-            <Label Grid.Row="3"
-                   Content="{DynamicResource finalizada_dois_pontos}" />
-            <CheckBox Grid.Row="3"
-                      Grid.Column="1"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"
-                      IsChecked="{Binding Entidade.Finalizada}" />
-            <DataGrid Grid.Row="4"
-                      Grid.ColumnSpan="2"
-                      AutoGenerateColumns="False"
-                      AlternatingRowBackground="White"
-                      ItemsSource="{Binding Contagens}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Produto.CodBarra}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Produto.CodBarra}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource produto_header}"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Produto.Descricao}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Produto.Descricao}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="{DynamicResource quantidade_header}"
-                                        IsReadOnly="True"
-                                        Binding="{Binding Quant}">
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="ToolTip"
-                                        Value="{Binding Quant}" />
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Grid.Row="5"
-                    Grid.ColumnSpan="2"
-                    Padding="3"
-                    Content="{DynamicResource adicionar_contagem_produto}"
-                    Command="{Binding AbrirAdicionarContagemProdutoComando}" />
-            <Button Grid.Row="6"
-                    Grid.ColumnSpan="2"
-                    Content="{DynamicResource salvar}"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,15,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="{DynamicResource data_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Text="{Binding Entidade.Data, StringFormat='dd/MM/yyyy HH:mm:ss'}"
+                 IsReadOnly="True"
+                 HorizontalAlignment="Stretch" />
+        <Label Grid.Row="1"
+               Content="{DynamicResource loja_dois_pontos}" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="1"
+                 Text="{Binding Entidade.Loja.Cnpj}"
+                 IsReadOnly="True"
+                 HorizontalAlignment="Stretch" />
+        <Label Grid.Row="2"
+               Content="{DynamicResource tipo_contagem_dois_pontos}" />
+        <ComboBox x:Name="CmbTipoContagem"
+                  Grid.Column="1"
+                  Grid.Row="2"
+                  SelectedItem="{Binding Entidade.TipoContagem}"
+                  ItemsSource="{Binding TiposContagem}"
+                  DisplayMemberPath="Nome"
+                  HorizontalAlignment="Stretch"
+                  SelectedIndex="0"
+                  Margin="5" />
+        <Label Grid.Row="3"
+               Content="{DynamicResource finalizada_dois_pontos}" />
+        <CheckBox Grid.Row="3"
+                  Grid.Column="1"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding Entidade.Finalizada}" />
+        <DataGrid Grid.Row="4"
+                  Grid.ColumnSpan="2"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="White"
+                  ItemsSource="{Binding Contagens}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Produto.CodBarra}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Produto.CodBarra}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource produto_header}"
+                                    IsReadOnly="True"
+                                    Width="*"
+                                    Binding="{Binding Produto.Descricao}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Produto.Descricao}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource quantidade_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Quant}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Quant}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="5"
+                Grid.ColumnSpan="2"
+                Padding="3"
+                Content="{DynamicResource adicionar_contagem_produto}"
+                Command="{Binding AbrirAdicionarContagemProdutoComando}" />
+        <Button Grid.Row="6"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource salvar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}" />
+    </Grid>
 </Window>

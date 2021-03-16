@@ -23,16 +23,11 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected CouchDbClient couchDbClient;
         protected E _entidade;
-        protected static readonly string IMAGEMSUCESSO = "/Resources/Sucesso.png";
-        protected static readonly string IMAGEMERRO = "/Resources/Erro.png";
-        protected static readonly string IMAGEMAGUARDANDO = "/Resources/Aguardando.png";
         protected CouchDbLog ultimoLog;
         protected bool _result;
 
         private bool issoEUmUpdate;
         private string mensagemStatusBar;
-        private string imagemStatusBar;
-        private string _botaoSalvarToolTip;
         private string _btnSalvarToolTip;
         protected IMessageBoxService MessageBoxService;
 
@@ -59,8 +54,6 @@ namespace VandaModaIntimaWpf.ViewModel
             MessageBoxService = messageBoxService;
             couchDbClient = CouchDbClient.Instancia;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
-
-            SetStatusBarAguardando();
 
             AposCriarDocumento += ResultadoSalvarDocumento;
             AposCriarDocumento += GetUltimoLogAposCriarDoc;
@@ -203,18 +196,18 @@ namespace VandaModaIntimaWpf.ViewModel
             if (e.IdentificadorEntidade != null)
             {
                 Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-                SetStatusBarSucesso(e.MensagemSucesso);
+                MessageBoxService.Show(e.MensagemSucesso);
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro);
             }
         }
         /// <summary>
         /// Redefine os campos do formulário para os valores padrões
         /// </summary>
         /// <param name="e"></param>
-        private async void RedefinirTela(AposInserirBDEventArgs e)
+        private void RedefinirTela(AposInserirBDEventArgs e)
         {
             if (e.IdentificadorEntidade != null)
             {
@@ -222,49 +215,12 @@ namespace VandaModaIntimaWpf.ViewModel
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades();
 
-                SetStatusBarSucesso(e.MensagemSucesso);
-                await Task.Delay(5000); //Espera 5 segundos pra voltar com mensagem de aguardando usuário
-                SetStatusBarAguardando();
+                MessageBoxService.Show(e.MensagemSucesso);
             }
             else
             {
-                SetStatusBarErro(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro);
             }
-        }
-        /// <summary>
-        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar em caso de sucesso em uma operação
-        /// </summary>
-        /// <param name="mensagem">Mensagem a ser mostrada</param>
-        protected void SetStatusBarSucesso(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMSUCESSO;
-        }
-        /// <summary>
-        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar em caso de erro em uma operação
-        /// </summary>
-        /// <param name="mensagem">Mensagem a ser mostrada</param>
-        protected void SetStatusBarErro(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMERRO;
-        }
-        /// <summary>
-        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar mostrando que a aplicação está esperando que o usuário realize alguma ação
-        /// </summary>
-        protected void SetStatusBarAguardando()
-        {
-            MensagemStatusBar = GetResource.GetString("aguardando_usuario");
-            ImagemStatusBar = IMAGEMAGUARDANDO;
-        }
-        /// <summary>
-        /// Atribui a mensagem na StatusBar da tela de cadastrar/editar mostrando que a aplicação está esperando que o usuário realize alguma ação
-        /// </summary>
-        /// <param name="mensagem">Mensagem a ser mostrada</param>
-        protected void SetStatusBarAguardando(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMAGUARDANDO;
         }
         /// <summary>
         /// Método utilizado nas telas de ediçao para saber se houve edição.
@@ -281,15 +237,6 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 mensagemStatusBar = value;
                 OnPropertyChanged("MensagemStatusBar");
-            }
-        }
-        public string ImagemStatusBar
-        {
-            get { return imagemStatusBar; }
-            set
-            {
-                imagemStatusBar = value;
-                OnPropertyChanged("ImagemStatusBar");
             }
         }
         public Visibility VisibilidadeAvisoItemJaExiste
@@ -310,16 +257,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("IsEnabled");
             }
         }
-        public string BotaoSalvarToolTip
-        {
-            get => _botaoSalvarToolTip;
-            set
-            {
-                _botaoSalvarToolTip = value;
-                OnPropertyChanged("BotaoSalvarToolTip");
-            }
-        }
-
         public E Entidade
         {
             get

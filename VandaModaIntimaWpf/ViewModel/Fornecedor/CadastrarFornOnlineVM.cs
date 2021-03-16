@@ -21,35 +21,23 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             try
             {
                 Entidade = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
-                SetStatusBarSucessoPesquisa();
+                MessageBoxService.Show("Fornecedor Encontrado");
             }
             catch (WebException we)
             {
                 if (we.Message.Contains("429"))
                 {
-                    SetStatusBarErroPesquisa("Aguarde Um Pouco Entre Cada Consulta");
+                    MessageBoxService.Show("Aguarde Um Pouco Entre Cada Consulta");
                 }
                 else
                 {
-                    SetStatusBarErroPesquisa(we.Message);
+                    MessageBoxService.Show(we.Message);
                 }
             }
             catch (InvalidDataException ide)
             {
-                SetStatusBarErroPesquisa(ide.Message);
+                MessageBoxService.Show(ide.Message);
             }
-        }
-
-        private void SetStatusBarErroPesquisa(string mensagem)
-        {
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = IMAGEMERRO;
-        }
-
-        private void SetStatusBarSucessoPesquisa()
-        {
-            MensagemStatusBar = "Fornecedor Encontrado";
-            ImagemStatusBar = IMAGEMSUCESSO;
         }
     }
 }
