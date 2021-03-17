@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
@@ -11,6 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Model.FolhaPagamento _folha;
         private DAOTipoHoraExtra daoTipoHoraExtra;
+        private TipoHoraExtra _tipoHoraExtra;
 
         public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
         public int CmbDescricaoIndex { get; set; }
@@ -19,9 +21,42 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             daoEntidade = new DAOHoraExtra(session);
             daoTipoHoraExtra = new DAOTipoHoraExtra(session);
+            viewModelStrategy = new AdicionarHoraExtraVMStrategy();
             Folha = folha;
 
             GetTiposHoraExtra();
+
+            PropertyChanged += AoEscolherTipoHoraExtra;
+
+            ResetaPropriedades();
+        }
+
+        private async void AoEscolherTipoHoraExtra(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("TipoHoraExtra"))
+            {
+                HoraExtra horaExtra = await (daoEntidade as DAOHoraExtra).ListarPorAnoMesFuncionarioTipo(Folha.Ano, Folha.Mes, Folha.Funcionario, TipoHoraExtra);
+
+                if (horaExtra != null)
+                {
+                    Entidade = horaExtra;
+                }
+                else
+                {
+                    Entidade = new Model.HoraExtra()
+                    {
+                        Ano = Folha.Ano,
+                        Mes = Folha.Mes,
+                        Funcionario = Folha.Funcionario
+                    };
+
+                    Entidade.TipoHoraExtra = TipoHoraExtra;
+                }
+            }
+        }
+
+        public override void ResetaPropriedades()
+        {
             CmbDescricaoIndex = 0;
 
             Entidade = new Model.HoraExtra()
@@ -31,25 +66,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 Funcionario = Folha.Funcionario,
                 TipoHoraExtra = TiposHoraExtra[0]
             };
-        }
-        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
 
-        }
-
-        public override void ResetaPropriedades()
-        {
-            Entidade = new Model.HoraExtra()
-            {
-                Ano = Folha.Ano,
-                Mes = Folha.Mes,
-                Funcionario = Folha.Funcionario,
-                TipoHoraExtra = TiposHoraExtra[0],
-                Horas = 0,
-                Minutos = 0
-            };
-
-            CmbDescricaoIndex = 0;
+            TipoHoraExtra = TiposHoraExtra[0];
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -95,6 +113,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar<Model.TipoHoraExtra>());
         }
 
+        public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+        }
+
         public Model.FolhaPagamento Folha
         {
             get => _folha;
@@ -102,6 +125,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _folha = value;
                 OnPropertyChanged("Folha");
+            }
+        }
+
+        public TipoHoraExtra TipoHoraExtra
+        {
+            get => _tipoHoraExtra;
+            set
+            {
+                _tipoHoraExtra = value;
+                OnPropertyChanged("TipoHoraExtra");
             }
         }
     }

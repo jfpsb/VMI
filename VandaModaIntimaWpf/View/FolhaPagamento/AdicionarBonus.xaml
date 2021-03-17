@@ -67,6 +67,6 @@
                 Content="Salvar"
                 Click="Button_Click"
                 ToolTipService.ShowOnDisabled="True"
-                ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
+                ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
     </Grid>
 </Window>

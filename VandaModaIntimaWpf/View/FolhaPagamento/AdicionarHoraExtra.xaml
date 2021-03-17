@@ -50,7 +50,7 @@
                   Grid.ColumnSpan="3"
                   DisplayMemberPath="Descricao"
                   ItemsSource="{Binding Path=TiposHoraExtra}"
-                  SelectedItem="{Binding Path=Entidade.TipoHoraExtra, Mode=TwoWay}"
+                  SelectedItem="{Binding Path=TipoHoraExtra, Mode=TwoWay}"
                   SelectedIndex="{Binding CmbDescricaoIndex}" />
         <Label Grid.Row="4"
                Content="Quant. De Horas:" />
@@ -79,6 +79,6 @@
                 Command="{Binding SalvarComando}"
                 Content="Salvar"
                 ToolTipService.ShowOnDisabled="True"
-                ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
+                ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
     </Grid>
 </Window>

@@ -152,7 +152,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirVisualizarHoraExtra(object obj)
         {
-            VisualizarHoraExtraVM visualizarHoraExtraVM = new VisualizarHoraExtraVM(DataEscolhida, new MessageBoxService(), null);
+            VisualizarHoraExtraVM visualizarHoraExtraVM = new VisualizarHoraExtraVM(DataEscolhida, new MessageBoxService());
             VisualizarHoraExtra visualizarHoraExtra = new VisualizarHoraExtra
             {
                 DataContext = visualizarHoraExtraVM

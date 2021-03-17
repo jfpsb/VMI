@@ -20,6 +20,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         public TelaRelatorioHoraExtra(ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, DateTime>> listaHoraExtra)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
+
             InitializeComponent();
 
             RelatorioHoraExtraDataSet horaExtraDataSet = new RelatorioHoraExtraDataSet();

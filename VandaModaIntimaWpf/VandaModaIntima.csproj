@@ -526,6 +526,7 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />

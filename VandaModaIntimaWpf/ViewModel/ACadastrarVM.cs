@@ -214,8 +214,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 // Se a operação for um Update não há alteração no formulário
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades();
-
-                MessageBoxService.Show(e.MensagemSucesso);
             }
             else
             {

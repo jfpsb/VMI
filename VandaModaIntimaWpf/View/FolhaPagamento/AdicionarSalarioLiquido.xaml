@@ -51,6 +51,6 @@
                 CommandParameter="{Binding ElementName=TelaAdicionarSalarioLiquido}"
                 Content="Salvar"
                 ToolTipService.ShowOnDisabled="True"
-                ToolTip="{Binding BotaoSalvarToolTip, Mode=OneWay}" />
+                ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
     </Grid>
 </Window>

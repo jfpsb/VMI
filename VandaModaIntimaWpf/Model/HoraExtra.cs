@@ -81,6 +81,24 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public string HorasEmString
+        {
+            get
+            {
+                TimeSpan timeSpan = new TimeSpan(Horas, Minutos, 0);
+                return timeSpan.ToString(@"hh\:mm");
+            }
+        }
+
+        public TimeSpan HorasTimeSpan
+        {
+            get
+            {
+                TimeSpan timeSpan = new TimeSpan(Horas, Minutos, 0);
+                return timeSpan;
+            }
+        }
+
         public string CouchDbId()
         {
             return Id.ToString();
