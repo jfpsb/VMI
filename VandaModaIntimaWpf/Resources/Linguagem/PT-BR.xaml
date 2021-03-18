@@ -160,8 +160,8 @@
     <System:String x:Key="cadastrar_tipo_contagem">Cadastrar Tipo de Contagem</System:String>
     <System:String x:Key="pesquisar_tipo_contagem">Pesquisar Tipo de Contagem</System:String>
     <System:String x:Key="id_dois_pontos">Id:</System:String>
-    <System:String x:Key="cadastrar_recebimento_cartao">Cadastrar Novo Recebimento de Cartão:</System:String>
-    <System:String x:Key="cadastrar_operadora_cartao">Cadastrar Novo Operadora de Cartão:</System:String>
+    <System:String x:Key="cadastrar_recebimento_cartao">Cadastrar Novo Recebimento de Cartão</System:String>
+    <System:String x:Key="cadastrar_operadora_cartao">Cadastrar Nova Operadora de Cartão</System:String>
 
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
@@ -178,6 +178,9 @@
     <System:String x:Key="coluna_header">Coluna</System:String>
     <System:String x:Key="pseudonimo_header">Pseudônimo</System:String>
     <System:String x:Key="valor_padrao_header">Valor Padrão</System:String>
+
+    <System:String x:Key="banco_dois_pontos">Banco:</System:String>
+    <System:String x:Key="banco_header">Banco</System:String>
 
     <x:Array x:Key="CmbPesquisaProdutoItems"
              Type="System:String">

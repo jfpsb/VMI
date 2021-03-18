@@ -13,20 +13,20 @@ namespace FinancerData
             {
                 throw new FileNotFoundException();
             }
-           
+
             //use LINQ TO GET ONLY THE LINES THAT WE WANT
             var tags = from line in File.ReadAllLines(pathToOfxFile)
                        where line.Contains("<STMTTRN>") ||
-                       line.Contains("<TRNTYPE>") || 
+                       line.Contains("<TRNTYPE>") ||
                        line.Contains("<DTPOSTED>") ||
                        line.Contains("<TRNAMT>") ||
                        line.Contains("<FITID>") ||
                        line.Contains("<CHECKNUM>") ||
-                       line.Contains("<MEMO>") 
+                       line.Contains("<MEMO>")
                        select line;
 
-           
-            XElement el=new XElement("root");
+
+            XElement el = new XElement("root");
             XElement son = null;
             //StreamWriter sr= new StreamWriter(@"c:\rodrigo\teste.txt");
             foreach (var l in tags)
@@ -37,9 +37,9 @@ namespace FinancerData
                     el.Add(son);
                     continue;
                 }
-              
+
                 var tagName = getTagName(l);
-                var elSon= new XElement(tagName);
+                var elSon = new XElement(tagName);
                 elSon.Value = getTagValue(l);
                 son.Add(elSon);
             }
@@ -59,7 +59,7 @@ namespace FinancerData
         /// <returns></returns>
         private static string getTagName(string line)
         {
-            int pos_init = line.IndexOf("<")+1;
+            int pos_init = line.IndexOf("<") + 1;
             int pos_end = line.IndexOf(">");
             pos_end = pos_end - pos_init;
             return line.Substring(pos_init, pos_end);
@@ -71,10 +71,14 @@ namespace FinancerData
         /// <returns></returns>
         private static string getTagValue(string line)
         {
-            int pos_init = line.IndexOf(">")+1;
+            int pos_init = line.IndexOf(">") + 1;
             int pos_end = line.IndexOf("</");
-            string retValue=line.Substring(pos_init, pos_end - pos_init).Trim();
-            if (retValue.IndexOf("[")!=-1)
+
+            if (pos_end == -1)
+                pos_end = line.Length;
+
+            string retValue = line.Substring(pos_init, pos_end - pos_init).Trim();
+            if (retValue.IndexOf("[") != -1)
             {
                 //date--lets get only the 8 date digits
                 retValue = retValue.Substring(0, 8);

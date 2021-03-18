@@ -35,7 +35,7 @@
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
                                   Command="{Binding ImportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
+                                  CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}" />
                     </MenuItem>
                     <MenuItem Header="{DynamicResource exportar}">
                         <MenuItem.Icon>

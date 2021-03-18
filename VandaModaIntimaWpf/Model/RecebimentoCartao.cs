@@ -6,10 +6,12 @@ namespace VandaModaIntimaWpf.Model
 {
     public class RecebimentoCartao : AModel, IModel
     {
+        private long _id;
         private int _mes;
         private int _ano;
         private Loja _loja;
         private OperadoraCartao _operadoraCartao;
+        private Banco _banco;
         private double _recebido;
         private double _valorOperadora;
         private string _observacao;
@@ -131,41 +133,34 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => $"{MesAno} - {Loja.Nome}";
 
+        public Banco Banco
+        {
+            get => _banco;
+            set
+            {
+                _banco = value;
+                OnPropertyChanged("Banco");
+            }
+        }
+
+        public long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         public virtual object GetIdentifier()
         {
-            return this;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj != null && obj.GetType() == typeof(RecebimentoCartao))
-            {
-                RecebimentoCartao rc = (RecebimentoCartao)obj;
-                return Mes == rc.Mes
-                       && Ano == rc.Ano
-                       && Loja.Cnpj == rc.Loja.Cnpj
-                       && OperadoraCartao.Nome == rc.OperadoraCartao.Nome;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-
-            if (Loja != null)
-                hash += Loja.GetHashCode();
-
-            if (OperadoraCartao != null)
-                hash += OperadoraCartao.GetHashCode();
-
-            return Mes.GetHashCode() + Ano.GetHashCode() + hash;
+            return Id;
         }
 
         public string CouchDbId()
         {
-            return Mes.ToString() + Ano.ToString() + Loja.CouchDbId() + OperadoraCartao.CouchDbId();
+            return Id.ToString();
         }
 
         public void InicializaLazyLoad()

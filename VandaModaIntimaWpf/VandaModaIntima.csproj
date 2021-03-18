@@ -409,6 +409,7 @@
     <Compile Include="BancoDeDados\Model\CouchDbTipoContagemLog.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\AModel.cs" />
+    <Compile Include="Model\Banco.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\BonusMensal.cs" />
     <Compile Include="Model\Contagem.cs" />
@@ -416,6 +417,7 @@
     <Compile Include="Model\Converters\CalculoPassagemDataConverter.cs" />
     <Compile Include="Model\Converters\TabelaINSSDataConverter.cs" />
     <Compile Include="Model\DAO\DAOAdiantamento.cs" />
+    <Compile Include="Model\DAO\DAOBanco.cs" />
     <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOBonusMensal.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -1079,6 +1081,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\TipoHoraExtra.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

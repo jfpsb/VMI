@@ -28,30 +28,6 @@ namespace VandaModaIntimaWpf.Model.DAO
             return await Listar<Bonus>(criteria);
         }
 
-        public async Task<Bonus> ListarHoraExtra100(Funcionario funcionario, int mes, int ano)
-        {
-            var criteria = CriarCriteria<Bonus>();
-
-            criteria.Add(Restrictions.Like("Descricao", "HORA EXTRA C/100%"))
-                .Add(Restrictions.Eq("MesReferencia", mes))
-                .Add(Restrictions.Eq("AnoReferencia", ano))
-                .Add(Restrictions.Eq("Funcionario", funcionario));
-
-            return await criteria.UniqueResultAsync<Bonus>();
-        }
-
-        public async Task<Bonus> ListarHoraExtra55(Funcionario funcionario, int mes, int ano)
-        {
-            var criteria = CriarCriteria<Bonus>();
-
-            criteria.Add(Restrictions.Like("Descricao", "HORA EXTRA C/055%"))
-                .Add(Restrictions.Eq("MesReferencia", mes))
-                .Add(Restrictions.Eq("AnoReferencia", ano))
-                .Add(Restrictions.Eq("Funcionario", funcionario));
-
-            return await criteria.UniqueResultAsync<Bonus>();
-        }
-
         public override int GetMaxId()
         {
             throw new NotImplementedException();

@@ -193,9 +193,10 @@ namespace VandaModaIntimaWpf.ViewModel
         private async void ResultadoInsercao(AposInserirBDEventArgs e)
         {
             //Se foi inserido com sucesso
-            if (e.IdentificadorEntidade != null)
+            if (e.Sucesso)
             {
-                Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+                if (e.IdentificadorEntidade != null)
+                    Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
                 MessageBoxService.Show(e.MensagemSucesso);
             }
             else

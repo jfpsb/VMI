@@ -8,8 +8,8 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
         mc:Ignorable="d"
         Title="Cadastrar Recebimento de Cartao"
-        Height="500"
-        Width="850"
+        Height="600"
+        Width="1250"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Credit_Card_Icon.ico"
         Closing="Window_Closing">
@@ -18,21 +18,24 @@
     </Window.Resources>
     <Grid Margin="15,15,15,0">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="235" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Right"
+        <Label HorizontalAlignment="Left"
                Content="{DynamicResource mes_de_referencia}" />
         <view:DataUpDown Grid.Column="1"
                          Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Label HorizontalAlignment="Right"
+        <Label HorizontalAlignment="Left"
                Grid.Row="1"
                Content="{DynamicResource loja_dois_pontos}" />
         <ComboBox Grid.Column="1"
@@ -41,16 +44,25 @@
                   DisplayMemberPath="Nome"
                   SelectedItem="{Binding Matriz}"
                   SelectedIndex="{Binding MatrizComboBoxIndex}" />
-        <Label HorizontalAlignment="Right"
+        <Label HorizontalAlignment="Left"
                Grid.Row="2"
+               Content="{DynamicResource banco_dois_pontos}" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Bancos}"
+                  DisplayMemberPath="Nome"
+                  SelectedItem="{Binding Banco}" />
+        <Label HorizontalAlignment="Left"
+               Grid.Row="3"
                Content="{DynamicResource arquivo_ofx}" />
         <Button Grid.Column="1"
-                Grid.Row="2"
+                Grid.Row="3"
                 Command="{Binding AbrirOfxComando}"
                 Content="{DynamicResource selecione_o_arquivo}" />
-        <DataGrid Grid.Row="3"
-                  Grid.ColumnSpan="2"
+        <DataGrid Grid.Row="4"
+                  Grid.ColumnSpan="4"
                   AutoGenerateColumns="False"
+                  CanUserAddRows="False"
                   AlternatingRowBackground="White"
                   ItemsSource="{Binding Recebimentos, IsAsync=True, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
@@ -76,6 +88,17 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                <DataGridTextColumn Header="{DynamicResource banco_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Banco.Nome}"
+                                    Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Banco.Nome}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="{DynamicResource operadora_cartao_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding OperadoraCartao.Nome}"
@@ -89,7 +112,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{DynamicResource recebido_header}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Recebido}"
+                                    Binding="{Binding Recebido, StringFormat='C', ConverterCulture=pt-BR}"
                                     Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
@@ -99,7 +122,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
-                                    Binding="{Binding ValorOperadora, Converter={StaticResource formatoDoubleDataGrid}}"
+                                    Binding="{Binding ValorOperadora, StringFormat='C', ConverterCulture=pt-BR}"
                                     Width="*">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
@@ -110,7 +133,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{DynamicResource diferenca_header}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Diferenca}"
+                                    Binding="{Binding Diferenca, StringFormat='C', ConverterCulture=pt-BR}"
                                     Width="Auto">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
@@ -132,7 +155,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Column="0"
-              Grid.Row="4">
+              Grid.Row="5"
+              Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -155,11 +179,12 @@
                    FontWeight="Bold"
                    Content="{Binding TotalOperadora}"></Label>
         </Grid>
-        <Button Grid.Row="4"
-                Grid.Column="1"
+        <Button Grid.Row="5"
+                Grid.Column="3"
+                HorizontalAlignment="Right"
                 Width="190"
                 Content="{DynamicResource cadastrar}"
-                ToolTip="Se Já Existir Um Mês de Referência Com A Loja Escolhida, os Valores Serão Atualizados"
+                ToolTip="Se Já Existir Um Mês de Referência Com A Loja E Banco Escolhidos, os Valores Serão Atualizados"
                 Style="{StaticResource BotaoCadastrar}"
                 Command="{Binding SalvarComando}"
                 Click="Button_Click" />
