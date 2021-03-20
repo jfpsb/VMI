@@ -68,9 +68,9 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <View:DataUpDown Grid.Column="1"
-                                            Width="230"
-                                            HorizontalAlignment="Left"
-                                            Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                 Width="230"
+                                 HorizontalAlignment="Left"
+                                 Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Content="{DynamicResource mes_de_referencia}" />
                 <Label Grid.Row="1"
                        Content="{DynamicResource loja_dois_pontos}" />
@@ -123,34 +123,34 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource recebido_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Recebido}"
+                                            Binding="{Binding Entidade.Recebido, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="*">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Recebido}" />
+                                            Value="{Binding Entidade.Recebido, StringFormat='C', ConverterCulture=pt-BR}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource valor_operadora_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.ValorOperadora}"
+                                            Binding="{Binding Entidade.ValorOperadora, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="*">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.ValorOperadora}" />
+                                            Value="{Binding Entidade.ValorOperadora, StringFormat='C', ConverterCulture=pt-BR}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource diferenca_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Diferenca}"
+                                            Binding="{Binding Entidade.Diferenca, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="Auto">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Diferenca}" />
+                                            Value="{Binding Entidade.Diferenca, StringFormat='C', ConverterCulture=pt-BR}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
@@ -163,5 +163,31 @@
                 </DataGrid>
             </Grid>
         </View:TelaPesquisaTemplate.Content>
+        <View:TelaPesquisaTemplate.LeftButtonPresenter>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label FontWeight="Bold">Total Recebido:</Label>
+                <Label Grid.Column="1"
+                       HorizontalContentAlignment="Left"
+                       ContentStringFormat="C"
+                       Language="pt-BR"
+                       Content="{Binding Recebido}" />
+                <Label Grid.Row="1"
+                       FontWeight="Bold">Total Valor Operadora:</Label>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalContentAlignment="Left"
+                       ContentStringFormat="C"
+                       Language="pt-BR"
+                       Content="{Binding TotalOperadora}" />
+            </Grid>
+        </View:TelaPesquisaTemplate.LeftButtonPresenter>
     </View:TelaPesquisaTemplate>
 </View:APesquisarView>

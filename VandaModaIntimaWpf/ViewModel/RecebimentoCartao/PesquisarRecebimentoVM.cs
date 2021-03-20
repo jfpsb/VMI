@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
@@ -15,6 +16,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private LojaModel matriz;
         private DateTime dataEscolhida = DateTime.Now;
         private int matrizComboBoxIndex;
+        private double _recebido;
+        private double _totalOperadora;
 
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AbrirCadastrarOperadoraComando { get; set; }
@@ -29,6 +32,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
             DataEscolhida = DateTime.Now;
         }
+
+        private void Entidades_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CalculaTotais();
+        }
+
         public override async void PesquisaItens(string termo)
         {
             DAORecebimentoCartao daoRecebimento = (DAORecebimentoCartao)daoEntidade;
@@ -40,6 +49,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             {
                 Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.ConverterIList(await daoRecebimento.ListarPorMesAnoGroupByLoja(DataEscolhida.Month, DataEscolhida.Year)));
             }
+
+            Entidades.CollectionChanged += Entidades_CollectionChanged;
+
+            CalculaTotais();
         }
         public async void GetMatrizes()
         {
@@ -49,6 +62,20 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public override bool Editavel(object parameter)
         {
             return false;
+        }
+        private void CalculaTotais()
+        {
+            double totalRecebido = 0;
+            double totalOperadora = 0;
+
+            foreach (RecebimentoCartaoModel recebimento in Entidades.Select(s => s.Entidade).ToList())
+            {
+                totalRecebido += recebimento.Recebido;
+                totalOperadora += recebimento.ValorOperadora;
+            }
+
+            TotalOperadora = totalOperadora;
+            Recebido = totalRecebido;
         }
         public LojaModel Matriz
         {
@@ -77,6 +104,25 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
                 OnPropertyChanged("TermoPesquisa");
+            }
+        }
+
+        public double Recebido
+        {
+            get => _recebido;
+            set
+            {
+                _recebido = value;
+                OnPropertyChanged("Recebido");
+            }
+        }
+        public double TotalOperadora
+        {
+            get => _totalOperadora;
+            set
+            {
+                _totalOperadora = value;
+                OnPropertyChanged("TotalOperadora");
             }
         }
     }

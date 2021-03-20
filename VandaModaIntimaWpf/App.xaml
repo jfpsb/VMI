@@ -447,28 +447,23 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type View:TelaPesquisaTemplate}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
+                            <DockPanel LastChildFill="True">
                                 <ContentPresenter x:Name="Menu"
-                                                  Grid.Row="0" />
+                                                  DockPanel.Dock="Top" />
 
-                                <ContentPresenter x:Name="Presenter"
-                                                  Grid.Row="1" />
+                                <Grid DockPanel.Dock="Bottom">
+                                    <ContentPresenter x:Name="LeftButtonPresenter" />
+                                    <Button Grid.Row="2"
+                                            Padding="10px"
+                                            Margin="5,0,5,5"
+                                            Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=Control}}"
+                                            HorizontalAlignment="Right"
+                                            Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
+                                            Command="{Binding ApagarMarcadosComando}" />
+                                </Grid>
 
-                                <Button Grid.Row="2"
-                                        Padding="10px"
-                                        Margin="5,0,5,5"
-                                        Content="{Binding BtnApagarMarcadoTexto, RelativeSource={RelativeSource AncestorType=Control}}"
-                                        HorizontalAlignment="Right"
-                                        Visibility="{Binding VisibilidadeBotaoApagarSelecionado}"
-                                        Command="{Binding ApagarMarcadosComando}" />
-
-                            </Grid>
+                                <ContentPresenter x:Name="Presenter" />
+                            </DockPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

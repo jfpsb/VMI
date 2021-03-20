@@ -170,14 +170,14 @@
             <Label Grid.Column="1"
                    Grid.Row="0"
                    FontWeight="Bold"
-                   Content="{Binding TotalRecebido}" />
+                   Content="{Binding TotalRecebido, StringFormat='C', ConverterCulture=pt-BR}" />
             <Label Grid.Row="1"
                    FontWeight="Bold"
                    Content="{DynamicResource total_fornecido_operadora_dois_pontos}" />
             <Label Grid.Column="1"
                    Grid.Row="1"
                    FontWeight="Bold"
-                   Content="{Binding TotalOperadora}"></Label>
+                   Content="{Binding TotalOperadora, StringFormat='C', ConverterCulture=pt-BR}"></Label>
         </Grid>
         <Button Grid.Row="5"
                 Grid.Column="3"

@@ -60,6 +60,9 @@ namespace VandaModaIntimaWpf.View
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register("Content", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty LeftButtonPresenterProperty =
+            DependencyProperty.Register("LeftButtonPresenter", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
+
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register("Menu", typeof(object), typeof(TelaPesquisaTemplate), new PropertyMetadata(null));
 
@@ -81,6 +84,12 @@ namespace VandaModaIntimaWpf.View
             set { SetValue(CommandParameterProperty, value); }
         }
 
+        public object LeftButtonPresenter
+        {
+            get => GetValue(LeftButtonPresenterProperty);
+            set { SetValue(LeftButtonPresenterProperty, value); }
+        }
+
         public string BtnApagarMarcadoTexto
         {
             get => (string)GetValue(BtnApagarMarcadoTextoProperty);
@@ -96,6 +105,9 @@ namespace VandaModaIntimaWpf.View
 
             ContentPresenter menuContentPresenter = GetTemplateChild("Menu") as ContentPresenter;
             menuContentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("Menu") { Source = this });
+
+            ContentPresenter leftButtonPresenter = GetTemplateChild("LeftButtonPresenter") as ContentPresenter;
+            leftButtonPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding("LeftButtonPresenter") { Source = this });
         }
     }
 }
