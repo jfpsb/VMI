@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         x:Name="TelaAdicionarBonusPassagem"
         Title="Adicionar Passagem Calculada À Folha"
         Height="450"
-        Width="500"
+        Width="450"
         WindowStartupLocation="CenterScreen"
         Closing="TelaAdicionarBonusPassagem_Closing">
+    <Window.Resources>
+        <Converters:BooleanToYesOrNoStringConverter x:Key="BooleanToYesOrNoStringConverter" />
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -36,6 +40,22 @@
                   Grid.ColumnSpan="2"
                   Name="DataGridFuncionario"
                   ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Entidade.RecebePassagem}"
+                                     Value="True">
+                            <Setter Property="Background"
+                                    Value="LightGreen" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Entidade.RecebePassagem}"
+                                     Value="False">
+                            <Setter Property="Background"
+                                    Value="IndianRed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -48,13 +68,28 @@
                 <DataGridTextColumn Header="{DynamicResource nome_header}"
                                     IsReadOnly="True"
                                     Binding="{Binding Entidade.Nome}"
-                                    Width="*">
+                                    Width="Auto">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="ToolTip"
                                     Value="{Binding Entidade.Nome}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True"
+                                    Binding="{Binding Entidade.RecebePassagem, Converter={StaticResource BooleanToYesOrNoStringConverter}}"
+                                    Width="*"
+                                    TextBlock.TextAlignment="Center">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Entidade.RecebePassagem}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{DynamicResource recebe_passagem_header}"
+                                   TextWrapping="Wrap" />
+                    </DataGridTextColumn.Header>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

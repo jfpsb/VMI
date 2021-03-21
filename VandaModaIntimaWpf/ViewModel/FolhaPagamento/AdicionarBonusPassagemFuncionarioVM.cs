@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             AdicionarBonusPassagemComando = new RelayCommand(AdicionarBonusPassagem);
 
-            getFuncionarios();
+            GetFuncionarios();
         }
 
         private async void AdicionarBonusPassagem(object obj)
@@ -54,7 +54,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     Model.Bonus bonus = new Model.Bonus();
                     var now = DateTime.Now;
 
-                    //bonus.Id = now.Ticks;
                     bonus.Funcionario = funcionario;
                     bonus.Data = now;
                     bonus.Descricao = "PASSAGEM DE ÔNIBUS";
@@ -107,9 +106,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private async void getFuncionarios()
+        private async void GetFuncionarios()
         {
-            Entidades = new ObservableCollection<EntidadeComCampo<Model.Funcionario>>(EntidadeComCampo<Model.Funcionario>.ConverterIList(await daoFuncionario.ListarQuemRecebePassagem()));
+            Entidades = new ObservableCollection<EntidadeComCampo<Model.Funcionario>>(EntidadeComCampo<Model.Funcionario>.ConverterIList(await daoFuncionario.Listar<Model.Funcionario>()));
         }
 
         public void DisposeSession()

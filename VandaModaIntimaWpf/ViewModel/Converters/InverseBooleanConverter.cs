@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
+namespace VandaModaIntimaWpf.ViewModel.Converters
 {
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : IValueConverter

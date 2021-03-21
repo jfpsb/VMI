@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Mais Detalhes"
         Height="450"
@@ -13,7 +14,7 @@
         ResizeMode="NoResize"
         Closing="Window_Closing">
     <Window.Resources>
-        <ViewModel:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>

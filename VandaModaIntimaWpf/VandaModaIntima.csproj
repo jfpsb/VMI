@@ -360,6 +360,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\RecebimentoCartao\MaisDetalhes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RecebimentoCartao\PesquisarRecebimento.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -489,6 +493,7 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
+    <Compile Include="ViewModel\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -538,11 +543,11 @@
     <Compile Include="ViewModel\FolhaPagamento\EditarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\EditarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\EditarFolhaVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\InverseBooleanConverter.cs" />
+    <Compile Include="ViewModel\Converters\InverseBooleanConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\ValorAPagarConverter.cs" />
+    <Compile Include="ViewModel\Converters\ValorAPagarConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\VisualizarHoraExtraVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
@@ -580,6 +585,7 @@
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\FormatoDoubleDataGrid.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
+    <Compile Include="ViewModel\RecebimentoCartao\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
@@ -770,6 +776,9 @@
     </Compile>
     <Compile Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml.cs">
       <DependentUpon>CadastrarRecebimentoCartao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RecebimentoCartao\MaisDetalhes.xaml.cs">
+      <DependentUpon>MaisDetalhes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>

@@ -6,6 +6,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Folha de Pagamento"
                      Width="850"
@@ -14,7 +15,7 @@
                      Icon="/Resources/Loja_Icon.ico"
                      Closing="Pesquisar_Closing">
     <Window.Resources>
-        <ViewModel:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
     <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarFolhaPagamento}">
         <View:TelaPesquisaTemplate.Menu>

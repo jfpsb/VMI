@@ -2,13 +2,18 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
+namespace VandaModaIntimaWpf.ViewModel.Converters
 {
-    public class ValorAPagarConverter : IValueConverter
+    public class BooleanToYesOrNoStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((double)value) < 0;
+            bool valor = (bool)value;
+
+            if (valor)
+                return "SIM";
+
+            return "NÃO";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

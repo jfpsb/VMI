@@ -20,6 +20,16 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             return await session.GetAsync<RecebimentoCartao>(id);
         }
+        public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLoja(int mes, int ano, Loja loja)
+        {
+            var criteria = CriarCriteria<RecebimentoCartao>();
+
+            criteria.Add(Restrictions.Eq("Mes", mes));
+            criteria.Add(Restrictions.Eq("Ano", ano));
+            criteria.Add(Restrictions.Eq("Loja", loja));
+
+            return await Listar<RecebimentoCartao>(criteria);
+        }
         public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLojaBanco(int mes, int ano, Loja loja, Banco banco)
         {
             var criteria = CriarCriteria<RecebimentoCartao>();

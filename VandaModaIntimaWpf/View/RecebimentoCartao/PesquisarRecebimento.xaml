@@ -157,7 +157,8 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                            <MenuItem Header="{DynamicResource detalhes}" />
+                            <MenuItem Header="{DynamicResource detalhes}"
+                                      Command="{Binding MaisDetalhesComando}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

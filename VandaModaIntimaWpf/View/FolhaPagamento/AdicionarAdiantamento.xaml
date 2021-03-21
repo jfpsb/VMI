@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Adicionar Adiantamento"
         WindowStartupLocation="CenterScreen"
         Height="575"
         Width="475">
     <Window.Resources>
-        <ViewModel:ValorAPagarConverter x:Key="ValorAPagarConverter" />
+        <Converters:ValorAPagarConverter x:Key="ValorAPagarConverter" />
     </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">

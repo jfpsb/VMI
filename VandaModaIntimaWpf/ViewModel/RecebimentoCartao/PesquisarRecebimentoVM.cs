@@ -21,6 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AbrirCadastrarOperadoraComando { get; set; }
+        public ICommand MaisDetalhesComando { get; set; }
         public PesquisarRecebimentoVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<RecebimentoCartaoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
@@ -30,7 +31,19 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             GetMatrizes();
             MatrizComboBoxIndex = 0;
 
+            MaisDetalhesComando = new RelayCommand(MaisDetalhes);
+
             DataEscolhida = DateTime.Now;
+        }
+
+        private void MaisDetalhes(object obj)
+        {
+            MaisDetalhesVM viewModel = new MaisDetalhesVM(_session, EntidadeSelecionada.Entidade);
+            View.RecebimentoCartao.MaisDetalhes view = new View.RecebimentoCartao.MaisDetalhes()
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
         }
 
         private void Entidades_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

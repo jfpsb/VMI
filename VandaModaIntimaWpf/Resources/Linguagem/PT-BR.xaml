@@ -162,6 +162,7 @@
     <System:String x:Key="id_dois_pontos">Id:</System:String>
     <System:String x:Key="cadastrar_recebimento_cartao">Cadastrar Novo Recebimento de Cartão</System:String>
     <System:String x:Key="cadastrar_operadora_cartao">Cadastrar Nova Operadora de Cartão</System:String>
+    <System:String x:Key="recebe_passagem_header">Recebe Passagem&#10;Regularmente</System:String>
 
     <!-- Exclusivo da janela AdicionarContagemProduto -->
     <System:String x:Key="informe_codbarra_adicionar_contagem_produto">Informe Um Código de Barras Do Produto (Incluindo de Fornecedor):</System:String>
