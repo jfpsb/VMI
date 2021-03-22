@@ -38,7 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public override async void PesquisaItens(string termo)
         {
             DAOContagem daoContagem = (DAOContagem)daoEntidade;
-            Entidades = new ObservableCollection<EntidadeComCampo<ContagemModel>>(EntidadeComCampo<ContagemModel>.ConverterIList(await daoContagem.ListarPorLojaEPeriodo(Loja, DataInicial, DataFinal)));
+            Entidades = new ObservableCollection<EntidadeComCampo<ContagemModel>>(EntidadeComCampo<ContagemModel>.CriarListaEntidadeComCampo(await daoContagem.ListarPorLojaEPeriodo(Loja, DataInicial, DataFinal)));
         }
 
         public override bool Editavel(object parameter)

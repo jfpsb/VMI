@@ -125,7 +125,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Preco}"
+                                            Binding="{Binding Entidade.Preco, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="Auto">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">

@@ -42,16 +42,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Descricao:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorDescricao(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo)));
                     break;
                 case (int)OpcoesPesquisa.CodBarra:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorCodigoDeBarra(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo)));
                     break;
                 case (int)OpcoesPesquisa.Fornecedor:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorFornecedor(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorFornecedor(termo)));
                     break;
                 case (int)OpcoesPesquisa.Marca:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.ConverterIList(await daoProduto.ListarPorMarca(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorMarca(termo)));
                     break;
             }
         }

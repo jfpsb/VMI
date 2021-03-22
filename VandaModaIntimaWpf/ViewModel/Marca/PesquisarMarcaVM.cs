@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         public override async void PesquisaItens(string termo)
         {
             DAOMarca daoMarca = (DAOMarca)daoEntidade;
-            Entidades = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.ConverterIList(await daoMarca.ListarPorNome(termo)));
+            Entidades = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.CriarListaEntidadeComCampo(await daoMarca.ListarPorNome(termo)));
         }
         public override bool Editavel(object parameter)
         {

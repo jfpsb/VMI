@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -12,10 +13,11 @@ namespace VandaModaIntimaWpf.ViewModel
         private E entidade;
         private bool isChecked = false;
 
-        public EntidadeComCampo(E entidade)
+        public static IList<EntidadeComCampo<E>> CriarListaEntidadeComCampo(IList<E> entidades)
         {
-            this.entidade = entidade;
+            return entidades.Select(s => new EntidadeComCampo<E>() { Entidade = s }).ToList();
         }
+
         public E Entidade
         {
             get { return entidade; }
@@ -34,37 +36,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 isChecked = value;
                 OnPropertyChanged("IsChecked");
             }
-        }
-        public static IList<EntidadeComCampo<E>> ConverterIList(IList<E> entidades)
-        {
-            IList<EntidadeComCampo<E>> lista = new List<EntidadeComCampo<E>>();
-
-            if (entidades != null)
-            {
-                foreach (E e in entidades)
-                {
-                    EntidadeComCampo<E> em = new EntidadeComCampo<E>(e);
-                    lista.Add(em);
-                }
-            }
-
-            return lista;
-        }
-
-        public static IList<E> ConverterIList(IList<EntidadeComCampo<E>> entidades)
-        {
-            IList<E> lista = new List<E>();
-
-            if (entidades != null)
-            {
-                foreach (EntidadeComCampo<E> e in entidades)
-                {
-                    E en = e.Entidade;
-                    lista.Add(en);
-                }
-            }
-
-            return lista;
         }
     }
 }

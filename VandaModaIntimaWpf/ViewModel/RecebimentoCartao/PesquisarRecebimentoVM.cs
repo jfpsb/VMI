@@ -56,11 +56,11 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             DAORecebimentoCartao daoRecebimento = (DAORecebimentoCartao)daoEntidade;
             if (MatrizComboBoxIndex != 0)
             {
-                Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.ConverterIList(await daoRecebimento.ListarPorMesAnoLojaGroupByLoja(DataEscolhida.Month, DataEscolhida.Year, Matriz)));
+                Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.CriarListaEntidadeComCampo(await daoRecebimento.ListarPorMesAnoLojaGroupByLoja(DataEscolhida.Month, DataEscolhida.Year, Matriz)));
             }
             else
             {
-                Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.ConverterIList(await daoRecebimento.ListarPorMesAnoGroupByLoja(DataEscolhida.Month, DataEscolhida.Year)));
+                Entidades = new ObservableCollection<EntidadeComCampo<RecebimentoCartaoModel>>(EntidadeComCampo<RecebimentoCartaoModel>.CriarListaEntidadeComCampo(await daoRecebimento.ListarPorMesAnoGroupByLoja(DataEscolhida.Month, DataEscolhida.Year)));
             }
 
             Entidades.CollectionChanged += Entidades_CollectionChanged;

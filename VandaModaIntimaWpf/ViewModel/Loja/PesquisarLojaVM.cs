@@ -39,10 +39,10 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Cnpj:
-                    Entidades = new ObservableCollection<EntidadeComCampo<LojaModel>>(EntidadeComCampo<LojaModel>.ConverterIList(await daoLoja.ListarPorCnpj(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<LojaModel>>(EntidadeComCampo<LojaModel>.CriarListaEntidadeComCampo(await daoLoja.ListarPorCnpj(termo)));
                     break;
                 case (int)OpcoesPesquisa.Nome:
-                    Entidades = new ObservableCollection<EntidadeComCampo<LojaModel>>(EntidadeComCampo<LojaModel>.ConverterIList(await daoLoja.ListarPorNome(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<LojaModel>>(EntidadeComCampo<LojaModel>.CriarListaEntidadeComCampo(await daoLoja.ListarPorNome(termo)));
                     break;
             }
         }

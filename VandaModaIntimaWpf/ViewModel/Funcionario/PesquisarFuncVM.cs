@@ -38,10 +38,10 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Cpf:
-                    Entidades = new ObservableCollection<EntidadeComCampo<FuncionarioModel>>(EntidadeComCampo<FuncionarioModel>.ConverterIList(await daoFuncionario.ListarPorCpf(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<FuncionarioModel>>(EntidadeComCampo<FuncionarioModel>.CriarListaEntidadeComCampo(await daoFuncionario.ListarPorCpf(termo)));
                     break;
                 case (int)OpcoesPesquisa.Nome:
-                    Entidades = new ObservableCollection<EntidadeComCampo<FuncionarioModel>>(EntidadeComCampo<FuncionarioModel>.ConverterIList(await daoFuncionario.ListarPorNome(termo)));
+                    Entidades = new ObservableCollection<EntidadeComCampo<FuncionarioModel>>(EntidadeComCampo<FuncionarioModel>.CriarListaEntidadeComCampo(await daoFuncionario.ListarPorNome(termo)));
                     break;
             }
         }

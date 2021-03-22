@@ -7,7 +7,7 @@
         WindowState="Maximized"
         Closing="TelaPrincipal_Closing"
         Width="1366"
-        Height="780">
+        Height="1200">
     <DockPanel>
         <Menu>
             <MenuItem Header="Opções"

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -84,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public abstract void PesquisaItens(string termo);
         public void AbrirImprimir(object parameter)
         {
-            AbrePelaTelaPesquisaService.AbrirImprimir(EntidadeComCampo<E>.ConverterIList(Entidades));
+            AbrePelaTelaPesquisaService.AbrirImprimir(Entidades.Select(s => s.Entidade).ToList());
         }
         public abstract bool Editavel(object parameter);
         protected virtual void ChamaAposDeletarDocumento(AposDeletarDocumentoEventArgs e)
@@ -259,7 +260,7 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
             IsThreadLocked = true;
-            await new Excel<E>(excelStrategy).Salvar(EntidadeComCampo<E>.ConverterIList(Entidades));
+            await new Excel<E>(excelStrategy).Salvar(Entidades.Select(s => s.Entidade).ToList());
             IsThreadLocked = false;
             MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using VandaModaIntimaWpf.View.Produto.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
@@ -55,7 +56,7 @@ namespace VandaModaIntimaWpf.View.Produto
 
                 prow.cod_barra = produto.CodBarra;
                 prow.descricao = produto.Descricao;
-                prow.preco = produto.Preco.ToString();
+                prow.preco = produto.Preco.ToString("C", CultureInfo.CurrentCulture);
 
                 produtoDataSet.Produto.AddProdutoRow(prow);
             }
