@@ -130,7 +130,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             Entidade.Valor = Valor;
 
-            if (Valor < ValorMaximoParcela)
+            if (Valor <= ValorMaximoParcela)
             {
                 _minParcelas = 1;
             }

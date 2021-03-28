@@ -25,8 +25,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ISession _session;
         private Parcela _parcela;
         private Bonus _bonusEscolhido;
-        private string _mensagemStatusBar;
-        private BitmapImage _imagemStatusBar;
         private FolhaModel _folhaPagamento;
         private bool? _dialogResult = false;
         private IMessageBoxService MessageBoxService;
@@ -72,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (result)
                 {
-                    SetStatusBarItemDeletado("Bônus Deletado Com Sucesso");
+                    MessageBoxService.Show("Bônus Deletado Com Sucesso");
                     Bonus.Remove(BonusEscolhido);
                 }
             }
@@ -89,47 +87,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
+                FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
+
                 bool resultadoDelete = await daoAdiantamento.Deletar(Parcela.Adiantamento);
 
                 if (resultadoDelete)
                 {
-                    SetStatusBarItemDeletado("Adiantamento Deletado Com Sucesso!");
+                    MessageBoxService.Show("Adiantamento Deletado Com Sucesso!");
+                    _session.Refresh(FolhaPagamento);
+                    Parcelas = new ObservableCollection<Parcela>(FolhaPagamento.Parcelas);
                 }
             }
-        }
-
-        public async void SetStatusBarItemDeletado(string mensagem)
-        {
-            _dialogResult = true;
-            MensagemStatusBar = mensagem;
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemDeletado");
-            await _session.RefreshAsync(FolhaPagamento);
-            await ResetarStatusBar();
-        }
-        public async Task ResetarStatusBar()
-        {
-            await Task.Delay(7000); //Espera 7 segundos para resetar StatusBar
-            SetStatusBarAguardando();
-        }
-        public void SetStatusBarAguardando()
-        {
-            MensagemStatusBar = GetResource.GetString("aguardando_usuario");
-            ImagemStatusBar = GetResource.GetBitmapImage("ImagemAguardando");
         }
 
         public bool? DialogResult()
         {
             return _dialogResult;
-        }
-
-        public BitmapImage ImagemStatusBar
-        {
-            get { return _imagemStatusBar; }
-            set
-            {
-                _imagemStatusBar = value;
-                OnPropertyChanged("ImagemStatusBar");
-            }
         }
 
         public ObservableCollection<Parcela> Parcelas
@@ -149,16 +122,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _parcela = value;
                 OnPropertyChanged("Parcela");
-            }
-        }
-
-        public string MensagemStatusBar
-        {
-            get => _mensagemStatusBar;
-            set
-            {
-                _mensagemStatusBar = value;
-                OnPropertyChanged("MensagemStatusBar");
             }
         }
 
