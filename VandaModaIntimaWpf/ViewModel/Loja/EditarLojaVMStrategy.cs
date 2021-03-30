@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VandaModaIntimaWpf.ViewModel.Loja
+﻿namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class EditarLojaVMStrategy : ICadastrarVMStrategy
     {
@@ -26,6 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Loja Foi Atualizada Com Sucesso";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Edição de Loja";
         }
     }
 }

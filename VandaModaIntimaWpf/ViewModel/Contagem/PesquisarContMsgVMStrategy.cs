@@ -56,5 +56,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             return "Erro ao Marcar LOG de Contagem Como Deletado";
         }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa De Contagem";
+        }
     }
 }

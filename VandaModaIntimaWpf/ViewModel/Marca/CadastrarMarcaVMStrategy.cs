@@ -19,5 +19,10 @@
         {
             return "Marca Foi Inserida Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Marca";
+        }
     }
 }

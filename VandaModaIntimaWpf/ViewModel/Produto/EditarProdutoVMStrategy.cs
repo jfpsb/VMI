@@ -23,5 +23,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             return "Produto Foi Atualizado Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Edição de Produto";
+        }
     }
 }

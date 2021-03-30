@@ -49,5 +49,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         {
             return "Erro ao Marcar LOG de Recebimento de Cartão Como Deletado";
         }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa de Recebimento Em Contas";
+        }
     }
 }

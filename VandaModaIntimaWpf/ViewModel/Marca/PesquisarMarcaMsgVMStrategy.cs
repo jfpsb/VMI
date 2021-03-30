@@ -1,9 +1,5 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.View.Marca;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
@@ -53,6 +49,11 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         public string MensagemDocumentoNaoDeletado()
         {
             return "Erro ao Marcar LOG de Marca Como Deletado";
+        }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa de Marca";
         }
     }
 }

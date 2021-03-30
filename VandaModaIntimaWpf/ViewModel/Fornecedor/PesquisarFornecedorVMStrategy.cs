@@ -66,5 +66,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             return "Erro ao Marcar LOG de Fornecedor Como Deletado";
         }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa de Fornecedor";
+        }
     }
 }

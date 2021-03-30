@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
@@ -42,6 +40,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public string MensagemDocumentoNaoDeletado()
         {
             return "Erro ao Marcar LOG de Folha de Pagamento Como Deletado";
+        }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Consulta de Folha Pagamento";
         }
     }
 }

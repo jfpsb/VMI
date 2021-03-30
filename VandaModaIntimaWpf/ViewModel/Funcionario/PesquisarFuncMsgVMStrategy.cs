@@ -1,9 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
-using VandaModaIntimaWpf.View.Funcionario;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
+﻿using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
@@ -52,6 +47,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public string MensagemDocumentoNaoDeletado()
         {
             return "Erro ao Marcar LOG de Funcionário Como Deletado";
+        }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa de Funcionário";
         }
     }
 }

@@ -23,5 +23,10 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         {
             return "Marca Foi Atualizada Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Edição de Marca";
+        }
     }
 }

@@ -18,5 +18,10 @@
         {
             return "Recebimentos Foram Inseridos Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Recebimento Em Contas";
+        }
     }
 }

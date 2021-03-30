@@ -18,5 +18,10 @@
         {
             return "Loja Foi Inserida Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Loja";
+        }
     }
 }

@@ -18,5 +18,10 @@
         {
             return "Adiantamento Foi Inserido Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Adiantamento";
+        }
     }
 }

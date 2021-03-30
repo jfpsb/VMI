@@ -18,5 +18,10 @@
         {
             return "Bônus Foi Inserido Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Bônus";
+        }
     }
 }

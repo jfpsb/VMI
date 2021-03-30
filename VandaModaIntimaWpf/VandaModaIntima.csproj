@@ -538,11 +538,7 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarFolhaVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoPassagemOnibusVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\EditarAdiantamentoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\EditarBonusVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\EditarFolhaVMStrategy.cs" />
     <Compile Include="ViewModel\Converters\InverseBooleanConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />

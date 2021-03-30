@@ -6,5 +6,6 @@
         string MensagemDocumentoNaoSalvo();
         string MensagemEntidadeSalvaComSucesso();
         string MensagemEntidadeErroAoSalvar();
+        string MessageBoxCaption();
     }
 }

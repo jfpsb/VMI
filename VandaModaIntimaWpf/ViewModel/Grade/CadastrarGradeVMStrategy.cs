@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VandaModaIntimaWpf.ViewModel.Grade
+﻿namespace VandaModaIntimaWpf.ViewModel.Grade
 {
     public class CadastrarGradeVMStrategy : ICadastrarVMStrategy
     {
@@ -22,6 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Grade Foi Salva Com Sucesso";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Grade";
         }
     }
 }

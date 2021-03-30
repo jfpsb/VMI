@@ -41,5 +41,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             return "Erro ao Marcar LOG de Produto Como Deletado";
         }
+
+        public string PesquisarEntidadeCaption()
+        {
+            return "Pesquisa de Produto";
+        }
     }
 }

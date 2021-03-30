@@ -4,6 +4,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
     public class EditarContagemVMStrategy : ICadastrarVMStrategy
     {
+        public string MessageBoxCaption()
+        {
+            return "Edição de Contagem";
+        }
+
         public string MensagemDocumentoNaoSalvo()
         {
             return "Erro ao Criar LOG de Atualização de Contagem";

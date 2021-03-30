@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
@@ -26,6 +22,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Fornecedor Foi Atualizado Com Sucesso";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Edição de Fornecedor";
         }
     }
 }

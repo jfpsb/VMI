@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
@@ -26,6 +22,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Funcionário Foi Atualizado Com Sucesso";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Edição de Funcionário";
         }
     }
 }

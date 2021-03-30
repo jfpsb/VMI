@@ -13,5 +13,6 @@ namespace VandaModaIntimaWpf.ViewModel
         string TelaApagarCaption();
         string MensagemDocumentoDeletado();
         string MensagemDocumentoNaoDeletado();
+        string PesquisarEntidadeCaption();
     }
 }

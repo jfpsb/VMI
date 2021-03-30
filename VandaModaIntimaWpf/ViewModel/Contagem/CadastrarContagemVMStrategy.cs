@@ -19,5 +19,10 @@
         {
             return "Contagem Foi Inserida Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Contagem";
+        }
     }
 }

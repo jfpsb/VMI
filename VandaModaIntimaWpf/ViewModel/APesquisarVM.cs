@@ -155,19 +155,19 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             else
             {
-                MessageBoxService.Show(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro, pesquisarViewModelStrategy.PesquisarEntidadeCaption());
             }
         }
         private void InformaResultadoDeletarBD(AposDeletarDoBDEventArgs e)
         {
             if (e.DeletadoComSucesso)
             {
-                MessageBoxService.Show(e.MensagemSucesso);
+                MessageBoxService.Show(e.MensagemSucesso, pesquisarViewModelStrategy.PesquisarEntidadeCaption());
                 OnPropertyChanged("TermoPesquisa");
             }
             else
             {
-                MessageBoxService.Show(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro, pesquisarViewModelStrategy.PesquisarEntidadeCaption());
             }
         }
         public void AbrirEditar(object parameter)
@@ -224,12 +224,13 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 if (resultDeletar)
                 {
-                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas());
+                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
                     VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
+                    OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas());
+                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
                 }
             }
         }
@@ -258,11 +259,11 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public virtual async void ExportarExcel(object parameter)
         {
-            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
+            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
             IsThreadLocked = true;
             await new Excel<E>(excelStrategy).Salvar(Entidades.Select(s => s.Entidade).ToList());
             IsThreadLocked = false;
-            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
+            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
         }
         protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

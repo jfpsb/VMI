@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.TipoGrade
 {
@@ -23,6 +19,11 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Tipo de Grade Foi Inserido Com Sucesso";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Tipo De Grade";
         }
     }
 }

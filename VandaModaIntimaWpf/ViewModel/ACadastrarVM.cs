@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             catch (Exception e)
             {
-                MessageBoxService.Show(e.Message);
+                MessageBoxService.Show(e.Message, viewModelStrategy.MessageBoxCaption());
             }
         }
         /// <summary>
@@ -197,11 +197,11 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 if (e.IdentificadorEntidade != null)
                     Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-                MessageBoxService.Show(e.MensagemSucesso);
+                MessageBoxService.Show(e.MensagemSucesso, viewModelStrategy.MessageBoxCaption());
             }
             else
             {
-                MessageBoxService.Show(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro, viewModelStrategy.MessageBoxCaption());
             }
         }
         /// <summary>
@@ -218,7 +218,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             else
             {
-                MessageBoxService.Show(e.MensagemErro);
+                MessageBoxService.Show(e.MensagemErro, viewModelStrategy.MessageBoxCaption());
             }
         }
         /// <summary>

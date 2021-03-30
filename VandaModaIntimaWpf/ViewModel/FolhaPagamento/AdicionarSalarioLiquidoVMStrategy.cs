@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
+﻿namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarSalarioLiquidoVMStrategy : ICadastrarVMStrategy
     {
         public string MensagemDocumentoNaoSalvo()
         {
-            throw new NotImplementedException();
+            return "Erro ao Salvar Documento Com Atualização de Salário Líquido";
         }
 
         public string MensagemDocumentoSalvoComSucesso()
         {
-            throw new NotImplementedException();
+            return "Sucesso ao Salvar Documento Com Atualização de Salário Líquido";
         }
 
         public string MensagemEntidadeErroAoSalvar()
@@ -26,6 +20,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public string MensagemEntidadeSalvaComSucesso()
         {
             return "Sucesso Ao Inserir Salário Líquido";
+        }
+
+        public string MessageBoxCaption()
+        {
+            return "Adição de Salário Líquido";
         }
     }
 }

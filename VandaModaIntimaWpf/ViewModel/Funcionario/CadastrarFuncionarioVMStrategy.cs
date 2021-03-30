@@ -18,5 +18,10 @@
         {
             return "Funcionário Foi Inserido Com Sucesso";
         }
+
+        public string MessageBoxCaption()
+        {
+            return "Cadastro de Funcionário";
+        }
     }
 }
