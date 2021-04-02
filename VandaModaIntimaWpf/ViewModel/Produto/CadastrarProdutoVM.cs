@@ -7,6 +7,10 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -32,13 +36,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private ProdutoGrade _produtoGrade; // Guarda ProdutoGrade sendo formada
         private ObservableCollection<ProdutoGrade> _produtoGrades; // Guarda listagem de Grades do Produto já completamente formadas
         private AbrePelaTelaCadastroDeProduto abrePelaTelaCadastroDeProduto;
+        private ObservableCollection<FornecedorModel> _fornecedores;
+        private ObservableCollection<MarcaModel> _marcas;
 
-        public ObservableCollection<FornecedorModel> Fornecedores { get; set; }
-        public ObservableCollection<MarcaModel> Marcas { get; set; }
         public ICommand InserirFormacaoGradeComando { get; set; }
         public ICommand InserirFormacaoAtualGradeComando { get; set; }
         public ICommand AbreTelaCadastrarTipoGradeComando { get; set; }
         public ICommand AbreTelaCadastrarGradeComando { get; set; }
+        public ICommand CadastrarFornecedorOnlineComando { get; set; }
+        public ICommand CadastrarFornecedorManualmenteComando { get; set; }
+        public ICommand CadastrarMarcaComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
@@ -58,6 +65,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             InserirFormacaoAtualGradeComando = new RelayCommand(InserirFormacaoAtualGrade, ValidaInserirFormacaoAtualGrade);
             AbreTelaCadastrarGradeComando = new RelayCommand(AbreTelaCadastrarGrade);
             AbreTelaCadastrarTipoGradeComando = new RelayCommand(AbreTelaCadastrarTipoGrade);
+            CadastrarFornecedorOnlineComando = new RelayCommand(CadastrarFornecedorOnline);
+            CadastrarFornecedorManualmenteComando = new RelayCommand(CadastrarFornecedorManualmente);
+            CadastrarMarcaComando = new RelayCommand(CadastrarMarca);
 
             PropertyChanged += GetGrades;
 
@@ -69,6 +79,51 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
+        }
+
+        private void CadastrarMarca(object obj)
+        {
+            CadastrarMarcaVM cadastrarMarcaViewModel = new CadastrarMarcaVM(_session, new MessageBoxService(), false);
+            CadastrarMarca cadastrarMarca = new CadastrarMarca()
+            {
+                DataContext = cadastrarMarcaViewModel
+            };
+            var result = cadastrarMarca.ShowDialog();
+
+            if (result == true)
+            {
+                GetMarcas();
+                Entidade.Marca = Marcas[0];
+            }
+        }
+
+        private void CadastrarFornecedorOnline(object obj)
+        {
+            CadastrarFornOnlineVM viewModel = new CadastrarFornOnlineVM(_session, new MessageBoxService(), false);
+            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
+            {
+                DataContext = viewModel
+            };
+            var result = cadastrarFornecedorOnline.ShowDialog();
+
+            if (result == true)
+            {
+                GetFornecedores();
+                Entidade.Fornecedor = Fornecedores[0];
+            }
+        }
+
+        private void CadastrarFornecedorManualmente(object obj)
+        {
+            CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(_session, new MessageBoxService(), false);
+            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente() { DataContext = cadastrarFornecedorManualmenteViewModel };
+            var result = cadastrar.ShowDialog();
+
+            if (result == true)
+            {
+                GetFornecedores();
+                Entidade.Fornecedor = Fornecedores[0];
+            }
         }
 
         private void ConfiguraProdutoAntesDeInserir()
@@ -217,6 +272,25 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 _codigoFornecedor = value;
                 OnPropertyChanged("CodigoFornecedor");
+            }
+        }
+
+        public ObservableCollection<FornecedorModel> Fornecedores
+        {
+            get => _fornecedores;
+            set
+            {
+                _fornecedores = value;
+                OnPropertyChanged("Fornecedores");
+            }
+        }
+        public ObservableCollection<MarcaModel> Marcas
+        {
+            get => _marcas;
+            set
+            {
+                _marcas = value;
+                OnPropertyChanged("Marcas");
             }
         }
 

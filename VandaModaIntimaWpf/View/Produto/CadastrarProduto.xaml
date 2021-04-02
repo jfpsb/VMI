@@ -18,6 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -33,10 +34,11 @@
                 <Label Content="Código:" />
                 <TextBox x:Name="TxtCodBarra"
                          Grid.Column="1"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                          MaxLength="15" />
                 <Label Grid.Row="1"
-                       Grid.ColumnSpan="2"
+                       Grid.ColumnSpan="3"
                        Content="{DynamicResource produto_ja_existe_sistema}"
                        HorizontalAlignment="Right"
                        Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
@@ -45,6 +47,7 @@
                        Content="{DynamicResource descricao_dois_pontos}" />
                 <TextBox Grid.Column="1"
                          Grid.Row="2"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}"
                          MaxLength="100"
                          IsEnabled="{Binding IsEnabled}" />
@@ -52,12 +55,14 @@
                        Content="{DynamicResource preco_dois_pontos}" />
                 <TextBox Grid.Column="1"
                          Grid.Row="3"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Preco, ConverterCulture=pt-BR}"
                          IsEnabled="{Binding IsEnabled}" />
                 <Label Grid.Row="4"
                        Content="{DynamicResource ncm_dois_pontos}" />
                 <TextBox Grid.Column="1"
                          Grid.Row="4"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding IsEnabled}"
                          MaxLength="8" />
@@ -69,6 +74,22 @@
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
+                <Button Grid.Row="5"
+                        Grid.Column="2"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTip="Adicionar Novo Fornecedor"
+                        Click="BtnCadastrarFornecedor_Click">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Cadastrar Online"
+                                      Command="{Binding CadastrarFornecedorOnlineComando}" />
+                            <MenuItem Header="Cadastrar Manualmente"
+                                      Command="{Binding CadastrarFornecedorManualmenteComando}" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                    <Image Source="/Resources/Adicionar.png" />
+                </Button>
                 <Label Grid.Row="6"
                        Content="{DynamicResource marca_dois_pontos}" />
                 <ComboBox Grid.Column="1"
@@ -77,16 +98,24 @@
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
+                <Button Grid.Row="6"
+                        Grid.Column="2"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTip="Adicionar Nova Marca"
+                        Command="{Binding CadastrarMarcaComando}">
+                    <Image Source="/Resources/Adicionar.png" />
+                </Button>
                 <Button Grid.Row="9"
                         Width="Auto"
                         Padding="15"
                         Margin="1"
                         FontSize="24"
-                        Grid.ColumnSpan="2"
+                        Grid.ColumnSpan="3"
                         VerticalAlignment="Bottom"
                         Content="{DynamicResource cadastrar}"
                         Command="{Binding SalvarComando}"
-                        Click="Button_Click" />
+                        Click="BtnSalvar_Click" />
             </Grid>
         </TabItem>
         <TabItem Header="Grades">

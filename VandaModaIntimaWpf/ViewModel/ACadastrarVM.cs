@@ -197,6 +197,7 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 if (e.IdentificadorEntidade != null)
                     Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+
                 MessageBoxService.Show(e.MensagemSucesso, viewModelStrategy.MessageBoxCaption());
             }
             else
@@ -224,8 +225,8 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <summary>
         /// Método utilizado nas telas de ediçao para saber se houve edição.
         /// </summary>
-        /// <returns>Objeto se a entidade foi editada, senão, null</returns>
-        public object ResultadoSalvar()
+        /// <returns>True se entidade tiver sido salva</returns>
+        public bool ResultadoSalvar()
         {
             return _result;
         }

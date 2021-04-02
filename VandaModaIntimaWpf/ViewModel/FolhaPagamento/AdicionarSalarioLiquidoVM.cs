@@ -25,8 +25,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             if (e.Sucesso)
             {
-                MessageBoxService.Show("Horas Extras Adicionadas Com Sucesso!");
-
                 if (e.Parametro is ICloseable closeable)
                 {
                     closeable.Close();
@@ -52,7 +50,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (string.IsNullOrEmpty(SalarioLiquido) || !double.TryParse(SalarioLiquido, out salario) || salario <= 0.0)
             {
-                Console.WriteLine(salario.ToString());
                 BtnSalvarToolTip += "Informe Um Valor De Salário Líquido Válido!\n";
                 valido = false;
             }

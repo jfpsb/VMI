@@ -15,11 +15,7 @@ namespace VandaModaIntimaWpf.View.Fornecedor
 
         private void TelaCadastrarFornecedor_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var result = ((ACadastrarViewModel<Model.Fornecedor>)DataContext).ResultadoSalvar();
-            if (result != null)
-                DialogResult = true;
-            else
-                DialogResult = false;
+            DialogResult = ((ACadastrarViewModel<Model.Fornecedor>)DataContext).ResultadoSalvar();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -1,11 +1,7 @@
 ﻿using NHibernate;
-using System;
-using System.Collections.Generic;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Fornecedor;
-using VandaModaIntimaWpf.View.SQL;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using VandaModaIntimaWpf.ViewModel;
 
@@ -17,30 +18,21 @@ namespace VandaModaIntimaWpf.View.Produto
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var result = ((ACadastrarViewModel<Model.Produto>)DataContext).ResultadoSalvar();
-            if (result != null)
-                DialogResult = true;
-            else
-                DialogResult = false;
+            DialogResult = ((ACadastrarViewModel<Model.Produto>)DataContext).ResultadoSalvar();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
             TxtCodBarra.Focus();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnCadastrarFornecedor_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:ScrollToEnd DataGrid
-            //if (CodigoFornecedorDataGrid.Items.Count > 0)
-            //{
-            //    var border = VisualTreeHelper.GetChild(CodigoFornecedorDataGrid, 0) as Decorator;
-            //    if (border != null)
-            //    {
-            //        var scroll = border.Child as ScrollViewer;
-            //        if (scroll != null) scroll.ScrollToEnd();
-            //    }
-            //}
+            Button button = sender as Button;
+            ContextMenu contextMenu = button.ContextMenu;
+            contextMenu.PlacementTarget = button;
+            contextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            contextMenu.IsOpen = true;
         }
     }
 }

@@ -585,7 +585,7 @@
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornecedorService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFolhaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFuncService.cs" />

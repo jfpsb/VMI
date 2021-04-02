@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaFornecedor()
         {
-            PesquisarFornecedorVM viewModel = new PesquisarFornecedorVM(new MessageBoxService(), new AbrePelaTelaPesqFornService());
+            PesquisarFornecedorVM viewModel = new PesquisarFornecedorVM(new MessageBoxService(), new AbrePelaTelaPesqFornecedorService());
             PesquisarFornecedor pesquisarFornecedor = new PesquisarFornecedor() { DataContext = viewModel };
             pesquisarFornecedor.Show();
         }

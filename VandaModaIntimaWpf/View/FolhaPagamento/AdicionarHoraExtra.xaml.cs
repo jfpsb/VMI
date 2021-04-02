@@ -18,12 +18,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         {
             base.OnClosing(e);
 
-            var result = ((ACadastrarViewModel<Model.HoraExtra>)DataContext).ResultadoSalvar();
-
-            if (result != null)
-                DialogResult = true;
-            else
-                DialogResult = false;
+            DialogResult = ((ACadastrarViewModel<Model.HoraExtra>)DataContext).ResultadoSalvar();
         }
     }
 }

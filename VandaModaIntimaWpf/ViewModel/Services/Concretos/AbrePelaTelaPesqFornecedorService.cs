@@ -9,7 +9,7 @@ using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 {
-    public class AbrePelaTelaPesqFornService : IAbrePelaTelaPesquisaService<Model.Fornecedor>
+    public class AbrePelaTelaPesqFornecedorService : IAbrePelaTelaPesquisaService<Model.Fornecedor>
     {
         public void AbrirAjuda()
         {
