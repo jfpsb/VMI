@@ -211,7 +211,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <param name="e"></param>
         private void RedefinirTela(AposInserirBDEventArgs e)
         {
-            if (e.IdentificadorEntidade != null)
+            if (e.Sucesso)
             {
                 // Se a operação for um Update não há alteração no formulário
                 if (!e.IssoEUmUpdate)

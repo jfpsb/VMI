@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaDespesas()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AbrirTelaFolhaPagamento()

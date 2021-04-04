@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;

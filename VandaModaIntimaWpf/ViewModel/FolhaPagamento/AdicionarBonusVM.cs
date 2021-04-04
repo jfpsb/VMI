@@ -1,8 +1,6 @@
 ﻿using NHibernate;
 using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.Windows;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -13,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class AdicionarBonusVM : ACadastrarViewModel<Bonus>
     {
         private FolhaModel _folha;
-        private string _valor;
+        private double _valor;
         private DateTime _inicioPagamento;
         private DateTime dataEscolhida;
         private DAOBonusMensal daoBonusMensal;
@@ -88,14 +86,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            double valor;
+            BtnSalvarToolTip = "";
+            bool valido = true;
 
-            if (string.IsNullOrEmpty(Entidade.Descricao) || !double.TryParse(Valor, out valor))
-                return false;
+            if (string.IsNullOrEmpty(Entidade.Descricao))
+            {
+                BtnSalvarToolTip += "O CAMPO DE DESCRIÇÃO NÃO PODE SER VAZIO\n";
+                valido = false;
+            }
 
-            Entidade.Valor = valor;
+            if (Valor <= 0.0)
+            {
+                BtnSalvarToolTip += "O VALOR DO BÔNUS NÃO PODE SER MENOR OU IGUAL A ZERO\n";
+                valido = false;
+            }
 
-            return true;
+            return valido;
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -103,7 +109,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
-        public string Valor
+        public double Valor
         {
             get => _valor;
             set
