@@ -19,6 +19,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -34,6 +35,7 @@
                 </Grid.RowDefinitions>
                 <Label Content="Código:" />
                 <TextBox Grid.Column="1"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="False" />
                 <Label Grid.Row="2"
@@ -41,17 +43,20 @@
                 <TextBox x:Name="TxtDescricao"
                          Grid.Column="1"
                          Grid.Row="2"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          MaxLength="100" />
                 <Label Grid.Row="3"
                        Content="{DynamicResource preco_dois_pontos}"></Label>
                 <TextBox Grid.Column="1"
                          Grid.Row="3"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Preco, ConverterCulture=pt-BR, Mode=TwoWay}" />
                 <Label Grid.Row="4"
                        Content="{DynamicResource ncm_dois_pontos}" />
                 <TextBox Grid.Column="1"
                          Grid.Row="4"
+                         Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding IsEnabled}"
                          MaxLength="8" />
@@ -62,6 +67,22 @@
                           ItemsSource="{Binding Fornecedores}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Path=Entidade.Fornecedor, Mode=TwoWay}" />
+                <Button Grid.Row="5"
+                        Grid.Column="2"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTip="Adicionar Novo Fornecedor"
+                        Click="BtnCadastrarFornecedor_Click">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Cadastrar Online"
+                                      Command="{Binding CadastrarFornecedorOnlineComando}" />
+                            <MenuItem Header="Cadastrar Manualmente"
+                                      Command="{Binding CadastrarFornecedorManualmenteComando}" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                    <Image Source="/Resources/Adicionar.png" />
+                </Button>
                 <Label Grid.Row="6"
                        Content="{DynamicResource marca_dois_pontos}" />
                 <ComboBox Grid.Column="1"
@@ -69,9 +90,17 @@
                           ItemsSource="{Binding Marcas}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Path=Entidade.Marca, Mode=TwoWay}" />
+                <Button Grid.Row="6"
+                        Grid.Column="2"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTip="Adicionar Nova Marca"
+                        Command="{Binding CadastrarMarcaComando}">
+                    <Image Source="/Resources/Adicionar.png" />
+                </Button>
                 <Button Grid.Row="9"
                         Width="Auto"
-                        Grid.ColumnSpan="2"
+                        Grid.ColumnSpan="3"
                         Padding="15"
                         Margin="1"
                         FontSize="24"
