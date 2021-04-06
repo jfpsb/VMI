@@ -30,14 +30,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             Entidade = new AdiantamentoModel()
             {
-                Data = _dataEscolhida,
                 Funcionario = funcionario,
                 Valor = 0
             };
 
+            AntesDeInserirNoBancoDeDados += AtribuiData;
+
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
             ValorMaximoParcela = 300;
         }
+
+        private void AtribuiData()
+        {
+            Entidade.Data = DateTime.Now;
+        }
+
         public DateTime InicioPagamento
         {
             get => _inicioPagamento;
@@ -154,7 +161,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             Entidade = new AdiantamentoModel()
             {
-                Data = _dataEscolhida,
                 Funcionario = Entidade.Funcionario,
                 Valor = 0
             };

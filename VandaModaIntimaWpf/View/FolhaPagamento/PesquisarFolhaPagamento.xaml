@@ -9,7 +9,7 @@
                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Folha de Pagamento"
-                     Width="850"
+                     Width="950"
                      Height="600"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
@@ -155,6 +155,11 @@
                                                 Binding="{Binding Funcionario.Nome}"
                                                 Width="*" />
 
+                            <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Funcionario.Loja.Nome}"
+                                                Width="*" />
+
                             <DataGridTextColumn Header="{DynamicResource mes_referencia_header}"
                                                 IsReadOnly="True"
                                                 Binding="{Binding MesReferencia}"
@@ -194,6 +199,8 @@
                                           Command="{Binding AbrirMaisDetalhesComando}" />
                                 <MenuItem Header="Imprimir"
                                           Command="{Binding AbrirImprimirFolhaComando}" />
+                                <MenuItem Header="Copiar Chave PIX"
+                                          Command="{Binding CopiarChavePixComando}" />
                                 <Separator />
                                 <MenuItem Header="Fechar Folha de Pagamento"
                                           Command="{Binding FecharFolhaPagamentoComando}"

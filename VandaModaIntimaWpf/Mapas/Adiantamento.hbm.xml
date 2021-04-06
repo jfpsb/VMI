@@ -10,7 +10,7 @@
       </generator>
     </id>
     <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
-    <property name="Data" column="data" />
+    <property name="Data" column="data" type="timestamp" not-null="true"/>
     <property name="Valor" column="valor" />
     <property name="Descricao" column="descricao" />
     <bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan">

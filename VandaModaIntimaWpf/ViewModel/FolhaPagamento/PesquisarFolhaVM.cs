@@ -41,6 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand FecharFolhaPagamentoComando { get; set; }
         public ICommand FecharFolhasAbertasComando { get; set; }
         public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
+        public ICommand CopiarChavePixComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -72,6 +73,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
+            CopiarChavePixComando = new RelayCommand(CopiarChavePix);
+        }
+
+        private void CopiarChavePix(object obj)
+        {
+            Clipboard.SetText(FolhaPagamento.Funcionario.ChavePIX);
         }
 
         private void AbrirAdicionarSalarioLiquido(object obj)
