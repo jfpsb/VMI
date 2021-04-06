@@ -50,7 +50,9 @@
                 <Grid DockPanel.Dock="Bottom">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -63,6 +65,12 @@
                     <Label Grid.Column="1"
                            FontWeight="Bold"
                            Content="Folha de Pagamento Fechada" />
+                    <Label Grid.Column="2"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           ContentStringFormat="Total A Pagar: {0:C}"
+                           Language="pt-BR"
+                           Content="{Binding TotalAPagar}" />
                     <Rectangle Width="20"
                                Height="20"
                                Grid.Row="4"

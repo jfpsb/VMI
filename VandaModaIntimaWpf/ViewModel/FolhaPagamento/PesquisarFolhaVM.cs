@@ -30,6 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
+        private double _totalAPagar;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -54,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
 
-            ConsultaFuncionarios();
+            GetFuncionarios();
 
             DataEscolhida = DateTime.Now;
 
@@ -106,6 +107,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (resultMessageBox == MessageBoxResult.Yes)
             {
                 var folhasAbertas = FolhaPagamentos.Where(w => w.Fechada == false).ToList();
+                var bonusMensaisEmFolhas = folhasAbertas.Select(s => s.Bonus).SelectMany(s => s.Where(w => w.BonusMensal)).ToList();
+
+                var bonusResult = await daoBonus.InserirOuAtualizar(bonusMensaisEmFolhas);
+
+                if (!bonusResult)
+                    MessageBoxService.Show("Erro Ao Salvar Bônus Mensais. As Folhas Não Poderão Ser Fechadas. Tente Novamente Ou Contate O Suporte.");
 
                 foreach (var folhaAberta in folhasAbertas)
                 {
@@ -315,6 +322,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _folhaPagamentos = value;
                 OnPropertyChanged("FolhaPagamentos");
+                OnPropertyChanged("TotalAPagar");
             }
         }
 
@@ -325,6 +333,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _folhaPagamento = value;
                 OnPropertyChanged("FolhaPagamento");
+            }
+        }
+
+        public double TotalAPagar
+        {
+            get => FolhaPagamentos.Where(w => w.ValorATransferir >= 0).Select(s => s.ValorATransferir).Sum();
+            set
+            {
+                _totalAPagar = value;
+                OnPropertyChanged("TotalAPagar");
             }
         }
 
@@ -395,7 +413,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FolhaPagamentos = folhas;
         }
 
-        private async void ConsultaFuncionarios()
+        private async void GetFuncionarios()
         {
             _funcionarios = await daoFuncionario.Listar<FuncionarioModel>();
         }
