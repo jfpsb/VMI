@@ -11,7 +11,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class AdicionarBonusVM : ACadastrarViewModel<Bonus>
     {
         private FolhaModel _folha;
-        private double _valor;
         private DateTime _inicioPagamento;
         private DateTime dataEscolhida;
         private DAOBonusMensal daoBonusMensal;
@@ -95,7 +94,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 valido = false;
             }
 
-            if (Valor <= 0.0)
+            if (Entidade.Valor <= 0.0)
             {
                 BtnSalvarToolTip += "O VALOR DO BÔNUS NÃO PODE SER MENOR OU IGUAL A ZERO\n";
                 valido = false;
@@ -109,15 +108,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
-        public double Valor
-        {
-            get => _valor;
-            set
-            {
-                _valor = value;
-                OnPropertyChanged("Valor");
-            }
-        }
         public DateTime InicioPagamento
         {
             get => _inicioPagamento;
