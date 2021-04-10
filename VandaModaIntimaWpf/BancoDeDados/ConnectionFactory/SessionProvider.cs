@@ -1,8 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Context;
 using System;
-using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {

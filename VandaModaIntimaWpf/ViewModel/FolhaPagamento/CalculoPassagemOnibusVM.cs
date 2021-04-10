@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -9,11 +8,11 @@ using System.Net;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
+using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -23,18 +22,44 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
         private double _totalPassagem;
+        private double _valorDiarioPassagem;
+        private IMessageBoxService messageBoxService;
 
         public ICommand AbrirAdicionarBonusPassagemComando { get; set; }
 
-        public CalculoPassagemOnibusVM(DateTime dataEscolhida)
+        public CalculoPassagemOnibusVM(DateTime dataEscolhida, IMessageBoxService messageBoxService)
         {
+            ValorDiarioPassagem = Config.Instancia.ValorDiarioPassagemOnibus;
+            this.messageBoxService = messageBoxService;
+
             PropertyChanged += CalculaDatas;
+            PropertyChanged += ValorPassagemDiarioAlterado;
 
             Widgets = new BindingList<DataWidgetPassagem>();
             Widgets.ListChanged += CalcultaTotalPassagem;
             DataEscolhida = dataEscolhida;
 
             AbrirAdicionarBonusPassagemComando = new RelayCommand(AbrirAdicionarBonusPassagem);
+        }
+
+        private void ValorPassagemDiarioAlterado(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("ValorDiarioPassagem"))
+            {
+                var result = messageBoxService.Show("O Valor Diário Da Passagem Foi Alterado. Deseja Confirmar A Alteração E Salvar O Novo Valor?", "Cálculo De Passagem de Ônibus", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+
+                if (result == System.Windows.MessageBoxResult.Yes)
+                {
+                    Config.Instancia.ValorDiarioPassagemOnibus = ValorDiarioPassagem;
+                    var json = JsonConvert.SerializeObject(Config.Instancia);
+                    File.WriteAllText("Config.json", json);
+                    CalcultaTotalPassagem(null, null);
+                }
+                else
+                {
+                    ValorDiarioPassagem = Config.Instancia.ValorDiarioPassagemOnibus;
+                }
+            }
         }
 
         private void AbrirAdicionarBonusPassagem(object obj)
@@ -50,7 +75,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void CalcultaTotalPassagem(object sender, ListChangedEventArgs e)
         {
             int quantDiasUteis = Widgets.Where(w => w.IsDiaUtil).Count();
-            TotalPassagem = Math.Round(quantDiasUteis * 7.4, 2, MidpointRounding.AwayFromZero);
+            TotalPassagem = quantDiasUteis * ValorDiarioPassagem;
         }
 
         private void CalculaDatas(object sender, PropertyChangedEventArgs e)
@@ -145,6 +170,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _totalPassagem = value;
                 OnPropertyChanged("TotalPassagem");
+            }
+        }
+
+        public double ValorDiarioPassagem
+        {
+            get => _valorDiarioPassagem;
+            set
+            {
+                _valorDiarioPassagem = value;
+
+                if (value != Config.Instancia.ValorDiarioPassagemOnibus)
+                    OnPropertyChanged("ValorDiarioPassagem");
             }
         }
 

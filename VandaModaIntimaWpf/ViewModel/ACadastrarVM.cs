@@ -27,7 +27,6 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool _result;
 
         private bool issoEUmUpdate;
-        private string mensagemStatusBar;
         private string _btnSalvarToolTip;
         protected IMessageBoxService MessageBoxService;
 
@@ -229,15 +228,6 @@ namespace VandaModaIntimaWpf.ViewModel
         public bool ResultadoSalvar()
         {
             return _result;
-        }
-        public string MensagemStatusBar
-        {
-            get { return mensagemStatusBar; }
-            set
-            {
-                mensagemStatusBar = value;
-                OnPropertyChanged("MensagemStatusBar");
-            }
         }
         public Visibility VisibilidadeAvisoItemJaExiste
         {

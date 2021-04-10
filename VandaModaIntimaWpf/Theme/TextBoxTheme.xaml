@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="FonteTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="TextBox"
+           BasedOn="{StaticResource Fonte}">
+        <Setter Property="FontSize"
+                Value="14" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+
+</ResourceDictionary>

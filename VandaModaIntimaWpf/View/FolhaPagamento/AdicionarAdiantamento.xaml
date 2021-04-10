@@ -14,125 +14,102 @@
     <Window.Resources>
         <Converters:ValorAPagarConverter x:Key="ValorAPagarConverter" />
     </Window.Resources>
-    <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Image Height="15"
-                       Source="{Binding ImagemStatusBar, NotifyOnSourceUpdated=True}" />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"
-                           HorizontalAlignment="Stretch">
-                <Label HorizontalAlignment="Right"
-                       Content="{Binding MensagemStatusBar}" />
-            </StatusBarItem>
-        </StatusBar>
-        <Grid Margin="15,5,15,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Content="Funcionário:" />
-            <TextBox Grid.Column="1"
-                     IsEnabled="False"
-                     Text="{Binding Entidade.Funcionario.Nome}" />
-            <Label Grid.Row="1"
-                   Content="Valor Máximo De Parcela (R$):" />
-            <TextBox x:Name="TxtValorMaximoParcela"
-                     Grid.Row="1"
-                     Grid.Column="1"
-                     Text="{Binding ValorMaximoParcela, Mode=TwoWay, StringFormat='C', ConverterCulture=pt-BR}" />
-            <Label Grid.Row="2"
-                   Content="Valor do Adiantamento (R$):" />
-            <TextBox x:Name="TxtValor"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     Text="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
-            <Label Grid.Row="3"
-                   Content="Número de Parcelas:" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="3"
-                     MaxLength="2"
-                     Text="{Binding NumParcelas, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="4"
-                   Content="Descrição:" />
-            <TextBox Grid.Column="1"
-                     Grid.Row="4"
-                     MaxLength="100"
-                     Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="5"
-                   Content="Folha Referência Inicial:"
-                   ToolTip="Escolha A Folha de Pagamento Em Que Será Inserida a Primeira Parcela a Ser Paga" />
-            <View:DataUpDown Grid.Column="1"
-                             Grid.Row="5"
-                             Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <DataGrid Grid.Row="6"
-                      Grid.ColumnSpan="2"
-                      ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}">
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
-                                         Value="True">
-                                <Setter Property="Background"
-                                        Value="PaleVioletRed" />
-                                <Setter Property="ToolTip"
-                                        Value="O SOMATÓRIO DAS PARCELAS SENDO COBRADAS NESTE MÊS SUPERAM O VALOR DO SALÁRIO" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
-                                         Value="False">
-                                <Setter Property="Background"
-                                        Value="LightGreen" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="#"
-                                        IsReadOnly="True"
-                                        Width="Auto"
-                                        Binding="{Binding Numero}" />
-                    <DataGridTextColumn Header="Folha Referência"
-                                        IsReadOnly="True"
-                                        Width="Auto"
-                                        Binding="{Binding FolhaReferencia}" />
-                    <DataGridTextColumn Header="Vencimento"
-                                        IsReadOnly="True"
-                                        Width="Auto"
-                                        Binding="{Binding Vencimento}" />
-                    <DataGridTextColumn Header="Valor"
-                                        IsReadOnly="True"
-                                        Width="*"
-                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Grid.ColumnSpan="2"
-                    Grid.Row="7"
-                    Style="{StaticResource BotaoCadastrar}"
-                    Command="{Binding SalvarComando}"
-                    Content="Salvar"
-                    Click="Button_Click"
-                    ToolTipService.ShowOnDisabled="True"
-                    ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
-        </Grid>
-    </DockPanel>
+    <Grid Margin="15,5,15,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Funcionário:" />
+        <TextBox Grid.Column="1"
+                 IsEnabled="False"
+                 Text="{Binding Entidade.Funcionario.Nome}" />
+        <Label Grid.Row="1"
+               Content="Valor Máximo De Parcela (R$):" />
+        <TextBox x:Name="TxtValorMaximoParcela"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Text="{Binding ValorMaximoParcela, Mode=TwoWay, StringFormat='C', ConverterCulture=pt-BR}" />
+        <Label Grid.Row="2"
+               Content="Valor do Adiantamento (R$):" />
+        <TextBox x:Name="TxtValor"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
+        <Label Grid.Row="3"
+               Content="Número de Parcelas:" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="3"
+                 MaxLength="2"
+                 Text="{Binding NumParcelas, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="4"
+               Content="Descrição:" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="4"
+                 MaxLength="100"
+                 Text="{Binding Entidade.Descricao, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Grid.Row="5"
+               Content="Folha Referência Inicial:"
+               ToolTip="Escolha A Folha de Pagamento Em Que Será Inserida a Primeira Parcela a Ser Paga" />
+        <View:DataUpDown Grid.Column="1"
+                         Grid.Row="5"
+                         Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <DataGrid Grid.Row="6"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
+                                     Value="True">
+                            <Setter Property="Background"
+                                    Value="PaleVioletRed" />
+                            <Setter Property="ToolTip"
+                                    Value="O SOMATÓRIO DAS PARCELAS SENDO COBRADAS NESTE MÊS SUPERAM O VALOR DO SALÁRIO" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ValorAcumulado, Converter={StaticResource ValorAPagarConverter}}"
+                                     Value="False">
+                            <Setter Property="Background"
+                                    Value="LightGreen" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding="{Binding Numero}" />
+                <DataGridTextColumn Header="Folha Referência"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding="{Binding FolhaReferencia}" />
+                <DataGridTextColumn Header="Vencimento"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    Binding="{Binding Vencimento}" />
+                <DataGridTextColumn Header="Valor"
+                                    IsReadOnly="True"
+                                    Width="*"
+                                    Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.ColumnSpan="2"
+                Grid.Row="7"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                Content="Salvar"
+                Click="Button_Click"
+                ToolTipService.ShowOnDisabled="True"
+                ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
+    </Grid>
 </Window>

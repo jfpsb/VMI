@@ -33,6 +33,9 @@ namespace VandaModaIntimaWpf.ViewModel
             //Autenticando CouchDB
             CouchDbClient.Instancia.GetAuthenticationCookie();
 
+            var configJson = File.ReadAllText("Config.json");
+            JsonConvert.PopulateObject(configJson, Config.Instancia);
+
             //MqttClientInit mqttClientInit = new MqttClientInit();
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);

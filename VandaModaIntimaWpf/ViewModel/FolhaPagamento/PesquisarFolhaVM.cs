@@ -233,7 +233,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoPassagem(object obj)
         {
-            CalculoPassagemOnibusVM onibusVM = new CalculoPassagemOnibusVM(DataEscolhida);
+            CalculoPassagemOnibusVM onibusVM = new CalculoPassagemOnibusVM(DataEscolhida, new MessageBoxService());
             CalculoPassagemOnibus calculoPassagemOnibus = new CalculoPassagemOnibus()
             {
                 DataContext = onibusVM

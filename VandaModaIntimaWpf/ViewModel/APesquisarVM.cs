@@ -27,7 +27,6 @@ namespace VandaModaIntimaWpf.ViewModel
         protected ISession _session;
         protected ExcelStrategy excelStrategy;
         protected IPesquisarMsgVMStrategy<E> pesquisarViewModelStrategy;
-        private string mensagemStatusBar;
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
@@ -290,15 +289,6 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _threadLocked = value;
                 OnPropertyChanged("IsThreadLocked");
-            }
-        }
-        public string MensagemStatusBar
-        {
-            get { return mensagemStatusBar; }
-            set
-            {
-                mensagemStatusBar = value;
-                OnPropertyChanged("MensagemStatusBar");
             }
         }
         public Visibility VisibilidadeBotaoApagarSelecionado

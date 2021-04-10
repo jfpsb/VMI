@@ -9,8 +9,8 @@
         Title="Cálculo de Pagamento de Passagem Ônibus"
         Height="Auto"
         SizeToContent="Height"
-        Width="430"
-        MinWidth="430"
+        Width="475"
+        MinWidth="475"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Onibus.png">
     <StackPanel Height="Auto">
@@ -113,7 +113,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="Legenda:"
                    FontWeight="Bold"
@@ -121,33 +120,53 @@
                    Margin="0"
                    Padding="0, 5, 0, 5"
                    Grid.ColumnSpan="2" />
-            <Rectangle Width="25"
-                       Height="25"
-                       Fill="Green"
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2">
+                <Rectangle Width="25"
+                           Height="25"
+                           Fill="Green"
+                           Grid.Row="1" />
+                <Label Content="Dia Útil"
+                       Grid.Column="1"
+                       FontSize="16"
+                       Grid.Row="1"
+                       FontWeight="Bold" />
+                <Rectangle Width="25"
+                           Height="25"
+                           Fill="Yellow"
+                           Grid.Row="1"
+                           Grid.Column="2" />
+                <Label Content="Ponto Facultativo"
+                       Grid.Column="3"
+                       FontSize="16"
+                       FontWeight="Bold"
                        Grid.Row="1" />
-            <Label Content="Dia Útil"
-                   Grid.Column="1"
-                   FontSize="16"
-                   Grid.Row="1"
-                   FontWeight="Bold" />
-            <Rectangle Width="25"
-                       Height="25"
-                       Fill="Yellow"
-                       Grid.Row="2" />
-            <Label Content="Ponto Facultativo"
-                   Grid.Column="1"
+                <Rectangle Width="25"
+                           Height="25"
+                           Fill="Red"
+                           Grid.Row="1"
+                           Grid.Column="4" />
+                <Label Content="Dia Não Útil"
+                       Grid.Column="6"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Grid.Row="1" />
+            </StackPanel>
+
+            <Label Content="Valor De Passagem Diário:"
+                   HorizontalContentAlignment="Left"
                    FontSize="16"
                    FontWeight="Bold"
+                   Padding="0,5,5,5"
                    Grid.Row="2" />
-            <Rectangle Width="25"
-                       Height="25"
-                       Fill="Red"
-                       Grid.Row="3" />
-            <Label Content="Dia Não Útil"
-                   Grid.Column="1"
-                   FontSize="16"
-                   FontWeight="Bold"
-                   Grid.Row="3" />
+
+            <TextBox Grid.Row="2"
+                     Grid.Column="1"
+                     Width="100"
+                     FontSize="14"
+                     HorizontalAlignment="Left"
+                     Text="{Binding ValorDiarioPassagem, StringFormat=C, ConverterCulture=pt-BR, UpdateSourceTrigger=LostFocus}" />
         </Grid>
     </StackPanel>
 </Window>

@@ -1,21 +1,16 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    //TODO: Colocar StatusBar em app.xaml
     public class MaisDetalhesVM : ObservableObject, IResultReturnable
     {
         private ObservableCollection<Parcela> _parcelas;
