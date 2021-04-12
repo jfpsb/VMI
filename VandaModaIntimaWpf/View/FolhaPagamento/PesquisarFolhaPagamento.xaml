@@ -125,10 +125,19 @@
                                             <DataGrid Width="Auto"
                                                       ItemsSource="{Binding Parcelas}">
                                                 <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="#"
+                                                                        Binding="{Binding NumeroComTotal}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
                                                     <DataGridTextColumn Header="Data do Adiantamento"
                                                                         Binding="{Binding Adiantamento.DataString}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
+                                                    <DataGridTextColumn Header="Descriçao"
+                                                                        Binding="{Binding Adiantamento.Descricao}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto"
+                                                                        MaxWidth="200" />
                                                     <DataGridTextColumn Header="Valor Parcela"
                                                                         Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                                                         IsReadOnly="True"
