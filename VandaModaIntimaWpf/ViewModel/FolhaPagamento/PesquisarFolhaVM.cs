@@ -14,6 +14,7 @@ using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
@@ -37,6 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarBonusComando { get; set; }
         public ICommand AbrirMaisDetalhesComando { get; set; }
         public ICommand AbrirCalculoPassagemComando { get; set; }
+        public ICommand AbrirCalculoAlmocoComando { get; set; }
         public ICommand AbrirImprimirFolhaComando { get; set; }
         public ICommand AbrirVisualizarHoraExtraComando { get; set; }
         public ICommand FecharFolhaPagamentoComando { get; set; }
@@ -69,12 +71,24 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarHoraExtraComando = new RelayCommand(AbrirHoraExtra);
             AbrirMaisDetalhesComando = new RelayCommand(AbrirMaisDetalhes);
             AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
+            AbrirCalculoAlmocoComando = new RelayCommand(AbrirCalculoAlmoco);
             AbrirImprimirFolhaComando = new RelayCommand(AbrirImprimirFolha);
             AbrirVisualizarHoraExtraComando = new RelayCommand(AbrirVisualizarHoraExtra);
             FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
             CopiarChavePixComando = new RelayCommand(CopiarChavePix);
+        }
+
+        private void AbrirCalculoAlmoco(object obj)
+        {
+            CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
+            CalculoBonusMensalPorDia calculoBonusMensalPorDia = new CalculoBonusMensalPorDia()
+            {
+                DataContext = onibusVM
+            };
+            calculoBonusMensalPorDia.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void CopiarChavePix(object obj)
@@ -233,12 +247,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoPassagem(object obj)
         {
-            CalculoPassagemOnibusVM onibusVM = new CalculoPassagemOnibusVM(DataEscolhida, new MessageBoxService());
-            CalculoPassagemOnibus calculoPassagemOnibus = new CalculoPassagemOnibus()
+            CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDePassagem());
+            CalculoBonusMensalPorDia calculoBonusMensalPorDia = new CalculoBonusMensalPorDia()
             {
                 DataContext = onibusVM
             };
-            calculoPassagemOnibus.ShowDialog();
+            calculoBonusMensalPorDia.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
 

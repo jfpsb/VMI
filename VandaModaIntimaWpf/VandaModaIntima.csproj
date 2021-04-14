@@ -268,7 +268,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DataWidgetPassagem.xaml">
+    <Page Include="View\DataWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,7 +280,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolhaPagamento\AdicionarBonusPassagemFuncionario.xaml">
+    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,7 +292,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml">
+    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -583,7 +583,9 @@
     </Compile>
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusPassagemFuncionarioVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ISalvarBonus.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarAlmoco.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionarioVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVMStrategy.cs" />
@@ -591,8 +593,12 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoPassagemOnibusVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeAlmoco.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeBonusMensalPorDiaVM.cs" />
     <Compile Include="ViewModel\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDePassagem.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ICalculoDeBonus.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarPassagem.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
@@ -679,8 +685,8 @@
     <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
       <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DataWidgetPassagem.xaml.cs">
-      <DependentUpon>DataWidgetPassagem.xaml</DependentUpon>
+    <Compile Include="View\DataWidget.xaml.cs">
+      <DependentUpon>DataWidget.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
       <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
@@ -688,8 +694,8 @@
     <Compile Include="View\FolhaPagamento\AdicionarBonus.xaml.cs">
       <DependentUpon>AdicionarBonus.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarBonusPassagemFuncionario.xaml.cs">
-      <DependentUpon>AdicionarBonusPassagemFuncionario.xaml</DependentUpon>
+    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionario.xaml.cs">
+      <DependentUpon>SalvarBonusDeFuncionario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
       <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>
@@ -697,8 +703,8 @@
     <Compile Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml.cs">
       <DependentUpon>AdicionarSalarioLiquido.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FolhaPagamento\CalculoPassagemOnibus.xaml.cs">
-      <DependentUpon>CalculoPassagemOnibus.xaml</DependentUpon>
+    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDia.xaml.cs">
+      <DependentUpon>CalculoBonusMensalPorDia.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>
@@ -1145,6 +1151,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Almoco.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

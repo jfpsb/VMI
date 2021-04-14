@@ -6,9 +6,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// <summary>
     /// Interaction logic for AdicionarBonusPassagemFuncionario.xaml
     /// </summary>
-    public partial class AdicionarBonusPassagemFuncionario : Window
+    public partial class SalvarBonusDeFuncionario : Window
     {
-        public AdicionarBonusPassagemFuncionario()
+        public SalvarBonusDeFuncionario()
         {
             InitializeComponent();
         }
@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         private void TelaAdicionarBonusPassagem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //Fecha sessao
-            ((AdicionarBonusPassagemFuncionarioVM)DataContext).DisposeSession();
+            ((SalvarBonusDeFuncionarioVM)DataContext).DisposeSession();
         }
     }
 }

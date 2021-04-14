@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Mais Detalhes"
         Height="450"
-        Width="525"
+        Width="600"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="Window_Closing">
@@ -26,14 +26,19 @@
         <DataGrid ItemsSource="{Binding Parcelas}"
                   SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Data do Adiantamento"
-                                    Width="*"
-                                    Binding="{Binding Adiantamento.DataString}"
-                                    IsReadOnly="True" />
                 <DataGridTextColumn Header="# Parcela"
                                     Width="Auto"
                                     Binding="{Binding NumeroComTotal}"
                                     IsReadOnly="True" />
+                <DataGridTextColumn Header="Data do Adiantamento"
+                                    Width="*"
+                                    Binding="{Binding Adiantamento.DataString}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Descriçao"
+                                    Binding="{Binding Adiantamento.Descricao}"
+                                    IsReadOnly="True"
+                                    Width="Auto"
+                                    MaxWidth="200" />
                 <DataGridTextColumn Header="Valor da Parcela"
                                     Width="Auto"
                                     Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"

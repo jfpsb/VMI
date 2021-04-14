@@ -6,9 +6,9 @@ using System.Windows.Media;
 namespace VandaModaIntimaWpf.View
 {
     /// <summary>
-    /// Interaction logic for DataWidgetPassagem.xaml
+    /// Interaction logic for DataWidget.xaml
     /// </summary>
-    public partial class DataWidgetPassagem : UserControl, INotifyPropertyChanged
+    public partial class DataWidget : UserControl, INotifyPropertyChanged
     {
         private bool _isDiaUtil;
         private string _tipoDia;
@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.View
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public DataWidgetPassagem()
+        public DataWidget()
         {
             InitializeComponent();
         }

@@ -1,4 +1,4 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.CalculoPassagemOnibus"
+﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.CalculoBonusMensalPorDia"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
-        Title="Cálculo de Pagamento de Passagem Ônibus"
+        Title="{Binding WindowCaption}"
         Height="Auto"
         SizeToContent="Height"
         Width="475"
@@ -17,8 +17,8 @@
         <Menu>
             <MenuItem Header="{DynamicResource opcoes}"
                       Margin="0">
-                <MenuItem Header="Adicionar Bônus de Passagem À Folha"
-                          Command="{Binding AbrirAdicionarBonusPassagemComando}" />
+                <MenuItem Header="{Binding MenuItemHeader1}"
+                          Command="{Binding AbrirAdicionarBonusComando}" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -98,10 +98,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding TotalPassagem, StringFormat='Total Em Passagem: {0:C}', ConverterCulture=pt-BR}"
+            <TextBlock Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', ConverterCulture=pt-BR}"
                        Grid.Column="1"
-                       FontSize="15"
-                       Margin="0, 0, 5, 0"
+                       FontSize="16"
+                       Margin="0, 5, 5, 0"
                        FontWeight="Bold" />
         </Grid>
         <Grid Margin="10, 15, 0, 0">
@@ -154,7 +154,7 @@
                        Grid.Row="1" />
             </StackPanel>
 
-            <Label Content="Valor De Passagem Diário:"
+            <Label Content="Valor Diário:"
                    HorizontalContentAlignment="Left"
                    FontSize="16"
                    FontWeight="Bold"
@@ -166,7 +166,7 @@
                      Width="100"
                      FontSize="14"
                      HorizontalAlignment="Left"
-                     Text="{Binding ValorDiarioPassagem, StringFormat=C, ConverterCulture=pt-BR, UpdateSourceTrigger=LostFocus}" />
+                     Text="{Binding ValorDiario, StringFormat=C, ConverterCulture=pt-BR, UpdateSourceTrigger=LostFocus}" />
         </Grid>
     </StackPanel>
 </Window>

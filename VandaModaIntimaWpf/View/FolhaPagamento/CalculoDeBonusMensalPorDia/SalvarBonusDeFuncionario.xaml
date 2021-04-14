@@ -1,4 +1,4 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.AdicionarBonusPassagemFuncionario"
+﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.SalvarBonusDeFuncionario"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
         x:Name="TelaAdicionarBonusPassagem"
         Title="Adicionar Passagem Calculada À Folha"
         Height="450"
-        Width="450"
+        Width="475"
         WindowStartupLocation="CenterScreen"
         Closing="TelaAdicionarBonusPassagem_Closing">
     <Window.Resources>
@@ -30,7 +30,7 @@
                    FontSize="16"
                    FontWeight="Bold"
                    TextAlignment="Left" />
-        <TextBlock Text="{Binding ValorPassagem, StringFormat='Total Em Passagem: {0:C}', ConverterCulture=pt-BR}"
+        <TextBlock Text="{Binding Valor, StringFormat='Valor Total: {0:C}', ConverterCulture=pt-BR}"
                    Grid.Column="1"
                    FontSize="16"
                    HorizontalAlignment="Right"
@@ -87,14 +87,14 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="{DynamicResource recebe_passagem_header}"
+                        <TextBlock Text="{Binding DataContext.RecebeRegularmenteHeader, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                    TextWrapping="Wrap" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Adicionar Bônus Em Folhas de Pagamento"
-                Command="{Binding AdicionarBonusPassagemComando}"
+                Command="{Binding AdicionarBonusComando}"
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
                 Style="{DynamicResource BotaoCadastrar}" />

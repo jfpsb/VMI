@@ -27,6 +27,12 @@
                             <Image Source="/Resources/Onibus.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Cálculo de Vale Alimentação"
+                              Command="{Binding AbrirCalculoAlmocoComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Almoco.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="Visualizar Horas Extras"
                               Command="{Binding AbrirVisualizarHoraExtraComando}">
                         <MenuItem.Icon>

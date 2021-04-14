@@ -10,39 +10,44 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View;
-using VandaModaIntimaWpf.View.FolhaPagamento;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
-namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
+namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
-    public class CalculoPassagemOnibusVM : ObservableObject
+    public class CalculoDeBonusMensalPorDiaVM : ObservableObject
     {
-        private BindingList<DataWidgetPassagem> _widgets;
+        private BindingList<DataWidget> _widgets;
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
-        private double _totalPassagem;
-        private double _valorDiarioPassagem;
+        private double _valorTotal;
+        private double _valorDiario;
         private IMessageBoxService messageBoxService;
+        private string _menuItemHeader1;
+        private string _windowCaption;
+        private ICalculoDeBonus calculoDeBonus;
 
-        public ICommand AbrirAdicionarBonusPassagemComando { get; set; }
+        // Comando para adicionar valor do bônus para os funcionários
+        public ICommand AbrirAdicionarBonusComando { get; set; }
 
-        public CalculoPassagemOnibusVM(DateTime dataEscolhida, IMessageBoxService messageBoxService)
+        public CalculoDeBonusMensalPorDiaVM(DateTime dataEscolhida, IMessageBoxService messageBoxService, ICalculoDeBonus calculoDeBonus)
         {
-            ValorDiarioPassagem = Config.Instancia.ValorDiarioPassagemOnibus;
+            this.calculoDeBonus = calculoDeBonus;
+            MenuItemHeader1 = calculoDeBonus.MenuItemHeader1();
+            WindowCaption = calculoDeBonus.WindowCaption();
+            ValorDiario = calculoDeBonus.ValorDiario();
             this.messageBoxService = messageBoxService;
 
             PropertyChanged += CalculaDatas;
-            PropertyChanged += ValorPassagemDiarioAlterado;
+            PropertyChanged += ValorDiarioAlterado;
 
-            Widgets = new BindingList<DataWidgetPassagem>();
-            Widgets.ListChanged += CalcultaTotalPassagem;
+            Widgets = new BindingList<DataWidget>();
+            Widgets.ListChanged += CalcultaTotal;
             DataEscolhida = dataEscolhida;
 
-            AbrirAdicionarBonusPassagemComando = new RelayCommand(AbrirAdicionarBonusPassagem);
+            AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
         }
 
-        private void ValorPassagemDiarioAlterado(object sender, PropertyChangedEventArgs e)
+        private void ValorDiarioAlterado(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("ValorDiarioPassagem"))
             {
@@ -50,32 +55,27 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
-                    Config.Instancia.ValorDiarioPassagemOnibus = ValorDiarioPassagem;
+                    Config.Instancia.ValorDiarioPassagemOnibus = ValorDiario;
                     var json = JsonConvert.SerializeObject(Config.Instancia);
                     File.WriteAllText("Config.json", json);
-                    CalcultaTotalPassagem(null, null);
+                    CalcultaTotal(null, null);
                 }
                 else
                 {
-                    ValorDiarioPassagem = Config.Instancia.ValorDiarioPassagemOnibus;
+                    ValorDiario = Config.Instancia.ValorDiarioPassagemOnibus;
                 }
             }
         }
 
-        private void AbrirAdicionarBonusPassagem(object obj)
+        private void AbrirAdicionarBonus(object obj)
         {
-            AdicionarBonusPassagemFuncionarioVM adicionarBonusVM = new AdicionarBonusPassagemFuncionarioVM(DataEscolhida, TotalPassagem, new MessageBoxService());
-            AdicionarBonusPassagemFuncionario adicionarBonus = new AdicionarBonusPassagemFuncionario()
-            {
-                DataContext = adicionarBonusVM
-            };
-            adicionarBonus.ShowDialog();
+            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, Widgets.Where(w => w.IsDiaUtil).Count(), messageBoxService);
         }
 
-        private void CalcultaTotalPassagem(object sender, ListChangedEventArgs e)
+        private void CalcultaTotal(object sender, ListChangedEventArgs e)
         {
             int quantDiasUteis = Widgets.Where(w => w.IsDiaUtil).Count();
-            TotalPassagem = quantDiasUteis * ValorDiarioPassagem;
+            ValorTotal = quantDiasUteis * ValorDiario;
         }
 
         private void CalculaDatas(object sender, PropertyChangedEventArgs e)
@@ -113,7 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 foreach (DateTime dateTime in AllDatesInMonth(DataEscolhida.Year, DataEscolhida.Month))
                 {
-                    DataWidgetPassagem dataWidgetPassagem = new DataWidgetPassagem
+                    DataWidget dataWidgetPassagem = new DataWidget
                     {
                         TipoDia = "DIA ÚTIL",
                         NumDia = dateTime.Day
@@ -143,7 +143,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public BindingList<DataWidgetPassagem> Widgets
+        public BindingList<DataWidget> Widgets
         {
             get => _widgets;
             set
@@ -163,25 +163,45 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public double TotalPassagem
+        public double ValorTotal
         {
-            get => _totalPassagem;
+            get => _valorTotal;
             set
             {
-                _totalPassagem = value;
-                OnPropertyChanged("TotalPassagem");
+                _valorTotal = value;
+                OnPropertyChanged("ValorTotal");
             }
         }
 
-        public double ValorDiarioPassagem
+        public double ValorDiario
         {
-            get => _valorDiarioPassagem;
+            get => _valorDiario;
             set
             {
-                _valorDiarioPassagem = value;
+                _valorDiario = value;
 
-                if (value != Config.Instancia.ValorDiarioPassagemOnibus)
-                    OnPropertyChanged("ValorDiarioPassagem");
+                if (value != calculoDeBonus.ValorDiario())
+                    OnPropertyChanged("ValorDiario");
+            }
+        }
+
+        public string MenuItemHeader1
+        {
+            get => _menuItemHeader1;
+            set
+            {
+                _menuItemHeader1 = value;
+                OnPropertyChanged("MenuItemHeader1");
+            }
+        }
+
+        public string WindowCaption
+        {
+            get => _windowCaption;
+            set
+            {
+                _windowCaption = value;
+                OnPropertyChanged("WindowCaption");
             }
         }
 

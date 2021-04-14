@@ -7,37 +7,44 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class AdicionarBonusPassagemFuncionarioVM : ObservableObject
+    public class SalvarBonusDeFuncionarioVM : ObservableObject
     {
         private ISession _session;
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
         private IMessageBoxService MessageBoxService;
-        private double _valorPassagem;
+        private double _valor;
+        private int _numDias;
+        private ISalvarBonus _salvarBonus;
         private DateTime _dataEscolhida;
+        private string _recebeRegularmenteHeader;
         private ObservableCollection<EntidadeComCampo<Model.Funcionario>> _entidades;
 
-        public ICommand AdicionarBonusPassagemComando { get; set; }
+        public ICommand AdicionarBonusComando { get; set; }
 
-        public AdicionarBonusPassagemFuncionarioVM(DateTime dataEscolhida, double valorPassagem, IMessageBoxService messageBoxService)
+        public SalvarBonusDeFuncionarioVM(DateTime dataEscolhida, double valor, int numDias, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
         {
             _session = SessionProvider.GetSession();
-            ValorPassagem = valorPassagem;
+            _numDias = numDias;
+            _salvarBonus = salvarBonus;
+            RecebeRegularmenteHeader = _salvarBonus.RecebeRegularmenteHeader();
+            Valor = valor;
             DataEscolhida = dataEscolhida;
             MessageBoxService = messageBoxService;
             daoFuncionario = new DAOFuncionario(_session);
             daoBonus = new DAOBonus(_session);
 
-            AdicionarBonusPassagemComando = new RelayCommand(AdicionarBonusPassagem);
+            AdicionarBonusComando = new RelayCommand(AdicionarBonus);
 
             GetFuncionarios();
         }
 
-        private async void AdicionarBonusPassagem(object obj)
+        private async void AdicionarBonus(object obj)
         {
             var marcados = Entidades.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
 
@@ -47,6 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
             else
             {
+                // O mês sendo calculado é adicionado na folha referente ao mês anterior
+                // para ser pago no vencimento desta folha
                 DateTime dataFolha = DataEscolhida.AddMonths(-1);
                 IList<Model.Bonus> bonuses = new List<Bonus>();
                 foreach (var funcionario in marcados)
@@ -56,8 +65,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     bonus.Funcionario = funcionario;
                     bonus.Data = now;
-                    bonus.Descricao = "PASSAGEM DE ÔNIBUS";
-                    bonus.Valor = ValorPassagem;
+                    bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias);
+                    bonus.Valor = Valor;
                     bonus.MesReferencia = dataFolha.Month;
                     bonus.AnoReferencia = dataFolha.Year;
 
@@ -68,11 +77,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (result)
                 {
-                    MessageBoxService.Show("Os Bônus de Passagem de Ônibus Foram Inseridos Com Sucesso Nos Funcionários Marcados!", "Adicionando Bônus Nas Folhas");
+                    MessageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(), _salvarBonus.MensagemCaption());
                 }
                 else
                 {
-                    MessageBoxService.Show("Houve Um Erro Ao Inserir Os Bônus!");
+                    MessageBoxService.Show(_salvarBonus.MensagemInseridoErro(), _salvarBonus.MensagemCaption());
                 }
             }
         }
@@ -87,13 +96,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public double ValorPassagem
+        public double Valor
         {
-            get => _valorPassagem;
+            get => _valor;
             set
             {
-                _valorPassagem = value;
-                OnPropertyChanged("ValorPassagem");
+                _valor = value;
+                OnPropertyChanged("Valor");
             }
         }
         public DateTime DataEscolhida
@@ -103,6 +112,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
+            }
+        }
+
+        public string RecebeRegularmenteHeader
+        {
+            get => _recebeRegularmenteHeader;
+            set
+            {
+                _recebeRegularmenteHeader = value;
+                OnPropertyChanged("RecebeRegularmenteHeader");
             }
         }
 
