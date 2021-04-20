@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private MarcaModel _marca;
         private string _descricao;
         private double _preco;
+        private double _precoCusto;
         private string _ncm;
         private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
         public enum Colunas
@@ -164,6 +165,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _grades = value;
                 OnPropertyChanged("Grades");
+            }
+        }
+
+        public virtual double PrecoCusto
+        {
+            get => _precoCusto;
+            set
+            {
+                _precoCusto = value;
+                OnPropertyChanged("PrecoCusto");
             }
         }
 

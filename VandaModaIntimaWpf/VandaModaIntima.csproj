@@ -340,11 +340,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Funcionario\CadastrarFuncionario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Funcionario\EditarFuncionario.xaml">
+    <Page Include="View\Funcionario\SalvarFuncionario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -360,13 +356,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\Loja\CadastrarLoja.xaml">
+    <Page Include="View\Loja\SalvarLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Loja\EditarLoja.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Loja\MetaLoja.xaml">
       <SubType>Designer</SubType>
@@ -392,11 +384,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Produto\CadastrarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\EditarProduto.xaml">
+    <Page Include="View\Produto\SalvarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -751,11 +739,8 @@
     <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
       <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Funcionario\CadastrarFuncionario.xaml.cs">
-      <DependentUpon>CadastrarFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Funcionario\EditarFuncionario.xaml.cs">
-      <DependentUpon>EditarFuncionario.xaml</DependentUpon>
+    <Compile Include="View\Funcionario\SalvarFuncionario.xaml.cs">
+      <DependentUpon>SalvarFuncionario.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Funcionario\PesquisarFuncionario.xaml.cs">
       <DependentUpon>PesquisarFuncionario.xaml</DependentUpon>
@@ -787,11 +772,8 @@
     <Compile Include="View\Loja\AjudaLoja.xaml.cs">
       <DependentUpon>AjudaLoja.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Loja\CadastrarLoja.xaml.cs">
-      <DependentUpon>CadastrarLoja.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Loja\EditarLoja.xaml.cs">
-      <DependentUpon>EditarLoja.xaml</DependentUpon>
+    <Compile Include="View\Loja\SalvarLoja.xaml.cs">
+      <DependentUpon>SalvarLoja.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Loja\MetaLoja.xaml.cs">
       <DependentUpon>MetaLoja.xaml</DependentUpon>
@@ -811,11 +793,8 @@
     <Compile Include="View\Produto\AjudaProduto.xaml.cs">
       <DependentUpon>AjudaProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
-      <DependentUpon>CadastrarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\EditarProduto.xaml.cs">
-      <DependentUpon>EditarProduto.xaml</DependentUpon>
+    <Compile Include="View\Produto\SalvarProduto.xaml.cs">
+      <DependentUpon>SalvarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>

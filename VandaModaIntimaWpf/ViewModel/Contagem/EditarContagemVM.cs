@@ -84,7 +84,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private void AbrirEditarProduto(object p)
         {
             EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(_session, ContagemProduto.Produto, new MessageBoxService());
-            EditarProduto editar = new EditarProduto() { DataContext = editarProdutoViewModel };
+            SalvarProduto editar = new SalvarProduto() { DataContext = editarProdutoViewModel };
             editar.ShowDialog();
         }
 

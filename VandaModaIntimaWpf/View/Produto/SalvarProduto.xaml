@@ -1,4 +1,4 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.CadastrarProduto"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Produto.SalvarProduto"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,6 +21,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -56,25 +57,32 @@
                 <TextBox Grid.Column="1"
                          Grid.Row="3"
                          Grid.ColumnSpan="2"
-                         Text="{Binding Entidade.Preco, ConverterCulture=pt-BR}"
+                         Text="{Binding Entidade.Preco, StringFormat=C, ConverterCulture=pt-BR}"
                          IsEnabled="{Binding IsEnabled}" />
                 <Label Grid.Row="4"
-                       Content="{DynamicResource ncm_dois_pontos}" />
+                       Content="{DynamicResource preco_de_custo_dois_pontos}" />
                 <TextBox Grid.Column="1"
                          Grid.Row="4"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding Entidade.PrecoCusto, StringFormat=C, ConverterCulture=pt-BR}"
+                         IsEnabled="{Binding IsEnabled}" />
+                <Label Grid.Row="5"
+                       Content="{DynamicResource ncm_dois_pontos}" />
+                <TextBox Grid.Column="1"
+                         Grid.Row="5"
                          Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding IsEnabled}"
                          MaxLength="8" />
-                <Label Grid.Row="5"
+                <Label Grid.Row="6"
                        Content="{DynamicResource fornecedor_dois_pontos}" />
                 <ComboBox Grid.Column="1"
-                          Grid.Row="5"
+                          Grid.Row="6"
                           ItemsSource="{Binding Fornecedores}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
-                <Button Grid.Row="5"
+                <Button Grid.Row="6"
                         Grid.Column="2"
                         Background="Transparent"
                         BorderThickness="0"
@@ -90,15 +98,15 @@
                     </Button.ContextMenu>
                     <Image Source="/Resources/Adicionar.png" />
                 </Button>
-                <Label Grid.Row="6"
+                <Label Grid.Row="7"
                        Content="{DynamicResource marca_dois_pontos}" />
                 <ComboBox Grid.Column="1"
-                          Grid.Row="6"
+                          Grid.Row="7"
                           ItemsSource="{Binding Marcas}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
-                <Button Grid.Row="6"
+                <Button Grid.Row="7"
                         Grid.Column="2"
                         Background="Transparent"
                         BorderThickness="0"
@@ -113,7 +121,7 @@
                         FontSize="24"
                         Grid.ColumnSpan="3"
                         VerticalAlignment="Bottom"
-                        Content="{DynamicResource cadastrar}"
+                        Content="{DynamicResource salvar}"
                         Command="{Binding SalvarComando}"
                         Click="BtnSalvar_Click" />
             </Grid>

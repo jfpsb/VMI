@@ -1,16 +1,27 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
     /// <summary>
-    /// Interaction logic for EditarProduto.xaml
+    /// Interaction logic for CadastrarProduto.xaml
     /// </summary>
-    public partial class EditarProduto : Window, ICloseable
+    public partial class SalvarProduto : Window
     {
-        public EditarProduto()
+        public SalvarProduto()
         {
             InitializeComponent();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = ((ACadastrarViewModel<Model.Produto>)DataContext).ResultadoSalvar();
+        }
+
+        private void BtnSalvar_Click(object sender, RoutedEventArgs e)
+        {
+            TxtCodBarra.Focus();
         }
 
         private void BtnCadastrarFornecedor_Click(object sender, RoutedEventArgs e)

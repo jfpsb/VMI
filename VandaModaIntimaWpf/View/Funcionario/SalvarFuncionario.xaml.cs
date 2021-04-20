@@ -6,9 +6,9 @@ namespace VandaModaIntimaWpf.View.Funcionario
     /// <summary>
     /// Interaction logic for CadastrarFuncionario.xaml
     /// </summary>
-    public partial class CadastrarFuncionario : Window
+    public partial class SalvarFuncionario : Window
     {
-        public CadastrarFuncionario()
+        public SalvarFuncionario()
         {
             InitializeComponent();
         }

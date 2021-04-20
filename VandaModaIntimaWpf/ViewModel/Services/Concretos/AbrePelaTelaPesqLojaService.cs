@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         public bool? AbrirCadastrar(ISession session)
         {
             CadastrarLojaVM cadastrarLojaViewModel = new CadastrarLojaVM(session, new MessageBoxService(), false);
-            CadastrarLoja cadastrar = new CadastrarLoja()
+            SalvarLoja cadastrar = new SalvarLoja()
             {
                 DataContext = cadastrarLojaViewModel
             };
@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             EditarLojaVM editarLojaViewModel = new EditarLojaVM(session, new MessageBoxService());
             editarLojaViewModel.Entidade = clone;
 
-            EditarLoja editar = new EditarLoja()
+            SalvarLoja editar = new SalvarLoja()
             {
                 DataContext = editarLojaViewModel
             };

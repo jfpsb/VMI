@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         {
             CadastrarProdutoVM cadastrarProdutoViewModel = new CadastrarProdutoVM(session, new MessageBoxService(), false);
 
-            CadastrarProduto cadastrar = new CadastrarProduto()
+            SalvarProduto cadastrar = new SalvarProduto()
             {
                 DataContext = cadastrarProdutoViewModel
             };
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         {
             EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(session, clone, new MessageBoxService());
 
-            EditarProduto editar = new EditarProduto()
+            SalvarProduto editar = new SalvarProduto()
             {
                 DataContext = editarProdutoViewModel
             };

@@ -1,4 +1,4 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Funcionario.CadastrarFuncionario"
+﻿<Window x:Class="VandaModaIntimaWpf.View.Funcionario.SalvarFuncionario"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -94,7 +94,7 @@
                   IsEnabled="{Binding IsEnabled}" />
         <Button Grid.Row="11"
                 Grid.ColumnSpan="2"
-                Content="{DynamicResource cadastrar}"
+                Content="{DynamicResource salvar}"
                 Style="{StaticResource BotaoCadastrar}"
                 Command="{Binding SalvarComando}"
                 ToolTip="{Binding BtnSalvarToolTip}"

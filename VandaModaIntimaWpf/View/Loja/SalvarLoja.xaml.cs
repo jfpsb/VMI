@@ -6,9 +6,9 @@ namespace VandaModaIntimaWpf.View.Loja
     /// <summary>
     /// Interaction logic for CadastrarLoja.xaml
     /// </summary>
-    public partial class CadastrarLoja : Window
+    public partial class SalvarLoja : Window
     {
-        public CadastrarLoja()
+        public SalvarLoja()
         {
             InitializeComponent();
         }

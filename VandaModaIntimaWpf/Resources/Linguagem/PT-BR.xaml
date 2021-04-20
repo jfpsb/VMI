@@ -104,6 +104,8 @@
     <System:String x:Key="folha_pagamento">Folha de Pagamento</System:String>
     <System:String x:Key="loja_nao_selecionada">Loja Não Selecionada</System:String>
     <System:String x:Key="vencimento_header">Vencimento</System:String>
+    <System:String x:Key="preco_de_custo_dois_pontos">Preço de Custo:</System:String>
+    
 
     <System:String x:Key="aguardando_usuario">Aguardando Usuário</System:String>
     <System:String x:Key="arquivo_excel_sendo_gerado">O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar</System:String>

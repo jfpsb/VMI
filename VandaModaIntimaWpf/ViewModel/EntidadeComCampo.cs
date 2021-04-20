@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public static IList<EntidadeComCampo<E>> CriarListaEntidadeComCampo(IList<E> entidades)
         {
-            return entidades.Select(s => new EntidadeComCampo<E>() { Entidade = s }).ToList();
+            return entidades?.Select(s => new EntidadeComCampo<E>() { Entidade = s }).ToList();
         }
 
         public E Entidade
