@@ -573,7 +573,7 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ISalvarBonus.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarAlmoco.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionarioVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusPorMesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVMStrategy.cs" />

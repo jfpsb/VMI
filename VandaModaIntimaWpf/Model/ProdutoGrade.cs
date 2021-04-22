@@ -110,7 +110,8 @@ namespace VandaModaIntimaWpf.Model
                 if (PrecoCusto == 0.0)
                     return 0;
 
-                return Math.Truncate((Preco - PrecoCusto) / Preco * 10000) / 100;
+                return ((Preco - PrecoCusto) / Preco);
+                //return Math.Truncate((Preco - PrecoCusto) / Preco * 10000) / 100;
             }
             set
             {
@@ -122,7 +123,7 @@ namespace VandaModaIntimaWpf.Model
                     if (value < 0)
                         MargemDeLucro = 0;
 
-                    Preco = Math.Round(PrecoCusto / (1 - (value / 100)), 2, MidpointRounding.AwayFromZero);
+                    Preco = (PrecoCusto / (1 - (value / 100))) / 100;
                 }
             }
         }

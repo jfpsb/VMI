@@ -14,12 +14,12 @@
 
         public string MensagemInseridoErro()
         {
-            return "O Valor de Vale de Alimentação Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
+            return "Erro Ao Inserir O Valor de Vale Alimentação!";
         }
 
         public string MensagemInseridoSucesso()
         {
-            return "Erro Ao Inserir O Valor de Vale Alimentação!";
+            return "O Valor de Vale de Alimentação Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
         }
 
         public string RecebeRegularmenteHeader()

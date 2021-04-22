@@ -82,10 +82,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoAlmoco(object obj)
         {
-            CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
+            CalculoDeBonusMensalPorDiaVM almocoVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
             CalculoBonusMensalPorDia calculoBonusMensalPorDia = new CalculoBonusMensalPorDia()
             {
-                DataContext = onibusVM
+                DataContext = almocoVM
             };
             calculoBonusMensalPorDia.ShowDialog();
             OnPropertyChanged("TermoPesquisa");

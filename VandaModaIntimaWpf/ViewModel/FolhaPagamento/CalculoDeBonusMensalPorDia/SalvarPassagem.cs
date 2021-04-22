@@ -14,12 +14,12 @@
 
         public string MensagemInseridoErro()
         {
-            return "O Valor de Passagem Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
+            return "Erro Ao Inserir O Valor de Passagens!";
         }
 
         public string MensagemInseridoSucesso()
         {
-            return "Erro Ao Inserir O Valor de Passagens!";
+            return "O Valor de Passagem Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
         }
 
         public string RecebeRegularmenteHeader()

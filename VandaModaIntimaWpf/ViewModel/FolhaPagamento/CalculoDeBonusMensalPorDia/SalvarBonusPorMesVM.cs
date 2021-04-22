@@ -12,7 +12,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class SalvarBonusDeFuncionarioVM : ObservableObject
+    public class SalvarBonusPorMesVM : ObservableObject
     {
         private ISession _session;
         private DAOFuncionario daoFuncionario;
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AdicionarBonusComando { get; set; }
 
-        public SalvarBonusDeFuncionarioVM(DateTime dataEscolhida, double valor, int numDias, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
+        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valor, int numDias, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
         {
             _session = SessionProvider.GetSession();
             _numDias = numDias;
