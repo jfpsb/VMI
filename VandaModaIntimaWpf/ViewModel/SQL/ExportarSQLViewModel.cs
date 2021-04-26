@@ -15,10 +15,16 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
     public abstract class ExportarSQLViewModel<E> : ObservableObject where E : class, IModel
     {
         protected ISession _session;
+        private IList<E> _entidades;
 
-        public ExportarSQLViewModel(ISession session)
+        public ExportarSQLViewModel(IList<E> entidades, ISession session)
         {
+            Entidades = entidades;
             _session = session;
+
+            ExportarInsertsComando = new RelayCommand(ExportarInserts);
+            ExportarUpdatesComando = new RelayCommand(ExportarUpdates);
+            InserirInsertComando = new RelayCommand(InserirSelect);
         }
 
         protected DAO daoEntidade;
@@ -28,14 +34,9 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
         private MySQLAliases aliasSelecionado;
         private ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
-        public ExportarSQLViewModel()
-        {
-            ExportarInsertsComando = new RelayCommand(ExportarInserts);
-            ExportarUpdatesComando = new RelayCommand(ExportarUpdates);
-            InserirInsertComando = new RelayCommand(InserirSelect);
-        }
-        protected abstract void ExportarSQLInsert(StreamWriter sw, IList<E> entidades, string fileName);
-        protected abstract void ExportarSQLUpdate(StreamWriter sw, IList<E> entidades, string fileName);
+
+        protected abstract void ExportarSQLInsert(StreamWriter sw, string fileName);
+        protected abstract void ExportarSQLUpdate(StreamWriter sw, string fileName);
         protected virtual ObservableCollection<MySQLAliases> GetAliases(string[] exclusoes)
         {
             ObservableCollection<MySQLAliases> aliases = new ObservableCollection<MySQLAliases>();
@@ -55,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
             return aliases;
         }
-        public async void ExportarInserts(object parameter)
+        public void ExportarInserts(object parameter)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Script SQL (*.sql)|*.sql";
@@ -70,11 +71,11 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    ExportarSQLInsert(sw, await daoEntidade.Listar<E>(), fileName);
+                    ExportarSQLInsert(sw, fileName);
                 }
             }
         }
-        public async void ExportarUpdates(object paramenter)
+        public void ExportarUpdates(object paramenter)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Script SQL (*.sql)|*.sql";
@@ -89,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 
                 using (StreamWriter sw = File.CreateText(fileName))
                 {
-                    ExportarSQLUpdate(sw, await daoEntidade.Listar<E>(), fileName);
+                    ExportarSQLUpdate(sw, fileName);
                 }
             }
         }
@@ -122,6 +123,16 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             {
                 aliases = value;
                 OnPropertyChanged("Aliases");
+            }
+        }
+
+        public IList<E> Entidades
+        {
+            get => _entidades;
+            set
+            {
+                _entidades = value;
+                OnPropertyChanged("Entidades");
             }
         }
     }

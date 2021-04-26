@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             return editarFuncionario.ShowDialog();
         }
 
-        public void AbrirExportarSQL(IList<Model.Funcionario> entidades)
+        public void AbrirExportarSQL(IList<Model.Funcionario> entidades, ISession session)
         {
             throw new NotImplementedException();
         }

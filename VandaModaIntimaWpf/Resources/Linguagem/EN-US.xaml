@@ -154,8 +154,7 @@
 
     <!-- Exclusivo da janela ExportarSQL -->
     <System:String x:Key="exportar_sql_primeiro_paragrafo">Inform in the table below the alternative names for the columns, if necessary.</System:String>
-    <System:String x:Key="exportar_sql_segundo_paragrafo">Default value field will only be considered if its content is a valid SQL statement. Additional column fields cannot have empty values.
-            Additional column fields will be ignored in update statements exports.</System:String>
+    <System:String x:Key="exportar_sql_segundo_paragrafo">Default value field will only be considered if its content is a valid SQL statement. Additional column fields cannot have empty values.</System:String>
     <System:String x:Key="exportar_inserts">Export Inserts</System:String>
     <System:String x:Key="exportar_updates">Export Updates</System:String>
     <System:String x:Key="coluna_header">Column</System:String>

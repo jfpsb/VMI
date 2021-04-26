@@ -12,6 +12,10 @@
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCodBarra}"
         Closing="Window_Closing">
+    <Window.InputBindings>
+        <KeyBinding Key="F2"
+                    Command="{Binding SalvarComando}" />
+    </Window.InputBindings>
     <TabControl>
         <TabItem Header="Dados de Produto">
             <Grid Margin="15,15,15,0">

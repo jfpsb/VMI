@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             throw new NotImplementedException();
         }
 
-        public void AbrirExportarSQL(IList<Model.FolhaPagamento> entidades)
+        public void AbrirExportarSQL(IList<Model.FolhaPagamento> entidades, ISession session)
         {
             throw new NotImplementedException();
         }

@@ -335,9 +335,9 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             return _threadLocked;
         }
-        public async void AbrirExportarSQL(object parameter)
+        public void AbrirExportarSQL(object parameter)
         {
-            AbrePelaTelaPesquisaService.AbrirExportarSQL(await daoEntidade.Listar<E>());
+            AbrePelaTelaPesquisaService.AbrirExportarSQL(Entidades.Select(s => s.Entidade).ToList(), _session);
         }
     }
 }

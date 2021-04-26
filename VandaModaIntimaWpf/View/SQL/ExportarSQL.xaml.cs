@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.ViewModel.SQL;
+﻿using System.Windows;
 
 namespace VandaModaIntimaWpf.View.SQL
 {
@@ -13,11 +10,6 @@ namespace VandaModaIntimaWpf.View.SQL
         public ExportarSQL()
         {
             InitializeComponent();
-        }
-        public ExportarSQL(object exportarSQLViewModel)
-        {
-            InitializeComponent();
-            DataContext = exportarSQLViewModel;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             return editarContagem.ShowDialog();
         }
 
-        public void AbrirExportarSQL(IList<Model.Contagem> entidades)
+        public void AbrirExportarSQL(IList<Model.Contagem> entidades, ISession session)
         {
             throw new NotImplementedException();
         }

@@ -33,9 +33,11 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             return editarFornecedor.ShowDialog();
         }
 
-        public void AbrirExportarSQL(IList<Model.Fornecedor> entidades)
+        public void AbrirExportarSQL(IList<Model.Fornecedor> entidades, ISession session)
         {
-            ExportarSQL importarExportarSQL = new ExportarSQL(new ExportarSQLFornecedor());
+            ExportarSQLFornecedor viewModel = new ExportarSQLFornecedor(entidades, session);
+            ExportarSQL importarExportarSQL = new ExportarSQL();
+            importarExportarSQL.DataContext = viewModel;
             importarExportarSQL.ShowDialog();
         }
 

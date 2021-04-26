@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             return false;
         }
 
-        public void AbrirExportarSQL(IList<Model.RecebimentoCartao> entidades)
+        public void AbrirExportarSQL(IList<Model.RecebimentoCartao> entidades, ISession session)
         {
             throw new NotImplementedException();
         }

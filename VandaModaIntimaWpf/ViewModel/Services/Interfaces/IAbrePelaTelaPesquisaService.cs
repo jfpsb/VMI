@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Interfaces
         void AbrirAjuda();
         bool? AbrirCadastrar(ISession session);
         bool? AbrirEditar(E clone, ISession session);
-        void AbrirExportarSQL(IList<E> entidades);
+        void AbrirExportarSQL(IList<E> entidades, ISession session);
         void AbrirImprimir(IList<E> lista);
     }
 }

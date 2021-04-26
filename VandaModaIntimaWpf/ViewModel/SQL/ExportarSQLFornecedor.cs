@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NHibernate;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using VandaModaIntimaWpf.Model;
@@ -8,12 +9,12 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
 {
     public class ExportarSQLFornecedor : ExportarSQLViewModel<Model.Fornecedor>
     {
-        public ExportarSQLFornecedor() : base()
+        public ExportarSQLFornecedor(IList<Model.Fornecedor> fornecedores, ISession session) : base(fornecedores, session)
         {
             daoEntidade = new DAOFornecedor(_session);
             Aliases = GetAliases(new string[] { "Produtos" });
         }
-        protected override void ExportarSQLInsert(StreamWriter sw, IList<Model.Fornecedor> entidades, string fileName)
+        protected override void ExportarSQLInsert(StreamWriter sw, string fileName)
         {
             var originalAliases = GetAliases(new string[] { "Produtos" });
             var subtracaoAliases = Aliases.Where(p => p.Coluna == null);
@@ -24,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             MySQLAliases aliasTelefone = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Telefone"));
             MySQLAliases aliasEmail = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Email"));
 
-            foreach (Model.Fornecedor fornecedor in entidades)
+            foreach (Model.Fornecedor fornecedor in Entidades)
             {
                 string campos = $"`{aliasCnpj.Alias}`, `{aliasNome.Alias}`";
                 string valores = $"\"{fornecedor.Cnpj}\", \"{fornecedor.Nome}\"";
@@ -58,7 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                     $"WHERE NOT EXISTS (SELECT {aliasCnpj.Alias} FROM fornecedor WHERE {aliasCnpj.Alias} = '{fornecedor.Cnpj}');");
             }
         }
-        protected override void ExportarSQLUpdate(StreamWriter sw, IList<Model.Fornecedor> entidades, string fileName)
+        protected override void ExportarSQLUpdate(StreamWriter sw, string fileName)
         {
             string aliasCnpj = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Cnpj")).Alias;
             string aliasNome = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Nome")).Alias;
@@ -66,7 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             string aliasTelefone = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Telefone")).Alias;
             string aliasEmail = Aliases.Where(w => w.Coluna != null).SingleOrDefault(s => s.Coluna.Equals("Email")).Alias;
 
-            foreach (Model.Fornecedor fornecedor in entidades)
+            foreach (Model.Fornecedor fornecedor in Entidades)
             {
                 sw.WriteLine($"UPDATE fornecedor SET {aliasNome} = \"{fornecedor.Nome}\", " +
                     $"{aliasFantasia} = \"{fornecedor.Fantasia}\", " +

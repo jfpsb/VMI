@@ -21,7 +21,7 @@
     <System:String x:Key="finalizada_dois_pontos">Finalizada:</System:String>
     <System:String x:Key="produto_header">Produto</System:String>
     <System:String x:Key="margem_lucro_header">Margem De Lucro (%)</System:String>
-    <System:String x:Key="salvar">Salvar</System:String>
+    <System:String x:Key="salvar">Salvar (F2)</System:String>
     <System:String x:Key="adicionar_contagem_produto">Adicionar Contagem de Produto</System:String>
     <System:String x:Key="periodo_dois_pontos">Período:</System:String>
     <System:String x:Key="data_header">Data</System:String>
@@ -105,7 +105,7 @@
     <System:String x:Key="loja_nao_selecionada">Loja Não Selecionada</System:String>
     <System:String x:Key="vencimento_header">Vencimento</System:String>
     <System:String x:Key="preco_de_custo_dois_pontos">Preço de Custo:</System:String>
-    
+
 
     <System:String x:Key="aguardando_usuario">Aguardando Usuário</System:String>
     <System:String x:Key="arquivo_excel_sendo_gerado">O Arquivo Excel Está Sendo Gerado. Aguarde a Tela Para Salvar</System:String>
@@ -174,8 +174,7 @@
 
     <!-- Exclusivo da janela ExportarSQL -->
     <System:String x:Key="exportar_sql_primeiro_paragrafo">Informe na tabela abaixo os nomes alternativos para as colunas da tabela, caso seja necessário.</System:String>
-    <System:String x:Key="exportar_sql_segundo_paragrafo">Campo de valor padrão somente será considerado se possuir um comando SQL válido. Em colunas adicionais não pode ter valor vazio.
-            Campos adicionais serão ignorados em exportação de comandos de update.</System:String>
+    <System:String x:Key="exportar_sql_segundo_paragrafo">Campo de valor padrão somente será considerado se possuir um comando SQL válido. Em colunas adicionais não pode ter valor vazio.</System:String>
     <System:String x:Key="exportar_inserts">Exportar Inserts</System:String>
     <System:String x:Key="exportar_updates">Exportar Updates</System:String>
     <System:String x:Key="coluna_header">Coluna</System:String>

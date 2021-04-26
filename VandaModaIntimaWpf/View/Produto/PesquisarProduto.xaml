@@ -9,8 +9,8 @@
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
                      mc:Ignorable="d"
                      Title="Pesquisar Produto"
-                     Width="1200"
-                     Height="675"
+                     Width="1250"
+                     Height="700"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Produto_Icon.ico"
                      Closing="Pesquisar_Closing"
@@ -131,6 +131,17 @@
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
                                             Value="{Binding Entidade.Preco}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource preco_custo_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.PrecoCusto, StringFormat='C', ConverterCulture=pt-BR}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.PrecoCusto}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
