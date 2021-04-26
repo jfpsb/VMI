@@ -237,6 +237,7 @@
                           ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
+                                            IsReadOnly="True"
                                             Binding="{Binding CodBarra}" />
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             Binding="{Binding Preco, StringFormat=C, ConverterCulture=pt-BR}" />
@@ -245,6 +246,7 @@
                         <DataGridTextColumn Header="{DynamicResource margem_lucro_header}"
                                             Binding="{Binding MargemDeLucro, StringFormat=P0}" />
                         <DataGridTextColumn Header="Descrição da Grade"
+                                            IsReadOnly="True"
                                             Binding="{Binding SubGradesToString}"
                                             Width="*" />
                     </DataGrid.Columns>
