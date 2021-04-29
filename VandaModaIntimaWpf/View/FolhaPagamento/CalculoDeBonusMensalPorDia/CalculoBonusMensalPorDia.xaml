@@ -9,10 +9,25 @@
         Title="{Binding WindowCaption}"
         Height="Auto"
         SizeToContent="Height"
-        Width="475"
+        Width="675"
         MinWidth="475"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Onibus.png">
+    <Window.Resources>
+        <Style x:Key="DiasSemanaStyle"
+               TargetType="StackPanel">
+            <Style.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Padding"
+                            Value="13, 10, 19, 10" />
+                    <Setter Property="FontSize"
+                            Value="20" />
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <StackPanel Height="Auto">
         <Menu>
             <MenuItem Header="{DynamicResource opcoes}"
@@ -30,69 +45,133 @@
             <view:DataUpDown Grid.Column="1"
                              Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
         </Grid>
-        <Grid HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Content="D"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="S"
-                   Grid.Column="1"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="T"
-                   Grid.Column="2"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="Q"
-                   Grid.Column="3"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="Q"
-                   Grid.Column="4"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="S"
-                   Grid.Column="5"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-            <Label Content="S"
-                   Grid.Column="6"
-                   FontSize="20"
-                   Padding="15, 10, 15, 10" />
-        </Grid>
-        <ItemsControl ItemsSource="{Binding Widgets}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid HorizontalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="{Binding DataEscolhida}"
+                   ContentStringFormat="MMM" />
+            
+        </StackPanel>
+        <StackPanel Style="{StaticResource DiasSemanaStyle}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Content="D"
+                       ToolTip="Domingo" />
+                <Label Content="S"
+                       Grid.Column="1"
+                       ToolTip="Segunda-Feira" />
+                <Label Content="T"
+                       Grid.Column="2"
+                       ToolTip="Terça-Feira" />
+                <Label Content="Q"
+                       Grid.Column="3"
+                       ToolTip="Quarta-Feira" />
+                <Label Content="Q"
+                       Grid.Column="4"
+                       ToolTip="Quinta-Feira" />
+                <Label Content="S"
+                       Grid.Column="5"
+                       ToolTip="Sexta-Feira" />
+                <Label Content="S"
+                       Grid.Column="6"
+                       ToolTip="Sábado" />
+            </Grid>
+            <Rectangle Margin="15" />
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Content="D"
+                       ToolTip="Domingo" />
+                <Label Content="S"
+                       Grid.Column="1"
+                       ToolTip="Segunda-Feira" />
+                <Label Content="T"
+                       Grid.Column="2"
+                       ToolTip="Terça-Feira" />
+                <Label Content="Q"
+                       Grid.Column="3"
+                       ToolTip="Quarta-Feira" />
+                <Label Content="Q"
+                       Grid.Column="4"
+                       ToolTip="Quinta-Feira" />
+                <Label Content="S"
+                       Grid.Column="5"
+                       ToolTip="Sexta-Feira" />
+                <Label Content="S"
+                       Grid.Column="6"
+                       ToolTip="Sábado" />
+            </Grid>
+        </StackPanel>
+        <StackPanel Style="{StaticResource DiasSemanaStyle}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding WidgetsMes1}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <Rectangle Margin="15" />
+            <ItemsControl ItemsSource="{Binding WidgetsMes2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

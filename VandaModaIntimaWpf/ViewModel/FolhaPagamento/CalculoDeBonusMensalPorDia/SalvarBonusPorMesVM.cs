@@ -20,6 +20,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private IMessageBoxService MessageBoxService;
         private double _valor;
         private int _numDias;
+        private DateTime _primeiroDia;
+        private DateTime _ultimoDia;
         private ISalvarBonus _salvarBonus;
         private DateTime _dataEscolhida;
         private string _recebeRegularmenteHeader;
@@ -27,10 +29,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AdicionarBonusComando { get; set; }
 
-        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valor, int numDias, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
+        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valor, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
         {
             _session = SessionProvider.GetSession();
             _numDias = numDias;
+            _primeiroDia = primeiroDia;
+            _ultimoDia = ultimoDia;
             _salvarBonus = salvarBonus;
             RecebeRegularmenteHeader = _salvarBonus.RecebeRegularmenteHeader();
             Valor = valor;
@@ -65,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     bonus.Funcionario = funcionario;
                     bonus.Data = now;
-                    bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias);
+                    bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias, _primeiroDia, _ultimoDia);
                     bonus.Valor = Valor;
                     bonus.MesReferencia = dataFolha.Month;
                     bonus.AnoReferencia = dataFolha.Year;

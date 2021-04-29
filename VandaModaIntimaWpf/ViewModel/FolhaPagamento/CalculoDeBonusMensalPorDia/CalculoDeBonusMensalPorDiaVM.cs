@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -16,7 +17,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class CalculoDeBonusMensalPorDiaVM : ObservableObject
     {
-        private BindingList<DataWidget> _widgets;
+        private BindingList<DataWidget> _widgetsMes1;
+        private BindingList<DataWidget> _widgetsMes2;
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
         private double _valorTotal;
@@ -40,8 +42,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             PropertyChanged += CalculaDatas;
             PropertyChanged += ValorDiarioAlterado;
 
-            Widgets = new BindingList<DataWidget>();
-            Widgets.ListChanged += CalcultaTotal;
+            WidgetsMes1 = new BindingList<DataWidget>();
+            WidgetsMes1.ListChanged += CalcultaTotal;
+
+            WidgetsMes2 = new BindingList<DataWidget>();
+            WidgetsMes2.ListChanged += CalcultaTotal;
+
             DataEscolhida = dataEscolhida;
 
             AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
@@ -69,24 +75,28 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         private void AbrirAdicionarBonus(object obj)
         {
-            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, Widgets.Where(w => w.IsDiaUtil).Count(), messageBoxService);
+            var primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
+            var ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+            int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
+            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, numDias, primeiroDia, ultimoDia, messageBoxService);
         }
 
         private void CalcultaTotal(object sender, ListChangedEventArgs e)
         {
-            int quantDiasUteis = Widgets.Where(w => w.IsDiaUtil).Count();
+            int quantDiasUteis = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
             ValorTotal = quantDiasUteis * ValorDiario;
         }
 
         private void CalculaDatas(object sender, PropertyChangedEventArgs e)
         {
             //TODO: Mostrar mensagem ao usuário caso download de arquivos de feriado falhe.
-            if (e.PropertyName.Equals("DataEscolhida") || e.PropertyName.Equals("Widgets"))
+            if (e.PropertyName.Equals("DataEscolhida") || e.PropertyName.Equals("WidgetsMes1") || e.PropertyName.Equals("WidgetsMes2"))
             {
                 if (DataEscolhida.Year < 2000)
                     return;
 
-                Widgets.Clear();
+                WidgetsMes1.Clear();
+                WidgetsMes2.Clear();
 
                 if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json") && DataEscolhida.Year > 1999)
                 {
@@ -109,47 +119,81 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
                 var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{DataEscolhida.Year}.json");
                 datasFeriados = JsonConvert.DeserializeObject<DataFeriado[]>(datasFeriadosJson);
-                int row = 0;
 
-                foreach (DateTime dateTime in AllDatesInMonth(DataEscolhida.Year, DataEscolhida.Month))
-                {
-                    DataWidget dataWidgetPassagem = new DataWidget
-                    {
-                        TipoDia = "DIA ÚTIL",
-                        NumDia = dateTime.Day
-                    };
-
-                    Grid.SetColumn(dataWidgetPassagem, (int)dateTime.DayOfWeek);
-                    Grid.SetRow(dataWidgetPassagem, row);
-
-                    if (((int)dateTime.DayOfWeek + 1) % 7 == 0)
-                        row++;
-
-                    if (dateTime.DayOfWeek == DayOfWeek.Sunday)
-                    {
-                        dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
-                    }
-
-                    var feriado = datasFeriados.FirstOrDefault(s => s.Date.Day == dateTime.Day && s.Date.Month == dateTime.Month);
-
-                    if (feriado != null && dateTime.DayOfWeek != DayOfWeek.Sunday)
-                    {
-                        dataWidgetPassagem.TipoDia = feriado.Type;
-                        dataWidgetPassagem.BtnAlternaDiaUtil.ToolTip = $"Nome: {feriado.Name}\nTipo: {feriado.Type}\nDescrição: {feriado.Description}";
-                    }
-
-                    Widgets.Add(dataWidgetPassagem);
-                }
+                Metodo(DataEscolhida, WidgetsMes1, 1);
+                Metodo(DataEscolhida.AddMonths(1), WidgetsMes2, 2);
             }
         }
 
-        public BindingList<DataWidget> Widgets
+        private void Metodo(DateTime Data, BindingList<DataWidget> Widgets, int ordemMes)
         {
-            get => _widgets;
+            int row = 0;
+            DateTime quintoDiaUtil = DateTimeUtil.RetornaDataUtil(5, Data.Month, Data.Year);
+
+            foreach (DateTime dateTime in DateTimeUtil.RetornaDiasEmMes(Data.Year, Data.Month))
+            {
+                DataWidget dataWidgetPassagem = new DataWidget
+                {
+                    TipoDia = "DIA ÚTIL",
+                    NumDia = dateTime.Day,
+                    Data = new DateTime(Data.Year, Data.Month, dateTime.Day)
+                };
+
+                Grid.SetColumn(dataWidgetPassagem, (int)dateTime.DayOfWeek);
+                Grid.SetRow(dataWidgetPassagem, row);
+
+                if (((int)dateTime.DayOfWeek + 1) % 7 == 0)
+                    row++;
+
+                if (dateTime.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
+                }
+
+                var feriado = datasFeriados.FirstOrDefault(s => s.Date.Day == dateTime.Day && s.Date.Month == dateTime.Month);
+
+                if (feriado != null && dateTime.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    dataWidgetPassagem.TipoDia = feriado.Type;
+                    dataWidgetPassagem.BtnAlternaDiaUtil.ToolTip = $"Nome: {feriado.Name}\nTipo: {feriado.Type}\nDescrição: {feriado.Description}";
+                }
+
+                if (ordemMes == 1)
+                {
+                    if (dateTime.Day <= quintoDiaUtil.Day)
+                    {
+                        dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
+                    }
+                }
+                else
+                {
+                    if (dateTime.Day > quintoDiaUtil.Day)
+                    {
+                        dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
+                    }
+                }
+
+                Widgets.Add(dataWidgetPassagem);
+            }
+        }
+
+        public BindingList<DataWidget> WidgetsMes1
+        {
+            get => _widgetsMes1;
             set
             {
-                _widgets = value;
-                OnPropertyChanged("Widgets");
+                _widgetsMes1 = value;
+                OnPropertyChanged("WidgetsMes1");
+            }
+        }
+
+        public BindingList<DataWidget> WidgetsMes2
+        {
+            get => _widgetsMes2;
+            set
+            {
+                _widgetsMes2 = value;
+                OnPropertyChanged("WidgetsMes2");
             }
         }
 
@@ -202,15 +246,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             {
                 _windowCaption = value;
                 OnPropertyChanged("WindowCaption");
-            }
-        }
-
-        private IEnumerable<DateTime> AllDatesInMonth(int year, int month)
-        {
-            int days = DateTime.DaysInMonth(year, month);
-            for (int day = 1; day <= days; day++)
-            {
-                yield return new DateTime(year, month, day);
             }
         }
     }

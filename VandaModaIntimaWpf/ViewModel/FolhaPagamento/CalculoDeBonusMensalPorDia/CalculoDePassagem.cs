@@ -6,9 +6,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class CalculoDePassagem : ICalculoDeBonus
     {
-        public void AbrirAdicionarBonus(DateTime DataEscolhida, double Total, int numDias, IMessageBoxService messageBoxService)
+        public void AbrirAdicionarBonus(DateTime DataEscolhida, double Total, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService)
         {
-            SalvarBonusPorMesVM adicionarBonusVM = new SalvarBonusPorMesVM(DataEscolhida, Total, numDias, messageBoxService, new SalvarPassagem());
+            SalvarBonusPorMesVM adicionarBonusVM = new SalvarBonusPorMesVM(DataEscolhida, Total, numDias, primeiroDia, ultimoDia, messageBoxService, new SalvarPassagem());
             SalvarBonusDeFuncionario adicionarBonus = new SalvarBonusDeFuncionario()
             {
                 DataContext = adicionarBonusVM

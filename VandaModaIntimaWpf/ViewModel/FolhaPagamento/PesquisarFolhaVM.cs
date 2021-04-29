@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             DataEscolhida = DateTime.Now;
 
-            if (DateTime.Now.Day <= RetornaQuintoDiaUtil().Day)
+            if (DateTime.Now.Day <= DateTimeUtil.RetornaDataUtil(5, DataEscolhida.Month, DataEscolhida.Year).Day)
             {
                 DataEscolhida = DateTime.Now.AddMonths(-1);
             }
@@ -192,57 +192,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             TelaRelatorioFolha telaRelatorioFolha = new TelaRelatorioFolha(FolhaPagamento);
             telaRelatorioFolha.Show();
-        }
-
-        private DateTime RetornaQuintoDiaUtil()
-        {
-            if (DataEscolhida.Year < 2000)
-                return new DateTime(DataEscolhida.Year, DataEscolhida.Month, 5);
-
-            if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json") && DataEscolhida.Year > 1999)
-            {
-                try
-                {
-                    string url = string.Format("https://api.calendario.com.br/?json=true&ano={0}&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA", DataEscolhida.Year);
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    WebResponse response = request.GetResponse();
-                    using (Stream responseStream = response.GetResponseStream())
-                    {
-                        StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                        File.WriteAllText($"Resources/Feriados/{DataEscolhida.Year}.json", reader.ReadToEnd());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
-
-            var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{DataEscolhida.Year}.json");
-            var datasFeriados = JsonConvert.DeserializeObject<DataFeriado[]>(datasFeriadosJson);
-
-            int quintoFlag = 0;
-
-            foreach (var dia in DateTimeUtil.RetornaDiasEmMes(DataEscolhida.Year, DataEscolhida.Month))
-            {
-                if (dia.DayOfWeek == DayOfWeek.Sunday)
-                    continue;
-
-                var feriado = datasFeriados.FirstOrDefault(s => s.Date.Day == dia.Day && s.Date.Month == dia.Month);
-
-                if (feriado != null)
-                {
-                    if (feriado.Type.ToLower().Equals("feriado nacional") || feriado.Type.ToLower().Equals("feriado estadual") || feriado.Type.ToLower().Equals("feriado municipal"))
-                        continue;
-                }
-
-                quintoFlag++;
-
-                if (quintoFlag == 5)
-                    return dia;
-            }
-
-            return new DateTime(DataEscolhida.Year, DataEscolhida.Month, 5);
         }
 
         private void AbrirCalculoPassagem(object obj)

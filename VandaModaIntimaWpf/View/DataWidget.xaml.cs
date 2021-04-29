@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,6 +14,7 @@ namespace VandaModaIntimaWpf.View
         private bool _isDiaUtil;
         private string _tipoDia;
         private int _numDia;
+        private DateTime _data;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -94,6 +96,16 @@ namespace VandaModaIntimaWpf.View
                 _numDia = value;
                 BtnAlternaDiaUtil.Content = value.ToString();
                 OnPropertyChanged("NumDia");
+            }
+        }
+
+        public DateTime Data
+        {
+            get => _data;
+            set
+            {
+                _data = value;
+                OnPropertyChanged("Data");
             }
         }
 

@@ -1,10 +1,12 @@
-﻿namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
+﻿using System;
+
+namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class SalvarPassagem : ISalvarBonus
     {
-        public string DescricaoBonus(int numDias)
+        public string DescricaoBonus(int numDias, DateTime primeiroDia, DateTime ultimoDia)
         {
-            return $"PASSAGEM DE ÔNIBUS ({numDias} DIAS)";
+            return $"PASSAGEM DE {primeiroDia.ToString("dd/MM")} A {ultimoDia.ToString("dd/MM")} ({numDias} DIAS)";
         }
 
         public string MensagemCaption()
