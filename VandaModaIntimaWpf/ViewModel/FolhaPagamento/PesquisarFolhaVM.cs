@@ -301,7 +301,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public double TotalAPagar
         {
-            get => FolhaPagamentos.Where(w => w.ValorATransferir >= 0).Select(s => s.ValorATransferir).Sum();
+            get => FolhaPagamentos.Select(s => s.ValorATransferir).Sum();
             set
             {
                 _totalAPagar = value;
