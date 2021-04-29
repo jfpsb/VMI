@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -21,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private BindingList<DataWidget> _widgetsMes2;
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
+        private DateTime _mesSeguinte;
         private double _valorTotal;
         private double _valorDiario;
         private IMessageBoxService messageBoxService;
@@ -204,7 +204,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
+                OnPropertyChanged("MesSeguinte");
             }
+        }
+
+        public DateTime MesSeguinte
+        {
+            get => _dataEscolhida.AddMonths(1);
         }
 
         public double ValorTotal
