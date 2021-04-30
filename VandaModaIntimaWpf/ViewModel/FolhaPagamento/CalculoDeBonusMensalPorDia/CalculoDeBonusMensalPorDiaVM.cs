@@ -20,7 +20,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private BindingList<DataWidget> _widgetsMes2;
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
-        private DateTime _mesSeguinte;
         private double _valorTotal;
         private double _valorDiario;
         private IMessageBoxService messageBoxService;

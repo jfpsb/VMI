@@ -296,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\InserirObservacaoFolha.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\MaisDetalhes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -571,6 +575,7 @@
     </Compile>
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarObservacaoFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ISalvarBonus.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarAlmoco.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusPorMesVM.cs" />
@@ -693,6 +698,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDia.xaml.cs">
       <DependentUpon>CalculoBonusMensalPorDia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\InserirObservacaoFolha.xaml.cs">
+      <DependentUpon>InserirObservacaoFolha.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>

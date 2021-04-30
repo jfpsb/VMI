@@ -45,6 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand FecharFolhasAbertasComando { get; set; }
         public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
         public ICommand CopiarChavePixComando { get; set; }
+        public ICommand AbrirAdicionarObservacaoComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -78,6 +79,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
             CopiarChavePixComando = new RelayCommand(CopiarChavePix);
+            AbrirAdicionarObservacaoComando = new RelayCommand(AbrirAdicionarObservacao);
+        }
+
+        private void AbrirAdicionarObservacao(object obj)
+        {
+            AdicionarObservacaoFolhaVM viewModel = new AdicionarObservacaoFolhaVM(_session, FolhaPagamento, new MessageBoxService());
+            InserirObservacaoFolha view = new InserirObservacaoFolha
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirCalculoAlmoco(object obj)

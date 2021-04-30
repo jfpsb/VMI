@@ -14,6 +14,7 @@
     <property name="Ano" column="ano" />
     <property name="Fechada" column="fechada" />
     <property name="SalarioLiquido" column="salario_liquido" />
+    <property name="Observacao" column="observacao" />
   </class>
 
 </hibernate-mapping>

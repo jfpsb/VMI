@@ -17,6 +17,7 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private bool _fechada;
         private double _salarioLiquido;
+        private string _observacao;
         private IList<Bonus> _bonus = new List<Bonus>();
 
         public FolhaPagamento()
@@ -249,6 +250,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _salarioLiquido = value;
                 OnPropertyChanged("SalarioLiquido");
+            }
+        }
+
+        public string Observacao
+        {
+            get => _observacao;
+            set
+            {
+                _observacao = value;
+                OnPropertyChanged("Observacao");
             }
         }
 

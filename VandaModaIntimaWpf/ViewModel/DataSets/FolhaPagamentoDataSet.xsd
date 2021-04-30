@@ -12,7 +12,7 @@
   <xs:element name="FolhaPagamentoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FolhaPagamentoDataSet" msprop:Generator_UserDSName="FolhaPagamentoDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="FolhaPagamento" msprop:Generator_TableClassName="FolhaPagamentoDataTable" msprop:Generator_TableVarName="tableFolhaPagamento" msprop:Generator_RowChangedName="FolhaPagamentoRowChanged" msprop:Generator_TablePropName="FolhaPagamento" msprop:Generator_RowDeletingName="FolhaPagamentoRowDeleting" msprop:Generator_RowChangingName="FolhaPagamentoRowChanging" msprop:Generator_RowEvHandlerName="FolhaPagamentoRowChangeEventHandler" msprop:Generator_RowDeletedName="FolhaPagamentoRowDeleted" msprop:Generator_RowClassName="FolhaPagamentoRow" msprop:Generator_UserTableName="FolhaPagamento" msprop:Generator_RowEvArgName="FolhaPagamentoRowChangeEvent">
+        <xs:element name="FolhaPagamento" msprop:Generator_TableClassName="FolhaPagamentoDataTable" msprop:Generator_TableVarName="tableFolhaPagamento" msprop:Generator_TablePropName="FolhaPagamento" msprop:Generator_RowDeletingName="FolhaPagamentoRowDeleting" msprop:Generator_RowChangingName="FolhaPagamentoRowChanging" msprop:Generator_RowEvHandlerName="FolhaPagamentoRowChangeEventHandler" msprop:Generator_RowDeletedName="FolhaPagamentoRowDeleted" msprop:Generator_UserTableName="FolhaPagamento" msprop:Generator_RowChangedName="FolhaPagamentoRowChanged" msprop:Generator_RowEvArgName="FolhaPagamentoRowChangeEvent" msprop:Generator_RowClassName="FolhaPagamentoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="mes" msprop:Generator_ColumnVarNameInTable="columnmes" msprop:Generator_ColumnPropNameInRow="mes" msprop:Generator_ColumnPropNameInTable="mesColumn" msprop:Generator_UserColumnName="mes" type="xs:string" />
@@ -22,6 +22,7 @@
               <xs:element name="vencimento" msprop:Generator_ColumnVarNameInTable="columnvencimento" msprop:Generator_ColumnPropNameInRow="vencimento" msprop:Generator_ColumnPropNameInTable="vencimentoColumn" msprop:Generator_UserColumnName="vencimento" type="xs:string" minOccurs="0" />
               <xs:element name="valor_a_transferir" msprop:Generator_ColumnVarNameInTable="columnvalor_a_transferir" msprop:Generator_ColumnPropNameInRow="valor_a_transferir" msprop:Generator_ColumnPropNameInTable="valor_a_transferirColumn" msprop:Generator_UserColumnName="valor_a_transferir" type="xs:string" minOccurs="0" />
               <xs:element name="salario_liquido" msprop:Generator_ColumnVarNameInTable="columnsalario_liquido" msprop:Generator_ColumnPropNameInRow="salario_liquido" msprop:Generator_ColumnPropNameInTable="salario_liquidoColumn" msprop:Generator_UserColumnName="salario_liquido" type="xs:string" minOccurs="0" />
+              <xs:element name="observacao" msprop:Generator_ColumnVarNameInTable="columnobservacao" msprop:Generator_ColumnPropNameInRow="observacao" msprop:Generator_ColumnPropNameInTable="observacaoColumn" msprop:Generator_UserColumnName="observacao" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

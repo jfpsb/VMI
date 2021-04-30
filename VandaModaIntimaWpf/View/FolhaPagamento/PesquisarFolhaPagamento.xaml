@@ -217,6 +217,9 @@
                                 <MenuItem Header="Adicionar Hora Extra"
                                           Command="{Binding AbrirAdicionarHoraExtraComando}"
                                           IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
+                                <MenuItem Header="Adicionar Observação"
+                                          Command="{Binding AbrirAdicionarObservacaoComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <Separator />
                                 <MenuItem Header="Mais Detalhes"
                                           Command="{Binding AbrirMaisDetalhesComando}" />

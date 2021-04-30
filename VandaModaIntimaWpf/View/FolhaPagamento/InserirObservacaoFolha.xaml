@@ -1,0 +1,53 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.InserirObservacaoFolha"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+        mc:Ignorable="d"
+        Title="Inserir Observação Em Folha"
+        Height="370"
+        Width="600"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding Key="F2"
+                    Command="{Binding SalvarComando}" />
+    </Window.InputBindings>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Folha Referência:" />
+        <Label Grid.Column="1"
+               Content="{Binding Folha.MesReferencia}" />
+        <Label Grid.Row="1"
+               Content="Funcionário:" />
+        <Label Grid.Column="1"
+               Grid.Row="1"
+               Content="{Binding Folha.Funcionario.Nome}" />
+        <Label Grid.Row="2"
+               FontWeight="Bold"
+               Content="Observação:" />
+        <TextBox Grid.Row="3"
+                 Grid.ColumnSpan="2"
+                 Text="{Binding Folha.Observacao}"
+                 TextWrapping="Wrap"
+                 FontSize="14"
+                 Height="175"
+                 MaxLength="500" />
+        <Button Grid.Row="8"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource salvar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}" />
+    </Grid>
+</Window>

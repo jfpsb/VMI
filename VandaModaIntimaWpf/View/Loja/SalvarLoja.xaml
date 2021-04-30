@@ -12,6 +12,10 @@
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
         Closing="Window_Closing">
+    <Window.InputBindings>
+        <KeyBinding Key="F2"
+                    Command="{Binding SalvarComando}" />
+    </Window.InputBindings>
     <Grid Margin="15,5,15,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
