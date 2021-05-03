@@ -150,11 +150,6 @@ namespace VandaModaIntimaWpf.Model
             return Cnpj;
         }
 
-        public string CouchDbId()
-        {
-            return Cnpj?.ToString();
-        }
-
         public void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Produtos))

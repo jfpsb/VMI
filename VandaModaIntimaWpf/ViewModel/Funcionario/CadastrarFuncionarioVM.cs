@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -13,27 +14,71 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
     public class CadastrarFuncionarioVM : ACadastrarViewModel<FuncionarioModel>
     {
         private DAOLoja daoLoja;
-        private string _salarioString;
+        private DAOBanco daoBanco;
+        private ObservableCollection<Model.ChavePix> _chavesPix;
+        private ObservableCollection<Model.ContaBancaria> _contasBancarias;
+        private ObservableCollection<Model.Banco> _bancos;
+        private Model.ChavePix _chavePix;
+        private Model.ContaBancaria _contaBancaria;
+        private Model.Banco _banco;
         public ObservableCollection<LojaModel> Lojas { get; set; }
+        public ICommand AdicionarChavePixComando { get; set; }
+        public ICommand AdicionarContaBancariaComando { get; set; }
 
         public CadastrarFuncionarioVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);
             daoLoja = new DAOLoja(_session);
+            daoBanco = new DAOBanco(_session);
 
             GetLojas();
+            GetBancos();
 
             Entidade = new FuncionarioModel
             {
                 Loja = Lojas[0]
             };
 
+            ChavePix = new Model.ChavePix();
+            ContaBancaria = new Model.ContaBancaria();
+            Banco = Bancos[0];
+
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
             AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
 
-            Salario = "";
+            AdicionarChavePixComando = new RelayCommand(AdicionarChavePix, ValidaChavePix);
+            AdicionarContaBancariaComando = new RelayCommand(AdicionarContaBancaria, ValidaContaBancaria);
+        }
+
+        private bool ValidaContaBancaria(object arg)
+        {
+            if (!string.IsNullOrEmpty(ContaBancaria.Agencia) && !string.IsNullOrEmpty(ContaBancaria.Conta))
+                return true;
+
+            return false;
+        }
+
+        private bool ValidaChavePix(object arg)
+        {
+            if (!string.IsNullOrEmpty(ChavePix.Chave))
+                return true;
+
+            return false;
+        }
+
+        private void AdicionarContaBancaria(object obj)
+        {
+            ContaBancaria.Banco = Banco;
+            ContasBancarias.Add(ContaBancaria);
+            ContaBancaria = new Model.ContaBancaria();
+        }
+
+        private void AdicionarChavePix(object obj)
+        {
+            ChavesPix.Add(ChavePix);
+            ChavePix = new Model.ChavePix();
         }
 
         private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -45,6 +90,20 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             if (Entidade.Loja.Cnpj == null)
                 Entidade.Loja = null;
+
+            Entidade.ChavesPix.Clear();
+            foreach (var cp in ChavesPix)
+            {
+                cp.Funcionario = Entidade;
+                Entidade.ChavesPix.Add(cp);
+            }
+
+            Entidade.ContasBancarias.Clear();
+            foreach (var cb in ContasBancarias)
+            {
+                cb.Funcionario = Entidade;
+                Entidade.ContasBancarias.Add(cb);
+            }
         }
 
         override public async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -72,6 +131,10 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarExcetoDeposito());
         }
+        private async void GetBancos()
+        {
+            Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar<Model.Banco>());
+        }
         public override void ResetaPropriedades()
         {
             Entidade = new FuncionarioModel
@@ -93,13 +156,62 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             return valido;
         }
 
-        public string Salario
+        public ObservableCollection<Model.ChavePix> ChavesPix
         {
-            get => _salarioString;
+            get => _chavesPix;
             set
             {
-                _salarioString = value;
-                OnPropertyChanged("Salario");
+                _chavesPix = value;
+                OnPropertyChanged("ChavesPix");
+            }
+        }
+
+        public ObservableCollection<Model.ContaBancaria> ContasBancarias
+        {
+            get => _contasBancarias;
+            set
+            {
+                _contasBancarias = value;
+                OnPropertyChanged("ContasBancarias");
+            }
+        }
+
+        public Model.ChavePix ChavePix
+        {
+            get => _chavePix;
+            set
+            {
+                _chavePix = value;
+                OnPropertyChanged("ChavePix");
+            }
+        }
+        public Model.ContaBancaria ContaBancaria
+        {
+            get => _contaBancaria;
+            set
+            {
+                _contaBancaria = value;
+                OnPropertyChanged("ContaBancaria");
+            }
+        }
+
+        public ObservableCollection<Model.Banco> Bancos
+        {
+            get => _bancos;
+            set
+            {
+                _bancos = value;
+                OnPropertyChanged("Bancos");
+            }
+        }
+
+        public Model.Banco Banco
+        {
+            get => _banco;
+            set
+            {
+                _banco = value;
+                OnPropertyChanged("Banco");
             }
         }
     }

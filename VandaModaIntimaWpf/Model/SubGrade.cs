@@ -42,11 +42,6 @@ namespace VandaModaIntimaWpf.Model
 
         public string GetContextMenuHeader => throw new NotImplementedException();
 
-        public string CouchDbId()
-        {
-            return ProdutoGrade.Id.ToString() + Grade.Id;
-        }
-
         public object GetIdentifier()
         {
             return this;

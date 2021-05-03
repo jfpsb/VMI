@@ -150,17 +150,6 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="{DynamicResource salario_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Entidade.Salario}"
-                                            Width="Auto">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Salario}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">

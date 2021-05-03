@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Net;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -30,13 +26,8 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbreTelaPesquisaService = abreTelaPesquisaService;
 
-            //Autenticando CouchDB
-            CouchDbClient.Instancia.GetAuthenticationCookie();
-
             var configJson = File.ReadAllText("Config.json");
             JsonConvert.PopulateObject(configJson, Config.Instancia);
-
-            //MqttClientInit mqttClientInit = new MqttClientInit();
 
             AbrirTelaProdutoComando = new RelayCommand(AbrirTelaProduto);
             AbrirTelaFornecedorComando = new RelayCommand(AbrirTelaFornecedor);

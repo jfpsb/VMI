@@ -188,11 +188,6 @@ namespace VandaModaIntimaWpf.Model
             return CodBarra;
         }
 
-        public virtual string CouchDbId()
-        {
-            return CodBarra;
-        }
-
         public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Grades))

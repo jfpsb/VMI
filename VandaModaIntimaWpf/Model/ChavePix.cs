@@ -1,21 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class BonusMensal : AModel, IModel
+    public class ChavePix : AModel, IModel
     {
         private long _id;
         private Funcionario _funcionario;
-        private string _descricao;
-        private double _valor;
+        private Banco _banco;
+        private string _chave;
 
         public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public string GetContextMenuHeader => throw new NotImplementedException();
 
-        [JsonProperty("MySqlId")]
         public long Id
         {
             get => _id;
@@ -34,22 +35,23 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public string Descricao
+        public string Chave
         {
-            get => _descricao;
+            get => _chave;
             set
             {
-                _descricao = value;
-                OnPropertyChanged("Descricao");
+                _chave = value;
+                OnPropertyChanged("Chave");
             }
         }
-        public double Valor
+
+        public Banco Banco
         {
-            get => _valor;
+            get => _banco;
             set
             {
-                _valor = value;
-                OnPropertyChanged("Valor");
+                _banco = value;
+                OnPropertyChanged("Banco");
             }
         }
 

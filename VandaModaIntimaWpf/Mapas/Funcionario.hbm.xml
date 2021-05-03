@@ -20,6 +20,14 @@
       <key column="funcionario" />
       <one-to-many class="VandaModaIntimaWpf.Model.Bonus" />
     </bag>
+    <bag name="ContasBancarias" table="contabancaria" inverse="true" cascade="all-delete-orphan">
+      <key column="funcionario" />
+      <one-to-many class="VandaModaIntimaWpf.Model.ContaBancaria" />
+    </bag>
+    <bag name="ChavesPix" table="chave_pix" inverse="true" cascade="all-delete-orphan">
+      <key column="funcionario" />
+      <one-to-many class="VandaModaIntimaWpf.Model.ChavePix" />
+    </bag>
   </class>
 
 </hibernate-mapping>

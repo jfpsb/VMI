@@ -1,5 +1,4 @@
 ﻿using System;
-using VandaModaIntimaWpf.BancoDeDados.Model;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -8,7 +7,6 @@ namespace VandaModaIntimaWpf.ViewModel
         public object IdentificadorEntidade { get; set; }
         public string MensagemSucesso { get; set; }
         public string MensagemErro { get; set; }
-        public CouchDbLog CouchDbLog { get; set; }
 
         /// <summary>
         /// Parâmetro enviado junto com o comando da View para ViewModel

@@ -15,6 +15,5 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         string GetContextMenuHeader { get; }
         void InicializaLazyLoad();
-        string CouchDbId();
     }
 }

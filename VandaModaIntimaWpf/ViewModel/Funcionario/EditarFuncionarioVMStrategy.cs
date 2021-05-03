@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public string MensagemEntidadeErroAoSalvar()
         {
-            return "Erro ao Atualizar Fornecedor";
+            return "Erro ao Atualizar Funcionário";
         }
 
         public string MensagemEntidadeSalvaComSucesso()

@@ -40,11 +40,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string CouchDbId()
-        {
-            return Id.ToString();
-        }
-
         public object GetIdentifier()
         {
             return Id;

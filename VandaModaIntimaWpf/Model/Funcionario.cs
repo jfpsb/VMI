@@ -16,6 +16,8 @@ namespace VandaModaIntimaWpf.Model
         private bool _recebePassagem;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
+        private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
+        private IList<ChavePix> _chavesPix = new List<ChavePix>();
         public enum Colunas
         {
             Cpf = 1,
@@ -126,6 +128,26 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("RecebePassagem");
             }
         }
+
+        public IList<ContaBancaria> ContasBancarias
+        {
+            get => _contasBancarias;
+            set
+            {
+                _contasBancarias = value;
+                OnPropertyChanged("ContasBancarias");
+            }
+        }
+        public IList<ChavePix> ChavesPix
+        {
+            get => _chavesPix;
+            set
+            {
+                _chavesPix = value;
+                OnPropertyChanged("ChavesPix");
+            }
+        }
+
         public object GetIdentifier()
         {
             return _cpf;
@@ -135,17 +157,21 @@ namespace VandaModaIntimaWpf.Model
         {
             throw new NotImplementedException();
         }
-
-        public string CouchDbId()
-        {
-            return Cpf?.ToString();
-        }
-
         public void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Loja))
             {
                 NHibernateUtil.Initialize(Loja);
+            }
+
+            if(!NHibernateUtil.IsInitialized(ChavesPix))
+            {
+                NHibernateUtil.Initialize(ChavesPix);
+            }
+
+            if (!NHibernateUtil.IsInitialized(ContasBancarias))
+            {
+                NHibernateUtil.Initialize(ContasBancarias);
             }
         }
     }

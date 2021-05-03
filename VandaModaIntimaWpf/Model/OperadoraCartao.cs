@@ -64,11 +64,6 @@ namespace VandaModaIntimaWpf.Model
             return Nome;
         }
 
-        public string CouchDbId()
-        {
-            return Nome;
-        }
-
         public void InicializaLazyLoad()
         {
             throw new NotImplementedException("OperadoraCartao Não Possui Propriedades Que Usam Lazy Loading");

@@ -5,99 +5,201 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Cadastrar Funcionário"
-        Height="425"
+        Height="Auto"
         Width="500"
         Icon="/Resources/Funcionario_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCpf}"
         Closing="Window_Closing">
-    <Grid Margin="15,5,15,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label Content="{DynamicResource cpf_dois_pontos}" />
-        <TextBox x:Name="TxtCpf"
-                 Grid.Column="1"
-                 Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="11" />
-        <Label Grid.Row="1"
-               Grid.ColumnSpan="2"
-               Content="{DynamicResource funcionario_ja_existe}"
-               HorizontalAlignment="Right"
-               Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
-               Foreground="Red" />
-        <Label Grid.Row="2"
-               Content="{DynamicResource nome_dois_pontos}" />
-        <TextBox Grid.Column="1"
-                 Grid.Row="2"
-                 MaxLength="45"
-                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="3"
-               Content="{DynamicResource telefone_dois_pontos}" />
-        <TextBox Grid.Column="1"
-                 Grid.Row="3"
-                 MaxLength="100"
-                 Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="4"
-               Content="{DynamicResource endereco_dois_pontos}" />
-        <TextBox Grid.Column="1"
-                 Grid.Row="4"
-                 MaxLength="200"
-                 Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="5"
-               Content="{DynamicResource salario_dois_pontos}" />
-        <TextBox Grid.Column="1"
-                 Grid.Row="5"
-                 MaxLength="10"
-                 Text="{Binding Salario, ConverterCulture=pt-BR}"
-                 IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="6"
-               Content="Chave PIX:" />
-        <TextBox Grid.Column="1"
-                 Grid.Row="6"
-                 Text="{Binding Entidade.ChavePIX, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="7"
-               Content="Recebe Passagem:" />
-        <CheckBox Grid.Row="7"
-                  Grid.Column="1"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Left"
-                  IsChecked="{Binding Entidade.RecebePassagem}"
-                  Margin="5, 10, 0, 10" />
-        <Label Grid.Row="10"
-               Content="{DynamicResource loja_dois_pontos}" />
-        <ComboBox Grid.Column="1"
-                  Grid.Row="10"
-                  DisplayMemberPath="Nome"
-                  ItemsSource="{Binding Path=Lojas}"
-                  SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
-                  IsEnabled="{Binding IsEnabled}" />
-        <Button Grid.Row="11"
-                Grid.ColumnSpan="2"
+    <Window.InputBindings>
+        <KeyBinding Key="F2"
+                    Command="{Binding SalvarComando}" />
+    </Window.InputBindings>
+    <Grid>
+        <TabControl>
+            <TabItem Header="Dados De Funcionário">
+                <Grid Margin="15,5,15,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="{DynamicResource cpf_dois_pontos}" />
+                    <TextBox x:Name="TxtCpf"
+                             Grid.Column="1"
+                             Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged}"
+                             MaxLength="11" />
+                    <Label Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Content="{DynamicResource funcionario_ja_existe}"
+                           HorizontalAlignment="Right"
+                           Visibility="{Binding VisibilidadeAvisoItemJaExiste}"
+                           Foreground="Red" />
+                    <Label Grid.Row="2"
+                           Content="{DynamicResource nome_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="2"
+                             MaxLength="45"
+                             Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="3"
+                           Content="{DynamicResource telefone_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="3"
+                             MaxLength="100"
+                             Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="4"
+                           Content="{DynamicResource endereco_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="4"
+                             MaxLength="200"
+                             Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="5"
+                           Content="Chave PIX:" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="5"
+                             Text="{Binding Entidade.ChavePIX, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="6"
+                           Content="Recebe Passagem:" />
+                    <CheckBox Grid.Row="6"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding Entidade.RecebePassagem}"
+                              Margin="5, 10, 0, 10" />
+                    <Label Grid.Row="7"
+                           Content="{DynamicResource loja_dois_pontos}" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="7"
+                              DisplayMemberPath="Nome"
+                              ItemsSource="{Binding Path=Lojas}"
+                              SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
+                              IsEnabled="{Binding IsEnabled}" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Dados Bancários">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Chaves PIX:"
+                           FontWeight="Bold"
+                           FontSize="16" />
+                    <DataGrid Grid.Row="1"
+                              Grid.ColumnSpan="3"
+                              ItemsSource="{Binding ChavesPix}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Chave"
+                                                Width="Auto"
+                                                Binding="{Binding Chave}" />
+                            <DataGridTextColumn Header="Banco"
+                                                Width="*"
+                                                Binding="{Binding Banco.Nome}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="2"
+                           Content="Nova Chave:" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             FontSize="14"
+                             Text="{Binding ChavePix.Chave, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Grid.Row="2"
+                            Grid.Column="2"
+                            Content="Adicionar Chave"
+                            Command="{Binding AdicionarChavePixComando}" />
+                    <Label Grid.Row="3"
+                           FontWeight="Bold"
+                           Content="Contas Bancárias"
+                           FontSize="16" />
+                    <DataGrid Grid.Row="4"
+                              Grid.ColumnSpan="3"
+                              ItemsSource="{Binding ContasBancarias}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Banco"
+                                                Width="*"
+                                                Binding="{Binding Banco.Nome}" />
+                            <DataGridTextColumn Header="Agência"
+                                                Binding="{Binding Agencia}" />
+                            <DataGridTextColumn Header="Op"
+                                                Binding="{Binding Operacao}" />
+                            <DataGridTextColumn Header="Conta"
+                                                Binding="{Binding Conta}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="5"
+                           Content="Banco:" />
+                    <ComboBox Grid.Row="5"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="2"
+                              ItemsSource="{Binding Bancos}"
+                              SelectedItem="{Binding Banco, Mode=TwoWay}"
+                              DisplayMemberPath="Nome" />
+                    <Grid Grid.Row="6"
+                          Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Content="Agência:" />
+                        <TextBox Grid.Column="1"
+                                 FontSize="14"
+                                 Text="{Binding ContaBancaria.Agencia, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label Content="Operação:"
+                               Grid.Column="2" />
+                        <TextBox Grid.Column="3"
+                                 FontSize="14"
+                                 Text="{Binding ContaBancaria.Operacao, UpdateSourceTrigger=PropertyChanged}" />
+                        <Label Content="Conta:"
+                               Grid.Column="4" />
+                        <TextBox Grid.Column="5"
+                                 FontSize="14"
+                                 Text="{Binding ContaBancaria.Conta, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Row="1"
+                                Grid.ColumnSpan="6"
+                                Content="Adicionar Conta Bancária"
+                                Command="{Binding AdicionarContaBancariaComando}" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Panel.ZIndex="10"
                 Content="{DynamicResource salvar}"
                 Style="{StaticResource BotaoCadastrar}"
                 Command="{Binding SalvarComando}"
                 ToolTip="{Binding BtnSalvarToolTip}"
+                VerticalAlignment="Bottom"
                 Click="Button_Click" />
     </Grid>
 </Window>

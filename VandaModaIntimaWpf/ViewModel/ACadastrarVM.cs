@@ -5,11 +5,8 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados;
-using VandaModaIntimaWpf.BancoDeDados.Model;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -21,23 +18,17 @@ namespace VandaModaIntimaWpf.ViewModel
         protected ICadastrarVMStrategy viewModelStrategy;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
-        protected CouchDbClient couchDbClient;
         protected E _entidade;
-        protected CouchDbLog ultimoLog;
         protected bool _result;
 
         private bool issoEUmUpdate;
         private string _btnSalvarToolTip;
         protected IMessageBoxService MessageBoxService;
 
-        public delegate void AntesDeCriarDocumentoEventHandler();
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
-        public delegate void AposCriarDocumentoEventHandler(AposCriarDocumentoEventArgs e);
         public delegate void AposInserirNoBancoDeDadosEventHandler(AposInserirBDEventArgs e);
 
-        public event AposCriarDocumentoEventHandler AposCriarDocumento;
         public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
-        public event AntesDeCriarDocumentoEventHandler AntesDeCriarDocumento;
         public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
         public ICommand SalvarComando { get; set; }
         /// <summary>
@@ -51,73 +42,12 @@ namespace VandaModaIntimaWpf.ViewModel
             _session = session;
             this.issoEUmUpdate = issoEUmUpdate;
             MessageBoxService = messageBoxService;
-            couchDbClient = CouchDbClient.Instancia;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
 
-            AposCriarDocumento += ResultadoSalvarDocumento;
-            AposCriarDocumento += GetUltimoLogAposCriarDoc;
-
             AposInserirNoBancoDeDados += ResultadoInsercao;
-            //AposInserirNoBancoDeDados += SalvarDocumento;
             AposInserirNoBancoDeDados += RedefinirTela;
 
-            //PropertyChanged += GetUltimoLogDeEntidade;
-
             issoEUmUpdate = false;
-        }
-        /// <summary>
-        /// Escreve no console da aplicação se houve erro ou falha ao salvar documento do CouchDb
-        /// </summary>
-        /// <param name="e"></param>
-        private void ResultadoSalvarDocumento(AposCriarDocumentoEventArgs e)
-        {
-            if (e.CouchDbResponse.Ok)
-            {
-                Console.WriteLine(e.MensagemSucesso);
-            }
-            else
-            {
-                Console.WriteLine(e.MensagemErro);
-            }
-        }
-        /// <summary>
-        /// Salva documento do CouchDb após operação de Salvar no Banco de Dados
-        /// </summary>
-        /// <param name="e"></param>
-        private async void SalvarDocumento(AposInserirBDEventArgs e)
-        {
-            AntesDeCriarDocumento?.Invoke();
-            CouchDbResponse couchDbResponse;
-
-            E entidadeInserida = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
-
-            if (ultimoLog == null)
-            {
-                string entidadeJson = JsonConvert.SerializeObject(entidadeInserida);
-                couchDbResponse = await couchDbClient.CreateDocument(entidadeInserida.CouchDbId(), entidadeJson);
-            }
-            else
-            {
-                e.CouchDbLog = (CouchDbLog)ultimoLog.Clone();
-                ultimoLog.AtribuiCampos(entidadeInserida);
-                couchDbResponse = await couchDbClient.UpdateDocument(ultimoLog);
-                e.CouchDbLog.Rev = couchDbResponse.Rev;
-            }
-
-            AposCriarDocumentoEventArgs e2 = new AposCriarDocumentoEventArgs()
-            {
-                CouchDbResponse = couchDbResponse,
-                MensagemSucesso = viewModelStrategy.MensagemDocumentoSalvoComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemDocumentoNaoSalvo(),
-                IdentificadorEntidade = e.IdentificadorEntidade
-            };
-
-            AposCriarDocumento?.Invoke(e2);
-        }
-
-        private void GetUltimoLogAposCriarDoc(AposCriarDocumentoEventArgs e)
-        {
-            OnPropertyChanged("Entidade");
         }
         /// <summary>
         /// Método atrelado ao comando do botão Salvar
@@ -155,21 +85,6 @@ namespace VandaModaIntimaWpf.ViewModel
             };
 
             return e;
-        }
-        /// <summary>
-        /// Consulta e atribui o último log do CouchDb salvo dessa entidade
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">Parâmetros de evento</param>
-        protected async void GetUltimoLogDeEntidade(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Entidade":
-                    if (_entidade.CouchDbId() != null)
-                        ultimoLog = await couchDbClient.FindById(_entidade.CouchDbId());
-                    break;
-            }
         }
 
         public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);

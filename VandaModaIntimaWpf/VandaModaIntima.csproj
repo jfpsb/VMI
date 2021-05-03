@@ -433,34 +433,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="BancoDeDados\CouchDbBulkDocs.cs" />
-    <Compile Include="BancoDeDados\CouchDbClient.cs" />
-    <Compile Include="BancoDeDados\CouchDbCredentials.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbAdiantamentoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbBonusLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbContagemLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbContagemProdutoLog.cs" />
-    <Compile Include="BancoDeDados\CouchDbErrorResponse.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFolhaPagamentoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFornecedorLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbFuncionarioLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbLojaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbMarcaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbMetaLojaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbOperadoraCartaoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbParcelaLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbProdutoLog.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbRecebimentoCartaoLog.cs" />
-    <Compile Include="BancoDeDados\CouchDbResponse.cs" />
-    <Compile Include="BancoDeDados\CouchDbRevStatus.cs" />
-    <Compile Include="BancoDeDados\Model\CouchDbTipoContagemLog.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Model\Banco.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\BonusMensal.cs" />
+    <Compile Include="Model\ChavePix.cs" />
+    <Compile Include="Model\ContaBancaria.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\Converters\CalculoPassagemDataConverter.cs" />
@@ -519,8 +499,6 @@
     <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
-    <Compile Include="ViewModel\AposCriarDocumentoEventArgs.cs" />
-    <Compile Include="ViewModel\AposDeletarDocumentoEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
@@ -1141,6 +1119,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Almoco.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ContaBancaria.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ChavePix.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

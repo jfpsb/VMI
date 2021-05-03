@@ -158,11 +158,6 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public string CouchDbId()
-        {
-            return Id.ToString();
-        }
-
         public void InicializaLazyLoad()
         {
             throw new NotImplementedException("RecebimentoCartao Não Possui Propriedades com Lazy Loading");

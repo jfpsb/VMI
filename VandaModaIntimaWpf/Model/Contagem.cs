@@ -115,11 +115,6 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public string CouchDbId()
-        {
-            return Loja.CouchDbId() + Data.ToString();
-        }
-
         public void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Contagens))

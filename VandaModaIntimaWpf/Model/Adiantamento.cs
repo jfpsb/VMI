@@ -118,10 +118,5 @@ namespace VandaModaIntimaWpf.Model
         {
             throw new NotImplementedException();
         }
-
-        public string CouchDbId()
-        {
-            return Id.ToString();
-        }
     }
 }

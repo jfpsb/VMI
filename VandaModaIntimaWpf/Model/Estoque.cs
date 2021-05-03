@@ -55,11 +55,6 @@ namespace VandaModaIntimaWpf.Model
 
         public string GetContextMenuHeader => $"{ProdutoGrade.Produto.Descricao}";
 
-        public string CouchDbId()
-        {
-            return ProdutoGrade.Id.ToString() + Loja.Cnpj;
-        }
-
         public object GetIdentifier()
         {
             Estoque estoque = new Estoque()
