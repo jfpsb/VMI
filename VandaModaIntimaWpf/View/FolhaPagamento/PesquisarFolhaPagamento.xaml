@@ -225,8 +225,8 @@
                                           Command="{Binding AbrirMaisDetalhesComando}" />
                                 <MenuItem Header="Imprimir"
                                           Command="{Binding AbrirImprimirFolhaComando}" />
-                                <MenuItem Header="Copiar Chave PIX"
-                                          Command="{Binding CopiarChavePixComando}" />
+                                <MenuItem Header="Abrir Dados Bancários"
+                                          Command="{Binding AbrirDadosBancariosComando}" />
                                 <Separator />
                                 <MenuItem Header="Fechar Folha de Pagamento"
                                           Command="{Binding FecharFolhaPagamentoComando}"

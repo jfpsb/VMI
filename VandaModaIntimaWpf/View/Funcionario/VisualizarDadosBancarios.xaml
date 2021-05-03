@@ -1,0 +1,68 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.Funcionario.VisualizarDadosBancarios"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
+        mc:Ignorable="d"
+        Title="Visualizar Dados Bancários"
+        Height="Auto"
+        Width="600"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="Height">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Chaves Pix:"
+               FontWeight="Bold"
+               FontSize="16" />
+        <DataGrid x:Name="ChavePixDataGrid"
+                  Grid.Row="1"
+                  ItemsSource="{Binding ChavesPix}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Banco"
+                                    Width="*"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Banco.Nome}" />
+                <DataGridTextColumn Header="Chave"
+                                    Width="Auto"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Chave}" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Copiar Chave Pix"
+                              Click="ChavePixMenuItem_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <Label Grid.Row="2"
+               FontWeight="Bold"
+               Content="Contas Bancárias:"
+               FontSize="16" />
+        <DataGrid x:Name="ContasDataGrid"
+                  Grid.Row="3"
+                  ItemsSource="{Binding ContasBancarias}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Banco"
+                                    Width="*"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Banco.Nome}" />
+                <DataGridTextColumn Header="Agência"
+                                    Binding="{Binding Agencia}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Op"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Operacao}" />
+                <DataGridTextColumn Header="Conta"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Conta}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

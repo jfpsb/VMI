@@ -105,6 +105,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Content="Chaves PIX:"
                            FontWeight="Bold"
@@ -113,29 +114,37 @@
                               Grid.ColumnSpan="3"
                               ItemsSource="{Binding ChavesPix}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Chave"
-                                                Width="Auto"
-                                                Binding="{Binding Chave}" />
                             <DataGridTextColumn Header="Banco"
                                                 Width="*"
                                                 Binding="{Binding Banco.Nome}" />
+                            <DataGridTextColumn Header="Chave"
+                                                Width="Auto"
+                                                Binding="{Binding Chave}" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Label Grid.Row="2"
+                           Content="Banco:" />
+                    <ComboBox Grid.Row="2"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="2"
+                              ItemsSource="{Binding Bancos}"
+                              SelectedItem="{Binding BancoPix, Mode=TwoWay}"
+                              DisplayMemberPath="Nome" />
+                    <Label Grid.Row="3"
                            Content="Nova Chave:" />
-                    <TextBox Grid.Row="2"
+                    <TextBox Grid.Row="3"
                              Grid.Column="1"
                              FontSize="14"
                              Text="{Binding ChavePix.Chave, UpdateSourceTrigger=PropertyChanged}" />
-                    <Button Grid.Row="2"
+                    <Button Grid.Row="3"
                             Grid.Column="2"
                             Content="Adicionar Chave"
                             Command="{Binding AdicionarChavePixComando}" />
-                    <Label Grid.Row="3"
+                    <Label Grid.Row="4"
                            FontWeight="Bold"
-                           Content="Contas Bancárias"
+                           Content="Contas Bancárias:"
                            FontSize="16" />
-                    <DataGrid Grid.Row="4"
+                    <DataGrid Grid.Row="5"
                               Grid.ColumnSpan="3"
                               ItemsSource="{Binding ContasBancarias}">
                         <DataGrid.Columns>
@@ -150,15 +159,15 @@
                                                 Binding="{Binding Conta}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Label Grid.Row="5"
+                    <Label Grid.Row="6"
                            Content="Banco:" />
-                    <ComboBox Grid.Row="5"
+                    <ComboBox Grid.Row="6"
                               Grid.Column="1"
                               Grid.ColumnSpan="2"
                               ItemsSource="{Binding Bancos}"
-                              SelectedItem="{Binding Banco, Mode=TwoWay}"
+                              SelectedItem="{Binding BancoContaBancaria, Mode=TwoWay}"
                               DisplayMemberPath="Nome" />
-                    <Grid Grid.Row="6"
+                    <Grid Grid.Row="7"
                           Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

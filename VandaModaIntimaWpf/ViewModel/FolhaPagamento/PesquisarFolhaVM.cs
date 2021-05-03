@@ -13,6 +13,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
@@ -44,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand FecharFolhaPagamentoComando { get; set; }
         public ICommand FecharFolhasAbertasComando { get; set; }
         public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
-        public ICommand CopiarChavePixComando { get; set; }
+        public ICommand AbrirDadosBancariosComando { get; set; }
         public ICommand AbrirAdicionarObservacaoComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
@@ -78,7 +79,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
-            CopiarChavePixComando = new RelayCommand(CopiarChavePix);
+            AbrirDadosBancariosComando = new RelayCommand(AbrirDadosBancarios);
             AbrirAdicionarObservacaoComando = new RelayCommand(AbrirAdicionarObservacao);
         }
 
@@ -104,9 +105,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             OnPropertyChanged("TermoPesquisa");
         }
 
-        private void CopiarChavePix(object obj)
+        private void AbrirDadosBancarios(object obj)
         {
-            Clipboard.SetText(FolhaPagamento.Funcionario.ChavePIX);
+            VisualizarDadosBancarios view = new VisualizarDadosBancarios(FolhaPagamento.Funcionario);
+            view.Show();
         }
 
         private void AbrirAdicionarSalarioLiquido(object obj)

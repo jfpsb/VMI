@@ -352,6 +352,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\Funcionario\VisualizarDadosBancarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Grade\CadastrarGrade.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -730,6 +734,9 @@
     </Compile>
     <Compile Include="View\Funcionario\PesquisarFuncionario.xaml.cs">
       <DependentUpon>PesquisarFuncionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Funcionario\VisualizarDadosBancarios.xaml.cs">
+      <DependentUpon>VisualizarDadosBancarios.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Grade\CadastrarGrade.xaml.cs">
       <DependentUpon>CadastrarGrade.xaml</DependentUpon>

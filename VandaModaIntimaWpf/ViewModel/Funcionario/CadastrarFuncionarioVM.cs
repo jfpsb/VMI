@@ -20,7 +20,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private ObservableCollection<Model.Banco> _bancos;
         private Model.ChavePix _chavePix;
         private Model.ContaBancaria _contaBancaria;
-        private Model.Banco _banco;
+        private Model.Banco _bancoContaBancaria;
+        private Model.Banco _bancoPix;
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ICommand AdicionarChavePixComando { get; set; }
         public ICommand AdicionarContaBancariaComando { get; set; }
@@ -42,7 +43,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             ChavePix = new Model.ChavePix();
             ContaBancaria = new Model.ContaBancaria();
-            Banco = Bancos[0];
+            BancoContaBancaria = Bancos[0];
+            BancoPix = Bancos[0];
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
@@ -70,13 +72,14 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void AdicionarContaBancaria(object obj)
         {
-            ContaBancaria.Banco = Banco;
+            ContaBancaria.Banco = BancoContaBancaria;
             ContasBancarias.Add(ContaBancaria);
             ContaBancaria = new Model.ContaBancaria();
         }
 
         private void AdicionarChavePix(object obj)
         {
+            ChavePix.Banco = BancoPix;
             ChavesPix.Add(ChavePix);
             ChavePix = new Model.ChavePix();
         }
@@ -205,13 +208,23 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             }
         }
 
-        public Model.Banco Banco
+        public Model.Banco BancoContaBancaria
         {
-            get => _banco;
+            get => _bancoContaBancaria;
             set
             {
-                _banco = value;
-                OnPropertyChanged("Banco");
+                _bancoContaBancaria = value;
+                OnPropertyChanged("BancoContaBancaria");
+            }
+        }
+
+        public Model.Banco BancoPix
+        {
+            get => _bancoPix;
+            set
+            {
+                _bancoPix = value;
+                OnPropertyChanged("BancoPix");
             }
         }
     }
