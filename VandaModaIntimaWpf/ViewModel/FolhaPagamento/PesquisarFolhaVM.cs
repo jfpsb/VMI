@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -13,8 +11,10 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.DataSets;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
-        private double _totalAPagar;
+        private IFileDialogService _fileDialogService;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -47,8 +47,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
         public ICommand AbrirDadosBancariosComando { get; set; }
         public ICommand AbrirAdicionarObservacaoComando { get; set; }
+        public ICommand ExportarFolhasParaPDFComando { get; set; }
 
-        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
+        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             //TODO: excel para folha de pagamento
@@ -58,6 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoBonus = new DAOBonus(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
+            _fileDialogService = fileDialogService;
 
             GetFuncionarios();
 
@@ -81,6 +83,83 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
             AbrirDadosBancariosComando = new RelayCommand(AbrirDadosBancarios);
             AbrirAdicionarObservacaoComando = new RelayCommand(AbrirAdicionarObservacao);
+            ExportarFolhasParaPDFComando = new RelayCommand(ExportarFolhasParaPDF);
+        }
+
+        private void ExportarFolhasParaPDF(object obj)
+        {
+            string caminhoPasta = _fileDialogService.ShowFolderBrowserDialog();
+
+            if (!string.IsNullOrEmpty(caminhoPasta))
+            {
+                try
+                {
+                    FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
+                    BonusDataSet bonusDataSet = new BonusDataSet();
+                    ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
+
+                    foreach (var folha in FolhaPagamentos)
+                    {
+                        folhaPagamentoDataSet.Clear();
+                        bonusDataSet.Clear();
+                        parcelaDataSet.Clear();
+
+                        foreach (var bonus in folha.Bonus)
+                        {
+                            var brow = bonusDataSet.Bonus.NewBonusRow();
+                            brow.id = bonus.Id.ToString();
+                            brow.data = bonus.DataString;
+                            brow.descricao = bonus.Descricao;
+                            brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                            brow.total_bonus = folha.TotalBonus.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                            bonusDataSet.Bonus.AddBonusRow(brow);
+                        }
+
+                        foreach (var parcela in folha.Parcelas)
+                        {
+                            var prow = parcelaDataSet.Parcela.NewParcelaRow();
+                            prow.id = parcela.Id.ToString();
+                            prow.numero = parcela.Numero.ToString();
+                            prow.valor = parcela.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                            prow.data_adiantamento = parcela.Adiantamento.DataString;
+                            prow.numero_com_total = parcela.NumeroComTotal;
+                            prow.total_adiantamentos = folha.TotalAdiantamentos.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                            prow.descricao = parcela.Adiantamento.Descricao;
+
+                            parcelaDataSet.Parcela.AddParcelaRow(prow);
+                        }
+
+                        var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
+                        fprow.mes = folha.Mes.ToString();
+                        fprow.ano = folha.Ano.ToString();
+                        fprow.mesreferencia = folha.MesReferencia;
+                        fprow.vencimento = folha.Vencimento.ToString("dd/MM/yyyy");
+                        fprow.funcionario = folha.Funcionario.Nome;
+                        fprow.valor_a_transferir = folha.ValorATransferir.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                        fprow.salario_liquido = folha.SalarioLiquido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                        fprow.observacao = folha.Observacao;
+
+                        folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
+
+                        var report = new RelatorioFolhaPagamento();
+                        report.Load("/View/FolhaPagamento/Relatorios/RelatorioFolhaPagamento.rpt");
+                        report.Subreports[0].SetDataSource(bonusDataSet);
+                        report.Subreports[1].SetDataSource(parcelaDataSet);
+                        report.SetDataSource(folhaPagamentoDataSet);
+
+                        //var stream = report.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+
+                        report.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf"));
+                    }
+
+                    MessageBoxService.Show($@"Folhas De Pagamento Foram Exportadas Em PDF Com Sucesso Em {caminhoPasta}!", pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show(ex.Message);
+                }
+            }
         }
 
         private void AbrirAdicionarObservacao(object obj)
@@ -317,11 +396,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public double TotalAPagar
         {
             get => FolhaPagamentos.Select(s => s.ValorATransferir).Sum();
-            set
-            {
-                _totalAPagar = value;
-                OnPropertyChanged("TotalAPagar");
-            }
         }
 
         public override bool Editavel(object parameter)

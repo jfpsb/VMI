@@ -41,6 +41,8 @@
                     </MenuItem>
                     <MenuItem Header="Fechar Todas as Folhas Abertas"
                               Command="{Binding FecharFolhasAbertasComando}" />
+                    <MenuItem Header="Exportar Folhas Para PDF"
+                              Command="{Binding ExportarFolhasParaPDFComando}" />
                     <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">

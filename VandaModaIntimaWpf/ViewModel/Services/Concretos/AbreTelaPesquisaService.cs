@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaFolhaPagamento()
         {
-            PesquisarFolhaVM viewModel = new PesquisarFolhaVM(new MessageBoxService(), new AbrePelaTelaPesqFolhaService());
+            PesquisarFolhaVM viewModel = new PesquisarFolhaVM(new MessageBoxService(), new FileDialogService(), new AbrePelaTelaPesqFolhaService());
             PesquisarFolhaPagamento pesquisarFolhaPagamento = new PesquisarFolhaPagamento() { DataContext = viewModel };
             pesquisarFolhaPagamento.Show();
         }
