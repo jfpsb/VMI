@@ -234,7 +234,8 @@
                 <DataGrid Grid.Row="9"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
-                          ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding ProdutoGradeSelecionada, Mode=OneWayToSource}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                             IsReadOnly="True"
@@ -250,6 +251,12 @@
                                             Binding="{Binding SubGradesToString}"
                                             Width="*" />
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copiar Cód. De Barra"
+                                      Command="{Binding CopiarCodBarraComando}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
         </TabItem>

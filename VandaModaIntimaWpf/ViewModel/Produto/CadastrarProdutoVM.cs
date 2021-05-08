@@ -34,6 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private ObservableCollection<Model.Grade> _gradesComboBox;
         private ObservableCollection<Model.TipoGrade> tiposGrade; // Coleção usada na ComboBox de Tipo de Grade
         private ProdutoGrade _produtoGrade; // Guarda ProdutoGrade sendo formada
+        private ProdutoGrade _produtoGradeSelecionada;
         private ObservableCollection<ProdutoGrade> _produtoGrades; // Guarda listagem de Grades do Produto já completamente formadas
         private AbrePelaTelaCadastroDeProduto abrePelaTelaCadastroDeProduto;
         private ObservableCollection<FornecedorModel> _fornecedores;
@@ -46,6 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand CadastrarFornecedorOnlineComando { get; set; }
         public ICommand CadastrarFornecedorManualmenteComando { get; set; }
         public ICommand CadastrarMarcaComando { get; set; }
+        public ICommand CopiarCodBarraComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
@@ -68,6 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             CadastrarFornecedorOnlineComando = new RelayCommand(CadastrarFornecedorOnline);
             CadastrarFornecedorManualmenteComando = new RelayCommand(CadastrarFornecedorManualmente);
             CadastrarMarcaComando = new RelayCommand(CadastrarMarca);
+            CopiarCodBarraComando = new RelayCommand(CopiarCodBarra);
 
             PropertyChanged += GetGrades;
 
@@ -79,6 +82,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
+        }
+
+        private void CopiarCodBarra(object obj)
+        {
+            Clipboard.SetText(ProdutoGradeSelecionada.CodBarra);
         }
 
         private void CadastrarMarca(object obj)
@@ -361,6 +369,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 _grades = value;
                 OnPropertyChanged("Grades");
+            }
+        }
+
+        public ProdutoGrade ProdutoGradeSelecionada
+        {
+            get => _produtoGradeSelecionada;
+            set
+            {
+                _produtoGradeSelecionada = value;
+                OnPropertyChanged("ProdutoGradeSelecionada");
             }
         }
 
