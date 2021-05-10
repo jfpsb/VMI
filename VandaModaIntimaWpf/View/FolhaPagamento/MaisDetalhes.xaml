@@ -38,7 +38,7 @@
                FontWeight="Bold"
                FontSize="16" />
         <Label Grid.Column="1"
-               Content="{Binding FolhaPagamento.ValorVendido}"
+               Content="{Binding FolhaPagamento.TotalVendido}"
                ContentStringFormat="Total Vendido: {0:C}"
                Language="pt-BR"
                HorizontalContentAlignment="Right"

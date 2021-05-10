@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.Model
         private double _salarioLiquido;
         private string _observacao;
         private double _metaVenda;
-        private double _valorVendido;
+        private double _totalVendido;
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<Parcela> _parcelas = new List<Parcela>();
 
@@ -189,13 +189,13 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("MetaDeVenda");
             }
         }
-        public double ValorVendido
+        public double TotalVendido
         {
-            get => _valorVendido;
+            get => _totalVendido;
             set
             {
-                _valorVendido = value;
-                OnPropertyChanged("ValorVendido");
+                _totalVendido = value;
+                OnPropertyChanged("TotalVendido");
             }
         }
 
@@ -203,7 +203,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                var dif = ValorVendido - MetaDeVenda;
+                var dif = TotalVendido - MetaDeVenda;
 
                 if (dif <= 0.0)
                     return 0;

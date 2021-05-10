@@ -1,5 +1,4 @@
 ﻿using NHibernate;
-using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View;
@@ -7,25 +6,25 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class AdicionarSalarioLiquidoVM : ACadastrarViewModel<Model.FolhaPagamento>
+    public class AdicionarTotalVendidoVM : ACadastrarViewModel<Model.FolhaPagamento>
     {
-        private double _salarioLiquido;
+        private double _totalVendido;
 
-        public AdicionarSalarioLiquidoVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService) : base(session, messageBoxService, false)
+        public AdicionarTotalVendidoVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
             daoEntidade = new DAOFolhaPagamento(session);
-            viewModelStrategy = new AdicionarSalarioLiquidoVMStrategy();
+            viewModelStrategy = new AdicionarTotalVendidoVMStrategy();
             Entidade = folha;
             AposInserirNoBancoDeDados += FecharTela;
-            PropertyChanged += SetaValorSalarioLiquido;
+            PropertyChanged += SetaValorTotalVendido;
         }
 
-        private void SetaValorSalarioLiquido(object sender, PropertyChangedEventArgs e)
+        private void SetaValorTotalVendido(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("SalarioLiquido"))
+            if (e.PropertyName.Equals("TotalVendido"))
             {
-                Entidade.SalarioLiquido = SalarioLiquido;
+                Entidade.TotalVendido = TotalVendido;
             }
         }
 
@@ -42,12 +41,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
         }
 
         public override void ResetaPropriedades()
         {
-
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -55,22 +52,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (SalarioLiquido <= 0.0)
+            if (TotalVendido <= 0.0)
             {
-                BtnSalvarToolTip += "Informe Um Valor De Salário Líquido Válido!\n";
+                BtnSalvarToolTip += "Informe Um Valor De Total Vendido Válido!\n";
                 valido = false;
             }
 
             return valido;
         }
 
-        public double SalarioLiquido
+        public double TotalVendido
         {
-            get => _salarioLiquido;
+            get => _totalVendido;
             set
             {
-                _salarioLiquido = value;
-                OnPropertyChanged("SalarioLiquido");
+                _totalVendido = value;
+                OnPropertyChanged("TotalVendido");
             }
         }
     }

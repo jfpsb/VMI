@@ -50,6 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarObservacaoComando { get; set; }
         public ICommand ExportarFolhasParaPDFComando { get; set; }
         public ICommand AdicionarMetaIndividualComando { get; set; }
+        public ICommand AbrirAdicionarTotalComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -88,6 +89,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarObservacaoComando = new RelayCommand(AbrirAdicionarObservacao);
             ExportarFolhasParaPDFComando = new RelayCommand(ExportarFolhasParaPDF);
             AdicionarMetaIndividualComando = new RelayCommand(AdicionarMeta);
+            AbrirAdicionarTotalComando = new RelayCommand(AbrirAdicionarTotal);
+        }
+
+        private void AbrirAdicionarTotal(object obj)
+        {
+            AdicionarTotalVendidoVM viewModel = new AdicionarTotalVendidoVM(_session, FolhaPagamento, new MessageBoxService(), false);
+            AdicionarTotalVendido view = new AdicionarTotalVendido
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void AdicionarMeta(object obj)
@@ -481,7 +494,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"META MÊS {mesFolha.ToString("MMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.ValorVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"META MÊS {mesFolha.ToString("MMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano

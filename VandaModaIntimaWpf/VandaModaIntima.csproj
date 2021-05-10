@@ -244,6 +244,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DataUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -561,6 +565,8 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarMetaIndividualVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarObservacaoFolhaVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarTotalVendidoVM.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarTotalVendidoVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ISalvarBonus.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarAlmoco.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusPorMesVM.cs" />
@@ -644,6 +650,9 @@
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
     <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVM.cs" />
     <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVMStrategy.cs" />
+    <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
+      <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\APesquisarView.cs" />
     <Compile Include="View\DataUpDown.xaml.cs">
       <DependentUpon>DataUpDown.xaml</DependentUpon>

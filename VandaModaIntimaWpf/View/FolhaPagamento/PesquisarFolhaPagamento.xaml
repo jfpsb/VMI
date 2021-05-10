@@ -212,6 +212,9 @@
                                 <MenuItem Header="Adicionar Salário Líquido"
                                           Command="{Binding AbrirAdicionarSalarioLiquidoComando}"
                                           IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
+                                <MenuItem Header="Adicionar Total Vendido"
+                                          Command="{Binding AbrirAdicionarTotalComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <MenuItem Header="Adicionar Adiantamento"
                                           Command="{Binding AbrirAdicionarAdiantamentoComando}"
                                           IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
