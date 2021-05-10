@@ -60,6 +60,8 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             fprow.valor_a_transferir = FolhaPagamento.ValorATransferir.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
             fprow.salario_liquido = FolhaPagamento.SalarioLiquido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
             fprow.observacao = FolhaPagamento.Observacao;
+            fprow.valordameta = FolhaPagamento.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+            fprow.totalvendido = FolhaPagamento.ValorVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 

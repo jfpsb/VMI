@@ -39,6 +39,8 @@
                             <Image Source="/Resources/Hora_Extra.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Adicionar Valor De Meta Individual"
+                              Command="{Binding AdicionarMetaIndividualComando}" />
                     <MenuItem Header="Fechar Todas as Folhas Abertas"
                               Command="{Binding FecharFolhasAbertasComando}" />
                     <MenuItem Header="Exportar Folhas Para PDF"

@@ -15,6 +15,8 @@
     <property name="Fechada" column="fechada" />
     <property name="SalarioLiquido" column="salario_liquido" />
     <property name="Observacao" column="observacao" />
+    <property name="MetaDeVenda" column="metavenda" />
+    <property name="ValorVendido" column="valorvendido" />
   </class>
 
 </hibernate-mapping>

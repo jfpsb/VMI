@@ -8,7 +8,7 @@
         xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Mais Detalhes"
-        Height="500"
+        Height="575"
         Width="700"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -17,15 +17,40 @@
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DataGrid ItemsSource="{Binding Parcelas}"
+        <Label Content="{Binding FolhaPagamento.MetaDeVenda}"
+               ContentStringFormat="Valor Da Meta: {0:C}"
+               Language="pt-BR"
+               FontWeight="Bold"
+               FontSize="16" />
+        <Label Grid.Column="1"
+               Content="{Binding FolhaPagamento.ValorVendido}"
+               ContentStringFormat="Total Vendido: {0:C}"
+               Language="pt-BR"
+               HorizontalContentAlignment="Right"
+               FontWeight="Bold"
+               FontSize="16" />
+        <Label Grid.Row="1"
+               Content="Adiantamentos"
+               FontWeight="Bold"
+               FontSize="16" />
+        <DataGrid Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding Parcelas}"
                   SelectedItem="{Binding Parcela, Mode=OneWayToSource}"
                   MinHeight="150">
             <DataGrid.Columns>
@@ -33,7 +58,7 @@
                                     Width="Auto"
                                     Binding="{Binding NumeroComTotal}"
                                     IsReadOnly="True" />
-                <DataGridTextColumn Header="Data do Adiantamento"
+                <DataGridTextColumn Header="Data de Registro"
                                     Width="Auto"
                                     Binding="{Binding Adiantamento.DataString}"
                                     IsReadOnly="True" />
@@ -55,13 +80,19 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <TextBlock Grid.Row="1"
+        <TextBlock Grid.Row="3"
+                   Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
                    Text="{Binding TotalParcelas, StringFormat='Total Em Adiantamentos: {0:C}', ConverterCulture=pt-BR}"
                    FontSize="16"
                    Margin="0, 0, 5, 0"
                    FontWeight="Bold" />
-        <DataGrid Grid.Row="2"
+        <Label Grid.Row="4"
+               Content="Bônus"
+               FontWeight="Bold"
+               FontSize="16" />
+        <DataGrid Grid.Row="5"
+                  Grid.ColumnSpan="2"
                   MinHeight="150"
                   ItemsSource="{Binding Bonus}"
                   SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
@@ -87,16 +118,18 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="6"
+                   Grid.ColumnSpan="2"
                    HorizontalAlignment="Right"
                    Text="{Binding TotalBonus, StringFormat='Total Em Bônus: {0:C}', ConverterCulture=pt-BR}"
                    FontSize="16"
                    Margin="0, 0, 5, 0"
                    FontWeight="Bold" />
-        <Label Grid.Row="4"
+        <Label Grid.Row="7"
                Content="Observação:"
                FontWeight="Bold" />
-        <TextBox Grid.Row="5"
+        <TextBox Grid.Row="8"
+                 Grid.ColumnSpan="2"
                  TextWrapping="Wrap"
                  Text="{Binding FolhaPagamento.Observacao}"
                  IsReadOnly="True"

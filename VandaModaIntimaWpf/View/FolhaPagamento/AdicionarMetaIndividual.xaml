@@ -1,0 +1,58 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.AdicionarMetaIndividual"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+        mc:Ignorable="d"
+        Title="Adicionar Meta Individual"
+        Height="450"
+        Width="525"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Valor da Meta:" />
+        <TextBox Grid.Column="1"
+                 Text="{Binding ValorMeta, StringFormat='C', ConverterCulture=pt-BR}" />
+        <DataGrid Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  Name="DataGridFuncionario"
+                  ItemsSource="{Binding FolhaPagamentos, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}">
+                            </CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{DynamicResource nome_header}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Entidade.Funcionario.Nome}"
+                                    Width="*">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Entidade.Funcionario.Nome}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Adicionar Metas Nos Funcionários Selecionados"
+                Command="{Binding AdicionarMetaComando}"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Style="{DynamicResource BotaoCadastrar}" />
+    </Grid>
+</Window>

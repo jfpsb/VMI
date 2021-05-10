@@ -28,6 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
         private DAOBonusMensal daoBonusMensal;
+        private DAOParcela daoParcela;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
@@ -48,6 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirDadosBancariosComando { get; set; }
         public ICommand AbrirAdicionarObservacaoComando { get; set; }
         public ICommand ExportarFolhasParaPDFComando { get; set; }
+        public ICommand AdicionarMetaIndividualComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -56,6 +58,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoBonusMensal = new DAOBonusMensal(_session);
+            daoParcela = new DAOParcela(_session);
             daoBonus = new DAOBonus(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
@@ -84,6 +87,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirDadosBancariosComando = new RelayCommand(AbrirDadosBancarios);
             AbrirAdicionarObservacaoComando = new RelayCommand(AbrirAdicionarObservacao);
             ExportarFolhasParaPDFComando = new RelayCommand(ExportarFolhasParaPDF);
+            AdicionarMetaIndividualComando = new RelayCommand(AdicionarMeta);
+        }
+
+        private void AdicionarMeta(object obj)
+        {
+            AdicionarMetaIndividualVM viewModel = new AdicionarMetaIndividualVM(_session, FolhaPagamentos, new MessageBoxService());
+            AdicionarMetaIndividual view = new AdicionarMetaIndividual
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private void ExportarFolhasParaPDF(object obj)
@@ -424,6 +439,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     };
                 }
 
+                //Lista as parcelas
+                var parcelas = await daoParcela.ListarPorFuncionarioMesAno(folha.Funcionario, folha.Mes, folha.Ano);
+                folha.Parcelas = parcelas;
+
                 //Lista todos os bônus (inclusive bônus cancelados)
                 folha.Bonus = await daoBonus.ListarPorFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
 
@@ -450,6 +469,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano,
                             BonusMensal = true
+                        };
+
+                        folha.Bonus.Add(bonus);
+                    }
+
+                    if (folha.ValorDoBonusDeMeta > 0)
+                    {
+                        var mesFolha = new DateTime(folha.Ano, folha.Mes, 1);
+                        Bonus bonus = new Bonus
+                        {
+                            Funcionario = funcionario,
+                            Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
+                            Descricao = $"META MÊS {mesFolha.ToString("MMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.ValorVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Valor = folha.ValorDoBonusDeMeta,
+                            MesReferencia = folha.Mes,
+                            AnoReferencia = folha.Ano
                         };
 
                         folha.Bonus.Add(bonus);

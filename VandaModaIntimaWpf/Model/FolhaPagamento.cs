@@ -3,7 +3,6 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using VandaModaIntimaWpf.Util;
 
@@ -18,32 +17,19 @@ namespace VandaModaIntimaWpf.Model
         private bool _fechada;
         private double _salarioLiquido;
         private string _observacao;
+        private double _metaVenda;
+        private double _valorVendido;
         private IList<Bonus> _bonus = new List<Bonus>();
+        private IList<Parcela> _parcelas = new List<Parcela>();
 
         public FolhaPagamento()
         {
-            var tabelasJson = File.ReadAllText("Resources/tabelas_inss.json");
-            //tabelasINSS = JsonConvert.DeserializeObject<TabelasINSS[]>(tabelasJson);
-
             PropertyChanged += FolhaPagamento_PropertyChanged;
         }
 
         private void FolhaPagamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //if (e.PropertyName.Equals("Mes") || e.PropertyName.Equals("Ano"))
-            //{
-            //    DeterminaTabelaINSS();
-            //}
         }
-
-        //private void DeterminaTabelaINSS()
-        //{
-        //    for (int i = tabelasINSS.Length - 1; i >= 0; i--)
-        //    {
-        //        if (Ano >= tabelasINSS[i].Vigencia.Year && Mes >= tabelasINSS[i].Vigencia.Month)
-        //            _tabelaINSS = tabelasINSS[i];
-        //    }
-        //}
 
         [JsonIgnore]
         public string GetContextMenuHeader => $"{MesReferencia} - {_funcionario.Nome}";
@@ -134,46 +120,13 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public IList<Parcela> Parcelas
         {
-            get
+            get => _parcelas;
+            set
             {
-                var listaDeParcelas = Funcionario.Adiantamentos.SelectMany(s => s.Parcelas);
-                var parcelas = listaDeParcelas.Where(w => w.Mes == Mes && w.Ano == Ano);
-                return parcelas.ToList();
+                _parcelas = value;
+                OnPropertyChanged("Parcelas");
             }
         }
-
-        //[JsonIgnore]
-        //public double DescontoINSS
-        //{
-        //    get
-        //    {
-        //        double desconto = 0.0;
-
-        //        for (int i = 0; i < TabelaINSS.Faixas.Length; i++)
-        //        {
-        //            if (SalarioComHoraExtra > TabelaINSS.Faixas[i])
-        //            {
-        //                desconto += TabelaINSS.Faixas[i] * TabelaINSS.Porcentagens[i];
-        //            }
-        //            else
-        //            {
-        //                if (i == 0)
-        //                {
-        //                    desconto += SalarioComHoraExtra * TabelaINSS.Porcentagens[i];
-        //                }
-        //                else
-        //                {
-        //                    var diferenca = SalarioComHoraExtra - TabelaINSS.Faixas[i - 1];
-        //                    desconto += diferenca * TabelaINSS.Porcentagens[i];
-        //                }
-
-        //                break;
-        //            }
-        //        }
-
-        //        return desconto;
-        //    }
-        //}
 
         [JsonIgnore]
         public IList<Bonus> Bonus
@@ -198,48 +151,12 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        //public TabelasINSS TabelaINSS
-        //{
-        //    get => _tabelaINSS;
-        //    set
-        //    {
-        //        _tabelaINSS = value;
-        //        OnPropertyChanged("TabelaINSS");
-        //    }
-        //}
-
         public DateTime Vencimento
         {
             get
             {
                 DateTime mesSeguinteFolha = new DateTime(Ano, Mes, 5).AddMonths(1);
-                DateTime quintoDiaUtil = mesSeguinteFolha;
-                var datasFeriados = FeriadoJsonUtil.RetornaListagemDeFeriados(mesSeguinteFolha.Year);
-
-                int quintoFlag = 0;
-
-                foreach (var dia in DateTimeUtil.RetornaDiasEmMes(mesSeguinteFolha.Year, mesSeguinteFolha.Month))
-                {
-                    if (dia.DayOfWeek == DayOfWeek.Sunday)
-                        continue;
-
-                    var feriado = datasFeriados.FirstOrDefault(s => s.Date.Day == dia.Day && s.Date.Month == dia.Month);
-
-                    if (feriado != null)
-                    {
-                        if (feriado.Type.ToLower().Equals("feriado nacional") || feriado.Type.ToLower().Equals("feriado estadual") || feriado.Type.ToLower().Equals("feriado municipal"))
-                            continue;
-                    }
-
-                    quintoFlag++;
-
-                    if (quintoFlag == 5)
-                    {
-                        quintoDiaUtil = dia;
-                    }
-                }
-
-                return quintoDiaUtil;
+                return DateTimeUtil.RetornaDataUtil(5, mesSeguinteFolha.Month, mesSeguinteFolha.Year);
             }
         }
 
@@ -260,6 +177,38 @@ namespace VandaModaIntimaWpf.Model
             {
                 _observacao = value;
                 OnPropertyChanged("Observacao");
+            }
+        }
+
+        public double MetaDeVenda
+        {
+            get => _metaVenda;
+            set
+            {
+                _metaVenda = value;
+                OnPropertyChanged("MetaDeVenda");
+            }
+        }
+        public double ValorVendido
+        {
+            get => _valorVendido;
+            set
+            {
+                _valorVendido = value;
+                OnPropertyChanged("ValorVendido");
+            }
+        }
+
+        public double ValorDoBonusDeMeta
+        {
+            get
+            {
+                var dif = ValorVendido - MetaDeVenda;
+
+                if (dif <= 0.0)
+                    return 0;
+
+                return dif * 0.01;
             }
         }
 

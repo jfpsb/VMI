@@ -46,6 +46,9 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             BancoContaBancaria = Bancos[0];
             BancoPix = Bancos[0];
 
+            ChavesPix = new ObservableCollection<Model.ChavePix>();
+            ContasBancarias = new ObservableCollection<Model.ContaBancaria>();
+
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
             AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
