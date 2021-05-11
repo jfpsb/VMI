@@ -494,7 +494,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"META MÊS {mesFolha.ToString("MMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano
