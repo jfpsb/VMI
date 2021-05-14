@@ -25,10 +25,11 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             BonusDataSet bonusDataSet = new BonusDataSet();
             ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
 
+            int i = 0;
             foreach (var bonus in FolhaPagamento.Bonus)
             {
                 var brow = bonusDataSet.Bonus.NewBonusRow();
-                brow.id = bonus.Id.ToString();
+                brow.id = i++.ToString();
                 brow.data = bonus.DataString;
                 brow.descricao = bonus.Descricao;
                 brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));

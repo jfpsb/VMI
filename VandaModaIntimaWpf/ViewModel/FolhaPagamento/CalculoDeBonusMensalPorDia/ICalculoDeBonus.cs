@@ -8,6 +8,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         string WindowCaption();
         string MenuItemHeader1();
         double ValorDiario();
-        void AbrirAdicionarBonus(DateTime DataEscolhida, double Total, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService);
+        void AbrirAdicionarBonus(DateTime DataEscolhida, double Total, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService);
     }
 }

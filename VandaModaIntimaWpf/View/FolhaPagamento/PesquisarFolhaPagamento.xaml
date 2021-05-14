@@ -12,7 +12,7 @@
                      Width="950"
                      Height="600"
                      WindowStartupLocation="CenterScreen"
-                     Icon="/Resources/Loja_Icon.ico"
+                     Icon="/Resources/FolhaPagamento.png"
                      Closing="Pesquisar_Closing">
     <Window.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
@@ -40,11 +40,23 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="Adicionar Valor De Meta Individual"
-                              Command="{Binding AdicionarMetaIndividualComando}" />
+                              Command="{Binding AdicionarMetaIndividualComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Money_Sign.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="Fechar Todas as Folhas Abertas"
-                              Command="{Binding FecharFolhasAbertasComando}" />
+                              Command="{Binding FecharFolhasAbertasComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/FolhaPagamento.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="Exportar Folhas Para PDF"
-                              Command="{Binding ExportarFolhasParaPDFComando}" />
+                              Command="{Binding ExportarFolhasParaPDFComando}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/PDF_Icon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">

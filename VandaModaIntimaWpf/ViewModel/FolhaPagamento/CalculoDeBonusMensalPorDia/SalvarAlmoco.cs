@@ -5,9 +5,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class SalvarAlmoco : ISalvarBonus
     {
-        public string DescricaoBonus(int numDias, DateTime primeiroDia, DateTime ultimoDia)
+        public string DescricaoBonus(int numDias, double valorDiario, DateTime primeiroDia, DateTime ultimoDia)
         {
-            return $"ALIMENTAÇÃO DE {primeiroDia.ToString("dd/MM", CultureInfo.CreateSpecificCulture("pt-BR"))} A {ultimoDia.ToString("dd/MM", CultureInfo.CreateSpecificCulture("pt-BR"))} ({numDias} DIAS)";
+            return $"ALIMENTAÇÃO DE {primeiroDia.ToString("dd/MM")} A {ultimoDia.ToString("dd/MM")} ({valorDiario.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))} x {numDias} DIAS)";
         }
 
         public string MensagemCaption()

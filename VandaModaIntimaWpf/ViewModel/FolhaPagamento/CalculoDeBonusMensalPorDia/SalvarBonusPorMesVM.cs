@@ -18,7 +18,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
         private IMessageBoxService MessageBoxService;
-        private double _valor;
+        private double _valorTotal;
+        private double _valorDiario;
         private int _numDias;
         private DateTime _primeiroDia;
         private DateTime _ultimoDia;
@@ -29,15 +30,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AdicionarBonusComando { get; set; }
 
-        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valor, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
+        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, IMessageBoxService messageBoxService, ISalvarBonus salvarBonus)
         {
             _session = SessionProvider.GetSession();
             _numDias = numDias;
             _primeiroDia = primeiroDia;
             _ultimoDia = ultimoDia;
             _salvarBonus = salvarBonus;
+            _valorDiario = valorDiario;
             RecebeRegularmenteHeader = _salvarBonus.RecebeRegularmenteHeader();
-            Valor = valor;
+            ValorTotal = valorTotal;
             DataEscolhida = dataEscolhida;
             MessageBoxService = messageBoxService;
             daoFuncionario = new DAOFuncionario(_session);
@@ -69,8 +71,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     bonus.Funcionario = funcionario;
                     bonus.Data = now;
-                    bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias, _primeiroDia, _ultimoDia);
-                    bonus.Valor = Valor;
+                    bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias, _valorDiario, _primeiroDia, _ultimoDia);
+                    bonus.Valor = ValorTotal;
                     bonus.MesReferencia = dataFolha.Month;
                     bonus.AnoReferencia = dataFolha.Year;
 
@@ -100,13 +102,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public double Valor
+        public double ValorTotal
         {
-            get => _valor;
+            get => _valorTotal;
             set
             {
-                _valor = value;
-                OnPropertyChanged("Valor");
+                _valorTotal = value;
+                OnPropertyChanged("ValorTotal");
             }
         }
         public DateTime DataEscolhida

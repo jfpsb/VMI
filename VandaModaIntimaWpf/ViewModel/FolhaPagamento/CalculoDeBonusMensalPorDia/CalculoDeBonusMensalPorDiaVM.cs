@@ -77,7 +77,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             var primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
             var ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
             int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
-            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, numDias, primeiroDia, ultimoDia, messageBoxService);
+            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia, messageBoxService);
         }
 
         private void CalcultaTotal(object sender, ListChangedEventArgs e)

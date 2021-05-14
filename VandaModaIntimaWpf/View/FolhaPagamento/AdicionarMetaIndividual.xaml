@@ -8,6 +8,7 @@
         Title="Adicionar Meta Individual"
         Height="450"
         Width="525"
+        Icon="/Resources/Money_Sign.png"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="5">

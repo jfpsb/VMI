@@ -1150,5 +1150,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapas\ChavePix.hbm.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PDF_Icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
