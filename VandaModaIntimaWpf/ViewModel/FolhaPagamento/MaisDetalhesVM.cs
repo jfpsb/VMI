@@ -15,9 +15,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private ObservableCollection<Parcela> _parcelas;
         private ObservableCollection<Bonus> _bonus;
-        private DAOAdiantamento daoAdiantamento;
+        private DAOFolhaPagamento daoFolha;
         private DAOBonus daoBonus;
-        private ISession _session;
         private Parcela _parcela;
         private Bonus _bonusEscolhido;
         private FolhaModel _folhaPagamento;
@@ -30,10 +29,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             MessageBoxService = messageBoxService;
 
-            _session = session;
             FolhaPagamento = folhaPagamento;
-            daoAdiantamento = new DAOAdiantamento(session);
             daoBonus = new DAOBonus(session);
+            daoFolha = new DAOFolhaPagamento(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
 
@@ -53,6 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
                 bool result;
+
                 if (BonusEscolhido.BonusMensal)
                 {
                     BonusEscolhido.BonusCancelado = true;
@@ -67,6 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     MessageBoxService.Show("Bônus Deletado Com Sucesso");
                     Bonus.Remove(BonusEscolhido);
+                    OnPropertyChanged("TotalBonus");
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private async void DeletarAdiantamento(object obj)
         {
             //TODO: Colocar strings em resources
-            MessageBoxResult telaApagar = MessageBoxService.Show(string.Format("Tem Certeza Que Deseja Apagar o Adiantamento Criado Em {0}?\nTodas as Parcelas Serão Deletadas!", Parcela.Adiantamento.DataString),
+            MessageBoxResult telaApagar = MessageBoxService.Show($"Tem Certeza Que Deseja Apagar o Adiantamento Criado Em {Parcela.Adiantamento.DataString}?\nTodas as Parcelas Serão Deletadas!",
                 "Deletar Adiantamento",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question,
@@ -84,13 +84,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
 
-                bool resultadoDelete = await daoAdiantamento.Deletar(Parcela.Adiantamento);
+                bool resultadoDelete = await daoFolha.Atualizar(FolhaPagamento);
 
                 if (resultadoDelete)
                 {
                     MessageBoxService.Show("Adiantamento Deletado Com Sucesso!");
-                    _session.Refresh(FolhaPagamento);
-                    Parcelas = new ObservableCollection<Parcela>(FolhaPagamento.Parcelas);
+                    Parcelas.Remove(Parcela);
+                    OnPropertyChanged("TotalParcelas");
                 }
             }
         }
@@ -132,12 +132,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public double TotalBonus
         {
-            get => FolhaPagamento.TotalBonus;
+            get => Bonus.Sum(s => s.Valor);
         }
 
         public double TotalParcelas
         {
-            get => FolhaPagamento.Parcelas.Sum(s => s.Valor);
+            get => Parcelas.Sum(s => s.Valor);
         }
 
         public Bonus BonusEscolhido
