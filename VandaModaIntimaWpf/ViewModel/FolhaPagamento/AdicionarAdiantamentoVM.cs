@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AntesDeInserirNoBancoDeDados += AtribuiData;
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
-            ValorMaximoParcela = 300;
+            ValorMaximoParcela = 625.85;
         }
 
         private void AtribuiData()
