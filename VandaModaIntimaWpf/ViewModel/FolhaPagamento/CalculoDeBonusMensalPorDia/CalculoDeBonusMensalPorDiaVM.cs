@@ -74,8 +74,29 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         private void AbrirAdicionarBonus(object obj)
         {
-            var primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
-            var ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+            DateTime primeiroDia = new DateTime(), ultimoDia = new DateTime();
+
+            if (WidgetsMes1.Where(w => w.IsDiaUtil).Count() == 0 && WidgetsMes2.Where(w => w.IsDiaUtil).Count() == 0)
+            {
+                messageBoxService.Show("Não Há Dias Marcados Como Dias Úteis Nos Calendários!");
+                return;
+            }
+            else if (WidgetsMes2.Where(w => w.IsDiaUtil).Count() == 0)
+            {
+                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
+                ultimoDia = WidgetsMes1.Where(w => w.IsDiaUtil).Last().Data;
+            }
+            else if (WidgetsMes1.Where(w => w.IsDiaUtil).Count() == 0)
+            {
+                primeiroDia = WidgetsMes2.Where(w => w.IsDiaUtil).First().Data;
+                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+            }
+            else
+            {
+                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
+                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+            }
+
             int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
             calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia, messageBoxService);
         }
