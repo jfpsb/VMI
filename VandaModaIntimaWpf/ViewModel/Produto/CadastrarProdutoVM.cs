@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOFornecedor daoFornecedor;
         protected DAOTipoGrade daoTipoGrade;
         protected DAOGrade daoGrade;
-        protected DAOProdutoGrade daoProdutoGrade;
+        protected DAO<Model.ProdutoGrade> daoProdutoGrade;
 
         private string _codigoFornecedor;
         private Model.TipoGrade _tipoGrade;
@@ -56,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoMarca = new DAOMarca(_session);
             daoFornecedor = new DAOFornecedor(_session);
             daoTipoGrade = new DAOTipoGrade(_session);
-            daoProdutoGrade = new DAOProdutoGrade(_session);
+            daoProdutoGrade = new DAO<Model.ProdutoGrade>(_session);
             daoGrade = new DAOGrade(_session);
             Entidade = new ProdutoModel();
             ProdutoGrade = new ProdutoGrade();
@@ -384,17 +384,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private async void GetFornecedores()
         {
-            Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar<FornecedorModel>());
+            Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new FornecedorModel(GetResource.GetString("fornecedor_nao_selecionado")));
         }
         private async void GetMarcas()
         {
-            Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar<MarcaModel>());
+            Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar());
             Marcas.Insert(0, new MarcaModel(GetResource.GetString("marca_nao_selecionada")));
         }
         private async void GetTiposGrade()
         {
-            TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar<Model.TipoGrade>());
+            TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar());
         }
         public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

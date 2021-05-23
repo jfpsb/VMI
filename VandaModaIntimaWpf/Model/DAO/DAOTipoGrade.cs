@@ -6,27 +6,19 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public class DAOTipoGrade : DAO
+    public class DAOTipoGrade : DAO<TipoGrade>
     {
         public DAOTipoGrade(ISession session) : base(session) { }
-        public override int GetMaxId()
-        {
-            throw new NotImplementedException();
-        }
 
-        public async override Task<object> ListarPorId(object id)
+        public async override Task<IList<TipoGrade>> Listar()
         {
-            return await session.GetAsync<TipoGrade>(id);
-        }
-        public async override Task<IList<E>> Listar<E>()
-        {
-            var criteria = CriarCriteria<E>();
+            var criteria = CriarCriteria();
             criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar<E>(criteria);
+            return await Listar(criteria);
         }
         public async Task<TipoGrade> ListarPorNome(string nome)
         {
-            var criteria = CriarCriteria<TipoGrade>();
+            var criteria = CriarCriteria();
             criteria.Add(Restrictions.Like("Nome", nome));
             return await criteria.UniqueResultAsync<TipoGrade>();
         }

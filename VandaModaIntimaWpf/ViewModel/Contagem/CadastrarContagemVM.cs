@@ -53,11 +53,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         }
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<LojaModel>(await _daoLoja.Listar<LojaModel>());
+            Lojas = new ObservableCollection<LojaModel>(await _daoLoja.Listar());
         }
         private async void GetTiposContagem()
         {
-            TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar<TipoContagemModel>());
+            TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar());
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)

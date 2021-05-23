@@ -1,11 +1,10 @@
 ﻿using NHibernate.Criterion;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public class DAOBonusMensal : DAO
+    public class DAOBonusMensal : DAO<BonusMensal>
     {
         public DAOBonusMensal(NHibernate.ISession session) : base(session)
         {
@@ -13,20 +12,9 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async Task<IList<BonusMensal>> ListarBonusMensais(Funcionario funcionario)
         {
-            var criteria = CriarCriteria<BonusMensal>();
-
+            var criteria = CriarCriteria();
             criteria.Add(Restrictions.Eq("Funcionario", funcionario));
-
-            return await Listar<BonusMensal>(criteria);
-        }
-        public override int GetMaxId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async override Task<object> ListarPorId(object id)
-        {
-            return await session.GetAsync<BonusMensal>(id);
+            return await Listar(criteria);
         }
     }
 }

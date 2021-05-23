@@ -56,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
         }
         private async void GetTipoGrades()
         {
-            TipoGrades = new ObservableCollection<Model.TipoGrade>(await daoEntidade.Listar<Model.TipoGrade>());
+            TipoGrades = new ObservableCollection<Model.TipoGrade>(await daoEntidade.Listar());
         }
 
         public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)

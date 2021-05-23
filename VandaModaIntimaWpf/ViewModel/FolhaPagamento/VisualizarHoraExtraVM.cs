@@ -86,7 +86,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void GetFuncionarios()
         {
-            funcionarios = await daoFuncionario.Listar<Model.Funcionario>();
+            funcionarios = await daoFuncionario.Listar();
         }
 
         public ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, DateTime>> ListaHoraExtra

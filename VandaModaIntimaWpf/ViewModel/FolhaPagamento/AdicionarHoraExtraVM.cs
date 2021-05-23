@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class AdicionarHoraExtraVM : ACadastrarViewModel<Model.HoraExtra>
     {
         private Model.FolhaPagamento _folha;
-        private DAOTipoHoraExtra daoTipoHoraExtra;
+        private DAO<Model.TipoHoraExtra> daoTipoHoraExtra;
         private TipoHoraExtra _tipoHoraExtra;
 
         public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public AdicionarHoraExtraVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             daoEntidade = new DAOHoraExtra(session);
-            daoTipoHoraExtra = new DAOTipoHoraExtra(session);
+            daoTipoHoraExtra = new DAO<Model.TipoHoraExtra>(session);
             viewModelStrategy = new AdicionarHoraExtraVMStrategy();
             Folha = folha;
 
@@ -110,7 +110,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void GetTiposHoraExtra()
         {
-            TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar<Model.TipoHoraExtra>());
+            TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar());
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)

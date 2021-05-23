@@ -14,24 +14,21 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using LojaModel = VandaModaIntimaWpf.Model.Loja;
-using OperadoraCartaoModel = VandaModaIntimaWpf.Model.OperadoraCartao;
-using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
 namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 {
-    public class CadastrarRecebimentoVM : ACadastrarViewModel<RecebimentoCartaoModel>
+    public class CadastrarRecebimentoVM : ACadastrarViewModel<Model.RecebimentoCartao>
     {
-        private DAO daoOperadoraCartao;
-        private DAOBanco daoBanco;
+        private DAO<Model.OperadoraCartao> daoOperadoraCartao;
+        private DAO<Model.Banco> daoBanco;
         private DAOLoja daoLoja;
         private int matrizComboBoxIndex;
-        public ObservableCollection<LojaModel> Matrizes { get; set; }
+        public ObservableCollection<Model.Loja> Matrizes { get; set; }
         public ObservableCollection<Model.Banco> Bancos { get; set; }
-        private ObservableCollection<RecebimentoCartaoModel> recebimentos = new ObservableCollection<RecebimentoCartaoModel>();
+        private ObservableCollection<Model.RecebimentoCartao> recebimentos = new ObservableCollection<Model.RecebimentoCartao>();
         private double totalRecebido;
         private double totalOperadora;
-        private LojaModel matriz;
+        private Model.Loja matriz;
         private Model.Banco banco;
         private DateTime dataEscolhida;
 
@@ -40,8 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         {
             viewModelStrategy = new CadastrarRecebimentoVMStrategy();
             daoEntidade = new DAORecebimentoCartao(session);
-            daoOperadoraCartao = new DAOOperadoraCartao(session);
-            daoBanco = new DAOBanco(session);
+            daoOperadoraCartao = new DAO<Model.OperadoraCartao>(session);
+            daoBanco = new DAO<Model.Banco>(session);
             daoLoja = new DAOLoja(session);
 
             AbrirOfxComando = new RelayCommand(AbrirOfx, ValidaAbrirOfx);
@@ -66,14 +63,14 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             if (e.PropertyName.Equals("DataEscolhida") || e.PropertyName.Equals("Matriz") || e.PropertyName.Equals("Banco"))
             {
                 if (Matriz.Cnpj != null)
-                    Recebimentos = new ObservableCollection<RecebimentoCartaoModel>(await (daoEntidade as DAORecebimentoCartao).ListarPorMesAnoLojaBanco(DataEscolhida.Month, DataEscolhida.Year, Matriz, Banco));
+                    Recebimentos = new ObservableCollection<Model.RecebimentoCartao>(await (daoEntidade as DAORecebimentoCartao).ListarPorMesAnoLojaBanco(DataEscolhida.Month, DataEscolhida.Year, Matriz, Banco));
             }
         }
 
         public override void ResetaPropriedades()
         {
             Recebimentos.Clear();
-            Recebimentos = new ObservableCollection<RecebimentoCartaoModel>();
+            Recebimentos = new ObservableCollection<Model.RecebimentoCartao>();
             MatrizComboBoxIndex = 0;
         }
 
@@ -124,8 +121,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             {
                 var caminho = openFileDialog.FileName;
                 XElement doc = ImportOfx.toXElement(caminho);
-                IList<OperadoraCartaoModel> operadoras = await daoOperadoraCartao.Listar<OperadoraCartaoModel>();
-                Dictionary<OperadoraCartaoModel, double> recebimentoPorOperadora = new Dictionary<OperadoraCartaoModel, double>();
+                IList<Model.OperadoraCartao> operadoras = await daoOperadoraCartao.Listar();
+                Dictionary<Model.OperadoraCartao, double> recebimentoPorOperadora = new Dictionary<Model.OperadoraCartao, double>();
 
                 foreach (var transacao in doc.Descendants("STMTTRN"))
                 {
@@ -133,7 +130,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     {
                         string memo = transacao.Element("MEMO").Value;
 
-                        foreach (OperadoraCartaoModel operadora in operadoras)
+                        foreach (Model.OperadoraCartao operadora in operadoras)
                         {
                             bool contemId = false;
 
@@ -174,7 +171,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
                 foreach (var rpo in recebimentoPorOperadora)
                 {
-                    RecebimentoCartaoModel recebimento = new RecebimentoCartaoModel();
+                    Model.RecebimentoCartao recebimento = new Model.RecebimentoCartao();
 
                     recebimento.Mes = DataEscolhida.Month;
                     recebimento.Ano = DataEscolhida.Year;
@@ -207,7 +204,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 OnPropertyChanged("TotalOperadora");
             }
         }
-        public ObservableCollection<RecebimentoCartaoModel> Recebimentos
+        public ObservableCollection<Model.RecebimentoCartao> Recebimentos
         {
             get { return recebimentos; }
             set
@@ -225,7 +222,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 OnPropertyChanged("MatrizComboBoxIndex");
             }
         }
-        public LojaModel Matriz
+        public Model.Loja Matriz
         {
             get => matriz;
             set
@@ -254,12 +251,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         }
         public async void GetMatrizes()
         {
-            Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
+            Matrizes = new ObservableCollection<Model.Loja>(await daoLoja.ListarMatrizes());
+            Matrizes.Insert(0, new Model.Loja(GetResource.GetString("matriz_nao_selecionada")));
         }
         public async void GetBancos()
         {
-            Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar<Model.Banco>());
+            Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
             Banco = Bancos[0];
         }
         private void CalculaTotais()
@@ -267,7 +264,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             double totalRecebido = 0;
             double totalOperadora = 0;
 
-            foreach (RecebimentoCartaoModel recebimento in Recebimentos)
+            foreach (Model.RecebimentoCartao recebimento in Recebimentos)
             {
                 totalRecebido += recebimento.Recebido;
                 totalOperadora += recebimento.ValorOperadora;

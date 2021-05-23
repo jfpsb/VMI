@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             InserirInsertComando = new RelayCommand(InserirSelect);
         }
 
-        protected DAO daoEntidade;
+        protected DAO<E> daoEntidade;
         public ICommand ExportarInsertsComando { get; set; }
         public ICommand ExportarUpdatesComando { get; set; }
         public ICommand InserirInsertComando { get; set; }

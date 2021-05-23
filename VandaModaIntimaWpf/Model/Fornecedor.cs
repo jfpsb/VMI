@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _fantasia;
         private string _email;
         private string _telefone;
+        private Representante _representante;
 
         private IList<ProdutoModel> _produtos = new List<ProdutoModel>();
 
@@ -139,6 +140,16 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
+
+        public Representante Representante
+        {
+            get => _representante;
+            set
+            {
+                _representante = value;
+                OnPropertyChanged("Representante");
+            }
+        }
 
         public virtual string[] GetColunas()
         {

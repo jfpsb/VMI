@@ -6,58 +6,37 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public class DAOFuncionario : DAO
+    public class DAOFuncionario : DAO<Funcionario>
     {
         public DAOFuncionario(ISession session) : base(session) { }
 
-        public async override Task<IList<E>> Listar<E>()
+        public async override Task<IList<Funcionario>> Listar()
         {
-            var criteria = CriarCriteria<Funcionario>();
+            var criteria = CriarCriteria();
             criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar<E>(criteria);
+            return await Listar(criteria);
         }
         public async Task<IList<Funcionario>> ListarPorNome(string nome)
         {
-            var criteria = CriarCriteria<Funcionario>();
-
-            criteria.Add(Restrictions.Disjunction()
-                .Add(Restrictions.Like("Nome", "%" + nome + "%")));
-
+            var criteria = CriarCriteria();
+            criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
             criteria.AddOrder(Order.Asc("Nome"));
-
-            return await Listar<Funcionario>(criteria);
+            return await Listar(criteria);
         }
         public async Task<IList<Funcionario>> ListarPorCpf(string cnpj)
         {
-            var criteria = CriarCriteria<Funcionario>();
-
-            criteria.Add(Restrictions.Disjunction()
-                .Add(Restrictions.Like("Cpf", "%" + cnpj + "%")));
-
+            var criteria = CriarCriteria();
+            criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
             criteria.AddOrder(Order.Asc("Nome"));
-
-            return await Listar<Funcionario>(criteria);
+            return await Listar(criteria);
         }
 
         public async Task<IList<Funcionario>> ListarQuemRecebePassagem()
         {
-            var criteria = CriarCriteria<Funcionario>();
-
+            var criteria = CriarCriteria();
             criteria.Add(Restrictions.Eq("RecebePassagem", true));
-
             criteria.AddOrder(Order.Asc("Nome"));
-
-            return await Listar<Funcionario>(criteria);
-        }
-
-        public override int GetMaxId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override async Task<object> ListarPorId(object id)
-        {
-            return await session.GetAsync<Funcionario>(id);
+            return await Listar(criteria);
         }
     }
 }

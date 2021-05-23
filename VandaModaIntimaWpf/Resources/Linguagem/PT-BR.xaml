@@ -51,12 +51,14 @@
     <System:String x:Key="endereco_header">Endereço</System:String>
     <System:String x:Key="matriz_header">Matriz</System:String>
     <System:String x:Key="apagar_lojas_marcadas">Apagar Lojas Marcadas</System:String>
+    <System:String x:Key="apagar_compras_de_fornecedor_marcadas">Apagar Compras De Fornecedor Marcadas</System:String>
     <System:String x:Key="marca_ja_existe_sistema">Esta Marca Já Existe No Sistema</System:String>
     <System:String x:Key="apagar_marcas_marcadas">Apagar Marcas Marcadas</System:String>
     <System:String x:Key="codigo_de_barras_dois_pontos">Código de Barras:</System:String>
     <System:String x:Key="ncm_dois_pontos">NCM:</System:String>
     <System:String x:Key="fornecedor_dois_pontos">Fornecedor:</System:String>
     <System:String x:Key="fornecedor_header">Fornecedor</System:String>
+    <System:String x:Key="compra_de_fornecedor_header">Compras De Fornecedor</System:String>
     <System:String x:Key="marca_header">Marca</System:String>
     <System:String x:Key="ncm_header">NCM</System:String>
     <System:String x:Key="marca_dois_pontos">Marca:</System:String>
@@ -197,6 +199,12 @@
         <System:String>CNPJ</System:String>
         <System:String>Nome</System:String>
         <System:String>E-mail</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaCompraFornecedorItems"
+             Type="System:String">
+        <System:String>Representante</System:String>
+        <System:String>Fornecedor</System:String>
     </x:Array>
 
     <x:Array x:Key="CmbPesquisaLojaItems"

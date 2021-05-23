@@ -5,18 +5,13 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
-    class DAOContagemProduto : DAO
+    class DAOContagemProduto : DAO<ContagemProduto>
     {
         public DAOContagemProduto(ISession session) : base(session) { }
 
-        public override int GetMaxId()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<IList<ContagemProduto>> ListarPorContagemGroupByProduto(Contagem contagem)
         {
-            var criteria = CriarCriteria<ContagemProduto>();
+            var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Eq("Contagem", contagem));
 
@@ -26,16 +21,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 .Add(Projections.Property("Contagem"), "Contagem")
                 .Add(Projections.GroupProperty("Produto"), "Produto"));
 
-            return await Listar<ContagemProduto>(criteria);
-        }
-        /// <summary>
-        /// Pesquisa a Contagem De Produto Baseado na Id Informada
-        /// </summary>
-        /// <param name="id">Id da Contagem de Produto</param>
-        /// <returns>Retorna Contagem de Produto Encontrada, Senão, Null</returns>
-        public async override Task<object> ListarPorId(object id)
-        {
-            return await session.GetAsync<ContagemProduto>(id);
+            return await Listar(criteria);
         }
     }
 }

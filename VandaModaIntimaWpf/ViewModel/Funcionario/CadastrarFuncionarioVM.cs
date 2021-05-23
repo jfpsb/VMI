@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
     public class CadastrarFuncionarioVM : ACadastrarViewModel<FuncionarioModel>
     {
         private DAOLoja daoLoja;
-        private DAOBanco daoBanco;
+        private DAO<Model.Banco> daoBanco;
         private ObservableCollection<Model.ChavePix> _chavesPix;
         private ObservableCollection<Model.ContaBancaria> _contasBancarias;
         private ObservableCollection<Model.Banco> _bancos;
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);
             daoLoja = new DAOLoja(_session);
-            daoBanco = new DAOBanco(_session);
+            daoBanco = new DAO<Model.Banco>(_session);
 
             GetLojas();
             GetBancos();
@@ -139,7 +139,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         private async void GetBancos()
         {
-            Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar<Model.Banco>());
+            Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
         }
         public override void ResetaPropriedades()
         {

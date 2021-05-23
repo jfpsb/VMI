@@ -1,11 +1,12 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public abstract class DAO
+    public class DAO<E> where E : class, IModel
     {
         protected ISession session;
         public DAO(ISession session)
@@ -34,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Inserir<E>(IList<E> objetos) where E : class, IModel
+        public virtual async Task<bool> Inserir(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -80,7 +81,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> InserirOuAtualizar<E>(IList<E> objetos) where E : class, IModel
+        public virtual async Task<bool> InserirOuAtualizar(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -163,7 +164,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<bool> Deletar<E>(IList<E> objetos) where E : class, IModel
+        public virtual async Task<bool> Deletar(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -187,11 +188,11 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public virtual async Task<IList<E>> Listar<E>() where E : class, IModel
+        public virtual async Task<IList<E>> Listar()
         {
             try
             {
-                var criteria = CriarCriteria<E>();
+                var criteria = CriarCriteria();
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
                 return await criteria.ListAsync<E>();
@@ -203,7 +204,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return null;
         }
-        public virtual async Task<IList<E>> Listar<E>(ICriteria criteria) where E : class, IModel
+        public virtual async Task<IList<E>> Listar(ICriteria criteria)
         {
             try
             {
@@ -218,14 +219,22 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return null;
         }
-        public abstract Task<object> ListarPorId(object id);
-        public abstract int GetMaxId();
-        public ICriteria CriarCriteria<E>() where E : class, IModel
+        public async Task<E> ListarPorId(object id)
+        {
+            return await session.GetAsync<E>(id);
+        }
+        public async Task<long> RetornaMaiorValor(string idProperty)
+        {
+            var criteria = session.CreateCriteria<E>();
+            criteria.SetProjection(Projections.Max(idProperty));
+            return await criteria.UniqueResultAsync<long>();
+        }
+        public ICriteria CriarCriteria()
         {
             return session.CreateCriteria<E>();
         }
 
-        public ICriteria CriarCriteria<E>(string alias) where E : class, IModel
+        public ICriteria CriarCriteria(string alias)
         {
             return session.CreateCriteria<E>(alias);
         }

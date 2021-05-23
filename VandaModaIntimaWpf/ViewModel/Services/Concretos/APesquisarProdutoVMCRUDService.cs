@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
     class APesquisarProdutoVMCRUDService : IAPesquisarVMCRUDService<Model.Produto>
     {
         private DAOProduto _dao;
-        public APesquisarProdutoVMCRUDService(DAO dao)
+        public APesquisarProdutoVMCRUDService(DAO<Model.Produto> dao)
         {
             _dao = (DAOProduto)dao;
         }

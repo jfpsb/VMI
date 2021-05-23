@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel
     public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : ObservableObject, IModel
     {
         protected ISession _session;
-        protected DAO daoEntidade;
+        protected DAO<E> daoEntidade;
         protected ICadastrarVMStrategy viewModelStrategy;
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;

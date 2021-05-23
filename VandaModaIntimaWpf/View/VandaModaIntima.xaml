@@ -43,6 +43,17 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
+                        Command="{Binding AbrirTelaCompraFornecedorComando}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Compras_De_Fornecedor.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource compra_de_fornecedor_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
                         Command="{Binding AbrirTelaMarcaComando}">
                     <Button.Content>
                         <StackPanel>

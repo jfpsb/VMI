@@ -9,6 +9,7 @@
       <key column="fornecedor" />
       <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
     </bag>
+    <many-to-one name="Representante" class="VandaModaIntimaWpf.Model.Representante" column="representante" />
     <property name="Nome" column="nome" />
     <property name="Fantasia" column="fantasia" />
     <property name="Email" column="email" />

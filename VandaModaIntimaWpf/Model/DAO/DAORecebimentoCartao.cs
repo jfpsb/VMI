@@ -7,43 +7,34 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
-    class DAORecebimentoCartao : DAO
+    class DAORecebimentoCartao : DAO<RecebimentoCartao>
     {
         public DAORecebimentoCartao(ISession isession) : base(isession) { }
 
-        /// <summary>
-        /// Retorna o Recebimento De Cartão
-        /// </summary>
-        /// <param name="id">Objeto do Tipo RecebimentoCartão Com Os Campos Mes, Ano, Loja e OperadoraCartao Preenchidos</param>
-        /// <returns>Retorna o Recebimento De Cartão Encontrado, Senão, Null</returns>
-        public override async Task<object> ListarPorId(object id)
-        {
-            return await session.GetAsync<RecebimentoCartao>(id);
-        }
         public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLoja(int mes, int ano, Loja loja)
         {
-            var criteria = CriarCriteria<RecebimentoCartao>();
+            var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Eq("Mes", mes));
             criteria.Add(Restrictions.Eq("Ano", ano));
             criteria.Add(Restrictions.Eq("Loja", loja));
 
-            return await Listar<RecebimentoCartao>(criteria);
+            return await Listar(criteria);
         }
         public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLojaBanco(int mes, int ano, Loja loja, Banco banco)
         {
-            var criteria = CriarCriteria<RecebimentoCartao>();
+            var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Eq("Mes", mes));
             criteria.Add(Restrictions.Eq("Ano", ano));
             criteria.Add(Restrictions.Eq("Loja", loja));
             criteria.Add(Restrictions.Eq("Banco", banco));
 
-            return await Listar<RecebimentoCartao>(criteria);
+            return await Listar(criteria);
         }
         public async Task<IList<RecebimentoCartao>> ListarPorMesAnoLojaGroupByLoja(int mes, int ano, Loja loja)
         {
-            var criteria = CriarCriteria<RecebimentoCartao>();
+            var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Eq("Mes", mes));
             criteria.Add(Restrictions.Eq("Ano", ano));
@@ -59,7 +50,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.SetResultTransformer(Transformers.AliasToBean<RecebimentoCartao>());
 
-            return await Listar<RecebimentoCartao>(criteria);
+            return await Listar(criteria);
         }
         /// <summary>
         /// Retorna Uma Lista de Recebimento de Cartão Com a Soma do campo Recebido e ValorOperadora Agrupado Por Loja
@@ -69,7 +60,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         /// <returns>Lista de Recebimentos de Cartão</returns>
         public async Task<IList<RecebimentoCartao>> ListarPorMesAnoGroupByLoja(int mes, int ano)
         {
-            var criteria = CriarCriteria<RecebimentoCartao>();
+            var criteria = CriarCriteria();
 
             criteria.Add(Restrictions.Eq("Mes", mes));
             criteria.Add(Restrictions.Eq("Ano", ano));
@@ -84,7 +75,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.SetResultTransformer(Transformers.AliasToBean<RecebimentoCartao>());
 
-            return await Listar<RecebimentoCartao>(criteria);
+            return await Listar(criteria);
         }
 
         public async override Task<bool> Deletar(object objeto)
@@ -98,7 +89,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     await session.DeleteAsync("from RecebimentoCartao WHERE Mes = ? AND Ano = ? and Loja = ?",
                         new object[] { recebimentoCartao.Mes, recebimentoCartao.Ano, recebimentoCartao.Loja.Cnpj },
                         new NHibernate.Type.IType[] { NHibernateUtil.Int32, NHibernateUtil.Int32, NHibernateUtil.String });
-
                     await transacao.CommitAsync();
                     return true;
                 }
@@ -109,11 +99,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                 return false;
             }
-        }
-
-        public override int GetMaxId()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected IMessageBoxService MessageBoxService;
         protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
 
-        protected DAO daoEntidade;
+        protected DAO<E> daoEntidade;
 
         public delegate void AposDeletarDoBDEventHandler(AposDeletarDoBDEventArgs e);
         public event AposDeletarDoBDEventHandler AposDeletarDoBD;

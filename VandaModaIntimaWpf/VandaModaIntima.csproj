@@ -244,6 +244,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -448,19 +452,21 @@
     <Compile Include="Config.cs" />
     <Compile Include="Model\Adiantamento.cs" />
     <Compile Include="Model\AModel.cs" />
+    <Compile Include="Model\ArquivosCompraFornecedor.cs" />
     <Compile Include="Model\Banco.cs" />
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\BonusMensal.cs" />
     <Compile Include="Model\ChavePix.cs" />
+    <Compile Include="Model\CompraDeFornecedor.cs" />
     <Compile Include="Model\ContaBancaria.cs" />
     <Compile Include="Model\Contagem.cs" />
     <Compile Include="Model\ContagemProduto.cs" />
     <Compile Include="Model\Converters\CalculoPassagemDataConverter.cs" />
     <Compile Include="Model\Converters\TabelaINSSDataConverter.cs" />
-    <Compile Include="Model\DAO\DAOAdiantamento.cs" />
-    <Compile Include="Model\DAO\DAOBanco.cs" />
+    <Compile Include="Model\DAO\DAO.cs" />
     <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOBonusMensal.cs" />
+    <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
     <Compile Include="Model\DAO\DAOContagemProduto.cs" />
     <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
@@ -470,16 +476,11 @@
     <Compile Include="Model\DAO\DAOHoraExtra.cs" />
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
-    <Compile Include="Model\DAO\DAO.cs" />
-    <Compile Include="Model\DAO\DAOOperadoraCartao.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
-    <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
-    <Compile Include="Model\DAO\DAOSubGrade.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
-    <Compile Include="Model\DAO\DAOTipoHoraExtra.cs" />
     <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Duplicata.cs" />
     <Compile Include="Model\Estoque.cs" />
@@ -498,6 +499,7 @@
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\ProdutoGrade.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
+    <Compile Include="Model\Representante.cs" />
     <Compile Include="Model\SubGrade.cs" />
     <Compile Include="Model\TipoContagem.cs" />
     <Compile Include="Model\TipoGrade.cs" />
@@ -518,6 +520,8 @@
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVM.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\EditarContagemVM.cs" />
@@ -650,6 +654,9 @@
     <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
     <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVM.cs" />
     <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVMStrategy.cs" />
+    <Compile Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml.cs">
+      <DependentUpon>PesquisarCompraDeFornecedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
       <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
     </Compile>
@@ -1152,6 +1159,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\PDF_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Compras_De_Fornecedor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\CompraDeFornecedor.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ArquivosCompraFornecedor.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Representante.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,37 +7,27 @@ using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
-    public class DAOProduto : DAO
+    public class DAOProduto : DAO<Produto>
     {
         public DAOProduto(ISession session) : base(session)
         {
         }
 
-        /// <summary>
-        /// Retorna o Produto
-        /// </summary>
-        /// <param name="id">Código de Barras do Produto</param>
-        /// <returns>Retorna o Produto Encontrado, Senão, Null</returns>
-        public override async Task<object> ListarPorId(object id)
-        {
-            return await session.GetAsync<Produto>(id);
-        }
-
         public async Task<IList<Produto>> ListarPorDescricao(string descricao)
         {
-            var criteria = CriarCriteria<Produto>();
+            var criteria = CriarCriteria();
 
             criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.Add(Restrictions.Like("Descricao", "%" + descricao + "%"));
             criteria.AddOrder(Order.Asc("Descricao"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-            return await Listar<Produto>(criteria);
+            return await Listar(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorDescricaoCodigoDeBarra(string termo)
         {
-            var criteria = CriarCriteria<Produto>();
+            var criteria = CriarCriteria();
 
             criteria.CreateAlias("Codigos", "Codigos", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
 
@@ -59,24 +49,24 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.SetResultTransformer(Transformers.AliasToBean<Produto>());
 
-            return await Listar<Produto>(criteria);
+            return await Listar(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorCodigoDeBarra(string codigo)
         {
-            var criteria = CriarCriteria<Produto>();
+            var criteria = CriarCriteria();
 
             criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.Add(Restrictions.Like("CodBarra", "%" + codigo + "%"));
             criteria.AddOrder(Order.Asc("CodBarra"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-            return await Listar<Produto>(criteria);
+            return await Listar(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorFornecedor(string fornecedor)
         {
-            var criteria = CriarCriteria<Produto>();
+            var criteria = CriarCriteria();
 
             criteria.CreateAlias("Fornecedor", "Fornecedor");
 
@@ -84,22 +74,15 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
                 .Add(Restrictions.Like("Fornecedor.Fantasia", "%" + fornecedor + "%")));
 
-            return await Listar<Produto>(criteria);
+            return await Listar(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorMarca(string marca)
         {
-            var criteria = CriarCriteria<Produto>();
-
+            var criteria = CriarCriteria();
             criteria.CreateAlias("Marca", "Marca");
             criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
-
-            return await Listar<Produto>(criteria);
-        }
-
-        public override int GetMaxId()
-        {
-            throw new NotImplementedException();
+            return await Listar(criteria);
         }
     }
 }
