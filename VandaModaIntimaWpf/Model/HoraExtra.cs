@@ -13,11 +13,11 @@ namespace VandaModaIntimaWpf.Model
         private int _horas;
         private int _minutos;
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public Funcionario Funcionario
+        public virtual Funcionario Funcionario
         {
             get => _funcionario;
             set
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public TipoHoraExtra TipoHoraExtra
+        public virtual TipoHoraExtra TipoHoraExtra
         {
             get => _tipoHoraExtra;
             set
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("TipoHoraExtra");
             }
         }
-        public int Mes
+        public virtual int Mes
         {
             get => _mes;
             set
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Mes");
             }
         }
-        public int Ano
+        public virtual int Ano
         {
             get => _ano;
             set
@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Ano");
             }
         }
-        public int Horas
+        public virtual int Horas
         {
             get => _horas;
             set
@@ -71,7 +71,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Horas");
             }
         }
-        public int Minutos
+        public virtual int Minutos
         {
             get => _minutos;
             set
@@ -81,7 +81,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string HorasEmString
+        public virtual string HorasEmString
         {
             get
             {
@@ -90,7 +90,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public TimeSpan HorasTimeSpan
+        public virtual TimeSpan HorasTimeSpan
         {
             get
             {
@@ -99,17 +99,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

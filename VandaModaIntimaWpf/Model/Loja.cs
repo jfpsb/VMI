@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -46,7 +46,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string Cnpj
+        public virtual string Cnpj
         {
             get => _cnpj;
             set
@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Cnpj");
             }
         }
-        public Loja Matriz
+        public virtual Loja Matriz
         {
             get => _matriz;
             set
@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Matriz");
             }
         }
-        public string Nome
+        public virtual string Nome
         {
             get => _nome?.ToUpper();
             set
@@ -73,7 +73,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
-        public string Telefone
+        public virtual string Telefone
         {
             get => _telefone;
             set
@@ -83,12 +83,12 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        internal string[] GetColunas()
+        public virtual string[] GetColunas()
         {
             return new[] { "CNPJ", "Matriz", "Nome", "Telefone", "Endereço", "Inscrição Estadual" };
         }
 
-        public string Endereco
+        public virtual string Endereco
         {
             get => _endereco?.ToUpper();
             set
@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Endereco");
             }
         }
-        public string InscricaoEstadual
+        public virtual string InscricaoEstadual
         {
             get => _inscricaoestadual;
             set
@@ -106,7 +106,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("InscricaoEstadual");
             }
         }
-        public double Aluguel
+        public virtual double Aluguel
         {
             get => _aluguel;
             set
@@ -116,7 +116,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(Loja))
             {
@@ -134,14 +134,14 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string GetContextMenuHeader => Nome;
+        public virtual string GetContextMenuHeader => Nome;
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Cnpj;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Matriz))
             {

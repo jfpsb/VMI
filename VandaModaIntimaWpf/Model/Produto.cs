@@ -1,6 +1,10 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using NHibernate.Collection;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -86,10 +90,10 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                if (Grades.Count == 0)
-                    return "NÃO";
+                if (Grades.Count > 0)
+                    return "SIM";
 
-                return "SIM";
+                return "NÃO";
             }
         }
         public virtual double Preco

@@ -3,16 +3,16 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Representante" table="representante" lazy="false">
+  <class name="Representante" table="representante">
     <id name="Id" column="id" type="Int64">
       <generator class="hilo">
         <param name="max_lo">1024</param>
       </generator>
     </id>
-    <property name="Nome" />
+    <property name="Nome" column="nome"/>
     <property name="Whatsapp" column="whatsapp" />
-    <property name="CidadeEstado"  />
-    <property name="Email"  />
+    <property name="CidadeEstado" column="cidadeestado" />
+    <property name="Email" column="email" />
   </class>
 
 </hibernate-mapping>

@@ -17,9 +17,9 @@ namespace VandaModaIntimaWpf.Model
         private bool _bonusCancelado;
 
         [JsonIgnore]
-        public string GetContextMenuHeader => string.Format("R$ {0}", Valor);
+        public virtual string GetContextMenuHeader => string.Format("R$ {0}", Valor);
 
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public Funcionario Funcionario
+        public virtual Funcionario Funcionario
         {
             get => _funcionario;
             set
@@ -50,7 +50,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public string Descricao
+        public virtual string Descricao
         {
             get => _descricao?.ToUpper();
             set
@@ -59,7 +59,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Descricao");
             }
         }
-        public double Valor
+        public virtual double Valor
         {
             get => _valor;
             set
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime Data
+        public virtual DateTime Data
         {
             get => _data;
             set
@@ -80,11 +80,11 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string DataString
+        public virtual string DataString
         {
             get => Data.ToString("G");
         }
-        public int MesReferencia
+        public virtual int MesReferencia
         {
             get => _mesReferencia;
             set
@@ -93,7 +93,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("MesReferencia");
             }
         }
-        public int AnoReferencia
+        public virtual int AnoReferencia
         {
             get => _anoReferencia;
             set
@@ -102,7 +102,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("AnoReferencia");
             }
         }
-        public bool BonusCancelado
+        public virtual bool BonusCancelado
         {
             get => _bonusCancelado;
             set
@@ -112,7 +112,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool BonusMensal
+        public virtual bool BonusMensal
         {
             get => _bonusMensal;
             set
@@ -122,17 +122,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("Bonus Não Possui Propriedades Que Usam Lazy Loading");
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

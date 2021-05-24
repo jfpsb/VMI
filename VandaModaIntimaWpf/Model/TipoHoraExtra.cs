@@ -9,12 +9,12 @@ namespace VandaModaIntimaWpf.Model
         private long _id;
         private string _descricao;
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public string Descricao
+        public virtual string Descricao
         {
             get => _descricao;
             set
@@ -33,17 +33,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

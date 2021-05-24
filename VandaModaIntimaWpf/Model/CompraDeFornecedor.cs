@@ -14,11 +14,11 @@ namespace VandaModaIntimaWpf.Model
         bool _pago;
         double _valor;
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public Fornecedor Fornecedor
+        public virtual Fornecedor Fornecedor
         {
             get => _fornecedor;
             set
@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Fornecedor");
             }
         }
-        public DateTime DataPedido
+        public virtual DateTime DataPedido
         {
             get => _dataPedido;
             set
@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("DataPedido");
             }
         }
-        public DateTime DataNotaFiscal
+        public virtual DateTime DataNotaFiscal
         {
             get => _dataNotaFiscal;
             set
@@ -54,7 +54,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("DataNotaFiscal");
             }
         }
-        public bool Pago
+        public virtual bool Pago
         {
             get => _pago;
             set
@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Pago");
             }
         }
-        public double Valor
+        public virtual double Valor
         {
             get => _valor;
             set
@@ -73,7 +73,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<ArquivosCompraFornecedor> Arquivos
+        public virtual IList<ArquivosCompraFornecedor> Arquivos
         {
             get => _arquivos;
             set
@@ -83,7 +83,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Loja Loja
+        public virtual Loja Loja
         {
             get => _loja;
             set
@@ -93,17 +93,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             return false;
         }

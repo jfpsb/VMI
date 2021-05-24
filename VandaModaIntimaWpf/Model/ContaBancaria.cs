@@ -11,10 +11,10 @@ namespace VandaModaIntimaWpf.Model
         private string _agencia;
         private string _operacao;
         private string _conta;
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => $"{Banco.Nome} - Ag: {Agencia}; Op: {Operacao}; Conta: {Conta}";
-        public long Id
+        public virtual string GetContextMenuHeader => $"{Banco.Nome} - Ag: {Agencia}; Op: {Operacao}; Conta: {Conta}";
+        public virtual long Id
         {
             get => _id;
             set
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public Funcionario Funcionario
+        public virtual Funcionario Funcionario
         {
             get => _funcionario;
             set
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public Banco Banco
+        public virtual Banco Banco
         {
             get => _banco;
             set
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Banco");
             }
         }
-        public string Agencia
+        public virtual string Agencia
         {
             get => _agencia;
             set
@@ -50,7 +50,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Agencia");
             }
         }
-        public string Operacao
+        public virtual string Operacao
         {
             get => _operacao;
             set
@@ -59,7 +59,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Operacao");
             }
         }
-        public string Conta
+        public virtual string Conta
         {
             get => _conta;
             set
@@ -69,17 +69,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

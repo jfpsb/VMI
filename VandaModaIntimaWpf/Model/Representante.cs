@@ -10,11 +10,11 @@ namespace VandaModaIntimaWpf.Model
         private string _whatsapp;
         private string _cidadeEstado;
         private string _email;
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public string Nome
+        public virtual string Nome
         {
             get => _nome;
             set
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
-        public string Whatsapp
+        public virtual string Whatsapp
         {
             get => _whatsapp;
             set
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Whatsapp");
             }
         }
-        public string CidadeEstado
+        public virtual string CidadeEstado
         {
             get => _cidadeEstado;
             set
@@ -50,7 +50,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("CidadeEstado");
             }
         }
-        public string Email
+        public virtual string Email
         {
             get => _email;
             set
@@ -60,17 +60,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

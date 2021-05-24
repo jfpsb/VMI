@@ -16,10 +16,10 @@ namespace VandaModaIntimaWpf.Model
         private int _ano;
 
         [JsonIgnore]
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Adiantamento Adiantamento
+        public virtual Adiantamento Adiantamento
         {
             get => _adiantamento;
             set
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public double Valor
+        public virtual double Valor
         {
             get => Math.Round(_valor, 2);
             set
@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Valor");
             }
         }
-        public bool Paga
+        public virtual bool Paga
         {
             get => _paga;
             set
@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public int Numero
+        public virtual int Numero
         {
             get => _numero;
             set
@@ -71,13 +71,13 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string NumeroComTotal
+        public virtual string NumeroComTotal
         {
             get => $"{Numero}/{Adiantamento.Parcelas.Count}";
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -87,7 +87,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public int Mes
+        public virtual int Mes
         {
             get => _mes;
             set
@@ -96,7 +96,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Mes");
             }
         }
-        public int Ano
+        public virtual int Ano
         {
             get => _ano;
             set
@@ -107,7 +107,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string Vencimento
+        public virtual string Vencimento
         {
             get
             {
@@ -116,17 +116,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string FolhaReferencia
+        public virtual string FolhaReferencia
         {
             get => $"{Mes}/{Ano}";
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return _id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Adiantamento))
             {
@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

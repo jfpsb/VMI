@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="BonusMensal" table="bonus_mensal" lazy="false">
+  <class name="BonusMensal" table="bonus_mensal">
     <id name="Id" column="id" type="Int64">
       <generator class="hilo">
         <param name="max_lo">1024</param>

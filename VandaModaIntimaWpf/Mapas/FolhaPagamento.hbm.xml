@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="FolhaPagamento" table="folhapagamento" lazy="false">
+  <class name="FolhaPagamento" table="folhapagamento">
     <id name="Id" column="id" type="Int64">
       <generator class="hilo">
         <param name="max_lo">1024</param>

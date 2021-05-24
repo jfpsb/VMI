@@ -28,10 +28,10 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string GetContextMenuHeader => _cpf + " - " + _nome;
+        public virtual string GetContextMenuHeader => _cpf + " - " + _nome;
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string Cpf
+        public virtual string Cpf
         {
             get => _cpf;
             set
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Cpf");
             }
         }
-        public string Nome
+        public virtual string Nome
         {
             get => _nome?.ToUpper();
             set
@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Nome");
             }
         }
-        public string Endereco
+        public virtual string Endereco
         {
             get => _endereco?.ToUpper();
             set
@@ -71,7 +71,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Endereco");
             }
         }
-        public string Telefone
+        public virtual string Telefone
         {
             get => _telefone;
             set
@@ -81,7 +81,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Loja Loja
+        public virtual Loja Loja
         {
             get => _loja;
             set
@@ -91,7 +91,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string ChavePIX
+        public virtual string ChavePIX
         {
             get => _chavePIX;
             set
@@ -101,7 +101,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<Adiantamento> Adiantamentos
+        public virtual IList<Adiantamento> Adiantamentos
         {
             get => _adiantamentos;
             set
@@ -110,7 +110,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Adiantamentos");
             }
         }
-        public IList<Bonus> Bonus
+        public virtual IList<Bonus> Bonus
         {
             get => _bonus;
             set
@@ -119,7 +119,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Bonus");
             }
         }
-        public bool RecebePassagem
+        public virtual bool RecebePassagem
         {
             get => _recebePassagem;
             set
@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<ContaBancaria> ContasBancarias
+        public virtual IList<ContaBancaria> ContasBancarias
         {
             get => _contasBancarias;
             set
@@ -138,7 +138,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("ContasBancarias");
             }
         }
-        public IList<ChavePix> ChavesPix
+        public virtual IList<ChavePix> ChavesPix
         {
             get => _chavesPix;
             set
@@ -148,16 +148,16 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return _cpf;
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Loja))
             {

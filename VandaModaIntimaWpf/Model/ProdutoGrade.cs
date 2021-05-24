@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private ICollection<SubGrade> _subGrades = new List<SubGrade>();
 
         [JsonIgnore]
-        public Produto Produto
+        public virtual Produto Produto
         {
             get
             {
@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public ICollection<SubGrade> SubGrades
+        public virtual ICollection<SubGrade> SubGrades
         {
             get
             {
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string SubGradesToString
+        public virtual string SubGradesToString
         {
             get
             {
@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string CodBarra
+        public virtual string CodBarra
         {
             get
             {
@@ -78,7 +78,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public double Preco
+        public virtual double Preco
         {
             get
             {
@@ -92,7 +92,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public double PrecoCusto
+        public virtual double PrecoCusto
         {
             get => _precoCusto;
             set
@@ -103,7 +103,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public double MargemDeLucro
+        public virtual double MargemDeLucro
         {
             get
             {
@@ -128,11 +128,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => $"{CodBarra} - {SubGradesToString}";
+        public virtual string GetContextMenuHeader => $"{CodBarra} - {SubGradesToString}";
 
-        public long Id
+        public virtual long Id
         {
             get
             {
@@ -146,17 +146,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return this;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

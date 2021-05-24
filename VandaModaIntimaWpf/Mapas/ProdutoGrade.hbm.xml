@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="ProdutoGrade" table="produto_grade" lazy="false">
+  <class name="ProdutoGrade" table="produto_grade">
     <id name="Id" column="id">
       <generator class="increment" />
     </id>

@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private Loja _loja;
         private int _quantidade;
 
-        public ProdutoGrade ProdutoGrade
+        public virtual ProdutoGrade ProdutoGrade
         {
             get
             {
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Loja Loja
+        public virtual Loja Loja
         {
             get
             {
@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public int Quantidade
+        public virtual int Quantidade
         {
             get
             {
@@ -51,9 +51,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => $"{ProdutoGrade.Produto.Descricao}";
+        public virtual string GetContextMenuHeader => $"{ProdutoGrade.Produto.Descricao}";
 
         public object GetIdentifier()
         {
@@ -66,12 +66,12 @@ namespace VandaModaIntimaWpf.Model
             return estoque;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

@@ -208,9 +208,14 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             try
             {
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
-                return await criteria.ListAsync<E>();
+                using (ITransaction tx = session.BeginTransaction())
+                {
+                    //criteria.SetCacheable(true);
+                    //criteria.SetCacheMode(CacheMode.Normal);
+                    var results = await criteria.ListAsync<E>();
+                    await tx.CommitAsync();
+                    return results;
+                }
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private Produto _produto;
         private int _quant;
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(ContagemProduto))
             {
@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model
         public virtual string GetContextMenuHeader => $"{Produto.CodBarra}; Quantidade: {Quant}";
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -105,7 +105,7 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("ContagemProduto Não Possui Propriedades Que Usam Lazy Loading");
         }

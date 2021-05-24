@@ -31,6 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
+        protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
 
         protected IMessageBoxService MessageBoxService;
         protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
@@ -66,6 +67,8 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
+
+            Entidades = new ObservableCollection<EntidadeComCampo<E>>();
 
             _session = SessionProvider.GetSession();
 
@@ -146,13 +149,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void ChecarItensMarcados(object parameter)
         {
-            int marcados = 0;
-
-            foreach (EntidadeComCampo<E> em in _entidades)
-            {
-                if (em.IsChecked)
-                    marcados++;
-            }
+            int marcados = Entidades.Where(w => w.IsChecked).Count();
 
             if (marcados > 1)
                 VisibilidadeBotaoApagarSelecionado = Visibility.Visible;

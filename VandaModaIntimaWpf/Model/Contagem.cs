@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private TipoContagem _tipoContagem;
         private IList<ContagemProduto> _contagens = new List<ContagemProduto>();
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(Contagem))
             {
@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -100,7 +100,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -115,7 +115,7 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Contagens))
             {

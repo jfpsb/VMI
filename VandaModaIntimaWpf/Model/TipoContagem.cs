@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private string _nome;
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(TipoContagem))
             {
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model
         public virtual string GetContextMenuHeader => Nome;
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("TipoContagem Não Possui Propriedades Com Lazy Loading");
         }

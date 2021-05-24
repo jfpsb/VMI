@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
         }
+
         public int PesquisarPor
         {
             get { return pesquisarPor; }
@@ -37,6 +38,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         }
         public override async void PesquisaItens(string termo)
         {
+            if (termo == null)
+                return;
+
             DAOProduto daoProduto = (DAOProduto)daoEntidade;
 
             switch (pesquisarPor)

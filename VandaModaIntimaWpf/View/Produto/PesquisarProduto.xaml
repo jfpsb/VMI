@@ -120,13 +120,11 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Possui Grades"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.PossuiGrades}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.PossuiGrades}">
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Preco, StringFormat='C', ConverterCulture=pt-BR}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.Preco, StringFormat='C', ConverterCulture=pt-BR}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
@@ -136,8 +134,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource preco_custo_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.PrecoCusto, StringFormat='C', ConverterCulture=pt-BR}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.PrecoCusto, StringFormat='C', ConverterCulture=pt-BR}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
@@ -147,8 +144,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.FornecedorNome}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.FornecedorNome}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
@@ -158,8 +154,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource marca_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.MarcaNome}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.MarcaNome}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
@@ -169,8 +164,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource ncm_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Ncm}"
-                                            Width="Auto">
+                                            Binding="{Binding Entidade.Ncm}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"

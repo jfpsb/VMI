@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string _nome;
         private IList<ProdutoGrade> _produtoGrades;
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public TipoGrade TipoGrade
+        public virtual TipoGrade TipoGrade
         {
             get
             {
@@ -38,7 +38,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string Nome
+        public virtual string Nome
         {
             get
             {
@@ -52,11 +52,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => Nome;
+        public virtual string GetContextMenuHeader => Nome;
 
-        public IList<ProdutoGrade> ProdutoGrades
+        public virtual IList<ProdutoGrade> ProdutoGrades
         {
             get => _produtoGrades;
             set
@@ -65,17 +65,17 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("ProdutoGrades");
             }
         }
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

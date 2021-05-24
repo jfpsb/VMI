@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="TipoContagem" table="tipocontagem" lazy="false">
+  <class name="TipoContagem" table="tipocontagem">
     <id name="Id" column="id" />
     <property name="Nome" column="nome" />
   </class>

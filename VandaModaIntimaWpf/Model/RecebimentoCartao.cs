@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model
         private string _observacao;
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -113,7 +113,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(RecebimentoCartao))
             {
@@ -133,7 +133,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => $"{MesAno} - {Loja.Nome}";
 
-        public Banco Banco
+        public virtual Banco Banco
         {
             get => _banco;
             set
@@ -143,7 +143,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -158,7 +158,7 @@ namespace VandaModaIntimaWpf.Model
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("RecebimentoCartao Não Possui Propriedades com Lazy Loading");
         }

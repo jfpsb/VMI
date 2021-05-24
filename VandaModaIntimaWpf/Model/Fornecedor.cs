@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -122,7 +122,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(Fornecedor))
             {
@@ -141,7 +141,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
 
-        public Representante Representante
+        public virtual Representante Representante
         {
             get => _representante;
             set
@@ -161,7 +161,7 @@ namespace VandaModaIntimaWpf.Model
             return Cnpj;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Produtos))
             {

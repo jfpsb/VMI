@@ -15,9 +15,9 @@ namespace VandaModaIntimaWpf.Model
         private IList<Parcela> _parcelas = new List<Parcela>();
 
         [JsonIgnore]
-        public string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
+        public virtual string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
 
-        public DateTime Data
+        public virtual DateTime Data
         {
             get => _data;
             set
@@ -28,11 +28,11 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public string DataString
+        public virtual string DataString
         {
             get => _data.ToString("G");
         }
-        public double Valor
+        public virtual double Valor
         {
             get => _valor;
             set
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public long Id
+        public virtual long Id
         {
             get => _id;
             set
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Funcionario Funcionario
+        public virtual Funcionario Funcionario
         {
             get => _funcionario;
             set
@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<Parcela> Parcelas
+        public virtual IList<Parcela> Parcelas
         {
             get => _parcelas;
             set
@@ -74,7 +74,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -86,7 +86,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string Descricao
+        public virtual string Descricao
         {
             get => _descricao;
             set
@@ -96,12 +96,12 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return _id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Funcionario))
             {
@@ -114,7 +114,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

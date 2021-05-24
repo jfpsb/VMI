@@ -11,7 +11,7 @@
     <property name="Preco" column="preco" />
     <property name="PrecoCusto" column="precocusto" />
     <property name="Ncm" column="ncm" />
-    <bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan" lazy="true">
+    <bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan">
       <key column="produto" />
       <one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
     </bag>

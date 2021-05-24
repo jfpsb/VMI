@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private IList<string> _identificadoresBanco = new List<string>();
 
         [JsonIgnore]
-        public Dictionary<string, string> DictionaryIdentifier
+        public virtual Dictionary<string, string> DictionaryIdentifier
         {
             get
             {
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             if (obj != null && obj.GetType() == typeof(OperadoraCartao))
             {
@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.Model
             return Nome;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("OperadoraCartao Não Possui Propriedades Que Usam Lazy Loading");
         }

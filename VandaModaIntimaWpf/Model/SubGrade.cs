@@ -6,11 +6,22 @@ namespace VandaModaIntimaWpf.Model
 {
     public class SubGrade : AModel, IModel
     {
+        private long _id;
         private ProdutoGrade _produtoGrade;
         private Grade _grade;
 
+        public virtual long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         [JsonIgnore]
-        public ProdutoGrade ProdutoGrade
+        public virtual ProdutoGrade ProdutoGrade
         {
             get
             {
@@ -24,7 +35,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Grade Grade
+        public virtual Grade Grade
         {
             get
             {
@@ -38,48 +49,23 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return this;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj.GetType() == typeof(SubGrade))
-            {
-                SubGrade subGrade = obj as SubGrade;
-                if (subGrade.ProdutoGrade.Id == ProdutoGrade.Id && subGrade.Grade.Id == Grade.Id)
-                    return true;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-
-            if (ProdutoGrade != null)
-                hash += ProdutoGrade.GetHashCode();
-
-            if (Grade != null)
-                hash += Grade.GetHashCode();
-
-            return hash;
         }
     }
 }

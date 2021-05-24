@@ -8,11 +8,11 @@ namespace VandaModaIntimaWpf.Model
         private int _id;
         private string _nome;
 
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public string GetContextMenuHeader => Nome;
+        public virtual string GetContextMenuHeader => Nome;
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string Nome
+        public virtual string Nome
         {
             get
             {
@@ -40,17 +40,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }
 
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

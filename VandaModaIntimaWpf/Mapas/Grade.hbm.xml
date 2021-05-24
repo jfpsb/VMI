@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Grade" table="grade" lazy="false">
+  <class name="Grade" table="grade">
     <id name="Id" column="id" />
     <many-to-one name="TipoGrade" class="VandaModaIntimaWpf.Model.TipoGrade" column="tipo" />
     <property name="Nome" column="nome" />

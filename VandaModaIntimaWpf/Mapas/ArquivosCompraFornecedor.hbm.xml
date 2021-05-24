@@ -3,7 +3,7 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="ArquivosCompraFornecedor" table="arquivos_comprafornecedor" lazy="false">
+  <class name="ArquivosCompraFornecedor" table="arquivos_comprafornecedor">
     <id name="Id" column="id" type="Int64">
       <generator class="hilo">
         <param name="max_lo">1024</param>
