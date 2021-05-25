@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<IList<CompraDeFornecedor>> ListarPorRepresentante(string nomeRepresentante, DateTime data)
         {
             var criteria = CriarCriteria();
+            criteria.CreateAlias("Fornecedor", "Fornecedor");
             criteria.CreateAlias("Fornecedor.Representante", "Representante");
             criteria.Add(Restrictions.Like("Representante.Nome", $"%{nomeRepresentante}%"));
             criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
@@ -26,8 +27,8 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             var criteria = CriarCriteria();
             criteria.Add(Restrictions.Eq("Loja", loja));
-            criteria.Add(Expression.Sql($"YEAR({data.ToString("'yyyy-MM-dd HH:mm:ss'")}) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql($"MONTH({data.ToString("'yyyy-MM-dd HH:mm:ss'")}) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
             return await Listar(criteria);
         }
 
@@ -36,8 +37,8 @@ namespace VandaModaIntimaWpf.Model.DAO
             var criteria = CriarCriteria();
             criteria.CreateAlias("Fornecedor", "Fornecedor");
             criteria.Add(Restrictions.Like("Fornecedor.Nome", $"%{nomeFornecedor}%"));
-            criteria.Add(Expression.Sql($"YEAR({data.ToString("'yyyy-MM-dd HH:mm:ss'")}) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql($"MONTH({data.ToString("'yyyy-MM-dd HH:mm:ss'")}) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
             return await Listar(criteria);
         }
     }

@@ -3,5 +3,6 @@
     public interface IFileDialogService
     {
         string ShowFolderBrowserDialog();
+        string ShowFileBrowserDialog();
     }
 }

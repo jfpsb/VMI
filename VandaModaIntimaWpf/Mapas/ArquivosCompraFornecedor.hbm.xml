@@ -10,9 +10,8 @@
       </generator>
     </id>
     <many-to-one name="CompraDeFornecedor" class="VandaModaIntimaWpf.Model.CompraDeFornecedor" column="compradefornecedor" />
-    <property name="Caminho" column="caminho" />
     <property name="Extensao" column="extensao" />
-    <property name="Descricao" column="descricao" />
+    <property name="Nome" column="nome" />
   </class>
 
 </hibernate-mapping>

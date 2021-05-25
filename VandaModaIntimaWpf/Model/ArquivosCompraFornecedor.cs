@@ -7,9 +7,9 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private CompraDeFornecedor _compraDeFornecedor;
-        private string _caminho;
+        private string _nome;
         private string _extensao;
-        private string _descricao;
+        private string _caminhoOriginal;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -33,13 +33,13 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("CompraDeFornecedor");
             }
         }
-        public virtual string Caminho
+        public virtual string Nome
         {
-            get => _caminho;
+            get => _nome;
             set
             {
-                _caminho = value;
-                OnPropertyChanged("Caminho");
+                _nome = value;
+                OnPropertyChanged("Nome");
             }
         }
         public virtual string Extensao
@@ -51,15 +51,8 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Extensao");
             }
         }
-        public virtual string Descricao
-        {
-            get => _descricao;
-            set
-            {
-                _descricao = value;
-                OnPropertyChanged("Descricao");
-            }
-        }
+
+        public virtual string CaminhoOriginal { get => _caminhoOriginal; set => _caminhoOriginal = value; }
 
         public virtual object GetIdentifier()
         {

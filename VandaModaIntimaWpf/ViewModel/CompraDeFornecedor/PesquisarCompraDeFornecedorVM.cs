@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
@@ -73,6 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
+                OnPropertyChanged("TermoPesquisa");
             }
         }
 

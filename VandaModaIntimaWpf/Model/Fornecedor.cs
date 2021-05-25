@@ -49,7 +49,6 @@ namespace VandaModaIntimaWpf.Model
         /// <param name="nome">SELECIONE UM FORNECEDOR</param>
         public Fornecedor(string nome)
         {
-            _cnpj = "0";
             _nome = nome;
         }
 

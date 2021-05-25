@@ -9,6 +9,15 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOLoja(ISession _session) : base(_session) { }
 
+        public override Task<IList<Loja>> Listar()
+        {
+            var criteria = CriarCriteria();
+            criteria.AddOrder(Order.Asc("Nome"));
+            criteria.SetCacheable(true);
+            criteria.SetCacheMode(CacheMode.Normal);
+            return base.Listar();
+        }
+
         public async Task<IList<Loja>> ListarMatrizes()
         {
             var criteria = CriarCriteria();

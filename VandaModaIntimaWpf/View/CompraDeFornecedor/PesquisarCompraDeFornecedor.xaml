@@ -1,11 +1,12 @@
 ﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
                      x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.PesquisarCompraDeFornecedor"
-                     x:Name="TelaPesquisarComprasDeFornecedor"
+                     x:Name="TelaPesquisarCompraDeFornecedor"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Compras De Fornecedor"
                      Height="600"
@@ -13,8 +14,11 @@
                      WindowStartupLocation="CenterScreen"
                      WindowState="Maximized"
                      Closing="Pesquisar_Closing">
+    <Window.Resources>
+        <Converters:BooleanToYesOrNoStringConverter x:Key="BooleanToYesOrNoStringConverter" />
+    </Window.Resources>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_compras_de_fornecedor_marcadas}"
-                               CommandParameter="{Binding ElementName=TelaPesquisarComprasDeFornecedor}">
+                               CommandParameter="{Binding ElementName=TelaPesquisarCompraDeFornecedor}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
@@ -86,6 +90,7 @@
                               Grid.Column="1"
                               Width="200"
                               HorizontalAlignment="Left"
+                              SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
                               ItemsSource="{DynamicResource CmbPesquisaCompraFornecedorItems}" />
                     <Label Grid.Row="2"
                            Content="Loja:" />
@@ -100,18 +105,43 @@
                     <Label Grid.Row="3"
                            Content="Termo De Pesquisa:" />
                     <TextBox Grid.Row="3"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGrid Grid.Row="4"
-                              Grid.ColumnSpan="2">
+                              Grid.ColumnSpan="2"
+                              ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Representante" />
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                                  Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarCompraDeFornecedor}}}">
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Representante"
+                                                Binding="{Binding Entidade.Representante.Nome}"
+                                                IsReadOnly="True" />
                             <DataGridTextColumn Header="Fornecedor"
-                                                Width="*" />
-                            <DataGridTextColumn Header="Loja" />
-                            <DataGridTextColumn Header="Data Do Pedido" />
-                            <DataGridTextColumn Header="Data Da Nota Fiscal" />
-                            <DataGridTextColumn Header="Pago" />
-                            <DataGridTextColumn Header="Valor" />
+                                                Binding="{Binding Entidade.Fornecedor.Nome}"
+                                                Width="*"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Header="Loja"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Entidade.Loja.Nome}" />
+                            <DataGridTextColumn Header="Data Do Pedido"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Entidade.DataPedido, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Header="Data Da Nota Fiscal"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Entidade.DataNotaFiscal, StringFormat='dd/MM/yyyy'}" />
+                            <DataGridTextColumn Header="Pago"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Entidade.Pago, Converter={StaticResource BooleanToYesOrNoStringConverter}}" />
+                            <DataGridTextColumn Header="Valor"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

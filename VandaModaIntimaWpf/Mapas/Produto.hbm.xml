@@ -4,6 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="Produto" table="produto" dynamic-insert="true">
+    <cache usage="read-write"/>
     <id name="CodBarra" column="cod_barra" />
     <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
     <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />

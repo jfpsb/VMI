@@ -1,0 +1,104 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+        mc:Ignorable="d"
+        Title="Salvar Compra De Fornecedor"
+        Height="450"
+        Width="450"
+        Icon="/Resources/Compras_De_Fornecedor.png"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
+    <Window.InputBindings>
+        <KeyBinding Key="F2"
+                    Command="{Binding SalvarComando}" />
+    </Window.InputBindings>
+    <TabControl>
+        <TabItem Header="Dados De Compra">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Data De Pedido:" />
+                <DatePicker Grid.Column="1"
+                            SelectedDate="{Binding Entidade.DataPedido, Mode=TwoWay}" />
+                <Label Grid.Row="1"
+                       Content="Fornecedor:" />
+                <ComboBox Grid.Row="1"
+                          Grid.Column="1"
+                          ItemsSource="{Binding Fornecedores}"
+                          DisplayMemberPath="Nome"
+                          SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}" />
+                <Label Grid.Row="2"
+                       Content="Loja:" />
+                <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          ItemsSource="{Binding Lojas}"
+                          DisplayMemberPath="Nome"
+                          SelectedItem="{Binding Entidade.Loja, Mode=TwoWay}" />
+                <Label Grid.Row="3"
+                       Content="Já Foi Pago:" />
+                <CheckBox Grid.Row="3"
+                          Grid.Column="1"
+                          Margin="5"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding Entidade.Pago}" />
+                <Label Grid.Row="4"
+                       Content="Valor:" />
+                <TextBox Grid.Row="4"
+                         Grid.Column="1"
+                         Text="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                <Button Grid.Row="5"
+                        Width="Auto"
+                        Padding="15"
+                        Margin="1"
+                        FontSize="20"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Bottom"
+                        Content="{DynamicResource salvar}"
+                        Command="{Binding SalvarComando}"
+                        ToolTipService.ShowOnDisabled="True"
+                        ToolTip="{Binding BtnSalvarToolTip, Mode=OneWay}" />
+            </Grid>
+        </TabItem>
+        <TabItem Header="Arquivos">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Escolha O Arquivo:" />
+                <Button Grid.Column="1"
+                        Content="Procurar"
+                        Command="{Binding ProcurarArquivoComando}" />
+                <DataGrid Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          ItemsSource="{Binding Arquivos, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome"
+                                            Width="*"
+                                            Binding="{Binding Nome}" />
+                        <DataGridTextColumn Header="Extensão"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Extensao}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>

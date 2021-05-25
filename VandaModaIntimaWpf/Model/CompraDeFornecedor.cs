@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.Model
         private long _id;
         private Fornecedor _fornecedor;
         private Loja _loja;
-        private IList<ArquivosCompraFornecedor> _arquivos;
+        private IList<ArquivosCompraFornecedor> _arquivos = new List<ArquivosCompraFornecedor>();
         DateTime _dataPedido;
         DateTime _dataNotaFiscal;
         bool _pago;

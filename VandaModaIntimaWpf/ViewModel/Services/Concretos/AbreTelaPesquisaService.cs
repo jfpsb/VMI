@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaCompraDeFornecedor()
         {
-            PesquisarCompraDeFornecedorVM viewModel = new PesquisarCompraDeFornecedorVM(new MessageBoxService(), null);
+            PesquisarCompraDeFornecedorVM viewModel = new PesquisarCompraDeFornecedorVM(new MessageBoxService(), new AbrePelaTelaPesquisaCompraDeFornecedor());
             PesquisarCompraDeFornecedor view = new PesquisarCompraDeFornecedor() { DataContext = viewModel };
             view.Show();
         }

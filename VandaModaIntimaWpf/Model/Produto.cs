@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using NHibernate.Collection;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 

@@ -11,9 +11,9 @@
     <property name="show_sql">true</property>
 
     <!-- use caching -->
-    <!--<property name="cache.provider_class">NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache</property>
+    <property name="cache.provider_class">NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache</property>
     <property name="cache.use_second_level_cache">true</property>
-    <property name="cache.use_query_cache">true</property>-->
+    <property name="cache.use_query_cache">true</property>
     
     <mapping assembly="VandaModaIntimaWpf"/>
   </session-factory>

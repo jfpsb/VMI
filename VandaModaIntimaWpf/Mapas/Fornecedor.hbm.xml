@@ -4,6 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="Fornecedor" table="fornecedor" dynamic-insert="true">
+    <cache usage="read-write"/>
     <id name="Cnpj" column="cnpj"></id>
     <bag name="Produtos" table="produto" inverse="true">
       <key column="fornecedor" />

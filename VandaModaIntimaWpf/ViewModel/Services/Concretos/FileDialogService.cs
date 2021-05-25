@@ -20,5 +20,21 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
             return caminhoPasta;
         }
+
+        public string ShowFileBrowserDialog()
+        {
+            string caminho = "";
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Procurar Arquivo Para Compra De Fornecedor";
+
+            var result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                caminho = openFileDialog.FileName;
+            }
+
+            return caminho;
+        }
     }
 }

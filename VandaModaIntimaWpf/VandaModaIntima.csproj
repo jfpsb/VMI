@@ -125,20 +125,20 @@
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.5.3.3\lib\net461\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.5.3.8\lib\net461\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Caches.SysCache, Version=5.7.0.0, Culture=neutral, PublicKeyToken=6876f2ea66c9f443, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.Caches.SysCache.5.7.0\lib\net461\NHibernate.Caches.SysCache.dll</HintPath>
@@ -248,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,8 +526,11 @@
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVMStrategy.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedor.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVM.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVMStrategy.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVM.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\CadastrarContagemVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\EditarContagemVM.cs" />
@@ -642,6 +649,7 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqMarcaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaCompraDeFornecedor.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\APesquisarProdutoVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Concretos\FileDialogService.cs" />
@@ -658,6 +666,9 @@
     <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVMStrategy.cs" />
     <Compile Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml.cs">
       <DependentUpon>PesquisarCompraDeFornecedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml.cs">
+      <DependentUpon>SalvarCompraDeFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
       <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
