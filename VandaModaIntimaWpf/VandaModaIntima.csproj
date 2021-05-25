@@ -499,6 +499,7 @@
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\MySQLAliases.cs" />
+    <Compile Include="Model\NFe\ProcNFe_v4_00.cs" />
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Parcela.cs" />

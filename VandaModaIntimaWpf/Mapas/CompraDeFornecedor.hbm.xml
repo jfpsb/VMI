@@ -17,6 +17,8 @@
     </bag>
     <property name="DataPedido" column="datapedido" />
     <property name="DataNotaFiscal" column="datanotafiscal" />
+    <property name="NumeroNfe" column="numeronfe" />
+    <property name="ChaveAcessoNfe" column="chaveacessonfe" />
     <property name="Pago" column="pago" />
     <property name="Valor" column="valor" />
   </class>

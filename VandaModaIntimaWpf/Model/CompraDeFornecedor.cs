@@ -11,6 +11,8 @@ namespace VandaModaIntimaWpf.Model
         private IList<ArquivosCompraFornecedor> _arquivos = new List<ArquivosCompraFornecedor>();
         DateTime _dataPedido;
         DateTime _dataNotaFiscal;
+        private int _numeroNfe;
+        private string _chaveAcessoNfe;
         bool _pago;
         double _valor;
 
@@ -90,6 +92,25 @@ namespace VandaModaIntimaWpf.Model
             {
                 _loja = value;
                 OnPropertyChanged("Loja");
+            }
+        }
+
+        public virtual int NumeroNfe
+        {
+            get => _numeroNfe;
+            set
+            {
+                _numeroNfe = value;
+                OnPropertyChanged("NumeroNfe");
+            }
+        }
+        public virtual string ChaveAcessoNfe
+        {
+            get => _chaveAcessoNfe;
+            set
+            {
+                _chaveAcessoNfe = value;
+                OnPropertyChanged("ChaveAcessoNfe");
             }
         }
 

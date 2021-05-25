@@ -28,38 +28,48 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Content="Data De Pedido:" />
-                <DatePicker Grid.Column="1"
-                            SelectedDate="{Binding Entidade.DataPedido, Mode=TwoWay}" />
+                <Button Grid.Column="1"
+                        Width="270"
+                        Padding="5"
+                        HorizontalAlignment="Right"
+                        ToolTip="Serão Importadas A Data da NFe, O Valor, O Fornecedor e A Loja de Destino"
+                        Content="Importar Dados De NFe (.xml)"
+                        Command="{Binding ImportarXmlNFeComando}" />
                 <Label Grid.Row="1"
+                       Content="Data De Pedido:" />
+                <DatePicker Grid.Column="1"
+                            Grid.Row="1"
+                            SelectedDate="{Binding Entidade.DataPedido, Mode=TwoWay}" />
+                <Label Grid.Row="2"
                        Content="Fornecedor:" />
-                <ComboBox Grid.Row="1"
+                <ComboBox Grid.Row="2"
                           Grid.Column="1"
                           ItemsSource="{Binding Fornecedores}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}" />
-                <Label Grid.Row="2"
+                <Label Grid.Row="3"
                        Content="Loja:" />
-                <ComboBox Grid.Row="2"
+                <ComboBox Grid.Row="3"
                           Grid.Column="1"
                           ItemsSource="{Binding Lojas}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Loja, Mode=TwoWay}" />
-                <Label Grid.Row="3"
+                <Label Grid.Row="4"
                        Content="Já Foi Pago:" />
-                <CheckBox Grid.Row="3"
+                <CheckBox Grid.Row="4"
                           Grid.Column="1"
                           Margin="5"
                           VerticalAlignment="Center"
                           IsChecked="{Binding Entidade.Pago}" />
-                <Label Grid.Row="4"
+                <Label Grid.Row="5"
                        Content="Valor:" />
-                <TextBox Grid.Row="4"
+                <TextBox Grid.Row="5"
                          Grid.Column="1"
                          Text="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-                <Button Grid.Row="5"
+                <Button Grid.Row="6"
                         Width="Auto"
                         Padding="15"
                         Margin="1"

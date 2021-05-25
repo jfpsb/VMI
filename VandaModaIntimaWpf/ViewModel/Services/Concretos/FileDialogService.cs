@@ -21,11 +21,14 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             return caminhoPasta;
         }
 
-        public string ShowFileBrowserDialog()
+        public string ShowFileBrowserDialog(string filtroExtensao)
         {
             string caminho = "";
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "Procurar Arquivo Para Compra De Fornecedor";
+
+            if (filtroExtensao.Length > 0)
+                openFileDialog.Filter = filtroExtensao;
 
             var result = openFileDialog.ShowDialog();
 

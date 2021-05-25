@@ -3,6 +3,6 @@
     public interface IFileDialogService
     {
         string ShowFolderBrowserDialog();
-        string ShowFileBrowserDialog();
+        string ShowFileBrowserDialog(string filtroExtensao = "");
     }
 }

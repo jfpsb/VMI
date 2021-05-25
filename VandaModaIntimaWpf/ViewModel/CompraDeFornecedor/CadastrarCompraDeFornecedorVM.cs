@@ -2,8 +2,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -24,6 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         private ObservableCollection<Model.Loja> _lojas;
 
         public ICommand ProcurarArquivoComando { get; set; }
+        public ICommand ImportarXmlNFeComando { get; set; }
 
         public CadastrarCompraDeFornecedorVM(ISession session, IMessageBoxService messageBoxService, IFileDialogService fileDialogService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -45,6 +49,46 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             AposInserirNoBancoDeDados += CopiarArquivos;
 
             ProcurarArquivoComando = new RelayCommand(ProcurarArquivo);
+            ImportarXmlNFeComando = new RelayCommand(ImportarXmlNFe);
+        }
+
+        private async void ImportarXmlNFe(object obj)
+        {
+            var caminho = _fileDialogService.ShowFileBrowserDialog("Arquivo De Nota Fiscal (.xml)|*.xml");
+
+            if (caminho.Length > 0)
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
+                TNfeProc nfe;
+
+                try
+                {
+                    using (Stream stream = new FileStream(caminho, FileMode.Open))
+                    {
+                        nfe = serializer.Deserialize(stream) as TNfeProc;
+
+                        Entidade.Valor = double.Parse(nfe.NFe.infNFe.total.ICMSTot.vNF, CultureInfo.InvariantCulture);
+                        Entidade.DataNotaFiscal = DateTime.Parse(nfe.NFe.infNFe.ide.dhEmi);
+                        Entidade.NumeroNfe = int.Parse(nfe.NFe.infNFe.ide.nNF);
+                        Entidade.ChaveAcessoNfe = Regex.Replace(nfe.NFe.infNFe.Id, "[A-Za-z]", "");
+
+                        var fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                        var loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
+
+                        if (fornecedor != null)
+                            Entidade.Fornecedor = fornecedor;
+
+                        if (loja != null)
+                            Entidade.Loja = loja;
+
+                        AddArquivo(caminho);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro Ao Ler Arquivo De Nota Fiscal. Cheque Se O Arquivo Está Marcado Como \"Somente Leitura\", Se Estiver, Desmarque.\n\n{ex.Message}");
+                }
+            }
         }
 
         private void InsereArquivosEmEntidade()
@@ -82,16 +126,21 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
             if (caminho.Length > 0)
             {
-                ArquivosCompraFornecedor arquivo = new ArquivosCompraFornecedor
-                {
-                    CaminhoOriginal = caminho,
-                    Extensao = Path.GetExtension(caminho),
-                    Nome = Path.GetFileName(caminho),
-                    CompraDeFornecedor = Entidade
-                };
-
-                Arquivos.Add(arquivo);
+                AddArquivo(caminho);
             }
+        }
+
+        private void AddArquivo(string caminho)
+        {
+            ArquivosCompraFornecedor arquivo = new ArquivosCompraFornecedor
+            {
+                CaminhoOriginal = caminho,
+                Extensao = Path.GetExtension(caminho),
+                Nome = Path.GetFileName(caminho),
+                CompraDeFornecedor = Entidade
+            };
+
+            Arquivos.Add(arquivo);
         }
 
         public ObservableCollection<ArquivosCompraFornecedor> Arquivos
