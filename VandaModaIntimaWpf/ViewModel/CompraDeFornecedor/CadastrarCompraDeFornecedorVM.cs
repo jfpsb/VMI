@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         protected DAOLoja daoLoja;
         protected ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
         protected IFileDialogService _fileDialogService;
-        protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Arquivos De Compras De Fornecedor");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Loja> _lojas;
         private Model.ArquivosCompraFornecedor _arquivoSelecionado;
