@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         private ObservableCollection<Model.Loja> _lojas;
         private DAOLoja daoLoja;
         private DateTime _dataEscolhida;
+        private double _totalEmCompras;
 
         public PesquisarCompraDeFornecedorVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.CompraDeFornecedor> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
@@ -78,6 +79,16 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
+        public double TotalEmCompras
+        {
+            get => _totalEmCompras;
+            set
+            {
+                _totalEmCompras = value;
+                OnPropertyChanged("TotalEmCompras");
+            }
+        }
+
         public override bool Editavel(object parameter)
         {
             return true;
@@ -101,6 +112,8 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             {
                 Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(Entidades.Where(w => w.Entidade.Loja == Loja));
             }
+
+            TotalEmCompras = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
         }
     }
 }

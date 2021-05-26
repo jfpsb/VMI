@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -10,7 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private Loja _loja;
         private IList<ArquivosCompraFornecedor> _arquivos = new List<ArquivosCompraFornecedor>();
         DateTime _dataPedido;
-        DateTime _dataNotaFiscal;
+        DateTime? _dataNotaFiscal;
         private int _numeroNfe;
         private string _chaveAcessoNfe;
         bool _pago;
@@ -18,7 +19,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => $"{DataPedido.ToString("dd/MM/yyyy")} - {Fornecedor.Nome}";
 
         public virtual long Id
         {
@@ -47,7 +48,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("DataPedido");
             }
         }
-        public virtual DateTime DataNotaFiscal
+        public virtual DateTime? DataNotaFiscal
         {
             get => _dataNotaFiscal;
             set
@@ -114,6 +115,15 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual bool CompraEstaCompleta
+        {
+            get
+            {
+                return Valor > 0 && DataNotaFiscal != null && ChaveAcessoNfe != string.Empty && NumeroNfe != 0
+                    && Pago && Arquivos.Count > 0;
+            }
+        }
+
         public virtual object GetIdentifier()
         {
             return Id;
@@ -121,7 +131,8 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual void InicializaLazyLoad()
         {
-
+            if (!NHibernateUtil.IsInitialized(Arquivos))
+                NHibernateUtil.Initialize(Arquivos);
         }
 
         public virtual bool IsIdentical(object obj)

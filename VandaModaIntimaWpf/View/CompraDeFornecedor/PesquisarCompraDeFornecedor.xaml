@@ -49,9 +49,11 @@
         </View:TelaPesquisaTemplate.Menu>
         <View:TelaPesquisaTemplate.Content>
             <DockPanel>
-                <Grid DockPanel.Dock="Bottom">
+                <Grid DockPanel.Dock="Bottom" Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -64,7 +66,15 @@
                                Fill="Yellow" />
                     <Label Grid.Column="1"
                            FontWeight="Bold"
-                           Content="Compra De Fornecedor Incompleta" />
+                           Content="Compra De Fornecedor Incompleta"
+                           FontSize="16" />
+                    <Label Grid.Column="2"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           ContentStringFormat="Total Em Compras: {0:C}"
+                           Language="pt-BR"
+                           FontSize="16"
+                           Content="{Binding TotalEmCompras}" />
                 </Grid>
                 <Grid DockPanel.Dock="Top"
                       Margin="5">
@@ -109,7 +119,66 @@
                              Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGrid Grid.Row="4"
                               Grid.ColumnSpan="2"
-                              ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}">
+                              ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                              CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Entidade.CompraEstaCompleta}"
+                                                 Value="False">
+                                        <Setter Property="Background"
+                                                Value="Yellow" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="DataGridRow.ToolTip">
+                                    <Setter.Value>
+                                        <StackPanel Orientation="Vertical"
+                                                    Width="Auto">
+                                            <DataGrid Width="Auto"
+                                                      ItemsSource="{Binding Parcelas}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="#"
+                                                                        Binding="{Binding NumeroComTotal}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                    <DataGridTextColumn Header="Data do Adiantamento"
+                                                                        Binding="{Binding Adiantamento.DataString}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                    <DataGridTextColumn Header="Descriçao"
+                                                                        Binding="{Binding Adiantamento.Descricao}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto"
+                                                                        MaxWidth="200" />
+                                                    <DataGridTextColumn Header="Valor Parcela"
+                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <DataGrid Width="Auto"
+                                                      ItemsSource="{Binding Bonus}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Data do Bônus"
+                                                                        Binding="{Binding DataString}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                    <DataGridTextColumn Header="Descrição"
+                                                                        Binding="{Binding Descricao}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                    <DataGridTextColumn Header="Valor do Bônus"
+                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
+                                                                        IsReadOnly="True"
+                                                                        Width="Auto" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.RowStyle>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
@@ -121,7 +190,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Representante"
-                                                Binding="{Binding Entidade.Representante.Nome}"
+                                                Binding="{Binding Entidade.Fornecedor.Representante.Nome}"
                                                 IsReadOnly="True" />
                             <DataGridTextColumn Header="Fornecedor"
                                                 Binding="{Binding Entidade.Fornecedor.Nome}"
@@ -143,6 +212,9 @@
                                                 IsReadOnly="True"
                                                 Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
                         </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                        </DataGrid.ContextMenu>
                     </DataGrid>
                 </Grid>
             </DockPanel>

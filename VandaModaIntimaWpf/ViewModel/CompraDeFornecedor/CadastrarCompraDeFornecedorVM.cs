@@ -19,10 +19,9 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
     {
         protected DAOFornecedor daoFornecedor;
         protected DAOLoja daoLoja;
-
-        private ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
-        private IFileDialogService _fileDialogService;
-        private string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        protected ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
+        protected IFileDialogService _fileDialogService;
+        protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Loja> _lojas;
 
@@ -34,6 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             _session = session;
             _fileDialogService = fileDialogService;
             MessageBoxService = messageBoxService;
+            issoEUmUpdate = false;
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
             daoEntidade = new DAO<Model.CompraDeFornecedor>(session);
             daoFornecedor = new DAOFornecedor(session);
@@ -106,12 +106,25 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                 try
                 {
-                    foreach (var arquivo in Arquivos)
+                    if (issoEUmUpdate)
                     {
-                        File.Copy(arquivo.CaminhoOriginal, Path.Combine(dir.FullName, arquivo.Nome), true);
-                    }
+                        foreach (var arquivo in Arquivos)
+                        {
+                            if (File.Exists(Path.Combine(dir.FullName, arquivo.Nome)))
+                                continue;
 
-                    Arquivos.Clear();
+                            File.Copy(arquivo.CaminhoOriginal, Path.Combine(dir.FullName, arquivo.Nome), true);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var arquivo in Arquivos)
+                        {
+                            File.Copy(arquivo.CaminhoOriginal, Path.Combine(dir.FullName, arquivo.Nome), true);
+                        }
+
+                        Arquivos.Clear();
+                    }
                 }
                 catch (Exception ex)
                 {

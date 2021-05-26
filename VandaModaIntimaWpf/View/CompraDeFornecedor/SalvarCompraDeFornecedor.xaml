@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Salvar Compra De Fornecedor"
         Height="450"
-        Width="450"
+        Width="600"
         Icon="/Resources/Compras_De_Fornecedor.png"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
@@ -108,6 +108,36 @@
                                             Binding="{Binding Extensao}" />
                     </DataGrid.Columns>
                 </DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Dados De NFe">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Content="Nº De NFe:" />
+                <TextBox Grid.Column="1"
+                         IsReadOnly="True"
+                         Text="{Binding Entidade.NumeroNfe}" />
+                <Label Grid.Row="1"
+                       Content="Data De Emissão:" />
+                <TextBox Grid.Row="1"
+                         Grid.Column="1"
+                         IsReadOnly="True"
+                         Text="{Binding Entidade.DataNotaFiscal, StringFormat='dd/MM/yyyy'}" />
+                <Label Grid.Row="2"
+                       Content="Chave De Acesso:" />
+                <TextBox Grid.Column="1"
+                         Grid.Row="2"
+                         Text="{Binding Entidade.ChaveAcessoNfe}"
+                         IsReadOnly="True" />
             </Grid>
         </TabItem>
     </TabControl>

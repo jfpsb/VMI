@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NHibernate;
+﻿using NHibernate;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected E _entidade;
         protected bool _result;
 
-        private bool issoEUmUpdate;
+        protected bool issoEUmUpdate;
         private string _btnSalvarToolTip;
         protected IMessageBoxService MessageBoxService;
 

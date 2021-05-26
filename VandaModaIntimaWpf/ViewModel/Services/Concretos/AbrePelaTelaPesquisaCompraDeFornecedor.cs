@@ -29,7 +29,12 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.CompraDeFornecedor clone, ISession session)
         {
-            throw new NotImplementedException();
+            EditarCompraDeFornecedorVM viewModel = new EditarCompraDeFornecedorVM(session, clone, new MessageBoxService(), new FileDialogService());
+            SalvarCompraDeFornecedor view = new SalvarCompraDeFornecedor
+            {
+                DataContext = viewModel
+            };
+            return view.ShowDialog();
         }
 
         public void AbrirExportarSQL(IList<Model.CompraDeFornecedor> entidades, ISession session)
