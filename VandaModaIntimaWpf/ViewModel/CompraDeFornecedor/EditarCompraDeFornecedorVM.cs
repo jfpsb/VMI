@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             daoEntidade = new DAO<Model.CompraDeFornecedor>(session);
             MessageBoxService = messageBoxService;
             _fileDialogService = fileDialogService;
+            viewModelStrategy = new EditarCompraDeFornecedorVMStrategy();
 
             Arquivos = new System.Collections.ObjectModel.ObservableCollection<Model.ArquivosCompraFornecedor>(Entidade.Arquivos);
         }

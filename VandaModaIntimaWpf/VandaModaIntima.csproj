@@ -529,6 +529,7 @@
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVM.cs" />
+    <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVM.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVM.cs" />

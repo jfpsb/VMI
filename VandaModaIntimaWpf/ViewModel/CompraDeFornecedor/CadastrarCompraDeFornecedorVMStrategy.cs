@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
         public string MensagemEntidadeSalvaComSucesso()
         {
-            return "Compra De Forneceor Foi Salva Com Sucesso!";
+            return "Compra De Fornecedor Foi Salva Com Sucesso!";
         }
 
         public string MessageBoxCaption()
