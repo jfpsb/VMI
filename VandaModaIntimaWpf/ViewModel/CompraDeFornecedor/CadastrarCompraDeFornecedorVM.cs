@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -24,9 +25,11 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Loja> _lojas;
+        private Model.ArquivosCompraFornecedor _arquivoSelecionado;
 
         public ICommand ProcurarArquivoComando { get; set; }
         public ICommand ImportarXmlNFeComando { get; set; }
+        public ICommand AbrirArquivoComando { get; set; }
 
         public CadastrarCompraDeFornecedorVM(ISession session, IMessageBoxService messageBoxService, IFileDialogService fileDialogService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -50,6 +53,26 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
             ProcurarArquivoComando = new RelayCommand(ProcurarArquivo);
             ImportarXmlNFeComando = new RelayCommand(ImportarXmlNFe);
+            AbrirArquivoComando = new RelayCommand(AbrirArquivo);
+        }
+
+        private void AbrirArquivo(object obj)
+        {
+            if (ArquivoSelecionado != null)
+            {
+                string caminho;
+
+                if (ArquivoSelecionado.CaminhoOriginal != null)
+                {
+                    caminho = ArquivoSelecionado.CaminhoOriginal;
+                }
+                else
+                {
+                    caminho = Path.Combine(caminhoDocVMI, Entidade.Id.ToString(), ArquivoSelecionado.Nome);
+                }
+
+                Process.Start(caminho);
+            }
         }
 
         private async void ImportarXmlNFe(object obj)
@@ -181,6 +204,16 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             {
                 _lojas = value;
                 OnPropertyChanged("Lojas");
+            }
+        }
+
+        public ArquivosCompraFornecedor ArquivoSelecionado
+        {
+            get => _arquivoSelecionado;
+            set
+            {
+                _arquivoSelecionado = value;
+                OnPropertyChanged("ArquivoSelecionado");
             }
         }
 

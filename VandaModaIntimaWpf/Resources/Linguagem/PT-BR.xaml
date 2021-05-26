@@ -203,8 +203,8 @@
 
     <x:Array x:Key="CmbPesquisaCompraFornecedorItems"
              Type="System:String">
-        <System:String>Representante</System:String>
         <System:String>Fornecedor</System:String>
+        <System:String>Representante</System:String>
     </x:Array>
 
     <x:Array x:Key="CmbPesquisaLojaItems"

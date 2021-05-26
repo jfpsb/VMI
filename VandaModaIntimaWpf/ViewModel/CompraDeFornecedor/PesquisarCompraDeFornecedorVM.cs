@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
@@ -100,11 +99,11 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
             switch (pesquisarPor)
             {
-                case 0: //Representante
-                    Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorRepresentante(TermoPesquisa, DataEscolhida)));
-                    break;
-                case 1: //Fornecedor
+                case 0: //Fornecedor
                     Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorFornecedor(TermoPesquisa, DataEscolhida)));
+                    break;
+                case 1: //Representante
+                    Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorRepresentante(TermoPesquisa, DataEscolhida)));
                     break;
             }
 

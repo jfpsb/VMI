@@ -20,6 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.Add(Restrictions.Like("Representante.Nome", $"%{nomeRepresentante}%"));
             criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.AddOrder(Order.Asc("DataPedido"));
             return await Listar(criteria);
         }
 
@@ -29,6 +30,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.Add(Restrictions.Eq("Loja", loja));
             criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.AddOrder(Order.Asc("DataPedido"));
             return await Listar(criteria);
         }
 
@@ -39,6 +41,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.Add(Restrictions.Like("Fornecedor.Nome", $"%{nomeFornecedor}%"));
             criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.AddOrder(Order.Asc("DataPedido"));
             return await Listar(criteria);
         }
     }

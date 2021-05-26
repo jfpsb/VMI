@@ -98,7 +98,8 @@
                         Command="{Binding ProcurarArquivoComando}" />
                 <DataGrid Grid.Row="1"
                           Grid.ColumnSpan="2"
-                          ItemsSource="{Binding Arquivos, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding Arquivos, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding ArquivoSelecionado, Mode=OneWayToSource}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome"
                                             Width="*"
@@ -107,6 +108,14 @@
                                             IsReadOnly="True"
                                             Binding="{Binding Extensao}" />
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Abrir Arquivo"
+                                      Command="{Binding AbrirArquivoComando}" />
+                            <MenuItem Header="Abrir Local De Arquivo"
+                                      Command="{Binding AbrirLocalArquivoComando}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
         </TabItem>
