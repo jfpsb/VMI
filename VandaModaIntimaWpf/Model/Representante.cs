@@ -10,9 +10,10 @@ namespace VandaModaIntimaWpf.Model
         private string _whatsapp;
         private string _cidadeEstado;
         private string _email;
+        private IList<Fornecedor> _fornecedores = new List<Fornecedor>();
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => Nome;
 
         public virtual long Id
         {
@@ -57,6 +58,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _email = value;
                 OnPropertyChanged("Email");
+            }
+        }
+
+        public IList<Fornecedor> Fornecedores
+        {
+            get => _fornecedores;
+            set
+            {
+                _fornecedores = value;
+                OnPropertyChanged("Fornecedores");
             }
         }
 

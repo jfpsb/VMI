@@ -435,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Representante\SalvarRepresentante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SQL\ExportarSQL.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -849,6 +853,9 @@
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Representante\SalvarRepresentante.xaml.cs">
+      <DependentUpon>SalvarRepresentante.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SQL\ExportarSQL.xaml.cs">
       <DependentUpon>ExportarSQL.xaml</DependentUpon>
     </Compile>
@@ -1191,5 +1198,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

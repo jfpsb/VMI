@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
