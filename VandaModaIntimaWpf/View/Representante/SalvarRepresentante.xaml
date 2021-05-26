@@ -48,8 +48,7 @@
                         Grid.ColumnSpan="3"
                         VerticalAlignment="Bottom"
                         Content="{DynamicResource salvar}"
-                        Command="{Binding SalvarComando}"
-                        Click="BtnSalvar_Click" />
+                        Command="{Binding SalvarComando}" />
             </Grid>
         </TabItem>
         <TabItem Header="Fornecedores">

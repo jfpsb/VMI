@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public IList<Fornecedor> Fornecedores
+        public virtual IList<Fornecedor> Fornecedores
         {
             get => _fornecedores;
             set

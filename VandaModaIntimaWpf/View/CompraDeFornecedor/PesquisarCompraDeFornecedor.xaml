@@ -131,52 +131,6 @@
                                                 Value="Yellow" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="DataGridRow.ToolTip">
-                                    <Setter.Value>
-                                        <StackPanel Orientation="Vertical"
-                                                    Width="Auto">
-                                            <DataGrid Width="Auto"
-                                                      ItemsSource="{Binding Parcelas}">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="#"
-                                                                        Binding="{Binding NumeroComTotal}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                    <DataGridTextColumn Header="Data do Adiantamento"
-                                                                        Binding="{Binding Adiantamento.DataString}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                    <DataGridTextColumn Header="Descriçao"
-                                                                        Binding="{Binding Adiantamento.Descricao}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto"
-                                                                        MaxWidth="200" />
-                                                    <DataGridTextColumn Header="Valor Parcela"
-                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                            <DataGrid Width="Auto"
-                                                      ItemsSource="{Binding Bonus}">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Data do Bônus"
-                                                                        Binding="{Binding DataString}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                    <DataGridTextColumn Header="Descrição"
-                                                                        Binding="{Binding Descricao}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                    <DataGridTextColumn Header="Valor do Bônus"
-                                                                        Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
-                                                                        IsReadOnly="True"
-                                                                        Width="Auto" />
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </StackPanel>
-                                    </Setter.Value>
-                                </Setter>
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
