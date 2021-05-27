@@ -75,9 +75,17 @@
                               IsChecked="{Binding Entidade.RecebePassagem}"
                               Margin="5, 10, 0, 10" />
                     <Label Grid.Row="6"
+                           Content="Recebe Vale Alimentação:" />
+                    <CheckBox Grid.Row="6"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding Entidade.RecebeValeAlimentacao}"
+                              Margin="5, 10, 0, 10" />
+                    <Label Grid.Row="7"
                            Content="{DynamicResource loja_dois_pontos}" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="6"
+                              Grid.Row="7"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"

@@ -9,5 +9,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         string MensagemInseridoSucesso();
         string MensagemInseridoErro();
         string RecebeRegularmenteHeader();
+        string RegularmentePropriedade();
     }
 }

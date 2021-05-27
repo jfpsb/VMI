@@ -43,12 +43,12 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Entidade.RecebePassagem}"
+                        <DataTrigger Binding="{Binding Entidade.RegularmenteFlag}"
                                      Value="True">
                             <Setter Property="Background"
                                     Value="LightGreen" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Entidade.RecebePassagem}"
+                        <DataTrigger Binding="{Binding Entidade.RegularmenteFlag}"
                                      Value="False">
                             <Setter Property="Background"
                                     Value="IndianRed" />
@@ -77,13 +77,13 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn IsReadOnly="True"
-                                    Binding="{Binding Entidade.RecebePassagem, Converter={StaticResource BooleanToYesOrNoStringConverter}}"
+                                    Binding="{Binding Entidade.RegularmenteFlag, Converter={StaticResource BooleanToYesOrNoStringConverter}}"
                                     Width="*"
                                     TextBlock.TextAlignment="Center">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="ToolTip"
-                                    Value="{Binding Entidade.RecebePassagem}" />
+                                    Value="{Binding Entidade.RegularmenteFlag}" />
                         </Style>
                     </DataGridTextColumn.CellStyle>
                     <DataGridTextColumn.Header>

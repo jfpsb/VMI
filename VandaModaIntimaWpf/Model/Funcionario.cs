@@ -13,10 +13,14 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private string _telefone;
         private bool _recebePassagem;
+        private bool _recebeValeAlimentacao;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
         private IList<ChavePix> _chavesPix = new List<ChavePix>();
+
+        private string regularmentePropriedade;
+
         public enum Colunas
         {
             Cpf = 1,
@@ -137,6 +141,27 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual bool RecebeValeAlimentacao
+        {
+            get => _recebeValeAlimentacao;
+            set
+            {
+                _recebeValeAlimentacao = value;
+                OnPropertyChanged("RecebeValeAlimentacao");
+            }
+        }
+
+        public virtual bool RegularmenteFlag
+        {
+            get
+            {
+                if (regularmentePropriedade.Equals("RecebePassagem"))
+                    return RecebePassagem;
+
+                return RecebeValeAlimentacao;
+            }
+        }
+
         public virtual object GetIdentifier()
         {
             return _cpf;
@@ -153,7 +178,7 @@ namespace VandaModaIntimaWpf.Model
                 NHibernateUtil.Initialize(Loja);
             }
 
-            if(!NHibernateUtil.IsInitialized(ChavesPix))
+            if (!NHibernateUtil.IsInitialized(ChavesPix))
             {
                 NHibernateUtil.Initialize(ChavesPix);
             }
@@ -162,6 +187,11 @@ namespace VandaModaIntimaWpf.Model
             {
                 NHibernateUtil.Initialize(ContasBancarias);
             }
+        }
+
+        public virtual void SetRegularmentePropriedade(string prop)
+        {
+            regularmentePropriedade = prop;
         }
     }
 }

@@ -25,6 +25,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             return "O Valor de Vale de Alimentação Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
         }
 
+        public string RegularmentePropriedade()
+        {
+            return "RecebeValeAlimentacao";
+        }
+
         public string RecebeRegularmenteHeader()
         {
             return "Recebe Almoço Regularmente";

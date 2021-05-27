@@ -134,6 +134,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private async void GetFuncionarios()
         {
             Entidades = new ObservableCollection<EntidadeComCampo<Model.Funcionario>>(EntidadeComCampo<Model.Funcionario>.CriarListaEntidadeComCampo(await daoFuncionario.Listar()));
+
+            foreach (var e in Entidades)
+            {
+                e.Entidade.SetRegularmentePropriedade(_salvarBonus.RegularmentePropriedade());
+            }
         }
 
         public void DisposeSession()

@@ -25,6 +25,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             return "O Valor de Passagem Foi Inserido Com Sucesso Como Bônus Nos Funcionários Marcados!";
         }
 
+        public string RegularmentePropriedade()
+        {
+            return "RecebePassagem";
+        }
+
         public string RecebeRegularmenteHeader()
         {
             return "Recebe Passagem Regularmente";

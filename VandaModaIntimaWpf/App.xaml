@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+             xmlns:CalculoDeBonusMensalPorDia="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia"
+             xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
 
