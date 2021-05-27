@@ -12,7 +12,6 @@ namespace VandaModaIntimaWpf.Model
         private string _nome;
         private string _endereco;
         private string _telefone;
-        private string _chavePIX;
         private bool _recebePassagem;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
@@ -88,16 +87,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 _loja = value;
                 OnPropertyChanged("Loja");
-            }
-        }
-
-        public virtual string ChavePIX
-        {
-            get => _chavePIX;
-            set
-            {
-                _chavePIX = value;
-                OnPropertyChanged("ChavePIX");
             }
         }
 

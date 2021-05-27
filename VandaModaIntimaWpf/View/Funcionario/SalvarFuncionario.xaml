@@ -67,23 +67,17 @@
                              Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="5"
-                           Content="Chave PIX:" />
-                    <TextBox Grid.Column="1"
-                             Grid.Row="5"
-                             Text="{Binding Entidade.ChavePIX, UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="6"
                            Content="Recebe Passagem:" />
-                    <CheckBox Grid.Row="6"
+                    <CheckBox Grid.Row="5"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebePassagem}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="7"
+                    <Label Grid.Row="6"
                            Content="{DynamicResource loja_dois_pontos}" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="7"
+                              Grid.Row="6"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"

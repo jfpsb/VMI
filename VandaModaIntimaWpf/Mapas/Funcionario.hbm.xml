@@ -9,7 +9,6 @@
     <property name="Nome" column="nome" />
     <property name="Endereco" column="endereco" />
     <property name="Telefone" column="telefone" />
-    <property name="ChavePIX" column="chave_pix" />
     <property name="RecebePassagem" column="recebe_passagem" />
 
     <bag name="Adiantamentos" table="adiantamento" inverse="true" cascade="all-delete-orphan">

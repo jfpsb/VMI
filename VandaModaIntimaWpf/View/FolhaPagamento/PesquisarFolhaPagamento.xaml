@@ -9,8 +9,8 @@
                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Folha de Pagamento"
-                     Width="950"
-                     Height="600"
+                     Width="1100"
+                     Height="675"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/FolhaPagamento.png"
                      Closing="Pesquisar_Closing">
