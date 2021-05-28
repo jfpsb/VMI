@@ -208,7 +208,7 @@ namespace VandaModaIntimaWpf.Model
                 if (dif <= 0.0)
                     return 0;
 
-                return dif * 0.01;
+                return dif * 0.01 + 100;
             }
         }
 
