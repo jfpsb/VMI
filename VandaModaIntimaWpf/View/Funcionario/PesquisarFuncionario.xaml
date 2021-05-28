@@ -9,7 +9,7 @@
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
                      mc:Ignorable="d"
                      Title="Pesquisar Funcionário"
-                     Width="1200"
+                     Width="1250"
                      Height="675"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Funcionario_Icon.ico"
@@ -95,6 +95,16 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Admissão"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Admissao, StringFormat=dd/MM/yyyy}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Admissao, StringFormat=dd/MM/yyyy}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource cpf_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Cpf}"

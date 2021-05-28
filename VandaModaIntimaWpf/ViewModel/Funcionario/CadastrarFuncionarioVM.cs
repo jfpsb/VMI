@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -38,7 +39,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             Entidade = new FuncionarioModel
             {
-                Loja = Lojas[0]
+                Loja = Lojas[0],
+                Admissao = DateTime.Now
             };
 
             ChavePix = new Model.ChavePix();

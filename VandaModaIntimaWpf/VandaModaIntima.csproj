@@ -307,7 +307,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDia.xaml">
+    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDiaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -718,8 +718,8 @@
     <Compile Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml.cs">
       <DependentUpon>AdicionarSalarioLiquido.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDia.xaml.cs">
-      <DependentUpon>CalculoBonusMensalPorDia.xaml</DependentUpon>
+    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDiaView.xaml.cs">
+      <DependentUpon>CalculoBonusMensalPorDiaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarMetaIndividual.xaml.cs">
       <DependentUpon>AdicionarMetaIndividual.xaml</DependentUpon>

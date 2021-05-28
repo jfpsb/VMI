@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _telefone;
         private bool _recebePassagem;
         private bool _recebeValeAlimentacao;
+        private DateTime? _admissao;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
@@ -155,10 +156,17 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                if (regularmentePropriedade.Equals("RecebePassagem"))
-                    return RecebePassagem;
+                return (bool)GetType().GetProperty(regularmentePropriedade).GetValue(this);
+            }
+        }
 
-                return RecebeValeAlimentacao;
+        public virtual DateTime? Admissao
+        {
+            get => _admissao;
+            set
+            {
+                _admissao = value;
+                OnPropertyChanged("Admissao");
             }
         }
 

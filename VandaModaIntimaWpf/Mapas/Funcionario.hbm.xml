@@ -11,6 +11,7 @@
     <property name="Telefone" column="telefone" />
     <property name="RecebePassagem" column="recebe_passagem" />
     <property name="RecebeValeAlimentacao" column="recebevalealimentacao" />
+	<property name="Admissao" />
 
     <bag name="Adiantamentos" table="adiantamento" inverse="true" cascade="all-delete-orphan">
       <key column="funcionario" />

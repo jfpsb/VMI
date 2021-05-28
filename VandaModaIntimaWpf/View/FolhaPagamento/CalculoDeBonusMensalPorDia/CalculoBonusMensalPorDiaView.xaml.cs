@@ -5,9 +5,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// <summary>
     /// Interaction logic for CalculoPassagemOnibus.xaml
     /// </summary>
-    public partial class CalculoBonusMensalPorDia : Window
+    public partial class CalculoBonusMensalPorDiaView : Window
     {
-        public CalculoBonusMensalPorDia()
+        public CalculoBonusMensalPorDiaView()
         {
             InitializeComponent();
         }

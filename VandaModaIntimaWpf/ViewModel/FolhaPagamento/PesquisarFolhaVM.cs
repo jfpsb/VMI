@@ -204,7 +204,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void AbrirCalculoAlmoco(object obj)
         {
             CalculoDeBonusMensalPorDiaVM almocoVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
-            CalculoBonusMensalPorDia calculoBonusMensalPorDia = new CalculoBonusMensalPorDia()
+            CalculoBonusMensalPorDiaView calculoBonusMensalPorDia = new CalculoBonusMensalPorDiaView()
             {
                 DataContext = almocoVM
             };
@@ -319,7 +319,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void AbrirCalculoPassagem(object obj)
         {
             CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDePassagem());
-            CalculoBonusMensalPorDia calculoBonusMensalPorDia = new CalculoBonusMensalPorDia()
+            CalculoBonusMensalPorDiaView calculoBonusMensalPorDia = new CalculoBonusMensalPorDiaView()
             {
                 DataContext = onibusVM
             };
