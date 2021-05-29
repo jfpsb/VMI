@@ -435,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Representante\PesquisarRepresentante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Representante\SalvarRepresentante.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -646,6 +650,9 @@
     <Compile Include="ViewModel\RecebimentoCartao\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
+    <Compile Include="ViewModel\Representante\CadastrarRepresentanteVM.cs" />
+    <Compile Include="ViewModel\Representante\CadastrarRepresentanteVMStrategy.cs" />
+    <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornecedorService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
@@ -852,6 +859,9 @@
     </Compile>
     <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
       <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Representante\PesquisarRepresentante.xaml.cs">
+      <DependentUpon>PesquisarRepresentante.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Representante\SalvarRepresentante.xaml.cs">
       <DependentUpon>SalvarRepresentante.xaml</DependentUpon>

@@ -65,7 +65,7 @@
                 </Grid.RowDefinitions>
                 <Label Content="Selecione O Fornecedor:" />
                 <ComboBox Grid.Column="1"
-                          ItemsSource="{Binding CmbFornecedores}"
+                          ItemsSource="{Binding ComboBoxFornecedores}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Fornecedor, Mode=TwoWay}" />
                 <Button Grid.Row="2"
@@ -76,10 +76,11 @@
                         Command="{Binding AdicionarFornecedorComando}" />
                 <DataGrid Grid.Row="3"
                           Grid.ColumnSpan="2"
-                          ItemsSource="{Binding Fornecedores}">
+                          ItemsSource="{Binding Fornecedores}"
+                          IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="CNPJ"
-                                            Binding="{Binding }" />
+                                            Binding="{Binding }"/>
                         <DataGridTextColumn Header="Nome Fornecedor"
                                             Binding="{Binding Nome}"
                                             Width="*" />

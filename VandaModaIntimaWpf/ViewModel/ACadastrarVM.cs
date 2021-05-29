@@ -86,6 +86,11 @@ namespace VandaModaIntimaWpf.ViewModel
             return e;
         }
 
+        /// <summary>
+        /// Executa Quando Uma Propriedade da Entidade É Alterada.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public abstract void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e);
 
         /// <summary>
