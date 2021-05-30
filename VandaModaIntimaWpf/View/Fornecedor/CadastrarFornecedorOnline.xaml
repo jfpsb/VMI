@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
         mc:Ignorable="d"
         Title="Cadastrar Fornecedor Online"
-        Height="375"
+        Height="425"
         Width="500"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
@@ -20,6 +20,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -49,30 +50,37 @@
                 HorizontalAlignment="Right"
                 Command="{Binding PesquisarComando}" />
         <Label Grid.Row="3"
+               Content="Representante:" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="3"
+                  DisplayMemberPath="Nome"
+                  SelectedItem="{Binding Entidade.Representante, Mode=TwoWay}"
+                  ItemsSource="{Binding Representantes}" />
+        <Label Grid.Row="4"
                Content="{DynamicResource nome_dois_pontos}" />
-        <TextBox Grid.Row="3"
+        <TextBox Grid.Row="4"
                  Grid.Column="1"
                  Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="False" />
-        <Label Grid.Row="4"
+        <Label Grid.Row="5"
                Content="{DynamicResource nome_fantasia_dois_pontos}" />
-        <TextBox Grid.Row="4"
+        <TextBox Grid.Row="5"
                  Grid.Column="1"
                  Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="false" />
-        <Label Grid.Row="5"
+        <Label Grid.Row="6"
                Content="{DynamicResource telefone_dois_pontos}" />
-        <TextBox Grid.Row="5"
+        <TextBox Grid.Row="6"
                  Grid.Column="1"
                  Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding IsEnabled}" />
-        <Label Grid.Row="6"
+        <Label Grid.Row="7"
                Content="{DynamicResource email_dois_pontos}" />
-        <TextBox Grid.Row="6"
+        <TextBox Grid.Row="7"
                  Grid.Column="1"
                  Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="{Binding IsEnabled}" />
-        <Button Grid.Row="7"
+        <Button Grid.Row="8"
                 Grid.ColumnSpan="2"
                 Content="{DynamicResource cadastrar}"
                 Margin="5,5,5,0"

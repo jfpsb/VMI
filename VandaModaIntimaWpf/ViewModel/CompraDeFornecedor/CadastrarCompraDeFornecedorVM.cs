@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             _session = session;
             _fileDialogService = fileDialogService;
             MessageBoxService = messageBoxService;
-            issoEUmUpdate = false;
+            this.issoEUmUpdate = issoEUmUpdate;
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
             daoEntidade = new DAO<Model.CompraDeFornecedor>(session);
             daoFornecedor = new DAOFornecedor(session);

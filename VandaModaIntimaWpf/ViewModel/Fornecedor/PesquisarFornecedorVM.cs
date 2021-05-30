@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -11,6 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         private int pesquisarPor;
         public ICommand AbrirCadastrarOnlineComando { get; set; }
+        public ICommand AbrirTelaPesquisarRepresentanteComando { get; set; }
         private enum OpcoesPesquisa
         {
             Cnpj,
@@ -21,6 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
+            AbrirTelaPesquisarRepresentanteComando = new RelayCommand(AbrirTelaPesquisarRepresentante);
             excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy(_session));
             pesquisarViewModelStrategy = new PesquisarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
@@ -29,9 +32,16 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
         }
+
+        private void AbrirTelaPesquisarRepresentante(object obj)
+        {
+            ((AbrePelaTelaPesqFornecedorService)AbrePelaTelaPesquisaService).AbrirPesquisarRepresentante();
+            OnPropertyChanged("TermoPesquisa");
+        }
+
         private void AbrirCadastrarOnline(object p)
         {
-            ((PesquisarFornecedorVMStrategy)pesquisarViewModelStrategy).AbrirCadastrarOnline(_session);
+            ((AbrePelaTelaPesqFornecedorService)AbrePelaTelaPesquisaService).AbrirCadastrarOnline(_session);
             OnPropertyChanged("TermoPesquisa");
         }
         public override async void PesquisaItens(string termo)

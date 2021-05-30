@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="Salvar Representante"
         Height="450"
-        Width="700">
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        FocusManager.FocusedElement="{Binding ElementName=TxtNome}">
     <TabControl>
         <TabItem Header="Dados De Representante">
             <Grid>
@@ -24,12 +27,13 @@
                 </Grid.RowDefinitions>
                 <Label Content="Nome:" />
                 <TextBox Grid.Column="1"
+                         x:Name="TxtNome"
                          Text="{Binding Entidade.Nome}" />
                 <Label Grid.Row="1"
                        Content="WhatsApp:" />
                 <TextBox Grid.Column="1"
                          Grid.Row="1"
-                         Text="{Binding Entidade.Nome}" />
+                         Text="{Binding Entidade.Whatsapp}" />
                 <Label Grid.Row="2"
                        Content="Cidade/Estado:" />
                 <TextBox Grid.Column="2"
@@ -80,7 +84,7 @@
                           IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="CNPJ"
-                                            Binding="{Binding }"/>
+                                            Binding="{Binding Cnpj}" />
                         <DataGridTextColumn Header="Nome Fornecedor"
                                             Binding="{Binding Nome}"
                                             Width="*" />

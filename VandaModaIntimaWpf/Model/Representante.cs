@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
@@ -11,6 +12,16 @@ namespace VandaModaIntimaWpf.Model
         private string _cidadeEstado;
         private string _email;
         private IList<Fornecedor> _fornecedores = new List<Fornecedor>();
+
+        public Representante()
+        {
+        }
+
+        public Representante(string nome)
+        {
+            Nome = nome;
+        }
+
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => Nome;
@@ -78,7 +89,10 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual void InicializaLazyLoad()
         {
-
+            if (!NHibernateUtil.IsInitialized(Fornecedores))
+            {
+                NHibernateUtil.Initialize(Fornecedores);
+            }
         }
 
         public virtual bool IsIdentical(object obj)

@@ -1,6 +1,8 @@
 ﻿using NHibernate;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -9,11 +11,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class CadastrarFornecedorManualmenteVM : ACadastrarViewModel<FornecedorModel>
     {
+        private DAORepresentante daoRepresentante;
+        private ObservableCollection<Model.Representante> _representantes;
+
         public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
+            _session = session;
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
-            daoEntidade = new DAOFornecedor(_session);
+            daoEntidade = new DAOFornecedor(session);
+            daoRepresentante = new DAORepresentante(session);
             Entidade = new FornecedorModel();
+
+            GetRepresentantes();
         }
 
         public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -35,9 +44,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     }
 
                     break;
+                case "Representante":
+                    if (Entidade.Representante != null && Entidade.Representante.Id == 0)
+                        Entidade.Representante = null;
+                    break;
             }
         }
-
         public override void ResetaPropriedades()
         {
             Entidade = new FornecedorModel();
@@ -67,6 +79,20 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             }
 
             return valido;
+        }
+        private async void GetRepresentantes()
+        {
+            Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
+            Representantes.Insert(0, new Model.Representante("SELECIONE UM REPRESENTANTE"));
+        }
+        public ObservableCollection<Model.Representante> Representantes
+        {
+            get => _representantes;
+            set
+            {
+                _representantes = value;
+                OnPropertyChanged("Representantes");
+            }
         }
     }
 }

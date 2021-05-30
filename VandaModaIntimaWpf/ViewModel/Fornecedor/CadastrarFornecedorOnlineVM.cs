@@ -6,11 +6,11 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
-    class CadastrarFornOnlineVM : CadastrarFornecedorManualmenteVM
+    class CadastrarFornecedorOnlineVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornOnlineVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarFornecedorOnlineVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });

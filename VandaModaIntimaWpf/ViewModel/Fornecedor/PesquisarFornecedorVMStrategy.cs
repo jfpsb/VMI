@@ -1,6 +1,8 @@
 ﻿using NHibernate;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.View.Representante;
+using VandaModaIntimaWpf.ViewModel.Representante;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
@@ -41,16 +43,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public string TelaApagarCaption()
         {
             return GetResource.GetString("apagar_fornecedores");
-        }
-
-        public void AbrirCadastrarOnline(ISession session)
-        {
-            CadastrarFornOnlineVM viewModel = new CadastrarFornOnlineVM(session, new MessageBoxService(), false);
-            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
-            {
-                DataContext = viewModel
-            };
-            cadastrarFornecedorOnline.ShowDialog();
         }
 
         public string MensagemDocumentoDeletado()

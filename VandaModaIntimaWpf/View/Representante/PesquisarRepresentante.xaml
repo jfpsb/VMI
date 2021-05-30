@@ -65,6 +65,7 @@
                 </Grid.RowDefinitions>
                 <Label Content="Informe Um Nome" />
                 <TextBox Grid.Column="1"
+                         x:Name="TxtPesquisa"
                          Text="{Binding TermoPesquisa, Mode=OneWayToSource}" />
                 <DataGrid Grid.Row="1"
                           Grid.ColumnSpan="2"
@@ -96,11 +97,11 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="WhatsApp"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.WhatsApp}">
+                                            Binding="{Binding Entidade.Whatsapp}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.WhatsApp}" />
+                                            Value="{Binding Entidade.Whatsapp}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
@@ -125,6 +126,9 @@
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
         </View:TelaPesquisaTemplate.Content>

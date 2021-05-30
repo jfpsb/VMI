@@ -494,6 +494,7 @@
     <Compile Include="Model\DAO\DAOParcela.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
+    <Compile Include="Model\DAO\DAORepresentante.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\DataFeriado.cs" />
@@ -612,7 +613,7 @@
     <Compile Include="ViewModel\Converters\ValorAPagarConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\VisualizarHoraExtraVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornOnlineVM.cs" />
+    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorVM.cs" />
     <Compile Include="ViewModel\Fornecedor\EditarFornecedorVMStrategy.cs" />
@@ -652,7 +653,10 @@
     <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
     <Compile Include="ViewModel\Representante\CadastrarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\CadastrarRepresentanteVMStrategy.cs" />
+    <Compile Include="ViewModel\Representante\EditarRepresentanteVMStrategy.cs" />
+    <Compile Include="ViewModel\Representante\EditarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
+    <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornecedorService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
@@ -663,6 +667,7 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaCompraDeFornecedor.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaRepresentante.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\APesquisarProdutoVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Concretos\FileDialogService.cs" />

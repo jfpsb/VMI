@@ -13,6 +13,7 @@
     <property name="Whatsapp" column="whatsapp" />
     <property name="CidadeEstado" column="cidadeestado" />
     <property name="Email" column="email" />
+	  
     <bag name="Fornecedores" table="fornecedor" inverse="true" cascade="all-delete-orphan">
       <key column="representante" />
       <one-to-many class="VandaModaIntimaWpf.Model.Fornecedor"/>

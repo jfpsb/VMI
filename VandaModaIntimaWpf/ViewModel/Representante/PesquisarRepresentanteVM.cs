@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
@@ -11,6 +7,8 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
     {
         public PesquisarRepresentanteVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Representante> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
+            daoEntidade = new DAORepresentante(_session);
+            pesquisarViewModelStrategy = new PesquisarRepresentanteVMStrategy();
         }
 
         public override bool Editavel(object parameter)
@@ -18,9 +16,13 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             return true;
         }
 
-        public override void PesquisaItens(string termo)
+        public async override void PesquisaItens(string termo)
         {
-            throw new NotImplementedException();
+            if (termo != null)
+            {
+                DAORepresentante dao = (DAORepresentante)daoEntidade;
+                Entidades = new System.Collections.ObjectModel.ObservableCollection<EntidadeComCampo<Model.Representante>>(EntidadeComCampo<Model.Representante>.CriarListaEntidadeComCampo(await dao.ListarPorNome(termo))); ;
+            }
         }
     }
 }

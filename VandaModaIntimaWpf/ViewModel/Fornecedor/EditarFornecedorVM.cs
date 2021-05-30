@@ -12,8 +12,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public ICommand AtualizarReceitaComando { get; set; }
         public EditarFornecedorVM(ISession session, FornecedorModel fornecedor, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
-            viewModelStrategy = new EditarFornecedorVMStrategy();
             Entidade = fornecedor;
+            viewModelStrategy = new EditarFornecedorVMStrategy();
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
         }
         private async void AtualizarReceita(object parameter)
@@ -24,15 +24,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
                 await daoEntidade.Merge(result);
-
-                //Entidade.Nome = result.Nome;
-                //Entidade.Fantasia = result.Fantasia;
-                //Entidade.Email = result.Email;
-                //Entidade.Telefone = result.Telefone;
-                //// Chama OnPropertyChanged para atualizar na View os valores atribuídos a Fornecedor
                 OnPropertyChanged("Entidade");
-
-                MessageBoxService.Show("Pesquisa Realizada Com Sucesso.");
+                MessageBoxService.Show("Pesquisa Realizada Com Sucesso.", viewModelStrategy.MessageBoxCaption());
             }
             catch (WebException we)
             {

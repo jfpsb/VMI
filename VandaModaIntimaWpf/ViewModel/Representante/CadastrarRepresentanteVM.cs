@@ -30,7 +30,6 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             GetComboBoxFornecedores();
 
             AdicionarFornecedorComando = new RelayCommand(AdicionarFornecedor);
-
             AntesDeInserirNoBancoDeDados += ColocaFornecedoresEmEntidade;
         }
 
@@ -40,6 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
             foreach (var f in Fornecedores)
             {
+                f.Representante = Entidade;
                 Entidade.Fornecedores.Add(f);
             }
         }
@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (Entidade.Nome.Trim().Equals(string.Empty))
+            if (Entidade.Nome != null && Entidade.Nome.Trim().Equals(string.Empty))
             {
                 BtnSalvarToolTip += "Nome de Representante Não Pode Ser Vazio!\n".ToUpper();
                 valido = false;

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Editar Fornecedor"
-        Height="325"
+        Height="380"
         Width="525"
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
@@ -18,6 +18,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,37 +47,43 @@
                  Text="{Binding Entidade.Cnpj, UpdateSourceTrigger=PropertyChanged}"
                  IsEnabled="False"
                  ToolTip="O Campo de CNPJ Não Pode Ser Alterado" />
-        <Label Grid.Row="2"
-               Content="{DynamicResource nome_dois_pontos}" />
-        <TextBox x:Name="TxtNome"
-                 Grid.Row="2"
-                 Grid.Column="1"
-                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="150" />
         <Label Grid.Row="3"
-               Content="{DynamicResource nome_fantasia_dois_pontos}" />
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 MaxLength="60"
-                 Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}" />
+               Content="Representante:" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="3"
+                  DisplayMemberPath="Nome"
+                  ItemsSource="{Binding Representantes}"
+                  SelectedItem="{Binding Entidade.Representante, Mode=TwoWay}"/>
         <Label Grid.Row="4"
-               Content="{DynamicResource telefone_dois_pontos}" />
+               Content="{DynamicResource nome_dois_pontos}" />
         <TextBox Grid.Row="4"
                  Grid.Column="1"
-                 MaxLength="100"
-                 Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
-                 IsEnabled="{Binding IsEnabled}" />
+                 x:Name="TxtNome"
+                 Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="False" />
         <Label Grid.Row="5"
-               Content="{DynamicResource email_dois_pontos}" />
+               Content="{DynamicResource nome_fantasia_dois_pontos}" />
         <TextBox Grid.Row="5"
                  Grid.Column="1"
-                 MaxLength="50"
-                 Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Grid.Row="6"
+                 Text="{Binding Entidade.Fantasia, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="false" />
+        <Label Grid.Row="6"
+               Content="{DynamicResource telefone_dois_pontos}" />
+        <TextBox Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Label Grid.Row="7"
+               Content="{DynamicResource email_dois_pontos}" />
+        <TextBox Grid.Row="7"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}"
+                 IsEnabled="{Binding IsEnabled}" />
+        <Button Grid.Row="8"
                 Grid.ColumnSpan="2"
-                Content="{DynamicResource salvar}"
+                Content="{DynamicResource cadastrar}"
+                Margin="5,5,5,0"
                 Style="{StaticResource BotaoCadastrar}"
-                Command="{Binding SalvarComando}"
-                CommandParameter="{Binding ElementName=TelaEditarFornecedor}" />
+                Command="{Binding SalvarComando}" />
     </Grid>
 </Window>

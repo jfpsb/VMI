@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.View.Representante;
 using VandaModaIntimaWpf.View.SQL;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Representante;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.SQL;
 
@@ -44,6 +46,26 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         public void AbrirImprimir(IList<Model.Fornecedor> lista)
         {
             throw new NotImplementedException();
+        }
+
+        public void AbrirCadastrarOnline(ISession session)
+        {
+            CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(session, new MessageBoxService(), false);
+            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
+            {
+                DataContext = viewModel
+            };
+            cadastrarFornecedorOnline.ShowDialog();
+        }
+
+        public void AbrirPesquisarRepresentante()
+        {
+            PesquisarRepresentanteVM viewModel = new PesquisarRepresentanteVM(new MessageBoxService(), new AbrePelaTelaPesquisaRepresentante());
+            PesquisarRepresentante view = new PesquisarRepresentante
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
         }
     }
 }

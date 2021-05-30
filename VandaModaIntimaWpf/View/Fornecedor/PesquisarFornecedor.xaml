@@ -47,6 +47,9 @@
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
 
+                    <MenuItem Header="Gerenciar Representantes De Fornecedor"
+                              Command="{Binding AbrirTelaPesquisarRepresentanteComando}" />
+
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>
@@ -150,6 +153,17 @@
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
                                             Value="{Binding Entidade.Email}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Representante"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Representante.Nome}"
+                                            Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Representante.Nome}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
