@@ -6,7 +6,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
-                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario" xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Funcionário"
                      Width="1250"
@@ -17,6 +17,9 @@
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_funcionarios_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}">
+        <View:TelaPesquisaTemplate.Resources>
+            <Converters:CPFValueConverter x:Key="CPFValueConverter" />
+        </View:TelaPesquisaTemplate.Resources>
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
@@ -107,12 +110,12 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource cpf_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Cpf}"
+                                            Binding="{Binding Entidade.Cpf, Converter={StaticResource CPFValueConverter}}"
                                             Width="Auto">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Cpf}" />
+                                            Value="{Binding Entidade.Cpf, Converter={StaticResource CPFValueConverter}}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>

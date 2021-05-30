@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected E _entidade;
         protected bool _result;
 
-        protected bool issoEUmUpdate;
+        private bool issoEUmUpdate;
         private string _btnSalvarToolTip;
         protected IMessageBoxService MessageBoxService;
 
@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ACadastrarViewModel(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate)
         {
             _session = session;
-            this.issoEUmUpdate = issoEUmUpdate;
+            IssoEUmUpdate = issoEUmUpdate;
             MessageBoxService = messageBoxService;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
 
@@ -75,7 +75,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
-                IssoEUmUpdate = issoEUmUpdate,
+                IssoEUmUpdate = IssoEUmUpdate,
                 IdentificadorEntidade = Entidade.GetIdentifier(),
                 MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
                 MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
@@ -188,6 +188,16 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 _btnSalvarToolTip = value;
                 OnPropertyChanged("BtnSalvarToolTip");
+            }
+        }
+
+        public bool IssoEUmUpdate
+        {
+            get => issoEUmUpdate;
+            set
+            {
+                issoEUmUpdate = value;
+                OnPropertyChanged("IssoEUmUpdate");
             }
         }
     }

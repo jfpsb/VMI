@@ -21,6 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             daoEntidade = new DAOFornecedor(session);
             daoRepresentante = new DAORepresentante(session);
             Entidade = new FornecedorModel();
+            Entidade.Cnpj = "0";
 
             GetRepresentantes();
         }

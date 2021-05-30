@@ -39,6 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             Entidade = new FuncionarioModel
             {
+                Cpf = "0",
                 Loja = Lojas[0],
                 Admissao = DateTime.Now
             };

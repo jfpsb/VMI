@@ -6,17 +6,21 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
                      mc:Ignorable="d"
                      Title="Pesquisar Fornecedor"
                      Height="540"
-                     Width="960"
+                     Width="1000"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Fornecedor_Icon.ico"
                      Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_fornecedores_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}">
+        <View:TelaPesquisaTemplate.Resources>
+            <Converters:CNPJValueConverter x:Key="CNPJValueConverter"/>
+        </View:TelaPesquisaTemplate.Resources>
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
@@ -103,12 +107,12 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{DynamicResource cnpj_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Cnpj}"
+                                            Binding="{Binding Entidade.Cnpj, Converter={StaticResource CNPJValueConverter}}"
                                             Width="*">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Cnpj}" />
+                                            Value="{Binding Entidade.Cnpj, Converter={StaticResource CNPJValueConverter}}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>

@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Cadastrar Funcionário"
         Height="Auto"
@@ -16,6 +17,10 @@
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
     </Window.InputBindings>
+    <Window.Resources>
+        <Converters:CPFValueConverter x:Key="CPFValueConverter" />
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
     <Grid>
         <TabControl>
             <TabItem Header="Dados De Funcionário">
@@ -38,8 +43,9 @@
                     <Label Content="{DynamicResource cpf_dois_pontos}" />
                     <TextBox x:Name="TxtCpf"
                              Grid.Column="1"
-                             Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged}"
-                             MaxLength="11" />
+                             Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CPFValueConverter}}"
+                             TextChanged="TxtCpf_TextChanged"
+                             IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
                     <Label Grid.Row="1"
                            Grid.ColumnSpan="2"
                            Content="{DynamicResource funcionario_ja_existe}"

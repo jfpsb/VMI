@@ -551,6 +551,7 @@
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Converters\BooleanToYesOrNoStringConverter.cs" />
+    <Compile Include="ViewModel\Converters\CPFValueConverter.cs" />
     <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -781,6 +782,7 @@
     <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
       <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Converters\CNPJValueConverter.cs" />
     <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
       <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
     </Compile>

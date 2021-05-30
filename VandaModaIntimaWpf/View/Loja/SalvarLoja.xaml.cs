@@ -22,5 +22,10 @@ namespace VandaModaIntimaWpf.View.Loja
         {
             TxtCnpj.Focus();
         }
+
+        private void TxtCnpj_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TxtCnpj.CaretIndex = TxtCnpj.Text.Length;
+        }
     }
 }

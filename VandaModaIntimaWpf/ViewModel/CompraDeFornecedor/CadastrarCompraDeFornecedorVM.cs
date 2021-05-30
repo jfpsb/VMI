@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             _session = session;
             _fileDialogService = fileDialogService;
             MessageBoxService = messageBoxService;
-            this.issoEUmUpdate = issoEUmUpdate;
+            this.IssoEUmUpdate = issoEUmUpdate;
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
             daoEntidade = new DAO<Model.CompraDeFornecedor>(session);
             daoFornecedor = new DAOFornecedor(session);
@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                 try
                 {
-                    if (issoEUmUpdate)
+                    if (IssoEUmUpdate)
                     {
                         foreach (var arquivo in Arquivos)
                         {
