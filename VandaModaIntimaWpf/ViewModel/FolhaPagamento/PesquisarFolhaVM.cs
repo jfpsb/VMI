@@ -132,10 +132,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         bonusDataSet.Clear();
                         parcelaDataSet.Clear();
 
+                        int i = 0;
                         foreach (var bonus in folha.Bonus)
                         {
                             var brow = bonusDataSet.Bonus.NewBonusRow();
-                            brow.id = bonus.Id.ToString();
+
+                            //Os bônus mensais que ainda não foram salvos tem Id 0, se tentar adicionar dois items com mesma Id dá erro.
+                            //Então uso essa variável i apenas para setar uma Id diferente para cada bônus
+                            brow.id = i++.ToString();
                             brow.data = bonus.DataString;
                             brow.descricao = bonus.Descricao;
                             brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
@@ -167,6 +171,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         fprow.valor_a_transferir = folha.ValorATransferir.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         fprow.salario_liquido = folha.SalarioLiquido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         fprow.observacao = folha.Observacao;
+                        fprow.valordameta = folha.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                        fprow.totalvendido = folha.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
                         folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
