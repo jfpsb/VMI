@@ -4,11 +4,11 @@ using VandaModaIntimaWpf.ViewModel;
 namespace VandaModaIntimaWpf.View.Fornecedor
 {
     /// <summary>
-    /// Interaction logic for CadastrarFornecedor.xaml
+    /// Interaction logic for CadastrarFornecedorManualmente.xaml
     /// </summary>
-    public partial class CadastrarFornecedorOnline : Window
+    public partial class SalvarFornecedor : Window
     {
-        public CadastrarFornecedorOnline()
+        public SalvarFornecedor()
         {
             InitializeComponent();
         }

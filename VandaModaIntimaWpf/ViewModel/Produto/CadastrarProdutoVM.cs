@@ -108,7 +108,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private void CadastrarFornecedorOnline(object obj)
         {
             CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(_session, new MessageBoxService(), false);
-            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
+            SalvarFornecedor cadastrarFornecedorOnline = new SalvarFornecedor
             {
                 DataContext = viewModel
             };
@@ -124,7 +124,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private void CadastrarFornecedorManualmente(object obj)
         {
             CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(_session, new MessageBoxService(), false);
-            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente() { DataContext = cadastrarFornecedorManualmenteViewModel };
+            SalvarFornecedor cadastrar = new SalvarFornecedor() { DataContext = cadastrarFornecedorManualmenteViewModel };
             var result = cadastrar.ShowDialog();
 
             if (result == true)

@@ -56,8 +56,11 @@ namespace VandaModaIntimaWpf.Model
             get => _cnpj;
             set
             {
-                _cnpj = value;
-                OnPropertyChanged("Cnpj");
+                if (value != null)
+                {
+                    _cnpj = Regex.Replace(value, "[^0-9]", string.Empty);
+                    OnPropertyChanged("Cnpj");
+                }
             }
         }
 

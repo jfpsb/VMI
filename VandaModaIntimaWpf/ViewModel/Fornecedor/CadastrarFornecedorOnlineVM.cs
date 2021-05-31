@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.IO;
 using System.Net;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -13,6 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public CadastrarFornecedorOnlineVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
+            VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
         }
 

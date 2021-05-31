@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -13,6 +14,8 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         private DAORepresentante daoRepresentante;
         private ObservableCollection<Model.Representante> _representantes;
+        private Visibility _visibilidadeBotaoPesquisar;
+        private Visibility _visibilidadeBotaoAtualizarReceita;
 
         public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -22,6 +25,10 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             daoRepresentante = new DAORepresentante(session);
             Entidade = new FornecedorModel();
             Entidade.Cnpj = "0";
+            IsEnabled = true;
+
+            VisibilidadeBotaoPesquisar = Visibility.Collapsed;
+            VisibilidadeBotaoAtualizarReceita = Visibility.Collapsed;
 
             GetRepresentantes();
         }
@@ -55,6 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             Entidade = new FornecedorModel();
             Entidade.Cnpj = Entidade.Nome = Entidade.Fantasia = Entidade.Email = string.Empty;
+            Entidade.Representante = Representantes[0];
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -93,6 +101,24 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 _representantes = value;
                 OnPropertyChanged("Representantes");
+            }
+        }
+        public Visibility VisibilidadeBotaoPesquisar
+        {
+            get => _visibilidadeBotaoPesquisar;
+            set
+            {
+                _visibilidadeBotaoPesquisar = value;
+                OnPropertyChanged("VisibilidadeBotaoPesquisar");
+            }
+        }
+        public Visibility VisibilidadeBotaoAtualizarReceita
+        {
+            get => _visibilidadeBotaoAtualizarReceita;
+            set
+            {
+                _visibilidadeBotaoAtualizarReceita = value;
+                OnPropertyChanged("VisibilidadeBotaoAtualizarReceita");
             }
         }
     }

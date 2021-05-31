@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.IO;
 using System.Net;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
@@ -13,16 +14,19 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public EditarFornecedorVM(ISession session, FornecedorModel fornecedor, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
             Entidade = fornecedor;
+            VisibilidadeBotaoAtualizarReceita = Visibility.Visible;
             viewModelStrategy = new EditarFornecedorVMStrategy();
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
         }
         private async void AtualizarReceita(object parameter)
         {
-            MessageBoxService.Show("Pesquisando CNPJ na Receita Federal. Aguarde.");
+            MessageBoxService.Show("Pesquisando CNPJ na Receita Federal. Aguarde.", viewModelStrategy.MessageBoxCaption());
 
             try
             {
+                var representante = Entidade.Representante;
                 FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
+                result.Representante = representante;
                 await daoEntidade.Merge(result);
                 OnPropertyChanged("Entidade");
                 MessageBoxService.Show("Pesquisa Realizada Com Sucesso.", viewModelStrategy.MessageBoxCaption());
@@ -31,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             {
                 if (we.Message.Contains("429"))
                 {
-                    MessageBoxService.Show("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.");
+                    MessageBoxService.Show("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.", viewModelStrategy.MessageBoxCaption());
                 }
                 else
                 {

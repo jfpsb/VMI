@@ -21,17 +21,14 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         public bool? AbrirCadastrar(ISession session)
         {
             CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(session, new MessageBoxService(), false);
-            CadastrarFornecedorManualmente cadastrar = new CadastrarFornecedorManualmente() { DataContext = cadastrarFornecedorManualmenteViewModel };
+            SalvarFornecedor cadastrar = new SalvarFornecedor() { DataContext = cadastrarFornecedorManualmenteViewModel };
             return cadastrar.ShowDialog();
         }
 
         public bool? AbrirEditar(Model.Fornecedor clone, ISession session)
         {
             EditarFornecedorVM viewModel = new EditarFornecedorVM(session, clone, new MessageBoxService());
-            //viewModel.Entidade = clone;
-
-            EditarFornecedor editarFornecedor = new EditarFornecedor() { DataContext = viewModel };
-
+            SalvarFornecedor editarFornecedor = new SalvarFornecedor() { DataContext = viewModel };
             return editarFornecedor.ShowDialog();
         }
 
@@ -51,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         public void AbrirCadastrarOnline(ISession session)
         {
             CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(session, new MessageBoxService(), false);
-            CadastrarFornecedorOnline cadastrarFornecedorOnline = new CadastrarFornecedorOnline
+            SalvarFornecedor cadastrarFornecedorOnline = new SalvarFornecedor
             {
                 DataContext = viewModel
             };

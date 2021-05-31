@@ -339,15 +339,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Fornecedor\CadastrarFornecedorOnline.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Fornecedor\CadastrarFornecedorManualmente.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Fornecedor\EditarFornecedor.xaml">
+    <Page Include="View\Fornecedor\SalvarFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -386,10 +378,6 @@
     <Page Include="View\Loja\SalvarLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Loja\MetaLoja.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Loja\PesquisarLoja.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -779,9 +767,6 @@
     <Compile Include="View\FolhaPagamento\VisualizarHoraExtra.xaml.cs">
       <DependentUpon>VisualizarHoraExtra.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Fornecedor\CadastrarFornecedorOnline.xaml.cs">
-      <DependentUpon>CadastrarFornecedorOnline.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\Converters\CNPJValueConverter.cs" />
     <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
       <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
@@ -808,11 +793,8 @@
     <Compile Include="ViewModel\Produto\PesquisarProdutoVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\VandaModaIntimaVM.cs" />
-    <Compile Include="View\Fornecedor\CadastrarFornecedorManualmente.xaml.cs">
-      <DependentUpon>CadastrarFornecedorManualmente.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Fornecedor\EditarFornecedor.xaml.cs">
-      <DependentUpon>EditarFornecedor.xaml</DependentUpon>
+    <Compile Include="View\Fornecedor\SalvarFornecedor.xaml.cs">
+      <DependentUpon>SalvarFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
@@ -824,9 +806,6 @@
     </Compile>
     <Compile Include="View\Loja\SalvarLoja.xaml.cs">
       <DependentUpon>SalvarLoja.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Loja\MetaLoja.xaml.cs">
-      <DependentUpon>MetaLoja.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Loja\PesquisarLoja.xaml.cs">
       <DependentUpon>PesquisarLoja.xaml</DependentUpon>

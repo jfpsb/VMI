@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -53,8 +54,11 @@ namespace VandaModaIntimaWpf.Model
             get => _cpf;
             set
             {
-                _cpf = value;
-                OnPropertyChanged("Cpf");
+                if (value != null)
+                {
+                    _cpf = Regex.Replace(value, "[^0-9]", string.Empty);
+                    OnPropertyChanged("Cpf");
+                }
             }
         }
         public virtual string Nome
