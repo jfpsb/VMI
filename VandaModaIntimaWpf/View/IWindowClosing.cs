@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace VandaModaIntimaWpf.View
+﻿namespace VandaModaIntimaWpf.View
 {
     interface IWindowClosing
     {

@@ -8,8 +8,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarTotalVendidoVM : ACadastrarViewModel<Model.FolhaPagamento>
     {
-        private double _totalVendido;
-
         public AdicionarTotalVendidoVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
@@ -17,15 +15,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             viewModelStrategy = new AdicionarTotalVendidoVMStrategy();
             Entidade = folha;
             AposInserirNoBancoDeDados += FecharTela;
-            PropertyChanged += SetaValorTotalVendido;
-        }
-
-        private void SetaValorTotalVendido(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName.Equals("TotalVendido"))
-            {
-                Entidade.TotalVendido = TotalVendido;
-            }
         }
 
         private void FecharTela(AposInserirBDEventArgs e)
@@ -52,23 +41,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (TotalVendido <= 0.0)
+            if (Entidade.TotalVendido <= 0.0)
             {
                 BtnSalvarToolTip += "Informe Um Valor De Total Vendido Válido!\n";
                 valido = false;
             }
 
             return valido;
-        }
-
-        public double TotalVendido
-        {
-            get => _totalVendido;
-            set
-            {
-                _totalVendido = value;
-                OnPropertyChanged("TotalVendido");
-            }
         }
     }
 }

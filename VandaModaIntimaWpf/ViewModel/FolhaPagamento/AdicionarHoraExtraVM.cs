@@ -75,9 +75,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (Entidade.Horas == 0 && Entidade.Minutos == 0)
+            if (Entidade.Horas < 0 && Entidade.Minutos < 0)
             {
-                BtnSalvarToolTip += "Horas e Minutos Não Podem Ser Iguais a Zero!\n";
+                BtnSalvarToolTip += "Horas e Minutos Não Podem Ser Menores Que Zero!\n";
                 valido = false;
             }
 

@@ -450,6 +450,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (folha == null)
                 {
+                    if (funcionario.Deletado)
+                        continue;
+
                     folha = new FolhaPagamentoModel
                     {
                         Mes = DataEscolhida.Month,
@@ -521,7 +524,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void GetFuncionarios()
         {
-            _funcionarios = await daoFuncionario.Listar();
+            _funcionarios = await daoFuncionario.ListarIncluindoDeletado();
         }
     }
 }

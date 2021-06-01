@@ -43,7 +43,7 @@
         <TextBox Grid.Row="2"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
-                 Text="{Binding TotalVendido, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='C', ConverterCulture=pt-BR}" />
+                 Text="{Binding Entidade.TotalVendido, Mode=TwoWay, StringFormat='C', ConverterCulture=pt-BR}" />
         <Button Grid.ColumnSpan="4"
                 Grid.Row="3"
                 Style="{StaticResource BotaoCadastrar}"
