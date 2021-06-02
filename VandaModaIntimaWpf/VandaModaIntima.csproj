@@ -584,6 +584,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Despesa\CadastrarDespesaVM.cs" />
+    <Compile Include="ViewModel\Despesa\CadastrarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
@@ -658,6 +660,7 @@
     <Compile Include="ViewModel\Representante\EditarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaDespesa.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornecedorService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
@@ -1212,6 +1215,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\TipoDespesa.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Despesa.hbm.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

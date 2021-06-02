@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+	<class name="Despesa">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<property name="Data" />
+		<property name="Descricao" />
+		<property name="Valor" />
+		<property name="Familiar" />
+		<property name="Deletado" />
+		<many-to-one name="TipoDespesa"
+                 class="VandaModaIntimaWpf.Model.TipoDespesa"/>
+		<many-to-one name="Fornecedor"
+                 class="VandaModaIntimaWpf.Model.Fornecedor"/>
+	</class>
+
+</hibernate-mapping>

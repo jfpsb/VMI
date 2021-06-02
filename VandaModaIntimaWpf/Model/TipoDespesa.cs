@@ -5,21 +5,43 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TipoDespesa : AModel, IModel
     {
-        public Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
+        private long _id;
+        private string _nome;
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public object GetIdentifier()
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public virtual string Nome
+        {
+            get => _nome;
+            set
+            {
+                _nome = value;
+                OnPropertyChanged("Nome");
+            }
+        }
+
+        public virtual object GetIdentifier()
+        {
+            return Id;
+        }
+
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
 
-        public void InicializaLazyLoad()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsIdentical(object obj)
+        public virtual bool IsIdentical(object obj)
         {
             throw new NotImplementedException();
         }

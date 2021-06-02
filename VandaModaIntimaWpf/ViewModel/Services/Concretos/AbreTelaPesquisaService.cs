@@ -1,5 +1,6 @@
 ﻿using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
+using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
@@ -9,6 +10,7 @@ using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
+using VandaModaIntimaWpf.ViewModel.Despesa;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
@@ -31,7 +33,9 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaDespesas()
         {
-
+            PesquisarDespesaVM viewModel = new PesquisarDespesaVM(new MessageBoxService(), new AbrePelaTelaPesquisaDespesa());
+            PesquisarDespesa view = new PesquisarDespesa { DataContext = viewModel };
+            view.Show();
         }
 
         public void AbrirTelaCompraDeFornecedor()

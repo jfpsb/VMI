@@ -219,4 +219,43 @@
         <System:String>Nome</System:String>
     </x:Array>
 
+    <x:Array x:Key="CmbMembrosFamiliares"
+             Type="System:String">
+        <System:String>Ferreira</System:String>
+        <System:String>Vanda</System:String>
+        <System:String>Lucas</System:String>
+        <System:String>Felipe</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbTipoDescricaoDespesa"
+             Type="System:String">
+        <System:String>CONTA DE LUZ</System:String>
+        <System:String>CONTA DE ÁGUA</System:String>
+        <System:String>CONTA INTERNET/TELEFONE</System:String>
+        <System:String>DARF S/ ALUGUEL</System:String>
+        <System:String>DARF S/ SALÁRIO</System:String>
+        <System:String>FRETE</System:String>
+        <System:String>PRO-LABORE</System:String>
+        <System:String>HONORÁRIOS CONTADOR</System:String>
+        <System:String>HONORÁRIOS EXTRA CONTADOR</System:String>
+        <System:String>SALÁRIOS DE FUNCIONÁRIOS</System:String>
+        <System:String>PAGAMENTO DE FÉRIAS</System:String>
+        <System:String>13º SALÁRIO</System:String>
+        <System:String>RESCISÃO</System:String>
+        <System:String>RESCISÃO FGTS</System:String>
+        <System:String>INSS (GPS)</System:String>
+        <System:String>INSS (GPS) - 13º SALÁRIO</System:String>
+        <System:String>DARE (ICMS ANTECIPADO)</System:String>
+        <System:String>DAS - SIMPLES NACIONAL</System:String>
+        <System:String>OUTROS</System:String>
+    </x:Array>
+
+    <x:Array x:Key="CmbPesquisaDespesaFiltro"
+             Type="System:String">
+        <System:String>Sem Filtro</System:String>
+        <System:String>Fornecedor</System:String>
+        <System:String>Descrição</System:String>
+        <System:String>Membro Familiar</System:String>
+    </x:Array>
+
 </ResourceDictionary>

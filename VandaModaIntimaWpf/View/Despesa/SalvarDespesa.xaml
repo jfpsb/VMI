@@ -5,8 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
         mc:Ignorable="d"
-        Title="SalvarDespesa" Height="450" Width="800">
-    <Grid>
-        
+        Title="Salvar Despesa"
+        Height="375"
+        Width="550"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Tipo De Despesa:" />
+        <ComboBox Grid.Column="1"
+                  Width="225"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding TiposDespesa}"
+                  DisplayMemberPath="Nome"
+                  SelectedItem="{Binding Entidade.TipoDespesa}" />
+        <Label Grid.Row="1"
+               Content="Data:" />
+        <DatePicker Grid.Column="1"
+                    Grid.Row="1"
+                    Width="225"
+                    HorizontalAlignment="Left"
+                    SelectedDate="{Binding Entidade.Data}" />
+        <Label Grid.Row="2"
+               Content="Fornecedor:" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="2"
+                  ItemsSource="{Binding Fornecedores}"
+                  DisplayMemberPath="Nome"
+                  SelectedItem="{Binding Entidade.Fornecedor}"
+                  IsEnabled="{Binding IsDespesaEmpresarial}" />
+        <Label Grid.Row="3"
+               Content="Tipo De Descrição:" />
+        <ComboBox Grid.Row="3"
+                  Grid.Column="1"
+                  ItemsSource="{DynamicResource CmbTipoDescricaoDespesa}"
+                  SelectedValue="{Binding TipoDescricao}" />
+        <Label Grid.Row="4"
+               Content="Descrição:" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Descricao}"
+                 MaxLength="150"
+                 IsEnabled="{Binding IsOutrosDespesas}" />
+        <Label Grid.Row="5"
+               Content="Membro Da Família:" />
+        <ComboBox Grid.Row="5"
+                  Grid.Column="1"
+                  Width="225"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{DynamicResource CmbMembrosFamiliares}"
+                  SelectedItem="{Binding Entidade.Familiar}"
+                  IsEnabled="{Binding IsDespesaFamiliar}" />
+        <Label Grid.Row="6"
+               Content="Valor:" />
+        <TextBox Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+        <Button Grid.Row="7"
+                Grid.ColumnSpan="2"
+                Content="{DynamicResource salvar}"
+                Style="{StaticResource BotaoCadastrar}"
+                Command="{Binding SalvarComando}"
+                ToolTip="{Binding BtnSalvarToolTip}"/>
+
     </Grid>
 </Window>
