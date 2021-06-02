@@ -131,7 +131,6 @@ namespace VandaModaIntimaWpf.Model
                        && fornecedor.Fantasia.Equals(Fantasia)
                        && fornecedor.Email.Equals(Email)
                        && fornecedor.Telefone.Equals(Telefone);
-                ;
             }
             return false;
         }
@@ -166,5 +165,24 @@ namespace VandaModaIntimaWpf.Model
                 NHibernateUtil.Initialize(Produtos);
             }
         }
+
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj != null && Cnpj != null && obj is Fornecedor)
+        //    {
+        //        Fornecedor fornecedor = (Fornecedor)obj;
+        //        return Cnpj.Equals(fornecedor.Cnpj);
+        //    }
+
+        //    return false;
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    if (Cnpj != null)
+        //        return Cnpj.GetHashCode();
+
+        //    return base.GetHashCode();
+        //}
     }
 }

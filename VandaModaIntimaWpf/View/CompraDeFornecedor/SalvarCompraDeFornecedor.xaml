@@ -47,16 +47,16 @@
                        Content="Fornecedor:" />
                 <ComboBox Grid.Row="2"
                           Grid.Column="1"
-                          ItemsSource="{Binding Fornecedores}"
                           DisplayMemberPath="Nome"
-                          SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}" />
+                          ItemsSource="{Binding Fornecedores}"
+                          SelectedItem="{Binding Entidade.Fornecedor, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="3"
                        Content="Loja:" />
                 <ComboBox Grid.Row="3"
                           Grid.Column="1"
-                          ItemsSource="{Binding Lojas}"
                           DisplayMemberPath="Nome"
-                          SelectedItem="{Binding Entidade.Loja, Mode=TwoWay}" />
+                          ItemsSource="{Binding Lojas}"
+                          SelectedItem="{Binding Entidade.Loja, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="4"
                        Content="Já Foi Pago:" />
                 <CheckBox Grid.Row="4"

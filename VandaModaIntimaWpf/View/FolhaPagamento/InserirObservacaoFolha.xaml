@@ -43,7 +43,8 @@
                  TextWrapping="Wrap"
                  FontSize="14"
                  Height="175"
-                 MaxLength="500" />
+                 MaxLength="500"
+                 AcceptsReturn="True"/>
         <Button Grid.Row="8"
                 Grid.ColumnSpan="2"
                 Content="{DynamicResource salvar}"

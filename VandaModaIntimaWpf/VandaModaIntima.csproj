@@ -255,6 +255,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Despesa\PesquisarDespesa.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Despesa\SalvarDespesa.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -486,6 +494,7 @@
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\DataFeriado.cs" />
+    <Compile Include="Model\Despesa.cs" />
     <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
     <Compile Include="Model\Fornecedor.cs" />
@@ -506,6 +515,7 @@
     <Compile Include="Model\Representante.cs" />
     <Compile Include="Model\SubGrade.cs" />
     <Compile Include="Model\TipoContagem.cs" />
+    <Compile Include="Model\TipoDespesa.cs" />
     <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Model\TipoHoraExtra.cs" />
     <Compile Include="Resources\StringResource.cs" />
@@ -574,6 +584,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RelatorioHoraExtraDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
+    <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarMetaIndividualVM.cs" />
@@ -676,6 +688,12 @@
     </Compile>
     <Compile Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml.cs">
       <DependentUpon>SalvarCompraDeFornecedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Despesa\PesquisarDespesa.xaml.cs">
+      <DependentUpon>PesquisarDespesa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Despesa\SalvarDespesa.xaml.cs">
+      <DependentUpon>SalvarDespesa.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
       <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>

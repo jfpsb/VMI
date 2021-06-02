@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml.Serialization;
@@ -93,10 +94,10 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                         Entidade.Valor = double.Parse(nfe.NFe.infNFe.total.ICMSTot.vNF, CultureInfo.InvariantCulture);
                         Entidade.DataNotaFiscal = DateTime.Parse(nfe.NFe.infNFe.ide.dhEmi);
                         Entidade.NumeroNfe = int.Parse(nfe.NFe.infNFe.ide.nNF);
-                        Entidade.ChaveAcessoNfe = Regex.Replace(nfe.NFe.infNFe.Id, "[A-Za-z]", "");
+                        Entidade.ChaveAcessoNfe = Regex.Replace(nfe.NFe.infNFe.Id, "[^0-9]", string.Empty);
 
-                        var fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
-                        var loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
+                        Model.Fornecedor fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                        Model.Loja loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
 
                         if (fornecedor != null)
                             Entidade.Fornecedor = fornecedor;
