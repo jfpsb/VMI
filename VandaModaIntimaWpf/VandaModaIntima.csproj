@@ -480,6 +480,7 @@
     <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
     <Compile Include="Model\DAO\DAOContagemProduto.cs" />
+    <Compile Include="Model\DAO\DAODespesa.cs" />
     <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
     <Compile Include="Model\DAO\DAOFornecedor.cs" />
     <Compile Include="Model\DAO\DAOFuncionario.cs" />
@@ -492,6 +493,7 @@
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAORepresentante.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
+    <Compile Include="Model\DAO\DAOTipoDespesa.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Despesa.cs" />

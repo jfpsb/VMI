@@ -247,6 +247,7 @@
         <System:String>INSS (GPS) - 13º SALÁRIO</System:String>
         <System:String>DARE (ICMS ANTECIPADO)</System:String>
         <System:String>DAS - SIMPLES NACIONAL</System:String>
+        <System:String>PAGAMENTO DE PEDIDO</System:String>
         <System:String>OUTROS</System:String>
     </x:Array>
 

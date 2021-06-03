@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
         private long _id;
         private TipoDespesa _tipoDespesa;
         private Fornecedor _fornecedor;
+        private Representante _representante;
         private DateTime _data;
         private string _descricao;
         private double _valor;
@@ -58,8 +59,11 @@ namespace VandaModaIntimaWpf.Model
             get => _descricao;
             set
             {
-                _descricao = value;
-                OnPropertyChanged("Descricao");
+                if (value != null)
+                {
+                    _descricao = value.ToUpper(); ;
+                    OnPropertyChanged("Descricao");
+                }
             }
         }
         public virtual double Valor
@@ -78,6 +82,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _familiar = value;
                 OnPropertyChanged("Familiar");
+            }
+        }
+
+        public virtual Representante Representante
+        {
+            get => _representante;
+            set
+            {
+                _representante = value;
+                OnPropertyChanged("Representante");
             }
         }
 

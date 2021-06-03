@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -13,14 +14,18 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private string _filtrarPor;
         private DAO<Model.TipoDespesa> daoTipoDespesa;
         private ObservableCollection<Model.TipoDespesa> _tiposDespesa;
+        private double _totalEmDespesas;
 
         public PesquisarDespesaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Despesa> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
-            daoEntidade = new Model.DAO.DAO<Model.Despesa>(_session);
+            daoEntidade = new DAODespesa(_session);
             daoTipoDespesa = new DAO<TipoDespesa>(_session);
             pesquisarViewModelStrategy = new PesquisarDespesaVMStrategy();
 
             GetTiposDespesa();
+
+            TipoDespesaNome = "TODOS OS TIPOS";
+            FiltrarPor = "Sem Filtro";
             DataEscolhida = DateTime.Now;
         }
 
@@ -29,9 +34,22 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             return true;
         }
 
-        public override void PesquisaItens(string termo)
+        public async override void PesquisaItens(string termo)
         {
-            throw new NotImplementedException();
+            if (TipoDespesaNome == null)
+                return;
+
+            if (FiltrarPor == null)
+                return;
+
+            if (DataEscolhida.Year == 1)
+                return;
+
+            DAODespesa dao = (DAODespesa)daoEntidade;
+            TipoDespesa tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals(TipoDespesaNome)).Single();
+            Entidades = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoDespesa, DataEscolhida, FiltrarPor, TermoPesquisa)));
+
+            TotalEmDespesas = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
         }
         private async void GetTiposDespesa()
         {
@@ -45,6 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _tipoDespesaNome = value;
                 OnPropertyChanged("TipoDespesaNome");
+                OnPropertyChanged("TermoPesquisa");
             }
         }
         public DateTime DataEscolhida
@@ -54,6 +73,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
+                OnPropertyChanged("TermoPesquisa");
             }
         }
         public string FiltrarPor
@@ -63,9 +83,28 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _filtrarPor = value;
                 OnPropertyChanged("FiltrarPor");
+                OnPropertyChanged("TermoPesquisa");
             }
         }
 
-        public ObservableCollection<TipoDespesa> TiposDespesa { get => _tiposDespesa; set => _tiposDespesa = value; }
+        public ObservableCollection<TipoDespesa> TiposDespesa
+        {
+            get => _tiposDespesa;
+            set
+            {
+                _tiposDespesa = value;
+                OnPropertyChanged("TiposDespesa");
+            }
+        }
+
+        public double TotalEmDespesas
+        {
+            get => _totalEmDespesas;
+            set
+            {
+                _totalEmDespesas = value;
+                OnPropertyChanged("TotalEmDespesas");
+            }
+        }
     }
 }
