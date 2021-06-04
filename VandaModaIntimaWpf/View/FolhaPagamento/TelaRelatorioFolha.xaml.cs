@@ -1,5 +1,9 @@
-﻿using System.Globalization;
+﻿using NHibernate;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
@@ -10,17 +14,19 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// </summary>
     public partial class TelaRelatorioFolha : Window
     {
+        private DAOParcela daoParcela;
         public TelaRelatorioFolha()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
         }
 
-        public TelaRelatorioFolha(Model.FolhaPagamento FolhaPagamento)
+        public TelaRelatorioFolha(ISession session, Model.FolhaPagamento FolhaPagamento)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
 
+            daoParcela = new DAOParcela(session);
             FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
             BonusDataSet bonusDataSet = new BonusDataSet();
             ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
@@ -51,6 +57,8 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
                 parcelaDataSet.Parcela.AddParcelaRow(prow);
             }
+            
+            var parcelasNaoPagas = ListarParcelasNaoPagasAsync(FolhaPagamento.Funcionario);
 
             var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
             fprow.mes = FolhaPagamento.Mes.ToString();
@@ -63,6 +71,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             fprow.observacao = FolhaPagamento.Observacao;
             fprow.valordameta = FolhaPagamento.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
             fprow.totalvendido = FolhaPagamento.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+            fprow.restanteadiantamento = parcelasNaoPagas.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
@@ -72,6 +81,11 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             report.SetDataSource(folhaPagamentoDataSet);
             FolhaReport.ViewerCore.EnableDrillDown = false;
             FolhaReport.ViewerCore.ReportSource = report;
+        }
+
+        private IList<Model.Parcela> ListarParcelasNaoPagasAsync(Model.Funcionario funcionario)
+        {
+            return daoParcela.ListarPorFuncionarioNaoPagas(funcionario).Result;
         }
     }
 }

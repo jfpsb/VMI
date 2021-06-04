@@ -13,10 +13,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class MaisDetalhesVM : ObservableObject, IResultReturnable
     {
+        private ISession _session;
         private ObservableCollection<Parcela> _parcelas;
         private ObservableCollection<Bonus> _bonus;
         private DAOFolhaPagamento daoFolha;
         private DAOBonus daoBonus;
+        private DAO<Model.Adiantamento> daoAdiantamento;
         private Parcela _parcela;
         private Bonus _bonusEscolhido;
         private FolhaModel _folhaPagamento;
@@ -27,11 +29,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand DeletarBonusComando { get; set; }
         public MaisDetalhesVM(ISession session, FolhaModel folhaPagamento, IMessageBoxService messageBoxService)
         {
+            _session = session;
             MessageBoxService = messageBoxService;
 
             FolhaPagamento = folhaPagamento;
             daoBonus = new DAOBonus(session);
             daoFolha = new DAOFolhaPagamento(session);
+            daoAdiantamento = new DAO<Adiantamento>(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
 
@@ -83,14 +87,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
                 FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
-
-                bool resultadoDelete = await daoFolha.Atualizar(FolhaPagamento);
+                bool resultadoDelete = await daoAdiantamento.Deletar(Parcela.Adiantamento);
 
                 if (resultadoDelete)
                 {
                     MessageBoxService.Show("Adiantamento Deletado Com Sucesso!");
                     Parcelas.Remove(Parcela);
                     OnPropertyChanged("TotalParcelas");
+                }
+                else
+                {
+                    await _session.RefreshAsync(FolhaPagamento);
                 }
             }
         }

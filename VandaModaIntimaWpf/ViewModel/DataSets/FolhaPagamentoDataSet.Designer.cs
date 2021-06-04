@@ -301,6 +301,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnvalorbonusmeta;
             
+            private global::System.Data.DataColumn columnrestanteadiantamento;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public FolhaPagamentoDataTable() {
@@ -424,6 +426,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn restanteadiantamentoColumn {
+                get {
+                    return this.columnrestanteadiantamento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -459,7 +469,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string salario_liquido, string observacao, string valordameta, string totalvendido, string valorbonusmeta) {
+            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string salario_liquido, string observacao, string valordameta, string totalvendido, string valorbonusmeta, string restanteadiantamento) {
                 FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mes,
@@ -472,7 +482,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         observacao,
                         valordameta,
                         totalvendido,
-                        valorbonusmeta};
+                        valorbonusmeta,
+                        restanteadiantamento};
                 rowFolhaPagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFolhaPagamentoRow);
                 return rowFolhaPagamentoRow;
@@ -514,6 +525,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnvalordameta = base.Columns["valordameta"];
                 this.columntotalvendido = base.Columns["totalvendido"];
                 this.columnvalorbonusmeta = base.Columns["valorbonusmeta"];
+                this.columnrestanteadiantamento = base.Columns["restanteadiantamento"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -541,6 +553,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columntotalvendido);
                 this.columnvalorbonusmeta = new global::System.Data.DataColumn("valorbonusmeta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalorbonusmeta);
+                this.columnrestanteadiantamento = new global::System.Data.DataColumn("restanteadiantamento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrestanteadiantamento);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnmes}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
@@ -857,6 +871,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string restanteadiantamento {
+                get {
+                    try {
+                        return ((string)(this[this.tableFolhaPagamento.restanteadiantamentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'restanteadiantamento\' in table \'FolhaPagamento\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFolhaPagamento.restanteadiantamentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsfuncionarioNull() {
                 return this.IsNull(this.tableFolhaPagamento.funcionarioColumn);
             }
@@ -961,6 +991,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetvalorbonusmetaNull() {
                 this[this.tableFolhaPagamento.valorbonusmetaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsrestanteadiantamentoNull() {
+                return this.IsNull(this.tableFolhaPagamento.restanteadiantamentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetrestanteadiantamentoNull() {
+                this[this.tableFolhaPagamento.restanteadiantamentoColumn] = global::System.Convert.DBNull;
             }
         }
         

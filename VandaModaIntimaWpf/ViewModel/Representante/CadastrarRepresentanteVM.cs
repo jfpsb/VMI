@@ -71,12 +71,6 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
                 valido = false;
             }
 
-            if (Fornecedores.Count == 0)
-            {
-                BtnSalvarToolTip += "Selecione Ao Menos Um Fornecedor Na Lista Para Prosseguir!".ToUpper();
-                valido = false;
-            }
-
             return valido;
         }
 

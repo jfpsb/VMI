@@ -1,5 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.Model.DAO
@@ -18,6 +20,35 @@ namespace VandaModaIntimaWpf.Model.DAO
                 .Add(Restrictions.Eq("Ano", ano));
 
             return (FolhaPagamento)await criteria.UniqueResultAsync();
+        }
+
+        public async Task<bool> FecharFolhaDePagamento(FolhaPagamento folhaPagamento, IList<Model.Parcela> parcelas)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    await session.SaveOrUpdateAsync(folhaPagamento);
+
+                    if (parcelas.Count > 0)
+                    {
+                        foreach (var parcela in parcelas)
+                            await session.UpdateAsync(parcela);
+                    }
+
+                    await transacao.CommitAsync();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
+                    if (ex.InnerException != null)
+                        Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
+                }
+
+                return false;
+            }
         }
     }
 }

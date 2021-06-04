@@ -22,5 +22,15 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return await Listar(criteria);
         }
+        public async Task<IList<Parcela>> ListarPorFuncionarioNaoPagas(Funcionario funcionario)
+        {
+            var criteria = CriarCriteria();
+
+            criteria.CreateAlias("Adiantamento", "Adiantamento");
+            criteria.Add(Restrictions.Eq("Adiantamento.Funcionario", funcionario));
+            criteria.Add(Restrictions.Eq("Paga", false));
+
+            return await Listar(criteria);
+        }
     }
 }

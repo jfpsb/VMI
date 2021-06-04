@@ -114,7 +114,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             OnPropertyChanged("TermoPesquisa");
         }
 
-        private void ExportarFolhasParaPDF(object obj)
+        private async void ExportarFolhasParaPDF(object obj)
         {
             string caminhoPasta = _fileDialogService.ShowFolderBrowserDialog();
 
@@ -162,6 +162,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             parcelaDataSet.Parcela.AddParcelaRow(prow);
                         }
 
+                        var parcelasNaoPagas = await daoParcela.ListarPorFuncionarioNaoPagas(folha.Funcionario);
+
                         var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
                         fprow.mes = folha.Mes.ToString();
                         fprow.ano = folha.Ano.ToString();
@@ -173,6 +175,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         fprow.observacao = folha.Observacao;
                         fprow.valordameta = folha.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         fprow.totalvendido = folha.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                        fprow.restanteadiantamento = parcelasNaoPagas.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
                         folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
@@ -181,8 +184,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         report.Subreports[0].SetDataSource(bonusDataSet);
                         report.Subreports[1].SetDataSource(parcelaDataSet);
                         report.SetDataSource(folhaPagamentoDataSet);
-
-                        //var stream = report.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
 
                         report.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf"));
                     }
@@ -290,8 +291,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (resultMessageBox == MessageBoxResult.Yes)
             {
                 FolhaPagamento.Fechada = true;
+                foreach (var parcela in FolhaPagamento.Parcelas)
+                {
+                    parcela.Paga = true;
+                }
 
-                var result = await daoEntidade.InserirOuAtualizar(FolhaPagamento);
+                var dao = daoEntidade as DAOFolhaPagamento;
+                var result = await dao.FecharFolhaDePagamento(FolhaPagamento, FolhaPagamento.Parcelas);
 
                 if (result)
                 {
@@ -318,7 +324,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirImprimirFolha(object obj)
         {
-            TelaRelatorioFolha telaRelatorioFolha = new TelaRelatorioFolha(FolhaPagamento);
+            TelaRelatorioFolha telaRelatorioFolha = new TelaRelatorioFolha(_session, FolhaPagamento);
             telaRelatorioFolha.Show();
         }
 
@@ -473,27 +479,30 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     //Lista os bônus mensais do funcionário
                     var bonusMensais = await daoBonusMensal.ListarBonusMensais(funcionario);
 
-                    foreach (var bonusMensal in bonusMensais)
+                    if (bonusMensais != null)
                     {
-                        //Checa se o bônus mensal já existe na lista de bônus de funcionário
-                        var bonusJaExiste = folha.Bonus.Any(a => a.Descricao.Equals(bonusMensal.Descricao));
-
-                        if (bonusJaExiste)
-                            continue;
-
-                        //Se não existe cria o bônus
-                        Bonus bonus = new Bonus
+                        foreach (var bonusMensal in bonusMensais)
                         {
-                            Funcionario = funcionario,
-                            Data = new DateTime(folha.Ano, folha.Mes, 1),
-                            Descricao = bonusMensal.Descricao,
-                            Valor = bonusMensal.Valor,
-                            MesReferencia = folha.Mes,
-                            AnoReferencia = folha.Ano,
-                            BonusMensal = true
-                        };
+                            //Checa se o bônus mensal já existe na lista de bônus de funcionário
+                            var bonusJaExiste = folha.Bonus.Any(a => a.Descricao.Equals(bonusMensal.Descricao));
 
-                        folha.Bonus.Add(bonus);
+                            if (bonusJaExiste)
+                                continue;
+
+                            //Se não existe cria o bônus
+                            Bonus bonus = new Bonus
+                            {
+                                Funcionario = funcionario,
+                                Data = new DateTime(folha.Ano, folha.Mes, 1),
+                                Descricao = bonusMensal.Descricao,
+                                Valor = bonusMensal.Valor,
+                                MesReferencia = folha.Mes,
+                                AnoReferencia = folha.Ano,
+                                BonusMensal = true
+                            };
+
+                            folha.Bonus.Add(bonus);
+                        }
                     }
 
                     if (folha.ValorDoBonusDeMeta > 0)
@@ -514,7 +523,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
 
                 //Depois da checagem acima, removo os bônus cancelados da listagem
-                folha.Bonus = folha.Bonus.Where(w => w.BonusCancelado == false).ToList();
+                if (folha.Bonus != null)
+                    folha.Bonus = folha.Bonus.Where(w => w.BonusCancelado == false).ToList();
 
                 folhas.Add(folha);
             }

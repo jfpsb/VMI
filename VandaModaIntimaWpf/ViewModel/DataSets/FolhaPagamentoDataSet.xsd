@@ -12,7 +12,7 @@
   <xs:element name="FolhaPagamentoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FolhaPagamentoDataSet" msprop:Generator_UserDSName="FolhaPagamentoDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="FolhaPagamento" msprop:Generator_TableClassName="FolhaPagamentoDataTable" msprop:Generator_TableVarName="tableFolhaPagamento" msprop:Generator_RowChangedName="FolhaPagamentoRowChanged" msprop:Generator_TablePropName="FolhaPagamento" msprop:Generator_RowDeletingName="FolhaPagamentoRowDeleting" msprop:Generator_RowChangingName="FolhaPagamentoRowChanging" msprop:Generator_RowEvHandlerName="FolhaPagamentoRowChangeEventHandler" msprop:Generator_RowDeletedName="FolhaPagamentoRowDeleted" msprop:Generator_RowClassName="FolhaPagamentoRow" msprop:Generator_UserTableName="FolhaPagamento" msprop:Generator_RowEvArgName="FolhaPagamentoRowChangeEvent">
+        <xs:element name="FolhaPagamento" msprop:Generator_TableClassName="FolhaPagamentoDataTable" msprop:Generator_TableVarName="tableFolhaPagamento" msprop:Generator_TablePropName="FolhaPagamento" msprop:Generator_RowDeletingName="FolhaPagamentoRowDeleting" msprop:Generator_RowChangingName="FolhaPagamentoRowChanging" msprop:Generator_RowEvHandlerName="FolhaPagamentoRowChangeEventHandler" msprop:Generator_RowDeletedName="FolhaPagamentoRowDeleted" msprop:Generator_UserTableName="FolhaPagamento" msprop:Generator_RowChangedName="FolhaPagamentoRowChanged" msprop:Generator_RowEvArgName="FolhaPagamentoRowChangeEvent" msprop:Generator_RowClassName="FolhaPagamentoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="mes" msprop:Generator_ColumnVarNameInTable="columnmes" msprop:Generator_ColumnPropNameInRow="mes" msprop:Generator_ColumnPropNameInTable="mesColumn" msprop:Generator_UserColumnName="mes" type="xs:string" />
@@ -26,6 +26,7 @@
               <xs:element name="valordameta" msprop:Generator_ColumnVarNameInTable="columnvalordameta" msprop:Generator_ColumnPropNameInRow="valordameta" msprop:Generator_ColumnPropNameInTable="valordametaColumn" msprop:Generator_UserColumnName="valordameta" type="xs:string" minOccurs="0" />
               <xs:element name="totalvendido" msprop:Generator_ColumnVarNameInTable="columntotalvendido" msprop:Generator_ColumnPropNameInRow="totalvendido" msprop:Generator_ColumnPropNameInTable="totalvendidoColumn" msprop:Generator_UserColumnName="totalvendido" type="xs:string" minOccurs="0" />
               <xs:element name="valorbonusmeta" msprop:Generator_ColumnVarNameInTable="columnvalorbonusmeta" msprop:Generator_ColumnPropNameInRow="valorbonusmeta" msprop:Generator_ColumnPropNameInTable="valorbonusmetaColumn" msprop:Generator_UserColumnName="valorbonusmeta" type="xs:string" minOccurs="0" />
+              <xs:element name="restanteadiantamento" msprop:Generator_ColumnVarNameInTable="columnrestanteadiantamento" msprop:Generator_ColumnPropNameInRow="restanteadiantamento" msprop:Generator_ColumnPropNameInTable="restanteadiantamentoColumn" msprop:Generator_UserColumnName="restanteadiantamento" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
