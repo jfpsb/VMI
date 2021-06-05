@@ -251,18 +251,25 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 var folhasAbertas = FolhaPagamentos.Where(w => w.Fechada == false).ToList();
                 var bonusMensaisEmFolhas = folhasAbertas.Select(s => s.Bonus).SelectMany(s => s.Where(w => w.BonusMensal)).ToList();
+                var parcelasEmAberto = folhasAbertas.SelectMany(sm => sm.Parcelas).ToList();
 
                 var bonusResult = await daoBonus.InserirOuAtualizar(bonusMensaisEmFolhas);
 
                 if (!bonusResult)
-                    MessageBoxService.Show("Erro Ao Salvar Bônus Mensais. As Folhas Não Poderão Ser Fechadas. Tente Novamente Ou Contate O Suporte.");
+                    MessageBoxService.Show("Erro Ao Salvar Bônus Mensais. As Folhas Não Poderão Ser Fechadas. Tente Novamente.");
 
                 foreach (var folhaAberta in folhasAbertas)
                 {
                     folhaAberta.Fechada = true;
                 }
 
-                var result = await daoEntidade.InserirOuAtualizar(folhasAbertas);
+                foreach (var parcela in parcelasEmAberto)
+                {
+                    parcela.Paga = true;
+                }
+
+                var dao = daoEntidade as DAOFolhaPagamento;
+                var result = await dao.FecharFolhasDePagamento(folhasAbertas, parcelasEmAberto);
 
                 if (result)
                 {
@@ -512,7 +519,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - R$ 100,00 + BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano
