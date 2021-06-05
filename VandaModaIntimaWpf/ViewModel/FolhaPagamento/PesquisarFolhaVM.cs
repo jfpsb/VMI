@@ -250,13 +250,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (resultMessageBox == MessageBoxResult.Yes)
             {
                 var folhasAbertas = FolhaPagamentos.Where(w => w.Fechada == false).ToList();
-                var bonusMensaisEmFolhas = folhasAbertas.Select(s => s.Bonus).SelectMany(s => s.Where(w => w.BonusMensal)).ToList();
                 var parcelasEmAberto = folhasAbertas.SelectMany(sm => sm.Parcelas).ToList();
-
-                var bonusResult = await daoBonus.InserirOuAtualizar(bonusMensaisEmFolhas);
-
-                if (!bonusResult)
-                    MessageBoxService.Show("Erro Ao Salvar Bônus Mensais. As Folhas Não Poderão Ser Fechadas. Tente Novamente.");
+                var bonusDeFolhas = folhasAbertas.SelectMany(sm => sm.Bonus).ToList();
 
                 foreach (var folhaAberta in folhasAbertas)
                 {
@@ -269,7 +264,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
 
                 var dao = daoEntidade as DAOFolhaPagamento;
-                var result = await dao.FecharFolhasDePagamento(folhasAbertas, parcelasEmAberto);
+                var result = await dao.FecharFolhasDePagamento(folhasAbertas, parcelasEmAberto, bonusDeFolhas);
 
                 if (result)
                 {
@@ -298,13 +293,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (resultMessageBox == MessageBoxResult.Yes)
             {
                 FolhaPagamento.Fechada = true;
+
                 foreach (var parcela in FolhaPagamento.Parcelas)
                 {
                     parcela.Paga = true;
                 }
 
                 var dao = daoEntidade as DAOFolhaPagamento;
-                var result = await dao.FecharFolhaDePagamento(FolhaPagamento, FolhaPagamento.Parcelas);
+                var result = await dao.FecharFolhaDePagamento(FolhaPagamento);
 
                 if (result)
                 {

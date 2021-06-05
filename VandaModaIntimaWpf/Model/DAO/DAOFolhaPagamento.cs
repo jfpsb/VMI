@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             return (FolhaPagamento)await criteria.UniqueResultAsync();
         }
 
-        public async Task<bool> FecharFolhaDePagamento(FolhaPagamento folhaPagamento, IList<Parcela> parcelas)
+        public async Task<bool> FecharFolhaDePagamento(FolhaPagamento folhaPagamento)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -30,10 +30,16 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     await session.SaveOrUpdateAsync(folhaPagamento);
 
-                    if (parcelas.Count > 0)
+                    if (folhaPagamento.Parcelas.Count > 0)
                     {
-                        foreach (var parcela in parcelas)
+                        foreach (var parcela in folhaPagamento.Parcelas)
                             await session.UpdateAsync(parcela);
+                    }
+
+                    if (folhaPagamento.Bonus.Count > 0)
+                    {
+                        foreach (var bonus in folhaPagamento.Bonus)
+                            await session.SaveOrUpdateAsync(bonus);
                     }
 
                     await transacao.CommitAsync();
@@ -50,7 +56,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 return false;
             }
         }
-        public async Task<bool> FecharFolhasDePagamento(IList<FolhaPagamento> folhas, IList<Parcela> parcelas)
+        public async Task<bool> FecharFolhasDePagamento(IList<FolhaPagamento> folhas, IList<Parcela> parcelas, IList<Bonus> bonus)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -63,6 +69,12 @@ namespace VandaModaIntimaWpf.Model.DAO
                     {
                         foreach (var parcela in parcelas)
                             await session.UpdateAsync(parcela);
+                    }
+
+                    if (bonus.Count > 0)
+                    {
+                        foreach (var b in bonus)
+                            await session.SaveOrUpdateAsync(b);
                     }
 
                     await transacao.CommitAsync();
