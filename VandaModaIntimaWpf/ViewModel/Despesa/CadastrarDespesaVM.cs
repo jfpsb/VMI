@@ -1,10 +1,13 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Despesa
@@ -15,13 +18,16 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private string _tipoDescricao;
         private DAOTipoDespesa daoTipoDespesa;
         private DAOFornecedor daoFornecedor;
+        private DAOLoja daoLoja;
         private DAORepresentante daoRepresentante;
-        private Visibility _visibilidadeFornecedor;
+        private Visibility _visibilidadeDespesaEmpresarial;
         private Visibility _visibilidadeMembroFamiliar;
+        private string[] _tiposDescricao = GetResource.GetStringArray("CmbTipoDescricaoDespesa");
 
         private ObservableCollection<Model.TipoDespesa> _tiposDespesa;
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Representante> _representantes;
+        private ObservableCollection<Model.Loja> _lojas;
 
         public CadastrarDespesaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -29,6 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             daoTipoDespesa = new DAOTipoDespesa(session);
             daoFornecedor = new DAOFornecedor(session);
             daoRepresentante = new DAORepresentante(session);
+            daoLoja = new DAOLoja(session);
 
             Entidade = new Model.Despesa()
             {
@@ -40,6 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             GetFornecedores();
             GetTiposDespesa();
             GetRepresentantes();
+            GetLojas();
             Entidade.Descricao = TipoDescricao = "CONTA DE LUZ"; //Primeiro item
 
             PropertyChanged += CadastrarDespesaVM_PropertyChanged;
@@ -50,10 +58,19 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             switch (e.PropertyName)
             {
                 case "TipoDescricao":
+                    if (!_tiposDescricao.Contains(TipoDescricao))
+                    {
+                        TipoDescricao = "OUTROS";
+                        break;
+                    }
+
                     if (TipoDescricao.Equals("OUTROS"))
                     {
                         IsOutrosDespesas = true;
-                        Entidade.Descricao = string.Empty;
+                        if (!IssoEUmUpdate)
+                        {
+                            Entidade.Descricao = string.Empty;
+                        }
                     }
                     else
                     {
@@ -71,15 +88,19 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 case "TipoDespesa":
                     if (Entidade.TipoDespesa.Nome.Equals("DESPESA EMPRESARIAL"))
                     {
-                        VisibilidadeFornecedor = Visibility.Visible;
+                        VisibilidadeDespesaEmpresarial = Visibility.Visible;
                         VisibilidadeMembroFamiliar = Visibility.Collapsed;
 
                         Entidade.Familiar = string.Empty;
-                        Entidade.Fornecedor = Fornecedores[0];
+
+                        if (!IssoEUmUpdate)
+                        {
+                            Entidade.Fornecedor = Fornecedores[0];
+                        }
                     }
                     else if (Entidade.TipoDespesa.Nome.Equals("DESPESA FAMILIAR"))
                     {
-                        VisibilidadeFornecedor = Visibility.Collapsed;
+                        VisibilidadeDespesaEmpresarial = Visibility.Collapsed;
                         VisibilidadeMembroFamiliar = Visibility.Visible;
 
                         Entidade.Fornecedor = null;
@@ -87,7 +108,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     }
                     else
                     {
-                        VisibilidadeFornecedor = Visibility.Collapsed;
+                        VisibilidadeDespesaEmpresarial = Visibility.Collapsed;
                         VisibilidadeMembroFamiliar = Visibility.Collapsed;
 
                         Entidade.Familiar = string.Empty;
@@ -122,6 +143,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             Entidade = new Model.Despesa();
             Entidade.TipoDespesa = TiposDespesa[0];
             Entidade.Fornecedor = Fornecedores[0];
+            Entidade.Loja = Lojas[0];
             TipoDescricao = "CONTA DE LUZ"; //Primeiro item
             Entidade.Data = DateTime.Now;
         }
@@ -165,6 +187,12 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             Entidade.Representante = Representantes[0];
         }
 
+        private async void GetLojas()
+        {
+            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Entidade.Loja = Lojas[0];
+        }
+
         public ObservableCollection<Model.TipoDespesa> TiposDespesa
         {
             get => _tiposDespesa;
@@ -202,13 +230,13 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             }
         }
 
-        public Visibility VisibilidadeFornecedor
+        public Visibility VisibilidadeDespesaEmpresarial
         {
-            get => _visibilidadeFornecedor;
+            get => _visibilidadeDespesaEmpresarial;
             set
             {
-                _visibilidadeFornecedor = value;
-                OnPropertyChanged("VisibilidadeFornecedor");
+                _visibilidadeDespesaEmpresarial = value;
+                OnPropertyChanged("VisibilidadeDespesaEmpresarial");
             }
         }
         public Visibility VisibilidadeMembroFamiliar
@@ -221,6 +249,23 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             }
         }
 
-        public ObservableCollection<Model.Representante> Representantes { get => _representantes; set => _representantes = value; }
+        public ObservableCollection<Model.Representante> Representantes
+        {
+            get => _representantes;
+            set
+            {
+                _representantes = value;
+                OnPropertyChanged("Representantes");
+            }
+        }
+        public ObservableCollection<Model.Loja> Lojas
+        {
+            get => _lojas;
+            set
+            {
+                _lojas = value;
+                OnPropertyChanged("Lojas");
+            }
+        }
     }
 }

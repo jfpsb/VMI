@@ -1,11 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace VandaModaIntimaWpf.Resources
 {
-    /// <summary>
-    /// Classe para retornar resources do tipo String
-    /// </summary>
     public static class GetResource
     {
         public static string GetString(string key)
@@ -18,6 +16,12 @@ namespace VandaModaIntimaWpf.Resources
         {
             var resource = Application.Current.Resources[key];
             return (BitmapImage)resource;
+        }
+
+        public static string[] GetStringArray(string key)
+        {
+            var resouce = Application.Current.Resources[key];
+            return (string[])resouce;
         }
     }
 }

@@ -588,6 +588,8 @@
     </Compile>
     <Compile Include="ViewModel\Despesa\CadastrarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\CadastrarDespesaVMStrategy.cs" />
+    <Compile Include="ViewModel\Despesa\EditarDespesaVM.cs" />
+    <Compile Include="ViewModel\Despesa\EditarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />

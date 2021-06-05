@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private TipoDespesa _tipoDespesa;
         private Fornecedor _fornecedor;
         private Representante _representante;
+        private Loja _loja;
         private DateTime _data;
         private string _descricao;
         private double _valor;
@@ -92,6 +93,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _representante = value;
                 OnPropertyChanged("Representante");
+            }
+        }
+
+        public virtual Loja Loja
+        {
+            get => _loja;
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
             }
         }
 

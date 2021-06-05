@@ -112,6 +112,7 @@
                              Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGrid Grid.Row="4"
                               Grid.ColumnSpan="3"
+                              IsReadOnly="True"
                               ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                               CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
@@ -139,6 +140,9 @@
                             <DataGridTextColumn Header="Valor"
                                                 Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
                         </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                        </DataGrid.ContextMenu>
                     </DataGrid>
                 </Grid>
             </DockPanel>

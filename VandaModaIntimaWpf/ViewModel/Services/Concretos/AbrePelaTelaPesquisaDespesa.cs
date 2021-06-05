@@ -26,7 +26,12 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.Despesa clone, ISession session)
         {
-            throw new NotImplementedException();
+            EditarDespesaVM vm = new EditarDespesaVM(session, clone, new MessageBoxService());
+            SalvarDespesa view = new SalvarDespesa
+            {
+                DataContext = vm
+            };
+            return view.ShowDialog();
         }
 
         public void AbrirExportarSQL(IList<Model.Despesa> entidades, ISession session)
