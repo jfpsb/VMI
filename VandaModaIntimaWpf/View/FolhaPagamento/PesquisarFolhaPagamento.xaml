@@ -118,7 +118,7 @@
                     <View:DataUpDown Width="150"
                                      HorizontalAlignment="Left"
                                      Grid.Column="1"
-                                     Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
+                                     Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGrid Grid.Row="1"
                               Grid.ColumnSpan="2"
                               Grid.RowSpan="2"

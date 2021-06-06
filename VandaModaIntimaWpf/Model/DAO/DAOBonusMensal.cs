@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
         }
 
-        public async Task<IList<BonusMensal>> ListarBonusMensais(Funcionario funcionario)
+        public async Task<IList<BonusMensal>> ListarPorFuncionario(Funcionario funcionario)
         {
             var criteria = CriarCriteria();
             criteria.Add(Restrictions.Eq("Funcionario", funcionario));

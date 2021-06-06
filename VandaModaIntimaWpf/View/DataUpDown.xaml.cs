@@ -1,5 +1,4 @@
-﻿using NHibernate.Persister.Collection;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -14,7 +13,7 @@ namespace VandaModaIntimaWpf.View
     public partial class DataUpDown : UserControl, INotifyPropertyChanged
     {
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(DateTime), typeof(DataUpDown), new PropertyMetadata(new PropertyChangedCallback(DataChanged)));
+            DependencyProperty.Register("Data", typeof(DateTime), typeof(DataUpDown));
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,9 +27,10 @@ namespace VandaModaIntimaWpf.View
             TxtNumero.SetBinding(TextBox.TextProperty, binding);
         }
 
-        private static void DataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            (d as DataUpDown).Data = (DateTime)e.NewValue;
+            OnPropertyChanged("Data");
+            OnPropertyChanged("DataString");
         }
 
         private void BtnSomar_Click(object sender, RoutedEventArgs e)
