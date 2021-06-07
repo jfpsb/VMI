@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class Produto : AModel, IModel
+    public class Produto : AModel, IModel, ICloneable
     {
         private string _codBarra;
         private FornecedorModel _fornecedor;
@@ -16,6 +17,7 @@ namespace VandaModaIntimaWpf.Model
         private double _precoCusto;
         private string _ncm;
         private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
+        private IList<HistoricoProduto> historico = new List<HistoricoProduto>();
         public enum Colunas
         {
             CodBarra = 1,
@@ -178,6 +180,16 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual IList<HistoricoProduto> Historico
+        {
+            get => historico;
+            set
+            {
+                historico = value;
+                OnPropertyChanged("Historico");
+            }
+        }
+
         public virtual string[] GetColunas()
         {
             return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };
@@ -203,6 +215,22 @@ namespace VandaModaIntimaWpf.Model
             {
                 NHibernateUtil.Initialize(Marca);
             }
+        }
+
+        public virtual object Clone()
+        {
+            Produto produto = new Produto();
+
+            produto.CodBarra = CodBarra;
+            produto.Descricao = Descricao;
+            produto.Fornecedor = Fornecedor;
+            produto.Marca = Marca;
+            produto.Preco = Preco;
+            produto.PrecoCusto = PrecoCusto;
+            produto.Ncm = Ncm;
+            produto.Grades = new List<ProdutoGrade>(Grades);
+
+            return produto;
         }
     }
 }

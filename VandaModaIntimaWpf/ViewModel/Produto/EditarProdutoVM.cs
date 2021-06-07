@@ -1,68 +1,69 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoVM : CadastrarProdutoVM
     {
+        private ProdutoModel produtoOriginal;
+        private HistoricoProduto historicoProduto;
         public EditarProdutoVM(ISession session, ProdutoModel produto, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
         {
             viewModelStrategy = new EditarProdutoVMStrategy();
             Entidade = produto;
+            produtoOriginal = produto.Clone() as ProdutoModel;
+            Entidade.PropertyChanged += HistoricoProdutoChanged;
             ProdutoGrade.Produto = Entidade;
             ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
-        }
-        public new ProdutoModel Entidade
-        {
-            get { return _entidade; }
-            set
+            historicoProduto = new HistoricoProduto()
             {
-                _entidade = value;
-                FornecedorComboBox = value.Fornecedor;
-                MarcaComboBox = value.Marca;
-                OnPropertyChanged("Entidade");
+                Produto = Entidade
+            };
+
+            AntesDeInserirNoBancoDeDados += InsereHistoricoProduto;
+        }
+
+        private void InsereHistoricoProduto()
+        {
+            Entidade.Historico.Add(historicoProduto);
+        }
+
+        private void HistoricoProdutoChanged(object sender, PropertyChangedEventArgs e)
+        {
+            string descricao = "";
+
+            if (!Entidade.Descricao.Equals(produtoOriginal.Descricao))
+            {
+                descricao += $"{produtoOriginal.CodBarra} - {produtoOriginal.Descricao} MUDOU DE NOME PARA {produtoOriginal.CodBarra} - {Entidade.Descricao}";
             }
-        }
-        public FornecedorModel FornecedorComboBox
-        {
-            get
+
+            if (Entidade.Preco != produtoOriginal.Preco)
             {
-                if (Entidade.Fornecedor == null)
+                if (descricao.Length != 0)
+                    descricao += "\n";
+
+                descricao += $"{produtoOriginal.CodBarra} - {produtoOriginal.Descricao}";
+
+                if (Entidade.Preco < produtoOriginal.Preco)
                 {
-                    Entidade.Fornecedor = Fornecedores[0];
+                    descricao += " DIMINUIU PARA";
+                }
+                else
+                {
+                    descricao += " AUMENTOU PARA";
                 }
 
-                return Entidade.Fornecedor;
+                descricao += $" {Entidade.Preco.ToString("C", CultureInfo.CurrentCulture)}";
             }
 
-            set
-            {
-                Entidade.Fornecedor = value;
-                OnPropertyChanged("FornecedorComboBox");
-            }
-        }
-        public MarcaModel MarcaComboBox
-        {
-            get
-            {
-                if (Entidade.Marca == null)
-                {
-                    Entidade.Marca = Marcas[0];
-                }
-
-                return Entidade.Marca;
-            }
-
-            set
-            {
-                Entidade.Marca = value;
-                OnPropertyChanged("MarcaComboBox");
-            }
+            historicoProduto.DataAlteracao = DateTime.Now;
+            historicoProduto.Descricao = descricao;
         }
     }
 }

@@ -3,19 +3,23 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Produto" table="produto" dynamic-insert="true">
-    <cache usage="read-write"/>
-    <id name="CodBarra" column="cod_barra" />
-    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
-    <many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />
-    <property name="Descricao" column="descricao" />
-    <property name="Preco" column="preco" />
-    <property name="PrecoCusto" column="precocusto" />
-    <property name="Ncm" column="ncm" />
-    <bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan">
-      <key column="produto" />
-      <one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
-    </bag>
-  </class>
+	<class name="Produto" table="produto" dynamic-insert="true">
+		<cache usage="read-write"/>
+		<id name="CodBarra" column="cod_barra" />
+		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
+		<many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />
+		<property name="Descricao" column="descricao" />
+		<property name="Preco" column="preco" />
+		<property name="PrecoCusto" column="precocusto" />
+		<property name="Ncm" column="ncm" />
+		<bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan">
+			<key column="produto" />
+			<one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
+		</bag>
+		<bag name="Historico" table="historicoproduto" inverse="true" cascade="all-delete-orphan">
+			<key column="produto" />
+			<one-to-many class="VandaModaIntimaWpf.Model.HistoricoProduto"/>
+		</bag>
+	</class>
 
 </hibernate-mapping>

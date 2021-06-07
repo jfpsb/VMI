@@ -232,6 +232,7 @@
         <System:String>CONTA DE LUZ</System:String>
         <System:String>CONTA DE ÁGUA</System:String>
         <System:String>CONTA INTERNET/TELEFONE</System:String>
+        <System:String>ALUGUEL</System:String>
         <System:String>DARF S/ ALUGUEL</System:String>
         <System:String>DARF S/ SALÁRIO</System:String>
         <System:String>FRETE</System:String>
@@ -245,6 +246,7 @@
         <System:String>RESCISÃO FGTS</System:String>
         <System:String>INSS (GPS)</System:String>
         <System:String>INSS (GPS) - 13º SALÁRIO</System:String>
+        <System:String>FGTS</System:String>
         <System:String>DARE (ICMS ANTECIPADO)</System:String>
         <System:String>DAS - SIMPLES NACIONAL</System:String>
         <System:String>PAGAMENTO DE PEDIDO</System:String>
