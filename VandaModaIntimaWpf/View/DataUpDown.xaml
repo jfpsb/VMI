@@ -19,7 +19,7 @@
                  Grid.RowSpan="2"
                  Margin="0"
                  VerticalAlignment="Center"
-                 Text="{Binding Data, Mode=TwoWay, StringFormat=MMM/yyyy, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                 Text="{Binding Data, Mode=TwoWay, StringFormat=MMM/yyyy, ConverterCulture=pt-BR, RelativeSource={RelativeSource AncestorType=UserControl}}" />
         <Button x:Name="BtnSomar"
                 Grid.Column="1"
                 Grid.Row="0"
