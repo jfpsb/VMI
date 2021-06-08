@@ -83,18 +83,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             }
             else if (WidgetsMes2.Where(w => w.IsDiaUtil).Count() == 0)
             {
-                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
-                ultimoDia = WidgetsMes1.Where(w => w.IsDiaUtil).Last().Data;
+                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Date;
+                ultimoDia = WidgetsMes1.Where(w => w.IsDiaUtil).Last().Date;
             }
             else if (WidgetsMes1.Where(w => w.IsDiaUtil).Count() == 0)
             {
-                primeiroDia = WidgetsMes2.Where(w => w.IsDiaUtil).First().Data;
-                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+                primeiroDia = WidgetsMes2.Where(w => w.IsDiaUtil).First().Date;
+                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Date;
             }
             else
             {
-                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Data;
-                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Data;
+                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Date;
+                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Date;
             }
 
             int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
@@ -110,7 +110,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private void CalculaDatas(object sender, PropertyChangedEventArgs e)
         {
             //TODO: Mostrar mensagem ao usuário caso download de arquivos de feriado falhe.
-            if (e.PropertyName.Equals("DataEscolhida") || e.PropertyName.Equals("WidgetsMes1") || e.PropertyName.Equals("WidgetsMes2"))
+            if (e.PropertyName.Equals("DataEscolhida"))
             {
                 if (DataEscolhida.Year < 2000)
                     return;
@@ -118,7 +118,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 WidgetsMes1.Clear();
                 WidgetsMes2.Clear();
 
-                if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json") && DataEscolhida.Year > 1999)
+                if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json"))
                 {
                     try
                     {
@@ -156,7 +156,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 {
                     TipoDia = "DIA ÚTIL",
                     NumDia = dateTime.Day,
-                    Data = new DateTime(Data.Year, Data.Month, dateTime.Day)
+                    Date = new DateTime(Data.Year, Data.Month, dateTime.Day)
                 };
 
                 Grid.SetColumn(dataWidgetPassagem, (int)dateTime.DayOfWeek);
@@ -230,7 +230,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         public DateTime MesSeguinte
         {
-            get => _dataEscolhida.AddMonths(1);
+            get => DataEscolhida.AddMonths(1);
         }
 
         public double ValorTotal

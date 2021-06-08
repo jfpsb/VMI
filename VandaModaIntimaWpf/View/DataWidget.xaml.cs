@@ -99,13 +99,13 @@ namespace VandaModaIntimaWpf.View
             }
         }
 
-        public DateTime Data
+        public DateTime Date
         {
             get => _data;
             set
             {
                 _data = value;
-                OnPropertyChanged("Data");
+                OnPropertyChanged("Date");
             }
         }
 

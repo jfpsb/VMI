@@ -3,7 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+        xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+        x:Name="TelaCalculoBonusMensalPorDia"
         mc:Ignorable="d"
         Title="{Binding WindowCaption}"
         Height="Auto"
@@ -35,14 +36,14 @@
                           Command="{Binding AbrirAdicionarBonusComando}" />
             </MenuItem>
         </Menu>
-        <Grid MaxWidth="614">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Content="Mês de Referência:" />
-            <view:DataUpDown Grid.Column="1"
-                             Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
+            <View:DataUpDown Grid.Column="1"
+                             Data="{Binding Path=DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
         <Grid Margin="0,5,0,0"
               HorizontalAlignment="Center">

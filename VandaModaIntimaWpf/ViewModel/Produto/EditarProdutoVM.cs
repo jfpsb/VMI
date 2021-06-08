@@ -48,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 if (descricao.Length != 0)
                     descricao += "\n";
 
-                descricao += $"{produtoOriginal.CodBarra} - {produtoOriginal.Descricao}";
+                descricao += $"{Entidade.CodBarra} - {Entidade.Descricao}";
 
                 if (Entidade.Preco < produtoOriginal.Preco)
                 {

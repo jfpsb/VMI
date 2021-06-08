@@ -345,7 +345,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void AbrirHoraExtra(object obj)
         {
             AdicionarHoraExtraVM adicionarHoraExtraVM = new AdicionarHoraExtraVM(_session, FolhaPagamento, new MessageBoxService(), false);
-
             AdicionarHoraExtra adicionarHoraExtra = new AdicionarHoraExtra()
             {
                 DataContext = adicionarHoraExtraVM
