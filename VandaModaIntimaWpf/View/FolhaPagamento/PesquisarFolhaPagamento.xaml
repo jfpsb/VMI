@@ -247,6 +247,9 @@
                                 <MenuItem Header="Abrir Dados Bancários"
                                           Command="{Binding AbrirDadosBancariosComando}" />
                                 <Separator />
+                                <MenuItem Header="Gerar Última Folha de Pagamento"
+                                          Command="{Binding GerarUltimaFolhaPagamentoComando}"
+                                          IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />
                                 <MenuItem Header="Fechar Folha de Pagamento"
                                           Command="{Binding FecharFolhaPagamentoComando}"
                                           IsEnabled="{Binding FolhaPagamento.Fechada, Converter={StaticResource InverseBooleanConverter}}" />

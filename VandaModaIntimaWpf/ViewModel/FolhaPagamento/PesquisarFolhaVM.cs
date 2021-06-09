@@ -51,6 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand ExportarFolhasParaPDFComando { get; set; }
         public ICommand AdicionarMetaIndividualComando { get; set; }
         public ICommand AbrirAdicionarTotalComando { get; set; }
+        public ICommand GerarUltimaFolhaPagamentoComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -90,6 +91,26 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             ExportarFolhasParaPDFComando = new RelayCommand(ExportarFolhasParaPDF);
             AdicionarMetaIndividualComando = new RelayCommand(AdicionarMeta);
             AbrirAdicionarTotalComando = new RelayCommand(AbrirAdicionarTotal);
+            GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
+        }
+
+        private async void GerarUltimaFolhaPagamento(object obj)
+        {
+            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Gerar A Última Folha De Pagamento Do(a) Funcionário(a) {FolhaPagamento.Funcionario.Nome}?\n\nA Última Folha Irá Listar Todas As Parcelas Ainda Não Pagas De Adiantamentos.",
+                $"Gerar Última Folha De Pagamento - {FolhaPagamento.Funcionario.Nome}", MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation,
+                MessageBoxResult.No);
+
+            if (resultMessageBox == MessageBoxResult.Yes)
+            {
+                var parcelas = await daoParcela.ListarPorFuncionarioNaoPagas(FolhaPagamento.Funcionario);
+
+                FolhaPagamento.Parcelas = parcelas;
+
+                TelaRelatorioFolha telaRelatorioFolha = new TelaRelatorioFolha(_session, FolhaPagamento);
+                telaRelatorioFolha.ShowDialog();
+                OnPropertyChanged("TermoPesquisa");
+            }
         }
 
         private void AbrirAdicionarTotal(object obj)
