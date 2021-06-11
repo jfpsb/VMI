@@ -113,6 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                         Entidade.Familiar = string.Empty;
                         Entidade.Fornecedor = null;
+                        Entidade.Loja = null;
                     }
                     break;
                 case "Fornecedor":
@@ -130,7 +131,16 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         }
                     }
                     break;
-
+                case "Loja":
+                    if (Entidade.Loja != null)
+                    {
+                        if (Entidade.Loja.Cnpj == null)
+                        {
+                            Entidade.Loja = null;
+                            break;
+                        }
+                    }
+                    break;
                 case "Representante":
                     if (Entidade.Representante != null && Entidade.Representante.Id == 0)
                         Entidade.Representante = null;
@@ -190,6 +200,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private async void GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Lojas.Insert(0, new Model.Loja { Nome = "SELECIONE UMA LOJA" });
             Entidade.Loja = Lojas[0];
         }
 

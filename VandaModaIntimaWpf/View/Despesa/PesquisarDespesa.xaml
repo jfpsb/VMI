@@ -130,8 +130,10 @@
                                                 Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
                             <DataGridTextColumn Header="Tipo De Despesa"
                                                 Binding="{Binding Entidade.TipoDespesa.Nome}" />
-                            <DataGridTextColumn Header="Fornecedor"
+                            <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                                 Binding="{Binding Entidade.Fornecedor.Nome}" />
+                            <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                                Binding="{Binding Entidade.Loja.Nome}" />
                             <DataGridTextColumn Header="Membro Familiar"
                                                 Binding="{Binding Entidade.Familiar}" />
                             <DataGridTextColumn Header="Descrição"

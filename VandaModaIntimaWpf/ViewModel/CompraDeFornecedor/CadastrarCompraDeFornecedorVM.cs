@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml.Serialization;
@@ -13,6 +12,8 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
@@ -98,6 +99,25 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                         Model.Fornecedor fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
                         Model.Loja loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
+
+                        if (fornecedor == null)
+                        {
+                            var msgBox = MessageBoxService.Show("O Fornecedor Desta Nota Fiscal Não Está Cadastrado. Deseja Cadastrar Este Fornecedor?", "Fornecedor Não Encontrado",
+                                System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
+
+                            if (msgBox == System.Windows.MessageBoxResult.Yes)
+                            {
+                                CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, MessageBoxService, nfe.NFe.infNFe.emit.Item, false);
+                                SalvarFornecedor view = new SalvarFornecedor { DataContext = vm };
+                                var result = view.ShowDialog();
+
+                                if (result == true)
+                                {
+                                    GetFornecedores();
+                                    fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                                }
+                            }
+                        }
 
                         if (fornecedor != null)
                             Entidade.Fornecedor = fornecedor;
