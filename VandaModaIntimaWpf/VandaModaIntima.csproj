@@ -443,6 +443,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\TelaDeProgresso.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -880,6 +884,9 @@
     </Compile>
     <Compile Include="View\SQL\ExportarSQL.xaml.cs">
       <DependentUpon>ExportarSQL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TelaDeProgresso.xaml.cs">
+      <DependentUpon>TelaDeProgresso.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
