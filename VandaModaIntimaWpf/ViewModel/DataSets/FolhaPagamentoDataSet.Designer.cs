@@ -303,6 +303,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnrestanteadiantamento;
             
+            private global::System.Data.DataColumn columncalendariopassagem;
+            
+            private global::System.Data.DataColumn columncalendarioalimentacao;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public FolhaPagamentoDataTable() {
@@ -434,6 +438,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn calendariopassagemColumn {
+                get {
+                    return this.columncalendariopassagem;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn calendarioalimentacaoColumn {
+                get {
+                    return this.columncalendarioalimentacao;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -469,7 +489,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string salario_liquido, string observacao, string valordameta, string totalvendido, string valorbonusmeta, string restanteadiantamento) {
+            public FolhaPagamentoRow AddFolhaPagamentoRow(string mes, string ano, string funcionario, string mesreferencia, string vencimento, string valor_a_transferir, string salario_liquido, string observacao, string valordameta, string totalvendido, string valorbonusmeta, string restanteadiantamento, string calendariopassagem, string calendarioalimentacao) {
                 FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mes,
@@ -483,7 +503,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         valordameta,
                         totalvendido,
                         valorbonusmeta,
-                        restanteadiantamento};
+                        restanteadiantamento,
+                        calendariopassagem,
+                        calendarioalimentacao};
                 rowFolhaPagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFolhaPagamentoRow);
                 return rowFolhaPagamentoRow;
@@ -526,6 +548,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columntotalvendido = base.Columns["totalvendido"];
                 this.columnvalorbonusmeta = base.Columns["valorbonusmeta"];
                 this.columnrestanteadiantamento = base.Columns["restanteadiantamento"];
+                this.columncalendariopassagem = base.Columns["calendariopassagem"];
+                this.columncalendarioalimentacao = base.Columns["calendarioalimentacao"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -555,6 +579,10 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnvalorbonusmeta);
                 this.columnrestanteadiantamento = new global::System.Data.DataColumn("restanteadiantamento", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrestanteadiantamento);
+                this.columncalendariopassagem = new global::System.Data.DataColumn("calendariopassagem", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncalendariopassagem);
+                this.columncalendarioalimentacao = new global::System.Data.DataColumn("calendarioalimentacao", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncalendarioalimentacao);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnmes}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
@@ -887,6 +915,39 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string calendariopassagem {
+                get {
+                    try {
+                        return ((string)(this[this.tableFolhaPagamento.calendariopassagemColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'calendariopassagem\' in table \'FolhaPagamento\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFolhaPagamento.calendariopassagemColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string calendarioalimentacao {
+                get {
+                    try {
+                        return ((string)(this[this.tableFolhaPagamento.calendarioalimentacaoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'calendarioalimentacao\' in table \'FolhaPagamento\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableFolhaPagamento.calendarioalimentacaoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsfuncionarioNull() {
                 return this.IsNull(this.tableFolhaPagamento.funcionarioColumn);
             }
@@ -1003,6 +1064,30 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetrestanteadiantamentoNull() {
                 this[this.tableFolhaPagamento.restanteadiantamentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IscalendariopassagemNull() {
+                return this.IsNull(this.tableFolhaPagamento.calendariopassagemColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetcalendariopassagemNull() {
+                this[this.tableFolhaPagamento.calendariopassagemColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IscalendarioalimentacaoNull() {
+                return this.IsNull(this.tableFolhaPagamento.calendarioalimentacaoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetcalendarioalimentacaoNull() {
+                this[this.tableFolhaPagamento.calendarioalimentacaoColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -27,6 +27,8 @@
               <xs:element name="totalvendido" msprop:Generator_ColumnVarNameInTable="columntotalvendido" msprop:Generator_ColumnPropNameInRow="totalvendido" msprop:Generator_ColumnPropNameInTable="totalvendidoColumn" msprop:Generator_UserColumnName="totalvendido" type="xs:string" minOccurs="0" />
               <xs:element name="valorbonusmeta" msprop:Generator_ColumnVarNameInTable="columnvalorbonusmeta" msprop:Generator_ColumnPropNameInRow="valorbonusmeta" msprop:Generator_ColumnPropNameInTable="valorbonusmetaColumn" msprop:Generator_UserColumnName="valorbonusmeta" type="xs:string" minOccurs="0" />
               <xs:element name="restanteadiantamento" msprop:Generator_ColumnVarNameInTable="columnrestanteadiantamento" msprop:Generator_ColumnPropNameInRow="restanteadiantamento" msprop:Generator_ColumnPropNameInTable="restanteadiantamentoColumn" msprop:Generator_UserColumnName="restanteadiantamento" type="xs:string" minOccurs="0" />
+              <xs:element name="calendariopassagem" msprop:Generator_ColumnVarNameInTable="columncalendariopassagem" msprop:Generator_ColumnPropNameInRow="calendariopassagem" msprop:Generator_ColumnPropNameInTable="calendariopassagemColumn" msprop:Generator_UserColumnName="calendariopassagem" type="xs:string" minOccurs="0" />
+              <xs:element name="calendarioalimentacao" msprop:Generator_ColumnVarNameInTable="columncalendarioalimentacao" msprop:Generator_ColumnPropNameInRow="calendarioalimentacao" msprop:Generator_ColumnPropNameInTable="calendarioalimentacaoColumn" msprop:Generator_UserColumnName="calendarioalimentacao" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

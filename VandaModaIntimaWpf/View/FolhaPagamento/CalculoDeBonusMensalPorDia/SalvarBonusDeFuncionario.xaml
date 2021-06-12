@@ -30,7 +30,7 @@
                    FontSize="16"
                    FontWeight="Bold"
                    TextAlignment="Left" />
-        <TextBlock Text="{Binding Valor, StringFormat='Valor Total: {0:C}', ConverterCulture=pt-BR}"
+        <TextBlock Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', ConverterCulture=pt-BR}"
                    Grid.Column="1"
                    FontSize="16"
                    HorizontalAlignment="Right"

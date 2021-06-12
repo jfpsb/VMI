@@ -34,6 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
         private IFileDialogService _fileDialogService;
+        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -137,6 +138,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void ExportarFolhasParaPDF(object obj)
         {
+            //TODO: este código está repetido em TelaRelatorioFolha.cs
             string caminhoPasta = _fileDialogService.ShowFolderBrowserDialog();
 
             if (!string.IsNullOrEmpty(caminhoPasta))
@@ -198,10 +200,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         fprow.totalvendido = folha.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                         fprow.restanteadiantamento = parcelasNaoPagas.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
+                        var calendarioPassagem = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioPassagem.png");
+                        var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioAlimentacao.png");
+                        fprow.calendariopassagem = calendarioPassagem;
+                        fprow.calendarioalimentacao = calendarioAlimentacao;
+
                         folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
                         var report = new RelatorioFolhaPagamento();
                         report.Load("/View/FolhaPagamento/Relatorios/RelatorioFolhaPagamento.rpt");
+                        report.DetailSection3.SectionFormat.EnableSuppress = !folha.Funcionario.RecebePassagem || !(File.Exists(calendarioPassagem) && File.Exists(calendarioAlimentacao));
                         report.Subreports[0].SetDataSource(bonusDataSet);
                         report.Subreports[1].SetDataSource(parcelaDataSet);
                         report.SetDataSource(folhaPagamentoDataSet);

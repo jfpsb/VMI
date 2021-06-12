@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 
 namespace VandaModaIntimaWpf.View.FolhaPagamento
 {

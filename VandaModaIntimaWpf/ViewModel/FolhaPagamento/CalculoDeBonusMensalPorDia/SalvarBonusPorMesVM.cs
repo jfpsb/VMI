@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
-namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
+namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class SalvarBonusPorMesVM : ObservableObject
     {
@@ -27,6 +27,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime _dataEscolhida;
         private string _recebeRegularmenteHeader;
         private ObservableCollection<EntidadeComCampo<Model.Funcionario>> _entidades;
+        private string caminhoImagemCalendario = Path.Combine(Path.GetTempPath(), "UltimoCalendario.png");
+        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
 
         public ICommand AdicionarBonusComando { get; set; }
 
@@ -63,10 +65,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 // O mês sendo calculado é adicionado na folha referente ao mês anterior
                 // para ser pago no vencimento desta folha
                 DateTime dataFolha = DataEscolhida.AddMonths(-1);
-                IList<Model.Bonus> bonuses = new List<Bonus>();
+                IList<Bonus> bonuses = new List<Bonus>();
                 foreach (var funcionario in marcados)
                 {
-                    Model.Bonus bonus = new Model.Bonus();
+                    Bonus bonus = new Bonus();
                     var now = DateTime.Now;
 
                     bonus.Funcionario = funcionario;
@@ -83,6 +85,26 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (result)
                 {
+                    string calendarioNome = "CalendarioPassagem.png";
+
+                    if (_salvarBonus.GetType().Name.Equals("SalvarAlmoco"))
+                    {
+                        calendarioNome = "CalendarioAlimentacao.png";
+                    }
+
+                    foreach (var funcionario in marcados)
+                    {
+                        var diretorioFolha = Path.Combine(caminhoFolhaPagamentoVMI, funcionario.Nome, dataFolha.Year.ToString(), dataFolha.Month.ToString());
+                        Directory.CreateDirectory(diretorioFolha);
+
+                        if (File.Exists(Path.Combine(diretorioFolha, calendarioNome)))
+                        {
+                            File.Delete(Path.Combine(diretorioFolha, calendarioNome));
+                        }
+
+                        File.Copy(caminhoImagemCalendario, Path.Combine(diretorioFolha, calendarioNome));
+                    }
+
                     MessageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(), _salvarBonus.MensagemCaption());
                 }
                 else
