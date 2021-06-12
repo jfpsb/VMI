@@ -29,6 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOBonus daoBonus;
         private DAOBonusMensal daoBonusMensal;
         private DAOParcela daoParcela;
+        private DAOHoraExtra daoHoraExtra;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
@@ -63,6 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoBonusMensal = new DAOBonusMensal(_session);
             daoParcela = new DAOParcela(_session);
             daoBonus = new DAOBonus(_session);
+            daoHoraExtra = new DAOHoraExtra(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
             _fileDialogService = fileDialogService;
@@ -204,6 +206,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioAlimentacao.png");
                         fprow.calendariopassagem = calendarioPassagem;
                         fprow.calendarioalimentacao = calendarioAlimentacao;
+
+                        fprow.horaextra100 = "00:00";
+                        fprow.horaextra55 = "00:00";
+
+                        var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(folha.Ano, folha.Mes, folha.Funcionario).Result;
+                        var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("100%")).SingleOrDefault();
+                        var he55 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("055%")).SingleOrDefault();
+
+                        if (he100 != null)
+                        {
+                            fprow.horaextra100 = he100.HorasTimeSpan.ToString("hh\\:mm");
+                        }
+
+                        if (he55 != null)
+                        {
+                            fprow.horaextra55 = he55.HorasTimeSpan.ToString("hh\\:mm");
+                        }
 
                         folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
