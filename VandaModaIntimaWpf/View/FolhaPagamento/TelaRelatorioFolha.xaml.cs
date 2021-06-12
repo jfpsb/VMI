@@ -17,6 +17,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     public partial class TelaRelatorioFolha : Window
     {
         private DAOParcela daoParcela;
+        private DAOHoraExtra daoHoraExtra;
         private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
         public TelaRelatorioFolha()
         {
@@ -30,6 +31,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             InitializeComponent();
 
             daoParcela = new DAOParcela(session);
+            daoHoraExtra = new DAOHoraExtra(session);
             FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
             BonusDataSet bonusDataSet = new BonusDataSet();
             ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
@@ -80,6 +82,23 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, FolhaPagamento.Funcionario.Nome, FolhaPagamento.Ano.ToString(), FolhaPagamento.Mes.ToString(), "CalendarioAlimentacao.png");
             fprow.calendariopassagem = calendarioPassagem;
             fprow.calendarioalimentacao = calendarioAlimentacao;
+
+            fprow.horaextra100 = "00:00";
+            fprow.horaextra55 = "00:00";
+
+            var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(FolhaPagamento.Ano, FolhaPagamento.Mes, FolhaPagamento.Funcionario).Result;
+            var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("100%")).SingleOrDefault();
+            var he55 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("055%")).SingleOrDefault();
+
+            if (he100 != null)
+            {
+                fprow.horaextra100 = he100.HorasTimeSpan.ToString("hh\\:mm");
+            }
+
+            if (he55 != null)
+            {
+                fprow.horaextra55 = he55.HorasTimeSpan.ToString("hh\\:mm");
+            }
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
