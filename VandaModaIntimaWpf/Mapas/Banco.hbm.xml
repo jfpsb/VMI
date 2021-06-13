@@ -3,13 +3,17 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Banco" table="banco">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <property name="Nome" column="nome" />
-  </class>
+	<class name="Banco" table="banco">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<property name="Nome" column="nome" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

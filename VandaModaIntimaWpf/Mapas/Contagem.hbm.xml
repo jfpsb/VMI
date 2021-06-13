@@ -3,22 +3,26 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Contagem" table="contagem">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" lazy="false" />
-    <many-to-one name="TipoContagem" lazy="false" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
-    <property name="Data" column="data" />
-    <property name="Finalizada" column="finalizada" />
-    <bag name="Contagens" table="contagemproduto" inverse="true" cascade="all-delete-orphan">
-      <key>
-        <column name="contagem" />
-      </key>
-      <one-to-many class="VandaModaIntimaWpf.Model.ContagemProduto" />
-    </bag>
-  </class>
+	<class name="Contagem" table="contagem">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" lazy="false" />
+		<many-to-one name="TipoContagem" lazy="false" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
+		<property name="Data" column="data" />
+		<property name="Finalizada" column="finalizada" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<bag name="Contagens" table="contagemproduto" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key>
+				<column name="contagem" />
+			</key>
+			<one-to-many class="VandaModaIntimaWpf.Model.ContagemProduto" />
+		</bag>
+	</class>
 
 </hibernate-mapping>

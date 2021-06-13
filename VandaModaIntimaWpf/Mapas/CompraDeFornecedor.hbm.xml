@@ -3,24 +3,28 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="CompraDeFornecedor" table="compradefornecedor">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
-    <many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
-    <bag name="Arquivos" table="arquivos_comprafornecedor" inverse="true" cascade="all-delete-orphan" lazy="true">
-      <key column="compradefornecedor" />
-      <one-to-many class="VandaModaIntimaWpf.Model.ArquivosCompraFornecedor"/>
-    </bag>
-    <property name="DataPedido" column="datapedido" />
-    <property name="DataNotaFiscal" column="datanotafiscal" />
-    <property name="NumeroNfe" column="numeronfe" />
-    <property name="ChaveAcessoNfe" column="chaveacessonfe" />
-    <property name="Pago" column="pago" />
-    <property name="Valor" column="valor" />
-  </class>
+	<class name="CompraDeFornecedor" table="compradefornecedor">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
+		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
+		<bag name="Arquivos" table="arquivos_comprafornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan" lazy="true">
+			<key column="compradefornecedor" />
+			<one-to-many class="VandaModaIntimaWpf.Model.ArquivosCompraFornecedor"/>
+		</bag>
+		<property name="DataPedido" column="datapedido" />
+		<property name="DataNotaFiscal" column="datanotafiscal" />
+		<property name="NumeroNfe" column="numeronfe" />
+		<property name="ChaveAcessoNfe" column="chaveacessonfe" />
+		<property name="Pago" column="pago" />
+		<property name="Valor" column="valor" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

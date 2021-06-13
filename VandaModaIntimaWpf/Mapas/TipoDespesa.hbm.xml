@@ -10,6 +10,9 @@
 			</generator>
 		</id>
 		<property name="Nome" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
 		<property name="Deletado" />
 	</class>
 

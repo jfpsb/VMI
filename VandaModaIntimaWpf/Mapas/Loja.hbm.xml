@@ -3,14 +3,18 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Loja" table="loja">
-    <id name="Cnpj" column="cnpj" />
-    <many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" />
-    <property name="Nome" column="nome" />
-    <property name="Telefone" column="telefone" />
-    <property name="Endereco" column="endereco" />
-    <property name="InscricaoEstadual" column="inscricaoestadual" />
-    <property name="Aluguel" column="aluguel" />
-  </class>
+	<class name="Loja" table="loja">
+		<id name="Cnpj" column="cnpj" />
+		<many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" />
+		<property name="Nome" column="nome" />
+		<property name="Telefone" column="telefone" />
+		<property name="Endereco" column="endereco" />
+		<property name="InscricaoEstadual" column="inscricaoestadual" />
+		<property name="Aluguel" column="aluguel" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

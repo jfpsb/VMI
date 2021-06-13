@@ -3,12 +3,16 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true">
-    <id name="Nome" column="nome" />    
-    <bag name="IdentificadoresBanco" table="operadorabancoid" inverse="false" lazy="false" cascade="delete">
-      <key column="operadoracartao" />
-      <element column="identificador" type="String" />
-    </bag>
-  </class>
+	<class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true">
+		<id name="Nome" column="nome" />
+		<bag name="IdentificadoresBanco" table="operadorabancoid" where="Deletado = false" inverse="false" lazy="false" cascade="delete">
+			<key column="operadoracartao" />
+			<element column="identificador" type="String" />
+		</bag>
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

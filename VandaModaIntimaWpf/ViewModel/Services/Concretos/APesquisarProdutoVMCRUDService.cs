@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         }
         public async Task<bool> Deletar(object entidade)
         {
-            return await _dao.Deletar(entidade);
+            return await _dao.Atualizar(entidade);
         }
 
         public Task<bool> Deletar(IList<Model.Produto> entidades)

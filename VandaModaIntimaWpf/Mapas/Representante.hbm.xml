@@ -3,21 +3,25 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Representante" table="representante">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <property name="Nome" column="nome"/>
-    <property name="Whatsapp" column="whatsapp" />
-    <property name="CidadeEstado" column="cidadeestado" />
-    <property name="Email" column="email" />
-	  
-    <bag name="Fornecedores" table="fornecedor" inverse="true" cascade="all-delete-orphan">
-      <key column="representante" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Fornecedor"/>
-    </bag>
-  </class>
+	<class name="Representante" table="representante">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<property name="Nome" column="nome"/>
+		<property name="Whatsapp" column="whatsapp" />
+		<property name="CidadeEstado" column="cidadeestado" />
+		<property name="Email" column="email" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+
+		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="representante" />
+			<one-to-many class="VandaModaIntimaWpf.Model.Fornecedor"/>
+		</bag>
+	</class>
 
 </hibernate-mapping>

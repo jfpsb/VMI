@@ -72,7 +72,8 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private async void RemoverContagemProduto(object parameter)
         {
-            _result = await _daoContagemProduto.Deletar(ContagemProduto);
+            ContagemProduto.Deletado = true;
+            _result = await _daoContagemProduto.Atualizar(ContagemProduto);
 
             if (_result)
             {

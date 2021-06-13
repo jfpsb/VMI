@@ -3,20 +3,24 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Adiantamento" table="adiantamento">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
-    <property name="Data" column="data" type="timestamp" not-null="true"/>
-    <property name="Valor" column="valor" />
-    <property name="Descricao" column="descricao" />
-    <bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan" lazy="true">
-      <key column="adiantamento" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
-    </bag>
-  </class>
+	<class name="Adiantamento" table="adiantamento">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
+		<property name="Data" column="data" type="timestamp" not-null="true"/>
+		<property name="Valor" column="valor" />
+		<property name="Descricao" column="descricao" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan" where="Deletado = false" lazy="true">
+			<key column="adiantamento" />
+			<one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
+		</bag>
+	</class>
 
 </hibernate-mapping>

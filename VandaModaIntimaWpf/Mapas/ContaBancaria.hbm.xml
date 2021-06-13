@@ -3,17 +3,21 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="ContaBancaria" table="contabancaria">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" />
-    <many-to-one name="Banco" class="VandaModaIntimaWpf.Model.Banco" column="banco" />
-    <property name="Agencia" column="agencia" />
-    <property name="Conta" column="conta" />
-    <property name="Operacao" column="operacao" />
-  </class>
+	<class name="ContaBancaria" table="contabancaria">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" />
+		<many-to-one name="Banco" class="VandaModaIntimaWpf.Model.Banco" column="banco" />
+		<property name="Agencia" column="agencia" />
+		<property name="Conta" column="conta" />
+		<property name="Operacao" column="operacao" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

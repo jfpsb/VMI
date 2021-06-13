@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel
     /// <summary>
     /// Classe abstrata para ViewModels de pesquisa
     /// </summary>
-    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : class, IModel
+    public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : AModel, IModel
     {
         protected ISession _session;
         protected ExcelStrategy excelStrategy;
@@ -106,7 +106,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (telaApagarDialog.Equals(MessageBoxResult.Yes))
             {
-                bool deletado = await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
+                EntidadeSelecionada.Entidade.Deletado = true;
+                bool deletado = await daoEntidade.Atualizar(EntidadeSelecionada.Entidade);
 
                 AposDeletarDoBDEventArgs e2 = new AposDeletarDoBDEventArgs()
                 {

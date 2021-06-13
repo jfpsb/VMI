@@ -12,11 +12,15 @@
 		<property name="Preco" column="preco" />
 		<property name="PrecoCusto" column="precocusto" />
 		<property name="Ncm" column="ncm" />
-		<bag name="Grades" table="produto_grade" inverse="true" cascade="all-delete-orphan">
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
 			<key column="produto" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
 		</bag>
-		<bag name="Historico" table="historicoproduto" inverse="true" cascade="all-delete-orphan">
+		<bag name="Historico" table="historicoproduto" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
 			<key column="produto" />
 			<one-to-many class="VandaModaIntimaWpf.Model.HistoricoProduto"/>
 		</bag>

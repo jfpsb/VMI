@@ -3,11 +3,15 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Grade" table="grade">
-    <cache usage="read-write"/>
-    <id name="Id" column="id" />
-    <many-to-one name="TipoGrade" class="VandaModaIntimaWpf.Model.TipoGrade" column="tipo" />
-    <property name="Nome" column="nome" />
-  </class>
+	<class name="Grade" table="grade">
+		<cache usage="read-write"/>
+		<id name="Id" column="id" />
+		<many-to-one name="TipoGrade" class="VandaModaIntimaWpf.Model.TipoGrade" column="tipo" />
+		<property name="Nome" column="nome" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

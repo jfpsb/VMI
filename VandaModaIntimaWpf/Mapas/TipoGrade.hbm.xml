@@ -3,9 +3,13 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="TipoGrade" table="tipo_grade">
-    <id name="Id" column="id" />
-    <property name="Nome" column="nome" />
-  </class>
+	<class name="TipoGrade" table="tipo_grade">
+		<id name="Id" column="id" />
+		<property name="Nome" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

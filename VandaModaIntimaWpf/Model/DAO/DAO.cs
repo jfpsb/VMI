@@ -209,12 +209,18 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return null;
         }
+        /// <summary>
+        /// Retorna Uma Lista De Itens Baseado No Criteria Informado E Que Não Estejam Deletados
+        /// </summary>
+        /// <param name="criteria">Criteria Para Ser Usado Na Query</param>
+        /// <returns>Lista De Itens Do Tipo E</returns>
         public virtual async Task<IList<E>> Listar(ICriteria criteria)
         {
             try
             {
                 using (ITransaction tx = session.BeginTransaction())
                 {
+                    criteria.Add(Restrictions.Eq("Deletado", false));
                     criteria.SetCacheable(true);
                     criteria.SetCacheMode(CacheMode.Normal);
                     var results = await criteria.ListAsync<E>();

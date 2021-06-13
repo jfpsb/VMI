@@ -58,12 +58,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (BonusEscolhido.BonusMensal)
                 {
+                    BonusEscolhido.Deletado = true;
                     BonusEscolhido.BonusCancelado = true;
                     result = await daoBonus.InserirOuAtualizar(BonusEscolhido);
                 }
                 else
                 {
-                    result = await daoBonus.Deletar(BonusEscolhido);
+                    BonusEscolhido.Deletado = true;
+                    result = await daoBonus.Atualizar(BonusEscolhido);
                 }
 
                 if (result)
@@ -87,7 +89,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
                 FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
-                bool resultadoDelete = await daoAdiantamento.Deletar(Parcela.Adiantamento);
+                Parcela.Adiantamento.Deletado = true;
+                bool resultadoDelete = await daoAdiantamento.Atualizar(Parcela.Adiantamento);
 
                 if (resultadoDelete)
                 {

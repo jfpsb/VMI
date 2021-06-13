@@ -3,20 +3,24 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="FolhaPagamento" table="folhapagamento">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
-    <property name="Mes" column="mes" />
-    <property name="Ano" column="ano" />
-    <property name="Fechada" column="fechada" />
-    <property name="SalarioLiquido" column="salario_liquido" />
-    <property name="Observacao" column="observacao" />
-    <property name="MetaDeVenda" column="metavenda" />
-    <property name="TotalVendido" column="valorvendido" />
-  </class>
+	<class name="FolhaPagamento" table="folhapagamento">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
+		<property name="Mes" column="mes" />
+		<property name="Ano" column="ano" />
+		<property name="Fechada" column="fechada" />
+		<property name="SalarioLiquido" column="salario_liquido" />
+		<property name="Observacao" column="observacao" />
+		<property name="MetaDeVenda" column="metavenda" />
+		<property name="TotalVendido" column="valorvendido" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

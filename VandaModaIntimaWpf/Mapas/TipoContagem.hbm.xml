@@ -3,9 +3,13 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="TipoContagem" table="tipocontagem">
-    <id name="Id" column="id" />
-    <property name="Nome" column="nome" />
-  </class>
+	<class name="TipoContagem" table="tipocontagem">
+		<id name="Id" column="id" />
+		<property name="Nome" column="nome" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

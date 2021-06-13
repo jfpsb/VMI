@@ -13,6 +13,9 @@
 		<property name="Descricao" />
 		<property name="Valor" />
 		<property name="Familiar" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
 		<property name="Deletado" />
 		<many-to-one name="TipoDespesa"
                  class="VandaModaIntimaWpf.Model.TipoDespesa"/>

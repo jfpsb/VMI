@@ -3,15 +3,19 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="BonusMensal" table="bonus_mensal">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
-    <many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
-    <property name="Descricao" column="descricao" />
-    <property name="Valor" column="valor" />
-  </class>
+	<class name="BonusMensal" table="bonus_mensal">
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
+		<property name="Descricao" column="descricao" />
+		<property name="Valor" column="valor" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>

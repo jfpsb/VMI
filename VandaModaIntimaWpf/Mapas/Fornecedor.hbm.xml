@@ -3,20 +3,24 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-  <class name="Fornecedor" table="fornecedor" dynamic-insert="true">
-    <cache usage="read-write"/>
-    <id name="Cnpj" column="cnpj"></id>
-    <bag name="Produtos" table="produto" inverse="true">
-      <key column="fornecedor" />
-      <one-to-many class="VandaModaIntimaWpf.Model.Produto" />
-    </bag>
-    <many-to-one name="Representante" 
-                 class="VandaModaIntimaWpf.Model.Representante" 
-                 column="representante" />
-    <property name="Nome" column="nome" />
-    <property name="Fantasia" column="fantasia" />
-    <property name="Email" column="email" />
-    <property name="Telefone" column="telefone" />
-  </class>
+	<class name="Fornecedor" table="fornecedor" dynamic-insert="true">
+		<cache usage="read-write"/>
+		<id name="Cnpj" column="cnpj"></id>
+		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
+			<key column="fornecedor" />
+			<one-to-many class="VandaModaIntimaWpf.Model.Produto" />
+		</bag>
+		<many-to-one name="Representante"
+					 class="VandaModaIntimaWpf.Model.Representante"
+					 column="representante" />
+		<property name="Nome" column="nome" />
+		<property name="Fantasia" column="fantasia" />
+		<property name="Email" column="email" />
+		<property name="Telefone" column="telefone" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
 
 </hibernate-mapping>
