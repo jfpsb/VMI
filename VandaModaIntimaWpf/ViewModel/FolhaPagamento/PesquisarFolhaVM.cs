@@ -166,10 +166,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             //TODO: este código está repetido em TelaRelatorioFolha.cs
             double incremento = 100.0 / FolhaPagamentos.Count;
             double progressoAtual = 0;
+            var report = new RelatorioFolhaPagamento();
             TituloTelaProgresso = "Exportando Folhas De Pagamento Para PDF";
 
             if (!string.IsNullOrEmpty(caminhoPasta))
             {
+                report.Load("/View/FolhaPagamento/Relatorios/RelatorioFolhaPagamento.rpt");
+
                 try
                 {
                     FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
@@ -235,8 +238,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                         var calendarioPassagem = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioPassagem.png");
                         var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioAlimentacao.png");
+
                         fprow.calendariopassagem = calendarioPassagem;
                         fprow.calendarioalimentacao = calendarioAlimentacao;
+
+                        report.ReportDefinition.ReportObjects["TxtCalendarioPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
+                        report.ReportDefinition.ReportObjects["PicPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
+
+                        report.ReportDefinition.ReportObjects["TxtCalendarioAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
+                        report.ReportDefinition.ReportObjects["PicAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
+
+                        //Se não existe nenhum dos dois calendários salvos esconde a sessão
+                        report.DetailSection3.SectionFormat.EnableSuppress = !(File.Exists(calendarioPassagem) || File.Exists(calendarioAlimentacao));
 
                         fprow.horaextra100 = "00:00";
                         fprow.horaextra55 = "00:00";
@@ -257,9 +270,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                         folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
-                        var report = new RelatorioFolhaPagamento();
-                        report.Load("/View/FolhaPagamento/Relatorios/RelatorioFolhaPagamento.rpt");
-                        report.DetailSection3.SectionFormat.EnableSuppress = !folha.Funcionario.RecebePassagem || !(File.Exists(calendarioPassagem) && File.Exists(calendarioAlimentacao));
                         report.Subreports[0].SetDataSource(bonusDataSet);
                         report.Subreports[1].SetDataSource(parcelaDataSet);
                         report.SetDataSource(folhaPagamentoDataSet);

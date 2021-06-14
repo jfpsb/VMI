@@ -36,7 +36,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             BonusDataSet bonusDataSet = new BonusDataSet();
             ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
 
+            var report = new RelatorioFolhaPagamento();
             int i = 0;
+
             foreach (var bonus in FolhaPagamento.Bonus)
             {
                 var brow = bonusDataSet.Bonus.NewBonusRow();
@@ -80,8 +82,18 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             var calendarioPassagem = Path.Combine(caminhoFolhaPagamentoVMI, FolhaPagamento.Funcionario.Nome, FolhaPagamento.Ano.ToString(), FolhaPagamento.Mes.ToString(), "CalendarioPassagem.png");
             var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, FolhaPagamento.Funcionario.Nome, FolhaPagamento.Ano.ToString(), FolhaPagamento.Mes.ToString(), "CalendarioAlimentacao.png");
+
             fprow.calendariopassagem = calendarioPassagem;
             fprow.calendarioalimentacao = calendarioAlimentacao;
+
+            report.ReportDefinition.ReportObjects["TxtCalendarioPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
+            report.ReportDefinition.ReportObjects["PicPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
+
+            report.ReportDefinition.ReportObjects["TxtCalendarioAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
+            report.ReportDefinition.ReportObjects["PicAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
+
+            //Se não existe nenhum dos dois calendários salvos esconde a sessão
+            report.DetailSection3.SectionFormat.EnableSuppress = !(File.Exists(calendarioPassagem) || File.Exists(calendarioAlimentacao));
 
             fprow.horaextra100 = "00:00";
             fprow.horaextra55 = "00:00";
@@ -102,8 +114,6 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
 
-            var report = new RelatorioFolhaPagamento();
-            report.DetailSection3.SectionFormat.EnableSuppress = !FolhaPagamento.Funcionario.RecebePassagem || !(File.Exists(calendarioPassagem) && File.Exists(calendarioAlimentacao));
             report.Subreports[0].SetDataSource(bonusDataSet);
             report.Subreports[1].SetDataSource(parcelaDataSet);
             report.SetDataSource(folhaPagamentoDataSet);
