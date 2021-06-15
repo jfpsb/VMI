@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
+                //FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
                 Parcela.Adiantamento.Deletado = true;
                 bool resultadoDelete = await daoAdiantamento.Atualizar(Parcela.Adiantamento);
 
