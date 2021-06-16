@@ -9,7 +9,8 @@
 				<param name="max_lo">1024</param>
 			</generator>
 		</id>
-		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
+		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" />
+		<many-to-one name="Representante" class="VandaModaIntimaWpf.Model.Representante" />
 		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
 		<bag name="Arquivos" table="arquivos_comprafornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan" lazy="true">
 			<key column="compradefornecedor" />

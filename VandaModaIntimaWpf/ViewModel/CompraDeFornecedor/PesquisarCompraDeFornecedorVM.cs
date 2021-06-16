@@ -99,10 +99,13 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
             switch (pesquisarPor)
             {
-                case 0: //Fornecedor
+                case 0: //Todos
+                    Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorData(DataEscolhida)));
+                    break;
+                case 1: //Fornecedor
                     Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorFornecedor(TermoPesquisa, DataEscolhida)));
                     break;
-                case 1: //Representante
+                case 2: //Representante
                     Entidades = new ObservableCollection<EntidadeComCampo<Model.CompraDeFornecedor>>(EntidadeComCampo<Model.CompraDeFornecedor>.CriarListaEntidadeComCampo(await dao.ListarPorRepresentante(TermoPesquisa, DataEscolhida)));
                     break;
             }

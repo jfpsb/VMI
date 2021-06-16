@@ -44,5 +44,14 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.AddOrder(Order.Asc("DataPedido"));
             return await Listar(criteria);
         }
+
+        public async Task<IList<CompraDeFornecedor>> ListarPorData(DateTime data)
+        {
+            var criteria = CriarCriteria();
+            criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.AddOrder(Order.Asc("DataPedido"));
+            return await Listar(criteria);
+        }
     }
 }

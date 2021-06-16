@@ -22,10 +22,12 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
     {
         protected DAOFornecedor daoFornecedor;
         protected DAOLoja daoLoja;
+        protected DAORepresentante daoRepresentante;
         protected ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
         protected IFileDialogService _fileDialogService;
         protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Arquivos De Compras De Fornecedor");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
+        private ObservableCollection<Model.Representante> _representantes;
         private ObservableCollection<Model.Loja> _lojas;
         private Model.ArquivosCompraFornecedor _arquivoSelecionado;
 
@@ -38,10 +40,11 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             _session = session;
             _fileDialogService = fileDialogService;
             MessageBoxService = messageBoxService;
-            this.IssoEUmUpdate = issoEUmUpdate;
+            IssoEUmUpdate = issoEUmUpdate;
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
             daoEntidade = new DAO<Model.CompraDeFornecedor>(session);
             daoFornecedor = new DAOFornecedor(session);
+            daoRepresentante = new DAORepresentante(session);
             daoLoja = new DAOLoja(session);
             Entidade = new Model.CompraDeFornecedor();
             Entidade.DataPedido = DateTime.Now;
@@ -49,6 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
             GetFornecedores();
             GetLojas();
+            GetRepresentantes();
 
             AntesDeInserirNoBancoDeDados += InsereArquivosEmEntidade;
             AposInserirNoBancoDeDados += CopiarArquivos;
@@ -238,9 +242,45 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
+        public ObservableCollection<Model.Representante> Representantes
+        {
+            get => _representantes;
+            set
+            {
+                _representantes = value;
+                OnPropertyChanged("Representantes");
+            }
+        }
+
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            switch (e.PropertyName)
+            {
+                case "Fornecedor":
+                    if (Entidade.Fornecedor != null && Entidade.Fornecedor.Cnpj == null)
+                    {
+                        Entidade.Fornecedor = null;
+                        break;
+                    }
 
+                    if (Entidade.Fornecedor != null)
+                    {
+                        Entidade.Representante = Entidade.Fornecedor.Representante;
+                    }
+                    break;
+                case "Loja":
+                    if (Entidade.Loja != null && Entidade.Loja.Cnpj == null)
+                    {
+                        Entidade.Loja = null;
+                    }
+                    break;
+                case "Representante":
+                    if (Entidade.Representante != null && Entidade.Representante.Id == 0)
+                    {
+                        Entidade.Representante = null;
+                    }
+                    break;
+            }
         }
 
         public override void ResetaPropriedades()
@@ -260,15 +300,9 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 valido = false;
             }
 
-            if (Entidade.Fornecedor?.Cnpj == null)
+            if (Entidade.Representante == null && Entidade.Fornecedor == null)
             {
-                BtnSalvarToolTip += "Escolha Um Fornecedor!\n";
-                valido = false;
-            }
-
-            if (Entidade.Loja?.Cnpj == null)
-            {
-                BtnSalvarToolTip += "Escolha Uma Loja!\n";
+                BtnSalvarToolTip += "Selecione A Origem Da Compra (Representante Ou Fornecedor)!\n";
                 valido = false;
             }
 
@@ -285,6 +319,12 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.Listar());
             Lojas.Insert(0, new Model.Loja("LOJA NÃO SELECIONADA"));
+        }
+
+        private async void GetRepresentantes()
+        {
+            Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
+            Representantes.Insert(0, new Model.Representante { Nome = "REPRESENTANTE NÃO SELECIONADO" });
         }
     }
 }

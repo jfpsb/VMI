@@ -144,7 +144,7 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Representante"
-                                                Binding="{Binding Entidade.Fornecedor.Representante.Nome}"
+                                                Binding="{Binding Entidade.Representante.Nome}"
                                                 IsReadOnly="True" />
                             <DataGridTextColumn Header="Fornecedor"
                                                 Binding="{Binding Entidade.Fornecedor.Nome}"

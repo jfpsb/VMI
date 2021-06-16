@@ -29,6 +29,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Button Grid.Column="1"
@@ -44,32 +45,39 @@
                             Grid.Row="1"
                             SelectedDate="{Binding Entidade.DataPedido, Mode=TwoWay}" />
                 <Label Grid.Row="2"
-                       Content="Fornecedor:" />
+                       Content="Representante:" />
                 <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          DisplayMemberPath="Nome"
+                          ItemsSource="{Binding Representantes}"
+                          SelectedItem="{Binding Entidade.Representante, UpdateSourceTrigger=PropertyChanged}" />
+                <Label Grid.Row="3"
+                       Content="Fornecedor:" />
+                <ComboBox Grid.Row="3"
                           Grid.Column="1"
                           DisplayMemberPath="Nome"
                           ItemsSource="{Binding Fornecedores}"
                           SelectedItem="{Binding Entidade.Fornecedor, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Row="3"
+                <Label Grid.Row="4"
                        Content="Loja:" />
-                <ComboBox Grid.Row="3"
+                <ComboBox Grid.Row="4"
                           Grid.Column="1"
                           DisplayMemberPath="Nome"
                           ItemsSource="{Binding Lojas}"
                           SelectedItem="{Binding Entidade.Loja, UpdateSourceTrigger=PropertyChanged}" />
-                <Label Grid.Row="4"
+                <Label Grid.Row="5"
                        Content="Já Foi Pago:" />
-                <CheckBox Grid.Row="4"
+                <CheckBox Grid.Row="5"
                           Grid.Column="1"
                           Margin="5"
                           VerticalAlignment="Center"
                           IsChecked="{Binding Entidade.Pago}" />
-                <Label Grid.Row="5"
+                <Label Grid.Row="6"
                        Content="Valor:" />
-                <TextBox Grid.Row="5"
+                <TextBox Grid.Row="6"
                          Grid.Column="1"
                          Text="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-                <Button Grid.Row="6"
+                <Button Grid.Row="7"
                         Width="Auto"
                         Padding="15"
                         Margin="1"

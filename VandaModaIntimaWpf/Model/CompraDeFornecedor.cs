@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private Fornecedor _fornecedor;
+        private Representante _representante;
         private Loja _loja;
         private IList<ArquivosCompraFornecedor> _arquivos = new List<ArquivosCompraFornecedor>();
         DateTime _dataPedido;
@@ -19,7 +20,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public virtual string GetContextMenuHeader => $"{DataPedido.ToString("dd/MM/yyyy")} - {Fornecedor.Nome}";
+        public virtual string GetContextMenuHeader => $"{DataPedido:dd/MM/yyyy} - {(Fornecedor != null ? Fornecedor.Nome : Representante.Nome)}";
 
         public virtual long Id
         {
@@ -121,6 +122,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 return Valor > 0 && DataNotaFiscal != null && ChaveAcessoNfe != string.Empty && NumeroNfe != 0
                     && Pago && Arquivos.Count > 0;
+            }
+        }
+
+        public virtual Representante Representante
+        {
+            get => _representante;
+            set
+            {
+                _representante = value;
+                OnPropertyChanged("Representante");
             }
         }
 
