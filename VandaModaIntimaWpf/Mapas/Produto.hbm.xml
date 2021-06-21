@@ -4,7 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Produto" table="produto">
-		
+		<cache usage="read-write"/>
 		<id name="Id" column="id" type="Int64">
 			<generator class="hilo">
 				<param name="max_lo">1024</param>

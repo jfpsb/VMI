@@ -41,7 +41,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Adiantamento");
             }
         }
-
         public virtual double Valor
         {
             get => Math.Round(_valor, 2);
@@ -60,7 +59,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Paga");
             }
         }
-
         public virtual int Numero
         {
             get => _numero;
@@ -70,7 +68,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Numero");
             }
         }
-
         public virtual string NumeroComTotal
         {
             get => $"{Numero}/{Adiantamento.Parcelas.Count}";
@@ -86,7 +83,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-
         public virtual int Mes
         {
             get => _mes;
@@ -94,6 +90,8 @@ namespace VandaModaIntimaWpf.Model
             {
                 _mes = value;
                 OnPropertyChanged("Mes");
+                OnPropertyChanged("Vencimento");
+                OnPropertyChanged("FolhaReferencia");
             }
         }
         public virtual int Ano
@@ -103,6 +101,8 @@ namespace VandaModaIntimaWpf.Model
             {
                 _ano = value;
                 OnPropertyChanged("Ano");
+                OnPropertyChanged("Vencimento");
+                OnPropertyChanged("FolhaReferencia");
             }
         }
 

@@ -131,6 +131,9 @@
     <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -173,6 +176,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -623,6 +629,7 @@
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDePassagem.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ICalculoDeBonus.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarPassagem.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\GerenciarParcelasVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
@@ -647,6 +654,7 @@
     <Compile Include="ViewModel\Grade\CadastrarGradeVMStrategy.cs" />
     <Compile Include="ViewModel\ICadastrarVM.cs" />
     <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
+    <Compile Include="ViewModel\IDialogResult.cs" />
     <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaVM.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaVMStrategy.cs" />
@@ -836,7 +844,6 @@
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IResultReturnable.cs" />
     <Compile Include="View\IWindowClosing.cs" />
     <Compile Include="View\Loja\AjudaLoja.xaml.cs">
       <DependentUpon>AjudaLoja.xaml</DependentUpon>

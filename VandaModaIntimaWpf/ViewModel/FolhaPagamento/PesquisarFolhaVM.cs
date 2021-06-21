@@ -468,9 +468,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 DataContext = maisDetalhesViewModel
             };
-            maisDetalhes.ShowDialog();
 
-            OnPropertyChanged("TermoPesquisa");
+            var result = maisDetalhes.ShowDialog();
+
+            if (result == true)
+                OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirAdicionarAdiantamento(object obj)

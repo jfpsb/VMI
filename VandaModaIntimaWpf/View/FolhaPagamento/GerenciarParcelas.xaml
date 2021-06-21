@@ -2,23 +2,32 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         mc:Ignorable="d"
         Title="GerenciarParcelas"
         Height="450"
-        Width="800">
+        Width="800"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Closing="Window_Closing">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding AoFecharTelaComando}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Content="{Binding Adiantamento.Data}"
@@ -27,28 +36,55 @@
                Content="{Binding Adiantamento.Valor}"
                ContentStringFormat="Valor Total Do Adiantamento: {0:C}"
                Language="pt-BR" />
-        <DataGrid ItemsSource="{Binding Parcela}">
+        <Label Grid.Row="2"
+               Content="Adiantar Ou Atrasar Parcelas Seguintes Ou Anteriores Em Conjunto:" />
+        <CheckBox Grid.Row="2"
+                  Grid.Column="1"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding AdiantarAtrasarParcelasConjunto}" />
+        <DataGrid Grid.Row="3"
+                  Grid.ColumnSpan="2"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Parcela, Mode=OneWayToSource}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" />
-                <DataGridTextColumn Header="Folha Referência" />
-                <DataGridTextColumn Header="Vencimento" />
-                <DataGridTextColumn Header="Valor" />
-                <DataGridCheckBoxColumn Header="Paga" />
+                <DataGridTextColumn Header="#"
+                                    Binding="{Binding NumeroComTotal}" />
+                <DataGridTextColumn Header="Folha Referência"
+                                    Binding="{Binding FolhaReferencia}" />
+                <DataGridTextColumn Header="Vencimento"
+                                    Binding="{Binding Vencimento}" />
+                <DataGridTextColumn Header="Valor"
+                                    Binding="{Binding Valor}" />
+                <DataGridCheckBoxColumn Header="Paga"
+                                        Binding="{Binding Paga}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Adiantar Vencimento" />
+                            <Button Margin="0"
+                                    Padding="0"
+                                    Content="Adiantar Vencimento"
+                                    Command="{Binding DataContext.AdiantarParcelaComando, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Atrasar Vencimento" />
+                            <Button Margin="0"
+                                    Padding="0"
+                                    Content="Atrasar Vencimento"
+                                    Command="{Binding DataContext.AtrasarParcelaComando, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Grid.Row="4"
+                Grid.ColumnSpan="2"
+                FontSize="25"
+                Style="{StaticResource BotaoCadastrar}"
+                Content="Salvar"
+                Command="{Binding SalvarParcelasComando}" />
     </Grid>
 </Window>

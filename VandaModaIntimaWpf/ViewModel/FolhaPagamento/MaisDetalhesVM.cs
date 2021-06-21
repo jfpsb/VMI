@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -6,12 +7,13 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class MaisDetalhesVM : ObservableObject, IResultReturnable
+    public class MaisDetalhesVM : ObservableObject, IDialogResult
     {
         private ISession _session;
         private ObservableCollection<Parcela> _parcelas;
@@ -27,6 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand DeletarAdiantamentoComando { get; set; }
         public ICommand DeletarBonusComando { get; set; }
+        public ICommand GerenciarParcelasComando { get; set; }
         public MaisDetalhesVM(ISession session, FolhaModel folhaPagamento, IMessageBoxService messageBoxService)
         {
             _session = session;
@@ -38,9 +41,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoAdiantamento = new DAO<Adiantamento>(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
+            GerenciarParcelasComando = new RelayCommand(GerenciarParcelas);
 
             Parcelas = new ObservableCollection<Parcela>(FolhaPagamento.Parcelas);
             Bonus = new ObservableCollection<Bonus>(FolhaPagamento.Bonus);
+        }
+
+        private void GerenciarParcelas(object obj)
+        {
+            GerenciarParcelasVM vm = new GerenciarParcelasVM(_session, Parcela.Adiantamento, MessageBoxService);
+            GerenciarParcelas view = new GerenciarParcelas
+            {
+                DataContext = vm
+            };
+
+            if (!_dialogResult.HasValue || _dialogResult == false)
+                _dialogResult = view.ShowDialog();
         }
 
         private async void DeletarBonus(object obj)
@@ -105,7 +121,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public bool? DialogResult()
+        public bool? ResultadoDialog()
         {
             return _dialogResult;
         }
