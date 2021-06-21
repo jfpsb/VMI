@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,7 +53,27 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar(criteria);
         }
+        public async Task<Produto> ListarPorCodigoDeBarraUnico(string codigo)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+                    Produto p = await session.CreateQuery("from Produto where CodBarra = :cod and Deletado = false")
+                        .SetString("cod", codigo).UniqueResultAsync<Produto>();
 
+                    await tx.CommitAsync();
+
+                    return p;
+                }
+                catch (Exception ex)
+                {
+                    await tx.RollbackAsync();
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
         public async Task<IList<Produto>> ListarPorFornecedor(string fornecedor)
         {
             var criteria = CriarCriteria();
@@ -66,7 +87,6 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             return await Listar(criteria);
         }
-
         public async Task<IList<Produto>> ListarPorMarca(string marca)
         {
             var criteria = CriarCriteria();

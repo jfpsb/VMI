@@ -106,8 +106,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (telaApagarDialog.Equals(MessageBoxResult.Yes))
             {
-                EntidadeSelecionada.Entidade.Deletado = true;
-                bool deletado = await daoEntidade.Atualizar(EntidadeSelecionada.Entidade);
+                bool deletado = await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
 
                 AposDeletarDoBDEventArgs e2 = new AposDeletarDoBDEventArgs()
                 {
@@ -167,13 +166,7 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                IList<E> AApagar = new List<E>();
-
-                foreach (EntidadeComCampo<E> em in _entidades)
-                {
-                    if (em.IsChecked)
-                        AApagar.Add(em.Entidade);
-                }
+                var AApagar = Entidades.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
 
                 bool resultDeletar = await daoEntidade.Deletar(AApagar);
 

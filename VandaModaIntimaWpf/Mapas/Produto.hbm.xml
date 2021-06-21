@@ -3,19 +3,26 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-	<class name="Produto" table="produto" dynamic-insert="true">
-		<cache usage="read-write"/>
-		<id name="CodBarra" column="cod_barra" />
-		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
-		<many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" column="marca" />
-		<property name="Descricao" column="descricao" />
-		<property name="Preco" column="preco" />
-		<property name="PrecoCusto" column="precocusto" />
-		<property name="Ncm" column="ncm" />
+	<class name="Produto" table="produto">
+		
+		<id name="Id" column="id" type="Int64">
+			<generator class="hilo">
+				<param name="max_lo">1024</param>
+			</generator>
+		</id>
+
+		<property name="CodBarra" column="cod_barra" />
+		<property name="Descricao" />
+		<property name="Preco" />
+		<property name="PrecoCusto" />
+		<property name="Ncm" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
+		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" />
+		<many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" />
+
 		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
 			<key column="produto" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>

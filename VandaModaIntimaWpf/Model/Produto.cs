@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Produto : AModel, IModel, ICloneable
     {
+        private long _id;
         private string _codBarra;
         private FornecedorModel _fornecedor;
         private MarcaModel _marca;
@@ -35,20 +36,32 @@ namespace VandaModaIntimaWpf.Model
             {
                 var dic = new Dictionary<string, string>
                 {
-                    { "CodBarra", CodBarra }
+                    { "Id", Id.ToString() }
                 };
 
                 return dic;
             }
         }
 
+        public virtual long Id
+        {
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
         public virtual string CodBarra
         {
             get => _codBarra;
             set
             {
-                _codBarra = value;
-                OnPropertyChanged("CodBarra");
+                if (!value.Equals(_codBarra))
+                {
+                    _codBarra = value;
+                    OnPropertyChanged("CodBarra");
+                }
             }
         }
         public virtual FornecedorModel Fornecedor
@@ -197,7 +210,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual object GetIdentifier()
         {
-            return CodBarra;
+            return Id;
         }
 
         public virtual void InicializaLazyLoad()
@@ -221,6 +234,7 @@ namespace VandaModaIntimaWpf.Model
         {
             Produto produto = new Produto();
 
+            produto.Id = Id;
             produto.CodBarra = CodBarra;
             produto.Descricao = Descricao;
             produto.Fornecedor = Fornecedor;

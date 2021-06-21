@@ -150,7 +150,9 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 try
                 {
-                    await session.DeleteAsync(objeto);
+                    AModel model = objeto as AModel;
+                    model.Deletado = true;
+                    await session.UpdateAsync(model);
                     await transacao.CommitAsync();
 
                     return true;
@@ -172,7 +174,9 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        await session.DeleteAsync(e);
+                        AModel model = e as AModel;
+                        model.Deletado = true;
+                        await session.UpdateAsync(model);
                     }
 
                     await transacao.CommitAsync();

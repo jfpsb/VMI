@@ -323,6 +323,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\FolhaPagamento\GerenciarParcelas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\InserirObservacaoFolha.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -754,6 +758,9 @@
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarMetaIndividual.xaml.cs">
       <DependentUpon>AdicionarMetaIndividual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FolhaPagamento\GerenciarParcelas.xaml.cs">
+      <DependentUpon>GerenciarParcelas.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\InserirObservacaoFolha.xaml.cs">
       <DependentUpon>InserirObservacaoFolha.xaml</DependentUpon>

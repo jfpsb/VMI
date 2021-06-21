@@ -45,9 +45,23 @@ namespace VandaModaIntimaWpf.ViewModel
 
             AposInserirNoBancoDeDados += ResultadoInsercao;
             AposInserirNoBancoDeDados += RedefinirTela;
+            AposInserirNoBancoDeDados += RefreshEntidade;
 
             issoEUmUpdate = false;
         }
+
+        /// <summary>
+        /// Lê novamente o estado da Entidade do banco de dados para atualizar os valores criados através de triggers
+        /// </summary>
+        /// <param name="e">Argumento Do Evento Após Inserir Em Banco De Dados</param>
+        private async void RefreshEntidade(AposInserirBDEventArgs e)
+        {
+            if (e.Sucesso)
+            {
+                await _session.RefreshAsync(await daoEntidade.ListarPorId(e.IdentificadorEntidade));
+            }
+        }
+
         /// <summary>
         /// Método atrelado ao comando do botão Salvar
         /// </summary>

@@ -401,9 +401,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (e.PropertyName)
             {
                 case "CodBarra":
-                    var result = await daoEntidade.ListarPorId(Entidade.CodBarra);
+                    var result = await (daoEntidade as DAOProduto).ListarPorCodigoDeBarraUnico(Entidade.CodBarra);
 
-                    if (result != null)
+                    if (result != null && !result.Deletado)
                     {
                         VisibilidadeAvisoItemJaExiste = Visibility.Visible;
                         IsEnabled = false;
@@ -414,7 +414,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                         IsEnabled = true;
                     }
 
-                    ProdutoGrade.Produto = Entidade;
+                    //ProdutoGrade.Produto = Entidade;
 
                     break;
                 case "Preco":
