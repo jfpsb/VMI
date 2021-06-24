@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -27,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AdiantarParcelaComando { get; set; }
         public ICommand SalvarParcelasComando { get; set; }
         public ICommand AoFecharTelaComando { get; set; }
+        public ICommand CheckBoxPagaComando { get; set; }
 
         public GerenciarParcelasVM(ISession session, Adiantamento adiantamento, IMessageBoxService messageBoxService)
         {
@@ -40,16 +40,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             AtrasarParcelaComando = new RelayCommand(AtrasarParcela);
             AdiantarParcelaComando = new RelayCommand(AdiantarParcela);
-            SalvarParcelasComando = new RelayCommand(SalvarParcelas, ValidacaoSalvar);
+            SalvarParcelasComando = new RelayCommand(SalvarParcelas);
             AoFecharTelaComando = new RelayCommand(AoFecharTela);
+            CheckBoxPagaComando = new RelayCommand(CheckBoxPaga);
         }
+
         private void Parcelas_ListChanged(object sender, ListChangedEventArgs e)
         {
             isParcelasDirty = true;
         }
-        private bool ValidacaoSalvar(object arg)
+
+        private void CheckBoxPaga(object obj)
         {
-            return isParcelasDirty;
+            isParcelasDirty = true;
         }
         private void AoFecharTela(object obj)
         {
@@ -65,15 +68,29 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private async void SalvarParcelas(object obj)
         {
-            resultadoSalvar = await daoParcela.InserirOuAtualizar(Parcelas);
+            var result = messageBoxService.Show("Tem Certeza Que Deseja Salvar As Alterações? Parcelas Marcadas Como Pagas Não Podem Ser Desmarcadas Posteriormente!", "Gerenciar Parcelas", MessageBoxButton.YesNo);
 
-            if (resultadoSalvar == true)
+            if (result == MessageBoxResult.Yes)
             {
-                messageBoxService.Show("Parcelas Foram Salvas Com Sucesso!", "Gerenciar Parcelas");
-            }
-            else
-            {
-                messageBoxService.Show("Erro Ao Salvar Parcelas!", "Gerenciar Parcelas");
+                var parcelas = Parcelas.Where(w => !w.Paga).ToList();
+                parcelas.ForEach(f =>
+                {
+                    if (!f.Paga && f.StatusPagaAtual)
+                    {
+                        f.Paga = true;
+                    }
+                });
+
+                resultadoSalvar = await daoParcela.InserirOuAtualizar(parcelas);
+
+                if (resultadoSalvar == true)
+                {
+                    messageBoxService.Show("Parcelas Foram Salvas Com Sucesso!", "Gerenciar Parcelas");
+                }
+                else
+                {
+                    messageBoxService.Show("Erro Ao Salvar Parcelas!", "Gerenciar Parcelas");
+                }
             }
         }
 

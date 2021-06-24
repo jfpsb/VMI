@@ -8,8 +8,8 @@
         xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Mais Detalhes"
-        Height="575"
-        Width="700"
+        Height="600"
+        Width="775"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="Window_Closing">
@@ -50,27 +50,23 @@
                FontSize="16" />
         <DataGrid Grid.Row="2"
                   Grid.ColumnSpan="2"
+                  IsReadOnly="True"
                   ItemsSource="{Binding Parcelas}"
                   SelectedItem="{Binding Parcela, Mode=OneWayToSource}"
                   MinHeight="150">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="# Parcela"
                                     Width="Auto"
-                                    Binding="{Binding NumeroComTotal}"
-                                    IsReadOnly="True" />
+                                    Binding="{Binding NumeroComTotal}" />
                 <DataGridTextColumn Header="Data de Registro"
                                     Width="Auto"
-                                    Binding="{Binding Adiantamento.DataString}"
-                                    IsReadOnly="True" />
+                                    Binding="{Binding Adiantamento.DataString}" />
                 <DataGridTextColumn Header="Descriçao"
                                     Binding="{Binding Adiantamento.Descricao}"
-                                    IsReadOnly="True"
-                                    Width="*"
-                                    MaxWidth="200" />
+                                    Width="*" />
                 <DataGridTextColumn Header="Valor da Parcela"
                                     Width="Auto"
-                                    Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
-                                    IsReadOnly="True" />
+                                    Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>

@@ -20,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<Bonus> _bonus;
         private DAOFolhaPagamento daoFolha;
         private DAOBonus daoBonus;
+        private DAOParcela daoParcela;
         private DAO<Model.Adiantamento> daoAdiantamento;
         private Parcela _parcela;
         private Bonus _bonusEscolhido;
@@ -38,6 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FolhaPagamento = folhaPagamento;
             daoBonus = new DAOBonus(session);
             daoFolha = new DAOFolhaPagamento(session);
+            daoParcela = new DAOParcela(session);
             daoAdiantamento = new DAO<Adiantamento>(session);
             DeletarAdiantamentoComando = new RelayCommand(DeletarAdiantamento);
             DeletarBonusComando = new RelayCommand(DeletarBonus);
@@ -47,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Bonus = new ObservableCollection<Bonus>(FolhaPagamento.Bonus);
         }
 
-        private void GerenciarParcelas(object obj)
+        private async void GerenciarParcelas(object obj)
         {
             GerenciarParcelasVM vm = new GerenciarParcelasVM(_session, Parcela.Adiantamento, MessageBoxService);
             GerenciarParcelas view = new GerenciarParcelas
@@ -55,8 +57,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 DataContext = vm
             };
 
+            var result = view.ShowDialog();
+
             if (!_dialogResult.HasValue || _dialogResult == false)
-                _dialogResult = view.ShowDialog();
+                _dialogResult = result;
+
+            if (result == true)
+            {
+                var parc = await daoParcela.ListarPorFuncionarioMesAnoNaoPagas(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
+                Parcelas = new ObservableCollection<Parcela>(parc);
+            }
+
+            OnPropertyChanged("TotalParcelas");
         }
 
         private async void DeletarBonus(object obj)

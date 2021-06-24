@@ -12,6 +12,7 @@ namespace VandaModaIntimaWpf.Model
         private int _numero;
         private double _valor;
         private bool _paga;
+        private bool _statusPagaAtual;
         private int _mes;
         private int _ano;
 
@@ -57,6 +58,25 @@ namespace VandaModaIntimaWpf.Model
             {
                 _paga = value;
                 OnPropertyChanged("Paga");
+            }
+        }
+        /// <summary>
+        /// Usada em GerenciarParcelasVM Para Guardar O Estado Provisório De Paga Ou Não Paga Na Lista
+        /// </summary>
+        public virtual bool StatusPagaAtual
+        {
+            get
+            {
+                if (Paga)
+                    return true;
+
+                return _statusPagaAtual;
+            }
+
+            set
+            {
+                _statusPagaAtual = value;
+                OnPropertyChanged("StatusPagaAtual");
             }
         }
         public virtual int Numero

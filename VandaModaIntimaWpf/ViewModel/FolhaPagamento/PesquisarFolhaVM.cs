@@ -611,7 +611,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
 
                 //Lista as parcelas somente se folha já existe
-                var parcelas = await daoParcela.ListarPorFuncionarioMesAno(folha.Funcionario, folha.Mes, folha.Ano);
+                var parcelas = await daoParcela.ListarPorFuncionarioMesAnoNaoPagas(folha.Funcionario, folha.Mes, folha.Ano);
                 folha.Parcelas = parcelas;
 
                 //Lista todos os bônus do funcionário (inclusive bônus cancelados)

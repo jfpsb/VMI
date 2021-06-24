@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         mc:Ignorable="d"
         Title="GerenciarParcelas"
@@ -13,9 +14,12 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Closing="Window_Closing">
+    <Window.Resources>
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding AoFecharTelaComando}"/>
+            <i:InvokeCommandAction Command="{Binding AoFecharTelaComando}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Margin="5">
@@ -55,14 +59,21 @@
                 <DataGridTextColumn Header="Vencimento"
                                     Binding="{Binding Vencimento}" />
                 <DataGridTextColumn Header="Valor"
-                                    Binding="{Binding Valor}" />
-                <DataGridCheckBoxColumn Header="Paga"
-                                        Binding="{Binding Paga}" />
+                                    Binding="{Binding Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                <DataGridTemplateColumn Header="Paga">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding StatusPagaAtual, UpdateSourceTrigger=PropertyChanged}"
+                                      Command="{Binding DataContext.CheckBoxPagaComando, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                      IsEnabled="{Binding Paga, Converter={StaticResource InverseBooleanConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Margin="0"
-                                    Padding="0"
+                                    Padding="1"
                                     Content="Adiantar Vencimento"
                                     Command="{Binding DataContext.AdiantarParcelaComando, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                         </DataTemplate>
@@ -72,13 +83,16 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Margin="0"
-                                    Padding="0"
+                                    Padding="1"
                                     Content="Atrasar Vencimento"
                                     Command="{Binding DataContext.AtrasarParcelaComando, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu />
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Button Grid.Row="4"
                 Grid.ColumnSpan="2"
