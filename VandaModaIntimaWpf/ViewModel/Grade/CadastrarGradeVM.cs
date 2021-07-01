@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -67,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
 
             return valido;
         }
-        private async void GetTipoGrades()
+        private async Task GetTipoGrades()
         {
             TipoGrades = await daoTipoGrade.Listar();
         }

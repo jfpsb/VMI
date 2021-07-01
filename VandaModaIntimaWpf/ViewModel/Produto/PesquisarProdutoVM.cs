@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -36,28 +38,35 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
             }
         }
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             if (termo == null)
                 return;
 
-            DAOProduto daoProduto = (DAOProduto)daoEntidade;
+            IList<EntidadeComCampo<ProdutoModel>> ents = new List<EntidadeComCampo<ProdutoModel>>();
 
-            switch (pesquisarPor)
+            await Task.Run(async () =>
             {
-                case (int)OpcoesPesquisa.Descricao:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo)));
-                    break;
-                case (int)OpcoesPesquisa.CodBarra:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo)));
-                    break;
-                case (int)OpcoesPesquisa.Fornecedor:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorFornecedor(termo)));
-                    break;
-                case (int)OpcoesPesquisa.Marca:
-                    Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorMarca(termo)));
-                    break;
-            }
+                DAOProduto daoProduto = (DAOProduto)daoEntidade;
+
+                switch (pesquisarPor)
+                {
+                    case (int)OpcoesPesquisa.Descricao:
+                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo));
+                        break;
+                    case (int)OpcoesPesquisa.CodBarra:
+                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo));
+                        break;
+                    case (int)OpcoesPesquisa.Fornecedor:
+                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorFornecedor(termo));
+                        break;
+                    case (int)OpcoesPesquisa.Marca:
+                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorMarca(termo));
+                        break;
+                }
+            });
+
+            Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(ents);
         }
         public override bool Editavel(object parameter)
         {

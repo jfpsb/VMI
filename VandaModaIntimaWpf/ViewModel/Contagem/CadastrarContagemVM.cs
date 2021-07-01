@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
@@ -51,11 +52,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             return true;
         }
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await _daoLoja.Listar());
         }
-        private async void GetTiposContagem()
+        private async Task GetTiposContagem()
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar());
         }

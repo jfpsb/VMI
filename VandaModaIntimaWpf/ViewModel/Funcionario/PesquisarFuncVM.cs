@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             return true;
         }
 
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAOFuncionario daoFuncionario = (DAOFuncionario)daoEntidade;
             switch (pesquisarPor)

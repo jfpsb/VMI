@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -89,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             return valido;
         }
-        private async void GetRepresentantes()
+        private async Task GetRepresentantes()
         {
             Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
             Representantes.Insert(0, new Model.Representante("SELECIONE UM REPRESENTANTE"));

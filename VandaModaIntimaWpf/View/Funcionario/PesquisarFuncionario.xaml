@@ -6,7 +6,8 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
-                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario" xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Funcionário"
                      Width="1250"
@@ -166,7 +167,7 @@
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
-                            <MenuItem Header="Folha de Pagamento" />
+                            <MenuItem Header="Visualizar Adiantamentos" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
@@ -43,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return false;
         }
 
-        public async override void PesquisaItens(string termo)
+        public async override Task PesquisaItens(string termo)
         {
             var daoHoraExtra = daoEntidade as DAOHoraExtra;
 
@@ -76,6 +77,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     he55TimeSpan = new TimeSpan();
                 }
 
+                if (he100TimeSpan.TotalSeconds == 0 && he55TimeSpan.TotalSeconds == 0)
+                    continue;
+
                 if (he100 != null || he55 != null)
                 {
                     var tupla = Tuple.Create(f, he100TimeSpan, he55TimeSpan, DataEscolhida);
@@ -84,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private async void GetFuncionarios()
+        private async Task GetFuncionarios()
         {
             funcionarios = await daoFuncionario.Listar();
         }

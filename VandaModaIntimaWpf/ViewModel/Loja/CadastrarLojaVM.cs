@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
@@ -58,7 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Entidade.Cnpj = Entidade.Nome = Entidade.Telefone = Entidade.Endereco = Entidade.InscricaoEstadual = string.Empty;
             Entidade.Matriz = Matrizes[0];
         }
-        private async void GetMatrizes()
+        private async Task GetMatrizes()
         {
             DAOLoja daoLoja = (DAOLoja)daoEntidade;
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());

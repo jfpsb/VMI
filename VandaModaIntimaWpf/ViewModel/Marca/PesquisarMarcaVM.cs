@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -16,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             pesquisarViewModelStrategy = new PesquisarMarcaMsgVMStrategy();
             OnPropertyChanged("TermoPesquisa");
         }
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAOMarca daoMarca = (DAOMarca)daoEntidade;
             Entidades = new ObservableCollection<EntidadeComCampo<MarcaModel>>(EntidadeComCampo<MarcaModel>.CriarListaEntidadeComCampo(await daoMarca.ListarPorNome(termo)));

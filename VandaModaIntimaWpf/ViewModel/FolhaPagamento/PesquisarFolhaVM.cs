@@ -77,6 +77,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
             _fileDialogService = fileDialogService;
+            FolhaPagamentos = new ObservableCollection<FolhaPagamentoModel>();
 
             GetFuncionarios();
 
@@ -567,7 +568,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return true;
         }
 
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             ObservableCollection<FolhaPagamentoModel> folhas = new ObservableCollection<FolhaPagamentoModel>();
             DAOFolhaPagamento daoFolha = (DAOFolhaPagamento)daoEntidade;
@@ -588,27 +589,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         Funcionario = funcionario
                     };
                 }
-                else
-                {
-                    if (!folha.Fechada)
-                    {
-                        if (folha.ValorDoBonusDeMeta > 0)
-                        {
-                            var mesFolha = new DateTime(folha.Ano, folha.Mes, 1);
-                            Bonus bonus = new Bonus
-                            {
-                                Funcionario = funcionario,
-                                Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                                Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
-                                Valor = folha.ValorDoBonusDeMeta,
-                                MesReferencia = folha.Mes,
-                                AnoReferencia = folha.Ano
-                            };
-
-                            folha.Bonus.Add(bonus);
-                        }
-                    }
-                }
 
                 //Lista as parcelas somente se folha já existe
                 var parcelas = await daoParcela.ListarPorFuncionarioMesAnoNaoPagas(folha.Funcionario, folha.Mes, folha.Ano);
@@ -617,7 +597,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 //Lista todos os bônus do funcionário (inclusive bônus cancelados)
                 folha.Bonus = await daoBonus.ListarPorFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
 
-                //Adiciona bônus mensais
+                //Adiciona bônus
                 //Só é feito em folhas abertas porque nas fechadas os bônus mensais e de meta já estão inseridos no BD
                 if (!folha.Fechada)
                 {
@@ -649,6 +629,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             folha.Bonus.Add(bonus);
                         }
                     }
+
+                    //Insere bônus de meta se houver
+                    if (folha.ValorDoBonusDeMeta > 0)
+                    {
+                        var mesFolha = new DateTime(folha.Ano, folha.Mes, 1);
+                        Bonus bonus = new Bonus
+                        {
+                            Funcionario = funcionario,
+                            Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
+                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Valor = folha.ValorDoBonusDeMeta,
+                            MesReferencia = folha.Mes,
+                            AnoReferencia = folha.Ano
+                        };
+
+                        folha.Bonus.Add(bonus);
+                    }
                 }
 
                 //Depois da checagem acima, removo os bônus cancelados da listagem
@@ -661,7 +658,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FolhaPagamentos = folhas;
         }
 
-        private async void GetFuncionarios()
+        private async Task GetFuncionarios()
         {
             _funcionarios = await daoFuncionario.ListarIncluindoDeletado();
         }

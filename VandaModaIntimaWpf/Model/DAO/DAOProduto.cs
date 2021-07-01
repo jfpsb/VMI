@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             criteria.AddOrder(Order.Asc("Descricao"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-            return await Listar(criteria);
+            return await ListarComNovaSession(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorDescricaoCodigoDeBarra(string termo)
@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             criteria.AddOrder(Order.Asc("CodBarra"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-            return await Listar(criteria);
+            return await ListarComNovaSession(criteria);
         }
 
         public async Task<IList<Produto>> ListarPorCodigoDeBarra(string codigo)
@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             criteria.AddOrder(Order.Asc("CodBarra"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-            return await Listar(criteria);
+            return await ListarComNovaSession(criteria);
         }
         public async Task<Produto> ListarPorCodigoDeBarraUnico(string codigo)
         {
@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
                 .Add(Restrictions.Like("Fornecedor.Fantasia", "%" + fornecedor + "%")));
 
-            return await Listar(criteria);
+            return await ListarComNovaSession(criteria);
         }
         public async Task<IList<Produto>> ListarPorMarca(string marca)
         {
@@ -93,7 +93,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.CreateAlias("Marca", "Marca");
             criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
-            return await Listar(criteria);
+            return await ListarComNovaSession(criteria);
         }
     }
 }

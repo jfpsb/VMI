@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -74,7 +75,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             return valido;
         }
 
-        private async void GetComboBoxFornecedores()
+        private async Task GetComboBoxFornecedores()
         {
             ComboBoxFornecedores = new ObservableCollection<Model.Fornecedor>(await daoFornecedor.Listar());
         }

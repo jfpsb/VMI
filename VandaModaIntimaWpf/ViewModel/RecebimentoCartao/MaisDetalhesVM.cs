@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 
@@ -20,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             GetRecebimentos();
         }
 
-        private async void GetRecebimentos()
+        private async Task GetRecebimentos()
         {
             Recebimentos = new ObservableCollection<Model.RecebimentoCartao>(await daoRecebimentoCartao.ListarPorMesAnoLoja(Recebimento.Mes, Recebimento.Ano, Recebimento.Loja));
         }

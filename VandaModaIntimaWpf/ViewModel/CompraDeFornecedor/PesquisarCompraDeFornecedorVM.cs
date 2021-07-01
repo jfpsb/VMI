@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -29,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             PesquisarPor = 0;
         }
 
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
             Lojas.Insert(0, new Model.Loja { Nome = "TODAS AS LOJAS" });
@@ -93,7 +94,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             return true;
         }
 
-        public async override void PesquisaItens(string termo)
+        public async override Task PesquisaItens(string termo)
         {
             var dao = daoEntidade as DAOCompraDeFornecedor;
 

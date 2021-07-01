@@ -10,6 +10,7 @@ using NHibernate;
 using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
+using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
@@ -89,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             editar.ShowDialog();
         }
 
-        private async void GetProdutos()
+        private async Task GetProdutos()
         {
             Produtos = new ObservableCollection<ProdutoModel>(await _daoProduto.ListarPorDescricaoCodigoDeBarra(PesquisaProdutoTxtBox));
         }

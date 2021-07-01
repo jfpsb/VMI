@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -35,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             AbrirVisualizarContagemProdutoComando = new RelayCommand(AbrirVisualizarContagemProduto);
             AbrirCadastrarTipoContagemComando = new RelayCommand(AbrirCadastrarTipoContagem);
         }
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAOContagem daoContagem = (DAOContagem)daoEntidade;
             Entidades = new ObservableCollection<EntidadeComCampo<ContagemModel>>(EntidadeComCampo<ContagemModel>.CriarListaEntidadeComCampo(await daoContagem.ListarPorLojaEPeriodo(Loja, DataInicial, DataFinal)));
@@ -46,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             return true;
         }
 
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.Listar());
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -77,7 +78,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AposDeletarDoBD += InformaResultadoDeletarBD;
         }
 
-        public abstract void PesquisaItens(string termo);
+        public abstract Task PesquisaItens(string termo);
         public void AbrirImprimir(object parameter)
         {
             AbrePelaTelaPesquisaService.AbrirImprimir(Entidades.Select(s => s.Entidade).ToList());
@@ -213,12 +214,12 @@ namespace VandaModaIntimaWpf.ViewModel
             IsThreadLocked = false;
             MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
         }
-        protected void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected async void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "TermoPesquisa":
-                    PesquisaItens(termoPesquisa);
+                    await PesquisaItens(termoPesquisa);
                     break;
             }
         }

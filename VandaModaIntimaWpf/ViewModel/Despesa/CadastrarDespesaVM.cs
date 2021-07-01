@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -177,27 +178,27 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             return valido;
         }
-        private async void GetTiposDespesa()
+        private async Task GetTiposDespesa()
         {
             TiposDespesa = new ObservableCollection<Model.TipoDespesa>(await daoTipoDespesa.Listar());
             Entidade.TipoDespesa = TiposDespesa[0];
         }
 
-        private async void GetFornecedores()
+        private async Task GetFornecedores()
         {
             Fornecedores = new ObservableCollection<Model.Fornecedor>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new Model.Fornecedor { Nome = "SEM FORNECEDOR" });
             Entidade.Fornecedor = Fornecedores[0];
         }
 
-        private async void GetRepresentantes()
+        private async Task GetRepresentantes()
         {
             Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
             Representantes.Insert(0, new Model.Representante { Nome = "SEM REPRESENTANTE" });
             Entidade.Representante = Representantes[0];
         }
 
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
             Lojas.Insert(0, new Model.Loja { Nome = "SELECIONE UMA LOJA" });

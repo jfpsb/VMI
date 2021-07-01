@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
@@ -51,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             CalculaTotais();
         }
 
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAORecebimentoCartao daoRecebimento = (DAORecebimentoCartao)daoEntidade;
             if (MatrizComboBoxIndex != 0)
@@ -67,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
             CalculaTotais();
         }
-        public async void GetMatrizes()
+        public async Task GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
             Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));

@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -382,17 +383,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        private async void GetFornecedores()
+        private async Task GetFornecedores()
         {
             Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new FornecedorModel(GetResource.GetString("fornecedor_nao_selecionado")));
         }
-        private async void GetMarcas()
+        private async Task GetMarcas()
         {
             Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar());
             Marcas.Insert(0, new MarcaModel(GetResource.GetString("marca_nao_selecionada")));
         }
-        private async void GetTiposGrade()
+        private async Task GetTiposGrade()
         {
             TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar());
         }

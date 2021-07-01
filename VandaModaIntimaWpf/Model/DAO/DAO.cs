@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -230,6 +231,30 @@ namespace VandaModaIntimaWpf.Model.DAO
                     var results = await criteria.ListAsync<E>();
                     await tx.CommitAsync();
                     return results;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return null;
+        }
+        public virtual async Task<IList<E>> ListarComNovaSession(ICriteria criteria)
+        {
+            try
+            {
+                using (ISession session = SessionProvider.GetSession())
+                {
+                    using (ITransaction tx = session.BeginTransaction())
+                    {
+                        criteria.Add(Restrictions.Eq("Deletado", false));
+                        criteria.SetCacheable(true);
+                        criteria.SetCacheMode(CacheMode.Normal);
+                        var results = await criteria.ListAsync<E>();
+                        await tx.CommitAsync();
+                        return results;
+                    }
                 }
             }
             catch (Exception ex)

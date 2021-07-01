@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -108,7 +109,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return valido;
         }
 
-        private async void GetTiposHoraExtra()
+        private async Task GetTiposHoraExtra()
         {
             TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar());
         }

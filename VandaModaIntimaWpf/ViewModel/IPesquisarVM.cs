@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel
         void ApagarMarcados(object parameter);
         void ExportarExcel(object parameter);
         void ImportarExcel(object parameter);
-        void PesquisaItens(string termo);
+        Task PesquisaItens(string termo);
         void DisposeSession();
         bool IsThreadLocked();
         bool Editavel(object parameter);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -33,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                 OnPropertyChanged("TermoPesquisa"); //Realiza pesquisa se mudar seleção de combobox
             }
         }
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAOLoja daoLoja = (DAOLoja)daoEntidade;
             switch (pesquisarPor)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -18,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel
             if (entidades == null)
                 return new List<EntidadeComCampo<E>>();
 
-            return entidades?.Select(s => new EntidadeComCampo<E>() { Entidade = s }).ToList();
+            return entidades.Select(s => new EntidadeComCampo<E>() { Entidade = s }).ToList();
         }
 
         public E Entidade

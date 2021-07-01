@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         mc:Ignorable="d"
         Title="Adicionar Salário Líquido"
-        Height="210"
+        Height="220"
         Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">

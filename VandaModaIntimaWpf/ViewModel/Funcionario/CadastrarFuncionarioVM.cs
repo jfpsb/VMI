@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
@@ -136,11 +137,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                     break;
             }
         }
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarExcetoDeposito());
         }
-        private async void GetBancos()
+        private async Task GetBancos()
         {
             Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -34,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             return true;
         }
 
-        public async override void PesquisaItens(string termo)
+        public async override Task PesquisaItens(string termo)
         {
             if (TipoDespesaNome == null)
                 return;
@@ -51,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             TotalEmDespesas = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
         }
-        private async void GetTiposDespesa()
+        private async Task GetTiposDespesa()
         {
             TiposDespesa = new ObservableCollection<TipoDespesa>(await daoTipoDespesa.Listar());
             TiposDespesa.Insert(0, new TipoDespesa { Nome = "TODOS OS TIPOS" });

@@ -1,4 +1,5 @@
-﻿using VandaModaIntimaWpf.Model.DAO;
+﻿using System.Threading.Tasks;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
@@ -16,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             return true;
         }
 
-        public async override void PesquisaItens(string termo)
+        public async override Task PesquisaItens(string termo)
         {
             if (termo != null)
             {

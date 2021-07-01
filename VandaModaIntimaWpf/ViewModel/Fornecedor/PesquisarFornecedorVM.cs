@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
@@ -44,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             ((AbrePelaTelaPesqFornecedorService)AbrePelaTelaPesquisaService).AbrirCadastrarOnline(_session);
             OnPropertyChanged("TermoPesquisa");
         }
-        public override async void PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
             DAOFornecedor daoFornecedor = (DAOFornecedor)daoEntidade;
             switch (pesquisarPor)
