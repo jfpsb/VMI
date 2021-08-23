@@ -10,6 +10,7 @@
 			</generator>
 		</id>
 		<property name="Data" />
+		<property name="DataVencimento" />
 		<property name="Descricao" />
 		<property name="Valor" />
 		<property name="Familiar" />

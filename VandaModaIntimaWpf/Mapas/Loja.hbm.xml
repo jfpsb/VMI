@@ -10,7 +10,7 @@
 		<property name="Telefone" column="telefone" />
 		<property name="Endereco" column="endereco" />
 		<property name="InscricaoEstadual" column="inscricaoestadual" />
-		<property name="Aluguel" column="aluguel" />
+		<property name="Aluguel" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

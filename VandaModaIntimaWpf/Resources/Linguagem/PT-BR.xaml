@@ -250,6 +250,9 @@
         <System:String>FGTS</System:String>
         <System:String>DARE (ICMS ANTECIPADO)</System:String>
         <System:String>DAS - SIMPLES NACIONAL</System:String>
+        <System:String>CARTÃO DE CRÉDITO</System:String>
+        <System:String>SEGURANÇA</System:String>
+        <System:String>ÁGUA MINERAL</System:String>
         <System:String>PAGAMENTO DE PEDIDO</System:String>
         <System:String>OUTROS</System:String>
     </x:Array>

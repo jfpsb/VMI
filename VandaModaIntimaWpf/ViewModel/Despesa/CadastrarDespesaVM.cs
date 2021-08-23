@@ -23,7 +23,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private DAORepresentante daoRepresentante;
         private Visibility _visibilidadeDespesaEmpresarial;
         private Visibility _visibilidadeMembroFamiliar;
+        private bool _inserirVencimentoFlag;
         private string[] _tiposDescricao = GetResource.GetStringArray("CmbTipoDescricaoDespesa");
+        protected DateTime? ultimaDataVencimento = null;
 
         private ObservableCollection<Model.TipoDespesa> _tiposDespesa;
         private ObservableCollection<Model.Fornecedor> _fornecedores;
@@ -77,6 +79,23 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     {
                         IsOutrosDespesas = false;
                         Entidade.Descricao = TipoDescricao;
+                    }
+                    break;
+                case "InserirVencimentoFlag":
+                    if (InserirVencimentoFlag)
+                    {
+                        if (ultimaDataVencimento == null)
+                        {
+                            Entidade.DataVencimento = ultimaDataVencimento = DateTime.Today;
+                        }
+                        else
+                        {
+                            Entidade.DataVencimento = ultimaDataVencimento;
+                        }
+                    }
+                    else
+                    {
+                        Entidade.DataVencimento = null;
                     }
                     break;
             }
@@ -277,6 +296,16 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _lojas = value;
                 OnPropertyChanged("Lojas");
+            }
+        }
+
+        public bool InserirVencimentoFlag
+        {
+            get => _inserirVencimentoFlag;
+            set
+            {
+                _inserirVencimentoFlag = value;
+                OnPropertyChanged("InserirVencimentoFlag");
             }
         }
     }

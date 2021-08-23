@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private Representante _representante;
         private Loja _loja;
         private DateTime _data;
+        private DateTime? _dataVencimento;
         private string _descricao;
         private double _valor;
         private string _familiar;
@@ -103,6 +104,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _loja = value;
                 OnPropertyChanged("Loja");
+            }
+        }
+
+        public virtual DateTime? DataVencimento
+        {
+            get => _dataVencimento;
+            set
+            {
+                _dataVencimento = value;
+                OnPropertyChanged("DataVencimento");
             }
         }
 
