@@ -64,7 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (result == true)
             {
-                var parc = await daoParcela.ListarPorFuncionarioMesAnoNaoPagas(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
+                var parc = await daoParcela.ListarPorFuncionarioMesAno(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
                 Parcelas = new ObservableCollection<Parcela>(parc);
             }
 
