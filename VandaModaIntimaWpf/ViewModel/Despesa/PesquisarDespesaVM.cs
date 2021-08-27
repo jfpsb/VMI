@@ -14,16 +14,21 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private DateTime _dataEscolhida;
         private string _filtrarPor;
         private DAO<Model.TipoDespesa> daoTipoDespesa;
+        private DAO<Model.Loja> daoLoja;
         private ObservableCollection<Model.TipoDespesa> _tiposDespesa;
+        private ObservableCollection<Model.Loja> _lojas;
+        private Model.Loja _loja;
         private double _totalEmDespesas;
 
         public PesquisarDespesaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Despesa> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             daoEntidade = new DAODespesa(_session);
             daoTipoDespesa = new DAO<TipoDespesa>(_session);
+            daoLoja = new DAO<Model.Loja>(_session);
             pesquisarViewModelStrategy = new PesquisarDespesaVMStrategy();
 
             GetTiposDespesa();
+            GetLojas();
 
             TipoDespesaNome = "TODOS OS TIPOS";
             FiltrarPor = "Sem Filtro";
@@ -48,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             DAODespesa dao = (DAODespesa)daoEntidade;
             TipoDespesa tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals(TipoDespesaNome)).Single();
-            Entidades = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoDespesa, DataEscolhida, FiltrarPor, TermoPesquisa)));
+            Entidades = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoDespesa, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
 
             TotalEmDespesas = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
         }
@@ -56,6 +61,12 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         {
             TiposDespesa = new ObservableCollection<TipoDespesa>(await daoTipoDespesa.Listar());
             TiposDespesa.Insert(0, new TipoDespesa { Nome = "TODOS OS TIPOS" });
+        }
+        private async Task GetLojas()
+        {
+            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.Listar());
+            Lojas.Insert(0, new Model.Loja("TODAS AS LOJAS"));
+            Loja = Lojas[0];
         }
         public string TipoDespesaNome
         {
@@ -105,6 +116,26 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _totalEmDespesas = value;
                 OnPropertyChanged("TotalEmDespesas");
+            }
+        }
+
+        public ObservableCollection<Model.Loja> Lojas
+        {
+            get => _lojas;
+            set
+            {
+                _lojas = value;
+                OnPropertyChanged("Lojas");
+            }
+        }
+        public Model.Loja Loja
+        {
+            get => _loja;
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
+                OnPropertyChanged("TermoPesquisa");
             }
         }
     }

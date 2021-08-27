@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             return await Listar(criteria);
         }
 
-        public async Task<IList<Despesa>> ListarPorTipoDespesaFiltroMesAno(TipoDespesa tipoDespesa, DateTime data, string filtro, string termo)
+        public async Task<IList<Despesa>> ListarPorTipoDespesaFiltroMesAno(TipoDespesa tipoDespesa, Loja loja, DateTime data, string filtro, string termo)
         {
             var criteria = CriarCriteria();
 
@@ -30,14 +30,22 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 case "Fornecedor":
                     criteria.CreateAlias("Fornecedor", "Fornecedor");
-                    criteria.Add(Restrictions.Like("Fornecedor.Nome", $"%{termo}%"));
+                    AdicionaTermosPesquisa(criteria, "Fornecedor.Nome", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
+                    //criteria.Add(Restrictions.Like("Fornecedor.Nome", $"%{termo}%"));
                     break;
                 case "Descrição":
-                    criteria.Add(Restrictions.Like("Descricao", $"%{termo}%"));
+                    //criteria.Add(Restrictions.Like("Descricao", $"%{termo}%"));
+                    AdicionaTermosPesquisa(criteria, "Descricao", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
                     break;
                 case "Membro Familiar":
-                    criteria.Add(Restrictions.Like("Familiar", $"%{termo}%"));
+                    //criteria.Add(Restrictions.Like("Familiar", $"%{termo}%"));
+                    AdicionaTermosPesquisa(criteria, "Familiar", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
                     break;
+            }
+
+            if (loja.Cnpj != null)
+            {
+                criteria.Add(Restrictions.Eq("Loja", loja));
             }
 
             criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
@@ -45,6 +53,18 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.AddOrder(Order.Asc("Data"));
 
             return await Listar(criteria);
+        }
+
+        private void AdicionaTermosPesquisa(ICriteria criteria, string propertyName, string[] termos)
+        {
+            var disjunction = Restrictions.Disjunction();
+
+            foreach (string termo in termos)
+            {
+                disjunction.Add(Restrictions.Like(propertyName, $"%{termo}%"));
+            }
+
+            criteria.Add(disjunction);
         }
     }
 }

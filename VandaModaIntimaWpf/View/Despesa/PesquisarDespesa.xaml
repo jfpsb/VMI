@@ -8,7 +8,7 @@
                      xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
                      mc:Ignorable="d"
                      Title="PesquisarDespesa"
-                     Height="550"
+                     Height="650"
                      Width="1000"
                      WindowStartupLocation="CenterScreen"
                      Closing="Pesquisar_Closing"
@@ -80,6 +80,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label Content="Tipo De Despesa:" />
@@ -97,20 +98,27 @@
                                      Grid.Column="1"
                                      Data="{Binding DataEscolhida, Mode=TwoWay}" />
                     <Label Grid.Row="2"
-                           Content="Filtrar Por:" />
+                           Content="Loja:" />
                     <ComboBox Grid.Row="2"
+                              Grid.Column="1"
+                              ItemsSource="{Binding Lojas}"
+                              SelectedValue="{Binding Loja}"
+                              DisplayMemberPath="Nome"/>
+                    <Label Grid.Row="3"
+                           Content="Filtrar Por:" />
+                    <ComboBox Grid.Row="3"
                               Grid.Column="1"
                               ItemsSource="{DynamicResource CmbPesquisaDespesaFiltro}"
                               SelectedValue="{Binding FiltrarPor}"
                               SelectedIndex="0" />
-                    <Label Grid.Row="3"
+                    <Label Grid.Row="4"
                            Content="Pesquisa:" />
-                    <TextBox Grid.Row="3"
+                    <TextBox Grid.Row="4"
                              Grid.Column="1"
                              Grid.ColumnSpan="2"
                              x:Name="TxtPesquisa"
                              Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGrid Grid.Row="4"
+                    <DataGrid Grid.Row="5"
                               Grid.ColumnSpan="3"
                               IsReadOnly="True"
                               ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
