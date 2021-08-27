@@ -136,6 +136,8 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Data"
                                                 Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTextColumn Header="Data De Vencimento"
+                                                Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
                             <DataGridTextColumn Header="Tipo De Despesa"
                                                 Binding="{Binding Entidade.TipoDespesa.Nome}" />
                             <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
