@@ -10,8 +10,8 @@
                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Funcionário"
-                     Width="1250"
-                     Height="675"
+                     Width="1336"
+                     Height="725"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Funcionario_Icon.ico"
                      Closing="Pesquisar_Closing"
@@ -120,6 +120,39 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
+                        <DataGridTextColumn Header="CTPS"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Ctps}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Ctps}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Série CTPS"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.SerieCtps}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.SerieCtps}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="PIS/PASEP/NIT"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.PisPasepNit}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.PisPasepNit}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource nome_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Nome}"
@@ -150,6 +183,17 @@
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
                                             Value="{Binding Entidade.Telefone}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="{DynamicResource email_header}"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Email}"
+                                            Width="*">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Email}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>

@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.View.Funcionario
 
         private void TxtCpf_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            TxtCpf.CaretIndex = TxtCpf.Text.Length;
+            //TxtCpf.CaretIndex = TxtCpf.Text.Length;
         }
     }
 }

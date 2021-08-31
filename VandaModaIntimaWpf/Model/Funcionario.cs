@@ -15,6 +15,9 @@ namespace VandaModaIntimaWpf.Model
         private string _telefone;
         private bool _recebePassagem;
         private bool _recebeValeAlimentacao;
+        private string _email;
+        private string _pisPasepNit;
+        private string _ctps;
         private DateTime? _admissao;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
@@ -172,6 +175,39 @@ namespace VandaModaIntimaWpf.Model
                 _admissao = value;
                 OnPropertyChanged("Admissao");
             }
+        }
+
+        public virtual string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+        public virtual string PisPasepNit
+        {
+            get => _pisPasepNit;
+            set
+            {
+                _pisPasepNit = value;
+                OnPropertyChanged("PisPasepNit");
+            }
+        }
+        public virtual string Ctps
+        {
+            get => _ctps;
+            set
+            {
+                _ctps = value;
+                OnPropertyChanged("Ctps");
+            }
+        }
+
+        public virtual string SerieCtps
+        {
+            get => Ctps?.Substring(Ctps.Length - 4);
         }
 
         public virtual object GetIdentifier()

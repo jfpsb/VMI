@@ -12,6 +12,9 @@
 		<property name="RecebePassagem" column="recebe_passagem" />
 		<property name="RecebeValeAlimentacao" column="recebevalealimentacao" />
 		<property name="Admissao" />
+		<property name="Email" />
+		<property name="PisPasepNit" />
+		<property name="Ctps" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
