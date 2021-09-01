@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="RelatorioHoraExtra" targetNamespace="http://tempuri.org/RelatorioHoraExtra.xsd" xmlns:mstns="http://tempuri.org/RelatorioHoraExtra.xsd" xmlns="http://tempuri.org/RelatorioHoraExtra.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="HoraExtraFaltasDataSet" targetNamespace="http://tempuri.org/HoraExtraFaltasDataSet.xsd" xmlns:mstns="http://tempuri.org/HoraExtraFaltasDataSet.xsd" xmlns="http://tempuri.org/HoraExtraFaltasDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
@@ -9,10 +9,10 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="RelatorioHoraExtra" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="RelatorioHoraExtra" msprop:Generator_UserDSName="RelatorioHoraExtra">
+  <xs:element name="HoraExtraFaltasDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="HoraExtraFaltasDataSet" msprop:Generator_UserDSName="HoraExtraFaltasDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="HoraExtra" msprop:Generator_TableClassName="HoraExtraDataTable" msprop:Generator_TableVarName="tableHoraExtra" msprop:Generator_RowChangedName="HoraExtraRowChanged" msprop:Generator_TablePropName="HoraExtra" msprop:Generator_RowDeletingName="HoraExtraRowDeleting" msprop:Generator_RowChangingName="HoraExtraRowChanging" msprop:Generator_RowEvHandlerName="HoraExtraRowChangeEventHandler" msprop:Generator_RowDeletedName="HoraExtraRowDeleted" msprop:Generator_RowClassName="HoraExtraRow" msprop:Generator_UserTableName="HoraExtra" msprop:Generator_RowEvArgName="HoraExtraRowChangeEvent">
+        <xs:element name="HoraExtra" msprop:Generator_TableClassName="HoraExtraDataTable" msprop:Generator_TableVarName="tableHoraExtra" msprop:Generator_TablePropName="HoraExtra" msprop:Generator_RowDeletingName="HoraExtraRowDeleting" msprop:Generator_RowChangingName="HoraExtraRowChanging" msprop:Generator_RowEvHandlerName="HoraExtraRowChangeEventHandler" msprop:Generator_RowDeletedName="HoraExtraRowDeleted" msprop:Generator_UserTableName="HoraExtra" msprop:Generator_RowChangedName="HoraExtraRowChanged" msprop:Generator_RowEvArgName="HoraExtraRowChangeEvent" msprop:Generator_RowClassName="HoraExtraRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="nome_funcionario" msprop:Generator_ColumnVarNameInTable="columnnome_funcionario" msprop:Generator_ColumnPropNameInRow="nome_funcionario" msprop:Generator_ColumnPropNameInTable="nome_funcionarioColumn" msprop:Generator_UserColumnName="nome_funcionario" type="xs:string" minOccurs="0" />
@@ -20,6 +20,7 @@
               <xs:element name="hora_100" msprop:Generator_ColumnVarNameInTable="columnhora_100" msprop:Generator_ColumnPropNameInRow="hora_100" msprop:Generator_ColumnPropNameInTable="hora_100Column" msprop:Generator_UserColumnName="hora_100" type="xs:string" minOccurs="0" />
               <xs:element name="hora_55" msprop:Generator_ColumnVarNameInTable="columnhora_55" msprop:Generator_ColumnPropNameInRow="hora_55" msprop:Generator_ColumnPropNameInTable="hora_55Column" msprop:Generator_UserColumnName="hora_55" type="xs:string" minOccurs="0" />
               <xs:element name="mes_referencia" msprop:Generator_ColumnVarNameInTable="columnmes_referencia" msprop:Generator_ColumnPropNameInRow="mes_referencia" msprop:Generator_ColumnPropNameInTable="mes_referenciaColumn" msprop:Generator_UserColumnName="mes_referencia" type="xs:string" minOccurs="0" />
+              <xs:element name="faltas" msprop:Generator_ColumnVarNameInTable="columnfaltas" msprop:Generator_ColumnPropNameInRow="faltas" msprop:Generator_ColumnPropNameInTable="faltasColumn" msprop:Generator_UserColumnName="faltas" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

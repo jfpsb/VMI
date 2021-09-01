@@ -5,11 +5,11 @@ using VandaModaIntimaWpf.ViewModel;
 namespace VandaModaIntimaWpf.View.FolhaPagamento
 {
     /// <summary>
-    /// Interaction logic for AdicionarHoraExtra.xaml
+    /// Interaction logic for SalvarFaltas.xaml
     /// </summary>
-    public partial class AdicionarHoraExtra : Window, ICloseable
+    public partial class AdicionarFaltas : Window
     {
-        public AdicionarHoraExtra()
+        public AdicionarFaltas()
         {
             InitializeComponent();
         }
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            DialogResult = ((ACadastrarViewModel<Model.HoraExtra>)DataContext).ResultadoSalvar();
+            DialogResult = ((ACadastrarViewModel<Model.Faltas>)DataContext).ResultadoSalvar();
         }
     }
 }

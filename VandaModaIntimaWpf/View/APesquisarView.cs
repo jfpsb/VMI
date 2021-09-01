@@ -17,7 +17,6 @@ namespace VandaModaIntimaWpf.View
             {
                 //Fecha sessao
                 ((IPesquisarVM)DataContext).DisposeSession();
-                Dispatcher.InvokeShutdown();
             }
         }
 

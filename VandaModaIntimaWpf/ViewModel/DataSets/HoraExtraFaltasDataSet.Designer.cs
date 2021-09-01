@@ -20,9 +20,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("RelatorioHoraExtra")]
+    [global::System.Xml.Serialization.XmlRootAttribute("HoraExtraFaltasDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class RelatorioHoraExtraDataSet : global::System.Data.DataSet {
+    public partial class HoraExtraFaltasDataSet : global::System.Data.DataSet {
         
         private HoraExtraDataTable tableHoraExtra;
         
@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public RelatorioHoraExtraDataSet() {
+        public HoraExtraFaltasDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected RelatorioHoraExtraDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected HoraExtraFaltasDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            RelatorioHoraExtraDataSet cln = ((RelatorioHoraExtraDataSet)(base.Clone()));
+            HoraExtraFaltasDataSet cln = ((HoraExtraFaltasDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,9 +199,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "RelatorioHoraExtra";
+            this.DataSetName = "HoraExtraFaltasDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/RelatorioHoraExtra.xsd";
+            this.Namespace = "http://tempuri.org/HoraExtraFaltasDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableHoraExtra = new HoraExtraDataTable();
@@ -225,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            RelatorioHoraExtraDataSet ds = new RelatorioHoraExtraDataSet();
+            HoraExtraFaltasDataSet ds = new HoraExtraFaltasDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -288,6 +288,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             private global::System.Data.DataColumn columnhora_55;
             
             private global::System.Data.DataColumn columnmes_referencia;
+            
+            private global::System.Data.DataColumn columnfaltas;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -364,6 +366,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn faltasColumn {
+                get {
+                    return this.columnfaltas;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_55, string mes_referencia) {
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_55, string mes_referencia, string faltas) {
                 HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nome_funcionario,
                         nome_loja,
                         hora_100,
                         hora_55,
-                        mes_referencia};
+                        mes_referencia,
+                        faltas};
                 rowHoraExtraRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHoraExtraRow);
                 return rowHoraExtraRow;
@@ -434,6 +445,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnhora_100 = base.Columns["hora_100"];
                 this.columnhora_55 = base.Columns["hora_55"];
                 this.columnmes_referencia = base.Columns["mes_referencia"];
+                this.columnfaltas = base.Columns["faltas"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -449,6 +461,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnhora_55);
                 this.columnmes_referencia = new global::System.Data.DataColumn("mes_referencia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmes_referencia);
+                this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfaltas);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -516,7 +530,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                RelatorioHoraExtraDataSet ds = new RelatorioHoraExtraDataSet();
+                HoraExtraFaltasDataSet ds = new HoraExtraFaltasDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -671,6 +685,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string faltas {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.faltasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'faltas\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.faltasColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool Isnome_funcionarioNull() {
                 return this.IsNull(this.tableHoraExtra.nome_funcionarioColumn);
             }
@@ -727,6 +757,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void Setmes_referenciaNull() {
                 this[this.tableHoraExtra.mes_referenciaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsfaltasNull() {
+                return this.IsNull(this.tableHoraExtra.faltasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetfaltasNull() {
+                this[this.tableHoraExtra.faltasColumn] = global::System.Convert.DBNull;
             }
         }
         

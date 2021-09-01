@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirCalculoPassagemComando { get; set; }
         public ICommand AbrirCalculoAlmocoComando { get; set; }
         public ICommand AbrirImprimirFolhaComando { get; set; }
-        public ICommand AbrirVisualizarHoraExtraComando { get; set; }
+        public ICommand AbrirVisualizarHoraExtraFaltasComando { get; set; }
         public ICommand FecharFolhaPagamentoComando { get; set; }
         public ICommand FecharFolhasAbertasComando { get; set; }
         public ICommand AbrirAdicionarSalarioLiquidoComando { get; set; }
@@ -63,6 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AdicionarMetaIndividualComando { get; set; }
         public ICommand AbrirAdicionarTotalComando { get; set; }
         public ICommand GerarUltimaFolhaPagamentoComando { get; set; }
+        public ICommand AbrirAdicionarFaltasComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -95,7 +96,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirCalculoPassagemComando = new RelayCommand(AbrirCalculoPassagem);
             AbrirCalculoAlmocoComando = new RelayCommand(AbrirCalculoAlmoco);
             AbrirImprimirFolhaComando = new RelayCommand(AbrirImprimirFolha);
-            AbrirVisualizarHoraExtraComando = new RelayCommand(AbrirVisualizarHoraExtra);
+            AbrirVisualizarHoraExtraFaltasComando = new RelayCommand(AbrirVisualizarHoraExtraFaltas);
             FecharFolhaPagamentoComando = new RelayCommand(FecharFolhaPagamento);
             FecharFolhasAbertasComando = new RelayCommand(FecharFolhasAbertas);
             AbrirAdicionarSalarioLiquidoComando = new RelayCommand(AbrirAdicionarSalarioLiquido);
@@ -105,9 +106,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AdicionarMetaIndividualComando = new RelayCommand(AdicionarMeta);
             AbrirAdicionarTotalComando = new RelayCommand(AbrirAdicionarTotal);
             GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
+            AbrirAdicionarFaltasComando = new RelayCommand(AbrirAdicionarFaltas);
 
             progressoValorProgresso = new Progress<double>(valor => { ValorBarraProgresso = valor; });
             progressoDescricaoProgesso = new Progress<string>(descricao => { DescricaoBarraProgresso = descricao; });
+        }
+
+        private void AbrirAdicionarFaltas(object obj)
+        {
+            AdicionarFaltasVM adicionarFaltasVM = new AdicionarFaltasVM(_session, FolhaPagamento, new MessageBoxService(), false);
+            AdicionarFaltas adicionarFaltas = new AdicionarFaltas
+            {
+                DataContext = adicionarFaltasVM
+            };
+            adicionarFaltas.ShowDialog();
+            OnPropertyChanged("TermoPesquisa");
         }
 
         private async void GerarUltimaFolhaPagamento(object obj)
@@ -128,7 +141,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 OnPropertyChanged("TermoPesquisa");
             }
         }
-
         private void AbrirAdicionarTotal(object obj)
         {
             AdicionarTotalVendidoVM viewModel = new AdicionarTotalVendidoVM(_session, FolhaPagamento, new MessageBoxService(), false);
@@ -139,7 +151,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             view.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
-
         private void AdicionarMeta(object obj)
         {
             AdicionarMetaIndividualVM viewModel = new AdicionarMetaIndividualVM(_session, FolhaPagamentos, new MessageBoxService());
@@ -150,7 +161,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             view.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
-
         private async void ExportarFolhasParaPDF(object obj)
         {
             string caminhoPasta = _fileDialogService.ShowFolderBrowserDialog();
@@ -161,7 +171,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             telaDeProgresso.Show();
             await Task.Run(() => ProcessaFolhasParaPDF(progressoValorProgresso, progressoDescricaoProgesso, caminhoPasta));
         }
-
         private async void ProcessaFolhasParaPDF(IProgress<double> progressoValor, IProgress<string> progressoDescricao, string caminhoPasta)
         {
             //TODO: este código está repetido em TelaRelatorioFolha.cs
@@ -290,7 +299,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
             }
         }
-
         private void AbrirAdicionarObservacao(object obj)
         {
             AdicionarObservacaoFolhaVM viewModel = new AdicionarObservacaoFolhaVM(_session, FolhaPagamento, new MessageBoxService());
@@ -301,7 +309,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             view.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
-
         private void AbrirCalculoAlmoco(object obj)
         {
             CalculoDeBonusMensalPorDiaVM almocoVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
@@ -312,13 +319,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             calculoBonusMensalPorDia.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
-
         private void AbrirDadosBancarios(object obj)
         {
             VisualizarDadosBancarios view = new VisualizarDadosBancarios(FolhaPagamento.Funcionario);
             view.Show();
         }
-
         private void AbrirAdicionarSalarioLiquido(object obj)
         {
             AdicionarSalarioLiquidoVM viewModel = new AdicionarSalarioLiquidoVM(_session, _folhaPagamento, new MessageBoxService());
@@ -409,10 +414,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private void AbrirVisualizarHoraExtra(object obj)
+        private void AbrirVisualizarHoraExtraFaltas(object obj)
         {
-            VisualizarHoraExtraVM visualizarHoraExtraVM = new VisualizarHoraExtraVM(DataEscolhida, new MessageBoxService());
-            VisualizarHoraExtra visualizarHoraExtra = new VisualizarHoraExtra
+            VisualizarHoraExtraFaltasVM visualizarHoraExtraVM = new VisualizarHoraExtraFaltasVM(DataEscolhida, new MessageBoxService());
+            VisualizarHoraExtraFaltas visualizarHoraExtra = new VisualizarHoraExtraFaltas
             {
                 DataContext = visualizarHoraExtraVM
             };

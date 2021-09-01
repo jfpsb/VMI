@@ -16,14 +16,14 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class RelatorioHoraExtra : ReportClass {
+    public class RelatorioHoraExtraFaltas : ReportClass {
         
-        public RelatorioHoraExtra() {
+        public RelatorioHoraExtraFaltas() {
         }
         
         public override string ResourceName {
             get {
-                return "RelatorioHoraExtra.rpt";
+                return "RelatorioHoraExtraFaltas.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         
         public override string FullResourceName {
             get {
-                return "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtra.rpt";
+                return "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtraFaltas.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedRelatorioHoraExtra : Component, ICachedReport {
+    public class CachedRelatorioHoraExtraFaltas : Component, ICachedReport {
         
-        public CachedRelatorioHoraExtra() {
+        public CachedRelatorioHoraExtraFaltas() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.Relatorios {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            RelatorioHoraExtra rpt = new RelatorioHoraExtra();
+            RelatorioHoraExtraFaltas rpt = new RelatorioHoraExtraFaltas();
             rpt.Site = this.Site;
             return rpt;
         }

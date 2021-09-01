@@ -17,9 +17,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// <summary>
     /// Interaction logic for VisualizarHoraExtra.xaml
     /// </summary>
-    public partial class VisualizarHoraExtra : Window
+    public partial class VisualizarHoraExtraFaltas : Window
     {
-        public VisualizarHoraExtra()
+        public VisualizarHoraExtraFaltas()
         {
             InitializeComponent();
         }
