@@ -204,7 +204,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public void CopiarValorCelula(object parameter)
         {
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
-            Clipboard.SetText(valorCelula);
+            Clipboard.SetDataObject(valorCelula);
         }
         public virtual async void ExportarExcel(object parameter)
         {
