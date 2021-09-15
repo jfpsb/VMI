@@ -14,8 +14,6 @@ namespace VandaModaIntimaWpf.Model
         private FornecedorModel _fornecedor;
         private MarcaModel _marca;
         private string _descricao;
-        private double _preco;
-        private double _precoCusto;
         private string _ncm;
         private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
         private IList<HistoricoProduto> historico = new List<HistoricoProduto>();
@@ -23,10 +21,9 @@ namespace VandaModaIntimaWpf.Model
         {
             CodBarra = 1,
             Descricao = 2,
-            Preco = 3,
-            Fornecedor = 4,
-            Marca = 5,
-            Ncm = 6,
+            Fornecedor = 3,
+            Marca = 4,
+            Ncm = 5,
         }
 
         [JsonIgnore]
@@ -97,25 +94,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Descricao");
             }
         }
-        public virtual string PossuiGrades
-        {
-            get
-            {
-                if (Grades.Count > 0)
-                    return "SIM";
-
-                return "NÃO";
-            }
-        }
-        public virtual double Preco
-        {
-            get => _preco;
-            set
-            {
-                _preco = value;
-                OnPropertyChanged("Preco");
-            }
-        }
 
         public virtual string Ncm
         {
@@ -160,7 +138,6 @@ namespace VandaModaIntimaWpf.Model
                        && produto.Fornecedor.Equals(Fornecedor)
                        && produto.Marca.Equals(Marca)
                        && produto.Descricao.Equals(Descricao)
-                       && produto.Preco.Equals(Preco)
                        && produto.Ncm.Equals(Ncm);
             }
             return false;
@@ -180,16 +157,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 _grades = value;
                 OnPropertyChanged("Grades");
-            }
-        }
-
-        public virtual double PrecoCusto
-        {
-            get => _precoCusto;
-            set
-            {
-                _precoCusto = value;
-                OnPropertyChanged("PrecoCusto");
             }
         }
 
@@ -239,8 +206,6 @@ namespace VandaModaIntimaWpf.Model
             produto.Descricao = Descricao;
             produto.Fornecedor = Fornecedor;
             produto.Marca = Marca;
-            produto.Preco = Preco;
-            produto.PrecoCusto = PrecoCusto;
             produto.Ncm = Ncm;
             produto.Grades = new List<ProdutoGrade>(Grades);
 

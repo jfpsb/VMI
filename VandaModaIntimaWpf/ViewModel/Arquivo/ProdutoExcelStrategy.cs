@@ -25,7 +25,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco] = lista[i].Preco;
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
                 Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
@@ -67,19 +66,17 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 var cod_barra = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra]).Value;
                 var descricao = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao]).Value;
-                var preco = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Preco]).Value;
                 var fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
                 var marca = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
                 var ncm = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm]).Value;
 
-                if (cod_barra == null || descricao == null || preco == null)
+                if (cod_barra == null || descricao == null)
                 {
                     continue;
                 }
 
                 produto.CodBarra = cod_barra.ToString();
                 produto.Descricao = descricao.ToString();
-                produto.Preco = preco;
 
                 if (!string.IsNullOrEmpty(fornecedor) && !fornecedor.ToString().Equals("NÃO POSSUI"))
                     produto.Fornecedor = await daoFornecedor.ListarPorIDOuNome(fornecedor);

@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
             foreach (Model.Produto produto in Entidades)
             {
                 string campos = $"`{aliasCodBarra.Alias}`, `{aliasDescricao.Alias}`, `{aliasPreco.Alias}`";
-                string valores = $"\"{produto.CodBarra}\", \"{produto.Descricao}\", \"{produto.Preco}\"";
+                string valores = $"\"{produto.CodBarra}\", \"{produto.Descricao}\"";
 
                 if (produto.Fornecedor != null)
                 {
@@ -51,12 +51,6 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                 {
                     campos += $", `{aliasMarca.Alias}`";
                     valores += $", \"{produto.Marca.Nome}\"";
-                }
-
-                if (produto.PrecoCusto != 0.0)
-                {
-                    campos += $", `{aliasPrecoCusto.Alias}`";
-                    valores += $", \"{produto.PrecoCusto}\"";
                 }
 
                 if (!string.IsNullOrEmpty(produto.Ncm))
@@ -104,24 +98,6 @@ namespace VandaModaIntimaWpf.ViewModel.SQL
                 if (aliasDescricao != null)
                 {
                     comandoUpdate += $"{aliasDescricao.Alias} = \"{produto.Descricao}\"";
-                    addVirgula = true;
-                }
-
-                if (aliasPreco != null)
-                {
-                    if (addVirgula)
-                        comandoUpdate += ", ";
-
-                    comandoUpdate += $"{aliasPreco.Alias} = \"{produto.Preco.ToString(System.Globalization.CultureInfo.InvariantCulture)}\"";
-                    addVirgula = true;
-                }
-
-                if (aliasPrecoCusto != null)
-                {
-                    if (addVirgula)
-                        comandoUpdate += ", ";
-
-                    comandoUpdate += $"{aliasPrecoCusto.Alias} = \"{produto.PrecoCusto.ToString(System.Globalization.CultureInfo.InvariantCulture)}\"";
                     addVirgula = true;
                 }
 

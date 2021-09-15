@@ -13,8 +13,6 @@
 
 		<property name="CodBarra" column="cod_barra" />
 		<property name="Descricao" />
-		<property name="Preco" />
-		<property name="PrecoCusto" />
 		<property name="Ncm" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

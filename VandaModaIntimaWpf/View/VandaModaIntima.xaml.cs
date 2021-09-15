@@ -8,7 +8,6 @@ namespace VandaModaIntimaWpf
         public VandaModaIntima()
         {
             InitializeComponent();
-            SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
         }
 
         private void Sair_Click(object sender, RoutedEventArgs e)

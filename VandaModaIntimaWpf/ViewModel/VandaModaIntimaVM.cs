@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -25,6 +29,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
+            SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
+
             AbreTelaPesquisaService = abreTelaPesquisaService;
 
             var configJson = File.ReadAllText("Config.json");
@@ -57,7 +63,53 @@ namespace VandaModaIntimaWpf.ViewModel
             }
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+
+            //CriarGradePadrao();
         }
+
+        //private async void CriarGradePadrao()
+        //{
+        //    ISession session = SessionProvider.GetSession();
+        //    DAOProduto dao = new DAOProduto(session);
+        //    DAOGrade daoGrade = new DAOGrade(session);
+
+        //    var gradeDiversos = await daoGrade.ListarPorId(27);
+
+        //    var produtos = await dao.Listar();
+
+        //    if (produtos != null && produtos.Count > 0)
+        //    {
+        //        foreach (var produto in produtos)
+        //        {
+        //            if (produto.Grades.Count == 0)
+        //            {
+        //                Model.ProdutoGrade produtoGrade = new ProdutoGrade
+        //                {
+        //                    CodBarra = produto.CodBarra,
+        //                    Produto = produto,
+        //                    Preco = produto.Preco,
+        //                    PrecoCusto = produto.PrecoCusto
+        //                };
+
+        //                Model.SubGrade subGrade = new SubGrade
+        //                {
+        //                    ProdutoGrade = produtoGrade,
+        //                    Grade = gradeDiversos
+        //                };
+
+        //                produtoGrade.SubGrades.Add(subGrade);
+
+        //                produto.Grades.Add(produtoGrade);
+
+        //                var result = await dao.Atualizar(produto);
+
+        //                Console.WriteLine(result);
+        //            }
+        //        }
+        //    }
+
+        //    SessionProvider.FechaSession(session);
+        //}
 
         private void AbrirTelaCompraFornecedor(object obj)
         {

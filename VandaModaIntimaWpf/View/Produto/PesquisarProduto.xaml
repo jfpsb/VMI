@@ -118,30 +118,6 @@
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Possui Grades"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Entidade.PossuiGrades}">
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="{DynamicResource preco_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Entidade.Preco, StringFormat='C', ConverterCulture=pt-BR}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Preco}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="{DynamicResource preco_custo_header}"
-                                            IsReadOnly="True"
-                                            Binding="{Binding Entidade.PrecoCusto, StringFormat='C', ConverterCulture=pt-BR}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.PrecoCusto}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
                         <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.FornecedorNome}">

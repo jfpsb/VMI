@@ -43,25 +43,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 descricao += $"{produtoOriginal.CodBarra} - {produtoOriginal.Descricao} MUDOU DE NOME PARA {produtoOriginal.CodBarra} - {Entidade.Descricao}";
             }
 
-            if (Entidade.Preco != produtoOriginal.Preco)
-            {
-                if (descricao.Length != 0)
-                    descricao += "\n";
-
-                descricao += $"{Entidade.CodBarra} - {Entidade.Descricao}";
-
-                if (Entidade.Preco < produtoOriginal.Preco)
-                {
-                    descricao += " DIMINUIU PARA";
-                }
-                else
-                {
-                    descricao += " AUMENTOU PARA";
-                }
-
-                descricao += $" {Entidade.Preco.ToString("C", CultureInfo.CurrentCulture)}";
-            }
-
             historicoProduto.DataAlteracao = DateTime.Now;
             historicoProduto.Descricao = descricao;
         }

@@ -213,8 +213,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             // Reseta ProdutoGrade
             ProdutoGrade = new ProdutoGrade()
             {
-                Produto = Entidade,
-                Preco = Entidade.Preco
+                Produto = Entidade
             };
         }
 
@@ -254,19 +253,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 valido = false;
             }
 
-            if (Entidade.Preco.ToString().Equals(string.Empty) || Entidade.Preco <= 0)
-            {
-                BtnSalvarToolTip += "Informe Um Preço Válido De Produto!\n";
-                valido = false;
-            }
-
             return valido;
         }
         public override void ResetaPropriedades()
         {
             Entidade = new ProdutoModel();
             Entidade.CodBarra = Entidade.Descricao = string.Empty;
-            Entidade.Preco = 0;
             Entidade.Fornecedor = Fornecedores[0];
             Entidade.Marca = Marcas[0];
         }
@@ -417,9 +409,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
                     //ProdutoGrade.Produto = Entidade;
 
-                    break;
-                case "Preco":
-                    ProdutoGrade.Preco = Entidade.Preco;
                     break;
             }
         }

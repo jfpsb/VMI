@@ -61,36 +61,22 @@
                          MaxLength="100"
                          IsEnabled="{Binding IsEnabled}" />
                 <Label Grid.Row="3"
-                       Content="{DynamicResource preco_dois_pontos}" />
-                <TextBox Grid.Column="1"
-                         Grid.Row="3"
-                         Grid.ColumnSpan="2"
-                         Text="{Binding Entidade.Preco, StringFormat=C, ConverterCulture=pt-BR}"
-                         IsEnabled="{Binding IsEnabled}" />
-                <Label Grid.Row="4"
-                       Content="{DynamicResource preco_de_custo_dois_pontos}" />
-                <TextBox Grid.Column="1"
-                         Grid.Row="4"
-                         Grid.ColumnSpan="2"
-                         Text="{Binding Entidade.PrecoCusto, StringFormat=C, ConverterCulture=pt-BR}"
-                         IsEnabled="{Binding IsEnabled}" />
-                <Label Grid.Row="5"
                        Content="{DynamicResource ncm_dois_pontos}" />
                 <TextBox Grid.Column="1"
-                         Grid.Row="5"
+                         Grid.Row="3"
                          Grid.ColumnSpan="2"
                          Text="{Binding Entidade.Ncm, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding IsEnabled}"
                          MaxLength="8" />
-                <Label Grid.Row="6"
+                <Label Grid.Row="4"
                        Content="{DynamicResource fornecedor_dois_pontos}" />
                 <ComboBox Grid.Column="1"
-                          Grid.Row="6"
+                          Grid.Row="4"
                           ItemsSource="{Binding Fornecedores}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Fornecedor, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
-                <Button Grid.Row="6"
+                <Button Grid.Row="4"
                         Grid.Column="2"
                         Background="Transparent"
                         BorderThickness="0"
@@ -106,15 +92,15 @@
                     </Button.ContextMenu>
                     <Image Source="/Resources/Adicionar.png" />
                 </Button>
-                <Label Grid.Row="7"
+                <Label Grid.Row="5"
                        Content="{DynamicResource marca_dois_pontos}" />
                 <ComboBox Grid.Column="1"
-                          Grid.Row="7"
+                          Grid.Row="5"
                           ItemsSource="{Binding Marcas}"
                           DisplayMemberPath="Nome"
                           SelectedItem="{Binding Entidade.Marca, Mode=TwoWay}"
                           IsEnabled="{Binding IsEnabled}" />
-                <Button Grid.Row="7"
+                <Button Grid.Row="5"
                         Grid.Column="2"
                         Background="Transparent"
                         BorderThickness="0"
@@ -162,13 +148,13 @@
                 <TextBox Grid.Row="1"
                          Grid.Column="1"
                          Grid.ColumnSpan="2"
-                         Text="{Binding ProdutoGrade.Preco, ConverterCulture=pt-BR}" />
+                         Text="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}" />
                 <Label Grid.Row="2"
                        Content="{DynamicResource preco_custo_dois_pontos}" />
                 <TextBox Grid.Row="2"
                          Grid.Column="1"
                          Grid.ColumnSpan="2"
-                         Text="{Binding ProdutoGrade.PrecoCusto, ConverterCulture=pt-BR}" />
+                         Text="{Binding ProdutoGrade.PrecoCusto, StringFormat=C,ConverterCulture=pt-BR}" />
                 <Label Grid.Row="3"
                        Content="Tipo de Grade:" />
                 <ComboBox Grid.Row="3"

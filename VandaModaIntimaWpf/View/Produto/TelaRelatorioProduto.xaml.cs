@@ -56,7 +56,6 @@ namespace VandaModaIntimaWpf.View.Produto
 
                 prow.cod_barra = produto.CodBarra;
                 prow.descricao = produto.Descricao;
-                prow.preco = produto.Preco.ToString("C", CultureInfo.CurrentCulture);
 
                 produtoDataSet.Produto.AddProdutoRow(prow);
             }
