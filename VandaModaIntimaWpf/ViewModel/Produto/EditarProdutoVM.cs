@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void InsereHistoricoProduto()
         {
-            Entidade.Historico.Add(historicoProduto);
+            //Entidade.Historico.Add(historicoProduto);
         }
 
         private void HistoricoProdutoChanged(object sender, PropertyChangedEventArgs e)
