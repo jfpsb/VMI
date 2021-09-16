@@ -14,7 +14,8 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private string _inscricaoestadual;
         private double _aluguel;
-        
+        private IList<AliquotasImposto> _aliquotas = new List<AliquotasImposto>();
+
         public Loja() { }
         public Loja(string nome)
         {
@@ -135,6 +136,16 @@ namespace VandaModaIntimaWpf.Model
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Nome;
+
+        public virtual IList<AliquotasImposto> Aliquotas
+        {
+            get => _aliquotas;
+            set
+            {
+                _aliquotas = value;
+                OnPropertyChanged("Aliquotas");
+            }
+        }
 
         public virtual object GetIdentifier()
         {

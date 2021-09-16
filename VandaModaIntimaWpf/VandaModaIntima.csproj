@@ -461,6 +461,7 @@
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Model\Adiantamento.cs" />
+    <Compile Include="Model\AliquotasImposto.cs" />
     <Compile Include="Model\AModel.cs" />
     <Compile Include="Model\ArquivosCompraFornecedor.cs" />
     <Compile Include="Model\Banco.cs" />
@@ -1243,6 +1244,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Faltas.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\AliquotasImposto.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
