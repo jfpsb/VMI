@@ -18,7 +18,7 @@
 
 		<bag name="Aliquotas" table="aliquotas_imposto" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
 			<key column="loja" />
-			<one-to-many class="VandaModaIntimaWpf.Model.Loja"/>
+			<one-to-many class="VandaModaIntimaWpf.Model.AliquotasImposto"/>
 		</bag>
 	</class>
 

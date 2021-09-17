@@ -1,8 +1,10 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -12,7 +14,12 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class CadastrarLojaVM : ACadastrarViewModel<LojaModel>
     {
+        private Model.AliquotasImposto _aliquota;
+        private ObservableCollection<Model.AliquotasImposto> _aliquotas;
+        private bool _isMatriz;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
+        public ICommand AdicionarAliquotaComando { get; set; }
+
         public CadastrarLojaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarLojaVMStrategy();
@@ -20,12 +27,31 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Entidade = new LojaModel();
             GetMatrizes();
             AntesDeInserirNoBancoDeDados += ConfiguraLojaAntesDeInserir;
+            AdicionarAliquotaComando = new RelayCommand(AdicionarAliquota);
+            Aliquota = new Model.AliquotasImposto();
+        }
+
+        private void AdicionarAliquota(object obj)
+        {
+            Aliquota.DataInsercao = DateTime.Now;
+            Aliquota.Loja = Entidade;
+            Aliquota.Simples /= 100;
+            Aliquota.Icms /= 100;
+            Aliquotas.Add(Aliquota);
+            Aliquota = new Model.AliquotasImposto();
         }
 
         private void ConfiguraLojaAntesDeInserir()
         {
             if (Entidade.Matriz?.Cnpj == null)
                 Entidade.Matriz = null;
+
+            Entidade.Aliquotas.Clear();
+
+            foreach (var a in Aliquotas)
+            {
+                Entidade.Aliquotas.Add(a);
+            }
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -85,6 +111,39 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
                     }
 
                     break;
+                case "Matriz":
+                    IsMatriz = Entidade.Matriz?.Cnpj == null;
+                    break;
+            }
+        }
+
+        public ObservableCollection<Model.AliquotasImposto> Aliquotas
+        {
+            get => _aliquotas;
+            set
+            {
+                _aliquotas = value;
+                OnPropertyChanged("Aliquotas");
+            }
+        }
+
+        public Model.AliquotasImposto Aliquota
+        {
+            get => _aliquota;
+            set
+            {
+                _aliquota = value;
+                OnPropertyChanged("Aliquota");
+            }
+        }
+
+        public bool IsMatriz
+        {
+            get => _isMatriz;
+            set
+            {
+                _isMatriz = value;
+                OnPropertyChanged("IsMatriz");
             }
         }
     }

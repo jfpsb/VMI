@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto" xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Cadastrar Produto"
         Height="825"
@@ -17,7 +18,7 @@
                     Command="{Binding SalvarComando}" />
     </Window.InputBindings>
     <Window.Resources>
-        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
     <TabControl>
         <TabItem Header="Dados de Produto">
@@ -45,7 +46,7 @@
                          Grid.ColumnSpan="2"
                          Text="{Binding Entidade.CodBarra, UpdateSourceTrigger=PropertyChanged}"
                          MaxLength="15"
-                         IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
+                         IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}" />
                 <Label Grid.Row="1"
                        Grid.ColumnSpan="3"
                        Content="{DynamicResource produto_ja_existe_sistema}"
@@ -249,6 +250,136 @@
                     </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
+        </TabItem>
+        <TabItem Header="Composição De Preço">
+            <ScrollViewer HorizontalScrollBarVisibility="Visible">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Grade:"
+                           FontSize="16" />
+                    <ComboBox Grid.Column="1"
+                              ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding ProdutoGradeComposicaoPreco, UpdateSourceTrigger=PropertyChanged}"
+                              DisplayMemberPath="SubGradesToString" />
+                    <Label Grid.Row="1"
+                           Content="Frete Unitário:"
+                           FontSize="16" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Text="{Binding Frete, StringFormat=C, ConverterCulture=pt-BR}" />
+                    <Label Grid.Row="2"
+                           Content="Preço De Compra Unitário:"
+                           FontSize="16" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             Text="{Binding PrecoCompra, StringFormat=C, ConverterCulture=pt-BR}" />
+                    <ListView Grid.Row="3"
+                              Grid.ColumnSpan="2"
+                              Margin="0,15,0,0"
+                              HorizontalContentAlignment="Stretch"
+                              HorizontalAlignment="Center"
+                              ItemsSource="{Binding ComposicaoPrecos, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Grid.Row="2"
+                                      Margin="10">
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Resources>
+                                                <Style TargetType="Label">
+                                                    <Setter Property="FontSize"
+                                                            Value="16" />
+                                                    <Setter Property="Background"
+                                                            Value="LightGray" />
+                                                </Style>
+                                            </Style.Resources>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Content="{Binding Loja.Nome}"
+                                           FontWeight="Bold"
+                                           FontSize="18"
+                                           Grid.ColumnSpan="5"
+                                           HorizontalAlignment="Stretch"
+                                           Background="Yellow"
+                                           HorizontalContentAlignment="Center"
+                                           BorderBrush="Black"
+                                           BorderThickness="1" />
+                                    <Label Content="Simples"
+                                           Grid.Row="1"
+                                           FontWeight="Bold" />
+                                    <Label Content="ICMS"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           FontWeight="Bold" />
+                                    <Label Content="Custo Total"
+                                           Grid.Row="1"
+                                           Grid.Column="2"
+                                           FontWeight="Bold" />
+                                    <Label Content="Margem De Contribuição"
+                                           Grid.Row="1"
+                                           Grid.Column="3"
+                                           FontWeight="Bold" />
+                                    <Label Content="Lucro"
+                                           Grid.Row="1"
+                                           Grid.Column="4"
+                                           FontWeight="Bold" />
+
+                                    <Label Content="{Binding Loja.UltimaAliquota.Simples}"
+                                           ContentStringFormat="P2"
+                                           Grid.Row="2"
+                                           Background="White" />
+                                    <Label Content="{Binding Loja.UltimaAliquota.Icms}"
+                                           ContentStringFormat="P2"
+                                           Grid.Row="2"
+                                           Grid.Column="1"
+                                           Background="White" />
+                                    <Label Content="{Binding CustoTotal}"
+                                           ContentStringFormat="C"
+                                           Language="pt-BR"
+                                           Grid.Row="2"
+                                           Grid.Column="2"
+                                           Background="White" />
+                                    <Label Content="{Binding MargemContribuicao}"
+                                           ContentStringFormat="C"
+                                           Language="pt-BR"
+                                           Grid.Row="2"
+                                           Grid.Column="3"
+                                           Background="White" />
+                                    <Label Content="{Binding Lucro}"
+                                           ContentStringFormat="P2"
+                                           Language="pt-BR"
+                                           Grid.Row="2"
+                                           Grid.Column="4"
+                                           Background="White" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollViewer>
         </TabItem>
     </TabControl>
 </Window>

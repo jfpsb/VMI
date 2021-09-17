@@ -468,6 +468,7 @@
     <Compile Include="Model\Bonus.cs" />
     <Compile Include="Model\BonusMensal.cs" />
     <Compile Include="Model\ChavePix.cs" />
+    <Compile Include="Model\ComposicaoPreco.cs" />
     <Compile Include="Model\CompraDeFornecedor.cs" />
     <Compile Include="Model\ContaBancaria.cs" />
     <Compile Include="Model\Contagem.cs" />
@@ -1247,6 +1248,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\AliquotasImposto.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\ComposicaoPreco.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,9 +18,10 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             viewModelStrategy = new EditarProdutoVMStrategy();
             Entidade = produto;
             produtoOriginal = produto.Clone() as ProdutoModel;
-            Entidade.PropertyChanged += HistoricoProdutoChanged;
+            //Entidade.PropertyChanged += HistoricoProdutoChanged;
             ProdutoGrade.Produto = Entidade;
             ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
+            ProdutoGradeComposicaoPreco = ProdutoGrades[0];
             historicoProduto = new HistoricoProduto()
             {
                 Produto = Entidade

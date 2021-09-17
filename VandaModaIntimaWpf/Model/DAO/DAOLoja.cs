@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
             var criteria = CriarCriteria();
             criteria.Add(Restrictions.IsNull("Matriz"));
+            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
             criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);
         }
@@ -29,9 +31,9 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         public async Task<IList<Loja>> ListarPorCnpj(string termo)
         {
             var criteria = CriarCriteria();
-
             criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Cnpj", "%" + termo + "%")));
             criteria.AddOrder(Order.Asc("Cnpj"));
+
             return await Listar(criteria);
         }
         public async Task<IList<Loja>> ListarExcetoDeposito()

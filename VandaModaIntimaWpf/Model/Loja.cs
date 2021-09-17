@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -147,6 +147,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual AliquotasImposto UltimaAliquota
+        {
+            get => Aliquotas.Count > 0 ? Aliquotas.Last() : null;
+        }
+
         public virtual object GetIdentifier()
         {
             return Cnpj;
@@ -157,6 +162,10 @@ namespace VandaModaIntimaWpf.Model
             if (!NHibernateUtil.IsInitialized(Matriz))
             {
                 NHibernateUtil.Initialize(Matriz);
+            }
+            if (!NHibernateUtil.IsInitialized(Aliquotas))
+            {
+                NHibernateUtil.Initialize(Aliquotas);
             }
         }
     }

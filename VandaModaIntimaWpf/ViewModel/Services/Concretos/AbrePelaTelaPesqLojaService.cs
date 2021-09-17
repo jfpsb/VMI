@@ -27,8 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.Loja clone, ISession session)
         {
-            EditarLojaVM editarLojaViewModel = new EditarLojaVM(session, new MessageBoxService());
-            editarLojaViewModel.Entidade = clone;
+            EditarLojaVM editarLojaViewModel = new EditarLojaVM(clone, session, new MessageBoxService());
 
             SalvarLoja editar = new SalvarLoja()
             {

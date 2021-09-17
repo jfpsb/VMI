@@ -1,7 +1,8 @@
 ﻿using NHibernate;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -26,6 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOFornecedor daoFornecedor;
         protected DAOTipoGrade daoTipoGrade;
         protected DAOGrade daoGrade;
+        protected DAOLoja daoLoja;
         protected DAO<Model.ProdutoGrade> daoProdutoGrade;
 
         private string _codigoFornecedor;
@@ -40,6 +42,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private AbrePelaTelaCadastroDeProduto abrePelaTelaCadastroDeProduto;
         private ObservableCollection<FornecedorModel> _fornecedores;
         private ObservableCollection<MarcaModel> _marcas;
+        private ObservableCollection<Model.ComposicaoPreco> _composicaoPrecos;
+        private ProdutoGrade _produtoGradeComposicaoPreco;
+        private double _frete;
+        private double _precoCompra;
+
+        private IList<Model.Loja> matrizes;
 
         public ICommand InserirFormacaoGradeComando { get; set; }
         public ICommand InserirFormacaoAtualGradeComando { get; set; }
@@ -59,6 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoTipoGrade = new DAOTipoGrade(_session);
             daoProdutoGrade = new DAO<Model.ProdutoGrade>(_session);
             daoGrade = new DAOGrade(_session);
+            daoLoja = new DAOLoja(_session);
             Entidade = new ProdutoModel();
             ProdutoGrade = new ProdutoGrade();
             ProdutoGrades = new ObservableCollection<ProdutoGrade>();
@@ -74,6 +83,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             CopiarCodBarraComando = new RelayCommand(CopiarCodBarra);
 
             PropertyChanged += GetGrades;
+            PropertyChanged += FreteAlterado;
+            PropertyChanged += ProdutoGradeComposicaoAlterada;
+            PropertyChanged += PrecoCompraAlterado;
 
             AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
             AntesDeInserirNoBancoDeDados += AdicionaGradesEmEntidade;
@@ -83,6 +95,60 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetFornecedores();
             GetMarcas();
             GetTiposGrade();
+            GetMatrizes();
+
+            ComposicaoPrecos = new ObservableCollection<ComposicaoPreco>();
+
+            CriaComposicaoPreco();
+        }
+
+        private void PrecoCompraAlterado(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("PrecoCompra"))
+            {
+                foreach (var comp in ComposicaoPrecos)
+                {
+                    comp.PrecoCompra = PrecoCompra;
+                }
+            }
+        }
+
+        private void ProdutoGradeComposicaoAlterada(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("ProdutoGradeComposicaoPreco"))
+            {
+                foreach (var comp in ComposicaoPrecos)
+                {
+                    comp.ProdutoGrade = ProdutoGradeComposicaoPreco;
+                }
+            }
+        }
+
+        private void FreteAlterado(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Frete"))
+            {
+                foreach (var comp in ComposicaoPrecos)
+                {
+                    comp.Frete = Frete;
+                }
+            }
+        }
+
+        private void CriaComposicaoPreco()
+        {
+            foreach (var matriz in matrizes)
+            {
+                Model.ComposicaoPreco composicaoPreco = new ComposicaoPreco
+                {
+                    Loja = matriz,
+                    ProdutoGrade = ProdutoGradeComposicaoPreco,
+                    Data = DateTime.Now,
+                    Frete = Frete
+                };
+
+                ComposicaoPrecos.Add(composicaoPreco);
+            }
         }
 
         private void CopiarCodBarra(object obj)
@@ -375,19 +441,63 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             }
         }
 
-        private async Task GetFornecedores()
+        public ObservableCollection<ComposicaoPreco> ComposicaoPrecos
+        {
+            get => _composicaoPrecos;
+            set
+            {
+                _composicaoPrecos = value;
+                OnPropertyChanged("ComposicaoPrecos");
+            }
+        }
+
+        public ProdutoGrade ProdutoGradeComposicaoPreco
+        {
+            get => _produtoGradeComposicaoPreco;
+            set
+            {
+                _produtoGradeComposicaoPreco = value;
+                OnPropertyChanged("ProdutoGradeComposicaoPreco");
+            }
+        }
+
+        public double Frete
+        {
+            get => _frete;
+            set
+            {
+                _frete = value;
+                OnPropertyChanged("Frete");
+            }
+        }
+
+        public double PrecoCompra
+        {
+            get => _precoCompra;
+            set
+            {
+                _precoCompra = value;
+                OnPropertyChanged("PrecoCompra");
+            }
+        }
+
+        private async void GetFornecedores()
         {
             Fornecedores = new ObservableCollection<FornecedorModel>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new FornecedorModel(GetResource.GetString("fornecedor_nao_selecionado")));
         }
-        private async Task GetMarcas()
+        private async void GetMarcas()
         {
             Marcas = new ObservableCollection<MarcaModel>(await daoMarca.Listar());
             Marcas.Insert(0, new MarcaModel(GetResource.GetString("marca_nao_selecionada")));
         }
-        private async Task GetTiposGrade()
+        private async void GetTiposGrade()
         {
             TiposGrade = new ObservableCollection<Model.TipoGrade>(await daoTipoGrade.Listar());
+        }
+        private async void GetMatrizes()
+        {
+            matrizes = await daoLoja.ListarMatrizes();
         }
         public async override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
