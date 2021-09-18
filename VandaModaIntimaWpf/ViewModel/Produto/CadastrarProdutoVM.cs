@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -29,6 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         protected DAOGrade daoGrade;
         protected DAOLoja daoLoja;
         protected DAO<Model.ProdutoGrade> daoProdutoGrade;
+        protected DAOHistoricoProdutoGrade daoComposicaoPreco;
 
         private string _codigoFornecedor;
         private Model.TipoGrade _tipoGrade;
@@ -46,6 +48,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private ProdutoGrade _produtoGradeComposicaoPreco;
         private double _frete;
         private double _precoCompra;
+        private double _precoVenda;
+        private double _mediaCustoTotal;
+        private double _mediaMargemContribuicao;
+        private double _mediaLucro;
+        private bool _aplicaIcms = true;
+        private bool _aplicaTodasProdutoGrade;
+        private ObservableCollection<HistoricoProdutoGrade> _historicoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>();
 
         private IList<Model.Loja> matrizes;
 
@@ -57,6 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand CadastrarFornecedorManualmenteComando { get; set; }
         public ICommand CadastrarMarcaComando { get; set; }
         public ICommand CopiarCodBarraComando { get; set; }
+        public ICommand SalvaComposicaoPrecoComando { get; set; }
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
@@ -68,6 +78,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             daoProdutoGrade = new DAO<Model.ProdutoGrade>(_session);
             daoGrade = new DAOGrade(_session);
             daoLoja = new DAOLoja(_session);
+            daoComposicaoPreco = new DAOHistoricoProdutoGrade(_session);
             Entidade = new ProdutoModel();
             ProdutoGrade = new ProdutoGrade();
             ProdutoGrades = new ObservableCollection<ProdutoGrade>();
@@ -81,11 +92,14 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             CadastrarFornecedorManualmenteComando = new RelayCommand(CadastrarFornecedorManualmente);
             CadastrarMarcaComando = new RelayCommand(CadastrarMarca);
             CopiarCodBarraComando = new RelayCommand(CopiarCodBarra);
+            SalvaComposicaoPrecoComando = new RelayCommand(SalvaComposicaoPreco);
 
             PropertyChanged += GetGrades;
             PropertyChanged += FreteAlterado;
             PropertyChanged += ProdutoGradeComposicaoAlterada;
             PropertyChanged += PrecoCompraAlterado;
+            PropertyChanged += PrecoVendaAlterado;
+            PropertyChanged += AplicaIcmsAlterado;
 
             AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
             AntesDeInserirNoBancoDeDados += AdicionaGradesEmEntidade;
@@ -98,8 +112,104 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             GetMatrizes();
 
             ComposicaoPrecos = new ObservableCollection<ComposicaoPreco>();
+            ComposicaoPrecos.CollectionChanged += ComposicaoPrecos_CollectionChanged;
 
             CriaComposicaoPreco();
+        }
+
+        private void AplicaIcmsAlterado(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("AplicaIcms"))
+            {
+                foreach (var comp in ComposicaoPrecos)
+                {
+                    comp.AplicaIcms = AplicaIcms;
+                }
+
+                CalculaMediasComposicaoPrecos();
+            }
+        }
+
+        private void PrecoVendaAlterado(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("PrecoVenda"))
+            {
+                foreach (var comp in ComposicaoPrecos)
+                {
+                    comp.PrecoVenda = PrecoVenda;
+                }
+
+                CalculaMediasComposicaoPrecos();
+            }
+        }
+
+        private async void SalvaComposicaoPreco(object obj)
+        {
+            bool result;
+
+            if (AplicaTodasProdutoGrade)
+            {
+                foreach (var pg in ProdutoGrades)
+                {
+                    HistoricoProdutoGrade historicoProdutoGrade = new HistoricoProdutoGrade
+                    {
+                        ProdutoGrade = pg,
+                        Data = DateTime.Now,
+                        PrecoCompra = PrecoCompra,
+                        PrecoVenda = PrecoVenda,
+                        CustoTotal = MediaCustoTotal,
+                        Frete = Frete
+                    };
+
+                    pg.PrecoCusto = MediaCustoTotal;
+                    pg.Preco = PrecoVenda;
+                    pg.Historico.Add(historicoProdutoGrade);
+                }
+
+                result = await daoProdutoGrade.InserirOuAtualizar(ProdutoGrades);
+            }
+            else
+            {
+                HistoricoProdutoGrade historicoProdutoGrade = new HistoricoProdutoGrade
+                {
+                    ProdutoGrade = ProdutoGradeComposicaoPreco,
+                    Data = DateTime.Now,
+                    PrecoCompra = PrecoCompra,
+                    PrecoVenda = PrecoVenda,
+                    CustoTotal = MediaCustoTotal,
+                    Frete = Frete
+                };
+
+                ProdutoGradeComposicaoPreco.PrecoCusto = MediaCustoTotal;
+                ProdutoGradeComposicaoPreco.Preco = PrecoVenda;
+                ProdutoGradeComposicaoPreco.Historico.Add(historicoProdutoGrade);
+
+                result = await daoProdutoGrade.Atualizar(ProdutoGradeComposicaoPreco);
+            }
+
+            if (result)
+            {
+                MessageBoxService.Show("Grade(s) Atualizada(s) Com Novo(s) Preço(s) De Custo Com Sucesso!");
+            }
+            else
+            {
+                MessageBoxService.Show("Erro Ao Salvar Grade(s)!");
+            }
+        }
+
+        private void ComposicaoPrecos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            CalculaMediasComposicaoPrecos();
+        }
+
+        private void CalculaMediasComposicaoPrecos()
+        {
+            if (ProdutoGradeComposicaoPreco != null)
+            {
+                MediaCustoTotal = ComposicaoPrecos.Average(a => a.CustoTotal);
+                MediaLucro = ComposicaoPrecos.Average(a => a.Lucro);
+                MediaMargemContribuicao = ComposicaoPrecos.Average(a => a.MargemContribuicao);
+            }
         }
 
         private void PrecoCompraAlterado(object sender, PropertyChangedEventArgs e)
@@ -110,6 +220,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 {
                     comp.PrecoCompra = PrecoCompra;
                 }
+
+                CalculaMediasComposicaoPrecos();
             }
         }
 
@@ -121,6 +233,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 {
                     comp.ProdutoGrade = ProdutoGradeComposicaoPreco;
                 }
+
+                CalculaMediasComposicaoPrecos();
+                HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
             }
         }
 
@@ -132,6 +247,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 {
                     comp.Frete = Frete;
                 }
+
+                CalculaMediasComposicaoPrecos();
             }
         }
 
@@ -478,6 +595,74 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             {
                 _precoCompra = value;
                 OnPropertyChanged("PrecoCompra");
+            }
+        }
+
+        public double MediaCustoTotal
+        {
+            get => _mediaCustoTotal;
+            set
+            {
+                _mediaCustoTotal = value;
+                OnPropertyChanged("MediaCustoTotal");
+            }
+        }
+        public double MediaMargemContribuicao
+        {
+            get => _mediaMargemContribuicao;
+            set
+            {
+                _mediaMargemContribuicao = value;
+                OnPropertyChanged("MediaMargemContribuicao");
+            }
+        }
+        public double MediaLucro
+        {
+            get => _mediaLucro;
+            set
+            {
+                _mediaLucro = value;
+                OnPropertyChanged("MediaLucro");
+            }
+        }
+
+        public double PrecoVenda
+        {
+            get => _precoVenda;
+            set
+            {
+                _precoVenda = value;
+                OnPropertyChanged("PrecoVenda");
+            }
+        }
+
+        public bool AplicaIcms
+        {
+            get => _aplicaIcms;
+            set
+            {
+                _aplicaIcms = value;
+                OnPropertyChanged("AplicaIcms");
+            }
+        }
+
+        public ObservableCollection<HistoricoProdutoGrade> HistoricoProdutoGrade
+        {
+            get => _historicoProdutoGrade;
+            set
+            {
+                _historicoProdutoGrade = value;
+                OnPropertyChanged("HistoricoProdutoGrade");
+            }
+        }
+
+        public bool AplicaTodasProdutoGrade
+        {
+            get => _aplicaTodasProdutoGrade;
+            set
+            {
+                _aplicaTodasProdutoGrade = value;
+                OnPropertyChanged("AplicaTodasProdutoGrade");
             }
         }
 

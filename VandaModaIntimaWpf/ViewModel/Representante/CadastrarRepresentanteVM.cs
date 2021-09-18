@@ -75,7 +75,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             return valido;
         }
 
-        private async Task GetComboBoxFornecedores()
+        private async void GetComboBoxFornecedores()
         {
             ComboBoxFornecedores = new ObservableCollection<Model.Fornecedor>(await daoFornecedor.Listar());
         }

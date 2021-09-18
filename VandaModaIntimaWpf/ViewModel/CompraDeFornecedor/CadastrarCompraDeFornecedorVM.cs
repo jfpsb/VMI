@@ -310,19 +310,19 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             return valido;
         }
 
-        private async Task GetFornecedores()
+        private async void GetFornecedores()
         {
             Fornecedores = new ObservableCollection<Model.Fornecedor>(await daoFornecedor.Listar());
             Fornecedores.Insert(0, new Model.Fornecedor(GetResource.GetString("fornecedor_nao_selecionado")));
         }
 
-        private async Task GetLojas()
+        private async void GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.Listar());
             Lojas.Insert(0, new Model.Loja("LOJA NÃO SELECIONADA"));
         }
 
-        private async Task GetRepresentantes()
+        private async void GetRepresentantes()
         {
             Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
             Representantes.Insert(0, new Model.Representante { Nome = "REPRESENTANTE NÃO SELECIONADO" });

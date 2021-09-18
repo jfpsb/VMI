@@ -109,7 +109,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return valido;
         }
 
-        private async Task GetTiposHoraExtra()
+        private async void GetTiposHoraExtra()
         {
             TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar());
         }

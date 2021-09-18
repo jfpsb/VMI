@@ -20,6 +20,10 @@
 			<key column="produto_grade" />
 			<one-to-many class="VandaModaIntimaWpf.Model.SubGrade"/>
 		</bag>
+		<bag name="Historico" table="historico_produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="produto_grade" />
+			<one-to-many class="VandaModaIntimaWpf.Model.HistoricoProdutoGrade"/>
+		</bag>
 	</class>
 
 </hibernate-mapping>

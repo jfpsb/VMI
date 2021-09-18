@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         private string _descricao;
         private string _ncm;
         private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
-        private IList<HistoricoProduto> historico = new List<HistoricoProduto>();
+        
         public enum Colunas
         {
             CodBarra = 1,
@@ -159,17 +159,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Grades");
             }
         }
-
-        public virtual IList<HistoricoProduto> Historico
-        {
-            get => historico;
-            set
-            {
-                historico = value;
-                OnPropertyChanged("Historico");
-            }
-        }
-
         public virtual string[] GetColunas()
         {
             return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };

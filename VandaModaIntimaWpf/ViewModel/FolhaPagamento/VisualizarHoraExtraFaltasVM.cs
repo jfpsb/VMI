@@ -91,7 +91,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private async Task GetFuncionarios()
+        private async void GetFuncionarios()
         {
             funcionarios = await daoFuncionario.Listar();
         }

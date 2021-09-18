@@ -68,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
             CalculaTotais();
         }
-        public async Task GetMatrizes()
+        public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
             Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));

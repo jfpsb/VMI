@@ -12,6 +12,7 @@ namespace VandaModaIntimaWpf.Model
         private double _preco;
         private double _precoCusto;
         private ICollection<SubGrade> _subGrades = new List<SubGrade>();
+        private IList<HistoricoProdutoGrade> _historico = new List<HistoricoProdutoGrade>();
 
         [JsonIgnore]
         public virtual Produto Produto
@@ -110,7 +111,7 @@ namespace VandaModaIntimaWpf.Model
                 if (PrecoCusto == 0.0)
                     return 0;
 
-                return ((Preco - PrecoCusto) / Preco);
+                return (Preco - PrecoCusto) / Preco;
                 //return Math.Truncate((Preco - PrecoCusto) / Preco * 10000) / 100;
             }
             set
@@ -143,6 +144,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _id = value;
                 OnPropertyChanged("Id");
+            }
+        }
+
+        public virtual IList<HistoricoProdutoGrade> Historico
+        {
+            get => _historico;
+            set
+            {
+                _historico = value;
+                OnPropertyChanged("Historico");
             }
         }
 

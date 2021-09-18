@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             return true;
         }
 
-        private async Task GetLojas()
+        private async void GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.Listar());
         }

@@ -90,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             return valido;
         }
-        private async Task GetRepresentantes()
+        private async void GetRepresentantes()
         {
             Representantes = new ObservableCollection<Model.Representante>(await daoRepresentante.Listar());
             Representantes.Insert(0, new Model.Representante("SELECIONE UM REPRESENTANTE"));

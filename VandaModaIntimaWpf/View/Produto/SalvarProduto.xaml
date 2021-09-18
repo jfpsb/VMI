@@ -7,8 +7,8 @@
         xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Cadastrar Produto"
-        Height="825"
-        Width="675"
+        Height="875"
+        Width="700"
         Icon="/Resources/Produto_Icon.ico"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCodBarra}"
@@ -225,20 +225,19 @@
                 <DataGrid Grid.Row="9"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
+                          IsReadOnly="True"
                           ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding ProdutoGradeSelecionada, Mode=OneWayToSource}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
-                                            IsReadOnly="True"
                                             Binding="{Binding CodBarra}" />
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             Binding="{Binding Preco, StringFormat=C, ConverterCulture=pt-BR}" />
                         <DataGridTextColumn Header="{DynamicResource preco_custo_header}"
                                             Binding="{Binding PrecoCusto, StringFormat=C, ConverterCulture=pt-BR}" />
                         <DataGridTextColumn Header="{DynamicResource margem_lucro_header}"
-                                            Binding="{Binding MargemDeLucro, StringFormat=P0}" />
+                                            Binding="{Binding MargemDeLucro, StringFormat=P2}" />
                         <DataGridTextColumn Header="Descrição da Grade"
-                                            IsReadOnly="True"
                                             Binding="{Binding SubGradesToString}"
                                             Width="*" />
                     </DataGrid.Columns>
@@ -257,8 +256,13 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -269,20 +273,41 @@
                     <ComboBox Grid.Column="1"
                               ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding ProdutoGradeComposicaoPreco, UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="{Binding AplicaTodasProdutoGrade, Converter={StaticResource InverseBooleanConverter}}"
                               DisplayMemberPath="SubGradesToString" />
+                    <CheckBox Grid.Column="2"
+                              IsChecked="{Binding AplicaTodasProdutoGrade}"
+                              VerticalAlignment="Center" />
                     <Label Grid.Row="1"
                            Content="Frete Unitário:"
                            FontSize="16" />
                     <TextBox Grid.Row="1"
                              Grid.Column="1"
+                             Grid.ColumnSpan="2"
                              Text="{Binding Frete, StringFormat=C, ConverterCulture=pt-BR}" />
                     <Label Grid.Row="2"
                            Content="Preço De Compra Unitário:"
                            FontSize="16" />
                     <TextBox Grid.Row="2"
                              Grid.Column="1"
+                             Grid.ColumnSpan="2"
                              Text="{Binding PrecoCompra, StringFormat=C, ConverterCulture=pt-BR}" />
-                    <ListView Grid.Row="3"
+                    <Label Grid.Row="3"
+                           Content="Preço De Venda:"
+                           FontSize="16" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             Text="{Binding PrecoVenda, StringFormat=C, ConverterCulture=pt-BR}" />
+                    <Label Grid.Row="4"
+                           Content="Aplica-se ICMS Antecipado:"
+                           FontSize="16" />
+                    <CheckBox Grid.Row="4"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="2"
+                              VerticalAlignment="Center"
+                              IsChecked="{Binding AplicaIcms, UpdateSourceTrigger=PropertyChanged}" />
+                    <ListView Grid.Row="5"
                               Grid.ColumnSpan="2"
                               Margin="0,15,0,0"
                               HorizontalContentAlignment="Stretch"
@@ -378,8 +403,118 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <Grid Grid.Row="6"
+                          Grid.ColumnSpan="3"
+                          Margin="10"
+                          HorizontalAlignment="Center">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Resources>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize"
+                                                Value="16" />
+                                        <Setter Property="Background"
+                                                Value="LightGray" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="Média"
+                               FontWeight="Bold"
+                               FontSize="18"
+                               Grid.ColumnSpan="5"
+                               HorizontalAlignment="Stretch"
+                               Background="Yellow"
+                               HorizontalContentAlignment="Center"
+                               BorderBrush="Black"
+                               BorderThickness="1" />
+                        <Label Content="Custo Total"
+                               Grid.Row="1"
+                               FontWeight="Bold" />
+                        <Label Content="Margem De Contribuição"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               FontWeight="Bold" />
+                        <Label Content="Lucro"
+                               Grid.Row="1"
+                               Grid.Column="2"
+                               FontWeight="Bold" />
+
+                        <Label Content="{Binding MediaCustoTotal}"
+                               ContentStringFormat="C"
+                               Language="pt-BR"
+                               Grid.Row="2"
+                               Background="White" />
+                        <Label Content="{Binding MediaMargemContribuicao}"
+                               ContentStringFormat="C"
+                               Language="pt-BR"
+                               Grid.Row="2"
+                               Grid.Column="1"
+                               Background="White" />
+                        <Label Content="{Binding MediaLucro}"
+                               ContentStringFormat="P2"
+                               Language="pt-BR"
+                               Grid.Row="2"
+                               Grid.Column="2"
+                               Background="White" />
+                    </Grid>
+                    <Button Grid.Row="7"
+                            Grid.ColumnSpan="3"
+                            Padding="10"
+                            FontSize="20"
+                            ToolTip="O Preço De Custo Da Grade Será Alterado"
+                            Content="Salvar Composição De Preço"
+                            Command="{Binding SalvaComposicaoPrecoComando}" />
                 </Grid>
             </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Histórico De Preços">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Grade:"
+                       FontSize="16" />
+                <ComboBox Grid.Column="1"
+                          ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding ProdutoGradeComposicaoPreco, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="SubGradesToString" />
+                <DataGrid Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          IsReadOnly="True"
+                          ItemsSource="{Binding HistoricoProdutoGrade, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Data"
+                                            Width="*"
+                                            Binding="{Binding Data, StringFormat=dd/MM/yyyy hh:mm}" />
+                        <DataGridTextColumn Header="Preço De Compra"
+                                            Binding="{Binding PrecoCompra, StringFormat=C, ConverterCulture=pt-BR}" />
+                        <DataGridTextColumn Header="Preço De Venda"
+                                            Binding="{Binding PrecoVenda, StringFormat=C, ConverterCulture=pt-BR}" />
+                        <DataGridTextColumn Header="Custo Total"
+                                            Binding="{Binding CustoTotal, StringFormat=C, ConverterCulture=pt-BR}" />
+                        <DataGridTextColumn Header="Frete Unitário"
+                                            Binding="{Binding Frete, StringFormat=C, ConverterCulture=pt-BR}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

@@ -52,11 +52,11 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             return true;
         }
-        private async Task GetLojas()
+        private async void GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await _daoLoja.Listar());
         }
-        private async Task GetTiposContagem()
+        private async void GetTiposContagem()
         {
             TiposContagem = new ObservableCollection<TipoContagemModel>(await _daoTipoContagem.Listar());
         }

@@ -663,7 +663,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             FolhaPagamentos = folhas;
         }
 
-        private async Task GetFuncionarios()
+        private async void GetFuncionarios()
         {
             _funcionarios = await daoFuncionario.ListarIncluindoDeletado();
         }

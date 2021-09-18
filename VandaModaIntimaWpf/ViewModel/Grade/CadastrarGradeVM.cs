@@ -68,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
 
             return valido;
         }
-        private async Task GetTipoGrades()
+        private async void GetTipoGrades()
         {
             TipoGrades = await daoTipoGrade.Listar();
         }

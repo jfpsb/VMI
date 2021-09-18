@@ -249,12 +249,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 OnPropertyChanged("DataEscolhida");
             }
         }
-        public async Task GetMatrizes()
+        public async void GetMatrizes()
         {
             Matrizes = new ObservableCollection<Model.Loja>(await daoLoja.ListarMatrizes());
             Matrizes.Insert(0, new Model.Loja(GetResource.GetString("matriz_nao_selecionada")));
         }
-        public async Task GetBancos()
+        public async void GetBancos()
         {
             Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
             Banco = Bancos[0];

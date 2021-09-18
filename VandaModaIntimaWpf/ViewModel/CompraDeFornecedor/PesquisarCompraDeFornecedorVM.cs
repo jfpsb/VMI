@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             PesquisarPor = 0;
         }
 
-        private async Task GetLojas()
+        private async void GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
             Lojas.Insert(0, new Model.Loja { Nome = "TODAS AS LOJAS" });

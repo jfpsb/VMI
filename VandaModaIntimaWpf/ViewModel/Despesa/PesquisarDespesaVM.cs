@@ -57,12 +57,12 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             TotalEmDespesas = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
         }
-        private async Task GetTiposDespesa()
+        private async void GetTiposDespesa()
         {
             TiposDespesa = new ObservableCollection<TipoDespesa>(await daoTipoDespesa.Listar());
             TiposDespesa.Insert(0, new TipoDespesa { Nome = "TODOS OS TIPOS" });
         }
-        private async Task GetLojas()
+        private async void GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.Listar());
             Lojas.Insert(0, new Model.Loja("TODAS AS LOJAS"));

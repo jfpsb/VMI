@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             GetRecebimentos();
         }
 
-        private async Task GetRecebimentos()
+        private async void GetRecebimentos()
         {
             Recebimentos = new ObservableCollection<Model.RecebimentoCartao>(await daoRecebimentoCartao.ListarPorMesAnoLoja(Recebimento.Mes, Recebimento.Ano, Recebimento.Loja));
         }

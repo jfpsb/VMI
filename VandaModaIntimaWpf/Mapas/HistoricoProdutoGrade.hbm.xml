@@ -3,15 +3,19 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-	<class name="HistoricoProduto">
+	<class name="HistoricoProdutoGrade" table="historico_produto_grade">
+		<cache usage="read-write"/>
 		<id name="Id" column="id" type="Int64">
 			<generator class="hilo">
 				<param name="max_lo">1024</param>
 			</generator>
 		</id>
-		<many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" />
-		<property name="DataAlteracao"/>
-		<property name="Descricao" />
+		<many-to-one name="ProdutoGrade" class="VandaModaIntimaWpf.Model.ProdutoGrade" column="produto_grade"/>
+		<property name="Data" />
+		<property name="PrecoCompra" />
+		<property name="PrecoVenda" />
+		<property name="CustoTotal" />
+		<property name="Frete" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

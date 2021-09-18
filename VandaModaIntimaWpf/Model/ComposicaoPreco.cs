@@ -1,37 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
-    public class ComposicaoPreco : AModel, IModel
+    public class ComposicaoPreco : AModel
     {
         private long _id;
         private Loja _loja;
         private ProdutoGrade _produtoGrade;
         private DateTime _data;
         private double _precoCompra;
+        private double _precoVenda;
         private double _frete;
+        private bool _aplicaIcms = true;
 
-        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
-
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
-
-        public virtual object GetIdentifier()
-        {
-            return Id;
-        }
-
-        public virtual void InicializaLazyLoad()
-        {
-
-        }
-
-        public virtual bool IsIdentical(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual long Id
+        public long Id
         {
             get => _id;
             set
@@ -40,7 +22,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Id");
             }
         }
-        public virtual Loja Loja
+        public Loja Loja
         {
             get => _loja;
             set
@@ -49,7 +31,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Loja");
             }
         }
-        public virtual ProdutoGrade ProdutoGrade
+        public ProdutoGrade ProdutoGrade
         {
             get => _produtoGrade;
             set
@@ -58,7 +40,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("ProdutoGrade");
             }
         }
-        public virtual DateTime Data
+        public DateTime Data
         {
             get => _data;
             set
@@ -67,23 +49,35 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Data");
             }
         }
-        public virtual double ValorSimples
+        public double ValorSimples
         {
-            get => ProdutoGrade.Preco * Loja.UltimaAliquota.Simples;
+            get
+            {
+                return PrecoVenda * Loja.UltimaAliquota.Simples;
+            }
         }
-        public virtual double ValorIcms
+        public double ValorIcms
         {
-            get => PrecoCompra * Loja.UltimaAliquota.Icms;
+            get
+            {
+                if (AplicaIcms)
+                    return PrecoCompra * Loja.UltimaAliquota.Icms;
+
+                return 0;
+            }
         }
-        public virtual double MargemContribuicao
+        public double MargemContribuicao
         {
-            get => ProdutoGrade.Preco - CustoTotal;
+            get
+            {
+                return PrecoVenda - CustoTotal;
+            }
         }
-        public virtual double CustoTotal
+        public double CustoTotal
         {
             get => PrecoCompra + ValorIcms + ValorSimples + Frete;
         }
-        public virtual double PrecoCompra
+        public double PrecoCompra
         {
             get => _precoCompra;
             set
@@ -95,7 +89,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("MargemContribuicao");
             }
         }
-        public virtual double Frete
+        public double Frete
         {
             get => _frete;
             set
@@ -107,9 +101,43 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("MargemContribuicao");
             }
         }
-        public virtual double Lucro
+        public double Lucro
         {
-            get => MargemContribuicao / ProdutoGrade.Preco;
+            get
+            {
+                if (PrecoVenda == 0)
+                    return 0;
+
+                return MargemContribuicao / PrecoVenda;
+            }
+        }
+
+        public double PrecoVenda
+        {
+            get => _precoVenda;
+            set
+            {
+                _precoVenda = value;
+                OnPropertyChanged("PrecoVenda");
+                OnPropertyChanged("PrecoCompra");
+                OnPropertyChanged("CustoTotal");
+                OnPropertyChanged("Lucro");
+                OnPropertyChanged("MargemContribuicao");
+            }
+        }
+
+        public bool AplicaIcms
+        {
+            get => _aplicaIcms;
+            set
+            {
+                _aplicaIcms = value;
+                OnPropertyChanged("AplicaIcms");
+                OnPropertyChanged("PrecoCompra");
+                OnPropertyChanged("CustoTotal");
+                OnPropertyChanged("Lucro");
+                OnPropertyChanged("MargemContribuicao");
+            }
         }
     }
 }

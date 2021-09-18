@@ -90,7 +90,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             editar.ShowDialog();
         }
 
-        private async Task GetProdutos()
+        private async void GetProdutos()
         {
             Produtos = new ObservableCollection<ProdutoModel>(await _daoProduto.ListarPorDescricaoCodigoDeBarra(PesquisaProdutoTxtBox));
         }

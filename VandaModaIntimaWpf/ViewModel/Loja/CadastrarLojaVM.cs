@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Entidade.Cnpj = Entidade.Nome = Entidade.Telefone = Entidade.Endereco = Entidade.InscricaoEstadual = string.Empty;
             Entidade.Matriz = Matrizes[0];
         }
-        private async Task GetMatrizes()
+        private async void GetMatrizes()
         {
             DAOLoja daoLoja = (DAOLoja)daoEntidade;
             Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
