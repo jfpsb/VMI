@@ -414,6 +414,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Produto\VisualizarMargensDeLucro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -493,6 +497,7 @@
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
+    <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
     <Compile Include="Model\DAO\DAORepresentante.cs" />
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
@@ -557,6 +562,7 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="ViewModel\Converters\CPFValueConverter.cs" />
+    <Compile Include="ViewModel\Converters\MenorQueValorConverter.cs" />
     <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -657,6 +663,7 @@
     <Compile Include="ViewModel\Produto\CadastrarProdutoVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\EditarProdutoVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
+    <Compile Include="ViewModel\Produto\VisualizarMargensDeLucroVM.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVMStrategy.cs" />
     <Compile Include="ViewModel\RecebimentoCartao\FormatoDoubleDataGrid.cs" />
@@ -872,6 +879,9 @@
     </Compile>
     <Compile Include="View\Produto\TelaRelatorioProduto.xaml.cs">
       <DependentUpon>TelaRelatorioProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Produto\VisualizarMargensDeLucro.xaml.cs">
+      <DependentUpon>VisualizarMargensDeLucro.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml.cs">
       <DependentUpon>CadastrarRecebimentoCartao.xaml</DependentUpon>

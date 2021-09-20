@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -11,6 +14,8 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
     class PesquisarProdutoVM : APesquisarViewModel<ProdutoModel>
     {
         private int pesquisarPor;
+        public ICommand ListarMargensDeLucroComando { get; set; }
+
         private enum OpcoesPesquisa
         {
             Descricao,
@@ -27,6 +32,18 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
             PesquisarPor = 0;
+
+            ListarMargensDeLucroComando = new RelayCommand(ListarMargensDeLucro);
+        }
+
+        private void ListarMargensDeLucro(object obj)
+        {
+            VisualizarMargensDeLucroVM viewModel = new VisualizarMargensDeLucroVM(_session);
+            VisualizarMargensDeLucro view = new VisualizarMargensDeLucro
+            {
+                DataContext = viewModel
+            };
+            view.ShowDialog();
         }
 
         public int PesquisarPor

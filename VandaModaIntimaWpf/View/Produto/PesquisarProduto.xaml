@@ -46,6 +46,9 @@
                                   Command="{Binding AbrirImprimirComando}" />
                     </MenuItem>
 
+                    <MenuItem Header="Listar Margens De Lucro"
+                              Command="{Binding ListarMargensDeLucroComando}" />
+
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>

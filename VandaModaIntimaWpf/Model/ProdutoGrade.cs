@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private string _codBarra;
+        private string _codBarraAlternativo;
         private Produto _produto;
         private double _preco;
         private double _precoCusto;
@@ -112,20 +113,6 @@ namespace VandaModaIntimaWpf.Model
                     return 0;
 
                 return (Preco - PrecoCusto) / Preco;
-                //return Math.Truncate((Preco - PrecoCusto) / Preco * 10000) / 100;
-            }
-            set
-            {
-                if (PrecoCusto != 0.0)
-                {
-                    if (value >= 100)
-                        MargemDeLucro = 99.9;
-
-                    if (value < 0)
-                        MargemDeLucro = 0;
-
-                    Preco = (PrecoCusto / (1 - (value / 100))) / 100;
-                }
             }
         }
 
@@ -154,6 +141,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _historico = value;
                 OnPropertyChanged("Historico");
+            }
+        }
+
+        public virtual string CodBarraAlternativo
+        {
+            get => _codBarraAlternativo;
+            set
+            {
+                _codBarraAlternativo = value;
+                OnPropertyChanged("CodBarraAlternativo");
             }
         }
 
