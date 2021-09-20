@@ -32,5 +32,19 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return await Listar(criteria);
         }
+
+        public async Task<IList<Parcela>> ListarPorFuncionarioNaoPagasExcetoMesAno(Funcionario funcionario, int mes, int ano)
+        {
+            var criteria = CriarCriteria();
+
+            criteria.CreateAlias("Adiantamento", "Adiantamento");
+            criteria.Add(Restrictions.Eq("Adiantamento.Funcionario", funcionario));
+            criteria.Add(Restrictions.Eq("Paga", false));
+            criteria.Add(Restrictions.Disjunction().
+                Add(Restrictions.Not(Restrictions.Eq("Mes", mes))).
+                Add(Restrictions.Not(Restrictions.Eq("Ano", ano))));
+
+            return await Listar(criteria);
+        }
     }
 }

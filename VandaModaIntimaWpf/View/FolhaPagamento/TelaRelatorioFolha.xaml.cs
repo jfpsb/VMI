@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 parcelaDataSet.Parcela.AddParcelaRow(prow);
             }
 
-            var parcelasNaoPagas = ListarParcelasNaoPagasAsync(FolhaPagamento.Funcionario);
+            var parcelasNaoPagas = ListarParcelasNaoPagasAsync(FolhaPagamento.Funcionario, FolhaPagamento);
 
             var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
             fprow.mes = FolhaPagamento.Mes.ToString();
@@ -121,9 +121,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             FolhaReport.ViewerCore.ReportSource = report;
         }
 
-        private IList<Model.Parcela> ListarParcelasNaoPagasAsync(Model.Funcionario funcionario)
+        private IList<Model.Parcela> ListarParcelasNaoPagasAsync(Model.Funcionario funcionario, Model.FolhaPagamento folha)
         {
-            return daoParcela.ListarPorFuncionarioNaoPagas(funcionario).Result;
+            return daoParcela.ListarPorFuncionarioNaoPagasExcetoMesAno(funcionario, folha.Mes, folha.Ano).Result;
         }
     }
 }
