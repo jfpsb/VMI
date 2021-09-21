@@ -253,6 +253,11 @@
         <System:String>CARTÃO DE CRÉDITO</System:String>
         <System:String>SEGURANÇA</System:String>
         <System:String>ÁGUA MINERAL</System:String>
+        <System:String>GASOLINA</System:String>
+        <System:String>COSTUREIRA DALILA</System:String>
+        <System:String>COSTUREIRA ADNA</System:String>
+        <System:String>COSTUREIRA VITÓRIA</System:String>
+        <System:String>COSTUREIRA VITÓRIA PIX</System:String>
         <System:String>PAGAMENTO DE PEDIDO</System:String>
         <System:String>OUTROS</System:String>
     </x:Array>

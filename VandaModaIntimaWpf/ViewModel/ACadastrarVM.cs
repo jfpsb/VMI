@@ -54,7 +54,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Lê novamente o estado da Entidade do banco de dados para atualizar os valores criados através de triggers
         /// </summary>
         /// <param name="e">Argumento Do Evento Após Inserir Em Banco De Dados</param>
-        private async void RefreshEntidade(AposInserirBDEventArgs e)
+        protected virtual async void RefreshEntidade(AposInserirBDEventArgs e)
         {
             if (e.Sucesso)
             {

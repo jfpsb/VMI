@@ -53,6 +53,17 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             PropertyChanged += PesquisaRecebimentosExistentes;
         }
 
+        protected async override void RefreshEntidade(AposInserirBDEventArgs e)
+        {
+            if (e.Sucesso)
+            {
+                foreach (var rc in Recebimentos)
+                {
+                    await _session.RefreshAsync(rc);
+                }
+            }
+        }
+
         /// <summary>
         /// Pesquisa se já existem recebimentos com os parâmetros (ano, mês, loja, banco) selecionados.
         /// </summary>

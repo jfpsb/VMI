@@ -190,6 +190,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (result)
             {
                 MessageBoxService.Show("Grade(s) Atualizada(s) Com Novo(s) Preço(s) De Custo Com Sucesso!");
+                HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
             }
             else
             {
