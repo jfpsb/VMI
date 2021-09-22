@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -137,7 +138,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
                 foreach (var transacao in doc.Descendants("STMTTRN"))
                 {
-                    if (transacao.Element("TRNTYPE").Value == "CREDIT")
+                    var dt = transacao.Element("DTPOSTED").Value.Substring(0, 8);
+                    DateTime dataTransacao = DateTime.ParseExact(dt, "yyyyMMdd", CultureInfo.InvariantCulture);
+
+                    if (transacao.Element("TRNTYPE").Value == "CREDIT" && DataEscolhida.Month == dataTransacao.Month && DataEscolhida.Year == DataEscolhida.Year)
                     {
                         string memo = transacao.Element("MEMO").Value;
 
@@ -157,6 +161,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                             if (contemId)
                             {
                                 double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
+
+                                Console.WriteLine($"{memo} - {valor}");
 
                                 if (recebimentoPorOperadora.ContainsKey(operadora))
                                 {
