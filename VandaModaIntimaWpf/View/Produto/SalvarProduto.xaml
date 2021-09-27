@@ -136,6 +136,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="1.5*" />
@@ -145,66 +146,72 @@
                          Grid.ColumnSpan="2"
                          Text="{Binding ProdutoGrade.CodBarra, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="1"
-                       Content="{DynamicResource preco_dois_pontos}" />
-                <TextBox Grid.Row="1"
-                         Grid.Column="1"
+                       Content="Cód. De Barras Alternativo:" />
+                <TextBox Grid.Column="1"
+                         Grid.Row="1"
                          Grid.ColumnSpan="2"
-                         Text="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}" />
+                         Text="{Binding ProdutoGrade.CodBarraAlternativo, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="2"
-                       Content="{DynamicResource preco_custo_dois_pontos}" />
+                       Content="{DynamicResource preco_dois_pontos}" />
                 <TextBox Grid.Row="2"
                          Grid.Column="1"
                          Grid.ColumnSpan="2"
-                         Text="{Binding ProdutoGrade.PrecoCusto, StringFormat=C,ConverterCulture=pt-BR}" />
+                         Text="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}" />
                 <Label Grid.Row="3"
+                       Content="{DynamicResource preco_custo_dois_pontos}" />
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding ProdutoGrade.PrecoCusto, StringFormat=C,ConverterCulture=pt-BR}" />
+                <Label Grid.Row="4"
                        Content="Tipo de Grade:" />
-                <ComboBox Grid.Row="3"
+                <ComboBox Grid.Row="4"
                           Grid.Column="1"
                           ItemsSource="{Binding TiposGrade}"
                           SelectedItem="{Binding TipoGrade, Mode=TwoWay}"
                           DisplayMemberPath="Nome" />
                 <Button Grid.Column="3"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Width="28"
                         ToolTip="Inserir Novo Tipo de Grade"
                         Command="{Binding AbreTelaCadastrarTipoGradeComando}">
                     <Image Source="/Resources/Grade_Icon.ico" />
                 </Button>
-                <Label Grid.Row="4"
+                <Label Grid.Row="5"
                        Content="Grade:" />
-                <ComboBox Grid.Row="4"
+                <ComboBox Grid.Row="5"
                           Grid.Column="1"
                           ItemsSource="{Binding GradesComboBox}"
                           SelectedItem="{Binding Grade, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           DisplayMemberPath="Nome" />
                 <Button Grid.Column="3"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Width="28"
                         ToolTip="Inserir Nova Grade"
                         Command="{Binding AbreTelaCadastrarGradeComando}">
                     <Image Source="/Resources/Grade_Icon.ico" />
                 </Button>
                 <Button Content="Inserir Em Formação de Grade"
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Foreground="Red"
                         Width="Auto"
                         Padding="10"
                         Command="{Binding InserirFormacaoGradeComando}" />
                 <Button Content="Inserir Formação Atual em Grade"
                         FontWeight="Bold"
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Foreground="Green"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         Width="Auto"
                         Padding="10"
                         Command="{Binding InserirFormacaoAtualGradeComando}" />
-                <Label Grid.Row="6"
+                <Label Grid.Row="7"
                        FontSize="16"
                        Foreground="Red"
                        Content="Formação da Grade:"
                        FontWeight="Bold" />
-                <DataGrid Grid.Row="7"
+                <DataGrid Grid.Row="8"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
                           ItemsSource="{Binding Grades, UpdateSourceTrigger=PropertyChanged}">
@@ -217,12 +224,12 @@
                                             Binding="{Binding Nome}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Label Grid.Row="8"
+                <Label Grid.Row="9"
                        FontSize="18"
                        Foreground="Green"
                        Content="Grades do Produto:"
                        FontWeight="Bold" />
-                <DataGrid Grid.Row="9"
+                <DataGrid Grid.Row="10"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
                           CanUserDeleteRows="True"
@@ -232,6 +239,8 @@
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                             Binding="{Binding CodBarra}"
                                             IsReadOnly="True" />
+                        <DataGridTextColumn Header="Cód. Barra Alt."
+                                            Binding="{Binding CodBarraAlternativo}" />
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
                                             Binding="{Binding Preco, StringFormat=C, ConverterCulture=pt-BR}"
                                             IsReadOnly="True" />
