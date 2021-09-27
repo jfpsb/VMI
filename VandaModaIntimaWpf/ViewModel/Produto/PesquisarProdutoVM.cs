@@ -62,26 +62,23 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             IList<EntidadeComCampo<ProdutoModel>> ents = new List<EntidadeComCampo<ProdutoModel>>();
 
-            await Task.Run(async () =>
-            {
-                DAOProduto daoProduto = (DAOProduto)daoEntidade;
+            DAOProduto daoProduto = (DAOProduto)daoEntidade;
 
-                switch (pesquisarPor)
-                {
-                    case (int)OpcoesPesquisa.Descricao:
-                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo));
-                        break;
-                    case (int)OpcoesPesquisa.CodBarra:
-                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo));
-                        break;
-                    case (int)OpcoesPesquisa.Fornecedor:
-                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorFornecedor(termo));
-                        break;
-                    case (int)OpcoesPesquisa.Marca:
-                        ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorMarca(termo));
-                        break;
-                }
-            });
+            switch (pesquisarPor)
+            {
+                case (int)OpcoesPesquisa.Descricao:
+                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo));
+                    break;
+                case (int)OpcoesPesquisa.CodBarra:
+                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo));
+                    break;
+                case (int)OpcoesPesquisa.Fornecedor:
+                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorFornecedor(termo));
+                    break;
+                case (int)OpcoesPesquisa.Marca:
+                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorMarca(termo));
+                    break;
+            }
 
             Entidades = new ObservableCollection<EntidadeComCampo<ProdutoModel>>(ents);
         }
