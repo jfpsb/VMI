@@ -225,21 +225,26 @@
                 <DataGrid Grid.Row="9"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
-                          IsReadOnly="True"
-                          ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged}"
+                          CanUserDeleteRows="True"
+                          ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                           SelectedItem="{Binding ProdutoGradeSelecionada, Mode=OneWayToSource}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
-                                            Binding="{Binding CodBarra}" />
+                                            Binding="{Binding CodBarra}"
+                                            IsReadOnly="True" />
                         <DataGridTextColumn Header="{DynamicResource preco_header}"
-                                            Binding="{Binding Preco, StringFormat=C, ConverterCulture=pt-BR}" />
+                                            Binding="{Binding Preco, StringFormat=C, ConverterCulture=pt-BR}"
+                                            IsReadOnly="True" />
                         <DataGridTextColumn Header="{DynamicResource preco_custo_header}"
-                                            Binding="{Binding PrecoCusto, StringFormat=C, ConverterCulture=pt-BR}" />
+                                            Binding="{Binding PrecoCusto, StringFormat=C, ConverterCulture=pt-BR}"
+                                            IsReadOnly="True" />
                         <DataGridTextColumn Header="{DynamicResource margem_lucro_header}"
-                                            Binding="{Binding MargemDeLucro, StringFormat=P2}" />
+                                            Binding="{Binding MargemDeLucro, StringFormat=P2}"
+                                            IsReadOnly="True" />
                         <DataGridTextColumn Header="Descrição da Grade"
                                             Binding="{Binding SubGradesToString}"
-                                            Width="*" />
+                                            Width="*"
+                                            IsReadOnly="True" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
@@ -250,7 +255,8 @@
                 </DataGrid>
             </Grid>
         </TabItem>
-        <TabItem Header="Composição De Preço">
+        <TabItem Header="Composição De Preço"
+                 IsEnabled="{Binding IssoEUmUpdate}">
             <ScrollViewer HorizontalScrollBarVisibility="Visible">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -480,7 +486,8 @@
                 </Grid>
             </ScrollViewer>
         </TabItem>
-        <TabItem Header="Histórico De Preços">
+        <TabItem Header="Histórico De Preços"
+                 IsEnabled="{Binding IssoEUmUpdate}">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

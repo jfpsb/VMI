@@ -79,7 +79,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Recebimentos.Clear();
             Recebimentos = new ObservableCollection<Model.RecebimentoCartao>();

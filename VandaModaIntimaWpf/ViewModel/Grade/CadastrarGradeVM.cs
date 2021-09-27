@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.Grade();
         }

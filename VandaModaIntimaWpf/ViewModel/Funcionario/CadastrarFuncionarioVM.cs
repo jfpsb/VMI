@@ -145,7 +145,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
         }
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new FuncionarioModel
             {

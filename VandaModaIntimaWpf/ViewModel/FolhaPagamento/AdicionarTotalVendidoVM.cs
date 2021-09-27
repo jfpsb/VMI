@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
         }
 

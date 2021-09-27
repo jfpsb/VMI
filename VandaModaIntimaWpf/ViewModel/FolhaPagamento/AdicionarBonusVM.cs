@@ -70,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade.Data = DateTime.Now;
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Bonus
             {

@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.TipoGrade();
         }

@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             viewModelStrategy = new AdicionarFaltasVMStrategy();
             Folha = folha;
 
-            ResetaPropriedades();
+            ResetaPropriedades(null);
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.Faltas
             {

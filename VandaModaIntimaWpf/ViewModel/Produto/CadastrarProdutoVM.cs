@@ -101,6 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             PropertyChanged += PrecoVendaAlterado;
             PropertyChanged += AplicaIcmsAlterado;
 
+            AntesDeInserirNoBancoDeDados += ChecaProdutoGrades;
             AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
             AntesDeInserirNoBancoDeDados += AdicionaGradesEmEntidade;
 
@@ -115,6 +116,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ComposicaoPrecos.CollectionChanged += ComposicaoPrecos_CollectionChanged;
 
             CriaComposicaoPreco();
+        }
+
+        private void ChecaProdutoGrades()
+        {
+            if (ProdutoGrades.Count == 0)
+            {
+                MessageBoxService.Show("O Produto Precisa De Ao Menos Uma Grade Para Ser Cadastrado!");
+                AntesInserirBDChecagem = false;
+            }
         }
 
         private void AplicaIcmsAlterado(object sender, PropertyChangedEventArgs e)
@@ -228,7 +238,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void ProdutoGradeComposicaoAlterada(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("ProdutoGradeComposicaoPreco"))
+            if (e.PropertyName.Equals("ProdutoGradeComposicaoPreco") && ProdutoGradeComposicaoPreco != null)
             {
                 foreach (var comp in ComposicaoPrecos)
                 {
@@ -344,7 +354,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             if (e.IdentificadorEntidade != null && !e.IssoEUmUpdate)
             {
                 Grades.Clear();
-                ProdutoGrades.Clear();
             }
         }
 
@@ -439,12 +448,19 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             return valido;
         }
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            Entidade = new ProdutoModel();
-            Entidade.CodBarra = Entidade.Descricao = string.Empty;
-            Entidade.Fornecedor = Fornecedores[0];
-            Entidade.Marca = Marcas[0];
+            if (e.Sucesso)
+            {
+                IssoEUmUpdate = true;
+                viewModelStrategy = new EditarProdutoVMStrategy();
+                OnPropertyChanged("ProdutoGrades");
+                ProdutoGradeComposicaoPreco = ProdutoGrades[0];
+            }
+            //Entidade = new ProdutoModel();
+            //Entidade.CodBarra = Entidade.Descricao = string.Empty;
+            //Entidade.Fornecedor = Fornecedores[0];
+            //Entidade.Marca = Marcas[0];
         }
         public string CodigoFornecedor
         {

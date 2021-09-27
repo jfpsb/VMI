@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Entidade.Finalizada = false;
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new ContagemModel
             {

@@ -19,6 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected E _entidade;
         protected bool _result;
+        private bool antesInserirBDChecagem;
 
         private bool issoEUmUpdate;
         private string _btnSalvarToolTip;
@@ -47,7 +48,15 @@ namespace VandaModaIntimaWpf.ViewModel
             AposInserirNoBancoDeDados += RedefinirTela;
             AposInserirNoBancoDeDados += RefreshEntidade;
 
+            AntesDeInserirNoBancoDeDados += ResetaChecagem;
+
             issoEUmUpdate = false;
+            AntesInserirBDChecagem = true;
+        }
+
+        private void ResetaChecagem()
+        {
+            AntesInserirBDChecagem = true;
         }
 
         /// <summary>
@@ -71,8 +80,11 @@ namespace VandaModaIntimaWpf.ViewModel
             try
             {
                 AntesDeInserirNoBancoDeDados?.Invoke();
-                var e = await ExecutarSalvar(parameter);
-                AposInserirNoBancoDeDados?.Invoke(e);
+                if (AntesInserirBDChecagem)
+                {
+                    var e = await ExecutarSalvar(parameter);
+                    AposInserirNoBancoDeDados?.Invoke(e);
+                }
             }
             catch (Exception e)
             {
@@ -110,7 +122,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <summary>
         /// Retorna as propriedades da entidade a seus valores iniciais
         /// </summary>
-        public abstract void ResetaPropriedades();
+        public abstract void ResetaPropriedades(AposInserirBDEventArgs e);
 
         /// <summary>
         /// Realiza os testes para determinar se todos os requisitos necessários para permitir o cadastro foram atingidos
@@ -147,7 +159,7 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 // Se a operação for um Update não há alteração no formulário
                 if (!e.IssoEUmUpdate)
-                    ResetaPropriedades();
+                    ResetaPropriedades(e);
             }
             else
             {
@@ -214,5 +226,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("IssoEUmUpdate");
             }
         }
+
+        protected bool AntesInserirBDChecagem { get => antesInserirBDChecagem; set => antesInserirBDChecagem = value; }
     }
 }

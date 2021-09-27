@@ -168,7 +168,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.Despesa();
             Entidade.TipoDespesa = TiposDespesa[0];

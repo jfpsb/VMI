@@ -284,7 +284,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.CompraDeFornecedor();
             Entidade.DataPedido = DateTime.Now;

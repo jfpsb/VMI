@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             PropertyChanged += AoEscolherTipoHoraExtra;
 
-            ResetaPropriedades();
+            ResetaPropriedades(null);
         }
 
         private async void AoEscolherTipoHoraExtra(object sender, PropertyChangedEventArgs e)
@@ -56,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public override void ResetaPropriedades()
+        public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             CmbDescricaoIndex = 0;
 
