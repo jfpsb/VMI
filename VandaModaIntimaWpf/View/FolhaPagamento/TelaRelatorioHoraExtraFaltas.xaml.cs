@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
@@ -25,7 +26,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             HoraExtraFaltasDataSet horaExtraDataSet = new HoraExtraFaltasDataSet();
 
-            foreach (var horaExtra in listaHoraExtra)
+            var listaOrdenadaPorLoja = listaHoraExtra.OrderBy(o => o.Item1.Loja.Cnpj);
+
+            foreach (var horaExtra in listaOrdenadaPorLoja)
             {
                 if (horaExtra.Item2.TotalSeconds > 0 || horaExtra.Item3.TotalSeconds > 0 || horaExtra.Item4.TotalSeconds > 0)
                 {
