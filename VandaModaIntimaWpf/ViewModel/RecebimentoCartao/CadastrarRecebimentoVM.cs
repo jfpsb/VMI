@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 var caminho = openFileDialog.FileName;
                 XElement doc = ImportOfx.toXElement(caminho);
                 IList<Model.OperadoraCartao> operadoras = await daoOperadoraCartao.Listar();
-                Dictionary<Model.OperadoraCartao, double> recebimentoPorOperadora = new Dictionary<Model.OperadoraCartao, double>();
+                Dictionary<string, double> recebimentoPorOperadora = new Dictionary<string, double>();
 
                 foreach (var transacao in doc.Descendants("STMTTRN"))
                 {
@@ -145,35 +145,49 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     {
                         string memo = transacao.Element("MEMO").Value;
 
-                        foreach (Model.OperadoraCartao operadora in operadoras)
+                        if (memo.Equals("CRED PIX"))
                         {
-                            bool contemId = false;
+                            double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
 
-                            foreach (string id in operadora.IdentificadoresBanco)
+                            if (recebimentoPorOperadora.ContainsKey("PIX"))
                             {
-                                if (memo.Contains(id))
+                                recebimentoPorOperadora["PIX"] += valor;
+                            }
+                            else
+                            {
+                                recebimentoPorOperadora.Add("PIX", valor);
+                            }
+                        }
+                        else
+                        {
+                            foreach (Model.OperadoraCartao operadora in operadoras)
+                            {
+                                bool contemId = false;
+
+                                foreach (string id in operadora.IdentificadoresBanco)
                                 {
-                                    contemId = true;
+                                    if (memo.Contains(id))
+                                    {
+                                        contemId = true;
+                                        break;
+                                    }
+                                }
+
+                                if (contemId)
+                                {
+                                    double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
+
+                                    if (recebimentoPorOperadora.ContainsKey(operadora.Nome))
+                                    {
+                                        recebimentoPorOperadora[operadora.Nome] += valor;
+                                    }
+                                    else
+                                    {
+                                        recebimentoPorOperadora.Add(operadora.Nome, valor);
+                                    }
+
                                     break;
                                 }
-                            }
-
-                            if (contemId)
-                            {
-                                double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
-
-                                Console.WriteLine($"{memo} - {valor}");
-
-                                if (recebimentoPorOperadora.ContainsKey(operadora))
-                                {
-                                    recebimentoPorOperadora[operadora] += valor;
-                                }
-                                else
-                                {
-                                    recebimentoPorOperadora.Add(operadora, valor);
-                                }
-
-                                break;
                             }
                         }
                     }
@@ -194,7 +208,16 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     recebimento.Ano = DataEscolhida.Year;
                     recebimento.Banco = Banco;
                     recebimento.Loja = Matriz;
-                    recebimento.OperadoraCartao = rpo.Key;
+
+                    if (!rpo.Key.Equals("PIX"))
+                    {
+                        recebimento.OperadoraCartao = operadoras.First(s => s.Nome.Equals(rpo.Key));
+                    }
+                    else
+                    {
+                        recebimento.Observacao = "PIX";
+                    }
+
                     recebimento.Recebido = rpo.Value;
 
                     recebimento.PropertyChanged += ChecaPropriedadesRecebimento;

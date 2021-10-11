@@ -91,7 +91,7 @@
     <System:String x:Key="editar">Editar</System:String>
     <System:String x:Key="copiar">Copiar</System:String>
     <System:String x:Key="apagar">Apagar</System:String>
-    <System:String x:Key="recebimento_de_cartao">Recebimento De Cartão</System:String>
+    <System:String x:Key="recebimento_de_cartao">Recebimento Em Conta</System:String>
     <System:String x:Key="contagem">Contagem</System:String>
     <System:String x:Key="despesas">Despesas</System:String>
     <System:String x:Key="aluguel_dois_pontos">Valor do Aluguel (R$):</System:String>
