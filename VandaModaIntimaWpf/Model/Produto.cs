@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         private string _descricao;
         private string _ncm;
         private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
-        
+
         public enum Colunas
         {
             CodBarra = 1,
@@ -157,6 +157,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _grades = value;
                 OnPropertyChanged("Grades");
+            }
+        }
+        public virtual string ListarGradesString
+        {
+            get
+            {
+                string str = "";
+
+                foreach (var g in Grades)
+                {
+                    str += $"{g.SubGradesToString} =>\nPreço de Custo: {g.PrecoCusto:C}\nPreço De Venda: {g.Preco:C}\n\n";
+                }
+
+                return str;
             }
         }
         public virtual string[] GetColunas()

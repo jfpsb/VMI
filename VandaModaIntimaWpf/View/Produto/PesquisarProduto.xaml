@@ -88,6 +88,18 @@
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <Style TargetType="ToolTip">
+                            <Setter Property="FontSize"
+                                    Value="15" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="ToolTip"
+                                    Value="{Binding Entidade.ListarGradesString}" />
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>
@@ -102,55 +114,25 @@
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.CodBarra}"
-                                            Width="Auto">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.CodBarra}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+                                            Width="Auto" />
+
                         <DataGridTextColumn Header="{DynamicResource descricao_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Descricao}"
-                                            Width="*">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Descricao}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+                                            Width="*" />
+
                         <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.FornecedorNome}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.FornecedorNome}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+                                            Binding="{Binding Entidade.FornecedorNome}" />
+
                         <DataGridTextColumn Header="{DynamicResource marca_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.MarcaNome}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.MarcaNome}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+                                            Binding="{Binding Entidade.MarcaNome}" />
+
                         <DataGridTextColumn Header="{DynamicResource ncm_header}"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Ncm}">
-                            <DataGridTextColumn.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="ToolTip"
-                                            Value="{Binding Entidade.Ncm}" />
-                                </Style>
-                            </DataGridTextColumn.CellStyle>
-                        </DataGridTextColumn>
+                                            Binding="{Binding Entidade.Ncm}" />
+
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
