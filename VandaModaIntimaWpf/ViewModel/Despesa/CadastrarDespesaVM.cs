@@ -124,6 +124,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         VisibilidadeMembroFamiliar = Visibility.Visible;
 
                         Entidade.Fornecedor = null;
+                        Entidade.Familiar = "Ferreira";
                         OnPropertyChanged("TipoDescricao");
                     }
                     else

@@ -61,18 +61,29 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Label FontWeight="Bold"
-                           HorizontalAlignment="Right"
-                           ContentStringFormat="Total Em Despesas: {0:C}"
+                           HorizontalAlignment="Left"
+                           ContentStringFormat="Total Em Categoria Selecionada: {0:C}"
                            Language="pt-BR"
                            FontSize="16"
                            Content="{Binding TotalEmDespesas}" />
+                    <Label Grid.Row="1"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Left"
+                           ContentStringFormat="Total Geral Em Despesas: {0:C}"
+                           Language="pt-BR"
+                           FontSize="16"
+                           Content="{Binding TotalGeralDespesas}" />
                 </Grid>
                 <Grid Margin="5"
                       DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="225" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -83,15 +94,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="Tipo De Despesa:" />
-                    <ComboBox Grid.Column="1"
-                              Width="225"
-                              HorizontalAlignment="Left"
-                              ItemsSource="{Binding TiposDespesa}"
-                              DisplayMemberPath="Nome"
-                              SelectedValue="{Binding TipoDespesaNome}"
-                              SelectedValuePath="Nome"
-                              SelectedIndex="0" />
                     <Label Grid.Row="1"
                            Content="Mês Referência:" />
                     <View:DataUpDown Grid.Row="1"
@@ -103,7 +105,7 @@
                               Grid.Column="1"
                               ItemsSource="{Binding Lojas}"
                               SelectedValue="{Binding Loja}"
-                              DisplayMemberPath="Nome"/>
+                              DisplayMemberPath="Nome" />
                     <Label Grid.Row="3"
                            Content="Filtrar Por:" />
                     <ComboBox Grid.Row="3"
@@ -118,44 +120,138 @@
                              Grid.ColumnSpan="2"
                              x:Name="TxtPesquisa"
                              Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGrid Grid.Row="5"
-                              Grid.ColumnSpan="3"
-                              IsReadOnly="True"
-                              ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
-                              CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                                  Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Data"
-                                                Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn Header="Data De Vencimento"
-                                                Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
-                            <DataGridTextColumn Header="Tipo De Despesa"
-                                                Binding="{Binding Entidade.TipoDespesa.Nome}" />
-                            <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
-                                                Binding="{Binding Entidade.Fornecedor.Nome}" />
-                            <DataGridTextColumn Header="{DynamicResource loja_header}"
-                                                Binding="{Binding Entidade.Loja.Nome}" />
-                            <DataGridTextColumn Header="Membro Familiar"
-                                                Binding="{Binding Entidade.Familiar}" />
-                            <DataGridTextColumn Header="Descrição"
-                                                Width="*"
-                                                Binding="{Binding Entidade.Descricao}" />
-                            <DataGridTextColumn Header="Valor"
-                                                Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-                        </DataGrid.Columns>
-                        <DataGrid.ContextMenu>
-                            <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
-                        </DataGrid.ContextMenu>
-                    </DataGrid>
+                    <TabControl Grid.Row="5"
+                                Grid.ColumnSpan="3"
+                                SelectedIndex="{Binding AbaSelecionada, Mode=TwoWay}">
+                        <TabItem Header="Despesa Empresarial">
+                            <DataGrid IsReadOnly="True"
+                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
+                                                </CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Data"
+                                                        Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Data De Vencimento"
+                                                        Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Representante"
+                                                        Binding="{Binding Entidade.Fornecedor.Representante.Nome}" />
+                                    <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
+                                                        Binding="{Binding Entidade.Fornecedor.Nome}" />
+                                    <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                                        Binding="{Binding Entidade.Loja.Nome}" />
+                                    <DataGridTextColumn Header="Descrição"
+                                                        Width="*"
+                                                        Binding="{Binding Entidade.Descricao}" />
+                                    <DataGridTextColumn Header="Valor"
+                                                        Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Despesa Familiar">
+                            <DataGrid IsReadOnly="True"
+                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
+                                                </CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Data"
+                                                        Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Data De Vencimento"
+                                                        Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Membro Familiar"
+                                                        Binding="{Binding Entidade.Familiar}" />
+                                    <DataGridTextColumn Header="Descrição"
+                                                        Width="*"
+                                                        Binding="{Binding Entidade.Descricao}" />
+                                    <DataGridTextColumn Header="Valor"
+                                                        Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Despesa Residencial">
+                            <DataGrid IsReadOnly="True"
+                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
+                                                </CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Data"
+                                                        Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Data De Vencimento"
+                                                        Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Descrição"
+                                                        Width="*"
+                                                        Binding="{Binding Entidade.Descricao}" />
+                                    <DataGridTextColumn Header="Valor"
+                                                        Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Outras Despesas">
+                            <DataGrid IsReadOnly="True"
+                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
+                                                </CheckBox>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Data"
+                                                        Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Data De Vencimento"
+                                                        Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
+                                    <DataGridTextColumn Header="Descrição"
+                                                        Width="*"
+                                                        Binding="{Binding Entidade.Descricao}" />
+                                    <DataGridTextColumn Header="Valor"
+                                                        Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                                </DataGrid.Columns>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </DockPanel>
         </View:TelaPesquisaTemplate.Content>

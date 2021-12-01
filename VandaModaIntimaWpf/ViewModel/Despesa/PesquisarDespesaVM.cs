@@ -19,6 +19,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<Model.Loja> _lojas;
         private Model.Loja _loja;
         private double _totalEmDespesas;
+        private double _totalGeralDespesas;
+        private int _abaSelecionada = 0;
 
         public PesquisarDespesaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Despesa> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
@@ -33,6 +35,16 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             TipoDespesaNome = "TODOS OS TIPOS";
             FiltrarPor = "Sem Filtro";
             DataEscolhida = DateTime.Now;
+
+            PropertyChanged += PesquisarDespesaVM_PropertyChanged;
+        }
+
+        private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("AbaSelecionada"))
+            {
+                OnPropertyChanged("TermoPesquisa");
+            }
         }
 
         public override bool Editavel(object parameter)
@@ -52,7 +64,26 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 return;
 
             DAODespesa dao = (DAODespesa)daoEntidade;
-            TipoDespesa tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals(TipoDespesaNome)).Single();
+            TipoDespesa tipoDespesa = null;
+
+            TotalGeralDespesas = await dao.RetornaSomaTodasDespesas(DataEscolhida);
+
+            switch (AbaSelecionada)
+            {
+                case 0:
+                    tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals("DESPESA EMPRESARIAL")).Single();
+                    break;
+                case 1:
+                    tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals("DESPESA FAMILIAR")).Single();
+                    break;
+                case 2:
+                    tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals("DESPESA RESIDENCIAL")).Single();
+                    break;
+                case 3:
+                    tipoDespesa = TiposDespesa.Where(w => w.Nome.Equals("OUTRAS DESPESAS")).Single();
+                    break;
+            }
+
             Entidades = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoDespesa, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
 
             TotalEmDespesas = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
@@ -136,6 +167,26 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 _loja = value;
                 OnPropertyChanged("Loja");
                 OnPropertyChanged("TermoPesquisa");
+            }
+        }
+
+        public int AbaSelecionada
+        {
+            get => _abaSelecionada;
+            set
+            {
+                _abaSelecionada = value;
+                OnPropertyChanged("AbaSelecionada");
+            }
+        }
+
+        public double TotalGeralDespesas
+        {
+            get => _totalGeralDespesas;
+            set
+            {
+                _totalGeralDespesas = value;
+                OnPropertyChanged("TotalGeralDespesas");
             }
         }
     }
