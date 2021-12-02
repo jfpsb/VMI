@@ -1,6 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -8,51 +7,57 @@ using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class ProdutoExcelStrategy : IExcelStrategy
+    public class ProdutoExcelStrategy : AExcelStrategy
     {
         private ISession _session;
+        private string[] _colunas = new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };
 
         public ProdutoExcelStrategy(ISession session)
         {
             _session = session;
         }
-
-        public void EscreveDados(Worksheet Worksheet, object l)
+        public override void AutoFitColunas(Worksheet Worksheet)
         {
-            var lista = (IList<ProdutoModel>)l;
+            Worksheet.Range["A1", "F1"].EntireColumn.AutoFit();
+        }
+        public override void EscreveDados(Workbook workbook, params object[] l)
+        {
+            WorksheetContainer<ProdutoModel> wscontainer = (WorksheetContainer<ProdutoModel>)l[0];
+            var lista = wscontainer.Lista;
+            var worksheet = workbook.Worksheets.Add();
+            worksheet.Name = wscontainer.Nome;
+            worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
+
+            EscreveColunas(worksheet, _colunas, 1);
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
-                Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
+                worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
+                worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
+                worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
+                worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
+                worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
 
                 if (lista[i].Fornecedor != null)
-                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
+                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
 
                 if (lista[i].Marca != null)
-                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
+                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
 
                 if (!string.IsNullOrEmpty(lista[i].Ncm))
-                    Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
+                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
             }
         }
-
-        public string[] GetColunas()
-        {
-            return new ProdutoModel().GetColunas();
-        }
-
-        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
+        public override async Task<bool> LeEInsereDados(Workbook workbook)
         {
             DAOProduto daoProduto = new DAOProduto(_session);
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
             DAOMarca daoMarca = new DAOMarca(_session);
             IList<ProdutoModel> produtos = new List<ProdutoModel>();
 
-            Range range = Worksheet.UsedRange;
+            var worksheet = workbook.Worksheets.Item[1];
+
+            Range range = worksheet.UsedRange;
 
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
@@ -64,11 +69,11 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 ProdutoModel produto = new ProdutoModel();
 
-                var cod_barra = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra]).Value;
-                var descricao = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao]).Value;
-                var fornecedor = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
-                var marca = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
-                var ncm = ((Range)Worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm]).Value;
+                var cod_barra = ((Range)worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra]).Value;
+                var descricao = ((Range)worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao]).Value;
+                var fornecedor = ((Range)worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor]).Value;
+                var marca = ((Range)worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca]).Value;
+                var ncm = ((Range)worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm]).Value;
 
                 if (cod_barra == null || descricao == null)
                 {
@@ -91,10 +96,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
 
             return await daoProduto.Inserir(produtos);
-        }
-        public void ConfiguraColunas(Worksheet Worksheet)
-        {
-            Worksheet.Range["A1", "F1"].EntireColumn.AutoFit();
         }
     }
 }

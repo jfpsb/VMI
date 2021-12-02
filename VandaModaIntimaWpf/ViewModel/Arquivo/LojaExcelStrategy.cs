@@ -8,46 +8,50 @@ using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class LojaExcelStrategy : IExcelStrategy
+    class LojaExcelStrategy : AExcelStrategy
     {
         private ISession _session;
+        private string[] _colunas = new[] { "CNPJ", "Matriz", "Nome", "Telefone", "Endereço", "Inscrição Estadual" };
 
         public LojaExcelStrategy(ISession session)
         {
             _session = session;
         }
 
-        public void ConfiguraColunas(Worksheet Worksheet)
+        public override void AutoFitColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();
         }
 
-        public void EscreveDados(Worksheet Worksheet, object l)
+        public override void EscreveDados(Workbook workbook, params object[] l)
         {
-            var lista = (IList<LojaModel>)l;
+            WorksheetContainer<LojaModel> wscontainer = (WorksheetContainer<LojaModel>)l[0];
+            var lista = wscontainer.Lista;
+            var worksheet = workbook.Worksheets.Add();
+            worksheet.Name = wscontainer.Nome;
+            worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
+
+            EscreveColunas(worksheet, _colunas, 1);
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, LojaModel.Colunas.Cnpj] = lista[i].Cnpj;
-                Worksheet.Cells[i + 2, LojaModel.Colunas.Matriz] = lista[i].Matriz?.Nome;
-                Worksheet.Cells[i + 2, LojaModel.Colunas.Nome] = lista[i].Nome;
-                Worksheet.Cells[i + 2, LojaModel.Colunas.Telefone] = lista[i].Telefone;
-                Worksheet.Cells[i + 2, LojaModel.Colunas.Endereco] = lista[i].Endereco;
-                Worksheet.Cells[i + 2, LojaModel.Colunas.InscricaoEstadual] = lista[i].InscricaoEstadual;
+                worksheet.Cells[i + 2, LojaModel.Colunas.Cnpj] = $"'{lista[i].Cnpj}";
+                worksheet.Cells[i + 2, LojaModel.Colunas.Matriz] = lista[i].Matriz?.Nome;
+                worksheet.Cells[i + 2, LojaModel.Colunas.Nome] = lista[i].Nome;
+                worksheet.Cells[i + 2, LojaModel.Colunas.Telefone] = lista[i].Telefone;
+                worksheet.Cells[i + 2, LojaModel.Colunas.Endereco] = lista[i].Endereco;
+                worksheet.Cells[i + 2, LojaModel.Colunas.InscricaoEstadual] = lista[i].InscricaoEstadual;
             }
-        }
 
-        public string[] GetColunas()
-        {
-            return new LojaModel().GetColunas();
+            AutoFitColunas(worksheet);
         }
-
-        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
+        public override async Task<bool> LeEInsereDados(Workbook workbook)
         {
             DAOLoja daoLoja = new DAOLoja(_session);
             IList<LojaModel> lojas = new List<LojaModel>();
+            var worksheet = workbook.Worksheets.Add();
 
-            Range range = Worksheet.UsedRange;
+            Range range = worksheet.UsedRange;
 
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
@@ -59,12 +63,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 LojaModel loja = new LojaModel();
 
-                var cnpj = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.Cnpj]).Value;
-                var matriz = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.Matriz]).Value;
-                var nome = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.Nome]).Value;
-                var telefone = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.Telefone]).Value;
-                var endereco = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.Endereco]).Value;
-                var inscricaoestadual = ((Range)Worksheet.Cells[i + 2, LojaModel.Colunas.InscricaoEstadual]).Value;
+                var cnpj = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.Cnpj]).Value;
+                var matriz = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.Matriz]).Value;
+                var nome = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.Nome]).Value;
+                var telefone = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.Telefone]).Value;
+                var endereco = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.Endereco]).Value;
+                var inscricaoestadual = ((Range)worksheet.Cells[i + 2, LojaModel.Colunas.InscricaoEstadual]).Value;
 
                 if (cnpj == null || nome == null)
                     continue;

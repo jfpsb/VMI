@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel
     public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : AModel, IModel
     {
         protected ISession _session;
-        protected ExcelStrategy excelStrategy;
+        protected AExcelStrategy excelStrategy;
         protected IPesquisarMsgVMStrategy<E> pesquisarViewModelStrategy;
         private string termoPesquisa;
         private bool _threadLocked;
@@ -210,10 +210,11 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
             IsThreadLocked = true;
-            await new Excel<E>(excelStrategy).Salvar(Entidades.Select(s => s.Entidade).ToList());
+            await new Excel<E>(excelStrategy).Salvar(GetWorksheetContainers());
             IsThreadLocked = false;
             MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
         }
+        protected abstract WorksheetContainer<E>[] GetWorksheetContainers();
         protected async void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
@@ -13,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             daoEntidade = new DAOMarca(_session);
-            excelStrategy = new ExcelStrategy(new MarcaExcelStrategy(_session));
+            excelStrategy = new MarcaExcelStrategy(_session);
             pesquisarViewModelStrategy = new PesquisarMarcaMsgVMStrategy();
             OnPropertyChanged("TermoPesquisa");
         }
@@ -25,6 +26,18 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
         public override bool Editavel(object parameter)
         {
             return false;
+        }
+
+        protected override WorksheetContainer<MarcaModel>[] GetWorksheetContainers()
+        {
+            var worksheets = new WorksheetContainer<MarcaModel>[1];
+            worksheets[0] = new WorksheetContainer<MarcaModel>()
+            {
+                Nome = "Marcas",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
     }
 }

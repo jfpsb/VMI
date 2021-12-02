@@ -8,7 +8,7 @@ using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class MarcaExcelStrategy : IExcelStrategy
+    class MarcaExcelStrategy : AExcelStrategy
     {
         private ISession _session;
 
@@ -17,32 +17,31 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             _session = session;
         }
 
-        public void ConfiguraColunas(Worksheet Worksheet)
+        public override void AutoFitColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();
         }
 
-        public void EscreveDados(Worksheet Worksheet, object l)
+        public override void EscreveDados(Workbook workbook, params object[] l)
         {
-            var lista = (IList<MarcaModel>)l;
+            WorksheetContainer<MarcaModel> wscontainer = (WorksheetContainer<MarcaModel>)l[0];
+            var lista = wscontainer.Lista;
+            var worksheet = workbook.Worksheets.Add();
+            worksheet.Name = wscontainer.Nome;
+            worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, MarcaModel.Colunas.Nome] = lista[i].Nome;
+                worksheet.Cells[i + 2, MarcaModel.Colunas.Nome] = lista[i].Nome;
             }
         }
-
-        public string[] GetColunas()
-        {
-            return new MarcaModel().GetColunas();
-        }
-
-        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
+        public override async Task<bool> LeEInsereDados(Workbook workbook)
         {
             DAOMarca daoMarca = new DAOMarca(_session);
             IList<MarcaModel> marcas = new List<MarcaModel>();
+            var worksheet = workbook.Worksheets.Add();
 
-            Range range = Worksheet.UsedRange;
+            Range range = worksheet.UsedRange;
 
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
@@ -56,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 MarcaModel marca = new MarcaModel();
 
-                var nome = ((Range)Worksheet.Cells[i + 2, 1]).Value;
+                var nome = ((Range)worksheet.Cells[i + 2, 1]).Value;
 
                 if (nome == null)
                     continue;

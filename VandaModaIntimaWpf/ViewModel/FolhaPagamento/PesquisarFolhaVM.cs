@@ -76,7 +76,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoBonus = new DAOBonus(_session);
             daoHoraExtra = new DAOHoraExtra(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
-            excelStrategy = new ExcelStrategy(new FolhaPagamentoExcelStrategy());
+            excelStrategy = new FolhaPagamentoExcelStrategy();
             _fileDialogService = fileDialogService;
             FolhaPagamentos = new ObservableCollection<FolhaPagamentoModel>();
 
@@ -499,7 +499,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
             IsThreadLocked = true;
-            await new Excel<FolhaPagamentoModel>(excelStrategy).Salvar(new List<FolhaPagamentoModel>(FolhaPagamentos));
+            await new Excel<FolhaPagamentoModel>(excelStrategy).Salvar(GetWorksheetContainers());
             IsThreadLocked = false;
             MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
         }
@@ -666,6 +666,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private async void GetFuncionarios()
         {
             _funcionarios = await daoFuncionario.ListarIncluindoDeletado();
+        }
+
+        protected override WorksheetContainer<FolhaPagamentoModel>[] GetWorksheetContainers()
+        {
+            var worksheets = new WorksheetContainer<FolhaPagamentoModel>[1];
+            worksheets[0] = new WorksheetContainer<FolhaPagamentoModel>()
+            {
+                Nome = "Folhas De Pagamento",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
     }
 }

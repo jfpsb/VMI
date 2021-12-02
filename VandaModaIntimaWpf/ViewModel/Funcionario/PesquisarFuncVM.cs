@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 
@@ -44,6 +45,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                     Entidades = new ObservableCollection<EntidadeComCampo<FuncionarioModel>>(EntidadeComCampo<FuncionarioModel>.CriarListaEntidadeComCampo(await daoFuncionario.ListarPorNome(termo)));
                     break;
             }
+        }
+
+        protected override WorksheetContainer<FuncionarioModel>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
         }
 
         public int PesquisarPor

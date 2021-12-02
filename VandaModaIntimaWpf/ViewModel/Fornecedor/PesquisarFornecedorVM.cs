@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -25,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             AbrirTelaPesquisarRepresentanteComando = new RelayCommand(AbrirTelaPesquisarRepresentante);
-            excelStrategy = new ExcelStrategy(new FornecedorExcelStrategy(_session));
+            excelStrategy = new FornecedorExcelStrategy(_session);
             pesquisarViewModelStrategy = new PesquisarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);
 
@@ -65,6 +66,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         public override bool Editavel(object parameter)
         {
             return true;
+        }
+
+        protected override WorksheetContainer<FornecedorModel>[] GetWorksheetContainers()
+        {
+            var worksheets = new WorksheetContainer<FornecedorModel>[1];
+            worksheets[0] = new WorksheetContainer<FornecedorModel>()
+            {
+                Nome = "Marcas",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
 
         public int PesquisarPor

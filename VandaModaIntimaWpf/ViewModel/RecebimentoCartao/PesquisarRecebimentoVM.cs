@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
@@ -91,6 +92,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             TotalOperadora = totalOperadora;
             Recebido = totalRecebido;
         }
+
+        protected override WorksheetContainer<RecebimentoCartaoModel>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
         public LojaModel Matriz
         {
             get { return matriz; }

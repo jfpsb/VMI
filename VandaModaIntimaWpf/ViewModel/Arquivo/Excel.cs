@@ -10,41 +10,41 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
     public class Excel<T> where T : class, Model.IModel
     {
-        private ExcelStrategy exportaExcelStrategy;
+        private AExcelStrategy exportaExcelStrategy;
         private Application Aplicacao; // Aplicação Excel
         private Workbook Workbook; // Pasta
-        private Worksheet Worksheet; // Planilha
+        //private Worksheet Worksheet; // Planilha
         // Construtor para exportação
-        public Excel(ExcelStrategy exportaExcelStrategy)
+        public Excel(AExcelStrategy exportaExcelStrategy)
         {
             this.exportaExcelStrategy = exportaExcelStrategy;
 
             Aplicacao = new Application() { DisplayAlerts = false }; //DisplayAlerts em falso impede que apareça a mensagem perguntando se quero sobescrever o arquivo
             Workbook = Aplicacao.Workbooks.Add(Missing.Value);
-            Worksheet = Workbook.Worksheets.Item[1];
+            //Worksheet = Workbook.Worksheets.Item[1];
 
-            //Configurações visuais para célula (exceto cabeçalho, que fica em ExportaExcelStrategy)
-            Worksheet.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            Worksheet.Cells.VerticalAlignment = XlHAlign.xlHAlignCenter;
-            Worksheet.Cells.Font.Name = "Century Gothic";
-            Worksheet.Cells.Font.Size = 12;
-            Worksheet.Cells.NumberFormat = "@";
+            ////Configurações visuais para célula (exceto cabeçalho, que fica em ExportaExcelStrategy)
+            //Worksheet.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            //Worksheet.Cells.VerticalAlignment = XlHAlign.xlHAlignCenter;
+            //Worksheet.Cells.Font.Name = "Century Gothic";
+            //Worksheet.Cells.Font.Size = 12;
+            //Worksheet.Cells.NumberFormat = "@";
         }
         // Construtor para importação
-        public Excel(ExcelStrategy exportaExcelStrategy, string path)
+        public Excel(AExcelStrategy exportaExcelStrategy, string path)
         {
             this.exportaExcelStrategy = exportaExcelStrategy;
 
             Aplicacao = new Application() { DisplayAlerts = false }; //DisplayAlerts em falso impede que apareça a mensagem perguntando se quero sobrescrever o arquivo
             Workbook = Aplicacao.Workbooks.Open(path);
-            Worksheet = Workbook.Worksheets.Item[1];
+            //Worksheet = Workbook.Worksheets.Item[1];
         }
 
-        public Task Salvar(IList<T> lista)
+        public Task Salvar(params WorksheetContainer<T>[] listas)
         {
             Task task = Task.Run(() =>
             {
-                exportaExcelStrategy.EscreveDados(Worksheet, lista);
+                exportaExcelStrategy.EscreveDados(Workbook, listas);
 
                 try
                 {
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         Aplicacao.Quit();
                         Marshal.ReleaseComObject(Aplicacao);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             try
             {
-                result = await exportaExcelStrategy.LeEInsereDados(Worksheet);
+                result = await exportaExcelStrategy.LeEInsereDados(Workbook);
             }
             catch (Exception e)
             {

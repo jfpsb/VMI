@@ -63,6 +63,16 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             return await Listar(criteria);
         }
+        public async Task<IList<Despesa>> ListarPorMesAno(DateTime data)
+        {
+            var criteria = CriarCriteria();
+
+            criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql($"MONTH(Data) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.AddOrder(Order.Asc("Data"));
+
+            return await Listar(criteria);
+        }
 
         private void AdicionaTermosPesquisa(ICriteria criteria, string propertyName, string[] termos)
         {

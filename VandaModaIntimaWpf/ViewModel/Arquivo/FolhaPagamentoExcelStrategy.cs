@@ -8,72 +8,71 @@ using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class FolhaPagamentoExcelStrategy : IExcelStrategy
+    public class FolhaPagamentoExcelStrategy : AExcelStrategy
     {
-        public void ConfiguraColunas(Worksheet Worksheet)
+        public override void AutoFitColunas(Worksheet Worksheet)
         {
-            Worksheet.Columns.AutoFit(); 
+            Worksheet.Columns.AutoFit();
         }
 
-        public void EscreveDados(Worksheet Worksheet, object l)
+        public override void EscreveDados(Workbook workbook, params object[] l)
         {
-            var lista = (IList<FolhaModel>)l;
+            WorksheetContainer<FolhaModel> wscontainer = (WorksheetContainer<FolhaModel>)l[0];
+            var lista = wscontainer.Lista;
+            var worksheet = workbook.Worksheets.Add();
+            worksheet.Name = wscontainer.Nome;
+            worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
             int linhaAtual = 1;
             int pColuna = 1; //Posição da primeira coluna da folha
             int sColuna = 2; //Posição da segunda coluna da folha
 
-            Worksheet.Cells.Font.Size = 9;
+            worksheet.Cells.Font.Size = 9;
 
             foreach (FolhaModel folha in lista)
             {
-                Worksheet.Cells[linhaAtual, pColuna] = folha.Funcionario.Nome + " - " + folha.MesReferencia;
-                Worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
-                Worksheet.Cells[linhaAtual, pColuna].Font.Size = 10;
-                Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.LightGray;
+                worksheet.Cells[linhaAtual, pColuna] = folha.Funcionario.Nome + " - " + folha.MesReferencia;
+                worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
+                worksheet.Cells[linhaAtual, pColuna].Font.Size = 10;
+                worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.LightGray;
                 //Mescla células com o nome do funcionário, células já são centralizadas por padrão
-                Worksheet.Range[Worksheet.Cells[linhaAtual, pColuna], Worksheet.Cells[linhaAtual, sColuna]].Merge();
-                Worksheet.Range[Worksheet.Cells[linhaAtual, pColuna], Worksheet.Cells[linhaAtual, sColuna]].Borders.Color = Color.Black;
+                worksheet.Range[worksheet.Cells[linhaAtual, pColuna], worksheet.Cells[linhaAtual, sColuna]].Merge();
+                worksheet.Range[worksheet.Cells[linhaAtual, pColuna], worksheet.Cells[linhaAtual, sColuna]].Borders.Color = Color.Black;
 
                 linhaAtual++;
 
-                Range pCelula = Worksheet.Cells[linhaAtual, pColuna]; //Primeira célula desta folha
+                Range pCelula = worksheet.Cells[linhaAtual, pColuna]; //Primeira célula desta folha
 
-                Worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
-                Worksheet.Cells[linhaAtual, sColuna].Font.Bold = true;
+                worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
+                worksheet.Cells[linhaAtual, sColuna].Font.Bold = true;
 
                 linhaAtual++;
 
                 //TODO: arrumar exportacao de folha de pagamento
 
-                Worksheet.Cells[linhaAtual, pColuna] = "Total Em Adiantamentos";
+                worksheet.Cells[linhaAtual, pColuna] = "Total Em Adiantamentos";
                 //Worksheet.Cells[linhaAtual, sColuna] = folha.TotalAdiantamentos;
-                Worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.SkyBlue;
-                Worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.SkyBlue;
-                Worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Red;
-                Worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Red;
+                worksheet.Cells[linhaAtual, pColuna].Interior.Color = Color.SkyBlue;
+                worksheet.Cells[linhaAtual, sColuna].Interior.Color = Color.SkyBlue;
+                worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Red;
+                worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Red;
 
                 linhaAtual++;
 
-                Worksheet.Cells[linhaAtual, pColuna] = "Total A Receber";
+                worksheet.Cells[linhaAtual, pColuna] = "Total A Receber";
                 //Worksheet.Cells[linhaAtual, sColuna] = folha.ValorAPagar;
 
-                Worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Blue;
-                Worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Blue;
+                worksheet.Cells[linhaAtual, pColuna].Font.Color = Color.Blue;
+                worksheet.Cells[linhaAtual, sColuna].Font.Color = Color.Blue;
 
-                Range uCelula = Worksheet.Cells[linhaAtual, sColuna]; //Última célula desta folha
+                Range uCelula = worksheet.Cells[linhaAtual, sColuna]; //Última célula desta folha
 
-                Worksheet.Range[pCelula, uCelula].Borders.LineStyle = XlLineStyle.xlContinuous;
+                worksheet.Range[pCelula, uCelula].Borders.LineStyle = XlLineStyle.xlContinuous;
 
                 linhaAtual += 2;
             }
         }
 
-        public string[] GetColunas()
-        {
-            return null;
-        }
-
-        public Task<bool> LeEInsereDados(Worksheet Worksheet)
+        public override Task<bool> LeEInsereDados(Workbook workbook)
         {
             throw new NotImplementedException();
         }

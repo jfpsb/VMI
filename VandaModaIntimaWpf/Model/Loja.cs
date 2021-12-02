@@ -84,11 +84,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual string[] GetColunas()
-        {
-            return new[] { "CNPJ", "Matriz", "Nome", "Telefone", "Endereço", "Inscrição Estadual" };
-        }
-
         public virtual string Endereco
         {
             get => _endereco?.ToUpper();

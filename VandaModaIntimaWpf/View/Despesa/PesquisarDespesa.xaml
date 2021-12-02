@@ -125,7 +125,7 @@
                                 SelectedIndex="{Binding AbaSelecionada, Mode=TwoWay}">
                         <TabItem Header="Despesa Empresarial">
                             <DataGrid IsReadOnly="True"
-                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding DespesasEmpresarial, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                                 <DataGrid.Columns>
@@ -161,7 +161,7 @@
                         </TabItem>
                         <TabItem Header="Despesa Familiar">
                             <DataGrid IsReadOnly="True"
-                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding DespesasFamiliar, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                                 <DataGrid.Columns>
@@ -193,7 +193,7 @@
                         </TabItem>
                         <TabItem Header="Despesa Residencial">
                             <DataGrid IsReadOnly="True"
-                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding DespesasResidencial, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                                 <DataGrid.Columns>
@@ -223,7 +223,7 @@
                         </TabItem>
                         <TabItem Header="Outras Despesas">
                             <DataGrid IsReadOnly="True"
-                                      ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding OutrasDespesas, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                                 <DataGrid.Columns>

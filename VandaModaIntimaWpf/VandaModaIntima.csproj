@@ -538,14 +538,15 @@
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
+    <Compile Include="ViewModel\Arquivo\DespesaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
-    <Compile Include="ViewModel\Arquivo\ExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
-    <Compile Include="ViewModel\Arquivo\IExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\AExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\WorksheetContainer.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVM.cs" />
     <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVMStrategy.cs" />

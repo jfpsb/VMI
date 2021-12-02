@@ -7,7 +7,7 @@ using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class FornecedorExcelStrategy : IExcelStrategy
+    class FornecedorExcelStrategy : AExcelStrategy
     {
         private ISession _session;
 
@@ -16,35 +16,34 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             _session = session;
         }
 
-        public void ConfiguraColunas(Worksheet Worksheet)
+        public override void AutoFitColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();
         }
-        public void EscreveDados(Worksheet Worksheet, object l)
+        public override void EscreveDados(Workbook workbook, params object[] l)
         {
-            var lista = (IList<FornecedorModel>)l;
+            WorksheetContainer<FornecedorModel> wscontainer = (WorksheetContainer<FornecedorModel>)l[0];
+            var lista = wscontainer.Lista;
+            var worksheet = workbook.Worksheets.Add();
+            worksheet.Name = wscontainer.Nome;
+            worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
 
             for (int i = 0; i < lista.Count; i++)
             {
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj] = lista[i].Cnpj;
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome] = lista[i].Nome;
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia] = lista[i].Fantasia;
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email] = lista[i].Email;
-                Worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone] = lista[i].Telefone;
+                worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj] = lista[i].Cnpj;
+                worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome] = lista[i].Nome;
+                worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia] = lista[i].Fantasia;
+                worksheet.Cells[i + 2, FornecedorModel.Colunas.Email] = lista[i].Email;
+                worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone] = lista[i].Telefone;
             }
         }
-
-        public string[] GetColunas()
-        {
-            return new FornecedorModel().GetColunas();
-        }
-
-        public async Task<bool> LeEInsereDados(Worksheet Worksheet)
+        public override async Task<bool> LeEInsereDados(Workbook workbook)
         {
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
             IList<FornecedorModel> fornecedores = new List<FornecedorModel>();
+            var worksheet = workbook.Worksheets.Add();
 
-            Range range = Worksheet.UsedRange;
+            Range range = worksheet.UsedRange;
 
             int rows = range.Rows.Count;
             int cols = range.Columns.Count;
@@ -56,11 +55,11 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 FornecedorModel fornecedor = new FornecedorModel();
 
-                var cnpj = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj]).Value;
-                var nome = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome]).Value;
-                var nome_fantasia = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia]).Value;
-                var telefone = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone]).Value;
-                var email = ((Range)Worksheet.Cells[i + 2, FornecedorModel.Colunas.Email]).Value;
+                var cnpj = ((Range)worksheet.Cells[i + 2, FornecedorModel.Colunas.Cnpj]).Value;
+                var nome = ((Range)worksheet.Cells[i + 2, FornecedorModel.Colunas.Nome]).Value;
+                var nome_fantasia = ((Range)worksheet.Cells[i + 2, FornecedorModel.Colunas.NomeFantasia]).Value;
+                var telefone = ((Range)worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone]).Value;
+                var email = ((Range)worksheet.Cells[i + 2, FornecedorModel.Colunas.Email]).Value;
 
                 if (cnpj == null || nome == null)
                     continue;

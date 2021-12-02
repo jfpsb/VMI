@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
@@ -24,6 +25,11 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
                 DAORepresentante dao = (DAORepresentante)daoEntidade;
                 Entidades = new System.Collections.ObjectModel.ObservableCollection<EntidadeComCampo<Model.Representante>>(EntidadeComCampo<Model.Representante>.CriarListaEntidadeComCampo(await dao.ListarPorNome(termo))); ;
             }
+        }
+
+        protected override WorksheetContainer<Model.Representante>[] GetWorksheetContainers()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

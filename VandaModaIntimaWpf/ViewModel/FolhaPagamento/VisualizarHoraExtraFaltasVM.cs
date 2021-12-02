@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
@@ -94,6 +95,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private async void GetFuncionarios()
         {
             funcionarios = await daoFuncionario.Listar();
+        }
+
+        protected override WorksheetContainer<Model.HoraExtra>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
         }
 
         public ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, TimeSpan, DateTime>> ListaHoraExtra

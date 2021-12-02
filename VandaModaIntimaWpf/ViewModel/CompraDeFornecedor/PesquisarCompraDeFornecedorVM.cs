@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
@@ -117,6 +118,11 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
 
             TotalEmCompras = Entidades.Select(s => s.Entidade).Sum(sum => sum.Valor);
+        }
+
+        protected override WorksheetContainer<Model.CompraDeFornecedor>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

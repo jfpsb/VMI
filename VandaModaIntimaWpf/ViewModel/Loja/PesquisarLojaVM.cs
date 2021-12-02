@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
@@ -19,7 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             daoEntidade = new DAOLoja(_session);
-            excelStrategy = new ExcelStrategy(new LojaExcelStrategy(_session));
+            excelStrategy = new LojaExcelStrategy(_session);
             pesquisarViewModelStrategy = new PesquisarLojaMsgVMStrategy();
             //Seleciona o index da combobox e por padrão realiza a pesquisa ao atualizar a propriedade
             //Lista todos os produtos ao abrir tela porque texto está vazio
@@ -50,6 +51,18 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public override bool Editavel(object parameter)
         {
             return true;
+        }
+
+        protected override WorksheetContainer<LojaModel>[] GetWorksheetContainers()
+        {
+            var worksheets = new WorksheetContainer<LojaModel>[1];
+            worksheets[0] = new WorksheetContainer<LojaModel>()
+            {
+                Nome = "Marcas",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
     }
 }
