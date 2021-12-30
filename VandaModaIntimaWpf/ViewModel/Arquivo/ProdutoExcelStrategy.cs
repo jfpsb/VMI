@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             worksheet.Name = wscontainer.Nome;
             worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
 
-            EscreveColunas(worksheet, _colunas, 1);
+            EscreveColunas(worksheet, _colunas, 1, 1);
 
             for (int i = 0; i < lista.Count; i++)
             {

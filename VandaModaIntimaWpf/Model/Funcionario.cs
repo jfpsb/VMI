@@ -19,6 +19,7 @@ namespace VandaModaIntimaWpf.Model
         private string _pisPasepNit;
         private string _ctps;
         private DateTime? _admissao;
+        private DateTime? _demissao;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
@@ -208,6 +209,15 @@ namespace VandaModaIntimaWpf.Model
         public virtual string SerieCtps
         {
             get => Ctps?.Substring(Ctps.Length - 4);
+        }
+        public virtual DateTime? Demissao
+        {
+            get => _demissao;
+            set
+            {
+                _demissao = value;
+                OnPropertyChanged("Demissao");
+            }
         }
 
         public virtual object GetIdentifier()

@@ -15,7 +15,10 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         private ISession _session;
         private DAODespesa daoDespesa;
         private string[] _colunasEmpresarial = new string[] { "Data", "Data De Vencimento", "Representante", "Fornecedor", "Loja", "Descrição", "Valor" };
-        private string[] _colunasEmpresarialResumido = new string[] { "Descrição", "Valor" };
+        private string[] _colunasFamiliar = new string[] { "Data", "Descrição", "Membro Familiar", "Valor" };
+        private string[] _colunasResidencialOutras = new string[] { "Data", "Data De Vencimento", "Descrição", "Valor" };
+        private string[] _colunasResumido = new string[] { "Descrição", "Valor" };
+        private string[] _colunasFamiliarResumido = new string[] { "Membro Familiar", "Valor" };
         public DespesaExcelStrategy(ISession session)
         {
             _session = session;
@@ -37,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             {
                 int linha = 1;
                 WorksheetContainer<Model.Despesa> container = (WorksheetContainer<Model.Despesa>)containers[i];
-                var listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), Descricao = s.Key }).OrderBy(o => o.Descricao).ToList();
+                dynamic listaResumido;
 
                 Worksheet worksheet = workbook.Worksheets.Item[i + 1];
                 worksheet.Name = container.Nome;
@@ -63,35 +66,117 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 worksheet.Cells[linha, 1].Font.Size = 12;
                 linha += 2;
 
-                EscreveColunas(worksheet, _colunasEmpresarial, linha);
-                linha++;
-
-                Range range3 = worksheet.Range[worksheet.Cells[linha, 1], worksheet.Cells[linha + container.Lista.Count - 1, 7]];
-                range3.Borders.Color = Color.Black;
-
-                Range range4 = worksheet.Range[worksheet.Cells[linha, 7], worksheet.Cells[linha + container.Lista.Count - 1, 7]];
-                range4.NumberFormat = "R$ #.###,00";
-                range4.NumberFormatLocal = "R$ #.###,00";
-
-                for (int j = 0; j < container.Lista.Count; j++)
+                switch (container.Nome)
                 {
-                    worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
-                    worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
-                    worksheet.Cells[j + linha, 3] = container.Lista[j].Representante?.Nome;
-                    worksheet.Cells[j + linha, 4] = container.Lista[j].Fornecedor?.Nome;
-                    worksheet.Cells[j + linha, 5] = container.Lista[j].Loja?.Nome;
-                    worksheet.Cells[j + linha, 6] = container.Lista[j].Descricao;
-                    worksheet.Cells[j + linha, 7] = container.Lista[j].Valor;
-                }
+                    case "DESPESA EMPRESARIAL":
+                        EscreveTextoRelatorio(worksheet, linha, 7, 9, 10);
+                        linha++;
+                        EscreveColunas(worksheet, _colunasEmpresarial, linha, 1);
+                        EscreveColunas(worksheet, _colunasResumido, linha, 9);
+                        listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
+                        linha++;
+                        for (int j = 0; j < container.Lista.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
+                            worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
+                            worksheet.Cells[j + linha, 3] = container.Lista[j].Representante?.Nome;
+                            worksheet.Cells[j + linha, 4] = container.Lista[j].Fornecedor?.Nome;
+                            worksheet.Cells[j + linha, 5] = container.Lista[j].Loja?.Nome;
+                            worksheet.Cells[j + linha, 6] = container.Lista[j].Descricao;
+                            worksheet.Cells[j + linha, 7] = container.Lista[j].Valor;
+                        }
 
-                for (int j = 0; j < listaResumido.Count; j++)
-                {
-                    worksheet.Cells[j + linha, 9] = listaResumido[j].Descricao;
-                    worksheet.Cells[j + linha, 10] = listaResumido[j].Valor;
+                        for (int j = 0; j < listaResumido.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 9] = listaResumido[j].GroupByKey;
+                            worksheet.Cells[j + linha, 10] = listaResumido[j].Valor;
+                        }
+                        EstilizaLinhas(worksheet, linha, container, listaResumido, 7, 9, 10);
+                        break;
+                    case "DESPESA FAMILIAR":
+                        EscreveTextoRelatorio(worksheet, linha, 4, 6, 7);
+                        linha++;
+                        EscreveColunas(worksheet, _colunasFamiliar, linha, 1);
+                        EscreveColunas(worksheet, _colunasFamiliarResumido, linha, 6);
+                        listaResumido = container.Lista.GroupBy(g => g.Familiar).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
+                        linha++;
+                        for (int j = 0; j < container.Lista.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
+                            worksheet.Cells[j + linha, 2] = container.Lista[j].Descricao;
+                            worksheet.Cells[j + linha, 3] = container.Lista[j].Familiar;
+                            worksheet.Cells[j + linha, 4] = container.Lista[j].Valor;
+                        }
+
+                        for (int j = 0; j < listaResumido.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
+                            worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;
+                        }
+                        EstilizaLinhas(worksheet, linha, container, listaResumido, 4, 6, 7);
+                        break;
+                    default:
+                        EscreveTextoRelatorio(worksheet, linha, 4, 6, 7);
+                        linha++;
+                        EscreveColunas(worksheet, _colunasResidencialOutras, linha, 1);
+                        EscreveColunas(worksheet, _colunasResumido, linha, 6);
+                        listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
+                        linha++;
+                        for (int j = 0; j < container.Lista.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
+                            worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
+                            worksheet.Cells[j + linha, 3] = container.Lista[j].Descricao;
+                            worksheet.Cells[j + linha, 4] = container.Lista[j].Valor;
+                        }
+
+                        for (int j = 0; j < listaResumido.Count; j++)
+                        {
+                            worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
+                            worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;
+                        }
+                        EstilizaLinhas(worksheet, linha, container, listaResumido, 4, 6, 7);
+                        break;
                 }
 
                 AutoFitColunas(worksheet);
             }
+        }
+
+        private void EstilizaLinhas(Worksheet worksheet, int linha, WorksheetContainer<Model.Despesa> container, dynamic listaResumido
+            , int finalRange1, int inicioRange2, int finalRange2)
+        {
+            Range range3 = worksheet.Range[worksheet.Cells[linha, 1], worksheet.Cells[linha + container.Lista.Count - 1, finalRange1]];
+            range3.Borders.Color = Color.Black;
+
+            Range range8 = worksheet.Range[worksheet.Cells[linha, inicioRange2], worksheet.Cells[linha + listaResumido.Count - 1, finalRange2]];
+            range8.Borders.Color = Color.Black;
+
+            Range range4 = worksheet.Range[worksheet.Cells[linha, finalRange1], worksheet.Cells[linha + container.Lista.Count - 1, finalRange1]];
+            Range range7 = worksheet.Range[worksheet.Cells[linha, finalRange2], worksheet.Cells[linha + listaResumido.Count - 1, finalRange2]];
+            range7.NumberFormat = range4.NumberFormat = "R$ #.##0,00";
+            range7.NumberFormatLocal = range4.NumberFormatLocal = "R$ #.##0,00";
+        }
+
+        private void EscreveTextoRelatorio(Worksheet worksheet, int linha, int finalRange1, int inicioRange2, int finalRange2)
+        {
+            worksheet.Cells[linha, 1] = "RELATÓRIO DETALHADO";
+            worksheet.Cells[linha, 1].Font.Bold = true;
+            worksheet.Cells[linha, 1].Font.Size = 15;
+            Range range5 = worksheet.Range[worksheet.Cells[linha, 1], worksheet.Cells[linha, finalRange1]];
+            range5.Merge();
+            range5.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            range5.Borders.Color = Color.Black;
+            range5.Interior.Color = Color.Yellow;
+
+            worksheet.Cells[linha, inicioRange2] = "RELATÓRIO RESUMIDO";
+            worksheet.Cells[linha, inicioRange2].Font.Bold = true;
+            worksheet.Cells[linha, inicioRange2].Font.Size = 15;
+            Range range6 = worksheet.Range[worksheet.Cells[linha, inicioRange2], worksheet.Cells[linha, finalRange2]];
+            range6.Merge();
+            range6.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            range6.Borders.Color = Color.Black;
+            range6.Interior.Color = Color.Yellow;
         }
 
         public override Task<bool> LeEInsereDados(Workbook workbook)

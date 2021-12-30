@@ -584,7 +584,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (folha == null)
                 {
-                    if (funcionario.Deletado)
+                    if (DataEscolhida < funcionario.Admissao)
+                        continue;
+
+                    if (DataEscolhida > funcionario.Demissao)
                         continue;
 
                     folha = new FolhaPagamentoModel

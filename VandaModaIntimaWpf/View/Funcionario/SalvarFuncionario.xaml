@@ -12,14 +12,15 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCpf}"
-        Closing="Window_Closing" d:DesignHeight="623.5">
+        Closing="Window_Closing"
+        d:DesignHeight="623.5">
     <Window.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
     </Window.InputBindings>
     <Window.Resources>
         <Converters:CPFValueConverter x:Key="CPFValueConverter" />
-        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>
     <Grid>
         <TabControl>
@@ -42,13 +43,14 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Content="{DynamicResource cpf_dois_pontos}" />
                     <TextBox x:Name="TxtCpf"
                              Grid.Column="1"
                              Text="{Binding Entidade.Cpf, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CPFValueConverter}}"
                              TextChanged="TxtCpf_TextChanged"
-                             IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
+                             IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}" />
                     <Label Grid.Row="1"
                            Grid.ColumnSpan="2"
                            Content="{DynamicResource funcionario_ja_existe}"
@@ -58,71 +60,77 @@
                     <Label Grid.Row="2"
                            Content="Admissão:" />
                     <DatePicker Grid.Column="1"
-                             Grid.Row="2"
-                             SelectedDate="{Binding Entidade.Admissao}"
-                             IsEnabled="{Binding IsEnabled}" />
+                                Grid.Row="2"
+                                SelectedDate="{Binding Entidade.Admissao}"
+                                IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="3"
+                           Content="Demissão:" />
+                    <DatePicker Grid.Column="1"
+                                Grid.Row="3"
+                                SelectedDate="{Binding Entidade.Demissao}"
+                                IsEnabled="{Binding IssoEUmUpdate}" />
+                    <Label Grid.Row="4"
                            Content="{DynamicResource nome_dois_pontos}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="3"
+                             Grid.Row="4"
                              MaxLength="45"
                              Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="4"
+                    <Label Grid.Row="5"
                            Content="{DynamicResource telefone_dois_pontos}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              MaxLength="100"
                              Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="5"
+                    <Label Grid.Row="6"
                            Content="{DynamicResource email_header}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="5"
+                             Grid.Row="6"
                              MaxLength="45"
                              Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="6"
-                           Content="PIS/PASEP/NIT:" />
-                    <TextBox Grid.Column="1"
-                             Grid.Row="6"
-                             MaxLength="100"
-                             Text="{Binding Entidade.PisPasepNit, UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="7"
-                           Content="Nº Cart. De Trabalho (CTPS)(Com nº De Série):" />
+                           Content="PIS/PASEP/NIT:" />
                     <TextBox Grid.Column="1"
                              Grid.Row="7"
                              MaxLength="100"
-                             Text="{Binding Entidade.Ctps, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Entidade.PisPasepNit, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="8"
-                           Content="{DynamicResource endereco_dois_pontos}" />
+                           Content="Nº Cart. De Trabalho (CTPS)(Com nº De Série):" />
                     <TextBox Grid.Column="1"
                              Grid.Row="8"
+                             MaxLength="100"
+                             Text="{Binding Entidade.Ctps, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="9"
+                           Content="{DynamicResource endereco_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="9"
                              MaxLength="200"
                              Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="9"
+                    <Label Grid.Row="10"
                            Content="Recebe Passagem:" />
-                    <CheckBox Grid.Row="9"
+                    <CheckBox Grid.Row="10"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebePassagem}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="10"
+                    <Label Grid.Row="11"
                            Content="Recebe Vale Alimentação:" />
-                    <CheckBox Grid.Row="10"
+                    <CheckBox Grid.Row="11"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebeValeAlimentacao}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="11"
+                    <Label Grid.Row="12"
                            Content="{DynamicResource loja_dois_pontos}" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="11"
+                              Grid.Row="12"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"

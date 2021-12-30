@@ -14,16 +14,16 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         /// </summary>
         /// <param name="Worksheet"></param>
         public abstract void AutoFitColunas(Worksheet Worksheet);
-        protected void EscreveColunas(Worksheet worksheet, string[] colunas, int linha)
+        protected void EscreveColunas(Worksheet worksheet, string[] colunas, int linha, int coluna)
         {
             //Escreve cabeçalho baseado nas colunas do model e estiliza
             for (int i = 0; i < colunas.Length; i++)
             {
-                worksheet.Cells[linha, i + 1] = colunas[i];
-                worksheet.Cells[linha, i + 1].Font.Bold = true;
-                worksheet.Cells[linha, i + 1].Font.Size = 14;
-                worksheet.Cells[linha, i + 1].Interior.Color = Color.LightGray;
-                worksheet.Cells[linha, i + 1].Borders.Color = Color.Black;
+                worksheet.Cells[linha, i + coluna] = colunas[i];
+                worksheet.Cells[linha, i + coluna].Font.Bold = true;
+                worksheet.Cells[linha, i + coluna].Font.Size = 14;
+                worksheet.Cells[linha, i + coluna].Interior.Color = Color.LightGray;
+                worksheet.Cells[linha, i + coluna].Borders.Color = Color.Black;
             }
         }
     }
