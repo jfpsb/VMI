@@ -81,16 +81,15 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual string HorasEmString
+        public virtual string TotalEmString
         {
             get
             {
-                TimeSpan timeSpan = new TimeSpan(Horas, Minutos, 0);
-                return timeSpan.ToString(@"hh\:mm");
+                return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
             }
         }
 
-        public virtual TimeSpan HorasTimeSpan
+        public virtual TimeSpan EmTimeSpan
         {
             get
             {

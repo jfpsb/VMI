@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOFaltas daoFaltas;
-        private ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, TimeSpan, DateTime>> _listaHoraExtra;
+        private ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>> _listaHoraExtra;
         private IList<Model.Funcionario> funcionarios;
         private DateTime _dataEscolhida;
 
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoFuncionario = new DAOFuncionario(_session);
             daoFaltas = new DAOFaltas(_session);
 
-            ListaHoraExtra = new ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, TimeSpan, DateTime>>();
+            ListaHoraExtra = new ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>>();
 
             GetFuncionarios();
 
@@ -64,30 +64,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("100%")).SingleOrDefault();
                 var he55 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("055%")).SingleOrDefault();
 
-                TimeSpan he100TimeSpan, he55TimeSpan;
+                if (he100 == null)
+                    he100 = new Model.HoraExtra();
 
-                if (he100 != null)
-                {
-                    he100TimeSpan = he100.HorasTimeSpan;
-                }
-                else
-                {
-                    he100TimeSpan = new TimeSpan();
-                }
+                if (he55 == null)
+                    he55 = new Model.HoraExtra();
 
-                if (he55 != null)
-                {
-                    he55TimeSpan = he55.HorasTimeSpan;
-                }
-                else
-                {
-                    he55TimeSpan = new TimeSpan();
-                }
-
-                if (he100TimeSpan.TotalSeconds == 0 && he55TimeSpan.TotalSeconds == 0 && falta.DataTimeSpan.TotalSeconds == 0)
+                if (he100.EmTimeSpan.TotalSeconds == 0 && he55.EmTimeSpan.TotalSeconds == 0 && falta.EmTimeSpan.TotalSeconds == 0)
                     continue;
 
-                var tupla = Tuple.Create(f, he100TimeSpan, he55TimeSpan, falta.DataTimeSpan, DataEscolhida);
+                var tupla = Tuple.Create(f, he100.TotalEmString, he55.TotalEmString, falta.TotalEmString, DataEscolhida);
                 ListaHoraExtra.Add(tupla);
             }
         }
@@ -102,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, TimeSpan, DateTime>> ListaHoraExtra
+        public ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>> ListaHoraExtra
         {
             get => _listaHoraExtra;
             set

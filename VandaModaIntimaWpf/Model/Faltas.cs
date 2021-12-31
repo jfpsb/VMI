@@ -42,9 +42,16 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Data");
             }
         }
-        public virtual TimeSpan DataTimeSpan
+        public virtual TimeSpan EmTimeSpan
         {
             get => new TimeSpan(Horas, Minutos, 0);
+        }
+        public virtual string TotalEmString
+        {
+            get
+            {
+                return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
+            }
         }
         public virtual int Horas
         {

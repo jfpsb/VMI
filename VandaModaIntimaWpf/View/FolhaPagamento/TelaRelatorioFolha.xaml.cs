@@ -104,12 +104,12 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             if (he100 != null)
             {
-                fprow.horaextra100 = he100.HorasTimeSpan.ToString("hh\\:mm");
+                fprow.horaextra100 = he100.EmTimeSpan.ToString("hh\\:mm");
             }
 
             if (he55 != null)
             {
-                fprow.horaextra55 = he55.HorasTimeSpan.ToString("hh\\:mm");
+                fprow.horaextra55 = he55.EmTimeSpan.ToString("hh\\:mm");
             }
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);

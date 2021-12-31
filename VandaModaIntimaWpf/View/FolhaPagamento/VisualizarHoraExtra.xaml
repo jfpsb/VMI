@@ -36,13 +36,13 @@
                                     Binding="{Binding Item1.Loja.Nome}" />
                 <DataGridTextColumn Header="HORA EXTRA C/100%"
                                     Width="Auto"
-                                    Binding="{Binding Item2, StringFormat=hh\\:mm}" />
+                                    Binding="{Binding Item2}" />
                 <DataGridTextColumn Header="HORA EXTRA C/055%"
                                     Width="Auto"
-                                    Binding="{Binding Item3, StringFormat=hh\\:mm}" />
+                                    Binding="{Binding Item3}" />
                 <DataGridTextColumn Header="FALTAS (TOTAL EM HORAS)"
                                     Width="Auto"
-                                    Binding="{Binding Item4, StringFormat=hh\\:mm}" />
+                                    Binding="{Binding Item4}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Column="2"

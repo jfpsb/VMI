@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             InitializeComponent();
         }
 
-        public TelaRelatorioHoraExtraFaltas(ObservableCollection<Tuple<Model.Funcionario, TimeSpan, TimeSpan, TimeSpan, DateTime>> listaHoraExtra)
+        public TelaRelatorioHoraExtraFaltas(ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>> listaHoraExtra)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
 
@@ -30,15 +30,15 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             foreach (var horaExtra in listaOrdenadaPorLoja)
             {
-                if (horaExtra.Item2.TotalSeconds > 0 || horaExtra.Item3.TotalSeconds > 0 || horaExtra.Item4.TotalSeconds > 0)
+                if (!horaExtra.Item2.Equals("00:00") || !horaExtra.Item3.Equals("00:00") || !horaExtra.Item4.Equals("00:00"))
                 {
                     var herow = horaExtraDataSet.HoraExtra.NewHoraExtraRow();
 
                     herow.nome_funcionario = horaExtra.Item1.Nome;
                     herow.nome_loja = horaExtra.Item1.Loja.Nome;
-                    herow.hora_100 = horaExtra.Item2.ToString("hh\\:mm");
-                    herow.hora_55 = horaExtra.Item3.ToString("hh\\:mm");
-                    herow.faltas = horaExtra.Item4.ToString("hh\\:mm");
+                    herow.hora_100 = horaExtra.Item2;
+                    herow.hora_55 = horaExtra.Item3;
+                    herow.faltas = horaExtra.Item4;
                     herow.mes_referencia = horaExtra.Item5.ToString("MM/yyyy");
 
                     horaExtraDataSet.HoraExtra.AddHoraExtraRow(herow);
