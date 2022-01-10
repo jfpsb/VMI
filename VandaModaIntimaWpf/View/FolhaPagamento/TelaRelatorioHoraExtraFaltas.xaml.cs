@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             foreach (var horaExtra in listaOrdenadaPorLoja)
             {
-                if (!horaExtra.Item2.Equals("00:00") || !horaExtra.Item3.Equals("00:00") || !horaExtra.Item4.Equals("00:00"))
+                if (!horaExtra.Item2.Equals("--:--") || !horaExtra.Item3.Equals("--:--") || !horaExtra.Item4.Equals("--:--"))
                 {
                     var herow = horaExtraDataSet.HoraExtra.NewHoraExtraRow();
 

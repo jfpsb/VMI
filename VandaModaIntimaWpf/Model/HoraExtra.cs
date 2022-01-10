@@ -85,7 +85,14 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
+                if (Horas == 0 && Minutos == 0)
+                {
+                    return "-- : --";
+                }
+                else
+                {
+                    return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
+                }
             }
         }
 
