@@ -25,7 +25,12 @@ namespace VandaModaIntimaWpf.Model.DAO
             criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql($"MONTH(Data) = ?", data.Month, NHibernateUtil.Int32));
             criteria.SetProjection(Projections.Sum("Valor"));
-            return (double)await criteria.UniqueResultAsync();
+            var result = await criteria.UniqueResultAsync();
+
+            if (result != null)
+                return (double)result;
+
+            return 0;
         }
 
         public async Task<IList<Despesa>> ListarPorTipoDespesaFiltroMesAno(TipoDespesa tipoDespesa, Loja loja, DateTime data, string filtro, string termo)
