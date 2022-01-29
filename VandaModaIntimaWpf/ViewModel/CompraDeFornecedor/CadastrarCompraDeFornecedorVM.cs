@@ -78,7 +78,14 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                     caminho = Path.Combine(caminhoDocVMI, Entidade.Id.ToString(), ArquivoSelecionado.Nome);
                 }
 
-                Process.Start(caminho);
+                try
+                {
+                    Process.Start(caminho);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
+                }
             }
         }
 
