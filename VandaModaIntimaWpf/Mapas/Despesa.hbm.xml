@@ -18,6 +18,8 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
+		<one-to-one name="Adiantamento"
+                 class="VandaModaIntimaWpf.Model.Adiantamento"/>
 		<many-to-one name="TipoDespesa"
                  class="VandaModaIntimaWpf.Model.TipoDespesa"/>
 		<many-to-one name="Fornecedor"

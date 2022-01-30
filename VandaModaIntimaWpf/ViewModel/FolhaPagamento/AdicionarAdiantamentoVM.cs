@@ -11,6 +11,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarAdiantamentoVM : ACadastrarViewModel<AdiantamentoModel>
     {
+        private DAODespesa daoDespesa;
+        private DAO<Model.TipoDespesa> daoTipoDespesa;
         private DateTime _inicioPagamento;
         private int _numParcelas;
         private double _valor;
@@ -23,6 +25,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAO<Model.Adiantamento>(session);
+            daoDespesa = new DAODespesa(session);
+            daoTipoDespesa = new DAO<Model.TipoDespesa>(session);
             PropertyChanged += AdicionarAdiantamento_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
@@ -35,9 +39,39 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             };
 
             AntesDeInserirNoBancoDeDados += AtribuiData;
+            AposInserirNoBancoDeDados += SalvaDespesaDeAdiantamento;
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
             ValorMaximoParcela = 625.85;
+        }
+
+        private async void SalvaDespesaDeAdiantamento(AposInserirBDEventArgs e)
+        {
+            if (e.Sucesso)
+            {
+                var adiantamento = await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+
+                var despesa = new Model.Despesa
+                {
+                    Data = adiantamento.Data,
+                    Adiantamento = adiantamento,
+                    TipoDespesa = await daoTipoDespesa.ListarPorId(1L),
+                    Loja = adiantamento.Funcionario.Loja,
+                    Descricao = $"{adiantamento.Descricao} - {adiantamento.Funcionario.Nome}",
+                    Valor = adiantamento.Valor
+                };
+
+                var result = await daoDespesa.Inserir(despesa);
+
+                if (result)
+                {
+                    Console.WriteLine("Despesa Inserida Com Sucesso!");
+                }
+                else
+                {
+                    MessageBoxService.Show("Erro Ao Cadastrar Despesa Decorrente De Adiantamento!");
+                }
+            }
         }
 
         private void AtribuiData()

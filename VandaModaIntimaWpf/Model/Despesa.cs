@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private long _id;
         private TipoDespesa _tipoDespesa;
+        private Adiantamento _adiantamento;
         private Fornecedor _fornecedor;
         private Representante _representante;
         private Loja _loja;
@@ -114,6 +115,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _dataVencimento = value;
                 OnPropertyChanged("DataVencimento");
+            }
+        }
+
+        public virtual Adiantamento Adiantamento
+        {
+            get => _adiantamento;
+            set
+            {
+                _adiantamento = value;
+                OnPropertyChanged("Adiantamento");
             }
         }
 

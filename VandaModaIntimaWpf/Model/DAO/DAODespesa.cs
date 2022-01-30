@@ -22,8 +22,9 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<double> RetornaSomaTodasDespesas(DateTime data)
         {
             var criteria = CriarCriteria();
-            criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql($"MONTH(Data) = ?", data.Month, NHibernateUtil.Int32));
+
+            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
             criteria.SetProjection(Projections.Sum("Valor"));
             var result = await criteria.UniqueResultAsync();
 
@@ -62,8 +63,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("Loja", loja));
             }
 
-            criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql($"MONTH(Data) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
             criteria.AddOrder(Order.Asc("Data"));
 
             return await Listar(criteria);
@@ -72,8 +73,8 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             var criteria = CriarCriteria();
 
-            criteria.Add(Expression.Sql($"YEAR(Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql($"MONTH(Data) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
             criteria.AddOrder(Order.Asc("Data"));
 
             return await Listar(criteria);
