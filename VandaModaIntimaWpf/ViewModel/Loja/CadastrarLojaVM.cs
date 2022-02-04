@@ -48,9 +48,12 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             Entidade.Aliquotas.Clear();
 
-            foreach (var a in Aliquotas)
+            if (Aliquotas != null)
             {
-                Entidade.Aliquotas.Add(a);
+                foreach (var a in Aliquotas)
+                {
+                    Entidade.Aliquotas.Add(a);
+                }
             }
         }
 
