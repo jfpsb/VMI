@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AposInserirNoBancoDeDados += SalvaDespesaDeAdiantamento;
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
-            ValorMaximoParcela = 625.85;
+            ValorMaximoParcela = 694.69;
         }
 
         private async void SalvaDespesaDeAdiantamento(AposInserirBDEventArgs e)
