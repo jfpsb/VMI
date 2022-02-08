@@ -24,6 +24,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             var criteria = CriarCriteria();
             criteria.Add(Restrictions.IsNull("Matriz"));
             criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
+            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
             criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);
         }
