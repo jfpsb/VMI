@@ -580,6 +580,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
+      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\DataSets\HoraExtraFaltasDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -285,7 +285,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnhora_100;
             
-            private global::System.Data.DataColumn columnhora_55;
+            private global::System.Data.DataColumn columnhora_normal;
             
             private global::System.Data.DataColumn columnmes_referencia;
             
@@ -350,9 +350,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn hora_55Column {
+            public global::System.Data.DataColumn hora_normalColumn {
                 get {
-                    return this.columnhora_55;
+                    return this.columnhora_normal;
                 }
             }
             
@@ -409,13 +409,13 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_55, string mes_referencia, string faltas) {
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_normal, string mes_referencia, string faltas) {
                 HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nome_funcionario,
                         nome_loja,
                         hora_100,
-                        hora_55,
+                        hora_normal,
                         mes_referencia,
                         faltas};
                 rowHoraExtraRow.ItemArray = columnValuesArray;
@@ -443,7 +443,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnnome_funcionario = base.Columns["nome_funcionario"];
                 this.columnnome_loja = base.Columns["nome_loja"];
                 this.columnhora_100 = base.Columns["hora_100"];
-                this.columnhora_55 = base.Columns["hora_55"];
+                this.columnhora_normal = base.Columns["hora_normal"];
                 this.columnmes_referencia = base.Columns["mes_referencia"];
                 this.columnfaltas = base.Columns["faltas"];
             }
@@ -457,8 +457,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnnome_loja);
                 this.columnhora_100 = new global::System.Data.DataColumn("hora_100", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnhora_100);
-                this.columnhora_55 = new global::System.Data.DataColumn("hora_55", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnhora_55);
+                this.columnhora_normal = new global::System.Data.DataColumn("hora_normal", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_normal);
                 this.columnmes_referencia = new global::System.Data.DataColumn("mes_referencia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmes_referencia);
                 this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
@@ -653,17 +653,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string hora_55 {
+            public string hora_normal {
                 get {
                     try {
-                        return ((string)(this[this.tableHoraExtra.hora_55Column]));
+                        return ((string)(this[this.tableHoraExtra.hora_normalColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'hora_55\' in table \'HoraExtra\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_normal\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableHoraExtra.hora_55Column] = value;
+                    this[this.tableHoraExtra.hora_normalColumn] = value;
                 }
             }
             
@@ -737,14 +737,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Ishora_55Null() {
-                return this.IsNull(this.tableHoraExtra.hora_55Column);
+            public bool Ishora_normalNull() {
+                return this.IsNull(this.tableHoraExtra.hora_normalColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Sethora_55Null() {
-                this[this.tableHoraExtra.hora_55Column] = global::System.Convert.DBNull;
+            public void Sethora_normalNull() {
+                this[this.tableHoraExtra.hora_normalColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

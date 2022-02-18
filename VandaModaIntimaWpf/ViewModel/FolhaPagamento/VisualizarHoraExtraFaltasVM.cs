@@ -61,19 +61,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (falta == null)
                     falta = new Model.Faltas();
 
-                var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("100%")).SingleOrDefault();
-                var he55 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("055%")).SingleOrDefault();
+                var he100 = horasExtras.Where(w => w.TipoHoraExtra.Id == 1).SingleOrDefault();
+                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Id == 2).SingleOrDefault();
 
                 if (he100 == null)
                     he100 = new Model.HoraExtra();
 
-                if (he55 == null)
-                    he55 = new Model.HoraExtra();
+                if (heNormal == null)
+                    heNormal = new Model.HoraExtra();
 
-                if (he100.EmTimeSpan.TotalSeconds == 0 && he55.EmTimeSpan.TotalSeconds == 0 && falta.EmTimeSpan.TotalSeconds == 0)
+                if (he100.EmTimeSpan.TotalSeconds == 0 && heNormal.EmTimeSpan.TotalSeconds == 0 && falta.EmTimeSpan.TotalSeconds == 0)
                     continue;
 
-                var tupla = Tuple.Create(f, he100.TotalEmString, he55.TotalEmString, falta.TotalEmString, DataEscolhida);
+                var tupla = Tuple.Create(f, he100.TotalEmString, heNormal.TotalEmString, falta.TotalEmString, DataEscolhida);
                 ListaHoraExtra.Add(tupla);
             }
         }

@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                     herow.nome_funcionario = horaExtra.Item1.Nome;
                     herow.nome_loja = horaExtra.Item1.Loja.Nome;
                     herow.hora_100 = horaExtra.Item2;
-                    herow.hora_55 = horaExtra.Item3;
+                    herow.hora_normal = horaExtra.Item3;
                     herow.faltas = horaExtra.Item4;
                     herow.mes_referencia = horaExtra.Item5.ToString("MM/yyyy");
 

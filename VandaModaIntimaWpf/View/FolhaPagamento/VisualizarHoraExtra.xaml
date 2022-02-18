@@ -37,7 +37,7 @@
                 <DataGridTextColumn Header="HORA EXTRA C/100%"
                                     Width="Auto"
                                     Binding="{Binding Item2}" />
-                <DataGridTextColumn Header="HORA EXTRA C/055%"
+                <DataGridTextColumn Header="HORA EXTRA C/060%"
                                     Width="Auto"
                                     Binding="{Binding Item3}" />
                 <DataGridTextColumn Header="FALTAS (TOTAL EM HORAS)"
