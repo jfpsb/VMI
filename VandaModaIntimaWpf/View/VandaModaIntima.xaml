@@ -130,6 +130,17 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Command="{Binding AbrirTelaEntradaMercadoriaComando}">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/EntradaDeMercadoria.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Entrada De Mercadoria" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </WrapPanel>
         </ScrollViewer>
     </DockPanel>

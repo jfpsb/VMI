@@ -58,7 +58,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             var worksheets = new WorksheetContainer<LojaModel>[1];
             worksheets[0] = new WorksheetContainer<LojaModel>()
             {
-                Nome = "Marcas",
+                Nome = "Lojas",
                 Lista = Entidades.Select(s => s.Entidade).ToList()
             };
 

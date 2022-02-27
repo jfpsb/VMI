@@ -253,6 +253,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -485,6 +493,7 @@
     <Compile Include="Model\DAO\DAO.cs" />
     <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOBonusMensal.cs" />
+    <Compile Include="Model\DAO\DAOEntradaDeMercadoria.cs" />
     <Compile Include="Model\DAO\DAOHistoricoProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -508,6 +517,8 @@
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
     <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Despesa.cs" />
+    <Compile Include="Model\EntradaDeMercadoria.cs" />
+    <Compile Include="Model\EntradaMercadoriaProdutoGrade.cs" />
     <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\Faltas.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
@@ -608,6 +619,10 @@
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVM.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVMStrategy.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVM.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarFaltasVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarFaltasVMStrategy.cs" />
@@ -695,6 +710,7 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaCompraDeFornecedor.cs" />
+    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaEntradaMercadoriaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaRepresentante.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\APesquisarProdutoVMCRUDService.cs" />
@@ -721,6 +737,12 @@
     </Compile>
     <Compile Include="View\Despesa\SalvarDespesa.xaml.cs">
       <DependentUpon>SalvarDespesa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml.cs">
+      <DependentUpon>PesquisarEntradaDeMercadoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml.cs">
+      <DependentUpon>SalvarEntradaDeMercadoria.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
       <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
@@ -1264,6 +1286,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\EntradaDeMercadoria.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\EntradaDeMercadoria.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

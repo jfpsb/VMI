@@ -1,6 +1,7 @@
 ﻿using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
+using VandaModaIntimaWpf.View.EntradaDeMercadoria;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
@@ -11,6 +12,7 @@ using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
 using VandaModaIntimaWpf.ViewModel.Despesa;
+using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
@@ -92,6 +94,13 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
             PesquisarRecebimentoVM viewModel = new PesquisarRecebimentoVM(new MessageBoxService(), new AbrePelaTelaPesqRecebService());
             PesquisarRecebimento pesquisarRecebimento = new PesquisarRecebimento() { DataContext = viewModel };
             pesquisarRecebimento.Show();
+        }
+
+        public void AbrirTelaEntradaMercadoria()
+        {
+            PesquisarEntradaVM viewModel = new PesquisarEntradaVM(new MessageBoxService(), new AbrePelaTelaPesquisaEntradaMercadoriaService());
+            PesquisarEntradaDeMercadoria view = new PesquisarEntradaDeMercadoria() { DataContext = viewModel };
+            view.Show();
         }
     }
 }

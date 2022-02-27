@@ -12,5 +12,6 @@
         void AbrirTelaFolhaPagamento();
         void AbrirTelaFuncionario();
         void AbrirTelaCompraDeFornecedor();
+        void AbrirTelaEntradaMercadoria();
     }
 }

@@ -54,7 +54,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         private void ValorDiarioAlterado(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("ValorDiarioPassagem"))
+            if (e.PropertyName.Equals("ValorDiario"))
             {
                 var result = messageBoxService.Show("O Valor Diário Da Passagem Foi Alterado. Deseja Confirmar A Alteração E Salvar O Novo Valor?", "Cálculo De Passagem de Ônibus", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
 

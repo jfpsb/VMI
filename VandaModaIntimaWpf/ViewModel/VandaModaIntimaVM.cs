@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaFuncionarioComando { get; set; }
         public ICommand AbrirTelaDespesasComando { get; set; }
         public ICommand AbrirTelaCompraFornecedorComando { get; set; }
+        public ICommand AbrirTelaEntradaMercadoriaComando { get; set; }
 
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
@@ -46,6 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrirTelaFuncionarioComando = new RelayCommand(AbrirTelaFuncionario);
             AbrirTelaDespesasComando = new RelayCommand(AbrirTelaDespesas);
             AbrirTelaCompraFornecedorComando = new RelayCommand(AbrirTelaCompraFornecedor);
+            AbrirTelaEntradaMercadoriaComando = new RelayCommand(AbrirTelaEntradaMercadoria);
 
             ResourceDictionary resourceDictionary = new ResourceDictionary();
 
@@ -65,6 +67,11 @@ namespace VandaModaIntimaWpf.ViewModel
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
 
             //CriarGradePadrao();
+        }
+
+        private void AbrirTelaEntradaMercadoria(object obj)
+        {
+            AbreTelaPesquisaService.AbrirTelaEntradaMercadoria();
         }
 
         //private async void CriarGradePadrao()

@@ -33,10 +33,12 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
             criteria.Add(Restrictions.Disjunction()
                 .Add(Restrictions.Like("CodBarra", "%" + termo + "%"))
+                .Add(Restrictions.Like("Grades.CodBarra", "%" + termo + "%"))
+                .Add(Restrictions.Like("Grades.CodBarraAlternativo", "%" + termo + "%"))
                 .Add(Restrictions.Like("Descricao", "%" + termo + "%")));
 
-            criteria.SetProjection(Projections.GroupProperty("CodBarra"));
-            criteria.AddOrder(Order.Asc("CodBarra"));
+            //criteria.SetProjection(Projections.GroupProperty("CodBarra"));
+            criteria.AddOrder(Order.Asc("Descricao"));
             criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
             return await ListarComNovaSession(criteria);
@@ -90,7 +92,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         public async Task<IList<Produto>> ListarPorMarca(string marca)
         {
             var criteria = CriarCriteria();
-            criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
+            //criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.CreateAlias("Marca", "Marca");
             criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
             return await ListarComNovaSession(criteria);

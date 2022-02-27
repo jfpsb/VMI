@@ -40,16 +40,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             return GetResource.GetString("apagar_lojas");
         }
 
-        public string MensagemDocumentoDeletado()
-        {
-            return "LOG de Loja Marcado Como Deletado Com Sucesso";
-        }
-
-        public string MensagemDocumentoNaoDeletado()
-        {
-            return "Erro ao Marcar LOG de Loja Como Deletado";
-        }
-
         public string PesquisarEntidadeCaption()
         {
             return "Pesquisa de Loja";
