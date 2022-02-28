@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EntradaMercadoriaProdutoGradeDataSet" targetNamespace="http://tempuri.org/EntradaMercadoriaProdutoGradeDataSet.xsd" xmlns:mstns="http://tempuri.org/EntradaMercadoriaProdutoGradeDataSet.xsd" xmlns="http://tempuri.org/EntradaMercadoriaProdutoGradeDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="EntradaMercadoriaProdutoGradeDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="EntradaMercadoriaProdutoGradeDataSet" msprop:Generator_UserDSName="EntradaMercadoriaProdutoGradeDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="entradamercadoria_produtograde" msprop:Generator_TableClassName="entradamercadoria_produtogradeDataTable" msprop:Generator_TableVarName="tableentradamercadoria_produtograde" msprop:Generator_TablePropName="entradamercadoria_produtograde" msprop:Generator_RowDeletingName="entradamercadoria_produtogradeRowDeleting" msprop:Generator_RowChangingName="entradamercadoria_produtogradeRowChanging" msprop:Generator_RowEvHandlerName="entradamercadoria_produtogradeRowChangeEventHandler" msprop:Generator_RowDeletedName="entradamercadoria_produtogradeRowDeleted" msprop:Generator_UserTableName="entradamercadoria_produtograde" msprop:Generator_RowChangedName="entradamercadoria_produtogradeRowChanged" msprop:Generator_RowEvArgName="entradamercadoria_produtogradeRowChangeEvent" msprop:Generator_RowClassName="entradamercadoria_produtogradeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codbarra_grade" msprop:Generator_ColumnVarNameInTable="columncodbarra_grade" msprop:Generator_ColumnPropNameInRow="codbarra_grade" msprop:Generator_ColumnPropNameInTable="codbarra_gradeColumn" msprop:Generator_UserColumnName="codbarra_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="codbarraalt_grade" msprop:Generator_ColumnVarNameInTable="columncodbarraalt_grade" msprop:Generator_ColumnPropNameInRow="codbarraalt_grade" msprop:Generator_ColumnPropNameInTable="codbarraalt_gradeColumn" msprop:Generator_UserColumnName="codbarraalt_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="descricao_produto" msprop:Generator_ColumnVarNameInTable="columndescricao_produto" msprop:Generator_ColumnPropNameInRow="descricao_produto" msprop:Generator_ColumnPropNameInTable="descricao_produtoColumn" msprop:Generator_UserColumnName="descricao_produto" type="xs:string" minOccurs="0" />
+              <xs:element name="descricao_grade" msprop:Generator_ColumnVarNameInTable="columndescricao_grade" msprop:Generator_ColumnPropNameInRow="descricao_grade" msprop:Generator_ColumnPropNameInTable="descricao_gradeColumn" msprop:Generator_UserColumnName="descricao_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="preco_grade" msprop:Generator_ColumnVarNameInTable="columnpreco_grade" msprop:Generator_ColumnPropNameInRow="preco_grade" msprop:Generator_ColumnPropNameInTable="preco_gradeColumn" msprop:Generator_UserColumnName="preco_grade" type="xs:string" minOccurs="0" />
+              <xs:element name="quantidade" msprop:Generator_ColumnVarNameInTable="columnquantidade" msprop:Generator_ColumnPropNameInRow="quantidade" msprop:Generator_ColumnPropNameInTable="quantidadeColumn" msprop:Generator_UserColumnName="quantidade" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

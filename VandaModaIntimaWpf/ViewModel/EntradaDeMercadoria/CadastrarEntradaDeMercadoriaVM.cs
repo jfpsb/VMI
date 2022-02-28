@@ -34,6 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand TxtPesquisaProdutoEnterComando { get; set; }
         public ICommand ListViewEnterComando { get; set; }
         public ICommand ListViewGradesEnterComando { get; set; }
+        public ICommand ListViewGradesEscComando { get; set; }
 
         public CadastrarEntradaDeMercadoriaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -47,6 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             TxtPesquisaProdutoEnterComando = new RelayCommand(TxtPesquisaProdutoEnter);
             ListViewEnterComando = new RelayCommand(ListViewEnter);
             ListViewGradesEnterComando = new RelayCommand(ListViewGradesEnter);
+            ListViewGradesEscComando = new RelayCommand(ListViewGradesEsc);
 
             PropertyChanged += PesquisaProdutos;
             AntesDeInserirNoBancoDeDados += CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados;
@@ -55,6 +57,15 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             TermoPesquisaProduto = "";
             ProdutoDescricao = "";
             IsPopupOpen = false;
+        }
+
+        private void ListViewGradesEsc(object obj)
+        {
+            IsPopupOpen = false;
+            IsGradesListViewFocused = false;
+            IsTxtPesquisaProdutoFocused = false;
+            IsTxtQuantidadeFocused = true;
+            IsListViewFocused = false;
         }
 
         private void ListViewGradesEnter(object obj)
@@ -327,8 +338,6 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             {
                 _grade = value;
                 OnPropertyChanged("Grade");
-                if (value != null)
-                    Console.WriteLine(value.SubGradesToString);
             }
         }
         public ObservableCollection<ProdutoGrade> Grades

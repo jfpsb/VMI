@@ -10,6 +10,16 @@ namespace VandaModaIntimaWpf.Model
         private ProdutoGrade _produtoGrade;
         private int _quantidade;
 
+        public enum Colunas
+        {
+            CodBarra = 1,
+            CodBarraAlt = 2,
+            Descricao = 3,
+            Grade = 4,
+            Preco = 5,
+            Quantidade = 6
+        }
+
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => ProdutoGrade.SubGradesToString;

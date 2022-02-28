@@ -24,6 +24,8 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         {
             daoEntidade = new DAOEntradaMercadoriaProdutoGrade(_session);
             daoFornecedor = new DAOFornecedor(_session);
+            pesquisarViewModelStrategy = new PesquisarEntradasPorFornecedorVMStrategy();
+            excelStrategy = new EntradaMercadoriaPorFornecedorExcelStrategy();
 
             GetFornecedores();
 
@@ -52,7 +54,22 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         protected override WorksheetContainer<EntradaMercadoriaProdutoGrade>[] GetWorksheetContainers()
         {
-            throw new NotImplementedException();
+            if (Entradas.Count > 0)
+            {
+                var worksheets = new WorksheetContainer<Model.EntradaMercadoriaProdutoGrade>[1];
+                worksheets[0] = new WorksheetContainer<Model.EntradaMercadoriaProdutoGrade>()
+                {
+                    Nome = "Entradas Por Fornecedor",
+                    Lista = Entradas
+                };
+
+                return worksheets;
+            }
+            else
+            {
+                MessageBoxService.Show("Não Há Itens Listados!", "Exportar Para Excel", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return null;
+            }
         }
 
         public ObservableCollection<EntradaMercadoriaProdutoGrade> Entradas

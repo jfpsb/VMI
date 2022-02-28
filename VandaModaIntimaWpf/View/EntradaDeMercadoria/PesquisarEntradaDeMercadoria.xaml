@@ -9,7 +9,7 @@
                       mc:Ignorable="d"
                       Title="Pesquisar Entrada De Mercadoria"
                       Height="450"
-                      Width="450"
+                      Width="500"
                       Closing="Pesquisar_Closing"
                       WindowStartupLocation="CenterScreen">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="Apagar Entradas De Mercadoria Marcadas"
@@ -93,11 +93,15 @@
                         <DataGridTextColumn Header="Data"
                                             Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy HH:mm:ss}" />
                         <DataGridTextColumn Header="Loja"
-                                            Binding="{Binding Entidade.Loja.Nome}" />
+                                            Binding="{Binding Entidade.Loja.Nome}"
+                                            Width="*" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
                             <MenuItem Header="Visualizar Entradas" />
+                            <MenuItem Header="Imprimir"
+                                      Command="{Binding ImprimirComando}"
+                                      CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

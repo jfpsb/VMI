@@ -265,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EntradaDeMercadoria\TelaRelatorioEntradaMercadoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -558,6 +562,7 @@
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\Arquivo\DespesaExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\EntradaMercadoriaPorFornecedorExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\Excel.cs" />
     <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
@@ -587,6 +592,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DataSets\EntradaMercadoriaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
@@ -625,6 +640,7 @@
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradasPorFornecedorVM.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradasPorFornecedorVMStrategy.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVM.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVMStrategy.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVM.cs" />
@@ -750,8 +766,23 @@
     <Compile Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml.cs">
       <DependentUpon>PesquisarEntradasPorFornecedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.cs">
+      <DependentUpon>RelatorioEntradaMercadoriaProdutoGrade.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.cs">
+      <DependentUpon>RelatorioEntradaMercadoria.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml.cs">
       <DependentUpon>SalvarEntradaDeMercadoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\TelaRelatorioEntradaMercadoria.xaml.cs">
+      <DependentUpon>TelaRelatorioEntradaMercadoria.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FocusableListView.cs" />
     <Compile Include="View\FocusableTextBox.cs" />
@@ -974,6 +1005,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioEntradaMercadoriaProdutoGrade.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioEntradaMercadoria.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
@@ -1018,6 +1057,28 @@
     </None>
     <None Include="ViewModel\DataSets\BonusDataSet.xss">
       <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xsc">
+      <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EntradaMercadoriaDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xss">
+      <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsc">
+      <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EntradaMercadoriaProdutoGradeDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xss">
+      <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
     </None>
     <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xsc">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>

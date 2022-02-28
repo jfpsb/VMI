@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
@@ -19,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         private Model.Loja _loja;
 
         public ICommand AbrirRelatorioFornecedorComando { get; set; }
+        public ICommand ImprimirComando { get; set; }
 
         public PesquisarEntradaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.EntradaDeMercadoria> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
@@ -27,10 +29,17 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             pesquisarViewModelStrategy = new PesquisarEntradaVMStrategy();
 
             AbrirRelatorioFornecedorComando = new RelayCommand(AbrirRelatorioFornecedor);
+            ImprimirComando = new RelayCommand(Imprimir);
 
             GetLojas();
 
             DataEscolhida = DateTime.Now;
+        }
+
+        private void Imprimir(object obj)
+        {
+            TelaRelatorioEntradaMercadoria telaRelatorioEntradaMercadoria = new TelaRelatorioEntradaMercadoria(EntidadeSelecionada.Entidade);
+            telaRelatorioEntradaMercadoria.ShowDialog();
         }
 
         private void AbrirRelatorioFornecedor(object obj)
@@ -64,7 +73,14 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         protected override WorksheetContainer<Model.EntradaDeMercadoria>[] GetWorksheetContainers()
         {
-            return null;
+            var worksheets = new WorksheetContainer<Model.EntradaDeMercadoria>[1];
+            worksheets[0] = new WorksheetContainer<Model.EntradaDeMercadoria>()
+            {
+                Nome = "Entrada De Mercadoria",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
 
         public DateTime DataEscolhida

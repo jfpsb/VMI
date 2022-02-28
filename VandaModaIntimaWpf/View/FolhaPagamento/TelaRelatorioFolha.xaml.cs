@@ -99,17 +99,17 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             fprow.horaextra55 = "00:00";
 
             var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(FolhaPagamento.Ano, FolhaPagamento.Mes, FolhaPagamento.Funcionario).Result;
-            var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("100%")).SingleOrDefault();
-            var he55 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Contains("055%")).SingleOrDefault();
+            var he100 = horasExtras.Where(w => w.TipoHoraExtra.Id == 1).SingleOrDefault();
+            var henormal = horasExtras.Where(w => w.TipoHoraExtra.Id == 2).SingleOrDefault();
 
             if (he100 != null)
             {
                 fprow.horaextra100 = he100.EmTimeSpan.ToString("hh\\:mm");
             }
 
-            if (he55 != null)
+            if (henormal != null)
             {
-                fprow.horaextra55 = he55.EmTimeSpan.ToString("hh\\:mm");
+                fprow.horaextra55 = henormal.EmTimeSpan.ToString("hh\\:mm");
             }
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);

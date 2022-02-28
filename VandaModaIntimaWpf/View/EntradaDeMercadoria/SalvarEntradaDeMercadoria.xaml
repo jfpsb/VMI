@@ -10,7 +10,8 @@
         Title="Cadastrar Entrada De Mercadoria"
         WindowStartupLocation="CenterScreen"
         Height="500"
-        Width="950">
+        Width="950"
+        Closing="TelaCadastrarEntrada_Closing">
     <Window.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
@@ -103,7 +104,9 @@
                                     Width="Auto"
                                     DisplayMemberBinding="{Binding CodBarra}" />
                     <GridViewColumn Header="Descrição"
-                                    DisplayMemberBinding="{Binding Descricao}" />
+                                    DisplayMemberBinding="{Binding Descricao}"
+                                    Width="650" />
+
                 </GridView>
             </ListView.View>
         </ListView>
@@ -156,6 +159,7 @@
                                FontSize="16"
                                FontWeight="Bold" />
                         <ListView Width="950"
+                                  MaxHeight="270"
                                   HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding Grades}"
                                   SelectedItem="{Binding Grade}"
@@ -181,6 +185,8 @@
             <Popup.InputBindings>
                 <KeyBinding Key="Return"
                             Command="{Binding ListViewGradesEnterComando}" />
+                <KeyBinding Key="Esc"
+                            Command="{Binding ListViewGradesEscComando}" />
             </Popup.InputBindings>
         </Popup>
     </Grid>

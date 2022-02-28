@@ -208,12 +208,20 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public virtual async void ExportarExcel(object parameter)
         {
-            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
-            IsThreadLocked = true;
-            await new Excel<E>(excelStrategy).Salvar(GetWorksheetContainers());
-            IsThreadLocked = false;
-            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+            var containers = GetWorksheetContainers();
+            if (containers != null)
+            {
+                MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+                IsThreadLocked = true;
+                await new Excel<E>(excelStrategy).Salvar(containers);
+                IsThreadLocked = false;
+                MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+            }
         }
+        /// <summary>
+        /// Retorna a configuração de cada aba da planilha em um container contendo nome e lista com dados
+        /// para exportação para arquivo em Excel.
+        /// </summary>
         protected abstract WorksheetContainer<E>[] GetWorksheetContainers();
         protected async void PesquisarViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

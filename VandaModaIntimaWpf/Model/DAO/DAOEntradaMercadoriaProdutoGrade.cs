@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 .Add(Projections.Sum("Quantidade"), "Quantidade")
                 .Add(Projections.GroupProperty("ProdutoGrade"), "ProdutoGrade"));
 
-
+            criteria.AddOrder(Order.Asc("Produto.Descricao"));
 
             criteria.SetResultTransformer(Transformers.AliasToBean<Model.EntradaMercadoriaProdutoGrade>());
 

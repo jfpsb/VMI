@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="EntradaMercadoriaDataSet" targetNamespace="http://tempuri.org/EntradaMercadoriaDataSet.xsd" xmlns:mstns="http://tempuri.org/EntradaMercadoriaDataSet.xsd" xmlns="http://tempuri.org/EntradaMercadoriaDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="EntradaMercadoriaDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="EntradaMercadoriaDataSet" msprop:Generator_UserDSName="EntradaMercadoriaDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="entradamercadoria" msprop:Generator_TableClassName="entradamercadoriaDataTable" msprop:Generator_TableVarName="tableentradamercadoria" msprop:Generator_TablePropName="entradamercadoria" msprop:Generator_RowDeletingName="entradamercadoriaRowDeleting" msprop:Generator_RowChangingName="entradamercadoriaRowChanging" msprop:Generator_RowEvHandlerName="entradamercadoriaRowChangeEventHandler" msprop:Generator_RowDeletedName="entradamercadoriaRowDeleted" msprop:Generator_UserTableName="entradamercadoria" msprop:Generator_RowChangedName="entradamercadoriaRowChanged" msprop:Generator_RowEvArgName="entradamercadoriaRowChangeEvent" msprop:Generator_RowClassName="entradamercadoriaRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="loja_nome" msprop:Generator_ColumnVarNameInTable="columnloja_nome" msprop:Generator_ColumnPropNameInRow="loja_nome" msprop:Generator_ColumnPropNameInTable="loja_nomeColumn" msprop:Generator_UserColumnName="loja_nome" type="xs:string" minOccurs="0" />
+              <xs:element name="data" msprop:Generator_ColumnVarNameInTable="columndata" msprop:Generator_ColumnPropNameInRow="data" msprop:Generator_ColumnPropNameInTable="dataColumn" msprop:Generator_UserColumnName="data" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:entradamercadoria" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

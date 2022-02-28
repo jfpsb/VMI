@@ -66,6 +66,28 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        [JsonIgnore]
+        public virtual string SubGradesToShortString
+        {
+            get
+            {
+                string str = "";
+
+                var enumerator = SubGrades.GetEnumerator();
+
+                while (enumerator.MoveNext())
+                {
+                    str += $"{enumerator.Current.Grade.Nome}";
+                    str += "/";
+                }
+
+                if (!string.IsNullOrEmpty(str))
+                    str = str.Remove(str.LastIndexOf("/"), 1);
+
+                return str;
+            }
+        }
+
         public virtual string CodBarra
         {
             get

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
 {
@@ -63,6 +64,11 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
         {
             TextBox textBox = (TextBox)sender;
             textBox.Dispatcher.BeginInvoke(new Action(() => textBox.SelectAll()));
+        }
+
+        private void TelaCadastrarEntrada_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = ((ACadastrarViewModel<Model.EntradaDeMercadoria>)DataContext).ResultadoSalvar();
         }
     }
 }
