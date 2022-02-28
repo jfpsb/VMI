@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public virtual string GetContextMenuHeader => $"{Data.ToShortTimeString()} - {Loja.Nome}";
+        public virtual string GetContextMenuHeader => $"{Data.ToLongDateString()} - {Loja.Nome}";
 
         public virtual object GetIdentifier()
         {

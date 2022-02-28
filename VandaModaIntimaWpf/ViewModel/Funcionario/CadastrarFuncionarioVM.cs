@@ -139,7 +139,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarExcetoDeposito());
+            Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarSomenteLojas());
         }
         private async void GetBancos()
         {

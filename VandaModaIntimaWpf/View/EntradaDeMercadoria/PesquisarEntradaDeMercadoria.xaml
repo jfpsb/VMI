@@ -29,7 +29,7 @@
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
                                   Command="{Binding ImportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarLoja}" />
+                                  CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}" />
                     </MenuItem>
                     <MenuItem Header="{DynamicResource exportar}">
                         <MenuItem.Icon>
@@ -38,7 +38,10 @@
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
-
+                    <MenuItem Header="Relatórios">
+                        <MenuItem Header="Por Fornecedor"
+                                  Command="{Binding AbrirRelatorioFornecedorComando}" />
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>
@@ -73,14 +76,30 @@
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="3"
                           Name="DataGridEntradas"
+                          IsReadOnly="True"
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                           CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                     <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                              Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarEntradaDeMercadoria}}}">
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Data"
                                             Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy HH:mm:ss}" />
-                        <DataGridTextColumn Header="Loja" />
+                        <DataGridTextColumn Header="Loja"
+                                            Binding="{Binding Entidade.Loja.Nome}" />
                     </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}">
+                            <MenuItem Header="Visualizar Entradas" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
         </View:TelaPesquisaTemplate.Content>

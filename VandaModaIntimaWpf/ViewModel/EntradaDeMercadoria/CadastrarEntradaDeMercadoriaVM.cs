@@ -16,19 +16,24 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         private DAOProduto daoProduto;
         private DAOLoja daoLoja;
         private Model.Produto _produto;
+        private Model.ProdutoGrade _grade;
         private int _listViewZIndex;
         private int _quantidade;
         private ObservableCollection<Model.Produto> _produtosPesquisa = new ObservableCollection<Model.Produto>();
         private ObservableCollection<Model.EntradaMercadoriaProdutoGrade> _entradas = new ObservableCollection<Model.EntradaMercadoriaProdutoGrade>();
         private ObservableCollection<Model.Loja> _lojas = new ObservableCollection<Model.Loja>();
+        private ObservableCollection<Model.ProdutoGrade> _grades = new ObservableCollection<ProdutoGrade>();
         private bool _isTxtPesquisaProdutoFocused;
         private bool _isTxtQuantidadeFocused;
         private bool _isListViewFocused;
+        private bool _isGradesListViewFocused;
+        private bool _isPopupOpen;
         private string _produtoDescricao;
 
         public ICommand InserirProdutoDataGridComando { get; set; }
         public ICommand TxtPesquisaProdutoEnterComando { get; set; }
         public ICommand ListViewEnterComando { get; set; }
+        public ICommand ListViewGradesEnterComando { get; set; }
 
         public CadastrarEntradaDeMercadoriaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -41,6 +46,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             InserirProdutoDataGridComando = new RelayCommand(InserirProdutoDataGrid);
             TxtPesquisaProdutoEnterComando = new RelayCommand(TxtPesquisaProdutoEnter);
             ListViewEnterComando = new RelayCommand(ListViewEnter);
+            ListViewGradesEnterComando = new RelayCommand(ListViewGradesEnter);
 
             PropertyChanged += PesquisaProdutos;
             AntesDeInserirNoBancoDeDados += CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados;
@@ -48,11 +54,36 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             GetLojas();
             TermoPesquisaProduto = "";
             ProdutoDescricao = "";
+            IsPopupOpen = false;
+        }
+
+        private void ListViewGradesEnter(object obj)
+        {
+            if (Grade == null)
+                return;
+
+            EntradaMercadoriaProdutoGrade entradaMercadoriaProdutoGrade = new EntradaMercadoriaProdutoGrade
+            {
+                Entrada = Entidade,
+                ProdutoGrade = Grade,
+                Quantidade = Quantidade
+            };
+
+            Entradas.Add(entradaMercadoriaProdutoGrade);
+
+            Quantidade = 0;
+            TermoPesquisaProduto = "";
+            IsPopupOpen = false;
+            IsGradesListViewFocused = false;
+            IsTxtPesquisaProdutoFocused = true;
+            IsTxtQuantidadeFocused = false;
+            IsListViewFocused = false;
         }
 
         private void CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados()
         {
             Entidade.Entradas = Entradas;
+            Entidade.Data = DateTime.Now;
         }
 
         private void ListViewEnter(object obj)
@@ -88,20 +119,30 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void InserirProdutoDataGrid(object obj)
         {
-            EntradaMercadoriaProdutoGrade entradaMercadoriaProdutoGrade = new EntradaMercadoriaProdutoGrade
+            if (Produto.Grades.Count > 1)
             {
-                Entrada = Entidade,
-                ProdutoGrade = Produto.Grades[0],
-                Quantidade = Quantidade
-            };
+                IsPopupOpen = true;
+                Grades = new ObservableCollection<ProdutoGrade>(Produto.Grades);
+                Grade = Produto.Grades[0];
+                IsGradesListViewFocused = true;
+            }
+            else
+            {
+                EntradaMercadoriaProdutoGrade entradaMercadoriaProdutoGrade = new EntradaMercadoriaProdutoGrade
+                {
+                    Entrada = Entidade,
+                    ProdutoGrade = Produto.Grades[0],
+                    Quantidade = Quantidade
+                };
 
-            Entradas.Add(entradaMercadoriaProdutoGrade);
+                Entradas.Add(entradaMercadoriaProdutoGrade);
 
-            Quantidade = 0;
-            TermoPesquisaProduto = "";
-            IsTxtPesquisaProdutoFocused = true;
-            IsTxtQuantidadeFocused = false;
-            IsListViewFocused = false;
+                Quantidade = 0;
+                TermoPesquisaProduto = "";
+                IsTxtPesquisaProdutoFocused = true;
+                IsTxtQuantidadeFocused = false;
+                IsListViewFocused = false;
+            }
         }
 
         private async void PesquisaProdutos(object sender, PropertyChangedEventArgs e)
@@ -133,6 +174,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             Entidade = new Model.EntradaDeMercadoria();
+            Entradas.Clear();
         }
 
         public override bool ValidacaoSalvar(object parameter)
@@ -140,7 +182,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (Entidade.Entradas.Count == 0)
+            if (Entradas.Count == 0)
             {
                 BtnSalvarToolTip += "Ao Menos Um Produto Deve Ser Adicionado Para Cadastrar A Entrada De Mercadoria!\n";
                 valido = false;
@@ -151,7 +193,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarSomenteLojas());
             Entidade.Loja = Lojas[0];
         }
 
@@ -265,6 +307,47 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             {
                 _lojas = value;
                 OnPropertyChanged("Lojas");
+            }
+        }
+
+        public bool IsPopupOpen
+        {
+            get => _isPopupOpen;
+            set
+            {
+                _isPopupOpen = value;
+                OnPropertyChanged("IsPopupOpen");
+            }
+        }
+
+        public ProdutoGrade Grade
+        {
+            get => _grade;
+            set
+            {
+                _grade = value;
+                OnPropertyChanged("Grade");
+                if (value != null)
+                    Console.WriteLine(value.SubGradesToString);
+            }
+        }
+        public ObservableCollection<ProdutoGrade> Grades
+        {
+            get => _grades;
+            set
+            {
+                _grades = value;
+                OnPropertyChanged("Grades");
+            }
+        }
+
+        public bool IsGradesListViewFocused
+        {
+            get => _isGradesListViewFocused;
+            set
+            {
+                _isGradesListViewFocused = value;
+                OnPropertyChanged("IsGradesListViewFocused");
             }
         }
     }

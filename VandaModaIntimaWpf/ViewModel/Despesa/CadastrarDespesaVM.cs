@@ -220,7 +220,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarSomenteLojas());
             Lojas.Insert(0, new Model.Loja { Nome = "SELECIONE UMA LOJA" });
             Entidade.Loja = Lojas[0];
         }

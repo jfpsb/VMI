@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
         private async void GetLojas()
         {
-            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarSomenteLojas());
             Lojas.Insert(0, new Model.Loja { Nome = "TODAS AS LOJAS" });
 
         }

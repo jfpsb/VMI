@@ -257,6 +257,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -494,6 +498,7 @@
     <Compile Include="Model\DAO\DAOBonus.cs" />
     <Compile Include="Model\DAO\DAOBonusMensal.cs" />
     <Compile Include="Model\DAO\DAOEntradaDeMercadoria.cs" />
+    <Compile Include="Model\DAO\DAOEntradaMercadoriaProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAOHistoricoProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -619,6 +624,7 @@
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\EntidadeComCampo.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradasPorFornecedorVM.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVM.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVMStrategy.cs" />
     <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVM.cs" />
@@ -740,6 +746,9 @@
     </Compile>
     <Compile Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml.cs">
       <DependentUpon>PesquisarEntradaDeMercadoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml.cs">
+      <DependentUpon>PesquisarEntradasPorFornecedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml.cs">
       <DependentUpon>SalvarEntradaDeMercadoria.xaml</DependentUpon>

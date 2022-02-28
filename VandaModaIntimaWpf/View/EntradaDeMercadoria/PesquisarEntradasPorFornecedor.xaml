@@ -1,0 +1,64 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.EntradaDeMercadoria.PesquisarEntradasPorFornecedor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
+        xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+        mc:Ignorable="d"
+        Title="Entradas De Mercadoria Por Fornecedor"
+        WindowStartupLocation="CenterScreen"
+        Height="450"
+        Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label  Content="{DynamicResource mes_de_referencia}" />
+        <View:DataUpDown Grid.Column="1"
+                         Width="175"
+                         HorizontalAlignment="Left"
+                         Data="{Binding DataEscolhida, Mode=TwoWay}" />
+        <Label Grid.Row="1"
+               Content="{DynamicResource fornecedor_dois_pontos}" />
+        <ComboBox Grid.Row="1"
+                  Grid.Column="1"
+                  ItemsSource="{Binding Fornecedores}"
+                  SelectedItem="{Binding Fornecedor}"
+                  DisplayMemberPath="Nome" />
+        <DataGrid Grid.Row="2"
+                  Grid.ColumnSpan="2"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Entradas}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cód. De Barra"
+                                    Binding="{Binding ProdutoGrade.CodBarra}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Cód. De Barra Alt."
+                                    Binding="{Binding ProdutoGrade.CodBarraAlternativo}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Descrição"
+                                    Binding="{Binding ProdutoGrade.Produto.Descricao}"
+                                    Width="*"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Grade"
+                                    Width="*"
+                                    Binding="{Binding ProdutoGrade.SubGradesToString}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Preço"
+                                    Binding="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Quantidade"
+                                    Width="*"
+                                    Binding="{Binding Quantidade}"
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
