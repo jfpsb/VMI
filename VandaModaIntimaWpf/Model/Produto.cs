@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.Model
         private MarcaModel _marca;
         private string _descricao;
         private string _ncm;
-        private ICollection<ProdutoGrade> _grades = new List<ProdutoGrade>();
+        private IList<ProdutoGrade> _grades = new List<ProdutoGrade>();
 
         public enum Colunas
         {
@@ -146,7 +146,7 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => Descricao;
 
-        public virtual ICollection<ProdutoGrade> Grades
+        public virtual IList<ProdutoGrade> Grades
         {
             get
             {

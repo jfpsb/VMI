@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
+        xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Cadastrar Entrada De Mercadoria"
-        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Height="450"
-        Width="800"
-        KeyDown="TxtTermoProduto_PreviewKeyDown">
+        Height="500"
+        Width="950">
     <Window.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
@@ -19,8 +18,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -31,66 +32,107 @@
         </Grid.RowDefinitions>
         <Label Content="{DynamicResource loja_dois_pontos}" />
         <ComboBox Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Width="250"
+                  HorizontalAlignment="Left"
                   ItemsSource="{Binding Lojas}"
-                  SelectedValue="{Binding Loja}"
+                  SelectedValue="{Binding Entidade.Loja}"
                   DisplayMemberPath="Nome" />
         <Separator Grid.Row="1"
-                   Grid.ColumnSpan="2"
+                   Grid.ColumnSpan="3"
                    Margin="5" />
         <Label Content="{DynamicResource produto_header}"
                Grid.Row="2" />
+        <Label Content="{DynamicResource quantidade_dois_pontos}"
+               Grid.Row="2"
+               Grid.Column="2" />
         <TextBox Grid.Row="3"
                  x:Name="TxtPesquisaProduto"
                  Grid.ColumnSpan="2"
-                 FontSize="16"
-                 Margin="5, 0, 5, 0"
+                 FontSize="14"
                  PreviewKeyDown="TxtTermoProduto_PreviewKeyDown"
-                 Text="{Binding TermoPesquisaProduto, UpdateSourceTrigger=PropertyChanged}" />
+                 view:FocusableTextBox.IsFocused="{Binding IsTxtPesquisaProdutoFocused}"
+                 Text="{Binding TermoPesquisaProduto, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return"
+                            Command="{Binding TxtPesquisaProdutoEnterComando}" />
+            </TextBox.InputBindings>
+        </TextBox>
 
-        <ListView Grid.Row="5"
+        <TextBox Grid.Row="3"
+                 Grid.Column="2"
+                 x:Name="TxtQuantidade"
+                 view:FocusableTextBox.IsFocused="{Binding IsTxtQuantidadeFocused}"
+                 GotFocus="TxtQuantidade_GotFocus"
+                 Text="{Binding Quantidade, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return"
+                            Command="{Binding InserirProdutoDataGridComando}" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+        <Label Grid.Row="5"
+               Content="Produto Selecionado:"
+               FontWeight="Bold" />
+        <Label Grid.Row="5"
+               Grid.Column="1"
+               Grid.ColumnSpan="2"
+               Content="{Binding ProdutoDescricao}" />
+
+        <ListView Grid.Row="6"
                   x:Name="ProdutoListView"
                   Panel.ZIndex="{Binding ListViewZIndex}"
                   Grid.ColumnSpan="2"
                   MaxHeight="175"
                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                   ScrollViewer.CanContentScroll="True"
+                  ItemsSource="{Binding ProdutosPesquisa}"
+                  SelectedItem="{Binding Produto}"
                   VerticalAlignment="Top"
+                  view:FocusableListView.IsFocused="{Binding IsListViewFocused}"
                   PreviewKeyDown="ProdutoListView_PreviewKeyDown"
                   Margin="5">
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
-            <ListViewItem Content="Teste" />
+            <ListView.InputBindings>
+                <KeyBinding Key="Return"
+                            Command="{Binding ListViewEnterComando}" />
+            </ListView.InputBindings>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Cód. De Barra"
+                                    Width="Auto"
+                                    DisplayMemberBinding="{Binding CodBarra}" />
+                    <GridViewColumn Header="Descrição"
+                                    DisplayMemberBinding="{Binding Descricao}" />
+                </GridView>
+            </ListView.View>
         </ListView>
 
-        <DataGrid Grid.Row="5"
-                  Grid.ColumnSpan="2">
-
+        <DataGrid Grid.Row="6"
+                  Grid.ColumnSpan="3"
+                  IsReadOnly="True"
+                  CanUserDeleteRows="True"
+                  ItemsSource="{Binding Entradas}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Cód. De Barra"
+                                    Binding="{Binding ProdutoGrade.CodBarra}" />
+                <DataGridTextColumn Header="Cód. De Barra Alt."
+                                    Binding="{Binding ProdutoGrade.CodBarraAlternativo}" />
+                <DataGridTextColumn Header="Descrição"
+                                    Binding="{Binding ProdutoGrade.Produto.Descricao}"
+                                    Width="*" />
+                <DataGridTextColumn Header="Grade"
+                                    Width="*"
+                                    Binding="{Binding ProdutoGrade.SubGradesToString}" />
+                <DataGridTextColumn Header="Preço"
+                                    Binding="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}" />
+                <DataGridTextColumn Header="Quantidade"
+                                    Width="*"
+                                    Binding="{Binding Quantidade}" />
+            </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="6"
-                Grid.ColumnSpan="2"
+        <Button Grid.Row="7"
+                Grid.ColumnSpan="3"
                 Content="{DynamicResource salvar}"
                 Style="{StaticResource BotaoCadastrar}"
                 Command="{Binding SalvarComando}" />

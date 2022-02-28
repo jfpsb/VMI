@@ -744,6 +744,8 @@
     <Compile Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml.cs">
       <DependentUpon>SalvarEntradaDeMercadoria.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FocusableListView.cs" />
+    <Compile Include="View\FocusableTextBox.cs" />
     <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
       <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
     </Compile>
