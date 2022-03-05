@@ -254,6 +254,15 @@
         <System:String>SEGURANÇA</System:String>
         <System:String>ÁGUA MINERAL</System:String>
         <System:String>GASOLINA</System:String>
+        <System:String>SUPERMERCADO</System:String>
+        <System:String>TARIFA MÁQUINA DE CARTÃO REDE</System:String>
+        <System:String>TARIFA MÁQUINA DE CARTÃO STONE</System:String>
+        <System:String>TARIFA MÁQUINA DE CARTÃO CAIXA PAGAMENTOS</System:String>
+        <System:String>TARIFA MÁQUINA DE CARTÃO CREDISHOP</System:String>
+        <System:String>ALUGUEL MÁQUINA DE CARTÃO REDE</System:String>
+        <System:String>ALUGUEL MÁQUINA DE CARTÃO STONE</System:String>
+        <System:String>ALUGUEL MÁQUINA DE CARTÃO CAIXA PAGAMENTOS</System:String>
+        <System:String>ALUGUEL MÁQUINA DE CARTÃO CREDISHOP</System:String>
         <System:String>2R PREVENÇÃO</System:String>
         <System:String>COSTUREIRA DALILA</System:String>
         <System:String>COSTUREIRA ADNA</System:String>

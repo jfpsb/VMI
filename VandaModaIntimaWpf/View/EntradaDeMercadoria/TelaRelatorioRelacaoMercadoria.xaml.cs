@@ -1,22 +1,34 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
 namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
 {
     /// <summary>
-    /// Interaction logic for TelaRelatorioEntradaMercadoria.xaml
+    /// Interaction logic for TelaRelatorioRelacaoMercadoria.xaml
     /// </summary>
-    public partial class TelaRelatorioEntradaMercadoria : Window
+    public partial class TelaRelatorioRelacaoMercadoria : Window
     {
-        public TelaRelatorioEntradaMercadoria()
+        public TelaRelatorioRelacaoMercadoria()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
         }
 
-        public TelaRelatorioEntradaMercadoria(Model.EntradaDeMercadoria entrada)
+        public TelaRelatorioRelacaoMercadoria(Model.EntradaDeMercadoria entrada)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
@@ -24,7 +36,7 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
             EntradaMercadoriaDataSet entradaMercadoriaDataSet = new EntradaMercadoriaDataSet();
             EntradaMercadoriaProdutoGradeDataSet entradaMercadoriaProdutoGradeDataSet = new EntradaMercadoriaProdutoGradeDataSet();
 
-            var report = new RelatorioEntradaMercadoria();
+            var report = new RelatorioRelacaoMercadoria();
 
             foreach (var empg in entrada.Entradas)
             {
@@ -34,7 +46,7 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
                 empgRow.descricao_produto = empg.ProdutoGrade.Produto.Descricao;
                 empgRow.descricao_grade = empg.ProdutoGrade.SubGradesToShortString;
                 empgRow.preco_grade = empg.ProdutoGrade.Preco.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                empgRow.quantidade = empg.Quantidade.ToString();
+                //empgRow.quantidade = empg.Quantidade.ToString();
 
                 entradaMercadoriaProdutoGradeDataSet.entradamercadoria_produtograde.Addentradamercadoria_produtogradeRow(empgRow);
             }
@@ -49,8 +61,8 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
             report.Subreports[0].SetDataSource(entradaMercadoriaProdutoGradeDataSet);
             report.SetDataSource(entradaMercadoriaDataSet);
 
-            EntradaReport.ViewerCore.EnableDrillDown = false;
-            EntradaReport.ViewerCore.ReportSource = report;
+            RelacaoReport.ViewerCore.EnableDrillDown = false;
+            RelacaoReport.ViewerCore.ReportSource = report;
         }
     }
 }

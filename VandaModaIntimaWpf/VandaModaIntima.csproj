@@ -269,6 +269,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EntradaDeMercadoria\TelaRelatorioRelacaoMercadoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -766,6 +770,18 @@
     <Compile Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml.cs">
       <DependentUpon>PesquisarEntradasPorFornecedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.cs">
+      <DependentUpon>RelatorioRelacaoMercadoriaProdutoGrade.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.cs">
+      <DependentUpon>RelatorioRelacaoMercadoria.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.cs">
       <DependentUpon>RelatorioEntradaMercadoriaProdutoGrade.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -783,6 +799,9 @@
     </Compile>
     <Compile Include="View\EntradaDeMercadoria\TelaRelatorioEntradaMercadoria.xaml.cs">
       <DependentUpon>TelaRelatorioEntradaMercadoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EntradaDeMercadoria\TelaRelatorioRelacaoMercadoria.xaml.cs">
+      <DependentUpon>TelaRelatorioRelacaoMercadoria.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FocusableListView.cs" />
     <Compile Include="View\FocusableTextBox.cs" />
@@ -1004,6 +1023,14 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioRelacaoMercadoriaProdutoGrade.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RelatorioRelacaoMercadoria.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
