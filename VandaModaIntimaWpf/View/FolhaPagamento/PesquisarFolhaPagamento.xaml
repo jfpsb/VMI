@@ -45,6 +45,9 @@
                             <Image Source="/Resources/Money_Sign.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Inserir Valores A Transferir Em Despesas"
+                              Command="{Binding AdicionarValoresDespesaComando}">
+                    </MenuItem>
                     <MenuItem Header="Fechar Todas as Folhas Abertas"
                               Command="{Binding FecharFolhasAbertasComando}">
                         <MenuItem.Icon>

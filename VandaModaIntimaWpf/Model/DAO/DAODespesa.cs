@@ -25,6 +25,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
             criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
+            criteria.Add(Restrictions.Eq("Deletado", false));
             criteria.SetProjection(Projections.Sum("Valor"));
             var result = await criteria.UniqueResultAsync();
 

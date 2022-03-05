@@ -23,12 +23,14 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
+            FolhaReport.Owner = this;
         }
 
         public TelaRelatorioFolha(ISession session, Model.FolhaPagamento FolhaPagamento)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
+            FolhaReport.Owner = this;
 
             daoParcela = new DAOParcela(session);
             daoHoraExtra = new DAOHoraExtra(session);

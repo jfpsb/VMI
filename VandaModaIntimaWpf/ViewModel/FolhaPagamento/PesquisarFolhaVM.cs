@@ -31,6 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOBonus daoBonus;
         private DAOBonusMensal daoBonusMensal;
         private DAOParcela daoParcela;
+        private DAODespesa daoDespesa;
         private DAOHoraExtra daoHoraExtra;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
@@ -64,6 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarTotalComando { get; set; }
         public ICommand GerarUltimaFolhaPagamentoComando { get; set; }
         public ICommand AbrirAdicionarFaltasComando { get; set; }
+        public ICommand AdicionarValoresDespesaComando { get; set; }
 
         public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
@@ -72,6 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoBonusMensal = new DAOBonusMensal(_session);
+            daoDespesa = new DAODespesa(_session);
             daoParcela = new DAOParcela(_session);
             daoBonus = new DAOBonus(_session);
             daoHoraExtra = new DAOHoraExtra(_session);
@@ -107,9 +110,43 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AbrirAdicionarTotalComando = new RelayCommand(AbrirAdicionarTotal);
             GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
             AbrirAdicionarFaltasComando = new RelayCommand(AbrirAdicionarFaltas);
+            AdicionarValoresDespesaComando = new RelayCommand(AdicionarValoresDespesa);
 
             progressoValorProgresso = new Progress<double>(valor => { ValorBarraProgresso = valor; });
             progressoDescricaoProgesso = new Progress<string>(descricao => { DescricaoBarraProgresso = descricao; });
+        }
+
+        private async void AdicionarValoresDespesa(object obj)
+        {
+            IList<Model.Despesa> despesas = new List<Model.Despesa>();
+            var folhasPorLojaSoma = FolhaPagamentos.GroupBy(g => g.Funcionario.Loja)
+                .Select(g => new { Loja = g.Key, Soma = g.Sum(s => s.ValorATransferir), Vencimento = g.First().Vencimento });
+
+            foreach (var item in folhasPorLojaSoma)
+            {
+                var despesa = new Model.Despesa
+                {
+                    TipoDespesa = new Model.TipoDespesa { Id = 1 }, //TIPO EMPRESARIAL
+                    Loja = item.Loja,
+                    Valor = item.Soma,
+                    DataVencimento = item.Vencimento,
+                    Data = DateTime.Now,
+                    Descricao = "SALÁRIOS DE FUNCIONÁRIOS"
+                };
+
+                despesas.Add(despesa);
+            }
+
+            var result = await daoDespesa.Inserir(despesas);
+
+            if (result)
+            {
+                MessageBoxService.Show("Valores De Salários De Funcionários Foram Adicionados Em Despesas Com Sucesso!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBoxService.Show("Erro Ao Adicionar Valores De Salários De Funcionários!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AbrirAdicionarFaltas(object obj)
