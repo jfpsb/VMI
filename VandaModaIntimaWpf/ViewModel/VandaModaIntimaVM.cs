@@ -28,6 +28,8 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaCompraFornecedorComando { get; set; }
         public ICommand AbrirTelaEntradaMercadoriaComando { get; set; }
 
+        private DAOEntradaMercadoriaProdutoGrade dao;
+
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
             SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
@@ -65,8 +67,6 @@ namespace VandaModaIntimaWpf.ViewModel
             }
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
-
-            //CriarGradePadrao();
         }
 
         private void AbrirTelaEntradaMercadoria(object obj)

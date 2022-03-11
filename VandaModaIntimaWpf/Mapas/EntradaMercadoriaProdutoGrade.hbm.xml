@@ -11,7 +11,11 @@
 		</id>
 		<many-to-one name="Entrada" class="VandaModaIntimaWpf.Model.EntradaDeMercadoria" column="entradamercadoria"/>
 		<many-to-one name="ProdutoGrade" class="VandaModaIntimaWpf.Model.ProdutoGrade" column="produto_grade"/>
+		<many-to-one name="GradeFornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="grade_fornecedor"/>
 		<property name="Quantidade" />
+		<property name="ProdutoDescricao" column="produto_descricao" />
+		<property name="GradeDescricao" column="grade_descricao"/>
+		<property name="GradePreco" column="grade_preco"/>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

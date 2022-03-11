@@ -29,11 +29,14 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
             foreach (var empg in entrada.Entradas)
             {
                 var empgRow = entradaMercadoriaProdutoGradeDataSet.entradamercadoria_produtograde.Newentradamercadoria_produtogradeRow();
-                empgRow.codbarra_grade = empg.ProdutoGrade.CodBarra;
-                empgRow.codbarraalt_grade = empg.ProdutoGrade.CodBarraAlternativo;
-                empgRow.descricao_produto = empg.ProdutoGrade.Produto.Descricao;
-                empgRow.descricao_grade = empg.ProdutoGrade.SubGradesToShortString;
-                empgRow.preco_grade = empg.ProdutoGrade.Preco.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                if (empg.ProdutoGrade != null)
+                {
+                    empgRow.codbarra_grade = empg.ProdutoGrade.CodBarra;
+                    empgRow.codbarraalt_grade = empg.ProdutoGrade.CodBarraAlternativo;
+                }
+                empgRow.descricao_produto = empg.ProdutoDescricao;
+                empgRow.descricao_grade = empg.GradeDescricao;
+                empgRow.preco_grade = empg.GradePreco.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                 empgRow.quantidade = empg.Quantidade.ToString();
 
                 entradaMercadoriaProdutoGradeDataSet.entradamercadoria_produtograde.Addentradamercadoria_produtogradeRow(empgRow);

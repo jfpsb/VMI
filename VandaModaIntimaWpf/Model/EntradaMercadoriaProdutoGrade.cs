@@ -10,6 +10,11 @@ namespace VandaModaIntimaWpf.Model
         private ProdutoGrade _produtoGrade;
         private int _quantidade;
 
+        private string _produtoDescricao;
+        private string _gradeDescricao;
+        private double _gradePreco;
+        private Fornecedor _gradeFornecedor;
+
         public enum Colunas
         {
             CodBarra = 1,
@@ -63,6 +68,13 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _produtoGrade = value;
+                if (value != null)
+                {
+                    ProdutoDescricao = value.Produto.Descricao;
+                    GradeDescricao = value.SubGradesToShortString;
+                    GradePreco = value.Preco;
+                    GradeFornecedor = value.Produto.Fornecedor;
+                }
                 OnPropertyChanged("ProdutoGrade");
             }
         }
@@ -73,6 +85,44 @@ namespace VandaModaIntimaWpf.Model
             {
                 _quantidade = value;
                 OnPropertyChanged("Quantidade");
+            }
+        }
+
+        public virtual string ProdutoDescricao
+        {
+            get => _produtoDescricao;
+            set
+            {
+                _produtoDescricao = value;
+                OnPropertyChanged("ProdutoDescricao");
+            }
+        }
+        public virtual string GradeDescricao
+        {
+            get => _gradeDescricao;
+            set
+            {
+                _gradeDescricao = value;
+                OnPropertyChanged("GradeDescricao");
+            }
+        }
+        public virtual double GradePreco
+        {
+            get => _gradePreco;
+            set
+            {
+                _gradePreco = value;
+                OnPropertyChanged("GradePreco");
+            }
+        }
+
+        public virtual Fornecedor GradeFornecedor
+        {
+            get => _gradeFornecedor;
+            set
+            {
+                _gradeFornecedor = value;
+                OnPropertyChanged("GradeFornecedor");
             }
         }
     }

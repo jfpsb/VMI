@@ -69,15 +69,15 @@
                                             Binding="{Binding ProdutoGrade.CodBarraAlternativo}"
                                             IsReadOnly="True" />
                         <DataGridTextColumn Header="Descrição"
-                                            Binding="{Binding ProdutoGrade.Produto.Descricao}"
+                                            Binding="{Binding ProdutoDescricao}"
                                             Width="*"
                                             IsReadOnly="True" />
                         <DataGridTextColumn Header="Grade"
                                             Width="*"
-                                            Binding="{Binding ProdutoGrade.SubGradesToString}"
+                                            Binding="{Binding GradeDescricao}"
                                             IsReadOnly="True" />
                         <DataGridTextColumn Header="Preço"
-                                            Binding="{Binding ProdutoGrade.Preco, StringFormat=C, ConverterCulture=pt-BR}"
+                                            Binding="{Binding GradePreco, StringFormat=C, ConverterCulture=pt-BR}"
                                             IsReadOnly="True" />
                         <DataGridTextColumn Header="Quantidade"
                                             Width="*"

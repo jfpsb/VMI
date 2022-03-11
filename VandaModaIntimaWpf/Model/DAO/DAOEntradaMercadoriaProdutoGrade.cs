@@ -17,19 +17,20 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             var criteria = CriarCriteria();
 
-            criteria.CreateAlias("ProdutoGrade", "ProdutoGrade");
-            criteria.CreateAlias("ProdutoGrade.Produto", "Produto");
+            criteria.CreateAlias("ProdutoGrade", "ProdutoGrade", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
             criteria.CreateAlias("Entrada", "Entrada");
 
             criteria.Add(Expression.Sql("YEAR(Data) = ?", periodo.Year, NHibernateUtil.Int32));
             criteria.Add(Expression.Sql("MONTH(Data) = ?", periodo.Month, NHibernateUtil.Int32));
-            criteria.Add(Restrictions.Eq("Produto.Fornecedor", fornecedor));
-            //criteria.Add(Restrictions.Eq("ProdutoGrade.Produto.Fornecedor", fornecedor));
+            criteria.Add(Restrictions.Eq("GradeFornecedor", fornecedor));
             criteria.SetProjection(Projections.ProjectionList()
                 .Add(Projections.Sum("Quantidade"), "Quantidade")
-                .Add(Projections.GroupProperty("ProdutoGrade"), "ProdutoGrade"));
+                .Add(Projections.Property("GradePreco"), "GradePreco")
+                .Add(Projections.GroupProperty("ProdutoGrade"), "ProdutoGrade")
+                .Add(Projections.GroupProperty("ProdutoDescricao"), "ProdutoDescricao")
+                .Add(Projections.GroupProperty("GradeDescricao"), "GradeDescricao"));
 
-            criteria.AddOrder(Order.Asc("Produto.Descricao"));
+            criteria.AddOrder(Order.Asc("ProdutoDescricao"));
 
             criteria.SetResultTransformer(Transformers.AliasToBean<Model.EntradaMercadoriaProdutoGrade>());
 
