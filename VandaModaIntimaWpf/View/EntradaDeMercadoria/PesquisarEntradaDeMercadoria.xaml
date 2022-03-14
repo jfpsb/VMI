@@ -9,7 +9,7 @@
                       mc:Ignorable="d"
                       Title="Pesquisar Entrada De Mercadoria"
                       Height="450"
-                      Width="500"
+                      Width="575"
                       Closing="Pesquisar_Closing"
                       WindowStartupLocation="CenterScreen">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="Apagar Entradas De Mercadoria Marcadas"
@@ -55,7 +55,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="225" />
+                    <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>

@@ -35,7 +35,7 @@
         <Label Content="{DynamicResource loja_dois_pontos}" />
         <ComboBox Grid.Column="1"
                   Grid.ColumnSpan="2"
-                  Width="250"
+                  Width="275"
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding Lojas}"
                   SelectedValue="{Binding Entidade.Loja}"
