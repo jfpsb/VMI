@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOFaltas daoFaltas;
-        private ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>> _listaHoraExtra;
+        private ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
         private IList<Model.Funcionario> funcionarios;
         private DateTime _dataEscolhida;
 
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoFuncionario = new DAOFuncionario(_session);
             daoFaltas = new DAOFaltas(_session);
 
-            ListaHoraExtra = new ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>>();
+            ListaHoraExtra = new ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
 
             GetFuncionarios();
 
@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     falta = new Model.Faltas();
 
                 var he100 = horasExtras.Where(w => w.TipoHoraExtra.Id == 1).SingleOrDefault();
-                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Id == 2).SingleOrDefault();
+                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Id != 1).FirstOrDefault();
 
                 if (he100 == null)
                     he100 = new Model.HoraExtra();
@@ -73,7 +73,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (he100.EmTimeSpan.TotalSeconds == 0 && heNormal.EmTimeSpan.TotalSeconds == 0 && falta.EmTimeSpan.TotalSeconds == 0)
                     continue;
 
-                var tupla = Tuple.Create(f, he100.TotalEmString, heNormal.TotalEmString, falta.TotalEmString, DataEscolhida);
+                var tupla = Tuple.Create(f, he100, heNormal, falta, DataEscolhida);
                 ListaHoraExtra.Add(tupla);
             }
         }
@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<Tuple<Model.Funcionario, string, string, string, DateTime>> ListaHoraExtra
+        public ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
         {
             get => _listaHoraExtra;
             set

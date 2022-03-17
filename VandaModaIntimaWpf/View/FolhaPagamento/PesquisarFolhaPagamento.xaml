@@ -78,8 +78,11 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -90,21 +93,44 @@
                     <Label Grid.Column="1"
                            FontWeight="Bold"
                            Content="Folha de Pagamento Fechada" />
-                    <Label Grid.Column="2"
+                    <Label Grid.Column="3"
                            FontWeight="Bold"
+                           Language="pt-BR"
                            HorizontalAlignment="Right"
-                           ContentStringFormat="Total A Pagar: {0:C}"
+                           ContentStringFormat="Valor Em Passagem: {0:C}"
+                           Content="{Binding TotalEmPassagem}" />
+                    <Label Grid.Column="3"
+                           Grid.Row="1"
+                           FontWeight="Bold"
+                           Language="pt-BR"
+                           HorizontalAlignment="Right"
+                           ContentStringFormat="Valor Em Alimentação: {0:C}"
+                           Content="{Binding TotalEmAlimentacao}" />
+                    <Label Grid.Column="3"
+                           Grid.Row="2"
+                           FontWeight="Bold"
+                           Language="pt-BR"
+                           HorizontalAlignment="Right"
+                           ContentStringFormat="Total De Bônus De Meta: {0:C}"
+                           Content="{Binding TotalEmMeta}" />
+                    <Label Grid.Column="3"
+                           Grid.Row="3"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           HorizontalAlignment="Right"
+                           ContentStringFormat="Total A Transferir: {0:C}"
                            Language="pt-BR"
                            Content="{Binding TotalAPagar}" />
                     <Rectangle Width="20"
                                Height="20"
-                               Grid.Row="4"
+                               Grid.Row="1"
                                Margin="5,0,0,0"
                                Fill="LightGreen" />
                     <Label Grid.Column="1"
                            Grid.Row="1"
                            FontWeight="Bold"
                            Content="Folha de Pagamento Aberta" />
+
                 </Grid>
                 <Grid DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>

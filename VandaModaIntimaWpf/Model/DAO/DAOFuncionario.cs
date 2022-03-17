@@ -25,7 +25,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<IList<Funcionario>> ListarPorNome(string nome)
         {
             var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("Deletado", false));
             criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
             criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);
@@ -33,7 +32,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<IList<Funcionario>> ListarPorCpf(string cnpj)
         {
             var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("Deletado", false));
             criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
             criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);
@@ -42,7 +40,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<IList<Funcionario>> ListarQuemRecebePassagem()
         {
             var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("Deletado", false));
             criteria.Add(Restrictions.Eq("RecebePassagem", true));
             criteria.AddOrder(Order.Asc("Nome"));
             return await Listar(criteria);

@@ -4,8 +4,9 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Funcionario" table="funcionario" dynamic-insert="true">
-		<id name="Cpf" column="cpf"></id>
+		<id name="Cpf" column="cpf"/>
 		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" />
+		<many-to-one name="LojaTrabalho" class="VandaModaIntimaWpf.Model.Loja" column="loja_trabalho" />
 		<property name="Nome" column="nome" />
 		<property name="Endereco" column="endereco" />
 		<property name="Telefone" column="telefone" />
@@ -16,6 +17,7 @@
 		<property name="Email" />
 		<property name="PisPasepNit" />
 		<property name="Ctps" />
+		<property name="Salario" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

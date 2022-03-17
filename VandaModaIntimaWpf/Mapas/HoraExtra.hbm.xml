@@ -11,10 +11,10 @@
 		</id>
 		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
 		<many-to-one name="TipoHoraExtra" class="VandaModaIntimaWpf.Model.TipoHoraExtra" column="tipo" lazy="false" />
-		<property name="Mes" column="mes" />
-		<property name="Ano" column="ano" />
-		<property name="Horas" column="horas" />
-		<property name="Minutos" column="minutos" />
+		<property name="Mes" />
+		<property name="Ano" />
+		<property name="Horas" />
+		<property name="Minutos" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

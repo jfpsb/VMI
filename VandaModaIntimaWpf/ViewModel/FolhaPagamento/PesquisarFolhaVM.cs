@@ -41,6 +41,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
         private IProgress<double> progressoValorProgresso;
         private IProgress<string> progressoDescricaoProgesso;
+        private double _totalEmPassagem;
+        private double _totalEmAlimentacao;
+        private double _totalEmMeta;
 
         //Propriedades de Tela De Progresso
         private string _tituloTelaProgresso;
@@ -605,6 +608,35 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
+        public double TotalEmPassagem
+        {
+            get => _totalEmPassagem;
+            set
+            {
+                _totalEmPassagem = value;
+                OnPropertyChanged("TotalEmPassagem");
+            }
+        }
+        public double TotalEmAlimentacao
+        {
+            get => _totalEmAlimentacao;
+            set
+            {
+                _totalEmAlimentacao = value;
+                OnPropertyChanged("TotalEmAlimentacao");
+            }
+        }
+
+        public double TotalEmMeta
+        {
+            get => _totalEmMeta;
+            set
+            {
+                _totalEmMeta = value;
+                OnPropertyChanged("TotalEmMeta");
+            }
+        }
+
         public override bool Editavel(object parameter)
         {
             return true;
@@ -699,6 +731,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 folhas.Add(folha);
             }
+
+            TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
+            TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
+            TotalEmMeta = await daoBonus.SomaMetaPorMesAno(DataEscolhida);
 
             FolhaPagamentos = folhas;
         }

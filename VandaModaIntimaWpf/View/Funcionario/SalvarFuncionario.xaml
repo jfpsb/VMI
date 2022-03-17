@@ -44,6 +44,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Content="{DynamicResource cpf_dois_pontos}" />
                     <TextBox x:Name="TxtCpf"
@@ -112,28 +114,43 @@
                              Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="10"
+                           Content="{DynamicResource salario_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="10"
+                             MaxLength="200"
+                             Text="{Binding Entidade.Salario, StringFormat=C, ConverterCulture=pt-BR}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="11"
                            Content="Recebe Passagem:" />
-                    <CheckBox Grid.Row="10"
+                    <CheckBox Grid.Row="11"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebePassagem}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="11"
+                    <Label Grid.Row="12"
                            Content="Recebe Vale Alimentação:" />
-                    <CheckBox Grid.Row="11"
+                    <CheckBox Grid.Row="12"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebeValeAlimentacao}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="12"
-                           Content="{DynamicResource loja_dois_pontos}" />
+                    <Label Grid.Row="13"
+                           Content="Loja Em Que Está Contratado:" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="12"
+                              Grid.Row="13"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
+                              IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="14"
+                           Content="Loja Em Que Trabalha:" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="14"
+                              DisplayMemberPath="Nome"
+                              ItemsSource="{Binding Path=Lojas}"
+                              SelectedItem="{Binding Path=Entidade.LojaTrabalho, Mode=TwoWay}"
                               IsEnabled="{Binding IsEnabled}" />
                 </Grid>
             </TabItem>

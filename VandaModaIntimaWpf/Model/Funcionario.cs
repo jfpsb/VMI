@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private string _cpf;
         private Loja _loja;
+        private Loja _lojaTrabalho;
         private string _nome;
         private string _endereco;
         private string _telefone;
@@ -20,6 +21,7 @@ namespace VandaModaIntimaWpf.Model
         private string _ctps;
         private DateTime? _admissao;
         private DateTime? _demissao;
+        private double _salario;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
@@ -217,6 +219,25 @@ namespace VandaModaIntimaWpf.Model
             {
                 _demissao = value;
                 OnPropertyChanged("Demissao");
+            }
+        }
+
+        public virtual double Salario
+        {
+            get => _salario;
+            set
+            {
+                _salario = value;
+                OnPropertyChanged("Salario");
+            }
+        }
+        public virtual Loja LojaTrabalho
+        {
+            get => _lojaTrabalho;
+            set
+            {
+                _lojaTrabalho = value;
+                OnPropertyChanged("LojaTrabalho");
             }
         }
 
