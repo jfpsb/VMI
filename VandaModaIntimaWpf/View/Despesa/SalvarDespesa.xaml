@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
         mc:Ignorable="d"
         Title="Salvar Despesa"
-        Height="525"
+        Height="640"
         Width="550"
         ResizeMode="NoResize"
         Icon="/Resources/Despesas_Icon.ico"
@@ -18,6 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -115,7 +116,17 @@
         <TextBox Grid.Row="10"
                  Grid.Column="1"
                  Text="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-        <Button Grid.Row="11"
+        <Label Grid.Row="11"
+               Content="Detalhes:" />
+        <TextBox Grid.Row="11"
+                 Grid.Column="1"
+                 Text="{Binding Entidade.Detalhes}"
+                 TextWrapping="Wrap"
+                 FontSize="14"
+                 Height="120"
+                 MaxLength="250"
+                 AcceptsReturn="True" />
+        <Button Grid.Row="12"
                 Grid.ColumnSpan="2"
                 Content="{DynamicResource salvar}"
                 Style="{StaticResource BotaoCadastrar}"

@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
         private long _id;
         private Funcionario _funcionario;
         private TipoHoraExtra _tipoHoraExtra;
+        private Loja _lojaTrabalho;
         private int _mes;
         private int _ano;
         private int _horas;
@@ -42,6 +43,15 @@ namespace VandaModaIntimaWpf.Model
             {
                 _tipoHoraExtra = value;
                 OnPropertyChanged("TipoHoraExtra");
+            }
+        }
+        public virtual Loja LojaTrabalho
+        {
+            get => _lojaTrabalho;
+            set
+            {
+                _lojaTrabalho = value;
+                OnPropertyChanged("LojaTrabalho");
             }
         }
         public virtual int Mes

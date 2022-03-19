@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         private string _descricao;
         private double _valor;
         private string _familiar;
-
+        private string _detalhes;
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => $"{TipoDespesa.Nome} - {Valor}";
@@ -125,6 +125,16 @@ namespace VandaModaIntimaWpf.Model
             {
                 _adiantamento = value;
                 OnPropertyChanged("Adiantamento");
+            }
+        }
+
+        public virtual string Detalhes
+        {
+            get => _detalhes;
+            set
+            {
+                _detalhes = value;
+                OnPropertyChanged("Detalhes");
             }
         }
 

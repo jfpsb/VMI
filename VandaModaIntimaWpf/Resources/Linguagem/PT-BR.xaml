@@ -249,12 +249,19 @@
         <System:String>INSS (GPS) - 13º SALÁRIO</System:String>
         <System:String>FGTS</System:String>
         <System:String>DARE (ICMS ANTECIPADO)</System:String>
-        <System:String>DAS - SIMPLES NACIONAL</System:String>
+        <System:String>SIMPLES NACIONAL</System:String>
         <System:String>CARTÃO DE CRÉDITO</System:String>
         <System:String>SEGURANÇA</System:String>
         <System:String>ÁGUA MINERAL</System:String>
         <System:String>GASOLINA</System:String>
+        <System:String>MERCADO</System:String>
         <System:String>SUPERMERCADO</System:String>
+        <System:String>FARMÁCIA</System:String>
+        <System:String>MATERIAL DE LIMPEZA</System:String>
+        <System:String>MATERIAL DE ESCRITÓRIO</System:String>
+        <System:String>PASSAGEM DE ÔNIBUS</System:String>
+        <System:String>ALMOÇO</System:String>
+        <System:String>MANUTENÇÃO E REPARO</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO REDE</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO STONE</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO CAIXA PAGAMENTOS</System:String>

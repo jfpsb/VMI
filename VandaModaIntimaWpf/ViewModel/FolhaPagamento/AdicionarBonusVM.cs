@@ -27,7 +27,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             Entidade = new Bonus()
             {
-                Funcionario = folha.Funcionario
+                Funcionario = folha.Funcionario,
+                LojaTrabalho = folha.Funcionario.LojaTrabalho
             };
 
             PropertyChanged += AdicionarBonusVM_PropertyChanged;
@@ -74,7 +75,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             Entidade = new Bonus
             {
-                Funcionario = Folha.Funcionario
+                Funcionario = Folha.Funcionario,
+                LojaTrabalho = Folha.Funcionario.LojaTrabalho
             };
 
             Entidade.Descricao = string.Empty;

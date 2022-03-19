@@ -48,7 +48,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     {
                         Ano = Folha.Ano,
                         Mes = Folha.Mes,
-                        Funcionario = Folha.Funcionario
+                        Funcionario = Folha.Funcionario,
+                        LojaTrabalho = Folha.Funcionario.LojaTrabalho
                     };
 
                     Entidade.TipoHoraExtra = TipoHoraExtra;
@@ -65,7 +66,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 Ano = Folha.Ano,
                 Mes = Folha.Mes,
                 Funcionario = Folha.Funcionario,
-                TipoHoraExtra = TiposHoraExtra[0]
+                TipoHoraExtra = TiposHoraExtra[0],
+                LojaTrabalho = Folha.Funcionario.LojaTrabalho
             };
 
             TipoHoraExtra = TiposHoraExtra[0];
