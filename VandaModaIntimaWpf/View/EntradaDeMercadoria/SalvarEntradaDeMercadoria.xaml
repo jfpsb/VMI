@@ -105,6 +105,9 @@
                                     DisplayMemberBinding="{Binding CodBarra}" />
                     <GridViewColumn Header="Descrição"
                                     DisplayMemberBinding="{Binding Descricao}"
+                                    Width="450" />
+                    <GridViewColumn Header="Fornecedor"
+                                    DisplayMemberBinding="{Binding Fornecedor.Nome}"
                                     Width="650" />
 
                 </GridView>

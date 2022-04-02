@@ -16,6 +16,7 @@
 		<property name="Ano" />
 		<property name="Horas" />
 		<property name="Minutos" />
+		<property name="Descricao" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

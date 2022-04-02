@@ -37,6 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             if (e.PropertyName.Equals("TipoHoraExtra"))
             {
                 HoraExtra horaExtra = await (daoEntidade as DAOHoraExtra).ListarPorAnoMesFuncionarioTipo(Folha.Ano, Folha.Mes, Folha.Funcionario, TipoHoraExtra);
+                int horasAtual = Entidade.Horas;
+                int minsAtual = Entidade.Minutos;
 
                 if (horaExtra != null)
                 {
@@ -49,7 +51,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         Ano = Folha.Ano,
                         Mes = Folha.Mes,
                         Funcionario = Folha.Funcionario,
-                        LojaTrabalho = Folha.Funcionario.LojaTrabalho
+                        LojaTrabalho = Folha.Funcionario.LojaTrabalho,
+                        Horas = horasAtual,
+                        Minutos = minsAtual
                     };
 
                     Entidade.TipoHoraExtra = TipoHoraExtra;

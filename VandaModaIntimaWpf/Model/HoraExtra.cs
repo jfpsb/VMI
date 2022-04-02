@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.Model
         private int _ano;
         private int _horas;
         private int _minutos;
+        private string _descricao;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -42,6 +43,7 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _tipoHoraExtra = value;
+                Descricao = TipoHoraExtra.Descricao;
                 OnPropertyChanged("TipoHoraExtra");
             }
         }
@@ -112,6 +114,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 TimeSpan timeSpan = new TimeSpan(Horas, Minutos, 0);
                 return timeSpan;
+            }
+        }
+
+        public virtual string Descricao
+        {
+            get
+            {
+                return _descricao;
+            }
+
+            set
+            {
+                _descricao = value;
+                OnPropertyChanged("Descricao");
             }
         }
 
