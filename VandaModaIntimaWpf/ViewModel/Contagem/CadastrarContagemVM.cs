@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

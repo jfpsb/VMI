@@ -1,7 +1,9 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -13,9 +15,17 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async override Task<IList<TipoDespesa>> Listar()
         {
-            var criteria = CriarCriteria();
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar tipo despesa");
+                throw new Exception($"Erro ao listar tipos de despesa. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
     }
 }

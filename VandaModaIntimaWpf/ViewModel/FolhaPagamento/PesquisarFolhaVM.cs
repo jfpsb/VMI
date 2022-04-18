@@ -140,15 +140,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 despesas.Add(despesa);
             }
 
-            var result = await daoDespesa.Inserir(despesas);
-
-            if (result)
+            try
             {
+                await daoDespesa.Inserir(despesas);
                 MessageBoxService.Show("Valores De Salários De Funcionários Foram Adicionados Em Despesas Com Sucesso!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBoxService.Show("Erro Ao Adicionar Valores De Salários De Funcionários!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxService.Show("Erro ao adicionar valores de salários de funcionários!" +
+                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n" +
+                    $"{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -351,7 +352,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirCalculoAlmoco(object obj)
         {
-            CalculoDeBonusMensalPorDiaVM almocoVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
+            CalculoDeBonusMensalPorDiaVM almocoVM = new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new MessageBoxService(), new CalculoDeAlmoco());
             CalculoBonusMensalPorDiaView calculoBonusMensalPorDia = new CalculoBonusMensalPorDiaView()
             {
                 DataContext = almocoVM
@@ -438,18 +439,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     parcela.Paga = true;
                 }
 
-                var dao = daoEntidade as DAOFolhaPagamento;
-                var result = await dao.FecharFolhaDePagamento(FolhaPagamento);
 
-                if (result)
+                try
                 {
-                    //TODO: SYNC após inserir/atualizar
-                    MessageBoxService.Show("Folha de Pagamento Fechada Com Sucesso!");
+                    var dao = daoEntidade as DAOFolhaPagamento;
+                    await dao.FecharFolhaDePagamento(FolhaPagamento);
+                    MessageBoxService.Show("Folha de Pagamento Fechada Com Sucesso!", "Pesquisa De Folha De Pagamento",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     OnPropertyChanged("TermoPesquisa");
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBoxService.Show("Erro Ao Fechar Folha de Pagamento!");
+                    MessageBoxService.Show($"Erro ao fechar folha de pagamento. Para mais detalhes acesse {Log.LogBanco}.\n\n" +
+                        $"{ex.Message}\n\n{ex.InnerException.Message}", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -472,7 +474,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoPassagem(object obj)
         {
-            CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(DataEscolhida, new MessageBoxService(), new CalculoDePassagem());
+            CalculoDeBonusMensalPorDiaVM onibusVM = new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new MessageBoxService(), new CalculoDePassagem());
             CalculoBonusMensalPorDiaView calculoBonusMensalPorDia = new CalculoBonusMensalPorDiaView()
             {
                 DataContext = onibusVM

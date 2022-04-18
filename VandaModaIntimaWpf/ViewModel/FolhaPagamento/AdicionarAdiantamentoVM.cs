@@ -6,6 +6,8 @@ using VandaModaIntimaWpf.Model.DAO;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using System.Windows;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -61,15 +63,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     Valor = adiantamento.Valor
                 };
 
-                var result = await daoDespesa.Inserir(despesa);
-
-                if (result)
+                try
                 {
-                    Console.WriteLine("Despesa Inserida Com Sucesso!");
+                    await daoDespesa.Inserir(despesa);
+                    MessageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBoxService.Show("Erro Ao Cadastrar Despesa Decorrente De Adiantamento!");
+                    MessageBoxService.Show("Erro ao cadastrar despesa decorrente de adiantamento." +
+                        $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Adiantamento",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                 }
             }
         }

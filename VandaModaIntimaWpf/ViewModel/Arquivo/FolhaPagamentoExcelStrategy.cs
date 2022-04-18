@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
         }
 
-        public override Task<bool> LeEInsereDados(Workbook workbook)
+        public override Task LeEInsereDados(Workbook workbook)
         {
             throw new NotImplementedException();
         }

@@ -79,25 +79,21 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             return task;
         }
 
-        public async Task<bool> Importar()
+        public async Task Importar()
         {
-            bool result = false;
-
             try
             {
-                result = await exportaExcelStrategy.LeEInsereDados(Workbook);
+                await exportaExcelStrategy.LeEInsereDados(Workbook);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw new Exception("", e);
             }
             finally
             {
                 Workbook.Close(true, Missing.Value, Missing.Value);
                 Aplicacao.Quit();
             }
-
-            return result;
         }
     }
 }

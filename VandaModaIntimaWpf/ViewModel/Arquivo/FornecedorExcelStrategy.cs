@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -37,7 +38,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 worksheet.Cells[i + 2, FornecedorModel.Colunas.Telefone] = lista[i].Telefone;
             }
         }
-        public override async Task<bool> LeEInsereDados(Workbook workbook)
+        public override async Task LeEInsereDados(Workbook workbook)
         {
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
             IList<FornecedorModel> fornecedores = new List<FornecedorModel>();
@@ -49,7 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int cols = range.Columns.Count;
 
             if (cols != 5)
-                return false;
+                throw new Exception("Planilha contém número de colunas inválido. O número correto de colunas da planilha de importação de fornecedores é cinco.");
 
             for (int i = 0; i < rows; i++)
             {
@@ -95,7 +96,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 fornecedores.Add(fornecedor);
             }
 
-            return await daoFornecedor.Inserir(fornecedores);
+            await daoFornecedor.Inserir(fornecedores);
         }
     }
 }

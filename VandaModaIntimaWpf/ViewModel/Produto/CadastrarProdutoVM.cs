@@ -10,6 +10,7 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
@@ -155,8 +156,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private async void SalvaComposicaoPreco(object obj)
         {
-            bool result;
-
             if (AplicaTodasProdutoGrade)
             {
                 foreach (var pg in ProdutoGrades)
@@ -176,7 +175,18 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                     pg.Historico.Add(historicoProdutoGrade);
                 }
 
-                result = await daoProdutoGrade.InserirOuAtualizar(ProdutoGrades);
+                try
+                {
+                    await daoProdutoGrade.InserirOuAtualizar(ProdutoGrades);
+                    MessageBoxService.Show("Grades atualizadas com novos preços de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
+                    HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro ao salvar composição de preço das grades.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                        viewModelStrategy.MessageBoxCaption(),
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             else
             {
@@ -194,17 +204,18 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 ProdutoGradeComposicaoPreco.Preco = PrecoVenda;
                 ProdutoGradeComposicaoPreco.Historico.Add(historicoProdutoGrade);
 
-                result = await daoProdutoGrade.Atualizar(ProdutoGradeComposicaoPreco);
-            }
-
-            if (result)
-            {
-                MessageBoxService.Show("Grade(s) Atualizada(s) Com Novo(s) Preço(s) De Custo Com Sucesso!");
-                HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
-            }
-            else
-            {
-                MessageBoxService.Show("Erro Ao Salvar Grade(s)!");
+                try
+                {
+                    await daoProdutoGrade.Atualizar(ProdutoGradeComposicaoPreco);
+                    MessageBoxService.Show("Grade atualizada com novo preço de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
+                    HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro ao salvar composição de preço da grade.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                        viewModelStrategy.MessageBoxCaption(),
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

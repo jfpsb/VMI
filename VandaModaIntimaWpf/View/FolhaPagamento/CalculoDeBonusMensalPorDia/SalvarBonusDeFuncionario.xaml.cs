@@ -12,11 +12,5 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         {
             InitializeComponent();
         }
-
-        private void TelaAdicionarBonusPassagem_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //Fecha sessao
-            ((SalvarBonusPorMesVM)DataContext).DisposeSession();
-        }
     }
 }

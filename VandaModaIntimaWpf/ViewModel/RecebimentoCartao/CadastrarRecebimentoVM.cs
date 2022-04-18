@@ -9,11 +9,13 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Linq;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
@@ -88,13 +90,21 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
         {
-            _result = await daoEntidade.InserirOuAtualizar(Recebimentos);
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(Recebimentos);
+                MessageBoxService.Show("Recebimentos em conta cadastrados com sucesso.", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Information);
+                _result = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show("Erro ao cadastrar recebimentos em conta. " +
+                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = false,
-                MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
                 Sucesso = _result,
                 Parametro = parametro
             };

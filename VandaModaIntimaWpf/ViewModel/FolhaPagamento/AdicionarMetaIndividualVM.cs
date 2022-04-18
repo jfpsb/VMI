@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
@@ -15,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOFolhaPagamento daoFolhaPagamento;
         private double _valorMeta;
         private IList<Model.FolhaPagamento> _folhas;
-        private IMessageBoxService _messageBoxService;
+        private IMessageBoxService messageBoxService;
         private ObservableCollection<EntidadeComCampo<Model.FolhaPagamento>> _folhaPagamentos;
 
         public ICommand AdicionarMetaComando { get; set; }
@@ -23,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public AdicionarMetaIndividualVM(ISession session, IList<Model.FolhaPagamento> folhas, IMessageBoxService messageBoxService)
         {
             _folhas = folhas.OrderBy(o => o.Funcionario.Nome).ToList();
-            _messageBoxService = messageBoxService;
+            this.messageBoxService = messageBoxService;
             daoFolhaPagamento = new DAOFolhaPagamento(session);
             FolhaPagamentos = new ObservableCollection<EntidadeComCampo<Model.FolhaPagamento>>(EntidadeComCampo<Model.FolhaPagamento>.CriarListaEntidadeComCampo(_folhas));
 
@@ -39,16 +41,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 f.MetaDeVenda = ValorMeta;
             }
 
-            var result = await daoFolhaPagamento.InserirOuAtualizar(folhas);
-
-            if (result)
+            try
             {
-                _messageBoxService.Show("Valores De Meta Adicionados Com Sucesso Em Funcionários Marcados!", "Adicionar Valor De Meta Individual");
+                await daoFolhaPagamento.InserirOuAtualizar(folhas);
+                messageBoxService.Show("Valores de meta adicionados com sucesso em funcionários marcados!", "Adicionar Valor De Meta Individual",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 ResetaPropriedades();
             }
-            else
+            catch (Exception ex)
             {
-                _messageBoxService.Show("Erro Ao Adicionar Valores De Meta Em Funcionários Marcados!", "Adicionar Valor De Meta Individual");
+                messageBoxService.Show("Erro ao adicionar valores de meta em funcionários marcados." +
+                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Valor De Meta Individual");
             }
         }
 

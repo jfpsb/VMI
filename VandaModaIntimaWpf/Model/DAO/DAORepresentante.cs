@@ -1,7 +1,9 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -13,17 +15,33 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async override Task<IList<Representante>> Listar()
         {
-            var criteria = CriarCriteria();
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar representante");
+                throw new Exception($"Erro ao listar representantes. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<IList<Representante>> ListarPorNome(string nome)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Like("Nome", $"%{nome}%"));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Like("Nome", $"%{nome}%"));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar representante por nome");
+                throw new Exception($"Erro ao listar representantes por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
     }
 }

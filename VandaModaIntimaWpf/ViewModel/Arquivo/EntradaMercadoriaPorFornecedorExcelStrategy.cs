@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             AutoFitColunas(worksheet);
         }
 
-        public override Task<bool> LeEInsereDados(Workbook workbook)
+        public override Task LeEInsereDados(Workbook workbook)
         {
             throw new NotImplementedException();
         }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -82,24 +83,25 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                bool result;
+                try
+                {
 
-                if (BonusEscolhido.BonusMensal)
-                {
-                    BonusEscolhido.BonusCancelado = true;
-                    result = await daoBonus.InserirOuAtualizar(BonusEscolhido);
-                }
-                else
-                {
-                    BonusEscolhido.Deletado = true;
-                    result = await daoBonus.Atualizar(BonusEscolhido);
-                }
-
-                if (result)
-                {
-                    MessageBoxService.Show("Bônus Deletado Com Sucesso");
+                    if (BonusEscolhido.BonusMensal)
+                    {
+                        BonusEscolhido.BonusCancelado = true;
+                        await daoBonus.InserirOuAtualizar(BonusEscolhido);
+                    }
+                    else
+                    {
+                        await daoBonus.Deletar(BonusEscolhido);
+                    }
                     Bonus.Remove(BonusEscolhido);
                     OnPropertyChanged("TotalBonus");
+                    MessageBoxService.Show("Bônus Deletado Com Sucesso", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro ao deletar bônus. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -115,19 +117,25 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             if (telaApagar.Equals(MessageBoxResult.Yes))
             {
-                //FolhaPagamento.Funcionario.Adiantamentos.Remove(Parcela.Adiantamento);
-                Parcela.Adiantamento.Deletado = true;
-                bool resultadoDelete = await daoAdiantamento.Atualizar(Parcela.Adiantamento);
-
-                if (resultadoDelete)
+                try
                 {
-                    MessageBoxService.Show("Adiantamento Deletado Com Sucesso!");
+                    await daoAdiantamento.Deletar(Parcela.Adiantamento);
                     Parcelas.Remove(Parcela);
                     OnPropertyChanged("TotalParcelas");
+                    MessageBoxService.Show("Adiantamento Deletado Com Sucesso!", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    await _session.RefreshAsync(FolhaPagamento);
+                    MessageBoxService.Show($"Erro ao deletar adiantamento. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    try
+                    {
+                        await daoFolha.RefreshEntidade(FolhaPagamento);
+                    }
+                    catch (Exception ex2)
+                    {
+                        MessageBoxService.Show($"Erro ao dar refresh em Folha de Pagamento. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex2.Message}\n\n{ex2.InnerException.Message}", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }

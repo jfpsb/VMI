@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             AutoFitColunas(worksheet);
         }
-        public override async Task<bool> LeEInsereDados(Workbook workbook)
+        public override async Task LeEInsereDados(Workbook workbook)
         {
             DAOLoja daoLoja = new DAOLoja(_session);
             IList<LojaModel> lojas = new List<LojaModel>();
@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int cols = range.Columns.Count;
 
             if (cols != 6)
-                return false;
+                throw new Exception("Planilha contém número de colunas inválido. O número correto de colunas da planilha de importação de lojas é seis.");
 
             for (int i = 0; i < rows; i++)
             {
@@ -107,7 +107,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 lojas.Add(loja);
             }
 
-            return await daoLoja.Inserir(lojas);
+            await daoLoja.Inserir(lojas);
         }
     }
 }

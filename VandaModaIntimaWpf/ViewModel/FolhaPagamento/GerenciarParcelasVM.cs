@@ -12,7 +12,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class GerenciarParcelasVM : ObservableObject, IDialogResult
     {
-        private ISession _session;
         private Adiantamento _adiantamento;
         private Parcela _parcela;
         private BindingList<Parcela> _parcelas;
@@ -30,7 +29,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public GerenciarParcelasVM(ISession session, Adiantamento adiantamento, IMessageBoxService messageBoxService)
         {
-            _session = session;
             daoParcela = new DAOParcela(session);
             Adiantamento = adiantamento;
             this.messageBoxService = messageBoxService;
@@ -81,15 +79,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     }
                 });
 
-                resultadoSalvar = await daoParcela.InserirOuAtualizar(parcelas);
 
-                if (resultadoSalvar == true)
+                try
                 {
-                    messageBoxService.Show("Parcelas Foram Salvas Com Sucesso!", "Gerenciar Parcelas");
+                    await daoParcela.InserirOuAtualizar(parcelas);
+                    resultadoSalvar = true;
+                    messageBoxService.Show("Parcelas Foram Salvas Com Sucesso!", "Gerenciar Parcelas", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    messageBoxService.Show("Erro Ao Salvar Parcelas!", "Gerenciar Parcelas");
+                    messageBoxService.Show($"Erro Ao Salvar Parcelas!\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Gerenciar Parcelas", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

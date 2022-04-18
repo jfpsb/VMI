@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
     public abstract class AExcelStrategy
     {
         public abstract void EscreveDados(Workbook workbook, params object[] listas);
-        public abstract Task<bool> LeEInsereDados(Workbook workbook);
+        public abstract Task LeEInsereDados(Workbook workbook);
         /// <summary>
         /// Configura o tamanho das colunas.
         /// Geralmente serão todas AutoFit, mas em alguns casos a coluna precisa ter um tamanho diferente ou propriedades diferentes.

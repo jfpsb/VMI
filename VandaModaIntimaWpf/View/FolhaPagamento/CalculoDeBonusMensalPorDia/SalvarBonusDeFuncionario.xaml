@@ -11,8 +11,7 @@
         Title="Adicionar Passagem Calculada À Folha"
         Height="450"
         Width="475"
-        WindowStartupLocation="CenterScreen"
-        Closing="TelaAdicionarBonusPassagem_Closing">
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Converters:BooleanToYesOrNoStringConverter x:Key="BooleanToYesOrNoStringConverter" />
     </Window.Resources>

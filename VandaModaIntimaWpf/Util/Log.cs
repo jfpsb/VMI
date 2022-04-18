@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Util
     {
         private static readonly string Pasta = "Logs";
         public static readonly string LogBanco = Path.Combine(Pasta, "LogBanco.txt");
+        public static readonly string LogExcel = Path.Combine(Pasta, "LogExcel.txt");
 
         public static void EscreveLogBanco(Exception ex, string descricao)
         {
@@ -25,6 +26,21 @@ namespace VandaModaIntimaWpf.Util
             Console.WriteLine(msg);
 
             File.AppendAllText(LogBanco, msg);
+        }
+
+        public static void EscreveLogExcel(Exception ex, string descricao)
+        {
+            Directory.CreateDirectory(Pasta);
+
+            string msg = $"Descrição:\n{descricao.ToUpper()}\n";
+            msg += $"Data/Hora:\n{DateTime.Now}\n";
+            msg += $"Mensagem:\n{ex.Message}\n";
+            EscreveInnerException(ex.InnerException, ref msg);
+            msg += $"StackTrace:\n{ex.StackTrace}\n\n\n";
+
+            Console.WriteLine(msg);
+
+            File.AppendAllText(LogExcel, msg);
         }
 
         private static void EscreveInnerException(Exception innerException, ref string msg)

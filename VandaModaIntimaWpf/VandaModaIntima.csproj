@@ -740,12 +740,10 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaEntradaMercadoriaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaRepresentante.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\APesquisarProdutoVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Concretos\FileDialogService.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IAPesquisarVMCRUDService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IFileDialogService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />

@@ -27,9 +27,6 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaDespesasComando { get; set; }
         public ICommand AbrirTelaCompraFornecedorComando { get; set; }
         public ICommand AbrirTelaEntradaMercadoriaComando { get; set; }
-
-        private DAOEntradaMercadoriaProdutoGrade dao;
-
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
             SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

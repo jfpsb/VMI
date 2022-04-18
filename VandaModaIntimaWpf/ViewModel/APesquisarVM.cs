@@ -12,6 +12,7 @@ using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -74,8 +75,6 @@ namespace VandaModaIntimaWpf.ViewModel
             _session = SessionProvider.GetSession();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
-
-            AposDeletarDoBD += InformaResultadoDeletarBD;
         }
 
         public abstract Task PesquisaItens(string termo);
@@ -107,28 +106,28 @@ namespace VandaModaIntimaWpf.ViewModel
 
             if (telaApagarDialog.Equals(MessageBoxResult.Yes))
             {
-                bool deletado = await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
+                bool deletado = false;
+
+                try
+                {
+                    await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
+                    deletado = true;
+                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade), pesquisarViewModelStrategy.TelaApagarCaption(),
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                        pesquisarViewModelStrategy.TelaApagarCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
                 AposDeletarDoBDEventArgs e2 = new AposDeletarDoBDEventArgs()
                 {
-                    DeletadoComSucesso = deletado,
-                    MensagemSucesso = pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade),
-                    MensagemErro = pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada()
+                    DeletadoComSucesso = deletado
                 };
 
                 ChamaAposDeletarDoBD(e2);
-            }
-        }
-        private void InformaResultadoDeletarBD(AposDeletarDoBDEventArgs e)
-        {
-            if (e.DeletadoComSucesso)
-            {
-                MessageBoxService.Show(e.MensagemSucesso, pesquisarViewModelStrategy.PesquisarEntidadeCaption());
-                OnPropertyChanged("TermoPesquisa");
-            }
-            else
-            {
-                MessageBoxService.Show(e.MensagemErro, pesquisarViewModelStrategy.PesquisarEntidadeCaption());
             }
         }
         public void AbrirEditar(object parameter)
@@ -169,17 +168,18 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 var AApagar = Entidades.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
 
-                bool resultDeletar = await daoEntidade.Deletar(AApagar);
-
-                if (resultDeletar)
+                try
                 {
+                    await daoEntidade.Deletar(AApagar);
                     MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
                     VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
                     OnPropertyChanged("TermoPesquisa");
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+                    MessageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                        pesquisarViewModelStrategy.PesquisarEntidadeCaption(),
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -196,9 +196,17 @@ namespace VandaModaIntimaWpf.ViewModel
             if (path != null)
             {
                 IsThreadLocked = true;
-                await new Excel<E>(excelStrategy, path).Importar();
+                try
+                {
+                    await new Excel<E>(excelStrategy, path).Importar();
+                    OnPropertyChanged("TermoPesquisa");
+                }
+                catch (Exception ex)
+                {
+                    Log.EscreveLogExcel(ex, "importar de excel");
+                    MessageBoxService.Show($"Erro ao importar dados de planilha Excel.\n\n{ex.InnerException.Message}", "Importar De Excel", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 IsThreadLocked = false;
-                OnPropertyChanged("TermoPesquisa");
             }
         }
         public void CopiarValorCelula(object parameter)

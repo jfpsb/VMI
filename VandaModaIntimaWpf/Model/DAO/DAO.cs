@@ -262,6 +262,31 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar maior valor em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+        public async Task RefreshEntidade(object obj)
+        {
+            try
+            {
+                await session.RefreshAsync(obj);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "refresh");
+                throw new Exception($"Erro ao dar refresh em entidade em banco de dados local. Acesse {Log.LogBanco} para mais detalhes.", ex);
+            }
+        }
+        public async Task RefreshEntidade(IList<E> objs)
+        {
+            try
+            {
+                foreach (var obj in objs)
+                    await session.RefreshAsync(obj);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "refresh");
+                throw new Exception($"Erro ao dar refresh em lista de entidades em banco de dados local. Acesse {Log.LogBanco} para mais detalhes.", ex);
+            }
+        }
         public ICriteria CriarCriteria()
         {
             return session.CreateCriteria<E>();

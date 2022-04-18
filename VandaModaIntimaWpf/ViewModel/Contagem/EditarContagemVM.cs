@@ -11,6 +11,8 @@ using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
+using System.Windows;
 
 namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
@@ -20,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private ContagemProdutoModel _contagemProduto;
         private string _pesquisaProdutoTxtBox;
         private DAOProduto _daoProduto;
-        private DAOContagemProduto _daoContagemProduto;
+        private DAOContagemProduto daoContagemProduto;
         private int _quantidade;
         private bool _isTxtPesquisaFocused;
         private ObservableCollection<ProdutoModel> _produtos;
@@ -40,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             RemoverContagemProdutoComando = new RelayCommand(RemoverContagemProduto);
             AbrirEditarProdutoComando = new RelayCommand(AbrirEditarProduto);
             _daoProduto = new DAOProduto(_session);
-            _daoContagemProduto = new DAOContagemProduto(_session);
+            daoContagemProduto = new DAOContagemProduto(_session);
             Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             Quantidade = 1;
             GetProdutos();
@@ -59,27 +61,34 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
                 Quant = Quantidade
             };
 
-            _result = await _daoContagemProduto.Inserir(contagemProduto);
-
-            if (_result)
+            try
             {
-                _session.Refresh(Entidade);
+                await daoContagemProduto.Inserir(contagemProduto);
+                await daoEntidade.RefreshEntidade(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
                 PesquisaProdutoTxtBox = string.Empty;
                 Quantidade = 1;
                 IsTxtPesquisaFocused = true;
             }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show("Erro ao inserir contagem de produto nesta contagem. " +
+                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Edição De Contagem", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void RemoverContagemProduto(object parameter)
         {
-            ContagemProduto.Deletado = true;
-            _result = await _daoContagemProduto.Atualizar(ContagemProduto);
-
-            if (_result)
+            try
             {
-                _session.Refresh(Entidade);
+                await daoContagemProduto.Deletar(ContagemProduto);
+                await daoEntidade.RefreshEntidade(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show($"Erro ao deletar contagem de produto. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Edição De Contagem",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

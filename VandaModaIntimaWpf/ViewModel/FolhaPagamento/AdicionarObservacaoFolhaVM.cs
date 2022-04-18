@@ -1,7 +1,9 @@
 ﻿using NHibernate;
+using System;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
@@ -11,7 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ISession _session;
         private Model.FolhaPagamento _folha;
         private DAOFolhaPagamento daoFolha;
-        private IMessageBoxService _messageBoxService;
+        private IMessageBoxService messageBoxService;
 
         public ICommand SalvarComando { get; set; }
 
@@ -19,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             _session = session;
             Folha = folha;
-            _messageBoxService = messageBoxService;
+            this.messageBoxService = messageBoxService;
 
             daoFolha = new DAOFolhaPagamento(session);
 
@@ -36,15 +38,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void Salvar(object obj)
         {
-            var result = await daoFolha.InserirOuAtualizar(Folha);
-
-            if (result)
+            try
             {
-                _messageBoxService.Show("Observação Foi Adicionada Com Sucesso!", "Adicionar Observação Em Folha De Pagamento");
+                await daoFolha.InserirOuAtualizar(Folha);
+                messageBoxService.Show("Observação foi adicionada com sucesso.", "Adicionar Observação Em Folha De Pagamento",
+                    System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                _messageBoxService.Show("Erro Ao Adicionar Observação!", "Adicionar Observação Em Folha De Pagamento");
+                messageBoxService.Show($"Erro ao adicionar observação. Para mais detalhes acesse {Log.LogBanco}.\n\n" +
+                    $"{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Observação Em Folha De Pagamento");
             }
         }
 

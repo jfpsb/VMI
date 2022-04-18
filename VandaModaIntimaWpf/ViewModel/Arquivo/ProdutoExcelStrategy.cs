@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -48,7 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
             }
         }
-        public override async Task<bool> LeEInsereDados(Workbook workbook)
+        public override async Task LeEInsereDados(Workbook workbook)
         {
             DAOProduto daoProduto = new DAOProduto(_session);
             DAOFornecedor daoFornecedor = new DAOFornecedor(_session);
@@ -63,7 +64,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int cols = range.Columns.Count;
 
             if (cols != 7)
-                return false;
+                throw new Exception("Planilha contém número de colunas inválido. O número correto de colunas da planilha de importação de produtos é sete.");
 
             for (int i = 0; i < rows; i++)
             {
@@ -95,7 +96,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 produtos.Add(produto);
             }
 
-            return await daoProduto.Inserir(produtos);
+            await daoProduto.Inserir(produtos);
         }
     }
 }

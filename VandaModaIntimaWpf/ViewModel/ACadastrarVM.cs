@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -44,7 +45,6 @@ namespace VandaModaIntimaWpf.ViewModel
             MessageBoxService = messageBoxService;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
 
-            AposInserirNoBancoDeDados += ResultadoInsercao;
             AposInserirNoBancoDeDados += RedefinirTela;
             AposInserirNoBancoDeDados += RefreshEntidade;
 
@@ -67,7 +67,15 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             if (e.Sucesso)
             {
-                await _session.RefreshAsync(await daoEntidade.ListarPorId(e.IdentificadorEntidade));
+                try
+                {
+                    await daoEntidade.RefreshEntidade(await daoEntidade.ListarPorId(e.IdentificadorEntidade));
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro ao dar refresh em entidade. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n" +
+                        $"{ex.InnerException.Message}");
+                }
             }
         }
 
@@ -97,19 +105,31 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
         protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
         {
-            _result = await daoEntidade.InserirOuAtualizar(Entidade);
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(Entidade);
+                _result = true;
+                MessageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                //Entidade = await daoEntidade.ListarPorId(Entidade.GetIdentifier());
+                await daoEntidade.RefreshEntidade(Entidade);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show($"{viewModelStrategy.MensagemEntidadeErroAoSalvar()}\n\n{ex.Message}\n\n{ex.InnerException.Message}", viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = IssoEUmUpdate,
                 IdentificadorEntidade = Entidade.GetIdentifier(),
-                MensagemSucesso = viewModelStrategy.MensagemEntidadeSalvaComSucesso(),
-                MensagemErro = viewModelStrategy.MensagemEntidadeErroAoSalvar(),
                 Sucesso = _result,
                 Parametro = parametro
             };
 
             return e;
+
         }
 
         /// <summary>
@@ -130,25 +150,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <param name="parameter">Parâmetro do comando</param>
         /// <returns></returns>
         public abstract bool ValidacaoSalvar(object parameter);
-        /// <summary>
-        /// Checa o resultado da inserção da entidade e retorna ao usuário
-        /// </summary>
-        /// <param name="e">Parâmetros do evento</param>
-        private async void ResultadoInsercao(AposInserirBDEventArgs e)
-        {
-            //Se foi inserido com sucesso
-            if (e.Sucesso)
-            {
-                if (e.IdentificadorEntidade != null)
-                    Entidade = (E)await daoEntidade.ListarPorId(e.IdentificadorEntidade);
 
-                MessageBoxService.Show(e.MensagemSucesso, viewModelStrategy.MessageBoxCaption());
-            }
-            else
-            {
-                MessageBoxService.Show(e.MensagemErro, viewModelStrategy.MessageBoxCaption());
-            }
-        }
         /// <summary>
         /// Redefine os campos do formulário para os valores padrões
         /// </summary>
@@ -160,10 +162,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 // Se a operação for um Update não há alteração no formulário
                 if (!e.IssoEUmUpdate)
                     ResetaPropriedades(e);
-            }
-            else
-            {
-                MessageBoxService.Show(e.MensagemErro, viewModelStrategy.MessageBoxCaption());
             }
         }
         /// <summary>

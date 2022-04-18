@@ -1,8 +1,8 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 worksheet.Cells[i + 2, MarcaModel.Colunas.Nome] = lista[i].Nome;
             }
         }
-        public override async Task<bool> LeEInsereDados(Workbook workbook)
+        public override async Task LeEInsereDados(Workbook workbook)
         {
             DAOMarca daoMarca = new DAOMarca(_session);
             IList<MarcaModel> marcas = new List<MarcaModel>();
@@ -48,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             if (cols != 1)
             {
-                return false;
+                throw new Exception("Planilha contém número de colunas inválido. O número correto de colunas da planilha de importação de marcas é um.");
             }
 
             for (int i = 0; i < rows; i++)
@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 marcas.Add(marca);
             }
 
-            return await daoMarca.Inserir(marcas);
+            await daoMarca.Inserir(marcas);
         }
     }
 }

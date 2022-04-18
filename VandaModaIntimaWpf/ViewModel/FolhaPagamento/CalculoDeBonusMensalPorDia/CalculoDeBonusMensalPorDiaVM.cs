@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NHibernate;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -26,12 +27,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private string _menuItemHeader1;
         private string _windowCaption;
         private ICalculoDeBonus calculoDeBonus;
+        private ISession _session;
 
         // Comando para adicionar valor do bônus para os funcionários
         public ICommand AbrirAdicionarBonusComando { get; set; }
 
-        public CalculoDeBonusMensalPorDiaVM(DateTime dataEscolhida, IMessageBoxService messageBoxService, ICalculoDeBonus calculoDeBonus)
+        public CalculoDeBonusMensalPorDiaVM(ISession session, DateTime dataEscolhida, IMessageBoxService messageBoxService, ICalculoDeBonus calculoDeBonus)
         {
+            _session = session;
             this.calculoDeBonus = calculoDeBonus;
             MenuItemHeader1 = calculoDeBonus.MenuItemHeader1();
             WindowCaption = calculoDeBonus.WindowCaption();
@@ -98,7 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             }
 
             int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
-            calculoDeBonus.AbrirAdicionarBonus(DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia, messageBoxService);
+            calculoDeBonus.AbrirAdicionarBonus(_session, messageBoxService, false, DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia);
         }
 
         private void CalcultaTotal(object sender, ListChangedEventArgs e)

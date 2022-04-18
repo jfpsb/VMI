@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
@@ -67,7 +68,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 parcelaDataSet.Parcela.AddParcelaRow(prow);
             }
 
-            var parcelasNaoPagas = ListarParcelasNaoPagasAsync(FolhaPagamento.Funcionario, FolhaPagamento);
+            var parcelasNaoPagas = GetRestanteAdiantamento(FolhaPagamento.Funcionario, FolhaPagamento);
 
             var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
             fprow.mes = FolhaPagamento.Mes.ToString();
@@ -80,7 +81,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             fprow.observacao = FolhaPagamento.Observacao;
             fprow.valordameta = FolhaPagamento.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
             fprow.totalvendido = FolhaPagamento.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-            fprow.restanteadiantamento = parcelasNaoPagas.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+            fprow.restanteadiantamento = parcelasNaoPagas.Result;
 
             var calendarioPassagem = Path.Combine(caminhoFolhaPagamentoVMI, FolhaPagamento.Funcionario.Nome, FolhaPagamento.Ano.ToString(), FolhaPagamento.Mes.ToString(), "CalendarioPassagem.png");
             var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, FolhaPagamento.Funcionario.Nome, FolhaPagamento.Ano.ToString(), FolhaPagamento.Mes.ToString(), "CalendarioAlimentacao.png");
@@ -123,9 +124,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             FolhaReport.ViewerCore.ReportSource = report;
         }
 
-        private IList<Model.Parcela> ListarParcelasNaoPagasAsync(Model.Funcionario funcionario, Model.FolhaPagamento folha)
+        private async Task<string> GetRestanteAdiantamento(Model.Funcionario funcionario, Model.FolhaPagamento folha)
         {
-            return daoParcela.ListarPorFuncionarioNaoPagasExcetoMesAno(funcionario, folha.Mes, folha.Ano).Result;
+            var restante = await daoParcela.ListarPorFuncionarioNaoPagasExcetoMesAno(funcionario, folha.Mes, folha.Ano);
+            return restante.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
         }
     }
 }
