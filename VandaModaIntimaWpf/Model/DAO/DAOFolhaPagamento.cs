@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -14,20 +15,29 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async Task<FolhaPagamento> ListarPorMesAnoFuncionario(Funcionario funcionario, int mes, int ano)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("Funcionario", funcionario))
-                .Add(Restrictions.Eq("Mes", mes))
-                .Add(Restrictions.Eq("Ano", ano));
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Funcionario", funcionario))
+                    .Add(Restrictions.Eq("Mes", mes))
+                    .Add(Restrictions.Eq("Ano", ano));
 
-            return (FolhaPagamento)await criteria.UniqueResultAsync();
+                return (FolhaPagamento)await criteria.UniqueResultAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de folhas por funcionario");
+                throw new Exception($"Erro ao listar folhas de pagamento. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
-        public async Task<bool> FecharFolhaDePagamento(FolhaPagamento folhaPagamento)
+        public async Task FecharFolhaDePagamento(FolhaPagamento folhaPagamento)
         {
-            using (var transacao = session.BeginTransaction())
+            using (var tx = session.BeginTransaction())
             {
                 try
                 {
+
                     await session.SaveOrUpdateAsync(folhaPagamento);
 
                     if (folhaPagamento.Parcelas.Count > 0)
@@ -42,23 +52,20 @@ namespace VandaModaIntimaWpf.Model.DAO
                             await session.SaveOrUpdateAsync(bonus);
                     }
 
-                    await transacao.CommitAsync();
-                    return true;
+                    await tx.CommitAsync();
+
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
-                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
-                    if (ex.InnerException != null)
-                        Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
+                    await tx.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "fechar folha de pagamento");
+                    throw new Exception($"Erro ao fechar folha de pagamento. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
-
-                return false;
             }
         }
         public async Task<bool> FecharFolhasDePagamento(IList<FolhaPagamento> folhas, IList<Parcela> parcelas, IList<Bonus> bonus)
         {
-            using (var transacao = session.BeginTransaction())
+            using (var tx = session.BeginTransaction())
             {
                 try
                 {
@@ -77,18 +84,15 @@ namespace VandaModaIntimaWpf.Model.DAO
                             await session.SaveOrUpdateAsync(b);
                     }
 
-                    await transacao.CommitAsync();
+                    await tx.CommitAsync();
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
-                    Console.WriteLine("ERRO AO INSERIR >>> " + ex.Message);
-                    if (ex.InnerException != null)
-                        Console.WriteLine("ERRO AO INSERIR >>> " + ex.InnerException.Message);
+                    await tx.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "fechar folhas de pagamento");
+                    throw new Exception($"Erro ao fechar folhas de pagamento. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
-
-                return false;
             }
         }
     }

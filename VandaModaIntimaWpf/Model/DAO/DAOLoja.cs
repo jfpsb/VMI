@@ -1,8 +1,10 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Transform;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO.MySQL
 {
@@ -10,55 +12,100 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     {
         public DAOLoja(ISession _session) : base(_session) { }
 
-        public override Task<IList<Loja>> Listar()
+        public async override Task<IList<Loja>> Listar()
         {
-            var criteria = CriarCriteria();
-            criteria.AddOrder(Order.Asc("Nome"));
-            criteria.SetCacheable(true);
-            criteria.SetCacheMode(CacheMode.Normal);
-            return base.Listar();
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar loja");
+                throw new Exception($"Erro ao listar lojas. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<IList<Loja>> ListarMatrizes()
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.IsNull("Matriz"));
-            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
-            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.IsNull("Matriz"));
+                criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
+                criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar matrizes");
+                throw new Exception($"Erro ao listar matrizes. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<IList<Loja>> ListarPorCnpj(string termo)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Cnpj", "%" + termo + "%")));
-            criteria.AddOrder(Order.Asc("Cnpj"));
-
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Cnpj", "%" + termo + "%")));
+                criteria.AddOrder(Order.Asc("Cnpj"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar lojas por cnpj");
+                throw new Exception($"Erro ao listar lojas por cnpj. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
         public async Task<IList<Loja>> ListarSomenteLojas()
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
-            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
-            criteria.AddOrder(Order.Asc("Cnpj"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
+                criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
+                criteria.AddOrder(Order.Asc("Cnpj"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar somente lojas");
+                throw new Exception($"Erro ao listar somente lojas. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<IList<Loja>> ListarExcetoDeposito()
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
-            criteria.AddOrder(Order.Asc("Cnpj"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
+                criteria.AddOrder(Order.Asc("Cnpj"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar lojas exceto deposito");
+                throw new Exception($"Erro ao listar lojas com exceção de depósito. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
         public async Task<IList<Loja>> ListarPorNome(string termo)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Nome", "%" + termo + "%")));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Nome", "%" + termo + "%")));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar lojas por nome");
+                throw new Exception($"Erro ao listar lojas por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
     }
 }

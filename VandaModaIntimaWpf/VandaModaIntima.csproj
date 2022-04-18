@@ -560,6 +560,7 @@
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
+    <Compile Include="Util\Log.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />

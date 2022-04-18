@@ -14,12 +14,10 @@ namespace VandaModaIntimaWpf.Model.DAO
         public async Task<IList<Parcela>> ListarPorFuncionarioMesAno(Funcionario funcionario, int mes, int ano)
         {
             var criteria = CriarCriteria();
-
             criteria.CreateAlias("Adiantamento", "Adiantamento");
             criteria.Add(Restrictions.Eq("Adiantamento.Funcionario", funcionario))
                 .Add(Restrictions.Eq("Mes", mes))
                 .Add(Restrictions.Eq("Ano", ano));
-
             return await Listar(criteria);
         }
         public async Task<IList<Parcela>> ListarPorFuncionarioNaoPagas(Funcionario funcionario)

@@ -741,7 +741,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void GetFuncionarios()
         {
-            _funcionarios = await daoFuncionario.ListarIncluindoDeletado();
+            _funcionarios = await daoFuncionario.Listar();
         }
 
         protected override WorksheetContainer<FolhaPagamentoModel>[] GetWorksheetContainers()

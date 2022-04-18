@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -14,71 +15,97 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async override Task<IList<Despesa>> Listar()
         {
-            var criteria = CriarCriteria();
-            criteria.AddOrder(Order.Asc("Descricao"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Descricao"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de despesa em DAODespesa");
+                throw new Exception($"Erro ao listar contagens por loja. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<double> RetornaSomaTodasDespesas(DateTime data)
         {
-            var criteria = CriarCriteria();
+            try
+            {
+                var criteria = CriarCriteria();
 
-            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
-            criteria.Add(Restrictions.Eq("Deletado", false));
-            criteria.SetProjection(Projections.Sum("Valor"));
-            var result = await criteria.UniqueResultAsync();
+                criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+                criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
+                criteria.Add(Restrictions.Eq("Deletado", false));
+                criteria.SetProjection(Projections.Sum("Valor"));
+                var result = await criteria.UniqueResultAsync();
 
-            if (result != null)
-                return (double)result;
+                if (result != null)
+                    return (double)result;
 
-            return 0;
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "soma de despesas em DAODespesa");
+                throw new Exception($"Erro ao retornar soma dos valores de despesas. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         public async Task<IList<Despesa>> ListarPorTipoDespesaFiltroMesAno(TipoDespesa tipoDespesa, Loja loja, DateTime data, string filtro, string termo)
         {
-            var criteria = CriarCriteria();
-
-            //if (tipoDespesa.Id != 0)
-            criteria.Add(Restrictions.Eq("TipoDespesa", tipoDespesa));
-
-            switch (filtro)
+            try
             {
-                case "Fornecedor":
-                    criteria.CreateAlias("Fornecedor", "Fornecedor");
-                    AdicionaTermosPesquisa(criteria, "Fornecedor.Nome", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
-                    //criteria.Add(Restrictions.Like("Fornecedor.Nome", $"%{termo}%"));
-                    break;
-                case "Descrição":
-                    //criteria.Add(Restrictions.Like("Descricao", $"%{termo}%"));
-                    AdicionaTermosPesquisa(criteria, "Descricao", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
-                    break;
-                case "Membro Familiar":
-                    //criteria.Add(Restrictions.Like("Familiar", $"%{termo}%"));
-                    AdicionaTermosPesquisa(criteria, "Familiar", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
-                    break;
-            }
+                var criteria = CriarCriteria();
 
-            if (loja.Cnpj != null)
+                criteria.Add(Restrictions.Eq("TipoDespesa", tipoDespesa));
+
+                switch (filtro)
+                {
+                    case "Fornecedor":
+                        criteria.CreateAlias("Fornecedor", "Fornecedor");
+                        AdicionaTermosPesquisa(criteria, "Fornecedor.Nome", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
+                        break;
+                    case "Descrição":
+                        AdicionaTermosPesquisa(criteria, "Descricao", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
+                        break;
+                    case "Membro Familiar":
+                        AdicionaTermosPesquisa(criteria, "Familiar", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
+                        break;
+                }
+
+                if (loja.Cnpj != null)
+                {
+                    criteria.Add(Restrictions.Eq("Loja", loja));
+                }
+
+                criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+                criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
+                criteria.AddOrder(Order.Asc("Data"));
+
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
             {
-                criteria.Add(Restrictions.Eq("Loja", loja));
+                Log.EscreveLogBanco(ex, "listagem de despesa por tipodespesa");
+                throw new Exception($"Erro ao listar despesas por tipo de despesa. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
-
-            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
-            criteria.AddOrder(Order.Asc("Data"));
-
-            return await Listar(criteria);
         }
         public async Task<IList<Despesa>> ListarPorMesAno(DateTime data)
         {
-            var criteria = CriarCriteria();
-
-            criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
-            criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
-            criteria.AddOrder(Order.Asc("Data"));
-
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
+                criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
+                criteria.AddOrder(Order.Asc("Data"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de despesa por mês e ano");
+                throw new Exception($"Erro ao listar contagens por mês e ano. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
 
         private void AdicionaTermosPesquisa(ICriteria criteria, string propertyName, string[] termos)

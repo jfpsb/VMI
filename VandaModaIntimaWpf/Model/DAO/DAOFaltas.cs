@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using NHibernate.Transform;
 using System;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -35,8 +36,8 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                Log.EscreveLogBanco(ex, "listagem de faltas por mês e funcionário");
+                throw new Exception($"Erro ao listar faltas de funcionário neste mês. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
     }

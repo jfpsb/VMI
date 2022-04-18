@@ -1,7 +1,9 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
@@ -11,38 +13,47 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async override Task<IList<Funcionario>> Listar()
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("Deletado", false));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
-        }
-        public async Task<IList<Funcionario>> ListarIncluindoDeletado()
-        {
-            var criteria = CriarCriteria();
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar funcionário");
+                throw new Exception($"Erro ao listar funcionários. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
         public async Task<IList<Funcionario>> ListarPorNome(string nome)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar funcionário por nome");
+                throw new Exception($"Erro ao listar funcionários por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
         public async Task<IList<Funcionario>> ListarPorCpf(string cnpj)
         {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
-        }
-
-        public async Task<IList<Funcionario>> ListarQuemRecebePassagem()
-        {
-            var criteria = CriarCriteria();
-            criteria.Add(Restrictions.Eq("RecebePassagem", true));
-            criteria.AddOrder(Order.Asc("Nome"));
-            return await Listar(criteria);
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar funcionário por cpf");
+                throw new Exception($"Erro ao listar funcionários por cpf. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
         }
     }
 }

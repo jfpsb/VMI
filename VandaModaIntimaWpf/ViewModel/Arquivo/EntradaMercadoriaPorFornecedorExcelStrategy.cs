@@ -41,12 +41,22 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             for (int i = 0; i < lista.Count; i++)
             {
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.CodBarra] = $"'{lista[i].ProdutoGrade.CodBarra}";
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.CodBarraAlt] = lista[i].ProdutoGrade.CodBarraAlternativo;
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Descricao] = lista[i].ProdutoGrade.Produto.Descricao;
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Grade] = lista[i].ProdutoGrade.SubGradesToShortString;
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco].NumberFormat = "[$R$-pt-BR] #.##0,00";
-                worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco] = lista[i].ProdutoGrade.Preco;
+                if (lista[i].ProdutoGrade == null)
+                {
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Descricao] = lista[i].ProdutoDescricao;
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Grade] = lista[i].GradeDescricao;
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco].NumberFormat = "[$R$-pt-BR] #.##0,00";
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco] = lista[i].GradePreco;
+                }
+                else
+                {
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.CodBarra] = $"'{lista[i].ProdutoGrade.CodBarra}";
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.CodBarraAlt] = lista[i].ProdutoGrade.CodBarraAlternativo;
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Descricao] = lista[i].ProdutoGrade.Produto.Descricao;
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Grade] = lista[i].ProdutoGrade.SubGradesToShortString;
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco].NumberFormat = "[$R$-pt-BR] #.##0,00";
+                    worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Preco] = lista[i].ProdutoGrade.Preco;
+                }
                 worksheet.Cells[i + linha, EntradaMercadoriaProdutoGrade.Colunas.Quantidade] = lista[i].Quantidade;
             }
 
