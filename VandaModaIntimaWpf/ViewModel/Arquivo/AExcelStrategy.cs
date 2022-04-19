@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         /// </summary>
         /// <param name="Worksheet"></param>
         public abstract void AutoFitColunas(Worksheet Worksheet);
-        protected void EscreveColunas(Worksheet worksheet, string[] colunas, int linha, int coluna)
+        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna)
         {
             //Escreve cabeçalho baseado nas colunas do model e estiliza
             for (int i = 0; i < colunas.Length; i++)

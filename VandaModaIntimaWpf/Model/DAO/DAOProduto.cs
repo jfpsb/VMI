@@ -97,12 +97,13 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             try
             {
                 var criteria = CriarCriteria();
-                criteria.CreateAlias("Grades", "Grades", NHibernate.SqlCommand.JoinType.LeftOuterJoin);
+                criteria.CreateAlias("Grades", "Grades");
                 criteria.CreateAlias("Fornecedor", "Fornecedor");
                 criteria.Add(Restrictions.Disjunction()
                     .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
                     .Add(Restrictions.Like("Fornecedor.Fantasia", "%" + fornecedor + "%")));
-                return await ListarComNovaSession(criteria);
+                criteria.SetResultTransformer(Transformers.DistinctRootEntity);
+                return await Listar(criteria);
             }
             catch (Exception ex)
             {

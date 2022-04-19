@@ -71,8 +71,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     case "DESPESA EMPRESARIAL":
                         EscreveTextoRelatorio(worksheet, linha, 7, 9, 10);
                         linha++;
-                        EscreveColunas(worksheet, _colunasEmpresarial, linha, 1);
-                        EscreveColunas(worksheet, _colunasResumido, linha, 9);
+                        EscreveHeaders(worksheet, _colunasEmpresarial, linha, 1);
+                        EscreveHeaders(worksheet, _colunasResumido, linha, 9);
                         listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
                         for (int j = 0; j < container.Lista.Count; j++)
@@ -96,8 +96,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     case "DESPESA FAMILIAR":
                         EscreveTextoRelatorio(worksheet, linha, 4, 6, 7);
                         linha++;
-                        EscreveColunas(worksheet, _colunasFamiliar, linha, 1);
-                        EscreveColunas(worksheet, _colunasFamiliarResumido, linha, 6);
+                        EscreveHeaders(worksheet, _colunasFamiliar, linha, 1);
+                        EscreveHeaders(worksheet, _colunasFamiliarResumido, linha, 6);
                         listaResumido = container.Lista.GroupBy(g => g.Familiar).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
                         for (int j = 0; j < container.Lista.Count; j++)
@@ -118,8 +118,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     default:
                         EscreveTextoRelatorio(worksheet, linha, 4, 6, 7);
                         linha++;
-                        EscreveColunas(worksheet, _colunasResidencialOutras, linha, 1);
-                        EscreveColunas(worksheet, _colunasResumido, linha, 6);
+                        EscreveHeaders(worksheet, _colunasResidencialOutras, linha, 1);
+                        EscreveHeaders(worksheet, _colunasResumido, linha, 6);
                         listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
                         for (int j = 0; j < container.Lista.Count; j++)

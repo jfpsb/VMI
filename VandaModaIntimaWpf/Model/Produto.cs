@@ -173,10 +173,6 @@ namespace VandaModaIntimaWpf.Model
                 return str;
             }
         }
-        public virtual string[] GetColunas()
-        {
-            return new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };
-        }
 
         public virtual object GetIdentifier()
         {

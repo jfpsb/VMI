@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             linha++;
 
-            EscreveColunas(worksheet, _colunas, linha++, 1);
+            EscreveHeaders(worksheet, _colunas, linha++, 1);
 
             for (int i = 0; i < lista.Count; i++)
             {

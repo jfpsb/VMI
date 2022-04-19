@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -11,7 +12,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
     public class ProdutoExcelStrategy : AExcelStrategy
     {
         private ISession _session;
-        private string[] _colunas = new[] { "Cód. de Barras", "Descrição", "Preço", "Fornecedor", "Marca", "NCM" };
+        private string[] _colunasProduto = new[] { "Código", "Descrição", "Fornecedor", "Marca", "NCM" };
+        private string[] _colunasProdutoGrade = new[] { "Cód. De Barras", "Cód. De Barras Alt.", "Preço Custo", "Preço Venda", "Descrição Grade" };
 
         public ProdutoExcelStrategy(ISession session)
         {
@@ -19,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
         public override void AutoFitColunas(Worksheet Worksheet)
         {
-            Worksheet.Range["A1", "F1"].EntireColumn.AutoFit();
+            Worksheet.Range["A1", "E1"].EntireColumn.AutoFit();
         }
         public override void EscreveDados(Workbook workbook, params object[] l)
         {
@@ -29,24 +31,51 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             worksheet.Name = wscontainer.Nome;
             worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
 
-            EscreveColunas(worksheet, _colunas, 1, 1);
+            int linhaOffset = 1;
 
             for (int i = 0; i < lista.Count; i++)
             {
-                worksheet.Cells[i + 2, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
-                worksheet.Cells[i + 2, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
-                worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
-                worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
-                worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
+                if (i != 0)
+                    linhaOffset++;
+
+                worksheet.Cells[i + linhaOffset, 1] = "PRODUTO";
+                linhaOffset++;
+
+                EscreveHeaders(worksheet, _colunasProduto, i + linhaOffset, 1);
+                linhaOffset++;
+
+                worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
+                worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
+                worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Fornecedor] = "NÃO HÁ FORNECEDOR";
+                worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Marca] = "NÃO HÁ MARCA";
+                worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Ncm] = "NÃO HÁ NCM";
 
                 if (lista[i].Fornecedor != null)
-                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
+                    worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Fornecedor] = lista[i].Fornecedor.Nome;
 
                 if (lista[i].Marca != null)
-                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
+                    worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Marca] = lista[i].Marca.Nome;
 
                 if (!string.IsNullOrEmpty(lista[i].Ncm))
-                    worksheet.Cells[i + 2, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
+                    worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Ncm] = lista[i].Ncm;
+
+                linhaOffset++;
+
+                worksheet.Cells[i + linhaOffset, 1] = "GRADES";
+                linhaOffset++;
+
+                EscreveHeaders(worksheet, _colunasProdutoGrade, i + linhaOffset, 1);
+
+                linhaOffset++;
+                foreach (var grade in lista[i].Grades)
+                {
+                    worksheet.Cells[i + linhaOffset, 1] = grade.CodBarra;
+                    worksheet.Cells[i + linhaOffset, 2] = grade.CodBarraAlternativo;
+                    worksheet.Cells[i + linhaOffset, 3] = grade.PrecoCusto.ToString("C", CultureInfo.CurrentCulture);
+                    worksheet.Cells[i + linhaOffset, 4] = grade.Preco.ToString("C", CultureInfo.CurrentCulture);
+                    worksheet.Cells[i + linhaOffset, 5] = grade.SubGradesToShortString;
+                    linhaOffset++;
+                }
             }
         }
         public override async Task LeEInsereDados(Workbook workbook)
