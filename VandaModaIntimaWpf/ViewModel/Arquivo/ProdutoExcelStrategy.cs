@@ -2,7 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Drawing;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -33,16 +33,48 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             int linhaOffset = 1;
 
+            Style estiloCabecalho = workbook.Styles.Add("Cabeçalho Produto");
+            estiloCabecalho.Font.Size = 14;
+            estiloCabecalho.Interior.Color = Color.Yellow;
+            estiloCabecalho.Borders.Color = Color.Black;
+            estiloCabecalho.Borders[XlBordersIndex.xlDiagonalDown].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloCabecalho.Borders[XlBordersIndex.xlDiagonalUp].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloCabecalho.Font.Bold = true;
+
+            Style estiloCabecalho2 = workbook.Styles.Add("Cabeçalho Grade");
+            estiloCabecalho2.Font.Size = 14;
+            estiloCabecalho2.Interior.Color = Color.LightGray;
+            estiloCabecalho2.Borders.Color = Color.Black;
+            estiloCabecalho2.Borders[XlBordersIndex.xlDiagonalDown].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloCabecalho2.Borders[XlBordersIndex.xlDiagonalUp].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloCabecalho2.Font.Bold = true;
+
+            Style estiloDados = workbook.Styles.Add("Dados Grade");
+            estiloDados.Font.Size = 12;
+            estiloDados.Borders.Color = Color.Black;
+            estiloDados.Borders[XlBordersIndex.xlDiagonalDown].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloDados.Borders[XlBordersIndex.xlDiagonalUp].LineStyle = XlLineStyle.xlLineStyleNone;
+
+            Style estiloDinheiro = workbook.Styles["Currency"];
+            estiloDinheiro.Font.Size = 12;
+            estiloDinheiro.Borders.Color = Color.Black;
+            estiloDinheiro.Borders[XlBordersIndex.xlDiagonalDown].LineStyle = XlLineStyle.xlLineStyleNone;
+            estiloDinheiro.Borders[XlBordersIndex.xlDiagonalUp].LineStyle = XlLineStyle.xlLineStyleNone;
+
             for (int i = 0; i < lista.Count; i++)
             {
                 if (i != 0)
                     linhaOffset++;
 
                 worksheet.Cells[i + linhaOffset, 1] = "PRODUTO";
+                worksheet.Cells[i + linhaOffset, 1].Style = estiloCabecalho;
                 linhaOffset++;
 
-                EscreveHeaders(worksheet, _colunasProduto, i + linhaOffset, 1);
+                EscreveHeaders(worksheet, _colunasProduto, i + linhaOffset, 1, estiloCabecalho);
                 linhaOffset++;
+
+                Range produtoRange = worksheet.Range[worksheet.Cells[i + linhaOffset, 1], worksheet.Cells[i + linhaOffset, 5]];
+                produtoRange.Style = estiloDados;
 
                 worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.CodBarra] = lista[i].CodBarra;
                 worksheet.Cells[i + linhaOffset, ProdutoModel.Colunas.Descricao] = lista[i].Descricao;
@@ -62,21 +94,30 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 linhaOffset++;
 
                 worksheet.Cells[i + linhaOffset, 1] = "GRADES";
+                worksheet.Cells[i + linhaOffset, 1].Style = estiloCabecalho2;
                 linhaOffset++;
 
-                EscreveHeaders(worksheet, _colunasProdutoGrade, i + linhaOffset, 1);
+                EscreveHeaders(worksheet, _colunasProdutoGrade, i + linhaOffset, 1, estiloCabecalho2);
 
                 linhaOffset++;
+
+                Range gradesRange = worksheet.Range[worksheet.Cells[i + linhaOffset, 1], worksheet.Cells[i + linhaOffset + lista[i].Grades.Count - 1, 5]];
+                gradesRange.Style = estiloDados;
+
                 foreach (var grade in lista[i].Grades)
                 {
                     worksheet.Cells[i + linhaOffset, 1] = grade.CodBarra;
                     worksheet.Cells[i + linhaOffset, 2] = grade.CodBarraAlternativo;
-                    worksheet.Cells[i + linhaOffset, 3] = grade.PrecoCusto.ToString("C", CultureInfo.CurrentCulture);
-                    worksheet.Cells[i + linhaOffset, 4] = grade.Preco.ToString("C", CultureInfo.CurrentCulture);
+                    worksheet.Cells[i + linhaOffset, 3] = grade.PrecoCusto;
+                    worksheet.Cells[i + linhaOffset, 3].Style = estiloDinheiro;
+                    worksheet.Cells[i + linhaOffset, 4] = grade.Preco;
+                    worksheet.Cells[i + linhaOffset, 4].Style = estiloDinheiro;
                     worksheet.Cells[i + linhaOffset, 5] = grade.SubGradesToShortString;
                     linhaOffset++;
                 }
             }
+
+            AutoFitColunas(worksheet);
         }
         public override async Task LeEInsereDados(Workbook workbook)
         {

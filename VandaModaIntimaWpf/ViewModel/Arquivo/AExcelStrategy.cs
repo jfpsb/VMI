@@ -26,5 +26,15 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 worksheet.Cells[linha, i + coluna].Borders.Color = Color.Black;
             }
         }
+
+        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna, Style estilo)
+        {
+            //Escreve cabeçalho baseado nas colunas do model e estiliza
+            for (int i = 0; i < colunas.Length; i++)
+            {
+                worksheet.Cells[linha, i + coluna] = colunas[i];
+                worksheet.Cells[linha, i + coluna].Style = estilo;
+            }
+        }
     }
 }
