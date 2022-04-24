@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TipoHoraExtra : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private string _descricao;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

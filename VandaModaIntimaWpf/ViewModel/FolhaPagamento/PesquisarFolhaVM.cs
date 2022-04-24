@@ -32,6 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOBonusMensal daoBonusMensal;
         private DAOParcela daoParcela;
         private DAODespesa daoDespesa;
+        private DAOTipoDespesa daoTipoDespesa;
         private DAOHoraExtra daoHoraExtra;
         private DateTime _dataEscolhida;
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
@@ -77,6 +78,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoBonusMensal = new DAOBonusMensal(_session);
+            daoTipoDespesa = new DAOTipoDespesa(_session);
             daoDespesa = new DAODespesa(_session);
             daoParcela = new DAOParcela(_session);
             daoBonus = new DAOBonus(_session);
@@ -129,7 +131,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 var despesa = new Model.Despesa
                 {
-                    TipoDespesa = new Model.TipoDespesa { Id = 1 }, //TIPO EMPRESARIAL
+                    TipoDespesa = await daoTipoDespesa.RetornaTipoDespesaEmpresarial(),
                     Loja = item.Loja,
                     Valor = item.Soma,
                     DataVencimento = item.Vencimento,

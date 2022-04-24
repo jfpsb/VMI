@@ -4,10 +4,8 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Despesa">
-		<id name="Id" column="id" type="Int64">
-			<generator class="hilo">
-				<param name="max_lo">1024</param>
-			</generator>
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
 		</id>
 		<property name="Data" />
 		<property name="DataVencimento" />
@@ -22,7 +20,8 @@
 		<many-to-one name="Adiantamento"
                  class="VandaModaIntimaWpf.Model.Adiantamento"/>
 		<many-to-one name="TipoDespesa"
-                 class="VandaModaIntimaWpf.Model.TipoDespesa"/>
+                 class="VandaModaIntimaWpf.Model.TipoDespesa"
+					 column="tipo"/>
 		<many-to-one name="Fornecedor"
                  class="VandaModaIntimaWpf.Model.Fornecedor"/>
 		<many-to-one name="Representante"

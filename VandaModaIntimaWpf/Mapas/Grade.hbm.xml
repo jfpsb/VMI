@@ -5,7 +5,9 @@
 
 	<class name="Grade" table="grade">
 		<cache usage="read-write"/>
-		<id name="Id" column="id" />
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
+		</id>
 		<many-to-one name="TipoGrade" class="VandaModaIntimaWpf.Model.TipoGrade" column="tipo" />
 		<property name="Nome" column="nome" />
 		<property name="CriadoEm" />

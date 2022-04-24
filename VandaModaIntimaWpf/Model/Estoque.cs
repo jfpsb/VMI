@@ -5,6 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Estoque : AModel, IModel
     {
+        private Guid _id;
         private ProdutoGrade _produtoGrade;
         private Loja _loja;
         private int _quantidade;
@@ -55,6 +56,20 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => $"{ProdutoGrade.Produto.Descricao}";
 
+        public Guid Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         public object GetIdentifier()
         {
             Estoque estoque = new Estoque()
@@ -68,7 +83,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual void InicializaLazyLoad()
         {
-            
+
         }
 
         public virtual bool IsIdentical(object obj)

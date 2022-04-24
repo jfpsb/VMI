@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ProdutoGrade : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private string _codBarra;
         private string _codBarraAlternativo;
         private Produto _produto;
@@ -142,7 +142,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => $"{CodBarra} - {SubGradesToString}";
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get
             {

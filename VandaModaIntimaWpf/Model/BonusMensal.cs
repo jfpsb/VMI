@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class BonusMensal : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Funcionario _funcionario;
         private string _descricao;
         private double _valor;
@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         [JsonProperty("MySqlId")]
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

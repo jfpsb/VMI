@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class AliquotasImposto : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private DateTime _dataInsercao;
         private Loja _loja;
         private double _simples;
@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

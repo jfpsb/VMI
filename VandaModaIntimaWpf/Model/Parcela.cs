@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Parcela : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Adiantamento _adiantamento;
         private int _numero;
         private double _valor;
@@ -94,7 +94,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

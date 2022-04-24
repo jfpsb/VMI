@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class HoraExtra : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Funcionario _funcionario;
         private TipoHoraExtra _tipoHoraExtra;
         private Loja _lojaTrabalho;
@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

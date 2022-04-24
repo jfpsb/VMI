@@ -4,7 +4,9 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="ContagemProduto" table="contagemproduto">
-		<id name="Id" column="id" />
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
+		</id>
 		<many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" lazy="false" />
 		<many-to-one name="Contagem" class="VandaModaIntimaWpf.Model.Contagem" column ="contagem" lazy="false" />
 		<property name="Quant" column="quant" />

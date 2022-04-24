@@ -27,5 +27,10 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar tipos de despesa. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+
+        public async Task<TipoDespesa> RetornaTipoDespesaEmpresarial()
+        {
+            return await ListarPorId("c75ac132-c365-11ec-be0f-b482559537dc");
+        }
     }
 }

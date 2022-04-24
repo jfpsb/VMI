@@ -4,11 +4,9 @@
                    namespace="VandaModaIntimaWpf.Model">
 
   <class name="ArquivosCompraFornecedor" table="arquivos_comprafornecedor">
-    <id name="Id" column="id" type="Int64">
-      <generator class="hilo">
-        <param name="max_lo">1024</param>
-      </generator>
-    </id>
+	  <id name="Id" column="uuid" type="guid">
+		  <generator class="guid.comb" />
+	  </id>
     <many-to-one name="CompraDeFornecedor" class="VandaModaIntimaWpf.Model.CompraDeFornecedor" column="compradefornecedor" />
     <property name="Extensao" column="extensao" />
     <property name="Nome" column="nome" />

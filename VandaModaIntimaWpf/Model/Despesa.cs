@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Despesa : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private TipoDespesa _tipoDespesa;
         private Adiantamento _adiantamento;
         private Fornecedor _fornecedor;
@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => $"{TipoDespesa.Nome} - {Valor}";
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ChavePix : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Funcionario _funcionario;
         private Banco _banco;
         private string _chave;
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

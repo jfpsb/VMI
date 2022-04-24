@@ -5,14 +5,14 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TipoGrade : AModel, IModel
     {
-        private int _id;
+        private Guid _id;
         private string _nome;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => Nome;
 
-        public virtual int Id
+        public virtual Guid Id
         {
             get
             {

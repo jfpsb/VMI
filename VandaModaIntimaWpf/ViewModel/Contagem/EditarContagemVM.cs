@@ -55,7 +55,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             ContagemProdutoModel contagemProduto = new ContagemProdutoModel
             {
-                Id = DateTime.Now.Ticks,
                 Contagem = Entidade,
                 Produto = Produto,
                 Quant = Quantidade

@@ -245,6 +245,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Despesa\DespesasGroupByDescricao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Despesa\PesquisarDespesa.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -639,6 +643,7 @@
     </Compile>
     <Compile Include="ViewModel\Despesa\CadastrarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\CadastrarDespesaVMStrategy.cs" />
+    <Compile Include="ViewModel\Despesa\DespesaGroupByDescricaoViewModel.cs" />
     <Compile Include="ViewModel\Despesa\EditarDespesaVM.cs" />
     <Compile Include="ViewModel\Despesa\EditarDespesaVMStrategy.cs" />
     <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
@@ -756,6 +761,10 @@
     </Compile>
     <Compile Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml.cs">
       <DependentUpon>SalvarCompraDeFornecedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controles\DataGridDespesaGroupByDescricao.cs" />
+    <Compile Include="View\Despesa\DespesasGroupByDescricao.xaml.cs">
+      <DependentUpon>DespesasGroupByDescricao.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Despesa\PesquisarDespesa.xaml.cs">
       <DependentUpon>PesquisarDespesa.xaml</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -54,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
                     break;
                 case "Representante":
-                    if (Entidade.Representante != null && Entidade.Representante.Id == 0)
+                    if (Entidade.Representante != null && Entidade.Representante.Id == Guid.Empty)
                         Entidade.Representante = null;
                     break;
             }

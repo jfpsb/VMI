@@ -44,7 +44,11 @@
                         <MenuItem Header="Imprimir"
                                   Command="{Binding AbrirImprimirComando}" />
                     </MenuItem>
-
+                    <MenuItem Header="Relatórios De Despesas">
+                        <MenuItem Header="Agrupado Por Loja"
+                                  Command="{Binding AbrirDespesaGroupByLojaComando}" />
+                    </MenuItem>
+                    <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>
@@ -143,7 +147,7 @@
                                     <DataGridTextColumn Header="Data De Vencimento"
                                                         Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
                                     <DataGridTextColumn Header="Representante"
-                                                        Binding="{Binding Entidade.Fornecedor.Representante.Nome}" />
+                                                        Binding="{Binding Entidade.Representante.Nome}" />
                                     <DataGridTextColumn Header="{DynamicResource fornecedor_header}"
                                                         Binding="{Binding Entidade.Fornecedor.Nome}" />
                                     <DataGridTextColumn Header="{DynamicResource loja_header}"

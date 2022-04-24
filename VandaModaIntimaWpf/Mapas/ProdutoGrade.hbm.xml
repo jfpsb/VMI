@@ -5,8 +5,8 @@
 
 	<class name="ProdutoGrade" table="produto_grade">
 		<cache usage="read-write"/>
-		<id name="Id" column="id">
-			<generator class="increment" />
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
 		</id>
 		<many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" />
 		<property name="CodBarra" column="cod_barra" />

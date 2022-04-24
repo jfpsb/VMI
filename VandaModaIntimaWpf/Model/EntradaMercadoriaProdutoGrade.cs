@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class EntradaMercadoriaProdutoGrade : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private EntradaDeMercadoria _entrada;
         private ProdutoGrade _produtoGrade;
         private int _quantidade;
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set
@@ -94,6 +94,8 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _produtoDescricao = value;
+                if (_produtoGrade != null)
+                    _produtoDescricao = _produtoGrade.Produto.Descricao;
                 OnPropertyChanged("ProdutoDescricao");
             }
         }
@@ -103,6 +105,8 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _gradeDescricao = value;
+                if (_produtoGrade != null)
+                    _gradeDescricao = _produtoGrade.SubGradesToShortString;
                 OnPropertyChanged("GradeDescricao");
             }
         }
@@ -112,6 +116,8 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _gradePreco = value;
+                if (_produtoGrade != null)
+                    _gradePreco = _produtoGrade.Preco;
                 OnPropertyChanged("GradePreco");
             }
         }
@@ -122,6 +128,8 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _gradeFornecedor = value;
+                if (_produtoGrade != null)
+                    _gradeFornecedor = _produtoGrade.Produto.Fornecedor;
                 OnPropertyChanged("GradeFornecedor");
             }
         }

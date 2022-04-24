@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -27,6 +29,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasResidencial;
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _outrasDespesas;
 
+        public ICommand AbrirDespesaGroupByLojaComando { get; set; }
+
         public PesquisarDespesaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Despesa> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             daoEntidade = new DAODespesa(_session);
@@ -34,6 +38,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             daoLoja = new DAO<Model.Loja>(_session);
             pesquisarViewModelStrategy = new PesquisarDespesaVMStrategy();
             excelStrategy = new DespesaExcelStrategy(_session);
+
+            AbrirDespesaGroupByLojaComando = new RelayCommand(AbrirDespesaGroupByLoja);
 
             GetTiposDespesa();
             GetLojas();
@@ -43,6 +49,13 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             FiltrarPor = "Sem Filtro";
             DataEscolhida = DateTime.Now;
             AbaSelecionada = 0;
+        }
+
+        private void AbrirDespesaGroupByLoja(object obj)
+        {
+            DespesaGroupByDescricaoViewModel viewModel = new DespesaGroupByDescricaoViewModel();
+            DespesasGroupByDescricao view = new DespesasGroupByDescricao { DataContext = viewModel };
+            view.ShowDialog();
         }
 
         private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

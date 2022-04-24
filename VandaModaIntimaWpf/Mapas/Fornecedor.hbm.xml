@@ -5,7 +5,7 @@
 
 	<class name="Fornecedor" table="fornecedor" dynamic-insert="true">
 		<cache usage="read-write"/>
-		<id name="Cnpj" column="cnpj"></id>
+		<id name="Cnpj" column="cnpj"/>
 		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
 			<key column="fornecedor" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Produto" />

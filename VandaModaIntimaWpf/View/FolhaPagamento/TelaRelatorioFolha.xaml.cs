@@ -102,8 +102,8 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             fprow.horaextra55 = "00:00";
 
             var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(FolhaPagamento.Ano, FolhaPagamento.Mes, FolhaPagamento.Funcionario).Result;
-            var he100 = horasExtras.Where(w => w.TipoHoraExtra.Id == 1).SingleOrDefault();
-            var henormal = horasExtras.Where(w => w.TipoHoraExtra.Id == 2).SingleOrDefault();
+            var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).SingleOrDefault();
+            var henormal = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/060%")).SingleOrDefault();
 
             if (he100 != null)
             {

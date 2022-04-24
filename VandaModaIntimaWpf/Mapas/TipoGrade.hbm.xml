@@ -4,7 +4,9 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="TipoGrade" table="tipo_grade">
-		<id name="Id" column="id" />
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
+		</id>
 		<property name="Nome" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ContaBancaria : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Funcionario _funcionario;
         private Banco _banco;
         private string _agencia;
@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => $"{Banco.Nome} - Ag: {Agencia}; Op: {Operacao}; Conta: {Conta}";
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

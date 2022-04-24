@@ -61,8 +61,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (falta == null)
                     falta = new Model.Faltas();
 
-                var he100 = horasExtras.Where(w => w.TipoHoraExtra.Id == 1).FirstOrDefault();
-                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Id != 1).FirstOrDefault();
+                var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).FirstOrDefault();
+                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/060%")).FirstOrDefault();
 
                 if (he100 == null)
                     he100 = new Model.HoraExtra();

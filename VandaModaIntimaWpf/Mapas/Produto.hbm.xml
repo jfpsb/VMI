@@ -5,10 +5,8 @@
 
 	<class name="Produto" table="produto">
 		<cache usage="read-write"/>
-		<id name="Id" column="id" type="Int64">
-			<generator class="hilo">
-				<param name="max_lo">1024</param>
-			</generator>
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb"/>
 		</id>
 
 		<property name="CodBarra" column="cod_barra" />

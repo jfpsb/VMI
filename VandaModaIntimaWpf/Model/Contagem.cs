@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Contagem : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Loja _loja;
         private DateTime _data;
         private bool _finalizada;
@@ -100,7 +100,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "MySqlId")]
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

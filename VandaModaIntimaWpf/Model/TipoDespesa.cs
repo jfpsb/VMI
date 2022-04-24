@@ -5,14 +5,14 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TipoDespesa : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private string _nome;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

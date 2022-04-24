@@ -176,6 +176,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
 
                     var criteria = CriarCriteria();
+                    criteria.Add(Restrictions.Eq("Deletado", false));
                     criteria.SetCacheable(true);
                     criteria.SetCacheMode(CacheMode.Normal);
                     var results = await criteria.ListAsync<E>();

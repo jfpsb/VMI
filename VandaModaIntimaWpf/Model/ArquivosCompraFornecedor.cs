@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ArquivosCompraFornecedor : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private CompraDeFornecedor _compraDeFornecedor;
         private string _nome;
         private string _extensao;
@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

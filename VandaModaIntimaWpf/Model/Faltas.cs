@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Faltas : AModel, IModel
     {
-        private long _id;
+        private Guid _id;
         private Funcionario _funcionario;
         private DateTime _data;
         private int _horas;
@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual long Id
+        public virtual Guid Id
         {
             get => _id;
             set

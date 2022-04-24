@@ -5,10 +5,8 @@
 
 	<class name="SubGrade" table="sub_grade">
 		<cache usage="read-write"/>
-		<id name="Id" column="id" type="Int64">
-			<generator class="hilo">
-				<param name="max_lo">1024</param>
-			</generator>
+		<id name="Id" column="uuid" type="guid">
+			<generator class="guid.comb" />
 		</id>
 		<many-to-one name="ProdutoGrade" class="VandaModaIntimaWpf.Model.ProdutoGrade" column="produto_grade"/>
 		<many-to-one name="Grade" class="VandaModaIntimaWpf.Model.Grade" column="grade" />
