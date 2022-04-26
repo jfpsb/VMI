@@ -547,6 +547,7 @@
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
+    <Compile Include="Model\MembroFamiliar.cs" />
     <Compile Include="Model\MySQLAliases.cs" />
     <Compile Include="Model\NFe\ProcNFe_v4_00.cs" />
     <Compile Include="Model\ObservableObject.cs" />
@@ -1402,6 +1403,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\MembroFamiliar.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

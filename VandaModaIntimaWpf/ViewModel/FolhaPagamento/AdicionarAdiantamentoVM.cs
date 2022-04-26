@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     public class AdicionarAdiantamentoVM : ACadastrarViewModel<AdiantamentoModel>
     {
         private DAODespesa daoDespesa;
-        private DAO<Model.TipoDespesa> daoTipoDespesa;
+        private DAOTipoDespesa daoTipoDespesa;
         private DateTime _inicioPagamento;
         private int _numParcelas;
         private double _valor;
@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAO<Model.Adiantamento>(session);
             daoDespesa = new DAODespesa(session);
-            daoTipoDespesa = new DAO<Model.TipoDespesa>(session);
+            daoTipoDespesa = new DAOTipoDespesa(session);
             PropertyChanged += AdicionarAdiantamento_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
@@ -57,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     Data = adiantamento.Data,
                     Adiantamento = adiantamento,
-                    TipoDespesa = await daoTipoDespesa.ListarPorId(1L),
+                    TipoDespesa = await daoTipoDespesa.RetornaTipoDespesaEmpresarial(),
                     Loja = adiantamento.Funcionario.Loja,
                     Descricao = $"{adiantamento.Descricao} - {adiantamento.Funcionario.Nome}",
                     Valor = adiantamento.Valor

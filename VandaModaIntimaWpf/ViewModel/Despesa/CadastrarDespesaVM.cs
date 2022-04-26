@@ -1,11 +1,10 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
@@ -20,6 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private DAOTipoDespesa daoTipoDespesa;
         private DAOFornecedor daoFornecedor;
         private DAOLoja daoLoja;
+        private DAO<MembroFamiliar> daoMembroFamiliar;
         private DAORepresentante daoRepresentante;
         private Visibility _visibilidadeDespesaEmpresarial;
         private Visibility _visibilidadeMembroFamiliar;
@@ -31,6 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Representante> _representantes;
         private ObservableCollection<Model.Loja> _lojas;
+        private ObservableCollection<Model.MembroFamiliar> _membrosFamiliar;
 
         public CadastrarDespesaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -39,11 +40,11 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             daoFornecedor = new DAOFornecedor(session);
             daoRepresentante = new DAORepresentante(session);
             daoLoja = new DAOLoja(session);
+            daoMembroFamiliar = new DAO<MembroFamiliar>(session);
 
             Entidade = new Model.Despesa()
             {
-                Data = DateTime.Now,
-                Familiar = "Ferreira"
+                Data = DateTime.Now
             };
             viewModelStrategy = new CadastrarDespesaVMStrategy();
 
@@ -51,6 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             GetTiposDespesa();
             GetRepresentantes();
             GetLojas();
+            GetMembrosFamiliar();
             Entidade.Descricao = TipoDescricao = "CONTA DE LUZ"; //Primeiro item
 
             PropertyChanged += CadastrarDespesaVM_PropertyChanged;
@@ -111,7 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         VisibilidadeDespesaEmpresarial = Visibility.Visible;
                         VisibilidadeMembroFamiliar = Visibility.Collapsed;
 
-                        Entidade.Familiar = string.Empty;
+                        Entidade.Familiar = null;
 
                         if (!IssoEUmUpdate)
                         {
@@ -124,7 +126,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         VisibilidadeMembroFamiliar = Visibility.Visible;
 
                         Entidade.Fornecedor = null;
-                        Entidade.Familiar = "Ferreira";
+                        Entidade.Familiar = MembrosFamiliar[0];
                         OnPropertyChanged("TipoDescricao");
                     }
                     else
@@ -132,7 +134,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         VisibilidadeDespesaEmpresarial = Visibility.Collapsed;
                         VisibilidadeMembroFamiliar = Visibility.Collapsed;
 
-                        Entidade.Familiar = string.Empty;
+                        Entidade.Familiar = null;
                         Entidade.Fornecedor = null;
                         Entidade.Loja = null;
                     }
@@ -225,6 +227,11 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             Entidade.Loja = Lojas[0];
         }
 
+        private async void GetMembrosFamiliar()
+        {
+            MembrosFamiliar = new ObservableCollection<Model.MembroFamiliar>(await daoMembroFamiliar.Listar());
+        }
+
         public ObservableCollection<Model.TipoDespesa> TiposDespesa
         {
             get => _tiposDespesa;
@@ -307,6 +314,20 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _inserirVencimentoFlag = value;
                 OnPropertyChanged("InserirVencimentoFlag");
+            }
+        }
+
+        public ObservableCollection<MembroFamiliar> MembrosFamiliar
+        {
+            get
+            {
+                return _membrosFamiliar;
+            }
+
+            set
+            {
+                _membrosFamiliar = value;
+                OnPropertyChanged("MembrosFamiliar");
             }
         }
     }

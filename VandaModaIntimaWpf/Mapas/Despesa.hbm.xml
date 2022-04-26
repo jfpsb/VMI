@@ -11,7 +11,6 @@
 		<property name="DataVencimento" />
 		<property name="Descricao" />
 		<property name="Valor" />
-		<property name="Familiar" />
 		<property name="Detalhes" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
@@ -28,6 +27,9 @@
                  class="VandaModaIntimaWpf.Model.Representante"/>
 		<many-to-one name="Loja"
                  class="VandaModaIntimaWpf.Model.Loja"/>
+		<many-to-one name="Familiar"
+					 column="membro_familiar"
+					 class="VandaModaIntimaWpf.Model.MembroFamiliar"/>
 	</class>
 
 </hibernate-mapping>

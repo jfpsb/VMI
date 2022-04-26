@@ -183,7 +183,7 @@
                                     <DataGridTextColumn Header="Data De Vencimento"
                                                         Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
                                     <DataGridTextColumn Header="Membro Familiar"
-                                                        Binding="{Binding Entidade.Familiar}" />
+                                                        Binding="{Binding Entidade.Familiar.Nome}" />
                                     <DataGridTextColumn Header="Descrição"
                                                         Width="*"
                                                         Binding="{Binding Entidade.Descricao}" />

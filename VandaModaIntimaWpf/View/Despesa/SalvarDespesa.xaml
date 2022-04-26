@@ -108,7 +108,8 @@
                   Grid.Column="1"
                   Width="225"
                   HorizontalAlignment="Left"
-                  ItemsSource="{DynamicResource CmbMembrosFamiliares}"
+                  ItemsSource="{Binding MembrosFamiliar}"
+                  DisplayMemberPath="Nome"
                   SelectedItem="{Binding Entidade.Familiar}"
                   Visibility="{Binding VisibilidadeMembroFamiliar}" />
         <Label Grid.Row="10"

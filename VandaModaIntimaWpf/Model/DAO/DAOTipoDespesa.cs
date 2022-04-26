@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public async Task<TipoDespesa> RetornaTipoDespesaEmpresarial()
         {
-            return await ListarPorId("c75ac132-c365-11ec-be0f-b482559537dc");
+            return await ListarPorId(Guid.Parse("c75ac132-c365-11ec-be0f-b482559537dc"));
         }
     }
 }

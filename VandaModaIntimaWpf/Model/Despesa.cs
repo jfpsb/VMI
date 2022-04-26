@@ -11,11 +11,11 @@ namespace VandaModaIntimaWpf.Model
         private Fornecedor _fornecedor;
         private Representante _representante;
         private Loja _loja;
+        private MembroFamiliar _familiar;
         private DateTime _data;
         private DateTime? _dataVencimento;
         private string _descricao;
         private double _valor;
-        private string _familiar;
         private string _detalhes;
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -78,7 +78,7 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Valor");
             }
         }
-        public virtual string Familiar
+        public virtual MembroFamiliar Familiar
         {
             get => _familiar;
             set
