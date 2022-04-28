@@ -5,12 +5,12 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Grade : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private TipoGrade _tipoGrade;
         private string _nome;
         private IList<ProdutoGrade> _produtoGrades;
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get
             {

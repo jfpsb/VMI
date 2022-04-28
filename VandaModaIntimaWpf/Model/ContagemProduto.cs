@@ -6,9 +6,9 @@ namespace VandaModaIntimaWpf.Model
 {
     public class ContagemProduto : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Contagem _contagem;
-        private Produto _produto;
+        private ProdutoGrade _produtoGrade;
         private int _quant;
 
         public virtual bool IsIdentical(object obj)
@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.Model
 
                 return contagemProduto.Id.Equals(Id)
                        && contagemProduto.Contagem.Equals(Contagem)
-                       && contagemProduto.Produto.Equals(Produto)
+                       && contagemProduto.ProdutoGrade.Equals(ProdutoGrade)
                        && contagemProduto.Quant.Equals(Quant);
             }
 
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public virtual string GetContextMenuHeader => $"{Produto.CodBarra}; Quantidade: {Quant}";
+        public virtual string GetContextMenuHeader => $"{ProdutoGrade.CodBarra}; Quantidade: {Quant}";
 
         [JsonIgnore]
         public virtual Dictionary<string, string> DictionaryIdentifier
@@ -43,8 +43,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonProperty(PropertyName = "MySqlId")]
-        public virtual Guid Id
+        public virtual int Id
         {
             get
             {
@@ -58,17 +57,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual Produto Produto
+        public virtual ProdutoGrade ProdutoGrade
         {
             get
             {
-                return _produto;
+                return _produtoGrade;
             }
 
             set
             {
-                _produto = value;
-                OnPropertyChanged("Produto");
+                _produtoGrade = value;
+                OnPropertyChanged("ProdutoGrade");
             }
         }
 

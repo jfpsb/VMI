@@ -165,7 +165,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     }
                     break;
                 case "Representante":
-                    if (Entidade.Representante != null && Entidade.Representante.Id == Guid.Empty)
+                    if (Entidade.Representante != null && Entidade.Representante.Id == 0)
                         Entidade.Representante = null;
                     break;
             }

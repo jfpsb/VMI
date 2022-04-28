@@ -8,7 +8,7 @@ using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
 {
-    public class DAO<E> where E : class, IModel
+    public class DAO<E> where E : AModel, IModel
     {
         protected ISession session;
         public DAO(ISession session)
@@ -16,12 +16,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public virtual async Task Inserir(object objeto)
+        public virtual async Task Inserir(E objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
+                    objeto.Uuid = Guid.NewGuid();
                     var result = await session.SaveAsync(objeto);
                     await transacao.CommitAsync();
                 }
@@ -41,6 +42,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
+                        e.Uuid = Guid.NewGuid();
                         await session.SaveOrUpdateAsync(e);
                     }
 
@@ -54,13 +56,21 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
-        public virtual async Task InserirOuAtualizar(object objeto)
+        public virtual async Task InserirOuAtualizar(E objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    await session.SaveOrUpdateAsync(objeto);
+                    if (objeto.Uuid == null || objeto.Uuid == Guid.Empty)
+                    {
+                        objeto.Uuid = Guid.NewGuid();
+                        await session.SaveAsync(objeto);
+                    }
+                    else
+                    {
+                        await session.UpdateAsync(objeto);
+                    }
                     await transacao.CommitAsync();
                 }
                 catch (Exception ex)
@@ -79,7 +89,15 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        await session.SaveOrUpdateAsync(e);
+                        if (e.Uuid == null || e.Uuid == Guid.Empty)
+                        {
+                            e.Uuid = Guid.NewGuid();
+                            await session.SaveAsync(e);
+                        }
+                        else
+                        {
+                            await session.UpdateAsync(e);
+                        }
                     }
 
                     await transacao.CommitAsync();
@@ -165,6 +183,30 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await transacao.RollbackAsync();
                     Log.EscreveLogBanco(ex, "deletar listar em banco de dados");
                     throw new Exception($"Erro ao deletar lista em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual async Task<E> ListarPorUuid(Guid guid)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+
+                    var criteria = CriarCriteria();
+                    criteria.Add(Restrictions.Eq("Uuid", guid.ToString()));
+                    criteria.SetCacheable(true);
+                    criteria.SetCacheMode(CacheMode.Normal);
+                    var result = await criteria.UniqueResultAsync<E>();
+                    await tx.CommitAsync();
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    await tx.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "listar por uuid em banco de dados");
+                    throw new Exception($"Erro ao listar por UUID em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
             }
         }

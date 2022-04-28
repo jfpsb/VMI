@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Adiantamento : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Funcionario _funcionario;
         private DateTime _data;
         private double _valor;
@@ -39,17 +39,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 _valor = value;
                 OnPropertyChanged("Valor");
-            }
-        }
-
-        [JsonProperty(PropertyName = "MySqlId")]
-        public virtual Guid Id
-        {
-            get => _id;
-            set
-            {
-                _id = value;
-                OnPropertyChanged("Id");
             }
         }
 
@@ -96,9 +85,23 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
         public virtual object GetIdentifier()
         {
-            return _id;
+            return Id;
         }
 
         public virtual void InicializaLazyLoad()

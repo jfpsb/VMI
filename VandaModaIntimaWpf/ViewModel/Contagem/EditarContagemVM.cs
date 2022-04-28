@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 {
     class EditarContagemVM : CadastrarContagemVM
     {
-        private ProdutoModel _produto;
+        private Model.ProdutoGrade _produtoGrade;
         private ContagemProdutoModel _contagemProduto;
         private string _pesquisaProdutoTxtBox;
         private DAOProduto _daoProduto;
@@ -56,7 +56,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             ContagemProdutoModel contagemProduto = new ContagemProdutoModel
             {
                 Contagem = Entidade,
-                Produto = Produto,
+                ProdutoGrade = ProdutoGrade,
                 Quant = Quantidade
             };
 
@@ -93,7 +93,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirEditarProduto(object p)
         {
-            EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(_session, ContagemProduto.Produto, new MessageBoxService());
+            EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(_session, ContagemProduto.ProdutoGrade.Produto, new MessageBoxService());
             SalvarProduto editar = new SalvarProduto() { DataContext = editarProdutoViewModel };
             editar.ShowDialog();
         }
@@ -103,13 +103,13 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             Produtos = new ObservableCollection<ProdutoModel>(await _daoProduto.ListarPorDescricaoCodigoDeBarra(PesquisaProdutoTxtBox));
         }
 
-        public ProdutoModel Produto
+        public Model.ProdutoGrade ProdutoGrade
         {
-            get => _produto;
+            get => _produtoGrade;
             set
             {
-                _produto = value;
-                OnPropertyChanged("Produto");
+                _produtoGrade = value;
+                OnPropertyChanged("ProdutoGrade");
             }
         }
 

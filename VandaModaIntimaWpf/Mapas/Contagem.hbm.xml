@@ -4,9 +4,10 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Contagem" table="contagem">
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<many-to-one name="Loja" column="loja" class="VandaModaIntimaWpf.Model.Loja" lazy="false" />
 		<many-to-one name="TipoContagem" lazy="false" class="VandaModaIntimaWpf.Model.TipoContagem" column="tipo" />
 		<property name="Data" column="data" />

@@ -31,20 +31,6 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
 
-            //var dao = new DAOProdutoGrade(SessionProvider.GetSession());
-
-            //var pgs = dao.Listar().Result;
-
-            //string texto = "";
-            //int id = 1;
-            //foreach (var pg in pgs)
-            //{
-            //    texto += $"{pg.CodBarra}|{pg.Produto.Descricao.ToUpper()} {pg.SubGradesToShortString} {pg.CodBarraAlternativo}\n";
-            //    id++;
-            //}
-
-            //File.WriteAllText("Importarestoque.txt", texto);
-
             AbreTelaPesquisaService = abreTelaPesquisaService;
 
             var configJson = File.ReadAllText("Config.json");

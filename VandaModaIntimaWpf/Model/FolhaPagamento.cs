@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class FolhaPagamento : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private int _mes;
         private int _ano;
         private Funcionario _funcionario;
@@ -106,8 +106,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonProperty(PropertyName = "MySqlId")]
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

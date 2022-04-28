@@ -5,9 +5,10 @@
 
 	<class name="AliquotasImposto" table="aliquotas_imposto">
 		<cache usage="read-write"/>
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja"/>
 		<property name="DataInsercao" />
 		<property name="Simples" />

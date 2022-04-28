@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class EntradaMercadoriaProdutoGrade : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private EntradaDeMercadoria _entrada;
         private ProdutoGrade _produtoGrade;
         private int _quantidade;
@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

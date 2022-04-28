@@ -4,9 +4,10 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="TipoContagem" table="tipocontagem">
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<property name="Nome" column="nome" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class TipoContagem : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private string _nome;
         public virtual bool IsIdentical(object obj)
         {
@@ -36,8 +36,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonProperty(PropertyName = "MySqlId")]
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
 

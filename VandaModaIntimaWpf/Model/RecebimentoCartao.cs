@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class RecebimentoCartao : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private int _mes;
         private int _ano;
         private Loja _loja;
@@ -143,7 +143,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

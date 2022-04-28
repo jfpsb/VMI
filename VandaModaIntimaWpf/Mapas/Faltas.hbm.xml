@@ -4,9 +4,10 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Faltas" table="faltas">
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
 		<property name="Data" />
 		<property name="Horas" />

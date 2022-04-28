@@ -12,7 +12,7 @@ using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.ViewModel.SQL
 {
-    public abstract class ExportarSQLViewModel<E> : ObservableObject where E : class, IModel
+    public abstract class ExportarSQLViewModel<E> : ObservableObject where E : AModel, IModel
     {
         protected ISession _session;
         private IList<E> _entidades;

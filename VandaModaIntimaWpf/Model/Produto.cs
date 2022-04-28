@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Produto : AModel, IModel, ICloneable
     {
-        private Guid _id;
+        private int _id;
         private string _codBarra;
         private FornecedorModel _fornecedor;
         private MarcaModel _marca;
@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

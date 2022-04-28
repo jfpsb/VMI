@@ -5,9 +5,10 @@
 
 	<class name="HistoricoProdutoGrade" table="historico_produto_grade">
 		<cache usage="read-write"/>
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<many-to-one name="ProdutoGrade" class="VandaModaIntimaWpf.Model.ProdutoGrade" column="produto_grade"/>
 		<property name="Data" />
 		<property name="PrecoCompra" />

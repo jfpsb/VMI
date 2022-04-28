@@ -4,9 +4,12 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="Adiantamento" table="adiantamento">
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" type="guid">
+			<column name="uuid" default="uuid()" />
+		</property>
 		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" />
 		<property name="Data" column="data" type="timestamp" not-null="true"/>
 		<property name="Valor" column="valor" />

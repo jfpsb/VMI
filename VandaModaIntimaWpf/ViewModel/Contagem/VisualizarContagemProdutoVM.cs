@@ -14,10 +14,10 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         {
             this._contagem = _contagem;
             ContagemGroupBy = _contagem.Contagens
-                .GroupBy(gb => gb.Produto.CodBarra)
+                .GroupBy(gb => gb.ProdutoGrade.CodBarra)
                 .Select(s => new ContagemProdutoModel
                 {
-                    Produto = s.First().Produto,
+                    ProdutoGrade = s.First().ProdutoGrade,
                     Quant = s.Sum(sum => sum.Quant)
                 }).ToList();
         }

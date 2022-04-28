@@ -5,7 +5,8 @@
 
 	<class name="Marca" table="marca" dynamic-insert="true">
 		<cache usage="read-write"/>
-		<id name="Nome" column="nome" />
+		<id name="Nome" />
+		<property name="Uuid" />
 		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" column="fornecedor" />
 		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
 			<key column="marca" />

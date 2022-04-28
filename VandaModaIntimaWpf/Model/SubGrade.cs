@@ -6,11 +6,11 @@ namespace VandaModaIntimaWpf.Model
 {
     public class SubGrade : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private ProdutoGrade _produtoGrade;
         private Grade _grade;
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class CompraDeFornecedor : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Fornecedor _fornecedor;
         private Representante _representante;
         private Loja _loja;
@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => $"{DataPedido:dd/MM/yyyy} - {(Fornecedor != null ? Fornecedor.Nome : Representante.Nome)}";
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

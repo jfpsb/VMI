@@ -5,6 +5,7 @@
 
 	<class name="Loja" table="loja">
 		<id name="Cnpj" column="cnpj" />
+		<property name="Uuid" />
 		<many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" />
 		<property name="Nome" column="nome" />
 		<property name="Telefone" column="telefone" />

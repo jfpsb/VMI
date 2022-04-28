@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class EntradaDeMercadoria : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Loja _loja;
         private DateTime _data;
         private IList<EntradaMercadoriaProdutoGrade> _entradas = new List<EntradaMercadoriaProdutoGrade>();
@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.Model
             throw new NotImplementedException();
         }
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

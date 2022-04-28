@@ -13,6 +13,7 @@
 		<many-to-one name="Representante"
 					 class="VandaModaIntimaWpf.Model.Representante"
 					 column="representante" />
+		<property name="Uuid" />
 		<property name="Nome" column="nome" />
 		<property name="Fantasia" column="fantasia" />
 		<property name="Email" column="email" />

@@ -4,7 +4,8 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true">
-		<id name="Nome" column="nome" />
+		<id name="Nome" />
+		<property name="Uuid" />
 		<bag name="IdentificadoresBanco" table="operadorabancoid" where="Deletado = false" inverse="false" lazy="false" cascade="delete">
 			<key column="operadoracartao" />
 			<element column="identificador" type="String" />

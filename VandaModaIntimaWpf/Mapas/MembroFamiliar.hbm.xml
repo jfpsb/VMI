@@ -4,7 +4,7 @@
                    namespace="VandaModaIntimaWpf.Model">
 
 	<class name="MembroFamiliar" table="membro_familiar">
-		<id name="Id" column="id" type="Int32">
+		<id name="Id" type="Int32">
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />

@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
     public class BonusMensal : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Funcionario _funcionario;
         private string _descricao;
         private double _valor;
@@ -15,8 +14,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        [JsonProperty("MySqlId")]
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

@@ -5,9 +5,10 @@
 
 	<class name="ProdutoGrade" table="produto_grade">
 		<cache usage="read-write"/>
-		<id name="Id" column="uuid" type="guid">
-			<generator class="guid.comb" />
+		<id name="Id" type="Int32">
+			<generator class="native" />
 		</id>
+		<property name="Uuid" />
 		<many-to-one name="Produto" class="VandaModaIntimaWpf.Model.Produto" column="produto" />
 		<property name="CodBarra" column="cod_barra" />
 		<property name="CodBarraAlternativo" column="cod_barra_alternativo" />

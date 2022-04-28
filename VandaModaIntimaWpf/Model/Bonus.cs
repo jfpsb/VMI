@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Bonus : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private Funcionario _funcionario;
         private DateTime _data;
         private Loja _lojaTrabalho;
@@ -32,8 +32,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        [JsonProperty(PropertyName = "MySqlId")]
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

@@ -4,6 +4,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public abstract class AModel : ObservableObject
     {
+        private Guid _uuid;
         private DateTime? _criadoEm;
         private DateTime? _modificadoEm;
         private DateTime? _deletadoEm;
@@ -45,6 +46,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _deletadoEm = value;
                 OnPropertyChanged("DeletadoEm");
+            }
+        }
+
+        public virtual Guid Uuid
+        {
+            get
+            {
+                return _uuid;
+            }
+
+            set
+            {
+                _uuid = value;
+                OnPropertyChanged("Uuid");
             }
         }
     }

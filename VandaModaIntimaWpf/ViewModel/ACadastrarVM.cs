@@ -11,7 +11,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : ObservableObject, IModel
+    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : AModel, IModel
     {
         protected ISession _session;
         protected DAO<E> daoEntidade;
@@ -116,7 +116,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show($"{viewModelStrategy.MensagemEntidadeErroAoSalvar()}\n\n{ex.Message}\n\n{ex.InnerException.Message}", viewModelStrategy.MessageBoxCaption(),
+                MessageBoxService.Show($"{viewModelStrategy.MensagemEntidadeErroAoSalvar()}\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 

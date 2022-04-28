@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Representante : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private string _nome;
         private string _whatsapp;
         private string _cidadeEstado;
@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => Nome;
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

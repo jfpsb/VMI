@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class HistoricoProdutoGrade : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private ProdutoGrade _produtoGrade;
         private DateTime _data;
         private double _precoCompra;
@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set

@@ -5,13 +5,13 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Banco : AModel, IModel
     {
-        private Guid _id;
+        private int _id;
         private string _nome;
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => Nome;
 
-        public virtual Guid Id
+        public virtual int Id
         {
             get => _id;
             set
