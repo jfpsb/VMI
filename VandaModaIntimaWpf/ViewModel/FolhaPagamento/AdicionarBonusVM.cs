@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void SalvarBonusMensal(AposInserirBDEventArgs e)
         {
-            var bonusInserido = await daoEntidade.ListarPorId(e.IdentificadorEntidade) as Bonus;
+            var bonusInserido = await daoEntidade.ListarPorUuid((Guid)e.UuidEntidade) as Bonus;
 
             if (e.Sucesso && bonusInserido.BonusMensal)
             {

@@ -174,7 +174,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
 
                 var criteria = CriarCriteria();
-                criteria.Add(Restrictions.Eq("Uuid", guid.ToString()));
+                criteria.Add(Restrictions.Eq("Uuid", guid));
                 criteria.SetCacheable(true);
                 criteria.SetCacheMode(CacheMode.Normal);
                 return await criteria.UniqueResultAsync<E>();

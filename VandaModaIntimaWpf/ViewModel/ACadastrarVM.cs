@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 try
                 {
-                    await daoEntidade.RefreshEntidade(await daoEntidade.ListarPorId(e.IdentificadorEntidade));
+                    await daoEntidade.RefreshEntidade(await daoEntidade.ListarPorUuid((Guid)e.UuidEntidade));
                 }
                 catch (Exception ex)
                 {
@@ -105,13 +105,13 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
         protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
         {
+            _result = false;
             try
             {
                 await daoEntidade.InserirOuAtualizar(Entidade);
                 _result = true;
                 MessageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                await daoEntidade.RefreshEntidade(Entidade);
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace VandaModaIntimaWpf.ViewModel
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = IssoEUmUpdate,
-                IdentificadorEntidade = Entidade.GetIdentifier(),
+                UuidEntidade = Entidade.Uuid,
                 Sucesso = _result,
                 Parametro = parametro
             };

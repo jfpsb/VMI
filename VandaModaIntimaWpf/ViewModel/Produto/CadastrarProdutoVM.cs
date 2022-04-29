@@ -362,7 +362,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void LimpaGrades(AposInserirBDEventArgs e)
         {
-            if (e.IdentificadorEntidade != null && !e.IssoEUmUpdate)
+            if (e.UuidEntidade != null && !e.IssoEUmUpdate)
             {
                 Grades.Clear();
             }

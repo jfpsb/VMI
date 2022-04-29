@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using VandaModaIntimaWpf.Model;
@@ -75,7 +74,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
                 else
                 {
-                    caminho = Path.Combine(caminhoDocVMI, Entidade.Id.ToString(), ArquivoSelecionado.Nome);
+                    caminho = Path.Combine(caminhoDocVMI, Entidade.Uuid.ToString(), ArquivoSelecionado.Nome);
                 }
 
                 try
@@ -158,7 +157,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         {
             if (Arquivos.Count > 0 && e.Sucesso)
             {
-                var dir = Directory.CreateDirectory(Path.Combine(caminhoDocVMI, e.IdentificadorEntidade.ToString()));
+                var dir = Directory.CreateDirectory(Path.Combine(caminhoDocVMI, e.UuidEntidade.ToString()));
 
                 try
                 {

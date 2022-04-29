@@ -70,7 +70,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                         AdicionaTermosPesquisa(criteria, "Descricao", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
                         break;
                     case "Membro Familiar":
-                        AdicionaTermosPesquisa(criteria, "Familiar", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
+                        criteria.CreateAlias("Familiar", "Familiar");
+                        AdicionaTermosPesquisa(criteria, "Familiar.Nome", termo.Split(new[] { " OU ".ToLower() }, StringSplitOptions.None));
                         break;
                 }
 

@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             if (e.Sucesso)
             {
-                var adiantamento = await daoEntidade.ListarPorId(e.IdentificadorEntidade);
+                var adiantamento = await daoEntidade.ListarPorUuid((Guid)e.UuidEntidade);
 
                 var despesa = new Model.Despesa
                 {

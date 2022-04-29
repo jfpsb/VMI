@@ -123,7 +123,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = IssoEUmUpdate,
-                IdentificadorEntidade = Entidade.GetIdentifier(),
+                UuidEntidade = Entidade.GetIdentifier(),
                 Sucesso = _result,
                 Parametro = parametro
             };
