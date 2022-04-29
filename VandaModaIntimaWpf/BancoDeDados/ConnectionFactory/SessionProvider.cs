@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         public static ISessionFactory BuildSessionFactory()
         {
             MainConfiguration = new Configuration();
-            MainConfiguration.Configure("hibernateLocal.cfg.xml");
+            MainConfiguration.Configure("hibernateLocal.cfg.xml").SetInterceptor(new TriggerInterceptor());
             return MainConfiguration.BuildSessionFactory();
         }
 

@@ -71,50 +71,6 @@ namespace VandaModaIntimaWpf.ViewModel
             AbreTelaPesquisaService.AbrirTelaEntradaMercadoria();
         }
 
-        //private async void CriarGradePadrao()
-        //{
-        //    ISession session = SessionProvider.GetSession();
-        //    DAOProduto dao = new DAOProduto(session);
-        //    DAOGrade daoGrade = new DAOGrade(session);
-
-        //    var gradeDiversos = await daoGrade.ListarPorId(27);
-
-        //    var produtos = await dao.Listar();
-
-        //    if (produtos != null && produtos.Count > 0)
-        //    {
-        //        foreach (var produto in produtos)
-        //        {
-        //            if (produto.Grades.Count == 0)
-        //            {
-        //                Model.ProdutoGrade produtoGrade = new ProdutoGrade
-        //                {
-        //                    CodBarra = produto.CodBarra,
-        //                    Produto = produto,
-        //                    Preco = produto.Preco,
-        //                    PrecoCusto = produto.PrecoCusto
-        //                };
-
-        //                Model.SubGrade subGrade = new SubGrade
-        //                {
-        //                    ProdutoGrade = produtoGrade,
-        //                    Grade = gradeDiversos
-        //                };
-
-        //                produtoGrade.SubGrades.Add(subGrade);
-
-        //                produto.Grades.Add(produtoGrade);
-
-        //                var result = await dao.Atualizar(produto);
-
-        //                Console.WriteLine(result);
-        //            }
-        //        }
-        //    }
-
-        //    SessionProvider.FechaSession(session);
-        //}
-
         private void AbrirTelaCompraFornecedor(object obj)
         {
             AbreTelaPesquisaService.AbrirTelaCompraDeFornecedor();

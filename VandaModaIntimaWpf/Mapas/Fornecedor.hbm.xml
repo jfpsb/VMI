@@ -14,10 +14,10 @@
 					 class="VandaModaIntimaWpf.Model.Representante"
 					 column="representante" />
 		<property name="Uuid" />
-		<property name="Nome" column="nome" />
-		<property name="Fantasia" column="fantasia" />
-		<property name="Email" column="email" />
-		<property name="Telefone" column="telefone" />
+		<property name="Nome" />
+		<property name="Fantasia" />
+		<property name="Email" />
+		<property name="Telefone" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

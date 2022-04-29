@@ -18,17 +18,17 @@ namespace VandaModaIntimaWpf.Model.DAO
 
         public virtual async Task Inserir(E objeto)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ITransaction tx = session.BeginTransaction())
             {
                 try
                 {
-                    objeto.Uuid = Guid.NewGuid();
+                    //objeto.Uuid = Guid.NewGuid();
                     var result = await session.SaveAsync(objeto);
-                    await transacao.CommitAsync();
+                    await tx.CommitAsync();
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
+                    await tx.RollbackAsync();
                     Log.EscreveLogBanco(ex, "inserir em banco de dados");
                     throw new Exception($"Erro ao inserir em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        e.Uuid = Guid.NewGuid();
+                        //e.Uuid = Guid.NewGuid();
                         await session.SaveOrUpdateAsync(e);
                     }
 
@@ -58,24 +58,16 @@ namespace VandaModaIntimaWpf.Model.DAO
         }
         public virtual async Task InserirOuAtualizar(E objeto)
         {
-            using (var transacao = session.BeginTransaction())
+            using (ITransaction tx = session.BeginTransaction())
             {
                 try
                 {
-                    if (objeto.Uuid == null || objeto.Uuid == Guid.Empty)
-                    {
-                        objeto.Uuid = Guid.NewGuid();
-                        await session.SaveAsync(objeto);
-                    }
-                    else
-                    {
-                        await session.UpdateAsync(objeto);
-                    }
-                    await transacao.CommitAsync();
+                    await session.SaveOrUpdateAsync(objeto);
+                    await tx.CommitAsync();
                 }
                 catch (Exception ex)
                 {
-                    await transacao.RollbackAsync();
+                    await tx.RollbackAsync();
                     Log.EscreveLogBanco(ex, "inserir ou atualizar em banco de dados");
                     throw new Exception($"Erro ao inserir ou atualizar em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
@@ -89,15 +81,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        if (e.Uuid == null || e.Uuid == Guid.Empty)
-                        {
-                            e.Uuid = Guid.NewGuid();
-                            await session.SaveAsync(e);
-                        }
-                        else
-                        {
-                            await session.UpdateAsync(e);
-                        }
+                        await session.SaveOrUpdateAsync(e);
                     }
 
                     await transacao.CommitAsync();
@@ -105,7 +89,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 catch (Exception ex)
                 {
                     await transacao.RollbackAsync();
-                    Log.EscreveLogBanco(ex, "inserir ou atualiza lista em banco de dados");
+                    Log.EscreveLogBanco(ex, "inserir ou atualizar lista em banco de dados");
                     throw new Exception($"Erro ao inserir ou atualizar lista em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
             }
@@ -144,15 +128,14 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
-        public virtual async Task Deletar(object objeto)
+        public virtual async Task Deletar(E objeto)
         {
             using (var transacao = session.BeginTransaction())
             {
                 try
                 {
-                    AModel model = objeto as AModel;
-                    model.Deletado = true;
-                    await session.UpdateAsync(model);
+                    objeto.Deletado = true;
+                    await session.UpdateAsync(objeto);
                     await transacao.CommitAsync();
                 }
                 catch (Exception ex)
@@ -171,9 +154,8 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        AModel model = e as AModel;
-                        model.Deletado = true;
-                        await session.UpdateAsync(model);
+                        e.Deletado = true;
+                        await session.UpdateAsync(e);
                     }
 
                     await transacao.CommitAsync();
@@ -188,50 +170,37 @@ namespace VandaModaIntimaWpf.Model.DAO
         }
         public virtual async Task<E> ListarPorUuid(Guid guid)
         {
-            using (ITransaction tx = session.BeginTransaction())
+            try
             {
-                try
-                {
 
-                    var criteria = CriarCriteria();
-                    criteria.Add(Restrictions.Eq("Uuid", guid.ToString()));
-                    criteria.SetCacheable(true);
-                    criteria.SetCacheMode(CacheMode.Normal);
-                    var result = await criteria.UniqueResultAsync<E>();
-                    await tx.CommitAsync();
-                    return result;
-
-                }
-                catch (Exception ex)
-                {
-                    await tx.RollbackAsync();
-                    Log.EscreveLogBanco(ex, "listar por uuid em banco de dados");
-                    throw new Exception($"Erro ao listar por UUID em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
-                }
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Uuid", guid.ToString()));
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+                return await criteria.UniqueResultAsync<E>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar por uuid em banco de dados");
+                throw new Exception($"Erro ao listar por UUID em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
         public virtual async Task<IList<E>> Listar()
         {
-            using (ITransaction tx = session.BeginTransaction())
+            try
             {
-                try
-                {
 
-                    var criteria = CriarCriteria();
-                    criteria.Add(Restrictions.Eq("Deletado", false));
-                    criteria.SetCacheable(true);
-                    criteria.SetCacheMode(CacheMode.Normal);
-                    var results = await criteria.ListAsync<E>();
-                    await tx.CommitAsync();
-                    return results;
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Deletado", false));
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+                return await criteria.ListAsync<E>();
 
-                }
-                catch (Exception ex)
-                {
-                    await tx.RollbackAsync();
-                    Log.EscreveLogBanco(ex, "listar em banco de dados");
-                    throw new Exception($"Erro ao listar em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar em banco de dados");
+                throw new Exception($"Erro ao listar em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
         /// <summary>
@@ -241,15 +210,10 @@ namespace VandaModaIntimaWpf.Model.DAO
         /// <returns>Lista De Itens Do Tipo E</returns>
         public virtual async Task<IList<E>> Listar(ICriteria criteria)
         {
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                criteria.Add(Restrictions.Eq("Deletado", false));
-                criteria.SetCacheable(true);
-                criteria.SetCacheMode(CacheMode.Normal);
-                var results = await criteria.ListAsync<E>();
-                await tx.CommitAsync();
-                return results;
-            }
+            criteria.Add(Restrictions.Eq("Deletado", false));
+            criteria.SetCacheable(true);
+            criteria.SetCacheMode(CacheMode.Normal);
+            return await criteria.ListAsync<E>();
         }
         public virtual async Task<IList<E>> ListarComNovaSession(ICriteria criteria)
         {
@@ -257,15 +221,10 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 using (ISession session = SessionProvider.GetSession())
                 {
-                    using (ITransaction tx = session.BeginTransaction())
-                    {
-                        criteria.Add(Restrictions.Eq("Deletado", false));
-                        criteria.SetCacheable(true);
-                        criteria.SetCacheMode(CacheMode.Normal);
-                        var results = await criteria.ListAsync<E>();
-                        await tx.CommitAsync();
-                        return results;
-                    }
+                    criteria.Add(Restrictions.Eq("Deletado", false));
+                    criteria.SetCacheable(true);
+                    criteria.SetCacheMode(CacheMode.Normal);
+                    return await criteria.ListAsync<E>();
                 }
             }
             catch (Exception ex)
@@ -278,12 +237,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             try
             {
-                using (var tx = session.BeginTransaction())
-                {
-                    var res = await session.GetAsync<E>(id);
-                    await tx.CommitAsync();
-                    return res;
-                }
+                return await session.GetAsync<E>(id);
             }
             catch (Exception ex)
             {

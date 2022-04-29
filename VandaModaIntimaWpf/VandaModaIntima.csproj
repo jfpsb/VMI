@@ -489,6 +489,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BancoDeDados\ConnectionFactory\TriggerInterceptor.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Model\Adiantamento.cs" />

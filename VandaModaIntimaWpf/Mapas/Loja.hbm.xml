@@ -6,7 +6,8 @@
 	<class name="Loja" table="loja">
 		<id name="Cnpj" column="cnpj" />
 		<property name="Uuid" />
-		<many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" column="matriz" />
+		
+		<many-to-one name="Matriz" class="VandaModaIntimaWpf.Model.Loja" />
 		<property name="Nome" column="nome" />
 		<property name="Telefone" column="telefone" />
 		<property name="Endereco" column="endereco" />
@@ -17,7 +18,7 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Aliquotas" table="aliquotas_imposto" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Aliquotas" table="aliquotas_imposto" inverse="true" where="Deletado = false" cascade="save-update">
 			<key column="loja" />
 			<one-to-many class="VandaModaIntimaWpf.Model.AliquotasImposto"/>
 		</bag>

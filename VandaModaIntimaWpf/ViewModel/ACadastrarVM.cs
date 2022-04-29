@@ -111,7 +111,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 _result = true;
                 MessageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);
-                //Entidade = await daoEntidade.ListarPorId(Entidade.GetIdentifier());
                 await daoEntidade.RefreshEntidade(Entidade);
             }
             catch (Exception ex)

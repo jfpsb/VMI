@@ -236,7 +236,14 @@ namespace VandaModaIntimaWpf.ViewModel
             switch (e.PropertyName)
             {
                 case "TermoPesquisa":
-                    await PesquisaItens(termoPesquisa);
+                    try
+                    {
+                        await PesquisaItens(termoPesquisa);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxService.Show($"Erro ao realizar pesquisa de itens. Acesse {Log.LogBanco} para mais detalhes.\n\n{ex.Message}");
+                    }
                     break;
             }
         }
