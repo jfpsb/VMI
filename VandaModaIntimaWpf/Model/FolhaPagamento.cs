@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonIgnore]
-        public virtual string GetContextMenuHeader => $"{MesReferencia} - {_funcionario.Nome}";
+        public virtual string GetContextMenuHeader => $"{MesReferencia} - {Funcionario.Nome}";
 
         [JsonIgnore]
         public virtual Dictionary<string, string> DictionaryIdentifier

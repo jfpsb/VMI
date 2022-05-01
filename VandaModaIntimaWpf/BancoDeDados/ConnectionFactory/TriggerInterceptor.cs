@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
 {
     public class TriggerInterceptor : EmptyInterceptor
     {
+        //Cria UUID e configura o valor de CriadoEm.
         public override bool OnSave(object entity, object id, object[] state, string[] propertyNames, IType[] types)
         {
             if (entity is AModel)
@@ -23,6 +24,8 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             }
             return base.OnSave(entity, id, state, propertyNames, types);
         }
+
+        //Atualiza valor de ModificaEm e DeletadoEm
         public override bool OnFlushDirty(object entity, object id, object[] currentState, object[] previousState, string[] propertyNames, IType[] types)
         {
             if (entity is AModel)

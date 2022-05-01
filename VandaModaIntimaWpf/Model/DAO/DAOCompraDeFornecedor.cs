@@ -12,7 +12,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         public DAOCompraDeFornecedor(ISession session) : base(session)
         {
         }
-
         public async Task<IList<CompraDeFornecedor>> ListarPorRepresentante(string nomeRepresentante, DateTime data)
         {
             try

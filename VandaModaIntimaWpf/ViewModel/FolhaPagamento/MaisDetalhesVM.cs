@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOFolhaPagamento daoFolha;
         private DAOBonus daoBonus;
         private DAOParcela daoParcela;
-        private DAO<Model.Adiantamento> daoAdiantamento;
+        private DAO<Adiantamento> daoAdiantamento;
         private Parcela _parcela;
         private Bonus _bonusEscolhido;
         private FolhaModel _folhaPagamento;

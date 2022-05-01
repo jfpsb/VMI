@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
     class DAOContagem : DAO<Contagem>
     {
         public DAOContagem(ISession session) : base(session) { }
+
         public async Task<IList<Contagem>> ListarPorLojaEPeriodo(Loja loja, DateTime dataInicial, DateTime dataFinal)
         {
             try

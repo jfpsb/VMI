@@ -489,6 +489,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BancoDeDados\ConnectionFactory\ProdutoGradePostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\ProdutoPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\LojaPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\GradePostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\FuncionarioPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\EntradaDeMercadoriaPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\ContagemPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\CompraDeFornecedorPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\AdiantamentoPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\NHibernatePreEventListener.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\TriggerInterceptor.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
     <Compile Include="Config.cs" />
@@ -546,6 +556,7 @@
     <Compile Include="Model\HistoricoProdutoGrade.cs" />
     <Compile Include="Model\HoraExtra.cs" />
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\InscricaoImobiliaria.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\MembroFamiliar.cs" />
