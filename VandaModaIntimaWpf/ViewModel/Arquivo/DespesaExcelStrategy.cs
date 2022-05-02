@@ -98,13 +98,13 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         linha++;
                         EscreveHeaders(worksheet, _colunasFamiliar, linha, 1);
                         EscreveHeaders(worksheet, _colunasFamiliarResumido, linha, 6);
-                        listaResumido = container.Lista.GroupBy(g => g.Familiar).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
+                        listaResumido = container.Lista.GroupBy(g => g.Familiar.Nome).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
                         for (int j = 0; j < container.Lista.Count; j++)
                         {
                             worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                             worksheet.Cells[j + linha, 2] = container.Lista[j].Descricao;
-                            worksheet.Cells[j + linha, 3] = container.Lista[j].Familiar;
+                            worksheet.Cells[j + linha, 3] = container.Lista[j].Familiar.Nome;
                             worksheet.Cells[j + linha, 4] = container.Lista[j].Valor;
                         }
 
