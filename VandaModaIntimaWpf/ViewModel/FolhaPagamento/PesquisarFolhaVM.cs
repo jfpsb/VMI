@@ -719,7 +719,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {(folha.TotalVendido - folha.MetaDeVenda).ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {folha.BaseDeCalculoMeta.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano
@@ -738,7 +738,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
             TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
-            TotalEmMeta = await daoBonus.SomaMetaPorMesAno(DataEscolhida);
+            //Bonus de meta não são salvos até que a folha seja fechada então uso linq com a coleção atual para conseguir o valor e não do banco de dados
+            TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META")).Sum(s => s.Valor);
 
             FolhaPagamentos = folhas;
         }

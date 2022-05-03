@@ -168,6 +168,19 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                                 recebimentoPorOperadora.Add("PIX", valor);
                             }
                         }
+                        else if (memo.Equals("CR VD CART"))
+                        {
+                            double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
+
+                            if (recebimentoPorOperadora.ContainsKey("DEP CART GENÉRICO"))
+                            {
+                                recebimentoPorOperadora["DEP CART GENÉRICO"] += valor;
+                            }
+                            else
+                            {
+                                recebimentoPorOperadora.Add("DEP CART GENÉRICO", valor);
+                            }
+                        }
                         else
                         {
                             foreach (Model.OperadoraCartao operadora in operadoras)
@@ -219,13 +232,17 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     recebimento.Banco = Banco;
                     recebimento.Loja = Matriz;
 
-                    if (!rpo.Key.Equals("PIX"))
+                    if (rpo.Key.Equals("PIX"))
                     {
-                        recebimento.OperadoraCartao = operadoras.First(s => s.Nome.Equals(rpo.Key));
+                        recebimento.Observacao = "PIX";
+                    }
+                    else if (rpo.Key.Equals("DEP CART GENÉRICO"))
+                    {
+                        recebimento.Observacao = "DEPÓSITO DE CARTÃO COM IDENTIFICADOR GENÉRICO";
                     }
                     else
                     {
-                        recebimento.Observacao = "PIX";
+                        recebimento.OperadoraCartao = operadoras.First(s => s.Nome.Equals(rpo.Key));
                     }
 
                     recebimento.Recebido = rpo.Value;

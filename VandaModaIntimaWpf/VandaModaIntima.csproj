@@ -557,6 +557,9 @@
     <Compile Include="Model\HoraExtra.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\InscricaoImobiliaria.cs" />
+    <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaUmPorcento.cs" />
+    <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaMeioPorcento.cs" />
+    <Compile Include="Model\Interfaces\ICalculaBonusMeta.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\MembroFamiliar.cs" />

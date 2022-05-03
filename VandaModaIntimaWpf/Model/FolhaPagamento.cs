@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using VandaModaIntimaWpf.Model.Interfaces;
+using VandaModaIntimaWpf.Model.Interfaces.Concreto;
 using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model
@@ -22,9 +24,12 @@ namespace VandaModaIntimaWpf.Model
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<Parcela> _parcelas = new List<Parcela>();
 
+        private ICalculaBonusMeta _calculaBonusMeta;
+
         public FolhaPagamento()
         {
             PropertyChanged += FolhaPagamento_PropertyChanged;
+            _calculaBonusMeta = new CalculaBonusMetaMeioPorcento();
         }
 
         private void FolhaPagamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -202,12 +207,15 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                var dif = TotalVendido - MetaDeVenda;
+                return _calculaBonusMeta.BonusDeMeta(BaseDeCalculoMeta);
+            }
+        }
 
-                if (dif <= 0.0)
-                    return 0;
-
-                return dif * 0.01;
+        public virtual double BaseDeCalculoMeta
+        {
+            get
+            {
+                return _calculaBonusMeta.CalculaBaseDeCalculo(TotalVendido, MetaDeVenda);
             }
         }
 
