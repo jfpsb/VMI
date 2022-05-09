@@ -720,6 +720,7 @@
     <Compile Include="ViewModel\ICadastrarVM.cs" />
     <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
     <Compile Include="ViewModel\IDialogResult.cs" />
+    <Compile Include="ViewModel\Interfaces\IRequestClose.cs" />
     <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaVM.cs" />
     <Compile Include="ViewModel\Loja\CadastrarLojaVMStrategy.cs" />

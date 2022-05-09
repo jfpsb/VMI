@@ -8,15 +8,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.ViewModel.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
-    public class SalvarBonusPorMesVM : ACadastrarViewModel<Bonus>
+    public class SalvarBonusPorMesVM : ACadastrarViewModel<Bonus>, IRequestClose
     {
         private DAOFuncionario daoFuncionario;
         private double _valorTotal;
@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private string caminhoImagemCalendario = Path.Combine(Path.GetTempPath(), "UltimoCalendario.png");
         private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
 
-        public ICommand AdicionarBonusComando { get; set; }
+        public event EventHandler<EventArgs> RequestClose;
 
         public SalvarBonusPorMesVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate, DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
             : base(session, messageBoxService, issoEUmUpdate)
@@ -109,21 +109,27 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 {
                     await daoEntidade.Inserir(bonuses);
                     _result = true;
-                    MessageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(), _salvarBonus.MensagemCaption(),
-                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(),
+                        _salvarBonus.MensagemCaption(),
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    //Fecha tela
+                    RequestClose?.Invoke(this, new EventArgs());
                 }
                 catch (Exception ex)
                 {
                     MessageBoxService.Show(_salvarBonus.MensagemInseridoErro() +
                         $" Para mais detalhes acesse {Log.LogBanco}\n\n" +
-                        $"{ex.Message}\n\n{ex.InnerException.Message}", _salvarBonus.MensagemCaption());
+                        $"{ex.Message}\n\n{ex.InnerException.Message}",
+                        _salvarBonus.MensagemCaption(),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                 }
             }
 
             AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
                 IssoEUmUpdate = IssoEUmUpdate,
-                UuidEntidade = Entidade.GetIdentifier(),
                 Sucesso = _result,
                 Parametro = parametro
             };
@@ -136,7 +142,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             set
             {
                 _funcionarios = value;
-                OnPropertyChanged("Entidades");
+                OnPropertyChanged("Funcionarios");
             }
         }
         public double ValorTotal
@@ -177,17 +183,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         }
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            throw new NotImplementedException();
+            return Funcionarios.Where(w => w.IsChecked).Count() > 0;
         }
     }
 }

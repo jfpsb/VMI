@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <param name="e">Argumento Do Evento Após Inserir Em Banco De Dados</param>
         protected virtual async void RefreshEntidade(AposInserirBDEventArgs e)
         {
-            if (e.Sucesso)
+            if (e.Sucesso && e.UuidEntidade != null)
             {
                 try
                 {

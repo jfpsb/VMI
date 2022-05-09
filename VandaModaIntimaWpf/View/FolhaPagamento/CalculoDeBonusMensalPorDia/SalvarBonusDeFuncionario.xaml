@@ -11,7 +11,8 @@
         Title="Adicionar Passagem Calculada À Folha"
         Height="450"
         Width="475"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="TelaAdicionarBonusPassagem_Loaded">
     <Window.Resources>
         <Converters:BooleanToYesOrNoStringConverter x:Key="BooleanToYesOrNoStringConverter" />
     </Window.Resources>
@@ -38,7 +39,7 @@
         <DataGrid Grid.Row="1"
                   Grid.ColumnSpan="2"
                   Name="DataGridFuncionario"
-                  ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}">
+                  ItemsSource="{Binding Funcionarios, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -93,7 +94,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Adicionar Bônus Em Folhas de Pagamento"
-                Command="{Binding AdicionarBonusComando}"
+                Command="{Binding SalvarComando}"
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
                 Style="{DynamicResource BotaoCadastrar}" />
