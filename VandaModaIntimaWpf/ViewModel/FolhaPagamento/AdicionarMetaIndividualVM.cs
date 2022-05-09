@@ -45,13 +45,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 await daoFolhaPagamento.InserirOuAtualizar(folhas);
                 messageBoxService.Show("Valores de meta adicionados com sucesso em funcionários marcados!", "Adicionar Valor De Meta Individual",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 ResetaPropriedades();
             }
             catch (Exception ex)
             {
                 messageBoxService.Show("Erro ao adicionar valores de meta em funcionários marcados." +
-                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Valor De Meta Individual");
+                    $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Valor De Meta Individual",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
