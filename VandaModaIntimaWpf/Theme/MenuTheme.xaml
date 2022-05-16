@@ -7,7 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="Menu"
-           BasedOn="{StaticResource Fonte}">
+           BasedOn="{StaticResource ControlBaseStyle}">
         <Setter Property="FontSize"
                 Value="14" />
         <Setter Property="DockPanel.Dock"

@@ -1,17 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:VandaModaIntimaWpf.Theme">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="Fonte"
-           TargetType="{x:Type Control}">
+    <FontFamily x:Key="Gotham">pack://application:,,,/Resources/Fonts/#Gotham</FontFamily>
+
+    <Style x:Key="ControlBaseStyle"
+           TargetType="Control">
         <Setter Property="FontFamily"
-                Value="Century Gothic" />
+                Value="Gotham" />
     </Style>
 
     <Style x:Key="FonteFrameworkElement"
-           TargetType="{x:Type FrameworkElement}">
+           TargetType="FrameworkElement">
         <Setter Property="TextElement.FontFamily"
-                Value="Century Gothic" />
+                Value="Gotham" />
     </Style>
 
 </ResourceDictionary>

@@ -5,7 +5,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="TextBox"
-           BasedOn="{StaticResource Fonte}">
+           BasedOn="{StaticResource ControlBaseStyle}">
         <Setter Property="FontSize"
                 Value="14" />
         <Setter Property="VerticalContentAlignment"

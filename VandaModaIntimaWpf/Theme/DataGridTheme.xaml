@@ -21,7 +21,7 @@
         <Setter Property="RowHeaderWidth"
                 Value="0" />
         <Setter Property="FontFamily"
-                Value="Century Gothic" />
+                Value="Gotham" />
         <Style.Resources>
             <Style TargetType="DataGridColumnHeader">
                 <Setter Property="FontWeight"
@@ -64,7 +64,7 @@
         <Setter Property="RowHeaderWidth"
                 Value="0" />
         <Setter Property="FontFamily"
-                Value="Century Gothic" />
+                Value="Gotham" />
         <Style.Resources>
             <Style TargetType="DataGridColumnHeader">
                 <Setter Property="FontWeight"

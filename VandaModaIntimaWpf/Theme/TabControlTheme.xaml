@@ -7,7 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="TabControl"
-           BasedOn="{StaticResource Fonte}">
+           BasedOn="{StaticResource ControlBaseStyle}">
         <Setter Property="FontSize"
                 Value="16" />
     </Style>

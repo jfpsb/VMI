@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
                 Worksheet worksheet = workbook.Worksheets.Item[i + 1];
                 worksheet.Name = container.Nome;
-                worksheet.Cells.Font.Name = "Century Gothic";
+                worksheet.Cells.Font.Name = "Gotham";
 
                 Range range = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[2, 2]];
                 range.Borders.Color = Color.Black;

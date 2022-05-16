@@ -82,7 +82,7 @@
                             <Image Source="/Resources/Funcionario.png"
                                    Height="300"
                                    Width="300" />
-                            <Label Content="{DynamicResource funcionario_header}" />
+                            <Label Content="{DynamicResource funcionario_header}"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>

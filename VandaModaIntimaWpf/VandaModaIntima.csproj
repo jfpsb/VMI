@@ -1096,6 +1096,9 @@
     <None Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\Fonts\Astral Sisters.ttf" />
+    <Resource Include="Resources\Fonts\Gotham-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Gotham-Regular.ttf" />
     <None Include="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
