@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Representante" table="representante">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<property name="Nome" column="nome"/>
+		<property name="Whatsapp" column="whatsapp" />
+		<property name="CidadeEstado" column="cidadeestado" />
+		<property name="Email" column="email" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+
+		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="representante" />
+			<one-to-many class="SincronizacaoVMI.Model.Fornecedor"/>
+		</bag>
+	</class>
+
+</hibernate-mapping>

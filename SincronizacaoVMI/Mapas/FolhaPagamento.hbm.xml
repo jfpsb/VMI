@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="FolhaPagamento" table="folhapagamento">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" />
+		<property name="Mes" column="mes" />
+		<property name="Ano" column="ano" />
+		<property name="Fechada" column="fechada" />
+		<property name="SalarioLiquido" column="salario_liquido" />
+		<property name="Observacao" column="observacao" />
+		<property name="MetaDeVenda" column="metavenda" />
+		<property name="TotalVendido" column="valorvendido" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

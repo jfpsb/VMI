@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Despesa">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<property name="Data" />
+		<property name="DataVencimento" />
+		<property name="Descricao" />
+		<property name="Valor" />
+		<property name="Detalhes" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<many-to-one name="Adiantamento"
+                 class="SincronizacaoVMI.Model.Adiantamento"/>
+		<many-to-one name="TipoDespesa"
+                 class="SincronizacaoVMI.Model.TipoDespesa"
+					 column="tipo"/>
+		<many-to-one name="Fornecedor"
+                 class="SincronizacaoVMI.Model.Fornecedor"/>
+		<many-to-one name="Representante"
+                 class="SincronizacaoVMI.Model.Representante"/>
+		<many-to-one name="Loja"
+                 class="SincronizacaoVMI.Model.Loja"/>
+		<many-to-one name="Familiar"
+					 column="membro_familiar"
+					 class="SincronizacaoVMI.Model.MembroFamiliar"/>
+	</class>
+
+</hibernate-mapping>

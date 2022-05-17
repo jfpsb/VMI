@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Produto" table="produto">
+		<cache usage="read-write"/>
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<property name="CodBarra" column="cod_barra" />
+		<property name="Descricao" />
+		<property name="Ncm" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<many-to-one name="Fornecedor" class="SincronizacaoVMI.Model.Fornecedor" />
+		<many-to-one name="Marca" class="SincronizacaoVMI.Model.Marca" />
+
+		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="produto" />
+			<one-to-many class="SincronizacaoVMI.Model.ProdutoGrade"/>
+		</bag>
+	</class>
+
+</hibernate-mapping>

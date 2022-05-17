@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Fornecedor" table="fornecedor" dynamic-insert="true">
+		<cache usage="read-write"/>
+		<id name="Cnpj" column="cnpj"/>
+		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
+			<key column="fornecedor" />
+			<one-to-many class="SincronizacaoVMI.Model.Produto" />
+		</bag>
+		<many-to-one name="Representante"
+					 class="SincronizacaoVMI.Model.Representante"
+					 column="representante" />
+		<property name="Uuid" />
+		<property name="Nome" />
+		<property name="Fantasia" />
+		<property name="Email" />
+		<property name="Telefone" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

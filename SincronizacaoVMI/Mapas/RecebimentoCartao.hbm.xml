@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="RecebimentoCartao" table="recebimentocartao" dynamic-insert="true">
+		<id name="Id" type="Int32">
+			<generator class="increment" />
+		</id>
+		<property name="Uuid" />
+		<property name="Mes" column="mes" />
+		<property name="Ano" column="ano" />
+		<many-to-one name="Loja" column="loja" class="SincronizacaoVMI.Model.Loja" lazy="false" />
+		<many-to-one name="Banco" column="banco" class="SincronizacaoVMI.Model.Banco" lazy="false" />
+		<many-to-one name="OperadoraCartao" column="operadoracartao" class="SincronizacaoVMI.Model.OperadoraCartao" lazy="false" />
+		<property name="Recebido" column="recebido" />
+		<property name="ValorOperadora" column="valoroperadora" />
+		<property name="Observacao" column="observacao" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

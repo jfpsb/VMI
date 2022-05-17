@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Loja" table="loja">
+		<id name="Cnpj" column="cnpj" />
+		<property name="Uuid" />
+		
+		<many-to-one name="Matriz" class="SincronizacaoVMI.Model.Loja" />
+		<property name="Nome" column="nome" />
+		<property name="Telefone" column="telefone" />
+		<property name="Endereco" column="endereco" />
+		<property name="InscricaoEstadual" column="inscricaoestadual" />
+		<property name="Aluguel" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+
+		<bag name="Aliquotas" table="aliquotas_imposto" inverse="true" where="Deletado = false" cascade="save-update">
+			<key column="loja" />
+			<one-to-many class="SincronizacaoVMI.Model.AliquotasImposto"/>
+		</bag>
+	</class>
+
+</hibernate-mapping>

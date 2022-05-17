@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="AliquotasImposto" table="aliquotas_imposto">
+		<cache usage="read-write"/>
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja"/>
+		<property name="DataInsercao" />
+		<property name="Simples" />
+		<property name="Icms" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

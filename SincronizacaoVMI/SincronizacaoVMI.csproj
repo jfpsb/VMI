@@ -5,4 +5,106 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Mapas\Adiantamento.hbm.xml" />
+    <None Remove="Mapas\AliquotasImposto.hbm.xml" />
+    <None Remove="Mapas\ArquivosCompraFornecedor.hbm.xml" />
+    <None Remove="Mapas\Banco.hbm.xml" />
+    <None Remove="Mapas\Bonus.hbm.xml" />
+    <None Remove="Mapas\BonusMensal.hbm.xml" />
+    <None Remove="Mapas\ChavePix.hbm.xml" />
+    <None Remove="Mapas\CompraDeFornecedor.hbm.xml" />
+    <None Remove="Mapas\ContaBancaria.hbm.xml" />
+    <None Remove="Mapas\Contagem.hbm.xml" />
+    <None Remove="Mapas\ContagemProduto.hbm.xml" />
+    <None Remove="Mapas\Despesa.hbm.xml" />
+    <None Remove="Mapas\EntradaDeMercadoria.hbm.xml" />
+    <None Remove="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
+    <None Remove="Mapas\Faltas.hbm.xml" />
+    <None Remove="Mapas\FolhaPagamento.hbm.xml" />
+    <None Remove="Mapas\Fornecedor.hbm.xml" />
+    <None Remove="Mapas\Funcionario.hbm.xml" />
+    <None Remove="Mapas\Grade.hbm.xml" />
+    <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
+    <None Remove="Mapas\HoraExtra.hbm.xml" />
+    <None Remove="Mapas\Loja.hbm.xml" />
+    <None Remove="Mapas\Marca.hbm.xml" />
+    <None Remove="Mapas\MembroFamiliar.hbm.xml" />
+    <None Remove="Mapas\OperadoraCartao.hbm.xml" />
+    <None Remove="Mapas\Parcela.hbm.xml" />
+    <None Remove="Mapas\Produto.hbm.xml" />
+    <None Remove="Mapas\ProdutoGrade.hbm.xml" />
+    <None Remove="Mapas\RecebimentoCartao.hbm.xml" />
+    <None Remove="Mapas\Representante.hbm.xml" />
+    <None Remove="Mapas\SubGrade.hbm.xml" />
+    <None Remove="Mapas\TipoContagem.hbm.xml" />
+    <None Remove="Mapas\TipoDespesa.hbm.xml" />
+    <None Remove="Mapas\TipoGrade.hbm.xml" />
+    <None Remove="Mapas\TipoHoraExtra.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Adiantamento.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\AliquotasImposto.hbm.xml" />
+    <EmbeddedResource Include="Mapas\ArquivosCompraFornecedor.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
+    <EmbeddedResource Include="Mapas\BonusMensal.hbm.xml" />
+    <EmbeddedResource Include="Mapas\ChavePix.hbm.xml" />
+    <EmbeddedResource Include="Mapas\CompraDeFornecedor.hbm.xml" />
+    <EmbeddedResource Include="Mapas\ContaBancaria.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Contagem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\ContagemProduto.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Despesa.hbm.xml" />
+    <EmbeddedResource Include="Mapas\EntradaDeMercadoria.hbm.xml" />
+    <EmbeddedResource Include="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Faltas.hbm.xml" />
+    <EmbeddedResource Include="Mapas\FolhaPagamento.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Fornecedor.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Funcionario.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Grade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\HistoricoProdutoGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\HoraExtra.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Marca.hbm.xml" />
+    <EmbeddedResource Include="Mapas\MembroFamiliar.hbm.xml" />
+    <EmbeddedResource Include="Mapas\OperadoraCartao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Parcela.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
+    <EmbeddedResource Include="Mapas\ProdutoGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Representante.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\SubGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\TipoContagem.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\TipoDespesa.hbm.xml" />
+    <EmbeddedResource Include="Mapas\TipoGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\TipoHoraExtra.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.3.12" />
+    <PackageReference Include="NHibernate.Caches.SysCache" Version="5.7.0" />
+    <PackageReference Include="NHibernate.Caches.SysCache2" Version="5.7.0" />
+  </ItemGroup>
+
 </Project>

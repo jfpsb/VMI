@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true">
+		<id name="Nome" />
+		<property name="Uuid" />
+		<bag name="IdentificadoresBanco" table="operadorabancoid" where="Deletado = false" inverse="false" lazy="false" cascade="delete">
+			<key column="operadoracartao" />
+			<element column="identificador" type="String" />
+		</bag>
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

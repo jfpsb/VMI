@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Adiantamento" table="adiantamento">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" type="guid">
+			<column name="uuid" default="uuid()" />
+		</property>
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" />
+		<property name="Data" column="data" type="timestamp" not-null="true"/>
+		<property name="Valor" column="valor" />
+		<property name="Descricao" column="descricao" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<bag name="Parcelas" table="parcela" inverse="true" cascade="all-delete-orphan" where="Deletado = false" lazy="true">
+			<key column="adiantamento" />
+			<one-to-many class="SincronizacaoVMI.Model.Parcela" />
+		</bag>
+	</class>
+
+</hibernate-mapping>

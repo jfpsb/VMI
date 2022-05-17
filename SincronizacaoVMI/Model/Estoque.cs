@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VandaModaIntimaWpf.Model
+namespace SincronizacaoVMI.Model
 {
     public class Estoque : AModel, IModel
     {
@@ -52,10 +52,6 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
-
-        public virtual string GetContextMenuHeader => $"{ProdutoGrade.Produto.Descricao}";
-
         public int Id
         {
             get
@@ -70,19 +66,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual void Copiar(object source)
+        {
+            throw new NotImplementedException();
+        }
+
         public object GetIdentifier()
         {
             return Id;
-        }
-
-        public virtual void InicializaLazyLoad()
-        {
-
-        }
-
-        public virtual bool IsIdentical(object obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="HistoricoProdutoGrade" table="historico_produto_grade">
+		<cache usage="read-write"/>
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade"/>
+		<property name="Data" />
+		<property name="PrecoCompra" />
+		<property name="PrecoVenda" />
+		<property name="CustoTotal" />
+		<property name="Frete" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

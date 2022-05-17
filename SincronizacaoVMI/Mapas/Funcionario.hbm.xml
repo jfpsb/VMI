@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="Funcionario" table="funcionario" dynamic-insert="true">
+		<id name="Cpf" column="cpf"/>
+		<property name="Uuid" />
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja" />
+		<many-to-one name="LojaTrabalho" class="SincronizacaoVMI.Model.Loja" column="loja_trabalho" />
+		<property name="Nome" column="nome" />
+		<property name="Endereco" column="endereco" />
+		<property name="Telefone" column="telefone" />
+		<property name="RecebePassagem" column="recebe_passagem" />
+		<property name="RecebeValeAlimentacao" column="recebevalealimentacao" />
+		<property name="Admissao" />
+		<property name="Demissao" />
+		<property name="Email" />
+		<property name="PisPasepNit" />
+		<property name="Ctps" />
+		<property name="Salario" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+
+		<bag name="Adiantamentos" table="adiantamento" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="funcionario" />
+			<one-to-many class="SincronizacaoVMI.Model.Adiantamento" />
+		</bag>
+		<bag name="Bonus" table="bonus" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="funcionario" />
+			<one-to-many class="SincronizacaoVMI.Model.Bonus" />
+		</bag>
+		<bag name="ContasBancarias" table="contabancaria" where="Deletado = false" inverse="true" cascade="all-delete-orphan">
+			<key column="funcionario" />
+			<one-to-many class="SincronizacaoVMI.Model.ContaBancaria" />
+		</bag>
+		<bag name="ChavesPix" table="chave_pix" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+			<key column="funcionario" />
+			<one-to-many class="SincronizacaoVMI.Model.ChavePix" />
+		</bag>
+	</class>
+
+</hibernate-mapping>
