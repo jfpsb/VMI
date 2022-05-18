@@ -11,7 +11,6 @@ namespace SincronizacaoVMI.Model
         private string _endereco;
         private string _inscricaoestadual;
         private double _aluguel;
-        private IList<AliquotasImposto> _aliquotas = new List<AliquotasImposto>();
 
         public virtual string Cnpj
         {
@@ -77,17 +76,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Aluguel");
             }
         }
-
-        public virtual IList<AliquotasImposto> Aliquotas
-        {
-            get => _aliquotas;
-            set
-            {
-                _aliquotas = value;
-                OnPropertyChanged("Aliquotas");
-            }
-        }
-
         public virtual void Copiar(object source)
         {
             throw new System.NotImplementedException();

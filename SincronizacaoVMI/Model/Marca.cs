@@ -9,7 +9,6 @@ namespace SincronizacaoVMI.Model
     {
         private string _nome;
         private Fornecedor _fornecedor;
-        private IList<ProdutoModel> _produtos = new List<ProdutoModel>();
 
         public virtual string Nome
         {
@@ -20,17 +19,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Nome");
             }
         }
-
-        public virtual IList<ProdutoModel> Produtos
-        {
-            get => _produtos;
-            set
-            {
-                _produtos = value;
-                OnPropertyChanged("Produtos");
-            }
-        }
-
         public virtual Fornecedor Fornecedor
         {
             get => _fornecedor;

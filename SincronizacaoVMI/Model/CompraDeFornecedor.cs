@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace SincronizacaoVMI.Model
 {
@@ -10,7 +8,6 @@ namespace SincronizacaoVMI.Model
         private Fornecedor _fornecedor;
         private Representante _representante;
         private Loja _loja;
-        private IList<ArquivosCompraFornecedor> _arquivos = new List<ArquivosCompraFornecedor>();
         DateTime _dataPedido;
         DateTime? _dataNotaFiscal;
         private int _numeroNfe;
@@ -69,16 +66,6 @@ namespace SincronizacaoVMI.Model
             {
                 _valor = value;
                 OnPropertyChanged("Valor");
-            }
-        }
-
-        public virtual IList<ArquivosCompraFornecedor> Arquivos
-        {
-            get => _arquivos;
-            set
-            {
-                _arquivos = value;
-                OnPropertyChanged("Arquivos");
             }
         }
 

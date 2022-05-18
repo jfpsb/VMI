@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System;
+﻿using System;
 
 namespace SincronizacaoVMI.Model
 {
@@ -68,10 +67,6 @@ namespace SincronizacaoVMI.Model
                 _numero = value;
                 OnPropertyChanged("Numero");
             }
-        }
-        public virtual string NumeroComTotal
-        {
-            get => $"{Numero}/{Adiantamento.Parcelas.Count}";
         }
 
         public virtual int Id

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SincronizacaoVMI.Model
 {
@@ -8,7 +7,6 @@ namespace SincronizacaoVMI.Model
         private int _id;
         private TipoGrade _tipoGrade;
         private string _nome;
-        private IList<ProdutoGrade> _produtoGrades;
 
         public virtual int Id
         {
@@ -51,17 +49,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Nome");
             }
         }
-
-        public virtual IList<ProdutoGrade> ProdutoGrades
-        {
-            get => _produtoGrades;
-            set
-            {
-                _produtoGrades = value;
-                OnPropertyChanged("ProdutoGrades");
-            }
-        }
-
         public virtual void Copiar(object source)
         {
             throw new NotImplementedException();

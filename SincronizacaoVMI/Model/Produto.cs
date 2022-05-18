@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using FornecedorModel = SincronizacaoVMI.Model.Fornecedor;
 using MarcaModel = SincronizacaoVMI.Model.Marca;
 
@@ -14,7 +12,6 @@ namespace SincronizacaoVMI.Model
         private MarcaModel _marca;
         private string _descricao;
         private string _ncm;
-        private IList<ProdutoGrade> _grades = new List<ProdutoGrade>();
 
         public virtual int Id
         {
@@ -78,19 +75,6 @@ namespace SincronizacaoVMI.Model
             {
                 _ncm = value;
                 OnPropertyChanged("Ncm");
-            }
-        }
-        public virtual IList<ProdutoGrade> Grades
-        {
-            get
-            {
-                return _grades;
-            }
-
-            set
-            {
-                _grades = value;
-                OnPropertyChanged("Grades");
             }
         }
         public virtual object GetIdentifier()

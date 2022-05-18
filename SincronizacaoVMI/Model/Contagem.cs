@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace SincronizacaoVMI.Model
 {
@@ -11,7 +9,6 @@ namespace SincronizacaoVMI.Model
         private DateTime _data;
         private bool _finalizada;
         private TipoContagem _tipoContagem;
-        private IList<ContagemProduto> _contagens = new List<ContagemProduto>();
 
         public virtual Loja Loja
         {
@@ -50,16 +47,6 @@ namespace SincronizacaoVMI.Model
             {
                 _tipoContagem = value;
                 OnPropertyChanged("TipoContagem");
-            }
-        }
-
-        public virtual IList<ContagemProduto> Contagens
-        {
-            get { return _contagens; }
-            set
-            {
-                _contagens = value;
-                OnPropertyChanged("Contagens");
             }
         }
 

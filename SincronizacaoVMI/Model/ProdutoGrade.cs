@@ -11,8 +11,6 @@ namespace SincronizacaoVMI.Model
         private Produto _produto;
         private double _preco;
         private double _precoCusto;
-        private ICollection<SubGrade> _subGrades = new List<SubGrade>();
-        private IList<HistoricoProdutoGrade> _historico = new List<HistoricoProdutoGrade>();
         public virtual Produto Produto
         {
             get
@@ -24,20 +22,6 @@ namespace SincronizacaoVMI.Model
             {
                 _produto = value;
                 OnPropertyChanged("Produto");
-            }
-        }
-
-        public virtual ICollection<SubGrade> SubGrades
-        {
-            get
-            {
-                return _subGrades;
-            }
-
-            set
-            {
-                _subGrades = value;
-                OnPropertyChanged("SubGrades");
             }
         }
         public virtual string CodBarra
@@ -92,17 +76,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Id");
             }
         }
-
-        public virtual IList<HistoricoProdutoGrade> Historico
-        {
-            get => _historico;
-            set
-            {
-                _historico = value;
-                OnPropertyChanged("Historico");
-            }
-        }
-
         public virtual string CodBarraAlternativo
         {
             get => _codBarraAlternativo;

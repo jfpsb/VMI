@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ProdutoModel = SincronizacaoVMI.Model.Produto;
 

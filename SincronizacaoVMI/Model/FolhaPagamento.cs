@@ -1,9 +1,4 @@
-﻿
-using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System;
 
 namespace SincronizacaoVMI.Model
 {
@@ -18,8 +13,6 @@ namespace SincronizacaoVMI.Model
         private string _observacao;
         private double _metaVenda;
         private double _totalVendido;
-        private IList<Bonus> _bonus = new List<Bonus>();
-        private IList<Parcela> _parcelas = new List<Parcela>();
 
         public virtual int Mes
         {
@@ -53,21 +46,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Funcionario");
             }
         }
-        public virtual double ValorATransferir
-        {
-            get
-            {
-                var atransferir = SalarioLiquido + TotalBonus - TotalAdiantamentos;
-                return atransferir;
-            }
-        }
-        public virtual double TotalAdiantamentos
-        {
-            get
-            {
-                return Parcelas.Sum(s => s.Valor);
-            }
-        }
         public virtual bool Fechada
         {
             get => _fechada;
@@ -85,37 +63,6 @@ namespace SincronizacaoVMI.Model
             {
                 _id = value;
                 OnPropertyChanged("Id");
-            }
-        }
-
-        public virtual IList<Parcela> Parcelas
-        {
-            get => _parcelas;
-            set
-            {
-                _parcelas = value;
-                OnPropertyChanged("Parcelas");
-            }
-        }
-
-        public virtual IList<Bonus> Bonus
-        {
-            get
-            {
-                return _bonus;
-            }
-            set
-            {
-                _bonus = value;
-                OnPropertyChanged("Bonus");
-            }
-        }
-
-        public virtual double TotalBonus
-        {
-            get
-            {
-                return Bonus.Sum(s => s.Valor);
             }
         }
 

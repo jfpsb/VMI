@@ -34,6 +34,8 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
 
+            //var persister = SessionProvider.MainSessionFactory.GetClassMetadata(typeof(Adiantamento));
+
             AbreTelaPesquisaService = abreTelaPesquisaService;
 
             var configJson = File.ReadAllText("Config.json");

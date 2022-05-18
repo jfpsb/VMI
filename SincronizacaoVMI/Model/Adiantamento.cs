@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SincronizacaoVMI.Model
 {
@@ -10,9 +9,6 @@ namespace SincronizacaoVMI.Model
         private DateTime _data;
         private double _valor;
         private string _descricao;
-        private IList<Parcela> _parcelas = new List<Parcela>();
-
-        public virtual string GetContextMenuHeader => _data.ToString("d") + " - " + _funcionario.Nome;
 
         public virtual DateTime Data
         {
@@ -45,16 +41,6 @@ namespace SincronizacaoVMI.Model
             {
                 _funcionario = value;
                 OnPropertyChanged("Funcionario");
-            }
-        }
-
-        public virtual IList<Parcela> Parcelas
-        {
-            get => _parcelas;
-            set
-            {
-                _parcelas = value;
-                OnPropertyChanged("Parcelas");
             }
         }
 

@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text.RegularExpressions;
 
 namespace SincronizacaoVMI.Model
@@ -21,10 +19,6 @@ namespace SincronizacaoVMI.Model
         private DateTime? _admissao;
         private DateTime? _demissao;
         private double _salario;
-        private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
-        private IList<Bonus> _bonus = new List<Bonus>();
-        private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
-        private IList<ChavePix> _chavesPix = new List<ChavePix>();
 
         public virtual string Cpf
         {
@@ -75,25 +69,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Loja");
             }
         }
-
-        public virtual IList<Adiantamento> Adiantamentos
-        {
-            get => _adiantamentos;
-            set
-            {
-                _adiantamentos = value;
-                OnPropertyChanged("Adiantamentos");
-            }
-        }
-        public virtual IList<Bonus> Bonus
-        {
-            get => _bonus;
-            set
-            {
-                _bonus = value;
-                OnPropertyChanged("Bonus");
-            }
-        }
         public virtual bool RecebePassagem
         {
             get => _recebePassagem;
@@ -103,26 +78,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("RecebePassagem");
             }
         }
-
-        public virtual IList<ContaBancaria> ContasBancarias
-        {
-            get => _contasBancarias;
-            set
-            {
-                _contasBancarias = value;
-                OnPropertyChanged("ContasBancarias");
-            }
-        }
-        public virtual IList<ChavePix> ChavesPix
-        {
-            get => _chavesPix;
-            set
-            {
-                _chavesPix = value;
-                OnPropertyChanged("ChavesPix");
-            }
-        }
-
         public virtual bool RecebeValeAlimentacao
         {
             get => _recebeValeAlimentacao;

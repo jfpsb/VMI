@@ -7,9 +7,7 @@
 		<id name="Id" type="Int32">
 			<generator class="native" />
 		</id>
-		<property name="Uuid" type="guid">
-			<column name="uuid" default="uuid()" />
-		</property>
+		<property name="Uuid" />
 		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" />
 		<property name="Data" column="data" type="timestamp" not-null="true"/>
 		<property name="Valor" column="valor" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SincronizacaoVMI.Model
 {
@@ -8,7 +7,6 @@ namespace SincronizacaoVMI.Model
         private int _id;
         private Loja _loja;
         private DateTime _data;
-        private IList<EntradaMercadoriaProdutoGrade> _entradas = new List<EntradaMercadoriaProdutoGrade>();
         public virtual object GetIdentifier()
         {
             return Id;
@@ -44,15 +42,6 @@ namespace SincronizacaoVMI.Model
             {
                 _data = value;
                 OnPropertyChanged("Data");
-            }
-        }
-        public virtual IList<EntradaMercadoriaProdutoGrade> Entradas
-        {
-            get => _entradas;
-            set
-            {
-                _entradas = value;
-                OnPropertyChanged("Entradas");
             }
         }
     }
