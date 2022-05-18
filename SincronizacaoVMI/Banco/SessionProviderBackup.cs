@@ -30,11 +30,11 @@ namespace SincronizacaoVMI.Banco
                 return BackupSessionFactory;
 
             BackupConfiguration = new Configuration();
-            BackupConfiguration.Configure("hibernateBackup.cfg.xml");
+            BackupConfiguration.Configure("hibernateRemoto.cfg.xml");
 
-            string connString = Credentials.HibernateBackupConnString();
-            const string connectionStringKey = "connection.connection_string";
-            BackupConfiguration.SetProperty(connectionStringKey, connString);
+            //string connString = Credentials.HibernateBackupConnString();
+            //const string connectionStringKey = "connection.connection_string";
+            //BackupConfiguration.SetProperty(connectionStringKey, connString);
 
             return BackupConfiguration.BuildSessionFactory();
         }

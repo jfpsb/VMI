@@ -8,17 +8,12 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja"/>
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja" lazy="false" not-null="true" />
 		<property name="Data" column="data" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-
-		<bag name="Entradas" table="entrademercadoria_produtograde" inverse="true" where="Deletado = false" cascade="all-delete-orphan" lazy="false">
-			<key column="entradamercadoria" />
-			<one-to-many class="SincronizacaoVMI.Model.EntradaMercadoriaProdutoGrade"/>
-		</bag>
 	</class>
 
 </hibernate-mapping>

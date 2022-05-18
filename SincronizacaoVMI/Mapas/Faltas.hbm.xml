@@ -8,7 +8,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" />
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" not-null="true"/>
 		<property name="Data" />
 		<property name="Horas" />
 		<property name="Minutos" />

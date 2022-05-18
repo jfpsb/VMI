@@ -8,9 +8,9 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Entrada" class="SincronizacaoVMI.Model.EntradaDeMercadoria" column="entradamercadoria"/>
-		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade"/>
-		<many-to-one name="GradeFornecedor" class="SincronizacaoVMI.Model.Fornecedor" column="grade_fornecedor"/>
+		<many-to-one name="Entrada" class="SincronizacaoVMI.Model.EntradaDeMercadoria" column="entradamercadoria" lazy="false" not-null="true"/>
+		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade" lazy="false"/>
+		<many-to-one name="GradeFornecedor" class="SincronizacaoVMI.Model.Fornecedor" column="grade_fornecedor" lazy="false" />
 		<property name="Quantidade" />
 		<property name="ProdutoDescricao" column="produto_descricao" />
 		<property name="GradeDescricao" column="grade_descricao"/>

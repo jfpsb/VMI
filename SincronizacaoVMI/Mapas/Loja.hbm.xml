@@ -5,9 +5,8 @@
 
 	<class name="Loja" table="loja">
 		<id name="Cnpj" column="cnpj" />
-		<property name="Uuid" />
-		
-		<many-to-one name="Matriz" class="SincronizacaoVMI.Model.Loja" />
+		<property name="Uuid" />		
+		<many-to-one name="Matriz" column="matriz" class="SincronizacaoVMI.Model.Loja" lazy="false"/>
 		<property name="Nome" column="nome" />
 		<property name="Telefone" column="telefone" />
 		<property name="Endereco" column="endereco" />
@@ -17,11 +16,6 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-
-		<bag name="Aliquotas" table="aliquotas_imposto" inverse="true" where="Deletado = false" cascade="save-update">
-			<key column="loja" />
-			<one-to-many class="SincronizacaoVMI.Model.AliquotasImposto"/>
-		</bag>
 	</class>
 
 </hibernate-mapping>

@@ -10,9 +10,9 @@
 		<property name="Uuid" />
 		<property name="Mes" column="mes" />
 		<property name="Ano" column="ano" />
-		<many-to-one name="Loja" column="loja" class="SincronizacaoVMI.Model.Loja" lazy="false" />
-		<many-to-one name="Banco" column="banco" class="SincronizacaoVMI.Model.Banco" lazy="false" />
-		<many-to-one name="OperadoraCartao" column="operadoracartao" class="SincronizacaoVMI.Model.OperadoraCartao" lazy="false" />
+		<many-to-one name="Loja" column="loja" class="SincronizacaoVMI.Model.Loja" lazy="false" not-null="true" />
+		<many-to-one name="Banco" column="banco" class="SincronizacaoVMI.Model.Banco" lazy="false" not-null="true" />
+		<many-to-one name="OperadoraCartao" column="operadoracartao" class="SincronizacaoVMI.Model.OperadoraCartao" lazy="false" not-null="true" />
 		<property name="Recebido" column="recebido" />
 		<property name="ValorOperadora" column="valoroperadora" />
 		<property name="Observacao" column="observacao" />

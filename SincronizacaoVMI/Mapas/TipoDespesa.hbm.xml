@@ -3,7 +3,7 @@
                    assembly="SincronizacaoVMI"
                    namespace="SincronizacaoVMI.Model">
 
-	<class name="TipoDespesa">
+	<class name="TipoDespesa" table="tipodespesa">
 		<id name="Id" type="Int32">
 			<generator class="native" />
 		</id>

@@ -21,7 +21,7 @@
                  class="SincronizacaoVMI.Model.Adiantamento"/>
 		<many-to-one name="TipoDespesa"
                  class="SincronizacaoVMI.Model.TipoDespesa"
-					 column="tipo"/>
+					 column="tipo" lazy="false" not-null="true"/>
 		<many-to-one name="Fornecedor"
                  class="SincronizacaoVMI.Model.Fornecedor"/>
 		<many-to-one name="Representante"

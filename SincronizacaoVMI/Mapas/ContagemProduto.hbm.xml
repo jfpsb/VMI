@@ -8,8 +8,8 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade" lazy="false" />
-		<many-to-one name="Contagem" class="SincronizacaoVMI.Model.Contagem" column ="contagem" lazy="false" />
+		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade" lazy="false" not-null="true"/>
+		<many-to-one name="Contagem" class="SincronizacaoVMI.Model.Contagem" column ="contagem" lazy="false" not-null="true" />
 		<property name="Quant" column="quant" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

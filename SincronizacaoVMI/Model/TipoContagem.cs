@@ -26,12 +26,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Nome");
             }
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

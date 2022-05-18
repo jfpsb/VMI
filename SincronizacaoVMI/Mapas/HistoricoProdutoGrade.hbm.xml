@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade"/>
+		<many-to-one name="ProdutoGrade" class="SincronizacaoVMI.Model.ProdutoGrade" column="produto_grade" lazy="false" not-null="true"/>
 		<property name="Data" />
 		<property name="PrecoCompra" />
 		<property name="PrecoVenda" />

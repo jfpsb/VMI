@@ -9,6 +9,26 @@ namespace SincronizacaoVMI.Model
         private DateTime? _modificadoEm;
         private DateTime? _deletadoEm;
         private bool _deletado;
+
+        public virtual void NovoCopiar(object source)
+        {
+            foreach (var prop in GetType().GetProperties())
+            {
+                if (prop.Name.Equals("Id")) continue;
+                if (prop.GetSetMethod() == null) continue;
+                prop.SetValue(this, source.GetType().GetProperty(prop.Name).GetValue(source));
+            }
+        }
+
+        protected virtual void CopiarDadosSinc(object source)
+        {
+            AModel a = source as AModel;
+            Uuid = a.Uuid;
+            CriadoEm = a.CriadoEm;
+            ModificadoEm = a.ModificadoEm;
+            DeletadoEm = a.DeletadoEm;
+            Deletado = a.Deletado;
+        }
         public virtual string Tipo => GetType().Name.ToLower();
         public virtual bool Deletado
         {

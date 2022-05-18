@@ -6,13 +6,10 @@
 	<class name="Fornecedor" table="fornecedor" dynamic-insert="true">
 		<cache usage="read-write"/>
 		<id name="Cnpj" column="cnpj"/>
-		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
-			<key column="fornecedor" />
-			<one-to-many class="SincronizacaoVMI.Model.Produto" />
-		</bag>
 		<many-to-one name="Representante"
 					 class="SincronizacaoVMI.Model.Representante"
-					 column="representante" />
+					 column="representante"
+					 lazy="false" not-null="true"/>
 		<property name="Uuid" />
 		<property name="Nome" />
 		<property name="Fantasia" />

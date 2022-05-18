@@ -16,11 +16,6 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-
-		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
-			<key column="representante" />
-			<one-to-many class="SincronizacaoVMI.Model.Fornecedor"/>
-		</bag>
 	</class>
 
 </hibernate-mapping>

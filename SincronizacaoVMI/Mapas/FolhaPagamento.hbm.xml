@@ -8,12 +8,12 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" />
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" lazy="false" not-null="true" />
 		<property name="Mes" column="mes" />
 		<property name="Ano" column="ano" />
 		<property name="Fechada" column="fechada" />
 		<property name="SalarioLiquido" column="salario_liquido" />
-		<property name="Observacao" column="observacao" />
+		<property name="Observacao" />
 		<property name="MetaDeVenda" column="metavenda" />
 		<property name="TotalVendido" column="valorvendido" />
 		<property name="CriadoEm" />

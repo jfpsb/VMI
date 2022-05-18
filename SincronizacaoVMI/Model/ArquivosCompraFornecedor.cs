@@ -6,7 +6,6 @@
         private CompraDeFornecedor _compraDeFornecedor;
         private string _nome;
         private string _extensao;
-        private string _caminhoOriginal;
 
         public virtual int Id
         {
@@ -44,12 +43,6 @@
                 OnPropertyChanged("Extensao");
             }
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

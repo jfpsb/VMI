@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja"/>
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja" lazy="false" not-null="true"/>
 		<property name="DataInsercao" />
 		<property name="Simples" />
 		<property name="Icms" />

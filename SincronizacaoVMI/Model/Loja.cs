@@ -76,11 +76,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Aluguel");
             }
         }
-        public virtual void Copiar(object source)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Cnpj;

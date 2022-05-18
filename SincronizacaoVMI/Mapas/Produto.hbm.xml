@@ -16,13 +16,8 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<many-to-one name="Fornecedor" class="SincronizacaoVMI.Model.Fornecedor" />
-		<many-to-one name="Marca" class="SincronizacaoVMI.Model.Marca" />
-
-		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
-			<key column="produto" />
-			<one-to-many class="SincronizacaoVMI.Model.ProdutoGrade"/>
-		</bag>
+		<many-to-one name="Fornecedor" class="SincronizacaoVMI.Model.Fornecedor" lazy="false"/>
+		<many-to-one name="Marca" class="SincronizacaoVMI.Model.Marca" lazy="false" />
 	</class>
 
 </hibernate-mapping>

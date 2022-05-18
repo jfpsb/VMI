@@ -98,15 +98,6 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public virtual bool CompraEstaCompleta
-        {
-            get
-            {
-                return Valor > 0 && DataNotaFiscal != null && ChaveAcessoNfe != string.Empty && NumeroNfe != 0
-                    && Pago && Arquivos.Count > 0;
-            }
-        }
-
         public virtual Representante Representante
         {
             get => _representante;
@@ -115,11 +106,6 @@ namespace SincronizacaoVMI.Model
                 _representante = value;
                 OnPropertyChanged("Representante");
             }
-        }
-
-        public void Copiar(object source)
-        {
-            throw new NotImplementedException();
         }
 
         public virtual object GetIdentifier()

@@ -68,15 +68,6 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public virtual void Copiar(object source)
-        {
-            Adiantamento a = source as Adiantamento;
-            Funcionario = a.Funcionario;
-            Data = a.Data;
-            Valor = a.Valor;
-            Descricao = a.Descricao;
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

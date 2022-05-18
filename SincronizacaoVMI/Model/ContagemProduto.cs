@@ -64,12 +64,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Contagem");
             }
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

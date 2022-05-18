@@ -79,12 +79,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("FimLocacao");
             }
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public object GetIdentifier()
         {
             return Id;

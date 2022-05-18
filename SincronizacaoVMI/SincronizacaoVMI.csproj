@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="hibernate.cfg.xml" />
+    <None Remove="hibernateRemoto.cfg.xml" />
     <None Remove="Mapas\Adiantamento.hbm.xml" />
     <None Remove="Mapas\AliquotasImposto.hbm.xml" />
     <None Remove="Mapas\ArquivosCompraFornecedor.hbm.xml" />
@@ -27,6 +29,7 @@
     <None Remove="Mapas\Grade.hbm.xml" />
     <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <None Remove="Mapas\HoraExtra.hbm.xml" />
+    <None Remove="Mapas\LastSync.hbm.xml" />
     <None Remove="Mapas\Loja.hbm.xml" />
     <None Remove="Mapas\Marca.hbm.xml" />
     <None Remove="Mapas\MembroFamiliar.hbm.xml" />
@@ -44,6 +47,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hibernateRemoto.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mapas\Adiantamento.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -79,6 +90,7 @@
     <EmbeddedResource Include="Mapas\Grade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HoraExtra.hbm.xml" />
+    <EmbeddedResource Include="Mapas\LastSync.hbm.xml" />
     <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
     <EmbeddedResource Include="Mapas\Marca.hbm.xml" />
     <EmbeddedResource Include="Mapas\MembroFamiliar.hbm.xml" />
@@ -108,6 +120,7 @@
     <PackageReference Include="NHibernate.Caches.SysCache" Version="5.7.0" />
     <PackageReference Include="NHibernate.Caches.SysCache2" Version="5.7.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
+    <PackageReference Include="Topshelf" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

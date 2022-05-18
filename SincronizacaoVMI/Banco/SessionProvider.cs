@@ -32,9 +32,9 @@ namespace SincronizacaoVMI.Banco
             Configuration = new Configuration();
             Configuration.Configure();
 
-            string connString = Credentials.HibernateLocalConnString();
-            const string connectionStringKey = "connection.connection_string";
-            Configuration.SetProperty(connectionStringKey, connString);
+            //string connString = Credentials.HibernateLocalConnString();
+            //const string connectionStringKey = "connection.connection_string";
+            //Configuration.SetProperty(connectionStringKey, connString);
 
             return Configuration.BuildSessionFactory();
         }

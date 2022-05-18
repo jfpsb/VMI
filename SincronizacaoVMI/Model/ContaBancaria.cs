@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SincronizacaoVMI.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class ContaBancaria : AModel, IModel
     {
@@ -64,12 +62,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Conta");
             }
         }
-
-        public void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

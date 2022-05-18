@@ -3,14 +3,13 @@ using NHibernate.Criterion;
 using NHibernate.Type;
 using SincronizacaoVMI.Banco;
 using SincronizacaoVMI.Model;
-using SincronizacaoVMI.Util;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SincronizacaoServico.Util
+namespace SincronizacaoVMI.Util
 {
     /// <summary>
     /// Usado para sincronizar entidades sem chaves estrangeiras.
@@ -48,11 +47,10 @@ namespace SincronizacaoServico.Util
                 var criteria = _remoto.CreateCriteria<E>();
                 criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
                 var lista = await criteria.ListAsync<E>();
+                var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0)
+                if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
-
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -60,14 +58,14 @@ namespace SincronizacaoServico.Util
                         var ent = await ListarPorUuidLocal(typeof(E).Name, e.Uuid);
                         if (ent != null) continue;
                         E eASalvar = new();
-                        eASalvar.Copiar(e);
+                        eASalvar.NovoCopiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
                             var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
                             foreach (var property in manyToOneProperties)
                             {
-                                int propertyIndex = persister.PropertyNames.PropIndex(property);
+                                int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
@@ -77,7 +75,8 @@ namespace SincronizacaoServico.Util
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
 
-                                persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
+                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
+                                //persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
                             }
                         }
 
@@ -100,24 +99,23 @@ namespace SincronizacaoServico.Util
                 var criteria = _remoto.CreateCriteria<E>();
                 criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
                 var lista = await criteria.ListAsync<E>();
+                var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0)
+                if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
-
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
                         E entLocal = await ListarPorUuidLocal(typeof(E).Name, e.Uuid) as E;
                         if (entLocal == null) continue;
-                        entLocal.Copiar(e);
+                        entLocal.NovoCopiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
                             var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
                             foreach (var property in manyToOneProperties)
                             {
-                                int propertyIndex = persister.PropertyNames.PropIndex(property);
+                                int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
@@ -127,7 +125,8 @@ namespace SincronizacaoServico.Util
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
 
-                                persister.SetPropertyValue(entLocal, property, manyToOneLocal);
+                                entLocal.GetType().GetProperty(property).SetValue(entLocal, manyToOneLocal);
+                                //persister.SetPropertyValue(entLocal, property, manyToOneLocal);
                             }
                         }
 
@@ -152,10 +151,10 @@ namespace SincronizacaoServico.Util
                 var criteria = _local.CreateCriteria<E>();
                 criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
                 var lista = await criteria.ListAsync<E>();
+                var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0)
+                if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -163,24 +162,24 @@ namespace SincronizacaoServico.Util
                         var ent = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid);
                         if (ent != null) continue;
                         E eASalvar = new();
-                        eASalvar.Copiar(e);
+                        eASalvar.NovoCopiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
-                            var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
+                            var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
                             foreach (var property in manyToOneProperties)
                             {
-                                int propertyIndex = persister.PropertyNames.PropIndex(property);
+                                int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
-
+                                if (manyToOneValue == null) continue;
+                                var manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
-
-                                persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
+                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
+                                //persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
                             }
                         }
 
@@ -203,33 +202,34 @@ namespace SincronizacaoServico.Util
                 var criteria = _local.CreateCriteria<E>();
                 criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
                 var lista = await criteria.ListAsync<E>();
+                var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0)
+                if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
                         E entRemoto = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid) as E;
                         if (entRemoto == null) continue;
-                        entRemoto.Copiar(e);
+                        entRemoto.NovoCopiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
                             var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
                             foreach (var property in manyToOneProperties)
                             {
-                                int propertyIndex = persister.PropertyNames.PropIndex(property);
+                                int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
+                                var manyToOneLocal = await ListarPorUuidRemoto(property, manyToOneValue.Uuid);
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
 
-                                persister.SetPropertyValue(entRemoto, property, manyToOneLocal);
+                                entRemoto.GetType().GetProperty(property).SetValue(entRemoto, manyToOneLocal);
+                                //persister.SetPropertyValue(entRemoto, property, manyToOneLocal);
                             }
                         }
 

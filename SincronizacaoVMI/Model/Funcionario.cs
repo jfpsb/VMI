@@ -158,10 +158,5 @@ namespace SincronizacaoVMI.Model
         {
             return Cpf;
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

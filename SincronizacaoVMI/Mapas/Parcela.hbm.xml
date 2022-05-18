@@ -8,7 +8,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Adiantamento" not-null="true" column="adiantamento" class="SincronizacaoVMI.Model.Adiantamento" />
+		<many-to-one name="Adiantamento" column="adiantamento" class="SincronizacaoVMI.Model.Adiantamento" lazy="false" not-null="true"/>
 		<property name="Numero" />
 		<property name="Valor" />
 		<property name="Paga" />

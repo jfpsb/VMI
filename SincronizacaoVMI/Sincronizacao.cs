@@ -1,14 +1,13 @@
 ﻿using MySql.Data.MySqlClient;
 using NHibernate;
-using SincronizacaoServico.Util;
+using SincronizacaoVMI.Util;
 using SincronizacaoVMI.Banco;
 using SincronizacaoVMI.Model;
-using SincronizacaoVMI.Util;
 using System;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace SincronizacaoServico
+namespace SincronizacaoVMI
 {
     public class Sincronizacao
     {
@@ -16,7 +15,7 @@ namespace SincronizacaoServico
 
         public Sincronizacao()
         {
-            timer = new System.Timers.Timer(2000) { AutoReset = false };
+            timer = new Timer(2000) { AutoReset = false };
             timer.Elapsed += ExecutaSync;
         }
 
@@ -67,12 +66,12 @@ namespace SincronizacaoServico
 
             try
             {
-                ASincronizar<Banco> aBanco = new SincronizarGenerico<Banco>(local, remote);
-                ASincronizar<ContaBancaria> aContaBancaria = new SincronizarGenerico<ContaBancaria>(local, remote);
+                ASincronizar<Model.Banco> aBanco = new SincronizarGenerico<Model.Banco>(local, remote);
                 ASincronizar<Adiantamento> aAdiantamento = new SincronizarGenerico<Adiantamento>(local, remote);
                 ASincronizar<TipoDespesa> aTipoDespesa = new SincronizarGenerico<TipoDespesa>(local, remote);
                 ASincronizar<Loja> aLoja = new SincronizarGenerico<Loja>(local, remote);
                 ASincronizar<Funcionario> aFuncionario = new SincronizarGenerico<Funcionario>(local, remote);
+                ASincronizar<ContaBancaria> aContaBancaria = new SincronizarGenerico<ContaBancaria>(local, remote);
                 ASincronizar<MembroFamiliar> aMembroFamiliar = new SincronizarGenerico<MembroFamiliar>(local, remote);
                 ASincronizar<TipoContagem> aTipoContagem = new SincronizarGenerico<TipoContagem>(local, remote);
                 ASincronizar<Contagem> aContagem = new SincronizarGenerico<Contagem>(local, remote);
@@ -106,11 +105,11 @@ namespace SincronizacaoServico
                 ASincronizar<SubGrade> aSubGrade = new SincronizarGenerico<SubGrade>(local, remote);
 
                 await aBanco.Sincronizar();
-                await aContaBancaria.Sincronizar();
-                await aAdiantamento.Sincronizar();
                 await aTipoDespesa.Sincronizar();
                 await aLoja.Sincronizar();
                 await aFuncionario.Sincronizar();
+                await aAdiantamento.Sincronizar();
+                await aContaBancaria.Sincronizar();
                 await aMembroFamiliar.Sincronizar();
                 await aTipoContagem.Sincronizar();
                 await aContagem.Sincronizar();

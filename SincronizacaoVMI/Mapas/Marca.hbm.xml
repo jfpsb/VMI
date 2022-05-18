@@ -7,11 +7,7 @@
 		<cache usage="read-write"/>
 		<id name="Nome" />
 		<property name="Uuid" />
-		<many-to-one name="Fornecedor" class="SincronizacaoVMI.Model.Fornecedor" column="fornecedor" />
-		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
-			<key column="marca" />
-			<one-to-many class="SincronizacaoVMI.Model.Produto" />
-		</bag>
+		<many-to-one name="Fornecedor" class="SincronizacaoVMI.Model.Fornecedor" column="fornecedor" lazy="false" not-null="true"/>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

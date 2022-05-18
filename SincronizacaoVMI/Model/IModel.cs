@@ -3,6 +3,5 @@
     public interface IModel
     {
         object GetIdentifier();
-        void Copiar(object source);
     }
 }

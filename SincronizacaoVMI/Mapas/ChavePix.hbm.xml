@@ -8,8 +8,8 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" />
-		<many-to-one name="Banco" class="SincronizacaoVMI.Model.Banco" column="banco" />
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" not-null="true"/>
+		<many-to-one name="Banco" class="SincronizacaoVMI.Model.Banco" column="banco" lazy="false" not-null="true"/>
 		<property name="Chave" column="chave" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

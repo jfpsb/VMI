@@ -100,12 +100,6 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("FolhaReferencia");
             }
         }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return _id;

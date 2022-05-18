@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="TipoGrade" class="SincronizacaoVMI.Model.TipoGrade" column="tipo" />
+		<many-to-one name="TipoGrade" class="SincronizacaoVMI.Model.TipoGrade" column="tipo" lazy="false" not-null="true"/>
 		<property name="Nome" column="nome" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />

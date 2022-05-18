@@ -27,12 +27,6 @@ namespace SincronizacaoVMI.Model
         public virtual double PrecoVenda { get => _precoVenda; set { _precoVenda = value; OnPropertyChanged("PrecoVenda"); } }
         public virtual double CustoTotal { get => _custoTotal; set { _custoTotal = value; OnPropertyChanged("CustoTotal"); } }
         public virtual double Frete { get => _frete; set { _frete = value; OnPropertyChanged("Frete"); } }
-
-        public virtual void Copiar(object source)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual object GetIdentifier()
         {
             return Id;

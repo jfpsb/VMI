@@ -8,7 +8,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="CompraDeFornecedor" class="SincronizacaoVMI.Model.CompraDeFornecedor" column="compradefornecedor" />
+		<many-to-one name="CompraDeFornecedor" class="SincronizacaoVMI.Model.CompraDeFornecedor" column="compradefornecedor" lazy="false" not-null="true"/>
 		<property name="Extensao" column="extensao" />
 		<property name="Nome" column="nome" />
 		<property name="CriadoEm" />

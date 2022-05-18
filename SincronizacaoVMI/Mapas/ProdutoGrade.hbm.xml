@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Produto" class="SincronizacaoVMI.Model.Produto" column="produto" />
+		<many-to-one name="Produto" class="SincronizacaoVMI.Model.Produto" column="produto" lazy="false" not-null="true"/>
 		<property name="CodBarra" column="cod_barra" />
 		<property name="CodBarraAlternativo" column="cod_barra_alternativo" />
 		<property name="Preco" column="preco_venda" />
@@ -18,14 +18,6 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<bag name="SubGrades" table="sub_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan" lazy="false">
-			<key column="produto_grade" />
-			<one-to-many class="SincronizacaoVMI.Model.SubGrade"/>
-		</bag>
-		<bag name="Historico" table="historico_produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
-			<key column="produto_grade" />
-			<one-to-many class="SincronizacaoVMI.Model.HistoricoProdutoGrade"/>
-		</bag>
 	</class>
 
 </hibernate-mapping>
