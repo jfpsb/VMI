@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SincronizacaoVMI.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class ProdutoGrade : AModel, IModel
     {
@@ -59,7 +56,6 @@ namespace SincronizacaoVMI.Model
             {
                 _precoCusto = value;
                 OnPropertyChanged("PrecoCusto");
-                OnPropertyChanged("MargemDeLucro");
             }
         }
 

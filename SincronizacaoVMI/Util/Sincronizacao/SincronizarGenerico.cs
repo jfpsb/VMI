@@ -6,7 +6,6 @@ using SincronizacaoVMI.Model;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SincronizacaoVMI.Util
@@ -51,6 +50,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
+                    double i = 0.0;
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -58,17 +58,20 @@ namespace SincronizacaoVMI.Util
                         var ent = await ListarPorUuidLocal(typeof(E).Name, e.Uuid);
                         if (ent != null) continue;
                         E eASalvar = new();
-                        eASalvar.NovoCopiar(e);
+                        eASalvar.Copiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
-                            var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
+                            var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
                             foreach (var property in manyToOneProperties)
                             {
                                 int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
+
+                                object manyToOneLocal = null;
+                                if (manyToOneValue != null)
+                                    manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
@@ -81,9 +84,10 @@ namespace SincronizacaoVMI.Util
                         }
 
                         insertsRemotoParaLocal.Add(eASalvar);
+                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
 
-                    await InsertRemotoParaLocal(insertsRemotoParaLocal);
+                    Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -103,22 +107,26 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
+                    double i = 0.0;
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
                         E entLocal = await ListarPorUuidLocal(typeof(E).Name, e.Uuid) as E;
                         if (entLocal == null) continue;
-                        entLocal.NovoCopiar(e);
+                        entLocal.Copiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
-                            var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
+                            var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
                             foreach (var property in manyToOneProperties)
                             {
                                 int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                var manyToOneLocal = await ListarPorUuidLocal(property, manyToOneValue.Uuid);
+
+                                object manyToOneLocal = null;
+                                if (manyToOneValue != null)
+                                    manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
@@ -131,11 +139,9 @@ namespace SincronizacaoVMI.Util
                         }
 
                         updatesRemotoParaLocal.Add(entLocal);
+                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-
-                    await UpdateRemotoParaLocal(updatesRemotoParaLocal);
-
+                    Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -155,6 +161,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
+                    double i = 0.0;
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -162,7 +169,7 @@ namespace SincronizacaoVMI.Util
                         var ent = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid);
                         if (ent != null) continue;
                         E eASalvar = new();
-                        eASalvar.NovoCopiar(e);
+                        eASalvar.Copiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
@@ -172,21 +179,25 @@ namespace SincronizacaoVMI.Util
                                 int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                if (manyToOneValue == null) continue;
-                                var manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+
+                                object manyToOneLocal = null;
+                                if (manyToOneValue != null)
+                                {
+                                    manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+                                }
+
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
                                 eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
-                                //persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
                             }
                         }
 
                         insertsLocalParaRemoto.Add(eASalvar);
+                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    await InsertLocalParaRemoto(insertsLocalParaRemoto);
+                    Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -206,22 +217,26 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
+                    double i = 0.0;
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
                         E entRemoto = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid) as E;
                         if (entRemoto == null) continue;
-                        entRemoto.NovoCopiar(e);
+                        entRemoto.Copiar(e);
 
                         if (persister.PropertyTypes.ContainsType(typeof(ManyToOneType)))
                         {
-                            var manyToOneProperties = persister.PropertyNames.Where(w => persister.GetPropertyType(w).Equals(typeof(ManyToOneType)));
+                            var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
                             foreach (var property in manyToOneProperties)
                             {
                                 int propertyIndex = persister.PropertyNames.PropertyIndex(property);
                                 bool isPropNullable = persister.PropertyNullability[propertyIndex];
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
-                                var manyToOneLocal = await ListarPorUuidRemoto(property, manyToOneValue.Uuid);
+
+                                object manyToOneLocal = null;
+                                if (manyToOneValue != null)
+                                    manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
@@ -234,9 +249,9 @@ namespace SincronizacaoVMI.Util
                         }
 
                         updatesLocalParaRemoto.Add(entRemoto);
+                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    await UpdateLocalParaRemoto(updatesLocalParaRemoto);
+                    Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -246,6 +261,10 @@ namespace SincronizacaoVMI.Util
                 throw;
             }
 
+            await InsertRemotoParaLocal(insertsRemotoParaLocal);
+            await UpdateRemotoParaLocal(updatesRemotoParaLocal);
+            await InsertLocalParaRemoto(insertsLocalParaRemoto);
+            await UpdateLocalParaRemoto(updatesLocalParaRemoto);
             await SaveLastSyncTime(lastSync, inicioSync);
         }
     }

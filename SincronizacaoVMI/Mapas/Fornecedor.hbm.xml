@@ -9,7 +9,7 @@
 		<many-to-one name="Representante"
 					 class="SincronizacaoVMI.Model.Representante"
 					 column="representante"
-					 lazy="false" not-null="true"/>
+					 lazy="false"/>
 		<property name="Uuid" />
 		<property name="Nome" />
 		<property name="Fantasia" />

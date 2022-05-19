@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SincronizacaoVMI.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class EntradaMercadoriaProdutoGrade : AModel, IModel
     {
@@ -61,8 +59,6 @@ namespace SincronizacaoVMI.Model
             set
             {
                 _produtoDescricao = value;
-                if (_produtoGrade != null)
-                    _produtoDescricao = _produtoGrade.Produto.Descricao;
                 OnPropertyChanged("ProdutoDescricao");
             }
         }
@@ -81,8 +77,6 @@ namespace SincronizacaoVMI.Model
             set
             {
                 _gradePreco = value;
-                if (_produtoGrade != null)
-                    _gradePreco = _produtoGrade.Preco;
                 OnPropertyChanged("GradePreco");
             }
         }
@@ -93,8 +87,6 @@ namespace SincronizacaoVMI.Model
             set
             {
                 _gradeFornecedor = value;
-                if (_produtoGrade != null)
-                    _gradeFornecedor = _produtoGrade.Produto.Fornecedor;
                 OnPropertyChanged("GradeFornecedor");
             }
         }

@@ -9,7 +9,7 @@
 		</id>
 		<property name="Uuid" />
 		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" not-null="true" />
-		<many-to-one name="LojaTrabalho" class="SincronizacaoVMI.Model.Loja" column="loja_trabalho" lazy="false" not-null="true"/>
+		<many-to-one name="LojaTrabalho" class="SincronizacaoVMI.Model.Loja" column="loja_trabalho" lazy="false" />
 		<property name="Data" column="data" />
 		<property name="Descricao" column="descricao" />
 		<property name="Valor" column="valor" />

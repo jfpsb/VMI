@@ -42,7 +42,6 @@ namespace SincronizacaoVMI.Model
             {
                 _fornecedor = value;
                 OnPropertyChanged("Fornecedor");
-                OnPropertyChanged("FornecedorNome");
             }
         }
 
@@ -53,7 +52,6 @@ namespace SincronizacaoVMI.Model
             {
                 _marca = value;
                 OnPropertyChanged("Marca");
-                OnPropertyChanged("MarcaNome");
             }
         }
 

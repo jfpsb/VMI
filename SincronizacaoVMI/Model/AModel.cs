@@ -10,7 +10,7 @@ namespace SincronizacaoVMI.Model
         private DateTime? _deletadoEm;
         private bool _deletado;
 
-        public virtual void NovoCopiar(object source)
+        public virtual void Copiar(object source)
         {
             foreach (var prop in GetType().GetProperties())
             {

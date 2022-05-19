@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SincronizacaoVMI.Util
 {
-    public abstract class ASincronizar<E> where E : AModel
+    public abstract class ASincronizar<E> where E : AModel, IModel
     {
         protected ISession _local, _remoto;
         protected bool _isChaveAutoIncremento;
@@ -79,12 +79,15 @@ namespace SincronizacaoVMI.Util
                 {
                     if (insertsRemotoParaLocal.Count > 0)
                     {
+                        double i = 0.0;
                         _local.Clear();
                         Console.WriteLine($"Inserindo {insertsRemotoParaLocal.Count} registro(s) do banco remoto para o local.");
                         foreach (E insert in insertsRemotoParaLocal)
                         {
                             await _local.SaveAsync(insert);
+                            Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
                         }
+                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
                         await tx.CommitAsync();
                     }
                 }
@@ -105,15 +108,17 @@ namespace SincronizacaoVMI.Util
                 {
                     if (updatesRemotoParaLocal.Count > 0)
                     {
+                        double i = 0.0;
                         _local.Clear();
                         Console.WriteLine($"Atualizando {updatesRemotoParaLocal.Count} registro(s) do banco remoto para o local.");
                         foreach (E update in updatesRemotoParaLocal)
                         {
                             await _local.UpdateAsync(update);
+                            Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
                         }
+                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
+                        await tx.CommitAsync();
                     }
-
-                    await tx.CommitAsync();
                 }
                 catch (Exception ex)
                 {
@@ -132,15 +137,17 @@ namespace SincronizacaoVMI.Util
                 {
                     if (insertsLocalParaRemoto.Count > 0)
                     {
+                        double i = 0.0;
                         _remoto.Clear();
                         Console.WriteLine($"Inserindo {insertsLocalParaRemoto.Count} registro(s) do banco local para o remoto.");
                         foreach (E insert in insertsLocalParaRemoto)
                         {
                             await _remoto.SaveAsync(insert);
+                            Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
                         }
+                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
+                        await tx.CommitAsync();
                     }
-
-                    await tx.CommitAsync();
                 }
                 catch (Exception ex)
                 {
@@ -159,15 +166,17 @@ namespace SincronizacaoVMI.Util
                 {
                     if (updatesLocalParaRemoto.Count > 0)
                     {
+                        double i = 0.0;
                         _remoto.Clear();
                         Console.WriteLine($"Atualizando {updatesLocalParaRemoto.Count} registro(s) do banco local para o remoto.");
                         foreach (E update in updatesLocalParaRemoto)
                         {
                             await _remoto.UpdateAsync(update);
+                            Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
                         }
+                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
+                        await tx.CommitAsync();
                     }
-
-                    await tx.CommitAsync();
                 }
                 catch (Exception ex)
                 {

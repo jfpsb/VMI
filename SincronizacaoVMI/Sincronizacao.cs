@@ -69,7 +69,8 @@ namespace SincronizacaoVMI
                 ASincronizar<Model.Banco> aBanco = new SincronizarGenerico<Model.Banco>(local, remote);
                 ASincronizar<Adiantamento> aAdiantamento = new SincronizarGenerico<Adiantamento>(local, remote);
                 ASincronizar<TipoDespesa> aTipoDespesa = new SincronizarGenerico<TipoDespesa>(local, remote);
-                ASincronizar<Loja> aLoja = new SincronizarGenerico<Loja>(local, remote);
+                SincronizarLojaMatriz aLojaMatriz = new SincronizarLojaMatriz(local, remote);
+                SincronizarLojaFilial aLojaFilial = new SincronizarLojaFilial(local, remote);
                 ASincronizar<Funcionario> aFuncionario = new SincronizarGenerico<Funcionario>(local, remote);
                 ASincronizar<ContaBancaria> aContaBancaria = new SincronizarGenerico<ContaBancaria>(local, remote);
                 ASincronizar<MembroFamiliar> aMembroFamiliar = new SincronizarGenerico<MembroFamiliar>(local, remote);
@@ -106,7 +107,8 @@ namespace SincronizacaoVMI
 
                 await aBanco.Sincronizar();
                 await aTipoDespesa.Sincronizar();
-                await aLoja.Sincronizar();
+                await aLojaMatriz.Sincronizar();
+                await aLojaFilial.Sincronizar();
                 await aFuncionario.Sincronizar();
                 await aAdiantamento.Sincronizar();
                 await aContaBancaria.Sincronizar();
