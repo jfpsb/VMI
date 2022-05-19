@@ -6,7 +6,7 @@
         xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
         mc:Ignorable="d"
         Title="Cadastrar Funcionário"
-        Height="Auto"
+        Height="700"
         Width="675"
         Icon="/Resources/Funcionario_Icon.ico"
         ResizeMode="NoResize"
