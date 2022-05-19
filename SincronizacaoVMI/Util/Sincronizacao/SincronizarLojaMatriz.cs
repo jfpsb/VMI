@@ -58,7 +58,6 @@ namespace SincronizacaoVMI.Util
                     }
 
                     Console.WriteLine($"Inserindo Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
-                    await InsertRemotoParaLocal(insertsRemotoParaLocal);
                 }
             }
             catch (Exception ex)
@@ -90,8 +89,6 @@ namespace SincronizacaoVMI.Util
                     }
 
                     Console.WriteLine($"Atualizando Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
-                    await UpdateRemotoParaLocal(updatesRemotoParaLocal);
-
                 }
             }
             catch (Exception ex)
@@ -125,7 +122,6 @@ namespace SincronizacaoVMI.Util
                     }
 
                     Console.WriteLine($"Inserindo Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
-                    await InsertLocalParaRemoto(insertsLocalParaRemoto);
                 }
             }
             catch (Exception ex)
@@ -157,7 +153,6 @@ namespace SincronizacaoVMI.Util
                     }
 
                     Console.WriteLine($"Atualizando Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
-                    await UpdateLocalParaRemoto(updatesLocalParaRemoto);
                 }
             }
             catch (Exception ex)
@@ -167,7 +162,12 @@ namespace SincronizacaoVMI.Util
                 throw;
             }
 
-            await SaveLastSyncTime(lastSync, inicioSync);
+            await InsertRemotoParaLocal(insertsRemotoParaLocal);
+            await UpdateRemotoParaLocal(updatesRemotoParaLocal);
+            await InsertLocalParaRemoto(insertsLocalParaRemoto);
+            await UpdateLocalParaRemoto(updatesLocalParaRemoto);
+            if (insertsRemotoParaLocal.Count > 0 || updatesRemotoParaLocal.Count > 0 || insertsLocalParaRemoto.Count > 0 || updatesLocalParaRemoto.Count > 0)
+                await SaveLastSyncTime(lastSync, inicioSync);
         }
     }
 }

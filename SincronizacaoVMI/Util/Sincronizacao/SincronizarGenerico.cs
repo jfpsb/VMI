@@ -265,7 +265,8 @@ namespace SincronizacaoVMI.Util
             await UpdateRemotoParaLocal(updatesRemotoParaLocal);
             await InsertLocalParaRemoto(insertsLocalParaRemoto);
             await UpdateLocalParaRemoto(updatesLocalParaRemoto);
-            await SaveLastSyncTime(lastSync, inicioSync);
+            if (insertsRemotoParaLocal.Count > 0 || updatesRemotoParaLocal.Count > 0 || insertsLocalParaRemoto.Count > 0 || updatesLocalParaRemoto.Count > 0)
+                await SaveLastSyncTime(lastSync, inicioSync);
         }
     }
 }

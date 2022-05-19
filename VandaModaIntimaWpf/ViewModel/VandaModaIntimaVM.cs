@@ -1,17 +1,11 @@
 ﻿using Newtonsoft.Json;
-using NHibernate;
-using NHibernate.Criterion;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -32,7 +26,14 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaEntradaMercadoriaComando { get; set; }
         public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
         {
-            SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
+            try
+            {
+                SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             //var persister = SessionProvider.MainSessionFactory.GetClassMetadata(typeof(Adiantamento));
 
