@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SincronizacaoVMI.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class Banco : AModel, IModel
     {

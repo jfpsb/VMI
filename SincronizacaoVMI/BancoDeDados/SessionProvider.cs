@@ -1,24 +1,23 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
 using System;
-using SincronizacaoVMI.Util;
 
-namespace SincronizacaoVMI.Banco
+namespace SincronizacaoVMI.BancoDeDados
 {
     /// <summary>
     /// Classe estática responsável pelas Sessions necessárias para o uso de banco de dados com NHibernate.
     /// </summary>
-    public static class SessionProviderBackup
+    public static class SessionProvider
     {
         /// <summary>
         /// Variável que guardará a configuração necessária contida em hibernate.cfg.xml.
         /// </summary>
-        public static Configuration BackupConfiguration;
+        public static Configuration Configuration;
 
         /// <summary>
         /// Guarda a Session Factory criada para uso em DAO.
         /// </summary>        
-        public static ISessionFactory BackupSessionFactory = null;
+        public static ISessionFactory SessionFactory = null;
 
         /// <summary>
         /// Método responsável pela criação da Session Factory.
@@ -26,49 +25,49 @@ namespace SincronizacaoVMI.Banco
         /// <returns>myConfiguration.BuildSessionFactory()</returns>
         public static ISessionFactory BuildSessionFactory()
         {
-            if (BackupSessionFactory != null)
-                return BackupSessionFactory;
+            if (SessionFactory != null)
+                return SessionFactory;
 
-            BackupConfiguration = new Configuration();
-            BackupConfiguration.Configure("hibernateRemoto.cfg.xml");
+            Configuration = new Configuration();
+            Configuration.Configure();
 
-            //string connString = Credentials.HibernateBackupConnString();
+            //string connString = Credentials.HibernateLocalConnString();
             //const string connectionStringKey = "connection.connection_string";
-            //BackupConfiguration.SetProperty(connectionStringKey, connString);
+            //Configuration.SetProperty(connectionStringKey, connString);
 
-            return BackupConfiguration.BuildSessionFactory();
+            return Configuration.BuildSessionFactory();
         }
 
         public static ISession GetSession()
         {
-            if (BackupSessionFactory == null)
+            if (SessionFactory == null)
             {
-                BackupSessionFactory = BuildSessionFactory();
+                SessionFactory = BuildSessionFactory();
             }
 
-            ISession _session = BackupSessionFactory.OpenSession();
+            ISession _session = SessionFactory.OpenSession();
 
             return _session;
         }
 
         public static IStatelessSession GetStatelessSession()
         {
-            if (BackupSessionFactory == null)
+            if (SessionFactory == null)
             {
-                BackupSessionFactory = BuildSessionFactory();
+                SessionFactory = BuildSessionFactory();
             }
 
-            IStatelessSession _session = BackupSessionFactory.OpenStatelessSession();
+            IStatelessSession _session = SessionFactory.OpenStatelessSession();
 
             return _session;
         }
 
         public static void FechaSessionFactory()
         {
-            if (BackupSessionFactory != null && !BackupSessionFactory.IsClosed)
+            if (SessionFactory != null && !SessionFactory.IsClosed)
             {
-                BackupSessionFactory.Close();
-                Console.WriteLine("BackupSessionFactory fechada");
+                SessionFactory.Close();
+                Console.WriteLine("MainSessionFactory fechada");
             }
         }
 
@@ -76,10 +75,10 @@ namespace SincronizacaoVMI.Banco
         {
             if (session != null && session.IsOpen)
             {
-                session.Clear();
+                session.Disconnect();
+                session.Close();
                 session.Dispose();
             }
-            Console.WriteLine($"Sessão Fechada");
         }
     }
 }

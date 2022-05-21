@@ -20,8 +20,6 @@ namespace SincronizacaoVMI.Util
             IList<Loja> insertsLocalParaRemoto = new List<Loja>();
             IList<Loja> updatesLocalParaRemoto = new List<Loja>();
 
-            Console.WriteLine($"Iniciando sincronização de Lojas Matrizes");
-
             var inicioSync = DateTime.Now;
             var lastSync = await GetLastSyncTime("lojamatriz");
 
@@ -44,7 +42,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"LojaMatriz - Encontrado(s) {lista.Count} itens para inserção remoto para local.");
                     foreach (Loja e in lista)
                     {
                         if (e == null) continue;
@@ -54,10 +52,7 @@ namespace SincronizacaoVMI.Util
                         Loja eASalvar = new Loja();
                         eASalvar.Copiar(e);
                         insertsRemotoParaLocal.Add(eASalvar);
-                        Console.WriteLine($"Inserindo Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    Console.WriteLine($"Inserindo Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -77,7 +72,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para atualização remoto para local.");
                     foreach (Loja e in lista)
                     {
                         if (e == null) continue;
@@ -85,10 +80,7 @@ namespace SincronizacaoVMI.Util
                         if (entLocal == null) continue;
                         entLocal.Copiar(e);
                         updatesRemotoParaLocal.Add(entLocal);
-                        Console.WriteLine($"Atualizando Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    Console.WriteLine($"Atualizando Loja Matriz de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -108,7 +100,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para inserção local para remoto.");
                     foreach (Loja e in lista)
                     {
                         if (e == null) continue;
@@ -118,10 +110,7 @@ namespace SincronizacaoVMI.Util
                         Loja eASalvar = new();
                         eASalvar.Copiar(e);
                         insertsLocalParaRemoto.Add(eASalvar);
-                        Console.WriteLine($"Inserindo Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    Console.WriteLine($"Inserindo Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -141,7 +130,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para atualização local para remoto.");
                     foreach (Loja e in lista)
                     {
                         if (e == null) continue;
@@ -149,10 +138,7 @@ namespace SincronizacaoVMI.Util
                         if (entRemoto == null) continue;
                         entRemoto.Copiar(e);
                         updatesLocalParaRemoto.Add(entRemoto);
-                        Console.WriteLine($"Atualizando Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    Console.WriteLine($"Atualizando Loja Matriz de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)

@@ -1,7 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Type;
-using SincronizacaoVMI.Banco;
+using SincronizacaoVMI.BancoDeDados;
 using SincronizacaoVMI.Model;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
@@ -26,8 +26,6 @@ namespace SincronizacaoVMI.Util
             IList<E> insertsLocalParaRemoto = new List<E>();
             IList<E> updatesLocalParaRemoto = new List<E>();
 
-            Console.WriteLine($"Iniciando sincronização de {typeof(E).Name}");
-
             var inicioSync = DateTime.Now;
             var lastSync = await GetLastSyncTime(typeof(E).Name.ToLower());
 
@@ -50,7 +48,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para inserção remoto para local.");
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -82,12 +80,8 @@ namespace SincronizacaoVMI.Util
                                 //persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
                             }
                         }
-
                         insertsRemotoParaLocal.Add(eASalvar);
-                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-
-                    Console.WriteLine($"Inserindo {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -107,7 +101,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para atualização remoto para local.");
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -139,9 +133,7 @@ namespace SincronizacaoVMI.Util
                         }
 
                         updatesRemotoParaLocal.Add(entLocal);
-                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-                    Console.WriteLine($"Atualizando {typeof(E).Name} de banco remoto para local -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -161,7 +153,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para inserção local para remoto.");
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -195,9 +187,7 @@ namespace SincronizacaoVMI.Util
                         }
 
                         insertsLocalParaRemoto.Add(eASalvar);
-                        Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-                    Console.WriteLine($"Inserindo {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
@@ -217,7 +207,7 @@ namespace SincronizacaoVMI.Util
 
                 if (lista.Count > 0 && persister.PropertyTypes != null)
                 {
-                    double i = 0.0;
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para atualização local para remoto.");
                     foreach (E e in lista)
                     {
                         if (e == null) continue;
@@ -249,9 +239,7 @@ namespace SincronizacaoVMI.Util
                         }
 
                         updatesLocalParaRemoto.Add(entRemoto);
-                        Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                     }
-                    Console.WriteLine($"Atualizando {typeof(E).Name} de banco local para remoto -> Copiando dados -> Progresso: {Math.Round(i++ / lista.Count * 100, 2)}%");
                 }
             }
             catch (Exception ex)
