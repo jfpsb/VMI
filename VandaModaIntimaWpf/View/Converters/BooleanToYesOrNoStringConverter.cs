@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace VandaModaIntimaWpf.ViewModel.Converters
+namespace VandaModaIntimaWpf.View.Converters
 {
     public class BooleanToYesOrNoStringConverter : IValueConverter
     {

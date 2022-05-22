@@ -25,12 +25,34 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar funcionários. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
-        public async Task<IList<Funcionario>> ListarPorNome(string nome)
+        public async Task<IList<Funcionario>> Listar(bool mostraDemitido)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.AddOrder(Order.Asc("Nome"));
+                if (!mostraDemitido)
+                {
+                    criteria.Add(Restrictions.IsNull("Demissao"));
+                }
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar funcionário");
+                throw new Exception($"Erro ao listar funcionários. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+        public async Task<IList<Funcionario>> ListarPorNome(string nome, bool mostraDemitido)
         {
             try
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Like("Nome", "%" + nome + "%"));
+                if (!mostraDemitido)
+                {
+                    criteria.Add(Restrictions.IsNull("Demissao"));
+                }
                 criteria.AddOrder(Order.Asc("Nome"));
                 return await Listar(criteria);
             }
@@ -40,12 +62,16 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar funcionários por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
-        public async Task<IList<Funcionario>> ListarPorCpf(string cnpj)
+        public async Task<IList<Funcionario>> ListarPorCpf(string cnpj, bool mostraDemitido)
         {
             try
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
+                if (!mostraDemitido)
+                {
+                    criteria.Add(Restrictions.IsNull("Demissao"));
+                }
                 criteria.AddOrder(Order.Asc("Nome"));
                 return await Listar(criteria);
             }

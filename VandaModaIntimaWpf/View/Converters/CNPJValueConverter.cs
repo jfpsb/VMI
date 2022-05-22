@@ -3,17 +3,17 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 
-namespace VandaModaIntimaWpf.ViewModel.Converters
+namespace VandaModaIntimaWpf.View.Converters
 {
-    public class CPFValueConverter : IValueConverter
+    public class CNPJValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value.Equals(string.Empty))
                 return string.Empty;
 
-            long cpf = long.Parse(Regex.Replace(value.ToString(), "[A-Za-z.-]", string.Empty));
-            return string.Format(@"{0:000\.000\.000-00}", cpf);
+            long cnpj = long.Parse(Regex.Replace(value.ToString(), "[^0-9]", string.Empty));
+            return string.Format(@"{0:00\.000\.000/0000-00}", cnpj);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Converters
                 return string.Empty;
 
 
-            int tamanhoMax = 11;
+            int tamanhoMax = 14;
             string valorLimpo = Regex.Replace(value.ToString(), "[^0-9]", string.Empty).TrimStart('0');
 
             if (valorLimpo.Length > tamanhoMax)

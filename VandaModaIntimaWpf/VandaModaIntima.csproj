@@ -676,9 +676,10 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
-    <Compile Include="ViewModel\Converters\BooleanToYesOrNoStringConverter.cs" />
-    <Compile Include="ViewModel\Converters\CPFValueConverter.cs" />
-    <Compile Include="ViewModel\Converters\MenorQueValorConverter.cs" />
+    <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
+    <Compile Include="View\Converters\CPFValueConverter.cs" />
+    <Compile Include="View\Converters\IsDemitidoConverter.cs" />
+    <Compile Include="View\Converters\MenorQueValorConverter.cs" />
     <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -756,7 +757,7 @@
     <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeAlmoco.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeBonusMensalPorDiaVM.cs" />
-    <Compile Include="ViewModel\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="View\Converters\InverseBooleanConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDePassagem.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ICalculoDeBonus.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarPassagem.cs" />
@@ -764,7 +765,7 @@
     <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Converters\ValorAPagarConverter.cs" />
+    <Compile Include="View\Converters\ValorAPagarConverter.cs" />
     <Compile Include="ViewModel\FolhaPagamento\VisualizarHoraExtraFaltasVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
     <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineVM.cs" />
@@ -778,7 +779,7 @@
     <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVMStrategy.cs" />
     <Compile Include="ViewModel\Funcionario\EditarFuncionarioVMStrategy.cs" />
     <Compile Include="ViewModel\Funcionario\EditarFuncionarioVM.cs" />
-    <Compile Include="ViewModel\Funcionario\PesquisarFuncVM.cs" />
+    <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioVM.cs" />
     <Compile Include="ViewModel\Funcionario\PesquisarFuncMsgVMStrategy.cs" />
     <Compile Include="ViewModel\GlobalConfigs.cs" />
     <Compile Include="ViewModel\Grade\CadastrarGradeVM.cs" />
@@ -992,7 +993,7 @@
     <Compile Include="View\FolhaPagamento\VisualizarHoraExtra.xaml.cs">
       <DependentUpon>VisualizarHoraExtra.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Converters\CNPJValueConverter.cs" />
+    <Compile Include="View\Converters\CNPJValueConverter.cs" />
     <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
       <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
     </Compile>

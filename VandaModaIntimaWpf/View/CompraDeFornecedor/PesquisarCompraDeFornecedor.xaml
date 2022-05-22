@@ -6,7 +6,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
-                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
                      mc:Ignorable="d"
                      Title="Pesquisar Compras De Fornecedor"
                      Height="600"

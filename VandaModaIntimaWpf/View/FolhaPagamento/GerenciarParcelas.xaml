@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.ViewModel.Converters"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
         mc:Ignorable="d"
         Title="GerenciarParcelas"

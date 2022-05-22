@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public void AbrirTelaFuncionario()
         {
-            PesquisarFuncVM viewModel = new PesquisarFuncVM(new MessageBoxService(), new AbrePelaTelaPesqFuncService());
+            PesquisarFuncionarioVM viewModel = new PesquisarFuncionarioVM(new MessageBoxService(), new AbrePelaTelaPesqFuncService());
             PesquisarFuncionario pesquisarFuncionario = new PesquisarFuncionario() { DataContext = viewModel };
             pesquisarFuncionario.Show();
         }
