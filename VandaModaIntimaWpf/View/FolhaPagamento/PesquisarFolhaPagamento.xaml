@@ -55,7 +55,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="Exportar Folhas Para PDF"
-                              Command="{Binding ExportarFolhasParaPDFComando}">
+                              Command="{Binding ExportarFolhasParaPDFComando}"
+                              CommandParameter="{Binding ElementName=TelaPesquisarFolhaPagamento}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/PDF_Icon.png" />
                         </MenuItem.Icon>

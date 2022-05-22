@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
@@ -20,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public PesquisarFuncionarioVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Funcionario> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
-            //TODO: Excel strategy
+            excelStrategy = new FuncionarioExcelStrategy();
             pesquisarViewModelStrategy = new PesquisarFuncMsgVMStrategy();
             daoEntidade = new DAOFuncionario(_session);
             PesquisarPor = 1;
@@ -58,7 +59,14 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         protected override WorksheetContainer<Model.Funcionario>[] GetWorksheetContainers()
         {
-            throw new NotImplementedException();
+            var worksheets = new WorksheetContainer<Model.Funcionario>[1];
+            worksheets[0] = new WorksheetContainer<Model.Funcionario>()
+            {
+                Nome = "Funcionários",
+                Lista = Entidades.Select(s => s.Entidade).ToList()
+            };
+
+            return worksheets;
         }
 
         public int PesquisarPor

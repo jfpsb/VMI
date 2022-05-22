@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.FolhaPagamento

@@ -74,6 +74,48 @@
                                 <ContentPresenter x:Name="Menu"
                                                   DockPanel.Dock="Top" />
 
+                                <StatusBar DockPanel.Dock="Bottom"
+                                           Margin="5,0,5,0"
+                                           Visibility="{Binding VisibilidadeStatusBar}">
+                                    <StatusBar.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                            </Grid>
+                                        </ItemsPanelTemplate>
+                                    </StatusBar.ItemsPanel>
+
+                                    <StatusBarItem HorizontalContentAlignment="Stretch">
+                                        <ProgressBar Value="{Binding ValorBarraProgresso}"
+                                                     IsIndeterminate="{Binding IsIndefinidaBarraProgresso}"
+                                                     Maximum="100"
+                                                     Height="25"
+                                                     HorizontalAlignment="Stretch" />
+                                    </StatusBarItem>
+                                    <StatusBarItem HorizontalContentAlignment="Stretch"
+                                                   HorizontalAlignment="Center">
+                                        <Label Content="{Binding DescricaoBarraProgresso}"
+                                               HorizontalContentAlignment="Stretch"
+                                               HorizontalAlignment="Stretch"
+                                               FontWeight="Bold" />
+                                    </StatusBarItem>
+                                    <StatusBarItem HorizontalAlignment="Right"
+                                                   Grid.Column="1">
+                                        <Button Height="25"
+                                                Width="25"
+                                                Margin="0"
+                                                Padding="0"
+                                                Background="Transparent"
+                                                BorderBrush="Transparent"
+                                                ToolTip="Cancelar Operação">
+                                            <Image Source="/Resources/Erro.png" />
+                                        </Button>
+                                    </StatusBarItem>
+                                </StatusBar>
+
                                 <Grid DockPanel.Dock="Bottom">
                                     <ContentPresenter x:Name="LeftButtonPresenter" />
                                     <Button Grid.Row="2"

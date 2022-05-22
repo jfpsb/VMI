@@ -9,12 +9,11 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
 using VandaModaIntimaWpf.View.Funcionario;
+using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
@@ -38,18 +37,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
         private FolhaPagamentoModel _folhaPagamento;
         private IList<FuncionarioModel> _funcionarios;
-        private IFileDialogService _fileDialogService;
         private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
-        private IProgress<double> progressoValorProgresso;
-        private IProgress<string> progressoDescricaoProgesso;
         private double _totalEmPassagem;
         private double _totalEmAlimentacao;
         private double _totalEmMeta;
-
-        //Propriedades de Tela De Progresso
-        private string _tituloTelaProgresso;
-        private string _descricaoBarraProgresso;
-        private double _valorBarraProgresso;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -71,7 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarFaltasComando { get; set; }
         public ICommand AdicionarValoresDespesaComando { get; set; }
 
-        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IFileDialogService fileDialogService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
+        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             //TODO: excel para folha de pagamento
@@ -85,7 +76,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoHoraExtra = new DAOHoraExtra(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new FolhaPagamentoExcelStrategy();
-            _fileDialogService = fileDialogService;
             FolhaPagamentos = new ObservableCollection<FolhaPagamentoModel>();
 
             GetFuncionarios();
@@ -116,9 +106,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
             AbrirAdicionarFaltasComando = new RelayCommand(AbrirAdicionarFaltas);
             AdicionarValoresDespesaComando = new RelayCommand(AdicionarValoresDespesa);
-
-            progressoValorProgresso = new Progress<double>(valor => { ValorBarraProgresso = valor; });
-            progressoDescricaoProgesso = new Progress<string>(descricao => { DescricaoBarraProgresso = descricao; });
         }
 
         private async void AdicionarValoresDespesa(object obj)
@@ -204,23 +191,35 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             view.ShowDialog();
             OnPropertyChanged("TermoPesquisa");
         }
-        private async void ExportarFolhasParaPDF(object obj)
+        private async void ExportarFolhasParaPDF(object parameter)
         {
-            string caminhoPasta = _fileDialogService.ShowFolderBrowserDialog();
-            TelaDeProgresso telaDeProgresso = new TelaDeProgresso()
+            try
             {
-                DataContext = this
-            };
-            telaDeProgresso.Show();
-            await Task.Run(() => ProcessaFolhasParaPDF(progressoValorProgresso, progressoDescricaoProgesso, caminhoPasta));
+                if (parameter == null)
+                    throw new Exception($"Parâmetro de comando não configurado para ExportarExcel em Pesquisar Folha De Pagamento.");
+
+                var folderBrowserDialog = parameter as IFolderBrowserDialog;
+                string caminhoPasta = folderBrowserDialog.OpenFolderBrowserDialog();
+
+                if (caminhoPasta != null)
+                {
+                    VisibilidadeStatusBar = Visibility.Visible;
+                    Task task = Task.Run(() => ProcessaFolhasParaPDF(caminhoPasta));
+                    await task.ContinueWith(t => { VisibilidadeStatusBar = Visibility.Collapsed; });
+                    MessageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show(ex.Message);
+            }
         }
-        private async void ProcessaFolhasParaPDF(IProgress<double> progressoValor, IProgress<string> progressoDescricao, string caminhoPasta)
+        private async void ProcessaFolhasParaPDF(string caminhoPasta)
         {
             //TODO: este código está repetido em TelaRelatorioFolha.cs
             double incremento = 100.0 / FolhaPagamentos.Count;
-            double progressoAtual = 0;
+            setValorBarraProgresso.Report(-1); //Reseta valor para zero
             var report = new RelatorioFolhaPagamento();
-            TituloTelaProgresso = "Exportando Folhas De Pagamento Para PDF";
 
             if (!string.IsNullOrEmpty(caminhoPasta))
             {
@@ -232,17 +231,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     BonusDataSet bonusDataSet = new BonusDataSet();
                     ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
 
-                    progressoDescricao.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
+                    setDescricaoBarraProgresso.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
 
                     foreach (var folha in FolhaPagamentos)
                     {
-                        progressoValor.Report(progressoAtual);
+                        setValorBarraProgresso.Report(incremento);
 
                         folhaPagamentoDataSet.Clear();
                         bonusDataSet.Clear();
                         parcelaDataSet.Clear();
 
-                        progressoDescricao.Report($"Gerando Folha de {folha.Funcionario.Nome}");
+                        setDescricaoBarraProgresso.Report($"Gerando Folha de {folha.Funcionario.Nome}");
 
                         int i = 0;
                         foreach (var bonus in folha.Bonus)
@@ -328,13 +327,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         report.SetDataSource(folhaPagamentoDataSet);
 
                         report.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf"));
-
-                        progressoAtual += incremento;
                     }
 
-                    progressoAtual = 100;
-                    progressoValor.Report(progressoAtual);
-                    progressoDescricao.Report($@"Folhas De Pagamento Foram Exportadas Em PDF Com Sucesso Em {caminhoPasta}!");
+                    setDescricaoBarraProgresso.Report($"Folhas De Pagamento Foram Exportadas Em PDF Com Sucesso Em {caminhoPasta}");
                 }
                 catch (Exception ex)
                 {
@@ -539,15 +534,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             OnPropertyChanged("TermoPesquisa");
         }
 
-        public override async void ExportarExcel(object parameter)
-        {
-            MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"));
-            IsThreadLocked = true;
-            await new Excel<FolhaPagamentoModel>(excelStrategy).Salvar(GetWorksheetContainers());
-            IsThreadLocked = false;
-            MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"));
-        }
-
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;
@@ -579,39 +565,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 OnPropertyChanged("FolhaPagamento");
             }
         }
-
         public double TotalAPagar
         {
             get => FolhaPagamentos.Select(s => s.ValorATransferir).Sum();
         }
-        public string TituloTelaProgresso
-        {
-            get => _tituloTelaProgresso;
-            set
-            {
-                _tituloTelaProgresso = value;
-                OnPropertyChanged("TituloTelaProgresso");
-            }
-        }
-        public string DescricaoBarraProgresso
-        {
-            get => _descricaoBarraProgresso;
-            set
-            {
-                _descricaoBarraProgresso = value;
-                OnPropertyChanged("DescricaoBarraProgresso");
-            }
-        }
-        public double ValorBarraProgresso
-        {
-            get => _valorBarraProgresso;
-            set
-            {
-                _valorBarraProgresso = value;
-                OnPropertyChanged("ValorBarraProgresso");
-            }
-        }
-
         public double TotalEmPassagem
         {
             get => _totalEmPassagem;

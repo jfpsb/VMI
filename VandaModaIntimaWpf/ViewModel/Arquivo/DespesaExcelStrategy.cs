@@ -1,16 +1,14 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class DespesaExcelStrategy : AExcelStrategy
+    public class DespesaExcelStrategy : AExcelStrategy<Model.Despesa>
     {
         private ISession _session;
         private DAODespesa daoDespesa;
@@ -30,16 +28,26 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Columns.AutoFit();
         }
 
-        public override async void EscreveDados(Workbook workbook, params object[] containers)
+        public override async void EscreveDados(Workbook workbook,
+            IProgress<string> descricao,
+            IProgress<double> valor,
+            IProgress<bool> isIndeterminada,
+            params WorksheetContainer<Model.Despesa>[] containers)
         {
-            WorksheetContainer<Model.Despesa> f = (WorksheetContainer<Model.Despesa>)containers[0];
+            descricao.Report("Iniciando exportação em Excel de Despesas");
+            isIndeterminada.Report(true);
+
+            WorksheetContainer<Model.Despesa> f = containers[0];
             double totalGeral = await daoDespesa.RetornaSomaTodasDespesas(f.Lista[0].Data);
-            workbook.Worksheets.Add(Missing.Value, Missing.Value, 3, Missing.Value);
+            workbook.Worksheets.Add(Missing.Value, Missing.Value, 2, Missing.Value);
+
+            isIndeterminada.Report(false);
+            double incrementoProgresso = 0;
 
             for (int i = 0; i < containers.Length; i++)
             {
                 int linha = 1;
-                WorksheetContainer<Model.Despesa> container = (WorksheetContainer<Model.Despesa>)containers[i];
+                WorksheetContainer<Model.Despesa> container = containers[i];
                 dynamic listaResumido;
 
                 Worksheet worksheet = workbook.Worksheets.Item[i + 1];
@@ -69,30 +77,41 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 switch (container.Nome)
                 {
                     case "DESPESA EMPRESARIAL":
-                        EscreveTextoRelatorio(worksheet, linha, 7, 9, 10);
-                        linha++;
-                        EscreveHeaders(worksheet, _colunasEmpresarial, linha, 1);
-                        EscreveHeaders(worksheet, _colunasResumido, linha, 9);
-                        listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
-                        linha++;
-                        for (int j = 0; j < container.Lista.Count; j++)
                         {
-                            worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
-                            worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
-                            worksheet.Cells[j + linha, 3] = container.Lista[j].Representante?.Nome;
-                            worksheet.Cells[j + linha, 4] = container.Lista[j].Fornecedor?.Nome;
-                            worksheet.Cells[j + linha, 5] = container.Lista[j].Loja?.Nome;
-                            worksheet.Cells[j + linha, 6] = container.Lista[j].Descricao;
-                            worksheet.Cells[j + linha, 7] = container.Lista[j].Valor;
-                        }
+                            EscreveTextoRelatorio(worksheet, linha, 7, 9, 10);
+                            linha++;
+                            EscreveHeaders(worksheet, _colunasEmpresarial, linha, 1);
+                            EscreveHeaders(worksheet, _colunasResumido, linha, 9);
+                            listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
+                            linha++;
 
-                        for (int j = 0; j < listaResumido.Count; j++)
-                        {
-                            worksheet.Cells[j + linha, 9] = listaResumido[j].GroupByKey;
-                            worksheet.Cells[j + linha, 10] = listaResumido[j].Valor;
+                            valor.Report(-1); //Reseta valor ao passar valor negativo
+                            incrementoProgresso = 100.0 / container.Lista.Count;
+                            for (int j = 0; j < container.Lista.Count; j++)
+                            {
+                                descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA EMPRESARIAL {j + 1} de {container.Lista.Count}");
+                                worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
+                                worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
+                                worksheet.Cells[j + linha, 3] = container.Lista[j].Representante?.Nome;
+                                worksheet.Cells[j + linha, 4] = container.Lista[j].Fornecedor?.Nome;
+                                worksheet.Cells[j + linha, 5] = container.Lista[j].Loja?.Nome;
+                                worksheet.Cells[j + linha, 6] = container.Lista[j].Descricao;
+                                worksheet.Cells[j + linha, 7] = container.Lista[j].Valor;
+                                valor.Report(incrementoProgresso);
+                            }
+
+                            valor.Report(-1); //Reseta valor ao passar valor negativo
+                            incrementoProgresso = 100.0 / listaResumido.Count;
+                            for (int j = 0; j < listaResumido.Count; j++)
+                            {
+                                descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA EMPRESARIAL RESUMIDO {j + 1} de {listaResumido.Count}");
+                                worksheet.Cells[j + linha, 9] = listaResumido[j].GroupByKey;
+                                worksheet.Cells[j + linha, 10] = listaResumido[j].Valor;
+                                valor.Report(incrementoProgresso);
+                            }
+                            EstilizaLinhas(worksheet, linha, container, listaResumido, 7, 9, 10);
+                            break;
                         }
-                        EstilizaLinhas(worksheet, linha, container, listaResumido, 7, 9, 10);
-                        break;
                     case "DESPESA FAMILIAR":
                         EscreveTextoRelatorio(worksheet, linha, 4, 6, 7);
                         linha++;
@@ -100,18 +119,27 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         EscreveHeaders(worksheet, _colunasFamiliarResumido, linha, 6);
                         listaResumido = container.Lista.GroupBy(g => g.Familiar.Nome).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
+
+                        valor.Report(-1); //Reseta valor ao passar valor negativo
+                        incrementoProgresso = 100.0 / container.Lista.Count;
                         for (int j = 0; j < container.Lista.Count; j++)
                         {
+                            descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA FAMILIAR {j + 1} de {container.Lista.Count}");
                             worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                             worksheet.Cells[j + linha, 2] = container.Lista[j].Descricao;
                             worksheet.Cells[j + linha, 3] = container.Lista[j].Familiar.Nome;
                             worksheet.Cells[j + linha, 4] = container.Lista[j].Valor;
+                            valor.Report(incrementoProgresso);
                         }
 
+                        valor.Report(-1); //Reseta valor ao passar valor negativo
+                        incrementoProgresso = 100.0 / listaResumido.Count;
                         for (int j = 0; j < listaResumido.Count; j++)
                         {
+                            descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA FAMILIAR RESUMIDO {j + 1} de {listaResumido.Count}");
                             worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
                             worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;
+                            valor.Report(incrementoProgresso);
                         }
                         EstilizaLinhas(worksheet, linha, container, listaResumido, 4, 6, 7);
                         break;
@@ -122,18 +150,27 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         EscreveHeaders(worksheet, _colunasResumido, linha, 6);
                         listaResumido = container.Lista.GroupBy(g => g.Descricao).Select(s => new { Valor = s.Sum(sum => sum.Valor), GroupByKey = s.Key }).OrderBy(o => o.GroupByKey).ToList();
                         linha++;
+
+                        valor.Report(-1); //Reseta valor ao passar valor negativo
+                        incrementoProgresso = 100.0 / container.Lista.Count;
                         for (int j = 0; j < container.Lista.Count; j++)
                         {
+                            descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA RESIDENCIAL {j + 1} de {container.Lista.Count}");
                             worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                             worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
                             worksheet.Cells[j + linha, 3] = container.Lista[j].Descricao;
                             worksheet.Cells[j + linha, 4] = container.Lista[j].Valor;
+                            valor.Report(incrementoProgresso);
                         }
 
+                        valor.Report(-1); //Reseta valor ao passar valor negativo
+                        incrementoProgresso = 100.0 / listaResumido.Count;
                         for (int j = 0; j < listaResumido.Count; j++)
                         {
+                            descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA RESIDENCIAL RESUMIDO {j + 1} de {listaResumido.Count}");
                             worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
                             worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;
+                            valor.Report(incrementoProgresso);
                         }
                         EstilizaLinhas(worksheet, linha, container, listaResumido, 4, 6, 7);
                         break;
@@ -177,11 +214,6 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             range6.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             range6.Borders.Color = Color.Black;
             range6.Interior.Color = Color.Yellow;
-        }
-
-        public override Task LeEInsereDados(Workbook workbook)
-        {
-            throw new NotImplementedException();
         }
     }
 }

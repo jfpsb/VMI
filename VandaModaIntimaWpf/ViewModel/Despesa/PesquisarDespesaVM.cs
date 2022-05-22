@@ -27,7 +27,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasEmpresarial;
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasFamiliar;
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasResidencial;
-        private ObservableCollection<EntidadeComCampo<Model.Despesa>> _outrasDespesas;
 
         public ICommand AbrirDespesaGroupByLojaComando { get; set; }
 
@@ -62,8 +61,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         {
             if (e.PropertyName.Equals("AbaSelecionada"))
             {
-                if (DespesasEmpresarial == null || DespesasFamiliar == null || DespesasResidencial == null
-                    || OutrasDespesas == null)
+                if (DespesasEmpresarial == null || DespesasFamiliar == null || DespesasResidencial == null)
                     return;
 
                 switch (AbaSelecionada)
@@ -76,9 +74,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         break;
                     case 2:
                         TotalEmDespesas = DespesasResidencial.Sum(s => s.Entidade.Valor);
-                        break;
-                    case 3:
-                        TotalEmDespesas = OutrasDespesas.Sum(s => s.Entidade.Valor);
                         break;
                 }
             }
@@ -101,15 +96,14 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             TotalGeralDespesas = await dao.RetornaSomaTodasDespesas(DataEscolhida);
 
+            //TODO: USAR FUTURE QUERIES
             var tipoEmpresarial = TiposDespesa.Where(w => w.Nome.Equals("DESPESA EMPRESARIAL")).Single();
             var tipoFamiliar = TiposDespesa.Where(w => w.Nome.Equals("DESPESA FAMILIAR")).Single();
             var tipoResidencial = TiposDespesa.Where(w => w.Nome.Equals("DESPESA RESIDENCIAL")).Single();
-            var tipoOutras = TiposDespesa.Where(w => w.Nome.Equals("OUTRAS DESPESAS")).Single();
 
             DespesasEmpresarial = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoEmpresarial, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
             DespesasFamiliar = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoFamiliar, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
             DespesasResidencial = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoResidencial, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
-            OutrasDespesas = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoOutras, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
         }
         private async void GetTiposDespesa()
         {
@@ -125,7 +119,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         protected override WorksheetContainer<Model.Despesa>[] GetWorksheetContainers()
         {
-            var listas = new WorksheetContainer<Model.Despesa>[4];
+            var listas = new WorksheetContainer<Model.Despesa>[3];
 
             WorksheetContainer<Model.Despesa> containerEmpresarial = new WorksheetContainer<Model.Despesa>
             {
@@ -145,16 +139,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 Lista = DespesasResidencial.Select(s => s.Entidade).ToList()
             };
 
-            WorksheetContainer<Model.Despesa> containerOutras = new WorksheetContainer<Model.Despesa>
-            {
-                Nome = "OUTRAS DESPESAS",
-                Lista = OutrasDespesas.Select(s => s.Entidade).ToList()
-            };
-
             listas[0] = containerEmpresarial;
             listas[1] = containerFamiliar;
             listas[2] = containerResidencial;
-            listas[3] = containerOutras;
 
             return listas;
         }
@@ -266,15 +253,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _despesasResidencial = value;
                 OnPropertyChanged("DespesasResidencial");
-            }
-        }
-        public ObservableCollection<EntidadeComCampo<Model.Despesa>> OutrasDespesas
-        {
-            get => _outrasDespesas;
-            set
-            {
-                _outrasDespesas = value;
-                OnPropertyChanged("OutrasDespesas");
             }
         }
     }

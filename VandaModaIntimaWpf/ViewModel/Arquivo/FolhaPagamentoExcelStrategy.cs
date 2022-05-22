@@ -1,23 +1,25 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
-using VandaModaIntimaWpf.Model;
-using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public class FolhaPagamentoExcelStrategy : AExcelStrategy
+    public class FolhaPagamentoExcelStrategy : AExcelStrategy<Model.FolhaPagamento>
     {
         public override void AutoFitColunas(Worksheet Worksheet)
         {
             Worksheet.Columns.AutoFit();
         }
 
-        public override void EscreveDados(Workbook workbook, params object[] l)
+        public override void EscreveDados(Workbook workbook,
+            IProgress<string> descricao,
+            IProgress<double> valor,
+            IProgress<bool> isIndeterminada,
+            params WorksheetContainer<Model.FolhaPagamento>[] containers)
         {
-            WorksheetContainer<FolhaModel> wscontainer = (WorksheetContainer<FolhaModel>)l[0];
+            descricao.Report("Iniciando exportação em Excel de Folhas De Pagamento");
+            isIndeterminada.Report(true);
+            WorksheetContainer<Model.FolhaPagamento> wscontainer = containers[0];
             var lista = wscontainer.Lista;
             var worksheet = workbook.Worksheets.Add();
             worksheet.Name = wscontainer.Nome;
@@ -28,8 +30,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             worksheet.Cells.Font.Size = 9;
 
-            foreach (FolhaModel folha in lista)
+            isIndeterminada.Report(false);
+            double incrementoProgresso = 100.0 / lista.Count;
+            int i = 1;
+            foreach (Model.FolhaPagamento folha in lista)
             {
+                descricao.Report($"Escrevendo folha de pagamento {i} de {lista.Count}");
                 worksheet.Cells[linhaAtual, pColuna] = folha.Funcionario.Nome + " - " + folha.MesReferencia;
                 worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;
                 worksheet.Cells[linhaAtual, pColuna].Font.Size = 10;
@@ -69,12 +75,9 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                 worksheet.Range[pCelula, uCelula].Borders.LineStyle = XlLineStyle.xlContinuous;
 
                 linhaAtual += 2;
+                i++;
+                valor.Report(incrementoProgresso);
             }
-        }
-
-        public override Task LeEInsereDados(Workbook workbook)
-        {
-            throw new NotImplementedException();
         }
     }
 }

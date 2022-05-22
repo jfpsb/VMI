@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirCadastrar(ISession session)
         {
-            CadastrarCompraDeFornecedorVM viewModel = new CadastrarCompraDeFornecedorVM(session, new MessageBoxService(), new FileDialogService(), false);
+            CadastrarCompraDeFornecedorVM viewModel = new CadastrarCompraDeFornecedorVM(session, new MessageBoxService(), false);
             SalvarCompraDeFornecedor view = new SalvarCompraDeFornecedor
             {
                 DataContext = viewModel
@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
 
         public bool? AbrirEditar(Model.CompraDeFornecedor clone, ISession session)
         {
-            EditarCompraDeFornecedorVM viewModel = new EditarCompraDeFornecedorVM(session, clone, new MessageBoxService(), new FileDialogService());
+            EditarCompraDeFornecedorVM viewModel = new EditarCompraDeFornecedorVM(session, clone, new MessageBoxService());
             SalvarCompraDeFornecedor view = new SalvarCompraDeFornecedor
             {
                 DataContext = viewModel

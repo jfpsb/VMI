@@ -1,4 +1,5 @@
 ﻿<Window x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
+        x:Name="TelaSalvarCompraDeFornecedor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -38,7 +39,8 @@
                         HorizontalAlignment="Right"
                         ToolTip="Serão Importadas A Data da NFe, O Valor, O Fornecedor e A Loja de Destino"
                         Content="Importar Dados De NFe (.xml)"
-                        Command="{Binding ImportarXmlNFeComando}" />
+                        Command="{Binding ImportarXmlNFeComando}"
+                        CommandParameter="{Binding ElementName=TelaSalvarCompraDeFornecedor}" />
                 <Label Grid.Row="1"
                        Content="Data De Pedido:" />
                 <DatePicker Grid.Column="1"
@@ -103,7 +105,8 @@
                 <Label Content="Escolha O Arquivo:" />
                 <Button Grid.Column="1"
                         Content="Procurar"
-                        Command="{Binding ProcurarArquivoComando}" />
+                        Command="{Binding ProcurarArquivoComando}"
+                        CommandParameter="{Binding ElementName=TelaSalvarCompraDeFornecedor}"/>
                 <DataGrid Grid.Row="1"
                           Grid.ColumnSpan="2"
                           ItemsSource="{Binding Arquivos, UpdateSourceTrigger=PropertyChanged}"

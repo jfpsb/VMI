@@ -13,6 +13,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Fornecedor;
+using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -24,7 +25,6 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         protected DAOLoja daoLoja;
         protected DAORepresentante daoRepresentante;
         protected ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
-        protected IFileDialogService _fileDialogService;
         protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Arquivos De Compras De Fornecedor");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Representante> _representantes;
@@ -35,10 +35,9 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         public ICommand ImportarXmlNFeComando { get; set; }
         public ICommand AbrirArquivoComando { get; set; }
 
-        public CadastrarCompraDeFornecedorVM(ISession session, IMessageBoxService messageBoxService, IFileDialogService fileDialogService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarCompraDeFornecedorVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             _session = session;
-            _fileDialogService = fileDialogService;
             MessageBoxService = messageBoxService;
             IssoEUmUpdate = issoEUmUpdate;
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
@@ -88,61 +87,72 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
-        private async void ImportarXmlNFe(object obj)
+        private async void ImportarXmlNFe(object parameter)
         {
-            var caminho = _fileDialogService.ShowFileBrowserDialog("Arquivo De Nota Fiscal (.xml)|*.xml");
-
-            if (caminho.Length > 0)
+            try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
-                TNfeProc nfe;
+                if (parameter == null)
+                    throw new Exception("Parâmetro de comando não configurado para ImportarXmlNFe em Salvar Compra De Fornecedor.");
 
-                try
+                var openFileDialog = parameter as IOpenFileDialog;
+                var caminhoArquivo = openFileDialog.OpenFileDialog();
+
+                if (caminhoArquivo != null)
                 {
-                    using (Stream stream = new FileStream(caminho, FileMode.Open))
+                    XmlSerializer serializer = new XmlSerializer(typeof(TNfeProc));
+                    TNfeProc nfe;
+
+                    try
                     {
-                        nfe = serializer.Deserialize(stream) as TNfeProc;
-
-                        Entidade.Valor = double.Parse(nfe.NFe.infNFe.total.ICMSTot.vNF, CultureInfo.InvariantCulture);
-                        Entidade.DataNotaFiscal = DateTime.Parse(nfe.NFe.infNFe.ide.dhEmi);
-                        Entidade.NumeroNfe = int.Parse(nfe.NFe.infNFe.ide.nNF);
-                        Entidade.ChaveAcessoNfe = Regex.Replace(nfe.NFe.infNFe.Id, "[^0-9]", string.Empty);
-
-                        Model.Fornecedor fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
-                        Model.Loja loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
-
-                        if (fornecedor == null)
+                        using (Stream stream = new FileStream(caminhoArquivo, FileMode.Open))
                         {
-                            var msgBox = MessageBoxService.Show("O Fornecedor Desta Nota Fiscal Não Está Cadastrado. Deseja Cadastrar Este Fornecedor?", "Fornecedor Não Encontrado",
-                                System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
+                            nfe = serializer.Deserialize(stream) as TNfeProc;
 
-                            if (msgBox == System.Windows.MessageBoxResult.Yes)
+                            Entidade.Valor = double.Parse(nfe.NFe.infNFe.total.ICMSTot.vNF, CultureInfo.InvariantCulture);
+                            Entidade.DataNotaFiscal = DateTime.Parse(nfe.NFe.infNFe.ide.dhEmi);
+                            Entidade.NumeroNfe = int.Parse(nfe.NFe.infNFe.ide.nNF);
+                            Entidade.ChaveAcessoNfe = Regex.Replace(nfe.NFe.infNFe.Id, "[^0-9]", string.Empty);
+
+                            Model.Fornecedor fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                            Model.Loja loja = await daoLoja.ListarPorId(nfe.NFe.infNFe.dest.Item);
+
+                            if (fornecedor == null)
                             {
-                                CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, MessageBoxService, nfe.NFe.infNFe.emit.Item, false);
-                                SalvarFornecedor view = new SalvarFornecedor { DataContext = vm };
-                                var result = view.ShowDialog();
+                                var msgBox = MessageBoxService.Show("O Fornecedor Desta Nota Fiscal Não Está Cadastrado. Deseja Cadastrar Este Fornecedor?", "Fornecedor Não Encontrado",
+                                    System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
 
-                                if (result == true)
+                                if (msgBox == System.Windows.MessageBoxResult.Yes)
                                 {
-                                    GetFornecedores();
-                                    fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                                    CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, MessageBoxService, nfe.NFe.infNFe.emit.Item, false);
+                                    SalvarFornecedor view = new SalvarFornecedor { DataContext = vm };
+                                    var result = view.ShowDialog();
+
+                                    if (result == true)
+                                    {
+                                        GetFornecedores();
+                                        fornecedor = await daoFornecedor.ListarPorId(nfe.NFe.infNFe.emit.Item);
+                                    }
                                 }
                             }
+
+                            if (fornecedor != null)
+                                Entidade.Fornecedor = fornecedor;
+
+                            if (loja != null)
+                                Entidade.Loja = loja;
+
+                            AddArquivo(caminhoArquivo);
                         }
-
-                        if (fornecedor != null)
-                            Entidade.Fornecedor = fornecedor;
-
-                        if (loja != null)
-                            Entidade.Loja = loja;
-
-                        AddArquivo(caminho);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxService.Show($"Erro Ao Ler Arquivo De Nota Fiscal. Cheque Se O Arquivo Está Marcado Como \"Somente Leitura\", Se Estiver, Desmarque.\n\n{ex.Message}");
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBoxService.Show($"Erro Ao Ler Arquivo De Nota Fiscal. Cheque Se O Arquivo Está Marcado Como \"Somente Leitura\", Se Estiver, Desmarque.\n\n{ex.Message}");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show(ex.Message);
             }
         }
 
@@ -188,13 +198,24 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
-        private void ProcurarArquivo(object obj)
+        private void ProcurarArquivo(object parameter)
         {
-            var caminho = _fileDialogService.ShowFileBrowserDialog();
-
-            if (caminho.Length > 0)
+            try
             {
-                AddArquivo(caminho);
+                if (parameter == null)
+                    throw new Exception("Parâmetro de comando não configurado para ImportarXmlNFe em Salvar Compra De Fornecedor.");
+
+                var openFileDialog = parameter as IOpenFileDialog;
+                var caminhoArquivo = openFileDialog.OpenFileDialog();
+
+                if(caminhoArquivo != null)
+                {
+                    AddArquivo(caminhoArquivo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show(ex.Message);
             }
         }
 

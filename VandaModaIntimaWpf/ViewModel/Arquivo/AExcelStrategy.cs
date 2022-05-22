@@ -1,13 +1,18 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Drawing;
-using System.Threading.Tasks;
+using VandaModaIntimaWpf.Model;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    public abstract class AExcelStrategy
+    public abstract class AExcelStrategy<E> where E : AModel
     {
-        public abstract void EscreveDados(Workbook workbook, params object[] listas);
-        public abstract Task LeEInsereDados(Workbook workbook);
+        public abstract void EscreveDados(Workbook workbook,
+            IProgress<string> descricao,
+            IProgress<double> valor,
+            IProgress<bool> isIndeterminada,
+            params WorksheetContainer<E>[] listas);
+
         /// <summary>
         /// Configura o tamanho das colunas.
         /// Geralmente serão todas AutoFit, mas em alguns casos a coluna precisa ter um tamanho diferente ou propriedades diferentes.
@@ -27,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             }
         }
 
-        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna, Style estilo)
+        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna, Microsoft.Office.Interop.Excel.Style estilo)
         {
             //Escreve cabeçalho baseado nas colunas do model e estiliza
             for (int i = 0; i < colunas.Length; i++)

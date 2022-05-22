@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -14,7 +13,9 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -25,20 +26,28 @@ namespace VandaModaIntimaWpf.ViewModel
     public abstract class APesquisarViewModel<E> : ObservableObject, IPesquisarVM where E : AModel, IModel
     {
         protected ISession _session;
-        protected AExcelStrategy excelStrategy;
+        protected AExcelStrategy<E> excelStrategy;
         protected IPesquisarMsgVMStrategy<E> pesquisarViewModelStrategy;
+        protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
+        protected IMessageBoxService MessageBoxService;
+        protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
+        protected DAO<E> daoEntidade;
+        protected IOpenViewService openView;
+
         private string termoPesquisa;
         private bool _threadLocked;
         private Visibility visibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         private DataGridCellInfo celulaSelecionada;
         private EntidadeComCampo<E> entidadeSelecionada;
         private ObservableCollection<EntidadeComCampo<E>> _entidades;
-        protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
+        private Visibility _visibilidadeStatusBar = Visibility.Collapsed;
+        private double _valorBarraProgresso;
+        private string _descricaoBarraProgresso;
+        private bool _isIndefinidaBarraProgresso;
 
-        protected IMessageBoxService MessageBoxService;
-        protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
-
-        protected DAO<E> daoEntidade;
+        protected IProgress<double> setValorBarraProgresso;
+        protected IProgress<string> setDescricaoBarraProgresso;
+        protected IProgress<bool> setIsIndefinidaBarraProgresso;
 
         public delegate void AposDeletarDoBDEventHandler(AposDeletarDoBDEventArgs e);
         public event AposDeletarDoBDEventHandler AposDeletarDoBD;
@@ -57,6 +66,20 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             MessageBoxService = messageBoxService;
             AbrePelaTelaPesquisaService = abrePelaTelaPesquisaService;
+            openView = new OpenView();
+
+            setValorBarraProgresso = new Progress<double>(valor =>
+            {
+                if (valor < 0.0)
+                {
+                    ValorBarraProgresso = 0;
+                    return;
+                }
+
+                ValorBarraProgresso += valor;
+            });
+            setDescricaoBarraProgresso = new Progress<string>(descricao => { DescricaoBarraProgresso = descricao; });
+            setIsIndefinidaBarraProgresso = new Progress<bool>(isindefinida => { IsIndefinidaBarraProgresso = isindefinida; });
 
             AbrirCadastrarComando = new RelayCommand(AbrirCadastrar);
             AbrirImprimirComando = new RelayCommand(AbrirImprimir);
@@ -65,7 +88,6 @@ namespace VandaModaIntimaWpf.ViewModel
             ChecarItensMarcadosComando = new RelayCommand(ChecarItensMarcados);
             ApagarMarcadosComando = new RelayCommand(ApagarMarcados);
             ExportarExcelComando = new RelayCommand(ExportarExcel);
-            ImportarExcelComando = new RelayCommand(ImportarExcel);
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
@@ -187,28 +209,6 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             AbrePelaTelaPesquisaService.AbrirAjuda();
         }
-        public async void ImportarExcel(object parameter)
-        {
-            var OpenFileDialog = (IOpenFileDialog)parameter;
-
-            string path = OpenFileDialog.OpenFileDialog();
-
-            if (path != null)
-            {
-                IsThreadLocked = true;
-                try
-                {
-                    await new Excel<E>(excelStrategy, path).Importar();
-                    OnPropertyChanged("TermoPesquisa");
-                }
-                catch (Exception ex)
-                {
-                    Log.EscreveLogExcel(ex, "importar de excel");
-                    MessageBoxService.Show($"Erro ao importar dados de planilha Excel.\n\n{ex.InnerException.Message}", "Importar De Excel", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                IsThreadLocked = false;
-            }
-        }
         public void CopiarValorCelula(object parameter)
         {
             string valorCelula = (CelulaSelecionada.Column.GetCellContent(CelulaSelecionada.Item) as TextBlock).Text;
@@ -216,14 +216,33 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public virtual async void ExportarExcel(object parameter)
         {
-            var containers = GetWorksheetContainers();
-            if (containers != null)
+            try
             {
-                MessageBoxService.Show(GetResource.GetString("arquivo_excel_sendo_gerado"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
-                IsThreadLocked = true;
-                await new Excel<E>(excelStrategy).Salvar(containers);
-                IsThreadLocked = false;
-                MessageBoxService.Show(GetResource.GetString("exportacao_excel_realizada_com_sucesso"), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+                var containers = GetWorksheetContainers();
+
+                if (parameter == null)
+                    throw new Exception($"Parâmetro de comando não configurado para ExportarExcel em {typeof(E).Name}.");
+
+                if (containers == null)
+                    throw new Exception($"Containers de planilha Excel não configurados para ExportarExcel em {typeof(E).Name}.");
+
+                var saveFileDialog = parameter as ISaveFileDialog;
+                string caminhoPlanilha = saveFileDialog.OpenSaveFileDialog("", "Planilha Excel (*.xlsx)|*.xlsx");
+
+                if (caminhoPlanilha != null)
+                {
+                    IsThreadLocked = true;
+                    VisibilidadeStatusBar = Visibility.Visible;
+                    Task excelTask = new Excel<E>(excelStrategy, caminhoPlanilha).Salvar(setDescricaoBarraProgresso, setValorBarraProgresso,
+                        setIsIndefinidaBarraProgresso, containers);
+                    await excelTask.ContinueWith(task => { VisibilidadeStatusBar = Visibility.Collapsed; });
+                    MessageBoxService.Show("Exportado para Excel com sucesso");
+                    IsThreadLocked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show(ex.Message);
             }
         }
         /// <summary>
@@ -301,6 +320,63 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("Entidades");
             }
         }
+
+        public Visibility VisibilidadeStatusBar
+        {
+            get
+            {
+                return _visibilidadeStatusBar;
+            }
+
+            set
+            {
+                _visibilidadeStatusBar = value;
+                OnPropertyChanged("VisibilidadeStatusBar");
+            }
+        }
+
+        public double ValorBarraProgresso
+        {
+            get
+            {
+                return _valorBarraProgresso;
+            }
+
+            set
+            {
+                _valorBarraProgresso = value;
+                OnPropertyChanged("ValorBarraProgresso");
+            }
+        }
+
+        public string DescricaoBarraProgresso
+        {
+            get
+            {
+                return _descricaoBarraProgresso;
+            }
+
+            set
+            {
+                _descricaoBarraProgresso = value;
+                OnPropertyChanged("DescricaoBarraProgresso");
+            }
+        }
+
+        public bool IsIndefinidaBarraProgresso
+        {
+            get
+            {
+                return _isIndefinidaBarraProgresso;
+            }
+
+            set
+            {
+                _isIndefinidaBarraProgresso = value;
+                OnPropertyChanged("IsIndefinidaBarraProgresso");
+            }
+        }
+
         public void DisposeSession()
         {
             SessionProvider.FechaSession(_session);

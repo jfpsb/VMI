@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.View.Interfaces;
 
 namespace VandaModaIntimaWpf.View.FolhaPagamento
 {

@@ -31,20 +31,13 @@
                             <Image Source="/Resources/Adicionar.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{DynamicResource importar}">
-                        <MenuItem.Icon>
-                            <Image Source="/Resources/Importar.png" />
-                        </MenuItem.Icon>
-                        <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ImportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}" />
-                    </MenuItem>
                     <MenuItem Header="{DynamicResource exportar}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/Exportar.png" />
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ExportarExcelComando}" />
+                                  Command="{Binding ExportarExcelComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}"/>
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
@@ -69,7 +62,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Content="{DynamicResource pesquisar_por_dois_pontos}" />
                 <ComboBox Grid.Column="1"
@@ -253,35 +245,36 @@
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
-                <Grid Grid.Row="4"
-                      Grid.ColumnSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Rectangle Width="20"
-                               Height="20"
-                               Margin="5,0,0,0"
-                               Fill="IndianRed" />
-                    <Label Grid.Column="1"
-                           FontWeight="Bold"
-                           Content="Funcionário Demitido" />
-                    <Rectangle Width="20"
-                               Height="20"
-                               Grid.Row="1"
-                               Margin="5,0,0,0"
-                               Fill="LightGreen" />
-                    <Label Grid.Column="1"
-                           Grid.Row="1"
-                           FontWeight="Bold"
-                           Content="Funcionário Não Demitido" />
-
-                </Grid>
             </Grid>
         </View:TelaPesquisaTemplate.Content>
+        <View:TelaPesquisaTemplate.LeftButtonPresenter>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Rectangle Width="20"
+                           Height="20"
+                           Margin="5,0,0,0"
+                           Fill="IndianRed" />
+                <Label Grid.Column="1"
+                       FontWeight="Bold"
+                       Content="Funcionário Demitido" />
+                <Rectangle Width="20"
+                           Height="20"
+                           Grid.Row="1"
+                           Margin="5,0,0,0"
+                           Fill="LightGreen" />
+                <Label Grid.Column="1"
+                       Grid.Row="1"
+                       FontWeight="Bold"
+                       Content="Funcionário Não Demitido" />
+
+            </Grid>
+        </View:TelaPesquisaTemplate.LeftButtonPresenter>
     </View:TelaPesquisaTemplate>
 </View:APesquisarView>

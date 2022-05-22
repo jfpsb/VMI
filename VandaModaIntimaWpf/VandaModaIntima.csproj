@@ -535,10 +535,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TelaDeProgresso.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -658,6 +654,7 @@
     <Compile Include="ViewModel\Arquivo\FolhaPagamentoExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\FornecedorExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\AExcelStrategy.cs" />
+    <Compile Include="ViewModel\Arquivo\FuncionarioExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\LojaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\MarcaExcelStrategy.cs" />
     <Compile Include="ViewModel\Arquivo\ProdutoExcelStrategy.cs" />
@@ -676,6 +673,8 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
+    <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IOpenViewService.cs" />
     <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="View\Converters\CPFValueConverter.cs" />
     <Compile Include="View\Converters\IsDemitidoConverter.cs" />
@@ -829,11 +828,10 @@
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaEntradaMercadoriaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaRepresentante.cs" />
     <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\FileDialogService.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IFileDialogService.cs" />
+    <Compile Include="View\Interfaces\IFolderBrowserDialog.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
@@ -1009,8 +1007,9 @@
     <Compile Include="View\Grade\CadastrarGrade.xaml.cs">
       <DependentUpon>CadastrarGrade.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ICloseable.cs" />
-    <Compile Include="View\IOpenFileDialog.cs" />
+    <Compile Include="View\Interfaces\ICloseable.cs" />
+    <Compile Include="View\Interfaces\ISaveFileDialog.cs" />
+    <Compile Include="View\Interfaces\IOpenFileDialog.cs" />
     <Compile Include="ViewModel\IPesquisarVM.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaVM.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaVM.cs" />
@@ -1025,7 +1024,7 @@
     <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
       <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\IWindowClosing.cs" />
+    <Compile Include="View\Interfaces\IWindowClosing.cs" />
     <Compile Include="View\Loja\AjudaLoja.xaml.cs">
       <DependentUpon>AjudaLoja.xaml</DependentUpon>
     </Compile>
@@ -1082,9 +1081,6 @@
     </Compile>
     <Compile Include="View\SQL\ExportarSQL.xaml.cs">
       <DependentUpon>ExportarSQL.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaDeProgresso.xaml.cs">
-      <DependentUpon>TelaDeProgresso.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TelaPesquisaTemplate.cs" />
     <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">

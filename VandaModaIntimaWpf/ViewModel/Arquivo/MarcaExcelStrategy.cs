@@ -1,14 +1,10 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
-using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Arquivo
 {
-    class MarcaExcelStrategy : AExcelStrategy
+    class MarcaExcelStrategy : AExcelStrategy<Model.Marca>
     {
         private ISession _session;
 
@@ -22,50 +18,26 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Columns.AutoFit();
         }
 
-        public override void EscreveDados(Workbook workbook, params object[] l)
+        public override void EscreveDados(Workbook workbook,
+            IProgress<string> descricao,
+            IProgress<double> valor,
+            IProgress<bool> isIndeterminada,
+            params WorksheetContainer<Model.Marca>[] containers)
         {
-            WorksheetContainer<MarcaModel> wscontainer = (WorksheetContainer<MarcaModel>)l[0];
+            descricao.Report("Iniciando exportação em Excel de Marca");
+            WorksheetContainer<Model.Marca> wscontainer = containers[0];
             var lista = wscontainer.Lista;
             var worksheet = workbook.Worksheets.Add();
             worksheet.Name = wscontainer.Nome;
             worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
 
+            double incrementoProgresso = 100.0 / lista.Count;
             for (int i = 0; i < lista.Count; i++)
             {
-                worksheet.Cells[i + 2, MarcaModel.Colunas.Nome] = lista[i].Nome;
+                descricao.Report($"Escrevendo marca {i + 1} de {lista.Count}");
+                worksheet.Cells[i + 2, Model.Marca.Colunas.Nome] = lista[i].Nome;
+                valor.Report(incrementoProgresso);
             }
-        }
-        public override async Task LeEInsereDados(Workbook workbook)
-        {
-            DAOMarca daoMarca = new DAOMarca(_session);
-            IList<MarcaModel> marcas = new List<MarcaModel>();
-            var worksheet = workbook.Worksheets.Add();
-
-            Range range = worksheet.UsedRange;
-
-            int rows = range.Rows.Count;
-            int cols = range.Columns.Count;
-
-            if (cols != 1)
-            {
-                throw new Exception("Planilha contém número de colunas inválido. O número correto de colunas da planilha de importação de marcas é um.");
-            }
-
-            for (int i = 0; i < rows; i++)
-            {
-                MarcaModel marca = new MarcaModel();
-
-                var nome = ((Range)worksheet.Cells[i + 2, 1]).Value;
-
-                if (nome == null)
-                    continue;
-
-                marca.Nome = nome.ToString();
-
-                marcas.Add(marca);
-            }
-
-            await daoMarca.Inserir(marcas);
         }
     }
 }

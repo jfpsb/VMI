@@ -19,7 +19,7 @@
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_fornecedores_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}">
         <View:TelaPesquisaTemplate.Resources>
-            <Converters:CNPJValueConverter x:Key="CNPJValueConverter"/>
+            <Converters:CNPJValueConverter x:Key="CNPJValueConverter" />
         </View:TelaPesquisaTemplate.Resources>
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
@@ -33,20 +33,13 @@
                         <MenuItem Header="{DynamicResource cadastrar_manualmente}"
                                   Command="{Binding AbrirCadastrarComando}" />
                     </MenuItem>
-                    <MenuItem Header="{DynamicResource importar}">
-                        <MenuItem.Icon>
-                            <Image Source="/Resources/Importar.png" />
-                        </MenuItem.Icon>
-                        <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ImportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
-                    </MenuItem>
                     <MenuItem Header="{DynamicResource exportar}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/Exportar.png" />
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ExportarExcelComando}" />
+                                  Command="{Binding ExportarExcelComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}"/>
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
@@ -66,7 +59,8 @@
         <View:TelaPesquisaTemplate.Content>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="6.135" />
+                    <ColumnDefinition Width="103.865" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -74,8 +68,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Grid.ColumnSpan="2"
-                       Content="{DynamicResource pesquisar_por_dois_pontos}" />
+                <Label Grid.ColumnSpan="3"
+                       Content="{DynamicResource pesquisar_por_dois_pontos}"
+                       Margin="0,0,0,37"
+                       Grid.RowSpan="2" />
                 <ComboBox Grid.Column="2"
                           Width="200"
                           SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}"
@@ -83,18 +79,22 @@
                           HorizontalAlignment="Left"
                           Margin="5,5,0,5" />
                 <Label Grid.Row="1"
-                       Grid.ColumnSpan="2"
-                       Content="{DynamicResource pesquisa_dois_pontos}" />
+                       Grid.ColumnSpan="3"
+                       Content="{DynamicResource pesquisa_dois_pontos}"
+                       Margin="0,0,0,340"
+                       Grid.RowSpan="2" />
                 <TextBox x:Name="TxtPesquisa"
                          Grid.Row="1"
                          Grid.Column="2"
-                         Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                         Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5,5,5,5" />
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="3"
                           Name="DataGridFornecedor"
                           ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
-                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}"
+                          Margin="5,5,5,5">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

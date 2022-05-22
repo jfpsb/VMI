@@ -31,11 +31,16 @@ namespace VandaModaIntimaWpf.Model
 
         public enum Colunas
         {
-            Cpf = 1,
-            Nome = 2,
-            Endereco = 3,
-            Salario = 4,
-            Telefone = 5
+            Admissao = 1,
+            Cpf = 2,
+            Ctps = 3,
+            PIS = 4,
+            Nome = 5,
+            LojaContratado = 6,
+            LojaTrabalho = 7,
+            Telefone = 8,
+            Email = 9,
+            Endereco = 10
         }
 
         [JsonIgnore]

@@ -1,8 +1,7 @@
 ﻿using NHibernate;
-using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento

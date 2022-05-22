@@ -1,4 +1,4 @@
-﻿namespace VandaModaIntimaWpf.View
+﻿namespace VandaModaIntimaWpf.View.Interfaces
 {
     interface IWindowClosing
     {

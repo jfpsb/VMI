@@ -25,20 +25,13 @@
                             <Image Source="/Resources/Adicionar.png" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{DynamicResource importar}">
-                        <MenuItem.Icon>
-                            <Image Source="/Resources/Importar.png" />
-                        </MenuItem.Icon>
-                        <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ImportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarDespesa}" />
-                    </MenuItem>
                     <MenuItem Header="{DynamicResource exportar}">
                         <MenuItem.Icon>
                             <Image Source="/Resources/Exportar.png" />
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
-                                  Command="{Binding ExportarExcelComando}" />
+                                  Command="{Binding ExportarExcelComando}"
+                                  CommandParameter="{Binding ElementName=TelaPesquisarDespesa}"/>
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                         <MenuItem Header="Imprimir"
@@ -198,36 +191,6 @@
                         <TabItem Header="Despesa Residencial">
                             <DataGrid IsReadOnly="True"
                                       ItemsSource="{Binding DespesasResidencial, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
-                                      CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn>
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
-                                                          Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarDespesa}}}">
-                                                </CheckBox>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Data"
-                                                        Binding="{Binding Entidade.Data, StringFormat=dd/MM/yyyy}" />
-                                    <DataGridTextColumn Header="Data De Vencimento"
-                                                        Binding="{Binding Entidade.DataVencimento, StringFormat=dd/MM/yyyy}" />
-                                    <DataGridTextColumn Header="Descrição"
-                                                        Width="*"
-                                                        Binding="{Binding Entidade.Descricao}" />
-                                    <DataGridTextColumn Header="Valor"
-                                                        Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-                                </DataGrid.Columns>
-                                <DataGrid.ContextMenu>
-                                    <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
-                                </DataGrid.ContextMenu>
-                            </DataGrid>
-                        </TabItem>
-                        <TabItem Header="Outras Despesas">
-                            <DataGrid IsReadOnly="True"
-                                      ItemsSource="{Binding OutrasDespesas, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                                       CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
                                 <DataGrid.Columns>
