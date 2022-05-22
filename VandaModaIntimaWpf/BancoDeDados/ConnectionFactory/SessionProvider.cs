@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
         public static ISessionFactory BuildSessionFactory()
         {
             MainConfiguration = new Configuration();
-            MainConfiguration.Configure("hibernateLocal.cfg.xml");
+            MainConfiguration.Configure();
             MainConfiguration.SetListener(ListenerType.PreUpdate, new NHibernatePreEventListener());
             MainConfiguration.SetListener(ListenerType.PreInsert, new NHibernatePreEventListener());
             MainConfiguration.SetListener(ListenerType.PostUpdate, new AdiantamentoPostEventListener());

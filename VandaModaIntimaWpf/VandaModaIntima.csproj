@@ -1258,7 +1258,7 @@
     <Resource Include="Resources\Produto_Small.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="hibernateLocal.cfg.xml">
+    <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1386,12 +1386,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="hibernateRemoto.cfg.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
