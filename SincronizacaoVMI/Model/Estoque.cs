@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SincronizacaoVMI.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class Estoque : AModel, IModel
     {
@@ -52,7 +49,7 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -65,7 +62,7 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Id");
             }
         }
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }

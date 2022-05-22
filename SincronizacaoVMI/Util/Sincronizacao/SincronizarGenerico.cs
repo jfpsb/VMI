@@ -6,6 +6,7 @@ using SincronizacaoVMI.Model;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SincronizacaoVMI.Util
@@ -39,17 +40,23 @@ namespace SincronizacaoVMI.Util
             }
 
             //Lista entidades em banco remoto para insert em local
+            //Lista entidades em banco remoto para update em local
             try
             {
-                var criteria = _remoto.CreateCriteria<E>();
-                criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
-                var lista = await criteria.ListAsync<E>();
+                var criteriaInserts = _remoto.CreateCriteria<E>();
+                criteriaInserts.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
+                var futureInserts = criteriaInserts.Future<E>();
+
+                var criteriaUpdates = _remoto.CreateCriteria<E>();
+                criteriaUpdates.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
+                var futureUpdates = criteriaUpdates.Future<E>();
+
                 var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0 && persister.PropertyTypes != null)
+                if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para inserção remoto para local.");
-                    foreach (E e in lista)
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção remoto para local.");
+                    foreach (E e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
                         //Entidade com mesmo UUID no banco local
@@ -83,26 +90,11 @@ namespace SincronizacaoVMI.Util
                         insertsRemotoParaLocal.Add(eASalvar);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco remoto para insert em local");
-                throw;
-            }
 
-            //Lista entidades em banco remoto para update em local
-            try
-            {
-                var criteria = _remoto.CreateCriteria<E>();
-                criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
-                var lista = await criteria.ListAsync<E>();
-                var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
-
-                if (lista.Count > 0 && persister.PropertyTypes != null)
+                if (futureUpdates.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para atualização remoto para local.");
-                    foreach (E e in lista)
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização remoto para local.");
+                    foreach (E e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
                         E entLocal = await ListarPorUuidLocal(typeof(E).Name, e.Uuid) as E;
@@ -128,7 +120,6 @@ namespace SincronizacaoVMI.Util
                                 }
 
                                 entLocal.GetType().GetProperty(property).SetValue(entLocal, manyToOneLocal);
-                                //persister.SetPropertyValue(entLocal, property, manyToOneLocal);
                             }
                         }
 
@@ -139,22 +130,28 @@ namespace SincronizacaoVMI.Util
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco remoto para update em local");
+                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco remoto para insert/update em local");
                 throw;
             }
 
             //Lista entidades em banco local para insert em remoto
+            //Lista entidades em banco local para update em remoto
             try
             {
-                var criteria = _local.CreateCriteria<E>();
-                criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
-                var lista = await criteria.ListAsync<E>();
+                var criteriaInserts = _local.CreateCriteria<E>();
+                criteriaInserts.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
+                var futureInserts = criteriaInserts.Future<E>();
+
+                var criteriaUpdates = _local.CreateCriteria<E>();
+                criteriaUpdates.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
+                var futureUpdates = criteriaUpdates.Future<E>();
+
                 var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
 
-                if (lista.Count > 0 && persister.PropertyTypes != null)
+                if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para inserção local para remoto.");
-                    foreach (E e in lista)
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção local para remoto.");
+                    foreach (E e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
                         //Entidade com mesmo UUID no banco remoto
@@ -189,26 +186,11 @@ namespace SincronizacaoVMI.Util
                         insertsLocalParaRemoto.Add(eASalvar);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco local para insert em remoto");
-                throw;
-            }
 
-            //Lista entidades em banco local para update em remoto
-            try
-            {
-                var criteria = _local.CreateCriteria<E>();
-                criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
-                var lista = await criteria.ListAsync<E>();
-                var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
-
-                if (lista.Count > 0 && persister.PropertyTypes != null)
+                if (futureUpdates.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {lista.Count} itens para atualização local para remoto.");
-                    foreach (E e in lista)
+                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização local para remoto.");
+                    foreach (E e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
                         E entRemoto = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid) as E;
@@ -234,7 +216,6 @@ namespace SincronizacaoVMI.Util
                                 }
 
                                 entRemoto.GetType().GetProperty(property).SetValue(entRemoto, manyToOneLocal);
-                                //persister.SetPropertyValue(entRemoto, property, manyToOneLocal);
                             }
                         }
 
@@ -245,7 +226,7 @@ namespace SincronizacaoVMI.Util
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco local para update em remoto");
+                Log.EscreveLogSync(ex, $"Lista {typeof(E).Name.ToLower()} em banco local para insert/update em remoto");
                 throw;
             }
 

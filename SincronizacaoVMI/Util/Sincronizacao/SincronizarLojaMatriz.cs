@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using SincronizacaoVMI.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SincronizacaoVMI.Util
@@ -33,17 +34,23 @@ namespace SincronizacaoVMI.Util
             }
 
             //Lista entidades em banco remoto para insert em local
+            //Lista entidades em banco remoto para update em local
             try
             {
-                var criteria = _remoto.CreateCriteria<Loja>();
-                criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
-                criteria.Add(Restrictions.IsNull("Matriz"));
-                var lista = await criteria.ListAsync<Loja>();
+                var criteriaInserts = _remoto.CreateCriteria<Loja>();
+                criteriaInserts.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
+                criteriaInserts.Add(Restrictions.IsNull("Matriz"));
+                var futureInserts = criteriaInserts.Future<Loja>();
 
-                if (lista.Count > 0)
+                var criteriaUpdates = _remoto.CreateCriteria<Loja>();
+                criteriaUpdates.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
+                criteriaUpdates.Add(Restrictions.IsNull("Matriz"));
+                var futureUpdates = criteriaUpdates.Future<Loja>();
+
+                if (futureInserts.Any())
                 {
-                    Console.WriteLine($"LojaMatriz - Encontrado(s) {lista.Count} itens para inserção remoto para local.");
-                    foreach (Loja e in lista)
+                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção remoto para local.");
+                    foreach (Loja e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
                         //Entidade com mesmo UUID no banco local
@@ -51,34 +58,27 @@ namespace SincronizacaoVMI.Util
                         if (ent != null) continue;
                         Loja eASalvar = new Loja();
                         eASalvar.Copiar(e);
+
+                        Loja matrizLocal = await ListarPorUuidLocal("Loja", e.Matriz.Uuid) as Loja;
+                        eASalvar.Matriz = matrizLocal;
+
                         insertsRemotoParaLocal.Add(eASalvar);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista Loja em banco remoto para insert em local");
-                throw;
-            }
 
-            //Lista entidades em banco remoto para update em local
-            try
-            {
-                var criteria = _remoto.CreateCriteria<Loja>();
-                criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
-                criteria.Add(Restrictions.IsNull("Matriz"));
-                var lista = await criteria.ListAsync<Loja>();
-
-                if (lista.Count > 0)
+                if (futureUpdates.Any())
                 {
-                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para atualização remoto para local.");
-                    foreach (Loja e in lista)
+                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização remoto para local.");
+                    foreach (Loja e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
                         Loja entLocal = await ListarPorUuidLocal("Loja", e.Uuid) as Loja;
                         if (entLocal == null) continue;
                         entLocal.Copiar(e);
+
+                        Loja matrizLocal = await ListarPorUuidLocal("Loja", e.Matriz.Uuid) as Loja;
+                        entLocal.Matriz = matrizLocal;
+
                         updatesRemotoParaLocal.Add(entLocal);
                     }
                 }
@@ -86,22 +86,28 @@ namespace SincronizacaoVMI.Util
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista Loja em banco remoto para update em local");
+                Log.EscreveLogSync(ex, $"Lista LojaMatriz em banco remoto para insert/update em local");
                 throw;
             }
 
             //Lista entidades em banco local para insert em remoto
+            //Lista entidades em banco local para update em remoto
             try
             {
-                var criteria = _local.CreateCriteria<Loja>();
-                criteria.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
-                criteria.Add(Restrictions.IsNull("Matriz"));
-                var lista = await criteria.ListAsync<Loja>();
+                var criteriaInserts = _local.CreateCriteria<Loja>();
+                criteriaInserts.Add(Restrictions.Ge("CriadoEm", lastSync.LastSyncTime));
+                criteriaInserts.Add(Restrictions.IsNull("Matriz"));
+                var futureInserts = criteriaInserts.Future<Loja>();
 
-                if (lista.Count > 0)
+                var criteriaUpdates = _local.CreateCriteria<Loja>();
+                criteriaUpdates.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
+                criteriaUpdates.Add(Restrictions.IsNull("Matriz"));
+                var futureUpdates = criteriaUpdates.Future<Loja>();
+
+                if (futureInserts.Any())
                 {
-                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para inserção local para remoto.");
-                    foreach (Loja e in lista)
+                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção local para remoto.");
+                    foreach (Loja e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
                         //Entidade com mesmo UUID no banco remoto
@@ -109,34 +115,27 @@ namespace SincronizacaoVMI.Util
                         if (ent != null) continue;
                         Loja eASalvar = new();
                         eASalvar.Copiar(e);
+
+                        Loja matrizRemoto = await ListarPorUuidRemoto("Loja", e.Matriz.Uuid) as Loja;
+                        eASalvar.Matriz = matrizRemoto;
+
                         insertsLocalParaRemoto.Add(eASalvar);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista Loja em banco local para insert em remoto");
-                throw;
-            }
 
-            //Lista entidades em banco local para update em remoto
-            try
-            {
-                var criteria = _local.CreateCriteria<Loja>();
-                criteria.Add(Restrictions.Ge("ModificadoEm", lastSync.LastSyncTime));
-                criteria.Add(Restrictions.IsNull("Matriz"));
-                var lista = await criteria.ListAsync<Loja>();
-
-                if (lista.Count > 0)
+                if (futureUpdates.Any())
                 {
-                    Console.WriteLine($"LojaFilial - Encontrado(s) {lista.Count} itens para atualização local para remoto.");
-                    foreach (Loja e in lista)
+                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização local para remoto.");
+                    foreach (Loja e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
                         Loja entRemoto = await ListarPorUuidRemoto("Loja", e.Uuid) as Loja;
                         if (entRemoto == null) continue;
                         entRemoto.Copiar(e);
+
+                        Loja matrizRemoto = await ListarPorUuidRemoto("Loja", e.Matriz.Uuid) as Loja;
+                        entRemoto.Matriz = matrizRemoto;
+
                         updatesLocalParaRemoto.Add(entRemoto);
                     }
                 }
@@ -144,7 +143,7 @@ namespace SincronizacaoVMI.Util
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message, ex);
-                Log.EscreveLogSync(ex, $"Lista Loja em banco local para update em remoto");
+                Log.EscreveLogSync(ex, $"Lista LojaMatriz em banco local para insert/update em remoto");
                 throw;
             }
 

@@ -60,7 +60,6 @@ namespace SincronizacaoVMI
         {
             _threads = new List<Thread>();
             _semaphoreSlim = new SemaphoreSlim(3);
-
             timerConexao = new Timer(3000) { AutoReset = false };
             timerConexao.Elapsed += CriarSessionFactory;
         }

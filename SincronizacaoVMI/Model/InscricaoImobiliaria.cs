@@ -10,7 +10,7 @@ namespace SincronizacaoVMI.Model
         private DateTime _inicioLocacao;
         private DateTime? _fimLocacao;
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -24,7 +24,7 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public Loja Loja
+        public virtual Loja Loja
         {
             get
             {
@@ -38,7 +38,7 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public string Numeracao
+        public virtual string Numeracao
         {
             get
             {
@@ -52,7 +52,7 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public DateTime InicioLocacao
+        public virtual DateTime InicioLocacao
         {
             get
             {
@@ -66,7 +66,7 @@ namespace SincronizacaoVMI.Model
             }
         }
 
-        public DateTime? FimLocacao
+        public virtual DateTime? FimLocacao
         {
             get
             {
@@ -79,7 +79,7 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("FimLocacao");
             }
         }
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }

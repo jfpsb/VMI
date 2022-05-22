@@ -22,6 +22,7 @@
     <None Remove="Mapas\Despesa.hbm.xml" />
     <None Remove="Mapas\EntradaDeMercadoria.hbm.xml" />
     <None Remove="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
+    <None Remove="Mapas\Estoque.hbm.xml" />
     <None Remove="Mapas\Faltas.hbm.xml" />
     <None Remove="Mapas\FolhaPagamento.hbm.xml" />
     <None Remove="Mapas\Fornecedor.hbm.xml" />
@@ -29,6 +30,7 @@
     <None Remove="Mapas\Grade.hbm.xml" />
     <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <None Remove="Mapas\HoraExtra.hbm.xml" />
+    <None Remove="Mapas\InscricaoImobiliaria.hbm.xml" />
     <None Remove="Mapas\LastSync.hbm.xml" />
     <None Remove="Mapas\Loja.hbm.xml" />
     <None Remove="Mapas\Marca.hbm.xml" />
@@ -63,6 +65,8 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
+    <EmbeddedResource Include="Mapas\InscricaoImobiliaria.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Estoque.hbm.xml" />
     <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
     <EmbeddedResource Include="Mapas\BonusMensal.hbm.xml" />
     <EmbeddedResource Include="Mapas\ChavePix.hbm.xml" />
