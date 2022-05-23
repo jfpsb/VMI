@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.View.Contagem;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;

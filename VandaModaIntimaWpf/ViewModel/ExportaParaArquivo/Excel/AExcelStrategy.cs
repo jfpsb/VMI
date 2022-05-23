@@ -1,13 +1,15 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Drawing;
+using System.Threading;
 using VandaModaIntimaWpf.Model;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public abstract class AExcelStrategy<E> where E : AModel
     {
         public abstract void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,

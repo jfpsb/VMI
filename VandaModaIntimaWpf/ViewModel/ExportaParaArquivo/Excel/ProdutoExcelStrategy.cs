@@ -2,9 +2,10 @@
 using NHibernate;
 using System;
 using System.Drawing;
+using System.Threading;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class ProdutoExcelStrategy : AExcelStrategy<ProdutoModel>
     {
@@ -21,6 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Range["A1", "E1"].EntireColumn.AutoFit();
         }
         public override void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
@@ -69,6 +71,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             valor.Report(-1); //Reseta valor ao passar valor negativo
             for (int i = 0; i < lista.Count; i++)
             {
+                token.ThrowIfCancellationRequested();
+
                 if (i != 0)
                     linhaOffset++;
 

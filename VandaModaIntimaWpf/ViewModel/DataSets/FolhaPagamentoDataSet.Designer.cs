@@ -1008,7 +1008,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string horaextra55 {
+            public string horaextranormal {
                 get {
                     try {
                         return ((string)(this[this.tableFolhaPagamento.horaextra55Column]));

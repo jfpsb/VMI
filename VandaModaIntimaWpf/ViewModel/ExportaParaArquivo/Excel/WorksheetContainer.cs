@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class WorksheetContainer<T> where T : class
     {

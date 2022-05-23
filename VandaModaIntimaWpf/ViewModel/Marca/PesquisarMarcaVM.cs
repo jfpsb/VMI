@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 

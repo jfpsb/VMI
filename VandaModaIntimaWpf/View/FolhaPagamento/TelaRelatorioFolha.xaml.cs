@@ -99,7 +99,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             report.DetailSection3.SectionFormat.EnableSuppress = !(File.Exists(calendarioPassagem) || File.Exists(calendarioAlimentacao));
 
             fprow.horaextra100 = "00:00";
-            fprow.horaextra55 = "00:00";
+            fprow.horaextranormal = "00:00";
 
             var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(FolhaPagamento.Ano, FolhaPagamento.Mes, FolhaPagamento.Funcionario).Result;
             var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).SingleOrDefault();
@@ -112,7 +112,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             if (henormal != null)
             {
-                fprow.horaextra55 = henormal.TotalEmString;
+                fprow.horaextranormal = henormal.TotalEmString;
             }
 
             folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);

@@ -1,11 +1,8 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class FuncionarioExcelStrategy : AExcelStrategy<Model.Funcionario>
     {
@@ -15,7 +12,12 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Worksheet.Columns.AutoFit();
         }
 
-        public override void EscreveDados(Workbook workbook, IProgress<string> descricao, IProgress<double> valor, IProgress<bool> isIndeterminada, params WorksheetContainer<Model.Funcionario>[] containers)
+        public override void EscreveDados(Workbook workbook,
+            CancellationToken token,
+            IProgress<string> descricao,
+            IProgress<double> valor,
+            IProgress<bool> isIndeterminada,
+            params WorksheetContainer<Model.Funcionario>[] containers)
         {
             descricao.Report("Iniciando exportação em Excel de Funcionário");
             isIndeterminada.Report(true);

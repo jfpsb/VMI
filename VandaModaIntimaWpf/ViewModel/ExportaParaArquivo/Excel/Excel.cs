@@ -2,11 +2,12 @@
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class Excel<T> where T : AModel, Model.IModel
     {
@@ -23,14 +24,15 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             Aplicacao = new Application() { DisplayAlerts = false }; //DisplayAlerts em falso impede que apareça a mensagem perguntando se quero sobescrever o arquivo
             Workbook = Aplicacao.Workbooks.Add(Missing.Value);
         }
-        public Task Salvar(IProgress<string> descricao,
+        public Task Salvar(CancellationToken token,
+            IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
             params WorksheetContainer<T>[] listas)
         {
             Task task = Task.Run(() =>
             {
-                exportaExcelStrategy.EscreveDados(Workbook, descricao, valor, isIndeterminada, listas);
+                exportaExcelStrategy.EscreveDados(Workbook, token, descricao, valor, isIndeterminada, listas);
 
                 try
                 {
@@ -50,6 +52,23 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                     try
                     {
                         Workbook.Close(true, Missing.Value, Missing.Value);
+                        Aplicacao.Quit();
+                        Marshal.ReleaseComObject(Aplicacao);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }, token);
+
+            task.ContinueWith(t =>
+            {
+                if (token.IsCancellationRequested)
+                {
+                    try
+                    {
+                        Workbook.Close(false, Missing.Value, Missing.Value);
                         Aplicacao.Quit();
                         Marshal.ReleaseComObject(Aplicacao);
                     }

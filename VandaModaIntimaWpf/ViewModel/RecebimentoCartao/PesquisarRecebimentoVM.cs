@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;

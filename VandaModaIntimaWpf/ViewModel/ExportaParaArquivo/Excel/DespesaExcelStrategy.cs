@@ -4,9 +4,10 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using VandaModaIntimaWpf.Model.DAO;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class DespesaExcelStrategy : AExcelStrategy<Model.Despesa>
     {
@@ -29,6 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
 
         public override async void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
@@ -46,6 +48,8 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
 
             for (int i = 0; i < containers.Length; i++)
             {
+                token.ThrowIfCancellationRequested();
+
                 int linha = 1;
                 WorksheetContainer<Model.Despesa> container = containers[i];
                 dynamic listaResumido;
@@ -89,6 +93,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                             incrementoProgresso = 100.0 / container.Lista.Count;
                             for (int j = 0; j < container.Lista.Count; j++)
                             {
+                                token.ThrowIfCancellationRequested();
                                 descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA EMPRESARIAL {j + 1} de {container.Lista.Count}");
                                 worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                                 worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
@@ -104,6 +109,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                             incrementoProgresso = 100.0 / listaResumido.Count;
                             for (int j = 0; j < listaResumido.Count; j++)
                             {
+                                token.ThrowIfCancellationRequested();
                                 descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA EMPRESARIAL RESUMIDO {j + 1} de {listaResumido.Count}");
                                 worksheet.Cells[j + linha, 9] = listaResumido[j].GroupByKey;
                                 worksheet.Cells[j + linha, 10] = listaResumido[j].Valor;
@@ -124,6 +130,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         incrementoProgresso = 100.0 / container.Lista.Count;
                         for (int j = 0; j < container.Lista.Count; j++)
                         {
+                            token.ThrowIfCancellationRequested();
                             descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA FAMILIAR {j + 1} de {container.Lista.Count}");
                             worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                             worksheet.Cells[j + linha, 2] = container.Lista[j].Descricao;
@@ -136,6 +143,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         incrementoProgresso = 100.0 / listaResumido.Count;
                         for (int j = 0; j < listaResumido.Count; j++)
                         {
+                            token.ThrowIfCancellationRequested();
                             descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA FAMILIAR RESUMIDO {j + 1} de {listaResumido.Count}");
                             worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
                             worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;
@@ -155,6 +163,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         incrementoProgresso = 100.0 / container.Lista.Count;
                         for (int j = 0; j < container.Lista.Count; j++)
                         {
+                            token.ThrowIfCancellationRequested();
                             descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA RESIDENCIAL {j + 1} de {container.Lista.Count}");
                             worksheet.Cells[j + linha, 1] = container.Lista[j].Data;
                             worksheet.Cells[j + linha, 2] = container.Lista[j].DataVencimento;
@@ -167,6 +176,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
                         incrementoProgresso = 100.0 / listaResumido.Count;
                         for (int j = 0; j < listaResumido.Count; j++)
                         {
+                            token.ThrowIfCancellationRequested();
                             descricao.Report($"Escrevendo planilha {i + 1} de {containers.Length} - DESPESA RESIDENCIAL RESUMIDO {j + 1} de {listaResumido.Count}");
                             worksheet.Cells[j + linha, 6] = listaResumido[j].GroupByKey;
                             worksheet.Cells[j + linha, 7] = listaResumido[j].Valor;

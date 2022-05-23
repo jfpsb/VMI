@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,11 +11,9 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -45,6 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string _descricaoBarraProgresso;
         private bool _isIndefinidaBarraProgresso;
 
+        protected CancellationTokenSource cancellationTokenSource;
         protected IProgress<double> setValorBarraProgresso;
         protected IProgress<string> setDescricaoBarraProgresso;
         protected IProgress<bool> setIsIndefinidaBarraProgresso;
@@ -62,11 +62,14 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand ImportarExcelComando { get; set; }
         public ICommand CopiarValorCelulaComando { get; set; }
         public ICommand ExportarSQLComando { get; set; }
+        public ICommand CancelaTaskComando { get; set; }
         public APesquisarViewModel(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<E> abrePelaTelaPesquisaService)
         {
             MessageBoxService = messageBoxService;
             AbrePelaTelaPesquisaService = abrePelaTelaPesquisaService;
             openView = new OpenView();
+
+            cancellationTokenSource = new CancellationTokenSource();
 
             setValorBarraProgresso = new Progress<double>(valor =>
             {
@@ -91,12 +94,18 @@ namespace VandaModaIntimaWpf.ViewModel
             AbrirAjudaComando = new RelayCommand(AbrirAjuda);
             CopiarValorCelulaComando = new RelayCommand(CopiarValorCelula);
             ExportarSQLComando = new RelayCommand(AbrirExportarSQL);
+            CancelaTaskComando = new RelayCommand(CancelaTask);
 
             Entidades = new ObservableCollection<EntidadeComCampo<E>>();
 
             _session = SessionProvider.GetSession();
 
             PropertyChanged += PesquisarViewModel_PropertyChanged;
+        }
+
+        private void CancelaTask(object obj)
+        {
+            cancellationTokenSource.Cancel();
         }
 
         public abstract Task PesquisaItens(string termo);
@@ -233,12 +242,35 @@ namespace VandaModaIntimaWpf.ViewModel
                 {
                     IsThreadLocked = true;
                     VisibilidadeStatusBar = Visibility.Visible;
-                    Task excelTask = new Excel<E>(excelStrategy, caminhoPlanilha).Salvar(setDescricaoBarraProgresso, setValorBarraProgresso,
+                    CancellationToken token = cancellationTokenSource.Token;
+                    Task excelTask = new Excel<E>(excelStrategy, caminhoPlanilha).Salvar(token, setDescricaoBarraProgresso, setValorBarraProgresso,
                         setIsIndefinidaBarraProgresso, containers);
-                    await excelTask.ContinueWith(task => { VisibilidadeStatusBar = Visibility.Collapsed; });
-                    MessageBoxService.Show("Exportado para Excel com sucesso");
-                    IsThreadLocked = false;
+
+                    try
+                    {
+                        await excelTask;
+                    }
+                    catch(OperationCanceledException)
+                    {
+                        MessageBoxService.Show("Exportação para Excel foi cancelada pelo usuário");
+                        cancellationTokenSource.Dispose();
+                        cancellationTokenSource = new CancellationTokenSource();
+                    }
+
+                    await excelTask.ContinueWith(task =>
+                    {
+                        VisibilidadeStatusBar = Visibility.Collapsed;
+                        IsThreadLocked = false;
+                        if (!excelTask.IsCanceled)
+                            MessageBoxService.Show("Exportado para Excel com sucesso");
+                    });
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBoxService.Show("Exportação para Excel foi cancelada pela usuário");
+                cancellationTokenSource.Dispose();
+                cancellationTokenSource = new CancellationTokenSource();
             }
             catch (Exception ex)
             {

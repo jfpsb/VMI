@@ -1,8 +1,9 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Drawing;
+using System.Threading;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     public class FolhaPagamentoExcelStrategy : AExcelStrategy<Model.FolhaPagamento>
     {
@@ -12,6 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
 
         public override void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
@@ -35,6 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             int i = 1;
             foreach (Model.FolhaPagamento folha in lista)
             {
+                token.ThrowIfCancellationRequested();
                 descricao.Report($"Escrevendo folha de pagamento {i} de {lista.Count}");
                 worksheet.Cells[linhaAtual, pColuna] = folha.Funcionario.Nome + " - " + folha.MesReferencia;
                 worksheet.Cells[linhaAtual, pColuna].Font.Bold = true;

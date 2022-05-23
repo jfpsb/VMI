@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -11,20 +11,17 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
-using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Arquivo;
-using VandaModaIntimaWpf.ViewModel.DataSets;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.CrystalReports;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using FolhaPagamentoModel = VandaModaIntimaWpf.Model.FolhaPagamento;
-using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class PesquisarFolhaVM : APesquisarViewModel<FolhaPagamentoModel>
+    public class PesquisarFolhaVM : APesquisarViewModel<Model.FolhaPagamento>
     {
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
@@ -32,15 +29,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOParcela daoParcela;
         private DAODespesa daoDespesa;
         private DAOTipoDespesa daoTipoDespesa;
-        private DAOHoraExtra daoHoraExtra;
         private DateTime _dataEscolhida;
-        private ObservableCollection<FolhaPagamentoModel> _folhaPagamentos;
-        private FolhaPagamentoModel _folhaPagamento;
-        private IList<FuncionarioModel> _funcionarios;
-        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
+        private ObservableCollection<Model.FolhaPagamento> _folhaPagamentos;
+        private Model.FolhaPagamento _folhaPagamento;
+        private IList<Model.Funcionario> _funcionarios;
         private double _totalEmPassagem;
         private double _totalEmAlimentacao;
         private double _totalEmMeta;
+        private ICrystalReportsParaPDF<Model.FolhaPagamento> crystalReportsParaPDF;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -62,7 +58,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarFaltasComando { get; set; }
         public ICommand AdicionarValoresDespesaComando { get; set; }
 
-        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FolhaPagamentoModel> abrePelaTelaPesquisaService)
+        public PesquisarFolhaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.FolhaPagamento> abrePelaTelaPesquisaService)
             : base(messageBoxService, abrePelaTelaPesquisaService)
         {
             //TODO: excel para folha de pagamento
@@ -73,10 +69,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoDespesa = new DAODespesa(_session);
             daoParcela = new DAOParcela(_session);
             daoBonus = new DAOBonus(_session);
-            daoHoraExtra = new DAOHoraExtra(_session);
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new FolhaPagamentoExcelStrategy();
-            FolhaPagamentos = new ObservableCollection<FolhaPagamentoModel>();
+            FolhaPagamentos = new ObservableCollection<Model.FolhaPagamento>();
+            crystalReportsParaPDF = new CRFolhaPagamentoParaPDF(_session);
+            cancellationTokenSource = new CancellationTokenSource();
 
             GetFuncionarios();
 
@@ -203,138 +200,38 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (caminhoPasta != null)
                 {
+                    CancellationToken token = cancellationTokenSource.Token;
                     VisibilidadeStatusBar = Visibility.Visible;
-                    Task task = Task.Run(() => ProcessaFolhasParaPDF(caminhoPasta));
-                    await task.ContinueWith(t => { VisibilidadeStatusBar = Visibility.Collapsed; });
-                    MessageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
+                    Task task = crystalReportsParaPDF.Salvar(caminhoPasta, FolhaPagamentos, setValorBarraProgresso, setDescricaoBarraProgresso, setIsIndefinidaBarraProgresso, token);
+
+                    try
+                    {
+                        await task;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        MessageBoxService.Show("Exportação para PDF foi cancelada pelo usuário");
+                        cancellationTokenSource.Dispose();
+                        cancellationTokenSource = new CancellationTokenSource();
+                    }
+
+                    await task.ContinueWith(t =>
+                    {
+                        VisibilidadeStatusBar = Visibility.Collapsed;
+                        if (!task.IsCanceled)
+                            MessageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
+                    });
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                MessageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
+                cancellationTokenSource.Dispose();
+                cancellationTokenSource = new CancellationTokenSource();
             }
             catch (Exception ex)
             {
                 MessageBoxService.Show(ex.Message);
-            }
-        }
-        private async void ProcessaFolhasParaPDF(string caminhoPasta)
-        {
-            //TODO: este código está repetido em TelaRelatorioFolha.cs
-            double incremento = 100.0 / FolhaPagamentos.Count;
-            setValorBarraProgresso.Report(-1); //Reseta valor para zero
-            var report = new RelatorioFolhaPagamento();
-
-            if (!string.IsNullOrEmpty(caminhoPasta))
-            {
-                report.Load("/View/FolhaPagamento/Relatorios/RelatorioFolhaPagamento.rpt");
-
-                try
-                {
-                    FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
-                    BonusDataSet bonusDataSet = new BonusDataSet();
-                    ParcelaDataSet parcelaDataSet = new ParcelaDataSet();
-
-                    setDescricaoBarraProgresso.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
-
-                    foreach (var folha in FolhaPagamentos)
-                    {
-                        setValorBarraProgresso.Report(incremento);
-
-                        folhaPagamentoDataSet.Clear();
-                        bonusDataSet.Clear();
-                        parcelaDataSet.Clear();
-
-                        setDescricaoBarraProgresso.Report($"Gerando Folha de {folha.Funcionario.Nome}");
-
-                        int i = 0;
-                        foreach (var bonus in folha.Bonus)
-                        {
-                            var brow = bonusDataSet.Bonus.NewBonusRow();
-
-                            //Os bônus mensais que ainda não foram salvos tem Id 0, se tentar adicionar dois items com mesma Id dá erro.
-                            //Então uso essa variável i apenas para setar uma Id diferente para cada bônus
-                            brow.id = i++.ToString();
-                            brow.data = bonus.DataString;
-                            brow.descricao = bonus.Descricao;
-                            brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                            brow.total_bonus = folha.TotalBonus.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                            bonusDataSet.Bonus.AddBonusRow(brow);
-                        }
-
-                        foreach (var parcela in folha.Parcelas)
-                        {
-                            var prow = parcelaDataSet.Parcela.NewParcelaRow();
-                            prow.id = parcela.Id.ToString();
-                            prow.numero = parcela.Numero.ToString();
-                            prow.valor = parcela.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                            prow.data_adiantamento = parcela.Adiantamento.DataString;
-                            prow.numero_com_total = parcela.NumeroComTotal;
-                            prow.total_adiantamentos = folha.TotalAdiantamentos.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                            prow.descricao = parcela.Adiantamento.Descricao;
-
-                            parcelaDataSet.Parcela.AddParcelaRow(prow);
-                        }
-
-                        var parcelasNaoPagas = await daoParcela.ListarPorFuncionarioNaoPagas(folha.Funcionario);
-
-                        var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
-                        fprow.mes = folha.Mes.ToString();
-                        fprow.ano = folha.Ano.ToString();
-                        fprow.mesreferencia = folha.MesReferencia;
-                        fprow.vencimento = folha.Vencimento.ToString("dd/MM/yyyy");
-                        fprow.funcionario = folha.Funcionario.Nome;
-                        fprow.valor_a_transferir = folha.ValorATransferir.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                        fprow.salario_liquido = folha.SalarioLiquido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                        fprow.observacao = folha.Observacao;
-                        fprow.valordameta = folha.MetaDeVenda.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                        fprow.totalvendido = folha.TotalVendido.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-                        fprow.restanteadiantamento = parcelasNaoPagas.Sum(s => s.Valor).ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                        var calendarioPassagem = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioPassagem.png");
-                        var calendarioAlimentacao = Path.Combine(caminhoFolhaPagamentoVMI, folha.Funcionario.Nome, folha.Ano.ToString(), folha.Mes.ToString(), "CalendarioAlimentacao.png");
-
-                        fprow.calendariopassagem = calendarioPassagem;
-                        fprow.calendarioalimentacao = calendarioAlimentacao;
-
-                        report.ReportDefinition.ReportObjects["TxtCalendarioPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
-                        report.ReportDefinition.ReportObjects["PicPassagens"].ObjectFormat.EnableSuppress = !File.Exists(calendarioPassagem);
-
-                        report.ReportDefinition.ReportObjects["TxtCalendarioAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
-                        report.ReportDefinition.ReportObjects["PicAlimentacao"].ObjectFormat.EnableSuppress = !File.Exists(calendarioAlimentacao);
-
-                        //Se não existe nenhum dos dois calendários salvos esconde a sessão
-                        report.DetailSection3.SectionFormat.EnableSuppress = !(File.Exists(calendarioPassagem) || File.Exists(calendarioAlimentacao));
-
-                        fprow.horaextra100 = "00:00";
-                        fprow.horaextra55 = "00:00";
-
-                        var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(folha.Ano, folha.Mes, folha.Funcionario).Result;
-                        var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).SingleOrDefault();
-                        var henormal = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/060%")).SingleOrDefault();
-
-                        if (he100 != null)
-                        {
-                            fprow.horaextra100 = he100.TotalEmString;
-                        }
-
-                        if (henormal != null)
-                        {
-                            fprow.horaextra55 = henormal.TotalEmString;
-                        }
-
-                        folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);
-
-                        report.Subreports[0].SetDataSource(bonusDataSet);
-                        report.Subreports[1].SetDataSource(parcelaDataSet);
-                        report.SetDataSource(folhaPagamentoDataSet);
-
-                        report.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf"));
-                    }
-
-                    setDescricaoBarraProgresso.Report($"Folhas De Pagamento Foram Exportadas Em PDF Com Sucesso Em {caminhoPasta}");
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxService.Show(ex.Message);
-                }
             }
         }
         private void AbrirAdicionarObservacao(object obj)
@@ -545,7 +442,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public ObservableCollection<FolhaPagamentoModel> FolhaPagamentos
+        public ObservableCollection<Model.FolhaPagamento> FolhaPagamentos
         {
             get => _folhaPagamentos;
             set
@@ -556,7 +453,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public FolhaPagamentoModel FolhaPagamento
+        public Model.FolhaPagamento FolhaPagamento
         {
             get => _folhaPagamento;
             set
@@ -605,12 +502,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async Task PesquisaItens(string termo)
         {
-            ObservableCollection<FolhaPagamentoModel> folhas = new ObservableCollection<FolhaPagamentoModel>();
+            ObservableCollection<Model.FolhaPagamento> folhas = new ObservableCollection<Model.FolhaPagamento>();
             DAOFolhaPagamento daoFolha = (DAOFolhaPagamento)daoEntidade;
 
-            foreach (FuncionarioModel funcionario in _funcionarios)
+            foreach (Model.Funcionario funcionario in _funcionarios)
             {
-                FolhaPagamentoModel folha = await daoFolha.ListarPorMesAnoFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
+                Model.FolhaPagamento folha = await daoFolha.ListarPorMesAnoFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
 
                 if (folha == null)
                 {
@@ -620,7 +517,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     if (DataEscolhida > funcionario.Demissao)
                         continue;
 
-                    folha = new FolhaPagamentoModel
+                    folha = new Model.FolhaPagamento
                     {
                         Mes = DataEscolhida.Month,
                         Ano = DataEscolhida.Year,
@@ -706,10 +603,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             _funcionarios = await daoFuncionario.Listar();
         }
 
-        protected override WorksheetContainer<FolhaPagamentoModel>[] GetWorksheetContainers()
+        protected override WorksheetContainer<Model.FolhaPagamento>[] GetWorksheetContainers()
         {
-            var worksheets = new WorksheetContainer<FolhaPagamentoModel>[1];
-            worksheets[0] = new WorksheetContainer<FolhaPagamentoModel>()
+            var worksheets = new WorksheetContainer<Model.FolhaPagamento>[1];
+            worksheets[0] = new WorksheetContainer<Model.FolhaPagamento>()
             {
                 Nome = "Folhas De Pagamento",
                 Lista = Entidades.Select(s => s.Entidade).ToList()

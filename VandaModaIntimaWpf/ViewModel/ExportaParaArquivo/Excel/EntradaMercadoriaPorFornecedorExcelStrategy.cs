@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     class EntradaMercadoriaPorFornecedorExcelStrategy : AExcelStrategy<EntradaMercadoriaProdutoGrade>
     {
@@ -19,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
 
         public override void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
@@ -51,6 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             double incrementoProgresso = 100.0 / lista.Count;
             for (int i = 0; i < lista.Count; i++)
             {
+                token.ThrowIfCancellationRequested();
                 descricao.Report($"Escrevendo entrada de mercadoria {i + 1} de {lista.Count}");
                 if (lista[i].ProdutoGrade == null)
                 {

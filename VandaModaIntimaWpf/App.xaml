@@ -110,7 +110,8 @@
                                                 Padding="0"
                                                 Background="Transparent"
                                                 BorderBrush="Transparent"
-                                                ToolTip="Cancelar Operação">
+                                                ToolTip="Cancelar Operação"
+                                                Command="{Binding CancelaTaskComando}">
                                             <Image Source="/Resources/Erro.png" />
                                         </Button>
                                     </StatusBarItem>

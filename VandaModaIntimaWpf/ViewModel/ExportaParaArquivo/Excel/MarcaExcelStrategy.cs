@@ -1,8 +1,9 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using NHibernate;
 using System;
+using System.Threading;
 
-namespace VandaModaIntimaWpf.ViewModel.Arquivo
+namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
     class MarcaExcelStrategy : AExcelStrategy<Model.Marca>
     {
@@ -19,6 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
         }
 
         public override void EscreveDados(Workbook workbook,
+            CancellationToken token,
             IProgress<string> descricao,
             IProgress<double> valor,
             IProgress<bool> isIndeterminada,
@@ -34,6 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.Arquivo
             double incrementoProgresso = 100.0 / lista.Count;
             for (int i = 0; i < lista.Count; i++)
             {
+                token.ThrowIfCancellationRequested();
                 descricao.Report($"Escrevendo marca {i + 1} de {lista.Count}");
                 worksheet.Cells[i + 2, Model.Marca.Colunas.Nome] = lista[i].Nome;
                 valor.Report(incrementoProgresso);
