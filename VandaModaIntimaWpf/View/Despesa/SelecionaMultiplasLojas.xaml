@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="VandaModaIntimaWpf.View.Despesa.SelecionaMultiplasLojas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
+             mc:Ignorable="d"
+             Background="White"
+             Height="450"
+             Width="400"
+             Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Selecione as lojas:" />
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Entidades}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Loja"
+                                    Binding="{Binding Entidade.Nome}"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2"
+                Content="Finalizar"
+                FontSize="28"
+                Padding="10"
+                FontWeight="Bold" />
+    </Grid>
+</UserControl>

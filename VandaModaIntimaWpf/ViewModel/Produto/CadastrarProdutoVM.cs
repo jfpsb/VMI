@@ -178,7 +178,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 try
                 {
                     await daoProdutoGrade.InserirOuAtualizar(ProdutoGrades);
-                    MessageBoxService.Show("Grades atualizadas com novos preços de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxService.Show("Grades atualizadas com novos preços de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                     HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
                 }
                 catch (Exception ex)

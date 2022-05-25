@@ -4,18 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
+        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
         mc:Ignorable="d"
         Title="Salvar Despesa"
         Height="640"
-        Width="550"
+        Width="600"
         ResizeMode="NoResize"
         Icon="/Resources/Despesas_Icon.ico"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing">
+    <Window.Resources>
+        <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -87,7 +92,19 @@
                   ItemsSource="{Binding Lojas}"
                   DisplayMemberPath="Nome"
                   SelectedItem="{Binding Entidade.Loja}"
+                  IsEnabled="{Binding IsCmbLojasEnabled}"
                   Visibility="{Binding VisibilidadeDespesaEmpresarial}" />
+        <Button Grid.Row="6"
+                Grid.Column="2"
+                Width="25"
+                Height="25"
+                Margin="0"
+                Command="{Binding SelecionarLojasComando}"
+                Visibility="{Binding VisibilidadeDespesaEmpresarial}"
+                IsEnabled="{Binding IssoEUmUpdate, Converter={StaticResource InverseBooleanConverter}}"
+                ToolTip="Selecionar mais de uma loja para essa despesa">
+            <Image Source="/Resources/Selecionar_Varios.ico" />
+        </Button>
         <Label Grid.Row="7"
                Content="Tipo De Descrição:" />
         <ComboBox Grid.Row="7"
@@ -106,8 +123,6 @@
                Visibility="{Binding VisibilidadeMembroFamiliar}" />
         <ComboBox Grid.Row="9"
                   Grid.Column="1"
-                  Width="225"
-                  HorizontalAlignment="Left"
                   ItemsSource="{Binding MembrosFamiliar}"
                   DisplayMemberPath="Nome"
                   SelectedItem="{Binding Entidade.Familiar}"

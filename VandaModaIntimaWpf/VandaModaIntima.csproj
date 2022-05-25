@@ -323,6 +323,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Despesa\SelecionaMultiplasLojas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -648,6 +652,7 @@
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
+    <Compile Include="ViewModel\Despesa\SelecionaMultiplasLojasVM.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\CRFolhaPagamentoParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\ICrystalReportsParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\Excel\DespesaExcelStrategy.cs" />
@@ -833,6 +838,9 @@
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
+    <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
+      <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Interfaces\IFolderBrowserDialog.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
@@ -1498,6 +1506,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Selecionar_Varios.ico" />
+    <Resource Include="Resources\Selecionar_Varios.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

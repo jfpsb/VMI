@@ -133,8 +133,11 @@ namespace VandaModaIntimaWpf.Model
             get => _detalhes;
             set
             {
-                _detalhes = value;
-                OnPropertyChanged("Detalhes");
+                if (value != null)
+                {
+                    _detalhes = value.ToUpper();
+                    OnPropertyChanged("Detalhes");
+                }
             }
         }
 

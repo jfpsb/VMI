@@ -1,9 +1,12 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
@@ -25,6 +28,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private Visibility _visibilidadeMembroFamiliar;
         private bool _inserirVencimentoFlag;
         private string[] _tiposDescricao = GetResource.GetStringArray("CmbTipoDescricaoDespesa");
+        private bool _isCmbLojasEnabled = true;
+        private IList<EntidadeComCampo<Model.Loja>> lojasEntidadeComCampo;
+
         protected DateTime? ultimaDataVencimento = null;
 
         private ObservableCollection<Model.TipoDespesa> _tiposDespesa;
@@ -32,6 +38,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<Model.Representante> _representantes;
         private ObservableCollection<Model.Loja> _lojas;
         private ObservableCollection<Model.MembroFamiliar> _membrosFamiliar;
+
+        public ICommand SelecionarLojasComando { get; set; }
 
         public CadastrarDespesaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
@@ -55,7 +63,104 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             GetMembrosFamiliar();
             Entidade.Descricao = TipoDescricao = "CONTA DE LUZ"; //Primeiro item
 
+            SelecionarLojasComando = new RelayCommand(SelecionarLojas);
+
             PropertyChanged += CadastrarDespesaVM_PropertyChanged;
+        }
+
+        private void SelecionarLojas(object obj)
+        {
+            SelecionaMultiplasLojasVM viewModel = new SelecionaMultiplasLojasVM(_session, lojasEntidadeComCampo);
+            openView.ShowDialog(viewModel);
+            if (!viewModel.Entidades.Where(w => w.IsChecked).Any())
+            {
+                IsCmbLojasEnabled = true;
+                lojasEntidadeComCampo?.Clear();
+            }
+            else
+            {
+                IsCmbLojasEnabled = false;
+                lojasEntidadeComCampo = viewModel.Entidades.Where(w => w.IsChecked).ToList();
+            }
+        }
+
+        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        {
+            _result = false;
+            try
+            {
+                if (lojasEntidadeComCampo != null && lojasEntidadeComCampo.Count > 0)
+                {
+                    string mensagem = "Múltiplas lojas estão selecionadas. Esta despesa será cadastrada na(s) loja(s):\n";
+                    var lojasMarcadas = lojasEntidadeComCampo.Where(w => w.IsChecked);
+
+                    foreach (var lojaMarcada in lojasMarcadas)
+                    {
+                        mensagem += $"{lojaMarcada.Entidade.Nome}\n";
+                    }
+
+                    mensagem += "\nConfirma?";
+
+                    var result = MessageBoxService.Show(mensagem,
+                        viewModelStrategy.MessageBoxCaption(),
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question,
+                        MessageBoxResult.No);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        IList<Model.Despesa> despesas = new List<Model.Despesa>();
+
+                        foreach (var lojaComCampo in lojasEntidadeComCampo)
+                        {
+                            var loja = lojaComCampo.Entidade;
+                            var despesa = new Model.Despesa()
+                            {
+                                TipoDespesa = Entidade.TipoDespesa,
+                                Adiantamento = Entidade.Adiantamento,
+                                Fornecedor = Entidade.Fornecedor,
+                                Representante = Entidade.Representante,
+                                Loja = loja,
+                                Familiar = Entidade.Familiar,
+                                Data = Entidade.Data,
+                                DataVencimento = Entidade.DataVencimento,
+                                Descricao = Entidade.Descricao,
+                                Valor = Entidade.Valor,
+                                Detalhes = Entidade.Detalhes
+                            };
+                            despesas.Add(despesa);
+                        }
+
+                        await daoEntidade.Inserir(despesas);
+                        _result = true;
+                        MessageBoxService.Show("Despesas foram salvas com sucesso.",
+                            viewModelStrategy.MessageBoxCaption(),
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show($"Erro ao salvar despesas.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (lojasEntidadeComCampo != null && lojasEntidadeComCampo.Count > 0)
+            {
+                AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+                {
+                    IssoEUmUpdate = IssoEUmUpdate,
+                    Sucesso = _result,
+                    Parametro = parametro
+                };
+
+                return e;
+            }
+            else
+            {
+                return await base.ExecutarSalvar(parametro);
+            }
         }
 
         private void CadastrarDespesaVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -328,6 +433,20 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _membrosFamiliar = value;
                 OnPropertyChanged("MembrosFamiliar");
+            }
+        }
+
+        public bool IsCmbLojasEnabled
+        {
+            get
+            {
+                return _isCmbLojasEnabled;
+            }
+
+            set
+            {
+                _isCmbLojasEnabled = value;
+                OnPropertyChanged("IsCmbLojasEnabled");
             }
         }
     }

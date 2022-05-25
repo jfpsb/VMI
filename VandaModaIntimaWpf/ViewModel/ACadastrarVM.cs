@@ -7,6 +7,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -20,15 +21,15 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected E _entidade;
         protected bool _result;
-        private bool antesInserirBDChecagem;
+        protected IMessageBoxService MessageBoxService;
+        protected IOpenViewService openView;
 
+        private bool antesInserirBDChecagem;
         private bool issoEUmUpdate;
         private string _btnSalvarToolTip;
-        protected IMessageBoxService MessageBoxService;
 
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
         public delegate void AposInserirNoBancoDeDadosEventHandler(AposInserirBDEventArgs e);
-
         public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
         public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
         public ICommand SalvarComando { get; set; }
@@ -44,6 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel
             IssoEUmUpdate = issoEUmUpdate;
             MessageBoxService = messageBoxService;
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
+            openView = new OpenView();
 
             AposInserirNoBancoDeDados += RedefinirTela;
             AposInserirNoBancoDeDados += RefreshEntidade;
@@ -128,7 +130,6 @@ namespace VandaModaIntimaWpf.ViewModel
             };
 
             return e;
-
         }
 
         /// <summary>
