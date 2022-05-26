@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -21,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AbrirImprimirHEComando { get; set; }
 
-        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida, IMessageBoxService messageBoxService) : base(messageBoxService, null)
+        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida, IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOHoraExtra(_session);
             daoFuncionario = new DAOFuncionario(_session);
@@ -38,6 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirImprimirHE(object obj)
         {
+            //TODO: implementar viewmodel
             TelaRelatorioHoraExtraFaltas telaRelatorioHoraExtra = new TelaRelatorioHoraExtraFaltas(ListaHoraExtra);
             telaRelatorioHoraExtra.ShowDialog();
         }
@@ -84,6 +87,31 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
 
         protected override WorksheetContainer<Model.HoraExtra>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<HoraExtra> GetCadastrarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<HoraExtra> GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<HoraExtra> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
         {
             throw new NotImplementedException();
         }

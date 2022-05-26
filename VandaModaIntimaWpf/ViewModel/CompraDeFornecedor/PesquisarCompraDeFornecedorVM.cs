@@ -1,11 +1,14 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 {
@@ -18,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         private DateTime _dataEscolhida;
         private double _totalEmCompras;
 
-        public PesquisarCompraDeFornecedorVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.CompraDeFornecedor> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarCompraDeFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOCompraDeFornecedor(_session);
             daoLoja = new DAOLoja(_session);
@@ -121,6 +124,31 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         }
 
         protected override WorksheetContainer<Model.CompraDeFornecedor>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<Model.CompraDeFornecedor> GetCadastrarViewModel()
+        {
+            return new CadastrarCompraDeFornecedorVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<Model.CompraDeFornecedor> GetEditarViewModel()
+        {
+            return new EditarCompraDeFornecedorVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<Model.CompraDeFornecedor> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
         {
             throw new NotImplementedException();
         }

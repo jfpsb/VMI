@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 
-namespace VandaModaIntimaWpf
+namespace VandaModaIntimaWpf.View
 {
     public partial class VandaModaIntima : Window
     {

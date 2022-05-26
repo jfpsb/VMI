@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
@@ -18,8 +20,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             Cpf,
             Nome
         }
-        public PesquisarFuncionarioVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Funcionario> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarFuncionarioVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             excelStrategy = new FuncionarioExcelStrategy();
             pesquisarViewModelStrategy = new PesquisarFuncMsgVMStrategy();
@@ -67,6 +68,31 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<Model.Funcionario> GetCadastrarViewModel()
+        {
+            return new CadastrarFuncionarioVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<Model.Funcionario> GetEditarViewModel()
+        {
+            return new EditarFuncionarioVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<Model.Funcionario> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new NotImplementedException();
         }
 
         public int PesquisarPor

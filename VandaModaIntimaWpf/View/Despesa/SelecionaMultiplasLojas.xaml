@@ -35,6 +35,7 @@
                 Content="Finalizar"
                 FontSize="28"
                 Padding="10"
-                FontWeight="Bold" />
+                FontWeight="Bold"
+                Command="{Binding FinalizarComando}"/>
     </Grid>
 </UserControl>

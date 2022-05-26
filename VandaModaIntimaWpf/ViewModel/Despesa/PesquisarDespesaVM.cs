@@ -7,7 +7,9 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Despesa
 {
@@ -30,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public ICommand AbrirDespesaGroupByLojaComando { get; set; }
 
-        public PesquisarDespesaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.Despesa> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarDespesaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAODespesa(_session);
             daoTipoDespesa = new DAO<TipoDespesa>(_session);
@@ -52,9 +54,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         private void AbrirDespesaGroupByLoja(object obj)
         {
-            DespesaGroupByDescricaoViewModel viewModel = new DespesaGroupByDescricaoViewModel();
-            DespesasGroupByDescricao view = new DespesasGroupByDescricao { DataContext = viewModel };
-            view.ShowDialog();
+            openView.ShowDialog(new DespesaGroupByDescricaoViewModel());
         }
 
         private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -145,6 +145,32 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             return listas;
         }
+
+        public override ACadastrarViewModel<Model.Despesa> GetCadastrarViewModel()
+        {
+            return new CadastrarDespesaVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<Model.Despesa> GetEditarViewModel()
+        {
+            return new EditarDespesaVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<Model.Despesa> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new NotImplementedException();
+        }
+
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Services.Concretos

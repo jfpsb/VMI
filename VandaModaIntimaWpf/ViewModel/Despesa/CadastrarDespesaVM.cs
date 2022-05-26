@@ -80,7 +80,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             else
             {
                 IsCmbLojasEnabled = false;
-                lojasEntidadeComCampo = viewModel.Entidades.Where(w => w.IsChecked).ToList();
+                lojasEntidadeComCampo = viewModel.Entidades;
             }
         }
 

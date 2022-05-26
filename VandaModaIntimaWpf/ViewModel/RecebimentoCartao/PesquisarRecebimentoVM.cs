@@ -7,6 +7,7 @@ using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
@@ -24,8 +25,8 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AbrirCadastrarOperadoraComando { get; set; }
         public ICommand MaisDetalhesComando { get; set; }
-        public PesquisarRecebimentoVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<RecebimentoCartaoModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarRecebimentoVM(IMessageBoxService messageBoxService)
+            : base(messageBoxService)
         {
             daoEntidade = new DAORecebimentoCartao(_session);
             daoLoja = new DAOLoja(_session);
@@ -94,6 +95,31 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         }
 
         protected override WorksheetContainer<RecebimentoCartaoModel>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<RecebimentoCartaoModel> GetCadastrarViewModel()
+        {
+            return new CadastrarRecebimentoVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<RecebimentoCartaoModel> GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<RecebimentoCartaoModel> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
         {
             throw new NotImplementedException();
         }

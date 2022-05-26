@@ -1,4 +1,4 @@
-﻿<Window x:Class="VandaModaIntimaWpf.VandaModaIntima"
+﻿<Window x:Class="VandaModaIntimaWpf.View.VandaModaIntima"
         x:Name="TelaPrincipal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,9 @@
         Closing="TelaPrincipal_Closing"
         Width="1366"
         Height="1200">
+    <Window.DataContext>
+        <ViewModel:VandaModaIntimaVM />
+    </Window.DataContext>
     <DockPanel>
         <Menu>
             <MenuItem Header="Opções"
@@ -82,7 +85,7 @@
                             <Image Source="/Resources/Funcionario.png"
                                    Height="300"
                                    Width="300" />
-                            <Label Content="{DynamicResource funcionario_header}"/>
+                            <Label Content="{DynamicResource funcionario_header}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>

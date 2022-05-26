@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Representante;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -21,8 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             Nome,
             Email
         }
-        public PesquisarFornecedorVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<FornecedorModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             AbrirTelaPesquisarRepresentanteComando = new RelayCommand(AbrirTelaPesquisarRepresentante);
@@ -37,13 +38,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         private void AbrirTelaPesquisarRepresentante(object obj)
         {
-            ((AbrePelaTelaPesqFornecedorService)AbrePelaTelaPesquisaService).AbrirPesquisarRepresentante();
+            openView.ShowDialog(new PesquisarRepresentanteVM(new MessageBoxService()));
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirCadastrarOnline(object p)
         {
-            ((AbrePelaTelaPesqFornecedorService)AbrePelaTelaPesquisaService).AbrirCadastrarOnline(_session);
+            openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, new MessageBoxService(), false));
             OnPropertyChanged("TermoPesquisa");
         }
         public override async Task PesquisaItens(string termo)
@@ -78,6 +79,31 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<FornecedorModel> GetCadastrarViewModel()
+        {
+            return new CadastrarFornecedorManualmenteVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<FornecedorModel> GetEditarViewModel()
+        {
+            return new EditarFornecedorVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<FornecedorModel> GetExportaSQLVM()
+        {
+            return new ExportarSQLFornecedor(Entidades.Select(s => s.Entidade).ToList(), _session);
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new System.NotImplementedException();
         }
 
         public int PesquisarPor

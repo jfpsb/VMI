@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -22,8 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private DateTime _dataFinal;
         private LojaModel _loja;
 
-        public PesquisarContagemVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<ContagemModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarContagemVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoLoja = new DAOLoja(_session);
             daoEntidade = new DAOContagem(_session);
@@ -52,15 +53,40 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirVisualizarContagemProduto(object parameter)
         {
-            ((PesquisarContMsgVMStrategy)pesquisarViewModelStrategy).AbrirVisualizarContagemProduto(EntidadeSelecionada.Entidade);
+            openView.ShowDialog(new VisualizarContagemProdutoVM(EntidadeSelecionada.Entidade));
         }
 
         private void AbrirCadastrarTipoContagem(object parameter)
         {
-            ((PesquisarContMsgVMStrategy)pesquisarViewModelStrategy).AbrirCadastrarTipoContagem();
+            //TODO: implementar viewmodel
         }
 
         protected override WorksheetContainer<ContagemModel>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<ContagemModel> GetCadastrarViewModel()
+        {
+            return new CadastrarContagemVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<ContagemModel> GetEditarViewModel()
+        {
+            return new EditarContagemVM(_session, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<ContagemModel> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
         {
             throw new NotImplementedException();
         }

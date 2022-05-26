@@ -2,10 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-             xmlns:ViewDespesa="clr-namespace:VandaModaIntimaWpf.View.Despesa"
              xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
-             xmlns:ViewModelDespesa="clr-namespace:VandaModaIntimaWpf.ViewModel.Despesa"
-             ShutdownMode="OnMainWindowClose">
+             ShutdownMode="OnMainWindowClose"
+             StartupUri="View/VandaModaIntima.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
@@ -25,11 +24,10 @@
                 <ResourceDictionary Source="Theme/TabItemTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBlockTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml" />
+                <ResourceDictionary Source="Resources/DataTemplate/DataTemplateViewModel.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type ViewModelDespesa:SelecionaMultiplasLojasVM}">
-                <ViewDespesa:SelecionaMultiplasLojas />
-            </DataTemplate>
+            
 
             <BitmapImage x:Key="ImagemSucesso"
                          UriSource="/Resources/Sucesso.png" />

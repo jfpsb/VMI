@@ -3,15 +3,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
-    class PesquisarMarcaVM : APesquisarViewModel<MarcaModel>
+    public class PesquisarMarcaVM : APesquisarViewModel<MarcaModel>
     {
-        public PesquisarMarcaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<MarcaModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarMarcaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOMarca(_session);
             excelStrategy = new MarcaExcelStrategy(_session);
@@ -38,6 +39,31 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<MarcaModel> GetCadastrarViewModel()
+        {
+            return new CadastrarMarcaVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<MarcaModel> GetEditarViewModel()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<MarcaModel> GetExportaSQLVM()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

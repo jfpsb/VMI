@@ -247,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\DataTemplate\DataTemplateViewModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Linguagem\EN-US.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -647,11 +651,13 @@
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
     <Compile Include="Util\Log.cs" />
+    <Compile Include="ViewModel\AAjudarVM.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
     <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
+    <Compile Include="ViewModel\ATelaRelatorio.cs" />
     <Compile Include="ViewModel\Despesa\SelecionaMultiplasLojasVM.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\CRFolhaPagamentoParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\ICrystalReportsParaPDF.cs" />
@@ -821,22 +827,7 @@
     <Compile Include="ViewModel\Representante\EditarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaDespesa.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaCadastroDeProduto.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFornecedorService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqContagemService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFolhaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqFuncService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqLojaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqMarcaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqProdutoService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesqRecebService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaCompraDeFornecedor.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaEntradaMercadoriaService.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbrePelaTelaPesquisaRepresentante.cs" />
-    <Compile Include="ViewModel\Services\Concretos\AbreTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IAbrePelaTelaPesquisaService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>

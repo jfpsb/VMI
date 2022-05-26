@@ -6,6 +6,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 {
@@ -16,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         private Model.Fornecedor _fornecedor;
         private ObservableCollection<EntradaMercadoriaProdutoGrade> _entradas = new ObservableCollection<EntradaMercadoriaProdutoGrade>();
         private ObservableCollection<Model.Fornecedor> _fornecedores = new ObservableCollection<Model.Fornecedor>();
-        public PesquisarEntradasPorFornecedorVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<EntradaMercadoriaProdutoGrade> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarEntradasPorFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOEntradaMercadoriaProdutoGrade(_session);
             daoFornecedor = new DAOFornecedor(_session);
@@ -66,6 +67,31 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
                 MessageBoxService.Show("Não Há Itens Listados!", "Exportar Para Excel", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return null;
             }
+        }
+
+        public override ACadastrarViewModel<EntradaMercadoriaProdutoGrade> GetCadastrarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ACadastrarViewModel<EntradaMercadoriaProdutoGrade> GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<EntradaMercadoriaProdutoGrade> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new NotImplementedException();
         }
 
         public ObservableCollection<EntradaMercadoriaProdutoGrade> Entradas

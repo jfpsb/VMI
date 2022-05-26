@@ -9,6 +9,7 @@ using VandaModaIntimaWpf.View.EntradaDeMercadoria;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 {
@@ -23,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ImprimirComando { get; set; }
         public ICommand ImprimirRelacaoComando { get; set; }
 
-        public PesquisarEntradaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<Model.EntradaDeMercadoria> abrePelaTelaPesquisaService) : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarEntradaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOEntradaDeMercadoria(_session);
             daoLoja = new DAOLoja(_session);
@@ -52,9 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void AbrirRelatorioFornecedor(object obj)
         {
-            PesquisarEntradasPorFornecedorVM viewModel = new PesquisarEntradasPorFornecedorVM(new MessageBoxService(), null);
-            PesquisarEntradasPorFornecedor view = new PesquisarEntradasPorFornecedor() { DataContext = viewModel };
-            view.ShowDialog();
+            openView.ShowDialog(new PesquisarEntradasPorFornecedorVM(new MessageBoxService()));
         }
 
         private async void GetLojas()
@@ -89,6 +88,31 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetCadastrarViewModel()
+        {
+            return new CadastrarEntradaDeMercadoriaVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<Model.EntradaDeMercadoria> GetExportaSQLVM()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new NotImplementedException();
         }
 
         public DateTime DataEscolhida

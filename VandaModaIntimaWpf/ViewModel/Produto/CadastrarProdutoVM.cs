@@ -14,9 +14,11 @@ using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Grade;
 using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.TipoGrade;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
@@ -42,7 +44,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         private ProdutoGrade _produtoGrade; // Guarda ProdutoGrade sendo formada
         private ProdutoGrade _produtoGradeSelecionada;
         private ObservableCollection<ProdutoGrade> _produtoGrades; // Guarda listagem de Grades do Produto já completamente formadas
-        private AbrePelaTelaCadastroDeProduto abrePelaTelaCadastroDeProduto;
         private ObservableCollection<FornecedorModel> _fornecedores;
         private ObservableCollection<MarcaModel> _marcas;
         private ObservableCollection<Model.ComposicaoPreco> _composicaoPrecos;
@@ -71,7 +72,6 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
-            abrePelaTelaCadastroDeProduto = new AbrePelaTelaCadastroDeProduto();
             daoEntidade = new DAOProduto(_session);
             daoMarca = new DAOMarca(_session);
             daoFornecedor = new DAOFornecedor(_session);
@@ -351,13 +351,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void AbreTelaCadastrarTipoGrade(object obj)
         {
-            abrePelaTelaCadastroDeProduto.AbrirTelaCadastrarTipoGrade(_session);
+            openView.ShowDialog(new CadastrarTipoGradeVM(_session, MessageBoxService, false));
             OnPropertyChanged("TiposGrade");
         }
 
         private void AbreTelaCadastrarGrade(object obj)
         {
-            abrePelaTelaCadastroDeProduto.AbrirTelaCadastrarGrade(_session);
+            openView.ShowDialog(new CadastrarGradeVM(_session, MessageBoxService, false));
         }
 
         private void LimpaGrades(AposInserirBDEventArgs e)

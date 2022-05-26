@@ -16,6 +16,7 @@ using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -29,7 +30,6 @@ namespace VandaModaIntimaWpf.ViewModel
         protected IPesquisarMsgVMStrategy<E> pesquisarViewModelStrategy;
         protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
         protected IMessageBoxService MessageBoxService;
-        protected IAbrePelaTelaPesquisaService<E> AbrePelaTelaPesquisaService;
         protected DAO<E> daoEntidade;
         protected IOpenViewService openView;
 
@@ -63,10 +63,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand CopiarValorCelulaComando { get; set; }
         public ICommand ExportarSQLComando { get; set; }
         public ICommand CancelaTaskComando { get; set; }
-        public APesquisarViewModel(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<E> abrePelaTelaPesquisaService)
+        public APesquisarViewModel(IMessageBoxService messageBoxService)
         {
             MessageBoxService = messageBoxService;
-            AbrePelaTelaPesquisaService = abrePelaTelaPesquisaService;
             openView = new OpenView();
 
             cancellationTokenSource = new CancellationTokenSource();
@@ -109,9 +108,14 @@ namespace VandaModaIntimaWpf.ViewModel
         }
 
         public abstract Task PesquisaItens(string termo);
+        public abstract ACadastrarViewModel<E> GetCadastrarViewModel();
+        public abstract ACadastrarViewModel<E> GetEditarViewModel();
+        public abstract AAjudarVM GetAjudaVM();
+        public abstract ExportarSQLViewModel<E> GetExportaSQLVM();
+        public abstract ATelaRelatorio GetTelaRelatorioVM();
         public void AbrirImprimir(object parameter)
         {
-            AbrePelaTelaPesquisaService.AbrirImprimir(Entidades.Select(s => s.Entidade).ToList());
+            openView.ShowDialog(GetTelaRelatorioVM());
         }
         public abstract bool Editavel(object parameter);
         protected virtual void ChamaAposDeletarDoBD(AposDeletarDoBDEventArgs e)
@@ -120,7 +124,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirCadastrar(object parameter)
         {
-            var result = AbrePelaTelaPesquisaService.AbrirCadastrar(_session);
+            var result = openView.ShowDialog(GetCadastrarViewModel());
             //Se houve cadastro
             if (result.HasValue && result == true)
             {
@@ -172,9 +176,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 Console.WriteLine(e.Message);
             }
 
-
-            AbrePelaTelaPesquisaService.AbrirEditar(EntidadeSelecionada.Entidade, _session);
-
+            openView.ShowDialog(GetEditarViewModel());
             _session.Evict(EntidadeSelecionada.Entidade);
             OnPropertyChanged("TermoPesquisa");
         }
@@ -216,7 +218,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirAjuda(object parameter)
         {
-            AbrePelaTelaPesquisaService.AbrirAjuda();
+            openView.ShowDialog(GetAjudaVM());
         }
         public void CopiarValorCelula(object parameter)
         {
@@ -250,7 +252,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     {
                         await excelTask;
                     }
-                    catch(OperationCanceledException)
+                    catch (OperationCanceledException)
                     {
                         MessageBoxService.Show("Exportação para Excel foi cancelada pelo usuário");
                         cancellationTokenSource.Dispose();
@@ -419,7 +421,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirExportarSQL(object parameter)
         {
-            AbrePelaTelaPesquisaService.AbrirExportarSQL(Entidades.Select(s => s.Entidade).ToList(), _session);
+            openView.ShowDialog(GetExportaSQLVM());
         }
     }
 }

@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                    xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel"
+                    xmlns:ViewDespesa="clr-namespace:VandaModaIntimaWpf.View.Despesa"
+                    xmlns:ViewModelDespesa="clr-namespace:VandaModaIntimaWpf.ViewModel.Despesa"
+                    xmlns:ViewCompraDeFornecedor="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+                    xmlns:ViewModelCompraDeFornecedor="clr-namespace:VandaModaIntimaWpf.ViewModel.CompraDeFornecedor"
+                    xmlns:ViewContagem="clr-namespace:VandaModaIntimaWpf.View.Contagem"
+                    xmlns:ViewModelContagem="clr-namespace:VandaModaIntimaWpf.ViewModel.Contagem"
+                    xmlns:ViewEntradaDeMercadoria="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
+                    xmlns:ViewModelEntradaDeMercadoria="clr-namespace:VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria"
+                    xmlns:ViewFolhaPagamento="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+                    xmlns:ViewModelFolhaPagamento="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+                    xmlns:ViewFornecedor="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
+                    xmlns:ViewModelFornecedor="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
+                    xmlns:ViewFuncionario="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
+                    xmlns:ViewModelFuncionario="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
+                    xmlns:ViewLoja="clr-namespace:VandaModaIntimaWpf.View.Loja"
+                    xmlns:ViewModelLoja="clr-namespace:VandaModaIntimaWpf.ViewModel.Loja"
+                    xmlns:ViewMarca="clr-namespace:VandaModaIntimaWpf.View.Marca"
+                    xmlns:ViewModelMarca="clr-namespace:VandaModaIntimaWpf.ViewModel.Marca"
+                    xmlns:ViewProduto="clr-namespace:VandaModaIntimaWpf.View.Produto"
+                    xmlns:ViewModelProduto="clr-namespace:VandaModaIntimaWpf.ViewModel.Produto"
+                    xmlns:ViewRecebimentoCartao="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
+                    xmlns:ViewModelRecebimentoCartao="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
+                    xmlns:ViewRepresentante="clr-namespace:VandaModaIntimaWpf.View.Representante"
+                    xmlns:ViewModelRepresentante="clr-namespace:VandaModaIntimaWpf.ViewModel.Representante">
+
+    <DataTemplate DataType="{x:Type ViewModel:VandaModaIntimaVM}">
+        <View:VandaModaIntima />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelCompraDeFornecedor:CadastrarCompraDeFornecedorVM}">
+        <ViewCompraDeFornecedor:SalvarCompraDeFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelCompraDeFornecedor:EditarCompraDeFornecedorVM}">
+        <ViewCompraDeFornecedor:SalvarCompraDeFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelCompraDeFornecedor:PesquisarCompraDeFornecedorVM}">
+        <ViewCompraDeFornecedor:PesquisarCompraDeFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelContagem:CadastrarContagemVM}">
+        <ViewContagem:CadastrarContagem />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelContagem:EditarContagemVM}">
+        <ViewContagem:EditarContagem />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelContagem:PesquisarContagemVM}">
+        <ViewContagem:PesquisarContagem />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelDespesa:CadastrarDespesaVM}">
+        <ViewDespesa:SalvarDespesa />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelDespesa:EditarDespesaVM}">
+        <ViewDespesa:SalvarDespesa />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelDespesa:PesquisarDespesaVM}">
+        <ViewDespesa:PesquisarDespesa />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelDespesa:SelecionaMultiplasLojasVM}">
+        <ViewDespesa:SelecionaMultiplasLojas />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelEntradaDeMercadoria:CadastrarEntradaDeMercadoriaVM}">
+        <ViewCompraDeFornecedor:SalvarCompraDeFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelEntradaDeMercadoria:PesquisarEntradasPorFornecedorVM}">
+        <ViewEntradaDeMercadoria:PesquisarEntradasPorFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelEntradaDeMercadoria:PesquisarEntradaVM}">
+        <ViewEntradaDeMercadoria:PesquisarEntradaDeMercadoria />
+    </DataTemplate>
+
+</ResourceDictionary>

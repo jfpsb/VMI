@@ -6,13 +6,25 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
+using VandaModaIntimaWpf.ViewModel.Contagem;
+using VandaModaIntimaWpf.ViewModel.Despesa;
+using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.Fornecedor;
+using VandaModaIntimaWpf.ViewModel.Funcionario;
+using VandaModaIntimaWpf.ViewModel.Loja;
+using VandaModaIntimaWpf.ViewModel.Marca;
+using VandaModaIntimaWpf.ViewModel.Produto;
+using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
     class VandaModaIntimaVM : ObservableObject
     {
-        private IAbreTelaPesquisaService AbreTelaPesquisaService;
+        private IOpenViewService openView;
         public ICommand AbrirTelaProdutoComando { get; set; }
         public ICommand AbrirTelaFornecedorComando { get; set; }
         public ICommand AbrirTelaMarcaComando { get; set; }
@@ -24,8 +36,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand AbrirTelaDespesasComando { get; set; }
         public ICommand AbrirTelaCompraFornecedorComando { get; set; }
         public ICommand AbrirTelaEntradaMercadoriaComando { get; set; }
-        public VandaModaIntimaVM(IAbreTelaPesquisaService abreTelaPesquisaService)
+        public VandaModaIntimaVM()
         {
+            openView = new OpenView();
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
@@ -34,10 +47,6 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 MessageBox.Show(ex.Message);
             }
-
-            //var persister = SessionProvider.MainSessionFactory.GetClassMetadata(typeof(Adiantamento));
-
-            AbreTelaPesquisaService = abreTelaPesquisaService;
 
             var configJson = File.ReadAllText("Config.json");
             JsonConvert.PopulateObject(configJson, Config.Instancia);
@@ -74,50 +83,50 @@ namespace VandaModaIntimaWpf.ViewModel
 
         private void AbrirTelaEntradaMercadoria(object obj)
         {
-            AbreTelaPesquisaService.AbrirTelaEntradaMercadoria();
+            openView.Show(new PesquisarEntradaVM(new MessageBoxService()));
         }
 
         private void AbrirTelaCompraFornecedor(object obj)
         {
-            AbreTelaPesquisaService.AbrirTelaCompraDeFornecedor();
+            openView.Show(new PesquisarCompraDeFornecedorVM(new MessageBoxService()));
         }
 
         private void AbrirTelaDespesas(object obj)
         {
-            AbreTelaPesquisaService.AbrirTelaDespesas();
+            openView.Show(new PesquisarDespesaVM(new MessageBoxService()));
         }
 
         public void AbrirTelaProduto(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaProduto();
+            openView.Show(new PesquisarProdutoVM(new MessageBoxService()));
         }
         public void AbrirTelaFornecedor(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaFornecedor();
+            openView.Show(new PesquisarFornecedorVM(new MessageBoxService()));
         }
         public void AbrirTelaMarca(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaMarca();
+            openView.Show(new PesquisarMarcaVM(new MessageBoxService()));
         }
         public void AbrirTelaLoja(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaLoja();
+            openView.Show(new PesquisarLojaVM(new MessageBoxService()));
         }
         public void AbrirTelaRecebimento(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaRecebimento();
+            openView.Show(new PesquisarRecebimentoVM(new MessageBoxService()));
         }
         public void AbrirTelaContagem(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaContagem();
+            openView.Show(new PesquisarContagemVM(new MessageBoxService()));
         }
         public void AbrirTelaFolhaPagamento(object parameter)
         {
-            AbreTelaPesquisaService.AbrirTelaFolhaPagamento();
+            openView.Show(new PesquisarFolhaVM(new MessageBoxService()));
         }
         public void AbrirTelaFuncionario(object p)
         {
-            AbreTelaPesquisaService.AbrirTelaFuncionario();
+            openView.Show(new PesquisarFuncionarioVM(new MessageBoxService()));
         }
     }
 }

@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
@@ -16,8 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Cnpj,
             Nome
         }
-        public PesquisarLojaVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<LojaModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarLojaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOLoja(_session);
             excelStrategy = new LojaExcelStrategy(_session);
@@ -63,6 +64,32 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<LojaModel> GetCadastrarViewModel()
+        {
+            return new CadastrarLojaVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<LojaModel> GetEditarViewModel()
+        {
+            return new EditarLojaVM(EntidadeSelecionada.Entidade, _session, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            //TODO: implementar viewmodel
+            throw new System.NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<LojaModel> GetExportaSQLVM()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

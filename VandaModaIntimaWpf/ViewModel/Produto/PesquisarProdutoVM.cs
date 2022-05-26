@@ -8,11 +8,12 @@ using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.SQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
-    class PesquisarProdutoVM : APesquisarViewModel<ProdutoModel>
+    public class PesquisarProdutoVM : APesquisarViewModel<ProdutoModel>
     {
         private int pesquisarPor;
         public ICommand ListarMargensDeLucroComando { get; set; }
@@ -24,8 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Fornecedor,
             Marca
         }
-        public PesquisarProdutoVM(IMessageBoxService messageBoxService, IAbrePelaTelaPesquisaService<ProdutoModel> abrePelaTelaPesquisaService)
-            : base(messageBoxService, abrePelaTelaPesquisaService)
+        public PesquisarProdutoVM(IMessageBoxService messageBoxService) : base(messageBoxService)
         {
             daoEntidade = new DAOProduto(_session);
             excelStrategy = new ProdutoExcelStrategy(_session);
@@ -98,6 +98,33 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             };
 
             return worksheets;
+        }
+
+        public override ACadastrarViewModel<ProdutoModel> GetCadastrarViewModel()
+        {
+            return new CadastrarProdutoVM(_session, MessageBoxService, false);
+        }
+
+        public override ACadastrarViewModel<ProdutoModel> GetEditarViewModel()
+        {
+            return new EditarProdutoVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+        }
+
+        public override AAjudarVM GetAjudaVM()
+        {
+            //TODO: implementar viewmodel
+            throw new NotImplementedException();
+        }
+
+        public override ExportarSQLViewModel<ProdutoModel> GetExportaSQLVM()
+        {
+            return new ExportarSQLProduto(Entidades.Select(s => s.Entidade).ToList(), _session);
+        }
+
+        public override ATelaRelatorio GetTelaRelatorioVM()
+        {
+            //TODO: implementar viewmodel
+            throw new NotImplementedException();
         }
     }
 }
