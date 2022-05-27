@@ -688,6 +688,7 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IOpenViewService.cs" />
+    <Compile Include="View\APesquisarView2.cs" />
     <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="View\Converters\CPFValueConverter.cs" />
     <Compile Include="View\Converters\IsDemitidoConverter.cs" />

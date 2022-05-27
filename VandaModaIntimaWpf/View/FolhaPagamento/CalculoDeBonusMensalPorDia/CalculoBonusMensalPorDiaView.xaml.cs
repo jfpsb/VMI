@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace VandaModaIntimaWpf.View.FolhaPagamento
+namespace VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     /// <summary>
     /// Interaction logic for CalculoPassagemOnibus.xaml

@@ -1,21 +1,19 @@
-﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                     x:Class="VandaModaIntimaWpf.View.Funcionario.PesquisarFuncionario"
-                     x:Name="TelaPesquisarFuncionario"
-                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
-                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
-                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
-                     mc:Ignorable="d"
-                     Title="Pesquisar Funcionário"
-                     Width="1336"
-                     Height="725"
-                     WindowStartupLocation="CenterScreen"
-                     Icon="/Resources/Funcionario_Icon.ico"
-                     Closing="Pesquisar_Closing"
-                     FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
+﻿<View:APesquisarView2 xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      x:Class="VandaModaIntimaWpf.View.Funcionario.PesquisarFuncionario"
+                      x:Name="TelaPesquisarFuncionario"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
+                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
+                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
+                      mc:Ignorable="d"
+                      Width="1336"
+                      Height="725"
+                      Background="White"
+                      Loaded="TelaPesquisarFuncionario_Loaded"
+                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_funcionarios_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}">
         <View:TelaPesquisaTemplate.Resources>
@@ -37,7 +35,7 @@
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
                                   Command="{Binding ExportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}"/>
+                                  CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}" />
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
@@ -277,4 +275,4 @@
             </Grid>
         </View:TelaPesquisaTemplate.LeftButtonPresenter>
     </View:TelaPesquisaTemplate>
-</View:APesquisarView>
+</View:APesquisarView2>

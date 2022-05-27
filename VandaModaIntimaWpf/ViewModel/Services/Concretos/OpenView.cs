@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
@@ -9,16 +8,18 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         public void Show(object viewModel)
         {
             var view = new Window();
+            view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             view.Content = viewModel;
-            view.SizeToContent = SizeToContent.WidthAndHeight;
+            //view.SizeToContent = SizeToContent.WidthAndHeight;
             view.Show();
         }
 
         public bool? ShowDialog(object viewModel)
         {
             var view = new Window();
+            view.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             view.Content = viewModel;
-            view.SizeToContent = SizeToContent.WidthAndHeight;
+            //view.SizeToContent = SizeToContent.WidthAndHeight;
             return view.ShowDialog();
         }
     }

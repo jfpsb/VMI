@@ -1,17 +1,15 @@
-﻿<View:APesquisarView  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                      x:Class="VandaModaIntimaWpf.View.EntradaDeMercadoria.PesquisarEntradaDeMercadoria"
-                      x:Name="TelaPesquisarEntradaDeMercadoria"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
-                      mc:Ignorable="d"
-                      Title="Pesquisar Entrada De Mercadoria"
-                      Height="450"
-                      Width="575"
-                      Closing="Pesquisar_Closing"
-                      WindowStartupLocation="CenterScreen">
+﻿<View:APesquisarView2  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                       x:Class="VandaModaIntimaWpf.View.EntradaDeMercadoria.PesquisarEntradaDeMercadoria"
+                       x:Name="TelaPesquisarEntradaDeMercadoria"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
+                       mc:Ignorable="d"
+                       Height="450"
+                       Width="575"
+                       Loaded="TelaPesquisarEntradaDeMercadoria_Loaded">
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="Apagar Entradas De Mercadoria Marcadas"
                                CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}">
         <View:TelaPesquisaTemplate.Menu>
@@ -111,4 +109,4 @@
             </Grid>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>
-</View:APesquisarView>
+</View:APesquisarView2>

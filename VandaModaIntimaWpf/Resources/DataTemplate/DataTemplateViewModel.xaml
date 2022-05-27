@@ -12,10 +12,14 @@
                     xmlns:ViewModelEntradaDeMercadoria="clr-namespace:VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria"
                     xmlns:ViewFolhaPagamento="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
                     xmlns:ViewModelFolhaPagamento="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+                    xmlns:ViewCalculoDeBonusMensalPorDia="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia"
+                    xmlns:ViewModelCalculoDeBonusMensalPorDia="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia"
                     xmlns:ViewFornecedor="clr-namespace:VandaModaIntimaWpf.View.Fornecedor"
                     xmlns:ViewModelFornecedor="clr-namespace:VandaModaIntimaWpf.ViewModel.Fornecedor"
                     xmlns:ViewFuncionario="clr-namespace:VandaModaIntimaWpf.View.Funcionario"
                     xmlns:ViewModelFuncionario="clr-namespace:VandaModaIntimaWpf.ViewModel.Funcionario"
+                    xmlns:ViewGrade="clr-namespace:VandaModaIntimaWpf.View.Grade"
+                    xmlns:ViewModelGrade="clr-namespace:VandaModaIntimaWpf.ViewModel.Grade"
                     xmlns:ViewLoja="clr-namespace:VandaModaIntimaWpf.View.Loja"
                     xmlns:ViewModelLoja="clr-namespace:VandaModaIntimaWpf.ViewModel.Loja"
                     xmlns:ViewMarca="clr-namespace:VandaModaIntimaWpf.View.Marca"
@@ -25,7 +29,9 @@
                     xmlns:ViewRecebimentoCartao="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
                     xmlns:ViewModelRecebimentoCartao="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
                     xmlns:ViewRepresentante="clr-namespace:VandaModaIntimaWpf.View.Representante"
-                    xmlns:ViewModelRepresentante="clr-namespace:VandaModaIntimaWpf.ViewModel.Representante">
+                    xmlns:ViewModelRepresentante="clr-namespace:VandaModaIntimaWpf.ViewModel.Representante"
+                    xmlns:ViewTipoGrade="clr-namespace:VandaModaIntimaWpf.View.TipoGrade"
+                    xmlns:ViewModelTipoGrade="clr-namespace:VandaModaIntimaWpf.ViewModel.TipoGrade">
 
     <DataTemplate DataType="{x:Type ViewModel:VandaModaIntimaVM}">
         <View:VandaModaIntima />
@@ -81,6 +87,146 @@
 
     <DataTemplate DataType="{x:Type ViewModelEntradaDeMercadoria:PesquisarEntradaVM}">
         <ViewEntradaDeMercadoria:PesquisarEntradaDeMercadoria />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelCalculoDeBonusMensalPorDia:CalculoDeBonusMensalPorDiaVM}">
+        <ViewCalculoDeBonusMensalPorDia:CalculoBonusMensalPorDiaView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelCalculoDeBonusMensalPorDia:SalvarBonusPorMesVM}">
+        <ViewCalculoDeBonusMensalPorDia:SalvarBonusDeFuncionario />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarAdiantamentoVM}">
+        <ViewFolhaPagamento:AdicionarAdiantamento />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarBonusVM}">
+        <ViewFolhaPagamento:AdicionarBonus />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarFaltasVM}">
+        <ViewFolhaPagamento:AdicionarFaltas />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarHoraExtraVM}">
+        <ViewFolhaPagamento:AdicionarHoraExtra />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarMetaIndividualVM}">
+        <ViewFolhaPagamento:AdicionarMetaIndividual />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarObservacaoFolhaVM}">
+        <ViewFolhaPagamento:InserirObservacaoFolha />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarSalarioLiquidoVM}">
+        <ViewFolhaPagamento:AdicionarSalarioLiquido />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:AdicionarTotalVendidoVM}">
+        <ViewFolhaPagamento:AdicionarTotalVendido />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:MaisDetalhesVM}">
+        <ViewFolhaPagamento:MaisDetalhes />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFolhaPagamento:PesquisarFolhaVM}">
+        <ViewFolhaPagamento:PesquisarFolhaPagamento />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFornecedor:CadastrarFornecedorManualmenteVM}">
+        <ViewFornecedor:SalvarFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFornecedor:CadastrarFornecedorOnlineVM}">
+        <ViewFornecedor:SalvarFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFornecedor:EditarFornecedorVM}">
+        <ViewFornecedor:SalvarFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFornecedor:PesquisarFornecedorVM}">
+        <ViewFornecedor:PesquisarFornecedor />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFuncionario:CadastrarFuncionarioVM}">
+        <ViewFuncionario:SalvarFuncionario />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFuncionario:EditarFuncionarioVM}">
+        <ViewFuncionario:SalvarFuncionario />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelFuncionario:PesquisarFuncionarioVM}">
+        <ViewFuncionario:PesquisarFuncionario />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelGrade:CadastrarGradeVM}">
+        <ViewGrade:CadastrarGrade />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelLoja:CadastrarLojaVM}">
+        <ViewLoja:SalvarLoja />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelLoja:EditarLojaVM}">
+        <ViewLoja:SalvarLoja />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelLoja:PesquisarLojaVM}">
+        <ViewLoja:PesquisarLoja />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelMarca:CadastrarMarcaVM}">
+        <ViewMarca:CadastrarMarca />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelMarca:PesquisarMarcaVM}">
+        <ViewMarca:PesquisarMarca />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelProduto:CadastrarProdutoVM}">
+        <ViewProduto:SalvarProduto />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelProduto:EditarProdutoVM}">
+        <ViewProduto:SalvarProduto />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelProduto:PesquisarProdutoVM}">
+        <ViewProduto:PesquisarProduto />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRecebimentoCartao:CadastrarRecebimentoVM}">
+        <ViewRecebimentoCartao:CadastrarRecebimentoCartao />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRecebimentoCartao:MaisDetalhesVM}">
+        <ViewRecebimentoCartao:MaisDetalhes />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRecebimentoCartao:PesquisarRecebimentoVM}">
+        <ViewRecebimentoCartao:PesquisarRecebimento />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRepresentante:CadastrarRepresentanteVM}">
+        <ViewRepresentante:SalvarRepresentante />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRepresentante:EditarRepresentanteVM}">
+        <ViewRepresentante:SalvarRepresentante />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelRepresentante:PesquisarRepresentanteVM}">
+        <ViewRepresentante:PesquisarRepresentante />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type ViewModelTipoGrade:CadastrarTipoGradeVM}">
+        <ViewTipoGrade:CadastrarTipoGrade />
     </DataTemplate>
 
 </ResourceDictionary>

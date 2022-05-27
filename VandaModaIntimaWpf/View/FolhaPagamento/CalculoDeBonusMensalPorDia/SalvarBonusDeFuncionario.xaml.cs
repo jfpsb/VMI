@@ -1,8 +1,7 @@
 ﻿using System.Windows;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Interfaces;
 
-namespace VandaModaIntimaWpf.View.FolhaPagamento
+namespace VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     /// <summary>
     /// Interaction logic for AdicionarBonusPassagemFuncionario.xaml
