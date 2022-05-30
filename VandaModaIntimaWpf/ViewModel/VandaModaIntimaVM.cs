@@ -83,50 +83,50 @@ namespace VandaModaIntimaWpf.ViewModel
 
         private void AbrirTelaEntradaMercadoria(object obj)
         {
-            openView.Show(new PesquisarEntradaVM(new MessageBoxService()));
+            openView.Show(new PesquisarEntradaVM());
         }
 
         private void AbrirTelaCompraFornecedor(object obj)
         {
-            openView.Show(new PesquisarCompraDeFornecedorVM(new MessageBoxService()));
+            openView.Show(new PesquisarCompraDeFornecedorVM());
         }
 
         private void AbrirTelaDespesas(object obj)
         {
-            openView.Show(new PesquisarDespesaVM(new MessageBoxService()));
+            openView.Show(new PesquisarDespesaVM());
         }
 
         public void AbrirTelaProduto(object parameter)
         {
-            openView.Show(new PesquisarProdutoVM(new MessageBoxService()));
+            openView.Show(new PesquisarProdutoVM());
         }
         public void AbrirTelaFornecedor(object parameter)
         {
-            openView.Show(new PesquisarFornecedorVM(new MessageBoxService()));
+            openView.Show(new PesquisarFornecedorVM());
         }
         public void AbrirTelaMarca(object parameter)
         {
-            openView.Show(new PesquisarMarcaVM(new MessageBoxService()));
+            openView.Show(new PesquisarMarcaVM());
         }
         public void AbrirTelaLoja(object parameter)
         {
-            openView.Show(new PesquisarLojaVM(new MessageBoxService()));
+            openView.Show(new PesquisarLojaVM());
         }
         public void AbrirTelaRecebimento(object parameter)
         {
-            openView.Show(new PesquisarRecebimentoVM(new MessageBoxService()));
+            openView.Show(new PesquisarRecebimentoVM());
         }
         public void AbrirTelaContagem(object parameter)
         {
-            openView.Show(new PesquisarContagemVM(new MessageBoxService()));
+            openView.Show(new PesquisarContagemVM());
         }
         public void AbrirTelaFolhaPagamento(object parameter)
         {
-            openView.Show(new PesquisarFolhaVM(new MessageBoxService()));
+            openView.Show(new PesquisarFolhaVM());
         }
         public void AbrirTelaFuncionario(object p)
         {
-            openView.Show(new PesquisarFuncionarioVM(new MessageBoxService()));
+            openView.Show(new PesquisarFuncionarioVM());
         }
     }
 }

@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public ICommand AbrirDespesaGroupByLojaComando { get; set; }
 
-        public PesquisarDespesaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarDespesaVM()
         {
             daoEntidade = new DAODespesa(_session);
             daoTipoDespesa = new DAO<TipoDespesa>(_session);
@@ -148,12 +148,12 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public override ACadastrarViewModel<Model.Despesa> GetCadastrarViewModel()
         {
-            return new CadastrarDespesaVM(_session, MessageBoxService, false);
+            return new CadastrarDespesaVM(_session, false);
         }
 
         public override ACadastrarViewModel<Model.Despesa> GetEditarViewModel()
         {
-            return new EditarDespesaVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarDespesaVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override AAjudarVM GetAjudaVM()

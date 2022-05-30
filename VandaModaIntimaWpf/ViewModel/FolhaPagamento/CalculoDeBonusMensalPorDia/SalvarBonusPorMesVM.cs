@@ -7,12 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
@@ -33,8 +31,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         public event EventHandler<EventArgs> RequestClose;
 
-        public SalvarBonusPorMesVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate, DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
-            : base(session, messageBoxService, issoEUmUpdate)
+        public SalvarBonusPorMesVM(ISession session, bool issoEUmUpdate, DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
+            : base(session, issoEUmUpdate)
         {
             _numDias = numDias;
             _primeiroDia = primeiroDia;
@@ -44,7 +42,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             RecebeRegularmenteHeader = _salvarBonus.RecebeRegularmenteHeader();
             ValorTotal = valorTotal;
             DataEscolhida = dataEscolhida;
-            MessageBoxService = messageBoxService;
             daoFuncionario = new DAOFuncionario(session);
             daoEntidade = new DAOBonus(session);
 

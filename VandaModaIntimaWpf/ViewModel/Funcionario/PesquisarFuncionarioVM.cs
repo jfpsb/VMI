@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
@@ -20,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             Cpf,
             Nome
         }
-        public PesquisarFuncionarioVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarFuncionarioVM()
         {
             excelStrategy = new FuncionarioExcelStrategy();
             pesquisarViewModelStrategy = new PesquisarFuncMsgVMStrategy();
@@ -72,12 +70,12 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public override ACadastrarViewModel<Model.Funcionario> GetCadastrarViewModel()
         {
-            return new CadastrarFuncionarioVM(_session, MessageBoxService, false);
+            return new CadastrarFuncionarioVM(_session, false);
         }
 
         public override ACadastrarViewModel<Model.Funcionario> GetEditarViewModel()
         {
-            return new EditarFuncionarioVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarFuncionarioVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override AAjudarVM GetAjudaVM()

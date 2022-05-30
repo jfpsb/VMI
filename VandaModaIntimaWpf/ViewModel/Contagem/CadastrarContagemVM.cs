@@ -2,9 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using TipoContagemModel = VandaModaIntimaWpf.Model.TipoContagem;
@@ -19,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ObservableCollection<TipoContagemModel> TiposContagem { get; set; }
 
-        public CadastrarContagemVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarContagemVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             Entidade = new ContagemModel();
             viewModelStrategy = new CadastrarContagemVMStrategy();

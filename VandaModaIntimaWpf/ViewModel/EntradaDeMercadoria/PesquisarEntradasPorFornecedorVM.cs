@@ -5,7 +5,6 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
@@ -17,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         private Model.Fornecedor _fornecedor;
         private ObservableCollection<EntradaMercadoriaProdutoGrade> _entradas = new ObservableCollection<EntradaMercadoriaProdutoGrade>();
         private ObservableCollection<Model.Fornecedor> _fornecedores = new ObservableCollection<Model.Fornecedor>();
-        public PesquisarEntradasPorFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarEntradasPorFornecedorVM()
         {
             daoEntidade = new DAOEntradaMercadoriaProdutoGrade(_session);
             daoFornecedor = new DAOFornecedor(_session);

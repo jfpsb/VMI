@@ -6,7 +6,6 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 {
@@ -36,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ListViewGradesEnterComando { get; set; }
         public ICommand ListViewGradesEscComando { get; set; }
 
-        public CadastrarEntradaDeMercadoriaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarEntradaDeMercadoriaVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarEntradaDeMercadoriaVMStrategy();
             daoEntidade = new DAOEntradaDeMercadoria(session);

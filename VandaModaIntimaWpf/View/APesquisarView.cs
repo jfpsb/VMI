@@ -3,8 +3,6 @@ using System.Windows;
 using System.Windows.Forms;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace VandaModaIntimaWpf.View
 {
@@ -25,9 +23,10 @@ namespace VandaModaIntimaWpf.View
 
         public string OpenFileDialog()
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
 
-            if (openFileDialog.ShowDialog() == true)
+            if (openFileDialog.FileName != string.Empty)
             {
                 return openFileDialog.FileName;
             }
@@ -43,7 +42,9 @@ namespace VandaModaIntimaWpf.View
                 Filter = filtros
             };
 
-            if (saveFileDialog.ShowDialog() == true)
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != string.Empty)
             {
                 return saveFileDialog.FileName;
             }
@@ -55,8 +56,9 @@ namespace VandaModaIntimaWpf.View
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.Description = "Selecione A Pasta";
+            folderBrowserDialog.ShowDialog();
 
-            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (folderBrowserDialog.SelectedPath != string.Empty)
             {
                 return folderBrowserDialog.SelectedPath;
             }

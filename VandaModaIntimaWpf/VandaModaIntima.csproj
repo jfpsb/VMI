@@ -651,6 +651,7 @@
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
     <Compile Include="Util\Log.cs" />
+    <Compile Include="Util\MultiDictionary.cs" />
     <Compile Include="ViewModel\AAjudarVM.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
@@ -688,6 +689,8 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IOpenViewService.cs" />
+    <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
+    <Compile Include="View\ACadastrarView.cs" />
     <Compile Include="View\APesquisarView2.cs" />
     <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="View\Converters\CPFValueConverter.cs" />
@@ -1158,9 +1161,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\Feriados\2021.json">
+    <Resource Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
     <Resource Include="Resources\Fonts\Astral Sisters.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Bold.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Regular.ttf" />

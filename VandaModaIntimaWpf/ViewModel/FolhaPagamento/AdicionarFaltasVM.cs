@@ -1,12 +1,7 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -14,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Model.FolhaPagamento _folha;
 
-        public AdicionarFaltasVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarFaltasVM(ISession session, Model.FolhaPagamento folha, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             daoEntidade = new DAOFaltas(session);
             viewModelStrategy = new AdicionarFaltasVMStrategy();

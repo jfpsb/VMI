@@ -17,7 +17,6 @@ using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Grade;
 using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.TipoGrade;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
@@ -69,7 +68,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand CadastrarMarcaComando { get; set; }
         public ICommand CopiarCodBarraComando { get; set; }
         public ICommand SalvaComposicaoPrecoComando { get; set; }
-        public CadastrarProdutoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarProdutoVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
             daoEntidade = new DAOProduto(_session);
@@ -297,7 +296,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void CadastrarMarca(object obj)
         {
-            CadastrarMarcaVM cadastrarMarcaViewModel = new CadastrarMarcaVM(_session, new MessageBoxService(), false);
+            CadastrarMarcaVM cadastrarMarcaViewModel = new CadastrarMarcaVM(_session, false);
             CadastrarMarca cadastrarMarca = new CadastrarMarca()
             {
                 DataContext = cadastrarMarcaViewModel
@@ -313,7 +312,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void CadastrarFornecedorOnline(object obj)
         {
-            CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(_session, new MessageBoxService(), false);
+            CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(_session, false);
             SalvarFornecedor cadastrarFornecedorOnline = new SalvarFornecedor
             {
                 DataContext = viewModel
@@ -329,7 +328,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void CadastrarFornecedorManualmente(object obj)
         {
-            CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(_session, new MessageBoxService(), false);
+            CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(_session, false);
             SalvarFornecedor cadastrar = new SalvarFornecedor() { DataContext = cadastrarFornecedorManualmenteViewModel };
             var result = cadastrar.ShowDialog();
 
@@ -351,13 +350,13 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void AbreTelaCadastrarTipoGrade(object obj)
         {
-            openView.ShowDialog(new CadastrarTipoGradeVM(_session, MessageBoxService, false));
+            openView.ShowDialog(new CadastrarTipoGradeVM(_session, false));
             OnPropertyChanged("TiposGrade");
         }
 
         private void AbreTelaCadastrarGrade(object obj)
         {
-            openView.ShowDialog(new CadastrarGradeVM(_session, MessageBoxService, false));
+            openView.ShowDialog(new CadastrarGradeVM(_session, false));
         }
 
         private void LimpaGrades(AposInserirBDEventArgs e)

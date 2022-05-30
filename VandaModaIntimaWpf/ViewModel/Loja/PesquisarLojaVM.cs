@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.SQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -18,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Cnpj,
             Nome
         }
-        public PesquisarLojaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarLojaVM()
         {
             daoEntidade = new DAOLoja(_session);
             excelStrategy = new LojaExcelStrategy(_session);
@@ -68,12 +66,12 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
         public override ACadastrarViewModel<LojaModel> GetCadastrarViewModel()
         {
-            return new CadastrarLojaVM(_session, MessageBoxService, false);
+            return new CadastrarLojaVM(_session, false);
         }
 
         public override ACadastrarViewModel<LojaModel> GetEditarViewModel()
         {
-            return new EditarLojaVM(EntidadeSelecionada.Entidade, _session, MessageBoxService);
+            return new EditarLojaVM(EntidadeSelecionada.Entidade, _session);
         }
 
         public override AAjudarVM GetAjudaVM()

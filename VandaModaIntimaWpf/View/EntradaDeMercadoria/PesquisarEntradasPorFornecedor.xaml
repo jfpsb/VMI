@@ -5,11 +5,15 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
                      xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria"
                      mc:Ignorable="d"
                      Title="Entradas De Mercadoria Por Fornecedor"
                      WindowStartupLocation="CenterScreen"
                      Height="450"
                      Width="800">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarEntradasPorFornecedorVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate>
         <View:TelaPesquisaTemplate.Menu>
             <Menu DockPanel.Dock="Top">

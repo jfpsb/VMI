@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         private DateTime _dataEscolhida;
         private double _totalEmCompras;
 
-        public PesquisarCompraDeFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarCompraDeFornecedorVM()
         {
             daoEntidade = new DAOCompraDeFornecedor(_session);
             daoLoja = new DAOLoja(_session);
@@ -130,12 +130,12 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
         public override ACadastrarViewModel<Model.CompraDeFornecedor> GetCadastrarViewModel()
         {
-            return new CadastrarCompraDeFornecedorVM(_session, MessageBoxService, false);
+            return new CadastrarCompraDeFornecedorVM(_session, false);
         }
 
         public override ACadastrarViewModel<Model.CompraDeFornecedor> GetEditarViewModel()
         {
-            return new EditarCompraDeFornecedorVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarCompraDeFornecedorVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override AAjudarVM GetAjudaVM()

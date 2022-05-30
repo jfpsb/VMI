@@ -8,7 +8,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 {
     public class PesquisarRepresentanteVM : APesquisarViewModel<Model.Representante>
     {
-        public PesquisarRepresentanteVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarRepresentanteVM()
         {
             daoEntidade = new DAORepresentante(_session);
             pesquisarViewModelStrategy = new PesquisarRepresentanteVMStrategy();
@@ -26,12 +26,12 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
         public override ACadastrarViewModel<Model.Representante> GetCadastrarViewModel()
         {
-            return new CadastrarRepresentanteVM(_session, MessageBoxService, false);
+            return new CadastrarRepresentanteVM(_session, false);
         }
 
         public override ACadastrarViewModel<Model.Representante> GetEditarViewModel()
         {
-            return new EditarRepresentanteVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarRepresentanteVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override ExportarSQLViewModel<Model.Representante> GetExportaSQLVM()

@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -9,6 +10,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -37,22 +39,22 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Construtor abstrato para ViewModel de telas de cadastro de entidade
         /// </summary>
         /// <param name="session">Session do Hibernate que será usada na tela de cadastro</param>
-        /// <param name="messageBoxService">Serviço de MessageBox que será usado na tela de cadastro</param>
         /// <param name="issoEUmUpdate">Marca se esta ViewModel está sendo usada em uma tela de cadastro ou tela de edição de entidade</param>
-        public ACadastrarViewModel(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate)
+        public ACadastrarViewModel(ISession session, bool issoEUmUpdate)
         {
-            _session = session;
-            IssoEUmUpdate = issoEUmUpdate;
-            MessageBoxService = messageBoxService;
+            var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
+            _session = parametrosVM["NHibernateSession"] as ISession;
+            IssoEUmUpdate = (bool)parametrosVM["IssoEUmUpdate"];
+            //_session = session;
+            //IssoEUmUpdate = issoEUmUpdate;
+            MessageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             openView = new OpenView();
 
             AposInserirNoBancoDeDados += RedefinirTela;
             AposInserirNoBancoDeDados += RefreshEntidade;
-
             AntesDeInserirNoBancoDeDados += ResetaChecagem;
 
-            issoEUmUpdate = false;
             AntesInserirBDChecagem = true;
         }
 

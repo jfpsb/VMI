@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             Fornecedor,
             Marca
         }
-        public PesquisarProdutoVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarProdutoVM()
         {
             daoEntidade = new DAOProduto(_session);
             excelStrategy = new ProdutoExcelStrategy(_session);
@@ -102,12 +102,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         public override ACadastrarViewModel<ProdutoModel> GetCadastrarViewModel()
         {
-            return new CadastrarProdutoVM(_session, MessageBoxService, false);
+            return new CadastrarProdutoVM(_session, false);
         }
 
         public override ACadastrarViewModel<ProdutoModel> GetEditarViewModel()
         {
-            return new EditarProdutoVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarProdutoVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override AAjudarVM GetAjudaVM()

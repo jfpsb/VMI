@@ -1,13 +1,9 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -19,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         private Visibility _visibilidadeBotaoPesquisar;
         private Visibility _visibilidadeBotaoAtualizarReceita;
 
-        public CadastrarFornecedorManualmenteVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarFornecedorManualmenteVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             _session = session;
             viewModelStrategy = new CadastrarFornecedorVMStrategy();

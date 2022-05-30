@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
@@ -15,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime dataEscolhida;
         private DAOBonusMensal daoBonusMensal;
 
-        public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             daoEntidade = new DAOBonus(session);
             daoBonusMensal = new DAOBonusMensal(session);

@@ -1,10 +1,7 @@
 ﻿using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Grade
 {
@@ -14,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
         private DAOTipoGrade daoTipoGrade;
         private Model.TipoGrade _tipoGrade;
         public IList<Model.TipoGrade> TipoGrades { get; set; }
-        public CadastrarGradeVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarGradeVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             daoEntidade = new DAOGrade(session);
             daoTipoGrade = new DAOTipoGrade(session);

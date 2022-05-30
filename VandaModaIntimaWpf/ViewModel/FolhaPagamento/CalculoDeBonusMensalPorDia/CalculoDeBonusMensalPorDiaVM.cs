@@ -11,6 +11,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
@@ -32,14 +33,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         // Comando para adicionar valor do bônus para os funcionários
         public ICommand AbrirAdicionarBonusComando { get; set; }
 
-        public CalculoDeBonusMensalPorDiaVM(ISession session, DateTime dataEscolhida, IMessageBoxService messageBoxService, ICalculoDeBonus calculoDeBonus)
+        public CalculoDeBonusMensalPorDiaVM(ISession session, DateTime dataEscolhida, ICalculoDeBonus calculoDeBonus)
         {
             _session = session;
             this.calculoDeBonus = calculoDeBonus;
             MenuItemHeader1 = calculoDeBonus.MenuItemHeader1();
             WindowCaption = calculoDeBonus.WindowCaption();
             ValorDiario = calculoDeBonus.ValorDiario();
-            this.messageBoxService = messageBoxService;
+            this.messageBoxService = new MessageBoxService();
 
             PropertyChanged += CalculaDatas;
             PropertyChanged += ValorDiarioAlterado;
@@ -101,7 +102,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             }
 
             int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
-            calculoDeBonus.AbrirAdicionarBonus(_session, messageBoxService, false, DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia);
+            calculoDeBonus.AbrirAdicionarBonus(_session, false, DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia);
         }
 
         private void CalcultaTotal(object sender, ListChangedEventArgs e)

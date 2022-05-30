@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -11,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     class EditarFornecedorVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand AtualizarReceitaComando { get; set; }
-        public EditarFornecedorVM(ISession session, FornecedorModel fornecedor, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
+        public EditarFornecedorVM(ISession session, FornecedorModel fornecedor) : base(session, true)
         {
             Entidade = fornecedor;
             VisibilidadeBotaoAtualizarReceita = Visibility.Visible;

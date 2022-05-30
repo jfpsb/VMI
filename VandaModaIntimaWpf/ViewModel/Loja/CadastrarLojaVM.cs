@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
@@ -19,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AdicionarAliquotaComando { get; set; }
 
-        public CadastrarLojaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarLojaVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);

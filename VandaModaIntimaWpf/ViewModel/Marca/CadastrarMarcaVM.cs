@@ -1,14 +1,13 @@
 ﻿using NHibernate;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using MarcaModel = VandaModaIntimaWpf.Model.Marca;
 
 namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class CadastrarMarcaVM : ACadastrarViewModel<MarcaModel>
     {
-        public CadastrarMarcaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarMarcaVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarMarcaVMStrategy();
             daoEntidade = new DAOMarca(_session);

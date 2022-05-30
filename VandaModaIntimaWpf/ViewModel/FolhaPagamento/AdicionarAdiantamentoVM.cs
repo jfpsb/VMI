@@ -5,7 +5,6 @@ using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
 using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using System.Windows;
 using VandaModaIntimaWpf.Util;
 
@@ -23,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime _dataEscolhida;
         private double _valorMaximoParcela;
 
-        public AdicionarAdiantamentoVM(ISession session, DateTime dataEscolhida, Model.Funcionario funcionario, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarAdiantamentoVM(ISession session, DateTime dataEscolhida, Model.Funcionario funcionario, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
             daoEntidade = new DAO<Model.Adiantamento>(session);

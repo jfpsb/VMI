@@ -25,8 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AbrirCadastrarOperadoraComando { get; set; }
         public ICommand MaisDetalhesComando { get; set; }
-        public PesquisarRecebimentoVM(IMessageBoxService messageBoxService)
-            : base(messageBoxService)
+        public PesquisarRecebimentoVM()
         {
             daoEntidade = new DAORecebimentoCartao(_session);
             daoLoja = new DAOLoja(_session);
@@ -101,7 +100,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         public override ACadastrarViewModel<RecebimentoCartaoModel> GetCadastrarViewModel()
         {
-            return new CadastrarRecebimentoVM(_session, MessageBoxService, false);
+            return new CadastrarRecebimentoVM(_session, false);
         }
 
         public override ACadastrarViewModel<RecebimentoCartaoModel> GetEditarViewModel()

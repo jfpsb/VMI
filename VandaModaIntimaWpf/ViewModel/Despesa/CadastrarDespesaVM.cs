@@ -11,7 +11,6 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Despesa
 {
@@ -41,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public ICommand SelecionarLojasComando { get; set; }
 
-        public CadastrarDespesaVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarDespesaVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             daoEntidade = new DAO<Model.Despesa>(session);
             daoTipoDespesa = new DAOTipoDespesa(session);

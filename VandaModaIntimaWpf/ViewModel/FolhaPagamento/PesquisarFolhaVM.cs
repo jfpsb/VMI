@@ -59,7 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirAdicionarFaltasComando { get; set; }
         public ICommand AdicionarValoresDespesaComando { get; set; }
 
-        public PesquisarFolhaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarFolhaVM()
         {
             //TODO: excel para folha de pagamento
             daoEntidade = new DAOFolhaPagamento(_session);
@@ -141,7 +141,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarFaltas(object obj)
         {
-            AdicionarFaltasVM adicionarFaltasVM = new AdicionarFaltasVM(_session, FolhaPagamento, new MessageBoxService(), false);
+            AdicionarFaltasVM adicionarFaltasVM = new AdicionarFaltasVM(_session, FolhaPagamento, false);
             AdicionarFaltas adicionarFaltas = new AdicionarFaltas
             {
                 DataContext = adicionarFaltasVM
@@ -170,7 +170,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirAdicionarTotal(object obj)
         {
-            openView.ShowDialog(new AdicionarTotalVendidoVM(_session, FolhaPagamento, MessageBoxService, false));
+            openView.ShowDialog(new AdicionarTotalVendidoVM(_session, FolhaPagamento, false));
             OnPropertyChanged("TermoPesquisa");
         }
         private void AdicionarMeta(object obj)
@@ -231,7 +231,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirCalculoAlmoco(object obj)
         {
-            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, MessageBoxService, new CalculoDeAlmoco()));
+            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDeAlmoco()));
             OnPropertyChanged("TermoPesquisa");
         }
         private void AbrirDadosBancarios(object obj)
@@ -241,7 +241,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirAdicionarSalarioLiquido(object obj)
         {
-            openView.ShowDialog(new AdicionarSalarioLiquidoVM(_session, _folhaPagamento, new MessageBoxService()));
+            openView.ShowDialog(new AdicionarSalarioLiquidoVM(_session, _folhaPagamento));
             OnPropertyChanged("TermoPesquisa");
         }
 
@@ -327,7 +327,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirVisualizarHoraExtraFaltas(object obj)
         {
-            openView.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida, new MessageBoxService()));
+            openView.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida));
         }
 
         private void AbrirImprimirFolha(object obj)
@@ -338,32 +338,32 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoPassagem(object obj)
         {
-            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, MessageBoxService, new CalculoDePassagem()));
+            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDePassagem()));
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirHoraExtra(object obj)
         {
-            openView.ShowDialog(new AdicionarHoraExtraVM(_session, FolhaPagamento, MessageBoxService, false));
+            openView.ShowDialog(new AdicionarHoraExtraVM(_session, FolhaPagamento, false));
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirAdicionarBonus(object obj)
         {
-            openView.ShowDialog(new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, MessageBoxService, false));
+            openView.ShowDialog(new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, false));
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirMaisDetalhes(object obj)
         {
-            var result = openView.ShowDialog(new MaisDetalhesVM(_session, FolhaPagamento, MessageBoxService));
+            var result = openView.ShowDialog(new MaisDetalhesVM(_session, FolhaPagamento));
             if (result == true)
                 OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirAdicionarAdiantamento(object obj)
         {
-            openView.ShowDialog(new AdicionarAdiantamentoVM(_session, DataEscolhida, FolhaPagamento.Funcionario, MessageBoxService, false));
+            openView.ShowDialog(new AdicionarAdiantamentoVM(_session, DataEscolhida, FolhaPagamento.Funcionario, false));
             OnPropertyChanged("TermoPesquisa");
         }
 

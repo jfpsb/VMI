@@ -1,20 +1,27 @@
-﻿<View:APesquisarView2 xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                      x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.PesquisarCompraDeFornecedor"
-                      x:Name="TelaPesquisarCompraDeFornecedor"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
-                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
-                      mc:Ignorable="d"
-                      Height="600"
-                      Width="1000"
-                      Background="White"
-                      Loaded="TelaPesquisarCompraDeFornecedor_Loaded">
-    <View:APesquisarView2.Resources>
+﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                     x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.PesquisarCompraDeFornecedor"
+                     x:Name="TelaPesquisarCompraDeFornecedor"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+                     xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.CompraDeFornecedor"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Compras De Fornecedor"
+                     Width="1000"
+                     Height="600"
+                     WindowState="Maximized"
+                     WindowStartupLocation="CenterScreen"
+                     Closing="Pesquisar_Closing"
+                     Loaded="TelaPesquisarCompraDeFornecedor_Loaded">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarCompraDeFornecedorVM />
+    </View:APesquisarView.DataContext>
+    <View:APesquisarView.Resources>
         <Converters:BooleanToYesOrNoStringConverter x:Key="BooleanToYesOrNoStringConverter" />
-    </View:APesquisarView2.Resources>
+    </View:APesquisarView.Resources>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_compras_de_fornecedor_marcadas}"
                                CommandParameter="{Binding ElementName=TelaPesquisarCompraDeFornecedor}">
         <View:TelaPesquisaTemplate.Menu>
@@ -173,4 +180,4 @@
             </DockPanel>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>
-</View:APesquisarView2>
+</View:APesquisarView>

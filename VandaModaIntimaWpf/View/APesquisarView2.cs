@@ -21,8 +21,8 @@ namespace VandaModaIntimaWpf.View
 
         public string OpenFileDialog()
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.FileName != string.Empty)
             {
                 return openFileDialog.FileName;
             }
@@ -49,7 +49,7 @@ namespace VandaModaIntimaWpf.View
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.Description = "Selecione A Pasta";
 
-            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 return folderBrowserDialog.SelectedPath;
             }
@@ -65,6 +65,16 @@ namespace VandaModaIntimaWpf.View
         protected BitmapImage GetIcon(string path)
         {
             return new BitmapImage(new Uri($"pack://application:,,,/VandaModaIntimaWpf;component{path}"));
+        }
+
+        protected void SetWidth(double width)
+        {
+            System.Windows.Application.Current.MainWindow.Width = width;
+        }
+
+        protected void SetHeight(double heigth)
+        {
+            System.Windows.Application.Current.MainWindow.Height = heigth;
         }
     }
 }

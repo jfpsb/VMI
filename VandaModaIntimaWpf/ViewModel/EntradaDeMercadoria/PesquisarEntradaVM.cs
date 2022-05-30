@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ImprimirComando { get; set; }
         public ICommand ImprimirRelacaoComando { get; set; }
 
-        public PesquisarEntradaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarEntradaVM()
         {
             daoEntidade = new DAOEntradaDeMercadoria(_session);
             daoLoja = new DAOLoja(_session);
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void AbrirRelatorioFornecedor(object obj)
         {
-            openView.ShowDialog(new PesquisarEntradasPorFornecedorVM(new MessageBoxService()));
+            openView.ShowDialog(new PesquisarEntradasPorFornecedorVM());
         }
 
         private async void GetLojas()
@@ -92,7 +92,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetCadastrarViewModel()
         {
-            return new CadastrarEntradaDeMercadoriaVM(_session, MessageBoxService, false);
+            return new CadastrarEntradaDeMercadoriaVM(_session, false);
         }
 
         public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetEditarViewModel()

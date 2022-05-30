@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             Nome,
             Email
         }
-        public PesquisarFornecedorVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarFornecedorVM()
         {
             AbrirCadastrarOnlineComando = new RelayCommand(AbrirCadastrarOnline);
             AbrirTelaPesquisarRepresentanteComando = new RelayCommand(AbrirTelaPesquisarRepresentante);
@@ -38,13 +38,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         private void AbrirTelaPesquisarRepresentante(object obj)
         {
-            openView.ShowDialog(new PesquisarRepresentanteVM(new MessageBoxService()));
+            openView.ShowDialog(new PesquisarRepresentanteVM());
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirCadastrarOnline(object p)
         {
-            openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, new MessageBoxService(), false));
+            openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, false));
             OnPropertyChanged("TermoPesquisa");
         }
         public override async Task PesquisaItens(string termo)
@@ -83,12 +83,12 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         public override ACadastrarViewModel<FornecedorModel> GetCadastrarViewModel()
         {
-            return new CadastrarFornecedorManualmenteVM(_session, MessageBoxService, false);
+            return new CadastrarFornecedorManualmenteVM(_session, false);
         }
 
         public override ACadastrarViewModel<FornecedorModel> GetEditarViewModel()
         {
-            return new EditarFornecedorVM(_session, EntidadeSelecionada.Entidade, MessageBoxService);
+            return new EditarFornecedorVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public override AAjudarVM GetAjudaVM()

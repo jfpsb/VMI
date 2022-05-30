@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
@@ -11,14 +10,14 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornecedorOnlineVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarFornecedorOnlineVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             _session = session;
             VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
         }
 
-        public CadastrarFornecedorOnlineVM(ISession session, IMessageBoxService messageBoxService, string cnpj, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarFornecedorOnlineVM(ISession session, string cnpj, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             _session = session;
             VisibilidadeBotaoPesquisar = Visibility.Visible;

@@ -24,7 +24,7 @@
         <ScrollViewer>
             <WrapPanel HorizontalAlignment="Center">
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaProdutoComando}">
+                        Click="BtnProduto_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Produto.png"
@@ -35,7 +35,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaFornecedorComando}">
+                        Click="BtnFornecedor_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Fornecedor.png"
@@ -46,7 +46,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaCompraFornecedorComando}">
+                        Click="BtnCompraDeFornecedor_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Compras_De_Fornecedor.png"
@@ -57,7 +57,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaMarcaComando}">
+                        Click="BtnMarca_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Marca.png"
@@ -68,7 +68,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaLojaComando}">
+                        Click="BtnLoja_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Loja_Icon.png"
@@ -79,7 +79,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaFuncionarioComando}">
+                        Click="BtnFuncionario_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Funcionario.png"
@@ -90,7 +90,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaRecebimentoComando}">
+                        Click="BtnRecebimentoCartao_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Credit_Card.png"
@@ -101,7 +101,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaContagemComando}">
+                        Click="BtnContagem_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Contagem.png"
@@ -112,7 +112,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaDespesasComando}">
+                        Click="BtnDespesa_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/Despesas.png"
@@ -123,7 +123,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaFolhaPagamentoComando}">
+                        Click="BtnFolhaPagamento_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/FolhaPagamento.png"
@@ -134,7 +134,7 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Command="{Binding AbrirTelaEntradaMercadoriaComando}">
+                        Click="BtnEntradeDeMercadoria_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/EntradaDeMercadoria.png"

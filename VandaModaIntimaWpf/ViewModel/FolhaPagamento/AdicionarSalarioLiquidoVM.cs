@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -10,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private double _salarioLiquido;
 
-        public AdicionarSalarioLiquidoVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService) : base(session, messageBoxService, false)
+        public AdicionarSalarioLiquidoVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
             _session = session;
             daoEntidade = new DAOFolhaPagamento(session);

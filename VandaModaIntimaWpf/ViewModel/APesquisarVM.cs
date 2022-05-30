@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -14,9 +15,11 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using VandaModaIntimaWpf.ViewModel.SQL;
+using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -63,9 +66,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand CopiarValorCelulaComando { get; set; }
         public ICommand ExportarSQLComando { get; set; }
         public ICommand CancelaTaskComando { get; set; }
-        public APesquisarViewModel(IMessageBoxService messageBoxService)
+        public APesquisarViewModel()
         {
-            MessageBoxService = messageBoxService;
+            MessageBoxService = new MessageBoxService();
             openView = new OpenView();
 
             cancellationTokenSource = new CancellationTokenSource();
@@ -124,7 +127,14 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirCadastrar(object parameter)
         {
-            var result = openView.ShowDialog(GetCadastrarViewModel());
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
+            keyValuePairs.Add("NHibernateSession", _session);
+            keyValuePairs.Add("IssoEUmUpdate", false);
+            ViewModelParameterHandler.Instance.AdicionaParametros(typeof(CadastrarProdutoVM), keyValuePairs);
+
+            var v = GetCadastrarViewModel();
+
+            var result = openView.ShowDialog(v);
             //Se houve cadastro
             if (result.HasValue && result == true)
             {

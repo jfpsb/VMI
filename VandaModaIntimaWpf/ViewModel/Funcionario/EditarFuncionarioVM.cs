@@ -1,12 +1,11 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
     public class EditarFuncionarioVM : CadastrarFuncionarioVM
     {
-        public EditarFuncionarioVM(ISession session, Model.Funcionario entidade, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
+        public EditarFuncionarioVM(ISession session, Model.Funcionario entidade) : base(session, true)
         {
             viewModelStrategy = new EditarFuncionarioVMStrategy();
             Entidade = entidade;

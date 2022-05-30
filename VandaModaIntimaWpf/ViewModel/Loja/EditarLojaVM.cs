@@ -1,12 +1,11 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class EditarLojaVM : CadastrarLojaVM
     {
-        public EditarLojaVM(Model.Loja entidade, ISession session, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
+        public EditarLojaVM(Model.Loja entidade, ISession session) : base(session, true)
         {
             viewModelStrategy = new EditarLojaVMStrategy();
 

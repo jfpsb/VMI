@@ -2,13 +2,12 @@
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarTotalVendidoVM : ACadastrarViewModel<Model.FolhaPagamento>
     {
-        public AdicionarTotalVendidoVM(ISession session, Model.FolhaPagamento folha, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public AdicionarTotalVendidoVM(ISession session, Model.FolhaPagamento folha, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             _session = session;
             daoEntidade = new DAOFolhaPagamento(session);

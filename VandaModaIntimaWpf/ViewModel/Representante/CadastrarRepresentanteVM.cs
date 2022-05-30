@@ -1,11 +1,9 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
 {
@@ -18,11 +16,10 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
         public ICommand AdicionarFornecedorComando { get; set; }
 
-        public CadastrarRepresentanteVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarRepresentanteVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             daoEntidade = new DAO<Model.Representante>(session);
             daoFornecedor = new DAOFornecedor(session);
-            MessageBoxService = messageBoxService;
 
             viewModelStrategy = new CadastrarRepresentanteVMStrategy();
             Entidade = new Model.Representante();

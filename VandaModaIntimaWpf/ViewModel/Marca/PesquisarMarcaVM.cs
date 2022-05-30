@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     public class PesquisarMarcaVM : APesquisarViewModel<MarcaModel>
     {
-        public PesquisarMarcaVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarMarcaVM()
         {
             daoEntidade = new DAOMarca(_session);
             excelStrategy = new MarcaExcelStrategy(_session);
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
         public override ACadastrarViewModel<MarcaModel> GetCadastrarViewModel()
         {
-            return new CadastrarMarcaVM(_session, MessageBoxService, false);
+            return new CadastrarMarcaVM(_session, false);
         }
 
         public override ACadastrarViewModel<MarcaModel> GetEditarViewModel()

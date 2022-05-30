@@ -1,16 +1,22 @@
-﻿<View:APesquisarView2 xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                      x:Class="VandaModaIntimaWpf.View.RecebimentoCartao.PesquisarRecebimento"
-                      x:Name="TelaPesquisarRecebimento"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
-                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
-                      mc:Ignorable="d"
-                      Height="450"
-                      Width="800"
-                      Loaded="TelaPesquisarRecebimento_Loaded">
+﻿<View:APesquisarView xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                     x:Class="VandaModaIntimaWpf.View.RecebimentoCartao.PesquisarRecebimento"
+                     x:Name="TelaPesquisarRecebimento"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.RecebimentoCartao"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.RecebimentoCartao"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Recebimento de Cartão"
+                     Height="450"
+                     Width="800"
+                     Icon="/Resources/Credit_Card_Icon.ico"
+                     WindowStartupLocation="CenterScreen"
+                     Closing="Pesquisar_Closing">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarRecebimentoVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_recebimentos_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarRecebimento}">
         <View:TelaPesquisaTemplate.Menu>
@@ -188,4 +194,4 @@
             </Grid>
         </View:TelaPesquisaTemplate.LeftButtonPresenter>
     </View:TelaPesquisaTemplate>
-</View:APesquisarView2>
+</View:APesquisarView>

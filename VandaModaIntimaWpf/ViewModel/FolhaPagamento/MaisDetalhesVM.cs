@@ -9,6 +9,7 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
@@ -32,10 +33,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand DeletarAdiantamentoComando { get; set; }
         public ICommand DeletarBonusComando { get; set; }
         public ICommand GerenciarParcelasComando { get; set; }
-        public MaisDetalhesVM(ISession session, FolhaModel folhaPagamento, IMessageBoxService messageBoxService)
+        public MaisDetalhesVM(ISession session, FolhaModel folhaPagamento)
         {
             _session = session;
-            MessageBoxService = messageBoxService;
+            MessageBoxService = new MessageBoxService();
 
             FolhaPagamento = folhaPagamento;
             daoBonus = new DAOBonus(session);

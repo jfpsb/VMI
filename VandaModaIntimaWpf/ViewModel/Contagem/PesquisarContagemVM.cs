@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private DateTime _dataFinal;
         private LojaModel _loja;
 
-        public PesquisarContagemVM(IMessageBoxService messageBoxService) : base(messageBoxService)
+        public PesquisarContagemVM()
         {
             daoLoja = new DAOLoja(_session);
             daoEntidade = new DAOContagem(_session);
@@ -68,12 +68,12 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         public override ACadastrarViewModel<ContagemModel> GetCadastrarViewModel()
         {
-            return new CadastrarContagemVM(_session, MessageBoxService, false);
+            return new CadastrarContagemVM(_session, false);
         }
 
         public override ACadastrarViewModel<ContagemModel> GetEditarViewModel()
         {
-            return new EditarContagemVM(_session, MessageBoxService);
+            return new EditarContagemVM(_session);
         }
 
         public override AAjudarVM GetAjudaVM()

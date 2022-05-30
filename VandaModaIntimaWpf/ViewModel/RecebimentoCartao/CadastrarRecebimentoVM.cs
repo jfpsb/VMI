@@ -16,7 +16,6 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 {
@@ -36,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private DateTime dataEscolhida;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoVM(ISession session, IMessageBoxService messageBoxService, bool issoEUmUpdate) : base(session, messageBoxService, issoEUmUpdate)
+        public CadastrarRecebimentoVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
         {
             viewModelStrategy = new CadastrarRecebimentoVMStrategy();
             daoEntidade = new DAORecebimentoCartao(session);

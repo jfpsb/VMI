@@ -1,16 +1,22 @@
-﻿<View:APesquisarView2 x:Class="VandaModaIntimaWpf.View.Despesa.PesquisarDespesa"
-             x:Name="TelaPesquisarDespesa"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
-             xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-             mc:Ignorable="d"
-             Background="White"
-             d:DesignHeight="650"
-             d:DesignWidth="1000"
-             Loaded="TelaPesquisarDespesa_Loaded">
+﻿<View:APesquisarView x:Class="VandaModaIntimaWpf.View.Despesa.PesquisarDespesa"
+                     x:Name="TelaPesquisarDespesa"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Despesa"
+                     xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Despesa"
+                     mc:Ignorable="d"
+                     Title="Pesquisar Despesa"
+                     Height="650"
+                     Width="1000"
+                     WindowState="Maximized"
+                     Icon="/Resources/Despesas_Icon.ico"
+                     Closing="Pesquisar_Closing">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarDespesaVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="Apagar Despesas Marcadas"
                                CommandParameter="{Binding ElementName=TelaPesquisarDespesa}">
         <View:TelaPesquisaTemplate.Menu>
@@ -220,4 +226,4 @@
             </DockPanel>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>
-</View:APesquisarView2>
+</View:APesquisarView>

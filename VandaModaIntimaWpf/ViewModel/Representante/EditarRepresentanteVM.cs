@@ -1,12 +1,11 @@
 ﻿using NHibernate;
 using System.Collections.ObjectModel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
 {
     public class EditarRepresentanteVM : CadastrarRepresentanteVM
     {
-        public EditarRepresentanteVM(ISession session, Model.Representante representante, IMessageBoxService messageBoxService) : base(session, messageBoxService, true)
+        public EditarRepresentanteVM(ISession session, Model.Representante representante) : base(session, true)
         {
             viewModelStrategy = new EditarRepresentanteVMStrategy();
             Entidade = representante;

@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AbrirImprimirHEComando { get; set; }
 
-        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida, IMessageBoxService messageBoxService) : base(messageBoxService)
+        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida)
         {
             daoEntidade = new DAOHoraExtra(_session);
             daoFuncionario = new DAOFuncionario(_session);
