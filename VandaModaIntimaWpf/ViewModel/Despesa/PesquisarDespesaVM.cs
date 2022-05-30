@@ -145,32 +145,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             return listas;
         }
-
-        public override ACadastrarViewModel<Model.Despesa> GetCadastrarViewModel()
-        {
-            return new CadastrarDespesaVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<Model.Despesa> GetEditarViewModel()
-        {
-            return new EditarDespesaVM(_session, EntidadeSelecionada.Entidade);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<Model.Despesa> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;

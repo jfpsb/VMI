@@ -141,13 +141,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarFaltas(object obj)
         {
-            AdicionarFaltasVM adicionarFaltasVM = new AdicionarFaltasVM(_session, FolhaPagamento, false);
-            AdicionarFaltas adicionarFaltas = new AdicionarFaltas
-            {
-                DataContext = adicionarFaltasVM
-            };
-            adicionarFaltas.ShowDialog();
-            OnPropertyChanged("TermoPesquisa");
+            //TODO: remover
+            //AdicionarFaltasVM adicionarFaltasVM = new AdicionarFaltasVM(_session, FolhaPagamento, false);
+            //AdicionarFaltas adicionarFaltas = new AdicionarFaltas
+            //{
+            //    DataContext = adicionarFaltasVM
+            //};
+            //adicionarFaltas.ShowDialog();
+            //OnPropertyChanged("TermoPesquisa");
         }
 
         private async void GerarUltimaFolhaPagamento(object obj)
@@ -170,8 +171,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirAdicionarTotal(object obj)
         {
-            openView.ShowDialog(new AdicionarTotalVendidoVM(_session, FolhaPagamento, false));
-            OnPropertyChanged("TermoPesquisa");
+            //openView.ShowDialog(new AdicionarTotalVendidoVM(_session, FolhaPagamento, false));
+            //OnPropertyChanged("TermoPesquisa");
         }
         private void AdicionarMeta(object obj)
         {
@@ -241,8 +242,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AbrirAdicionarSalarioLiquido(object obj)
         {
-            openView.ShowDialog(new AdicionarSalarioLiquidoVM(_session, _folhaPagamento));
-            OnPropertyChanged("TermoPesquisa");
+            //openView.ShowDialog(new AdicionarSalarioLiquidoVM(_session, _folhaPagamento));
+            //OnPropertyChanged("TermoPesquisa");
         }
 
         /// <summary>
@@ -344,14 +345,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirHoraExtra(object obj)
         {
-            openView.ShowDialog(new AdicionarHoraExtraVM(_session, FolhaPagamento, false));
-            OnPropertyChanged("TermoPesquisa");
+            //openView.ShowDialog(new AdicionarHoraExtraVM(_session, FolhaPagamento, false));
+            //OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirAdicionarBonus(object obj)
         {
-            openView.ShowDialog(new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, false));
-            OnPropertyChanged("TermoPesquisa");
+            //openView.ShowDialog(new AdicionarBonusVM(_session, FolhaPagamento, DataEscolhida, false));
+            //OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirMaisDetalhes(object obj)
@@ -363,8 +364,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirAdicionarAdiantamento(object obj)
         {
-            openView.ShowDialog(new AdicionarAdiantamentoVM(_session, DataEscolhida, FolhaPagamento.Funcionario, false));
-            OnPropertyChanged("TermoPesquisa");
+            //openView.ShowDialog(new AdicionarAdiantamentoVM(_session, DataEscolhida, FolhaPagamento.Funcionario, false));
+            //OnPropertyChanged("TermoPesquisa");
         }
 
         public DateTime DataEscolhida
@@ -549,31 +550,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             };
 
             return worksheets;
-        }
-
-        public override ACadastrarViewModel<Model.FolhaPagamento> GetCadastrarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ACadastrarViewModel<Model.FolhaPagamento> GetEditarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<Model.FolhaPagamento> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
@@ -15,12 +14,11 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         private Visibility _visibilidadeBotaoPesquisar;
         private Visibility _visibilidadeBotaoAtualizarReceita;
 
-        public CadastrarFornecedorManualmenteVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarFornecedorManualmenteVM() : base()
         {
-            _session = session;
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
-            daoEntidade = new DAOFornecedor(session);
-            daoRepresentante = new DAORepresentante(session);
+            daoEntidade = new DAOFornecedor(_session);
+            daoRepresentante = new DAORepresentante(_session);
             Entidade = new FornecedorModel();
             Entidade.Cnpj = "0";
             IsEnabled = true;

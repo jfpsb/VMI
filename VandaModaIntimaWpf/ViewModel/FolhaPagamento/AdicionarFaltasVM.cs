@@ -1,7 +1,7 @@
-﻿using NHibernate;
-using System;
+﻿using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -9,18 +9,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Model.FolhaPagamento _folha;
 
-        public AdicionarFaltasVM(ISession session, Model.FolhaPagamento folha, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public AdicionarFaltasVM() : base()
         {
-            daoEntidade = new DAOFaltas(session);
+            var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
+            Folha = parametrosVM["Folha"] as Model.FolhaPagamento;
+            daoEntidade = new DAOFaltas(_session);
             viewModelStrategy = new AdicionarFaltasVMStrategy();
-            Folha = folha;
-
             ResetaPropriedades(null);
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)

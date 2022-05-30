@@ -98,31 +98,6 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             throw new NotImplementedException();
         }
 
-        public override ACadastrarViewModel<RecebimentoCartaoModel> GetCadastrarViewModel()
-        {
-            return new CadastrarRecebimentoVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<RecebimentoCartaoModel> GetEditarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<RecebimentoCartaoModel> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public LojaModel Matriz
         {
             get { return matriz; }

@@ -66,31 +66,6 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             throw new NotImplementedException();
         }
 
-        public override ACadastrarViewModel<ContagemModel> GetCadastrarViewModel()
-        {
-            return new CadastrarContagemVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<ContagemModel> GetEditarViewModel()
-        {
-            return new EditarContagemVM(_session);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<ContagemModel> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public DateTime DataInicial
         {
             get

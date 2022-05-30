@@ -31,9 +31,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         public event EventHandler<EventArgs> RequestClose;
 
-        public SalvarBonusPorMesVM(ISession session, bool issoEUmUpdate, DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
-            : base(session, issoEUmUpdate)
+        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
+            : base()
         {
+            //TODO: passar parametros, dataescolhida, valortotal, valordiario, numdias, primeirodia, ultimodia, salvarbbonus
             _numDias = numDias;
             _primeiroDia = primeiroDia;
             _ultimoDia = ultimoDia;
@@ -42,8 +43,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             RecebeRegularmenteHeader = _salvarBonus.RecebeRegularmenteHeader();
             ValorTotal = valorTotal;
             DataEscolhida = dataEscolhida;
-            daoFuncionario = new DAOFuncionario(session);
-            daoEntidade = new DAOBonus(session);
+            daoFuncionario = new DAOFuncionario(_session);
+            daoEntidade = new DAOBonus(_session);
 
             AposInserirNoBancoDeDados += SalvaImagemCalendarios;
 

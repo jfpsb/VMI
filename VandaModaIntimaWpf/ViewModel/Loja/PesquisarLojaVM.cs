@@ -63,31 +63,5 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             return worksheets;
         }
-
-        public override ACadastrarViewModel<LojaModel> GetCadastrarViewModel()
-        {
-            return new CadastrarLojaVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<LojaModel> GetEditarViewModel()
-        {
-            return new EditarLojaVM(EntidadeSelecionada.Entidade, _session);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            //TODO: implementar viewmodel
-            throw new System.NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<LojaModel> GetExportaSQLVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

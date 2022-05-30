@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemVM(ISession session) : base(session, true)
+        public EditarContagemVM() : base()
         {
             viewModelStrategy = new EditarContagemVMStrategy();
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);
@@ -93,9 +93,9 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirEditarProduto(object p)
         {
-            EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(_session, ContagemProduto.ProdutoGrade.Produto);
-            SalvarProduto editar = new SalvarProduto() { DataContext = editarProdutoViewModel };
-            editar.ShowDialog();
+            //EditarProdutoVM editarProdutoViewModel = new EditarProdutoVM(_session, ContagemProduto.ProdutoGrade.Produto);
+            //SalvarProduto editar = new SalvarProduto() { DataContext = editarProdutoViewModel };
+            //editar.ShowDialog();
         }
 
         private async void GetProdutos()

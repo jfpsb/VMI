@@ -1,22 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
-    /// <summary>
-    /// Interaction logic for CadastrarProduto.xaml
-    /// </summary>
-    public partial class SalvarProduto : Window
+    public partial class SalvarProdutoUserControl : UserControl
     {
-        public SalvarProduto()
+        public SalvarProdutoUserControl()
         {
             InitializeComponent();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            DialogResult = ((ACadastrarViewModel<Model.Produto>)DataContext).ResultadoSalvar();
         }
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)

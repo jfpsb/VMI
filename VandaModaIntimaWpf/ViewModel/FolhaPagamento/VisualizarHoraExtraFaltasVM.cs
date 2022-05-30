@@ -91,31 +91,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             throw new NotImplementedException();
         }
 
-        public override ACadastrarViewModel<HoraExtra> GetCadastrarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ACadastrarViewModel<HoraExtra> GetEditarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<HoraExtra> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
         {
             get => _listaHoraExtra;

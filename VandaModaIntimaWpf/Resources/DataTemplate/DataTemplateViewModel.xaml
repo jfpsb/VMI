@@ -190,11 +190,11 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ViewModelProduto:CadastrarProdutoVM}">
-        <ViewProduto:SalvarProduto />
+        <ViewProduto:SalvarProdutoUserControl />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ViewModelProduto:EditarProdutoVM}">
-        <ViewProduto:SalvarProduto />
+        <ViewProduto:SalvarProdutoUserControl />
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ViewModelProduto:PesquisarProdutoVM}">

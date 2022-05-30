@@ -35,13 +35,13 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private DateTime dataEscolhida;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarRecebimentoVM() : base()
         {
             viewModelStrategy = new CadastrarRecebimentoVMStrategy();
-            daoEntidade = new DAORecebimentoCartao(session);
-            daoOperadoraCartao = new DAO<Model.OperadoraCartao>(session);
-            daoBanco = new DAO<Model.Banco>(session);
-            daoLoja = new DAOLoja(session);
+            daoEntidade = new DAORecebimentoCartao(_session);
+            daoOperadoraCartao = new DAO<Model.OperadoraCartao>(_session);
+            daoBanco = new DAO<Model.Banco>(_session);
+            daoLoja = new DAOLoja(_session);
 
             AbrirOfxComando = new RelayCommand(AbrirOfx, ValidaAbrirOfx);
 

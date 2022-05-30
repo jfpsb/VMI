@@ -35,12 +35,12 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ListViewGradesEnterComando { get; set; }
         public ICommand ListViewGradesEscComando { get; set; }
 
-        public CadastrarEntradaDeMercadoriaVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarEntradaDeMercadoriaVM() : base()
         {
             viewModelStrategy = new CadastrarEntradaDeMercadoriaVMStrategy();
-            daoEntidade = new DAOEntradaDeMercadoria(session);
-            daoProduto = new DAOProduto(session);
-            daoLoja = new DAOLoja(session);
+            daoEntidade = new DAOEntradaDeMercadoria(_session);
+            daoProduto = new DAOProduto(_session);
+            daoLoja = new DAOLoja(_session);
             Entidade = new Model.EntradaDeMercadoria();
 
             InserirProdutoDataGridComando = new RelayCommand(InserirProdutoDataGrid);

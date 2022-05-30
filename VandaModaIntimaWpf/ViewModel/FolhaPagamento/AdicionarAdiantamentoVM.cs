@@ -22,20 +22,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime _dataEscolhida;
         private double _valorMaximoParcela;
 
-        public AdicionarAdiantamentoVM(ISession session, DateTime dataEscolhida, Model.Funcionario funcionario, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public AdicionarAdiantamentoVM() : base()
         {
+            //TODO: passar parametros, dataescolhida, funcionario
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();
-            daoEntidade = new DAO<Model.Adiantamento>(session);
-            daoDespesa = new DAODespesa(session);
-            daoTipoDespesa = new DAOTipoDespesa(session);
+            daoEntidade = new DAO<Model.Adiantamento>(_session);
+            daoDespesa = new DAODespesa(_session);
+            daoTipoDespesa = new DAOTipoDespesa(_session);
             PropertyChanged += AdicionarAdiantamento_PropertyChanged;
             Parcelas = new ObservableCollection<ParcelaModel>();
 
-            _dataEscolhida = dataEscolhida;
+            //_dataEscolhida = dataEscolhida;
 
             Entidade = new AdiantamentoModel()
             {
-                Funcionario = funcionario,
+                //Funcionario = funcionario,
                 Valor = 0
             };
 

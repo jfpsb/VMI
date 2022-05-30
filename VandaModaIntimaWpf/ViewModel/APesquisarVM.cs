@@ -111,14 +111,9 @@ namespace VandaModaIntimaWpf.ViewModel
         }
 
         public abstract Task PesquisaItens(string termo);
-        public abstract ACadastrarViewModel<E> GetCadastrarViewModel();
-        public abstract ACadastrarViewModel<E> GetEditarViewModel();
-        public abstract AAjudarVM GetAjudaVM();
-        public abstract ExportarSQLViewModel<E> GetExportaSQLVM();
-        public abstract ATelaRelatorio GetTelaRelatorioVM();
         public void AbrirImprimir(object parameter)
         {
-            openView.ShowDialog(GetTelaRelatorioVM());
+            //openView.ShowDialog(GetTelaRelatorioVM());
         }
         public abstract bool Editavel(object parameter);
         protected virtual void ChamaAposDeletarDoBD(AposDeletarDoBDEventArgs e)
@@ -130,16 +125,16 @@ namespace VandaModaIntimaWpf.ViewModel
             Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
             keyValuePairs.Add("NHibernateSession", _session);
             keyValuePairs.Add("IssoEUmUpdate", false);
-            ViewModelParameterHandler.Instance.AdicionaParametros(typeof(CadastrarProdutoVM), keyValuePairs);
+            ViewModelParameterHandler.Instance.AdicionaParametros(GetType(), keyValuePairs);
 
-            var v = GetCadastrarViewModel();
+            //var v = GetCadastrarViewModel();
 
-            var result = openView.ShowDialog(v);
-            //Se houve cadastro
-            if (result.HasValue && result == true)
-            {
-                OnPropertyChanged("TermoPesquisa");
-            }
+            //var result = openView.ShowDialog(v);
+            ////Se houve cadastro
+            //if (result.HasValue && result == true)
+            //{
+            //    OnPropertyChanged("TermoPesquisa");
+            //}
         }
         public async void AbrirApagarMsgBox(object parameter)
         {
@@ -177,18 +172,24 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirEditar(object parameter)
         {
-            try
-            {
-                EntidadeSelecionada.Entidade.InicializaLazyLoad();
-            }
-            catch (NotImplementedException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
+            keyValuePairs.Add("NHibernateSession", _session);
+            keyValuePairs.Add("IssoEUmUpdate", true);
+            keyValuePairs.Add("Entidade", EntidadeSelecionada.Entidade);
+            ViewModelParameterHandler.Instance.AdicionaParametros(GetType(), keyValuePairs);
 
-            openView.ShowDialog(GetEditarViewModel());
-            _session.Evict(EntidadeSelecionada.Entidade);
-            OnPropertyChanged("TermoPesquisa");
+            //try
+            //{
+            //    EntidadeSelecionada.Entidade.InicializaLazyLoad();
+            //}
+            //catch (NotImplementedException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
+
+            //openView.ShowDialog(GetEditarViewModel());
+            //_session.Evict(EntidadeSelecionada.Entidade);
+            //OnPropertyChanged("TermoPesquisa");
         }
         public void ChecarItensMarcados(object parameter)
         {
@@ -228,7 +229,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirAjuda(object parameter)
         {
-            openView.ShowDialog(GetAjudaVM());
+            //TODO: abrir telas de ajuda
         }
         public void CopiarValorCelula(object parameter)
         {
@@ -420,6 +421,10 @@ namespace VandaModaIntimaWpf.ViewModel
                 OnPropertyChanged("IsIndefinidaBarraProgresso");
             }
         }
+        public ISession Session
+        {
+            get => _session;
+        }
 
         public void DisposeSession()
         {
@@ -431,7 +436,7 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirExportarSQL(object parameter)
         {
-            openView.ShowDialog(GetExportaSQLVM());
+            //openView.ShowDialog(GetExportaSQLVM());
         }
     }
 }

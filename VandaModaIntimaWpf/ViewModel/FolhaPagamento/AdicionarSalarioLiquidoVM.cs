@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Interfaces;
 
@@ -9,12 +8,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private double _salarioLiquido;
 
-        public AdicionarSalarioLiquidoVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
+        public AdicionarSalarioLiquidoVM() : base()
         {
-            _session = session;
-            daoEntidade = new DAOFolhaPagamento(session);
+            //TODO: pegar parametro folha
+            daoEntidade = new DAOFolhaPagamento(_session);
             viewModelStrategy = new AdicionarSalarioLiquidoVMStrategy();
-            Entidade = folha;
+            //Entidade = folha;
             AposInserirNoBancoDeDados += FecharTela;
             PropertyChanged += SetaValorSalarioLiquido;
         }

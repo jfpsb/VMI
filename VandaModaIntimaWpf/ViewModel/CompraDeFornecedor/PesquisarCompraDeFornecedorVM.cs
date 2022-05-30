@@ -127,30 +127,5 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         {
             throw new NotImplementedException();
         }
-
-        public override ACadastrarViewModel<Model.CompraDeFornecedor> GetCadastrarViewModel()
-        {
-            return new CadastrarCompraDeFornecedorVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<Model.CompraDeFornecedor> GetEditarViewModel()
-        {
-            return new EditarCompraDeFornecedorVM(_session, EntidadeSelecionada.Entidade);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<Model.CompraDeFornecedor> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

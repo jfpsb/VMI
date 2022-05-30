@@ -6,5 +6,11 @@
         {
             InitializeComponent();
         }
+
+        private void BtnCadastrarProduto_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CadastrarProduto cadastrarProduto = new CadastrarProduto();
+            cadastrarProduto.ShowDialog();
+        }
     }
 }

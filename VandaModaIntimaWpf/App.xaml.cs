@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace VandaModaIntimaWpf
 {
@@ -10,6 +11,11 @@ namespace VandaModaIntimaWpf
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+        }
+
+        private void MenuItemAbrirEditar_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(sender.ToString());
         }
     }
 }

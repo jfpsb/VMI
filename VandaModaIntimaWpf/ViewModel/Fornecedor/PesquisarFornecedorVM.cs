@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         private void AbrirCadastrarOnline(object p)
         {
-            openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, false));
+            openView.ShowDialog(new CadastrarFornecedorOnlineVM());
             OnPropertyChanged("TermoPesquisa");
         }
         public override async Task PesquisaItens(string termo)
@@ -79,31 +79,6 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             };
 
             return worksheets;
-        }
-
-        public override ACadastrarViewModel<FornecedorModel> GetCadastrarViewModel()
-        {
-            return new CadastrarFornecedorManualmenteVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<FornecedorModel> GetEditarViewModel()
-        {
-            return new EditarFornecedorVM(_session, EntidadeSelecionada.Entidade);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<FornecedorModel> GetExportaSQLVM()
-        {
-            return new ExportarSQLFornecedor(Entidades.Select(s => s.Entidade).ToList(), _session);
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new System.NotImplementedException();
         }
 
         public int PesquisarPor

@@ -40,13 +40,11 @@ namespace VandaModaIntimaWpf.ViewModel
         /// </summary>
         /// <param name="session">Session do Hibernate que será usada na tela de cadastro</param>
         /// <param name="issoEUmUpdate">Marca se esta ViewModel está sendo usada em uma tela de cadastro ou tela de edição de entidade</param>
-        public ACadastrarViewModel(ISession session, bool issoEUmUpdate)
+        public ACadastrarViewModel()
         {
             var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
             _session = parametrosVM["NHibernateSession"] as ISession;
             IssoEUmUpdate = (bool)parametrosVM["IssoEUmUpdate"];
-            //_session = session;
-            //IssoEUmUpdate = issoEUmUpdate;
             MessageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             openView = new OpenView();

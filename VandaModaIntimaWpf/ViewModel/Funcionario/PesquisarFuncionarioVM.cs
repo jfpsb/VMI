@@ -68,31 +68,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             return worksheets;
         }
 
-        public override ACadastrarViewModel<Model.Funcionario> GetCadastrarViewModel()
-        {
-            return new CadastrarFuncionarioVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<Model.Funcionario> GetEditarViewModel()
-        {
-            return new EditarFuncionarioVM(_session, EntidadeSelecionada.Entidade);
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<Model.Funcionario> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public int PesquisarPor
         {
             get { return pesquisarPor; }

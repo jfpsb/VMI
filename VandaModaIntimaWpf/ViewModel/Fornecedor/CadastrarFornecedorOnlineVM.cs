@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
@@ -10,16 +9,15 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornecedorOnlineVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarFornecedorOnlineVM() : base()
         {
-            _session = session;
             VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
         }
 
-        public CadastrarFornecedorOnlineVM(ISession session, string cnpj, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarFornecedorOnlineVM(string cnpj) : base()
         {
-            _session = session;
+            //TODO: parametros, cnpj
             VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
 

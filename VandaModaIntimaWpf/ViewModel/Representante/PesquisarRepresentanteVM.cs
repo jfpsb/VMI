@@ -19,31 +19,6 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             return true;
         }
 
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ACadastrarViewModel<Model.Representante> GetCadastrarViewModel()
-        {
-            return new CadastrarRepresentanteVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<Model.Representante> GetEditarViewModel()
-        {
-            return new EditarRepresentanteVM(_session, EntidadeSelecionada.Entidade);
-        }
-
-        public override ExportarSQLViewModel<Model.Representante> GetExportaSQLVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async override Task PesquisaItens(string termo)
         {
             if (termo != null)

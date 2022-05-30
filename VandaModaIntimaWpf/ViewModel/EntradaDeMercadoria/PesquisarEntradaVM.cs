@@ -89,32 +89,6 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
             return worksheets;
         }
-
-        public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetCadastrarViewModel()
-        {
-            return new CadastrarEntradaDeMercadoriaVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<Model.EntradaDeMercadoria> GetEditarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<Model.EntradaDeMercadoria> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;

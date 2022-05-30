@@ -60,7 +60,8 @@
                                   Margin="0,3,3,0" />
                         <Separator Margin="15,5,15,5" />
                         <MenuItem Header="{DynamicResource editar}"
-                                  Command="{Binding AbrirEditarComando}" />
+                                  Command="{Binding AbrirEditarComando}"
+                                  Click="MenuItemAbrirEditar_Click"/>
                         <MenuItem Header="{DynamicResource copiar}"
                                   Command="{Binding CopiarValorCelulaComando}" />
                         <MenuItem Header="{DynamicResource apagar}"

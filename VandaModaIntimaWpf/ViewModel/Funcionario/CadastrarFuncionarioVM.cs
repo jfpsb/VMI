@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public ICommand AdicionarChavePixComando { get; set; }
         public ICommand AdicionarContaBancariaComando { get; set; }
 
-        public CadastrarFuncionarioVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarFuncionarioVM() : base()
         {
             viewModelStrategy = new CadastrarFuncionarioVMStrategy();
             daoEntidade = new DAOFuncionario(_session);

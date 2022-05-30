@@ -14,21 +14,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime dataEscolhida;
         private DAOBonusMensal daoBonusMensal;
 
-        public AdicionarBonusVM(ISession session, FolhaModel folha, DateTime dataEscolhida, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public AdicionarBonusVM() : base()
         {
-            daoEntidade = new DAOBonus(session);
-            daoBonusMensal = new DAOBonusMensal(session);
+            //TODO: parametros, folha, dataescolhida
+            daoEntidade = new DAOBonus(_session);
+            daoBonusMensal = new DAOBonusMensal(_session);
             viewModelStrategy = new CadastrarBonusVMStrategy();
-            Folha = folha;
-            this.dataEscolhida = dataEscolhida;
+            //Folha = folha;
+            //this.dataEscolhida = dataEscolhida;
 
             AntesDeInserirNoBancoDeDados += ConfiguraBonus;
 
-            Entidade = new Bonus()
-            {
-                Funcionario = folha.Funcionario,
-                LojaTrabalho = folha.Funcionario.LojaTrabalho
-            };
+            //Entidade = new Bonus()
+            //{
+            //    Funcionario = folha.Funcionario,
+            //    LojaTrabalho = folha.Funcionario.LojaTrabalho
+            //};
 
             PropertyChanged += AdicionarBonusVM_PropertyChanged;
 

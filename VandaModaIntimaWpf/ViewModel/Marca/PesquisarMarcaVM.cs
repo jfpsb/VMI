@@ -40,30 +40,5 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
             return worksheets;
         }
-
-        public override ACadastrarViewModel<MarcaModel> GetCadastrarViewModel()
-        {
-            return new CadastrarMarcaVM(_session, false);
-        }
-
-        public override ACadastrarViewModel<MarcaModel> GetEditarViewModel()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<MarcaModel> GetExportaSQLVM()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

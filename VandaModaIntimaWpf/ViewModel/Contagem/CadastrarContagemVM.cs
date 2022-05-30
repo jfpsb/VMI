@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ObservableCollection<TipoContagemModel> TiposContagem { get; set; }
 
-        public CadastrarContagemVM(ISession session, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public CadastrarContagemVM() : base()
         {
             Entidade = new ContagemModel();
             viewModelStrategy = new CadastrarContagemVMStrategy();

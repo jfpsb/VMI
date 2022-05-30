@@ -67,32 +67,6 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
                 return null;
             }
         }
-
-        public override ACadastrarViewModel<EntradaMercadoriaProdutoGrade> GetCadastrarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ACadastrarViewModel<EntradaMercadoriaProdutoGrade> GetEditarViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override AAjudarVM GetAjudaVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ExportarSQLViewModel<EntradaMercadoriaProdutoGrade> GetExportaSQLVM()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ATelaRelatorio GetTelaRelatorioVM()
-        {
-            throw new NotImplementedException();
-        }
-
         public ObservableCollection<EntradaMercadoriaProdutoGrade> Entradas
         {
             get => _entradas;

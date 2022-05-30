@@ -1,5 +1,4 @@
-﻿using NHibernate;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -15,12 +14,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
         public int CmbDescricaoIndex { get; set; }
 
-        public AdicionarHoraExtraVM(ISession session, Model.FolhaPagamento folha, bool issoEUmUpdate) : base(session, issoEUmUpdate)
+        public AdicionarHoraExtraVM() : base()
         {
-            daoEntidade = new DAOHoraExtra(session);
-            daoTipoHoraExtra = new DAO<Model.TipoHoraExtra>(session);
+            //TODO: passar parametros, folha
+            daoEntidade = new DAOHoraExtra(_session);
+            daoTipoHoraExtra = new DAO<Model.TipoHoraExtra>(_session);
             viewModelStrategy = new AdicionarHoraExtraVMStrategy();
-            Folha = folha;
+            //Folha = folha;
 
             GetTiposHoraExtra();
 

@@ -1,22 +1,21 @@
-﻿<View:ACadastrarView x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
-                     x:Name="TelaSalvarCompraDeFornecedor"
-                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
-                     mc:Ignorable="d"
-                     d:DesignWidth="600"
-                     d:DesignHeight="450"
-                     HorizontalAlignment="Stretch"
-                     VerticalAlignment="Stretch"
-                     Background="White"
-                     Loaded="TelaSalvarCompraDeFornecedor_Loaded">
-    <View:ACadastrarView.InputBindings>
+﻿<View:ACadastrarView2 x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
+                      x:Name="TelaSalvarCompraDeFornecedor"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+                      mc:Ignorable="d"
+                      Title="Salvar Compra De Fornecedor"
+                      Width="600"
+                      Height="450"
+                      WindowStartupLocation="CenterScreen"
+                      Icon="/Resources/Compras_De_Fornecedor.png">
+    <View:ACadastrarView2.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
-    </View:ACadastrarView.InputBindings>
+    </View:ACadastrarView2.InputBindings>
     <TabControl>
         <TabItem Header="Dados De Compra">
             <Grid>
@@ -162,4 +161,4 @@
             </Grid>
         </TabItem>
     </TabControl>
-</View:ACadastrarView>
+</View:ACadastrarView2>
