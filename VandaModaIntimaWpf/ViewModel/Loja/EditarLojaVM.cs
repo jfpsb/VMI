@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
 {
     public class EditarLojaVM : CadastrarLojaVM
     {
-        public EditarLojaVM() : base()
+        public EditarLojaVM(ISession session) : base(session, false)
         {
             //TODO: parametro loja
             viewModelStrategy = new EditarLojaVMStrategy();

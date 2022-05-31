@@ -247,10 +247,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Resources\DataTemplate\DataTemplateViewModel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Linguagem\EN-US.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -696,6 +692,8 @@
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
+    <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
+    <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IOpenViewService.cs" />
     <Compile Include="ViewModel\Util\Mediator.cs" />
     <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
@@ -842,7 +840,6 @@
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IAbreTelaPesquisaService.cs" />
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
     </Compile>

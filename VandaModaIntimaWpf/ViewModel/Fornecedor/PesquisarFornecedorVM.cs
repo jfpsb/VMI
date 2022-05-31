@@ -38,13 +38,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         private void AbrirTelaPesquisarRepresentante(object obj)
         {
-            openView.ShowDialog(new PesquisarRepresentanteVM());
+            _openView.ShowDialog(new PesquisarRepresentanteVM());
             OnPropertyChanged("TermoPesquisa");
         }
 
         private void AbrirCadastrarOnline(object p)
         {
-            openView.ShowDialog(new CadastrarFornecedorOnlineVM());
+            _openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, false));
             OnPropertyChanged("TermoPesquisa");
         }
         public override async Task PesquisaItens(string termo)

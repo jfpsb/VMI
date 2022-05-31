@@ -12,10 +12,5 @@ namespace VandaModaIntimaWpf
         {
             base.OnStartup(e);
         }
-
-        private void MenuItemAbrirEditar_Click(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine(sender.ToString());
-        }
     }
 }

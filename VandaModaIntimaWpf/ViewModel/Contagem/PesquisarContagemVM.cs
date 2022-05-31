@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private void AbrirVisualizarContagemProduto(object parameter)
         {
-            openView.ShowDialog(new VisualizarContagemProdutoVM(EntidadeSelecionada.Entidade));
+            _openView.ShowDialog(new VisualizarContagemProdutoVM(EntidadeSelecionada.Entidade));
         }
 
         private void AbrirCadastrarTipoContagem(object parameter)

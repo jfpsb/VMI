@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         public void AbrirAdicionarBonus(ISession session, bool isUpdate, DateTime DataEscolhida, double Total, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia)
         {
-            openView.ShowDialog(new SalvarBonusPorMesVM(DataEscolhida, Total, valorDiario, numDias, primeiroDia, ultimoDia, new SalvarPassagem()));
+            openView.ShowDialog(new SalvarBonusPorMesVM(session, DataEscolhida, Total, valorDiario, numDias, primeiroDia, ultimoDia, new SalvarPassagem()));
         }
 
         public string MenuItemHeader1()

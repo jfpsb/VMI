@@ -129,11 +129,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             try
             {
                 await daoDespesa.Inserir(despesas);
-                MessageBoxService.Show("Valores De Salários De Funcionários Foram Adicionados Em Despesas Com Sucesso!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Information);
+                _messageBoxService.Show("Valores De Salários De Funcionários Foram Adicionados Em Despesas Com Sucesso!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show("Erro ao adicionar valores de salários de funcionários!" +
+                _messageBoxService.Show("Erro ao adicionar valores de salários de funcionários!" +
                     $"Para mais detalhes acesse {Log.LogBanco}.\n\n" +
                     $"{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -153,7 +153,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async void GerarUltimaFolhaPagamento(object obj)
         {
-            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Gerar A Última Folha De Pagamento Do(a) Funcionário(a) {FolhaPagamento.Funcionario.Nome}?\n\nA Última Folha Irá Listar Todas As Parcelas Ainda Não Pagas De Adiantamentos.",
+            var resultMessageBox = _messageBoxService.Show($"Tem Certeza Que Deseja Gerar A Última Folha De Pagamento Do(a) Funcionário(a) {FolhaPagamento.Funcionario.Nome}?\n\nA Última Folha Irá Listar Todas As Parcelas Ainda Não Pagas De Adiantamentos.",
                 $"Gerar Última Folha De Pagamento - {FolhaPagamento.Funcionario.Nome}", MessageBoxButton.YesNo,
                 MessageBoxImage.Exclamation,
                 MessageBoxResult.No);
@@ -176,7 +176,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
         private void AdicionarMeta(object obj)
         {
-            openView.ShowDialog(new AdicionarMetaIndividualVM(_session, FolhaPagamentos, MessageBoxService));
+            _openView.ShowDialog(new AdicionarMetaIndividualVM(_session, FolhaPagamentos, _messageBoxService));
             OnPropertyChanged("TermoPesquisa");
         }
         private async void ExportarFolhasParaPDF(object parameter)
@@ -201,7 +201,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     }
                     catch (OperationCanceledException)
                     {
-                        MessageBoxService.Show("Exportação para PDF foi cancelada pelo usuário");
+                        _messageBoxService.Show("Exportação para PDF foi cancelada pelo usuário");
                         cancellationTokenSource.Dispose();
                         cancellationTokenSource = new CancellationTokenSource();
                     }
@@ -210,29 +210,29 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     {
                         VisibilidadeStatusBar = Visibility.Collapsed;
                         if (!task.IsCanceled)
-                            MessageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
+                            _messageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
                     });
                 }
             }
             catch (OperationCanceledException)
             {
-                MessageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
+                _messageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
                 cancellationTokenSource.Dispose();
                 cancellationTokenSource = new CancellationTokenSource();
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show(ex.Message);
+                _messageBoxService.Show(ex.Message);
             }
         }
         private void AbrirAdicionarObservacao(object obj)
         {
-            openView.ShowDialog(new AdicionarObservacaoFolhaVM(_session, FolhaPagamento, new MessageBoxService()));
+            _openView.ShowDialog(new AdicionarObservacaoFolhaVM(_session, FolhaPagamento, new MessageBoxService()));
             OnPropertyChanged("TermoPesquisa");
         }
         private void AbrirCalculoAlmoco(object obj)
         {
-            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDeAlmoco()));
+            _openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDeAlmoco()));
             OnPropertyChanged("TermoPesquisa");
         }
         private void AbrirDadosBancarios(object obj)
@@ -252,7 +252,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         /// <param name="obj"></param>
         private async void FecharFolhasAbertas(object obj)
         {
-            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Fechar Todas As Folhas de Pagamento Referentes À {FolhaPagamentos[0].MesReferencia}? Essa Ação Não Pode Ser Revertida.",
+            var resultMessageBox = _messageBoxService.Show($"Tem Certeza Que Deseja Fechar Todas As Folhas de Pagamento Referentes À {FolhaPagamentos[0].MesReferencia}? Essa Ação Não Pode Ser Revertida.",
                 $"Fechar Folhas - {FolhaPagamentos[0].MesReferencia}", MessageBoxButton.YesNo,
                 MessageBoxImage.Exclamation,
                 MessageBoxResult.No);
@@ -279,12 +279,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (result)
                 {
                     //TODO: SYNC após inserir/atualizar
-                    MessageBoxService.Show("Todas As Folhas de Pagamento Foram Fechadas Com Sucesso!");
+                    _messageBoxService.Show("Todas As Folhas de Pagamento Foram Fechadas Com Sucesso!");
                     OnPropertyChanged("TermoPesquisa");
                 }
                 else
                 {
-                    MessageBoxService.Show("Erro Ao Fechar Folhas de Pagamento!");
+                    _messageBoxService.Show("Erro Ao Fechar Folhas de Pagamento!");
                 }
             }
         }
@@ -295,7 +295,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         /// <param name="obj"></param>
         private async void FecharFolhaPagamento(object obj)
         {
-            var resultMessageBox = MessageBoxService.Show($"Tem Certeza Que Deseja Fechar a Folha de Pagamento de {FolhaPagamento.Funcionario.Nome} Referente À {FolhaPagamento.MesReferencia}? Essa Ação Não Pode Ser Revertida.",
+            var resultMessageBox = _messageBoxService.Show($"Tem Certeza Que Deseja Fechar a Folha de Pagamento de {FolhaPagamento.Funcionario.Nome} Referente À {FolhaPagamento.MesReferencia}? Essa Ação Não Pode Ser Revertida.",
                 $"Fechar Folha - {FolhaPagamento.Funcionario.Nome} - {FolhaPagamento.MesReferencia}", MessageBoxButton.YesNo,
                 MessageBoxImage.Exclamation,
                 MessageBoxResult.No);
@@ -314,13 +314,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     var dao = daoEntidade as DAOFolhaPagamento;
                     await dao.FecharFolhaDePagamento(FolhaPagamento);
-                    MessageBoxService.Show("Folha de Pagamento Fechada Com Sucesso!", "Pesquisa De Folha De Pagamento",
+                    _messageBoxService.Show("Folha de Pagamento Fechada Com Sucesso!", "Pesquisa De Folha De Pagamento",
                         MessageBoxButton.OK, MessageBoxImage.Information);
                     OnPropertyChanged("TermoPesquisa");
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro ao fechar folha de pagamento. Para mais detalhes acesse {Log.LogBanco}.\n\n" +
+                    _messageBoxService.Show($"Erro ao fechar folha de pagamento. Para mais detalhes acesse {Log.LogBanco}.\n\n" +
                         $"{ex.Message}\n\n{ex.InnerException.Message}", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -328,7 +328,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirVisualizarHoraExtraFaltas(object obj)
         {
-            openView.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida));
+            _openView.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida));
         }
 
         private void AbrirImprimirFolha(object obj)
@@ -339,7 +339,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirCalculoPassagem(object obj)
         {
-            openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDePassagem()));
+            _openView.ShowDialog(new CalculoDeBonusMensalPorDiaVM(_session, DataEscolhida, new CalculoDePassagem()));
             OnPropertyChanged("TermoPesquisa");
         }
 
@@ -357,7 +357,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirMaisDetalhes(object obj)
         {
-            var result = openView.ShowDialog(new MaisDetalhesVM(_session, FolhaPagamento));
+            var result = _openView.ShowDialog(new MaisDetalhesVM(_session, FolhaPagamento));
             if (result == true)
                 OnPropertyChanged("TermoPesquisa");
         }

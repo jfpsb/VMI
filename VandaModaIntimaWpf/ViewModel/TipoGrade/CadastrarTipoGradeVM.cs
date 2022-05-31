@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 
@@ -8,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.TipoGrade
     {
         private ObservableCollection<Model.TipoGrade> _tipoGrades;
         private Model.TipoGrade _tipoGradePesquisa;
-        public CadastrarTipoGradeVM() : base()
+        public CadastrarTipoGradeVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             Entidade = new Model.TipoGrade();
             daoEntidade = new DAOTipoGrade(_session);

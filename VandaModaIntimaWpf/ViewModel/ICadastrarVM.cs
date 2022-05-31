@@ -6,5 +6,6 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         void Salvar(object parameter);
         bool ValidacaoSalvar(object parameter);
+        bool ResultadoSalvar();
     }
 }

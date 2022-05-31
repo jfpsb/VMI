@@ -31,8 +31,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         public event EventHandler<EventArgs> RequestClose;
 
-        public SalvarBonusPorMesVM(DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
-            : base()
+        public SalvarBonusPorMesVM(ISession session, DateTime dataEscolhida, double valorTotal, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia, ISalvarBonus salvarBonus)
+            : base(session, false)
         {
             //TODO: passar parametros, dataescolhida, valortotal, valordiario, numdias, primeirodia, ultimodia, salvarbbonus
             _numDias = numDias;

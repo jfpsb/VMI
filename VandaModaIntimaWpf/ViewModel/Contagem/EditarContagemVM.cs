@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemVM() : base()
+        public EditarContagemVM(ISession session) : base(session, false)
         {
             viewModelStrategy = new EditarContagemVMStrategy();
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);

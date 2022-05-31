@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
@@ -15,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
         public ICommand AdicionarFornecedorComando { get; set; }
 
-        public CadastrarRepresentanteVM() : base()
+        public CadastrarRepresentanteVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             daoEntidade = new DAO<Model.Representante>(_session);
             daoFornecedor = new DAOFornecedor(_session);

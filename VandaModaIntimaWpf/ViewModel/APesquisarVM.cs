@@ -18,7 +18,6 @@ using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel
@@ -32,9 +31,9 @@ namespace VandaModaIntimaWpf.ViewModel
         protected AExcelStrategy<E> excelStrategy;
         protected IPesquisarMsgVMStrategy<E> pesquisarViewModelStrategy;
         protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
-        protected IMessageBoxService MessageBoxService;
+        protected IMessageBoxService _messageBoxService;
         protected DAO<E> daoEntidade;
-        protected IOpenViewService openView;
+        protected IOpenViewService _openView;
 
         private string termoPesquisa;
         private bool _threadLocked;
@@ -46,6 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private double _valorBarraProgresso;
         private string _descricaoBarraProgresso;
         private bool _isIndefinidaBarraProgresso;
+        private IWindowService _windowService;
 
         protected CancellationTokenSource cancellationTokenSource;
         protected IProgress<double> setValorBarraProgresso;
@@ -68,8 +68,9 @@ namespace VandaModaIntimaWpf.ViewModel
         public ICommand CancelaTaskComando { get; set; }
         public APesquisarViewModel()
         {
-            MessageBoxService = new MessageBoxService();
-            openView = new OpenView();
+            _messageBoxService = new MessageBoxService();
+            _windowService = new WindowService();
+            _openView = new OpenView();
 
             cancellationTokenSource = new CancellationTokenSource();
 
@@ -122,23 +123,17 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirCadastrar(object parameter)
         {
-            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
-            keyValuePairs.Add("NHibernateSession", _session);
-            keyValuePairs.Add("IssoEUmUpdate", false);
-            ViewModelParameterHandler.Instance.AdicionaParametros(GetType(), keyValuePairs);
-
-            //var v = GetCadastrarViewModel();
-
-            //var result = openView.ShowDialog(v);
-            ////Se houve cadastro
-            //if (result.HasValue && result == true)
-            //{
-            //    OnPropertyChanged("TermoPesquisa");
-            //}
+            _windowService.ShowDialog(new CadastrarProdutoVM(_session), result =>
+            {
+                if (result == true)
+                {
+                    OnPropertyChanged("TermoPesquisa");
+                }
+            });
         }
         public async void AbrirApagarMsgBox(object parameter)
         {
-            MessageBoxResult telaApagarDialog = MessageBoxService.Show(pesquisarViewModelStrategy.MensagemApagarEntidadeCerteza(EntidadeSelecionada.Entidade),
+            MessageBoxResult telaApagarDialog = _messageBoxService.Show(pesquisarViewModelStrategy.MensagemApagarEntidadeCerteza(EntidadeSelecionada.Entidade),
                 pesquisarViewModelStrategy.TelaApagarCaption(),
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question,
@@ -152,13 +147,13 @@ namespace VandaModaIntimaWpf.ViewModel
                 {
                     await daoEntidade.Deletar(EntidadeSelecionada.Entidade);
                     deletado = true;
-                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade), pesquisarViewModelStrategy.TelaApagarCaption(),
+                    _messageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadeDeletada(EntidadeSelecionada.Entidade), pesquisarViewModelStrategy.TelaApagarCaption(),
                         MessageBoxButton.OK, MessageBoxImage.Information);
                     OnPropertyChanged("TermoPesquisa");
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                    _messageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadeNaoDeletada()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
                         pesquisarViewModelStrategy.TelaApagarCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
@@ -172,37 +167,27 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirEditar(object parameter)
         {
-            Dictionary<string, object> keyValuePairs = new Dictionary<string, object>();
-            keyValuePairs.Add("NHibernateSession", _session);
-            keyValuePairs.Add("IssoEUmUpdate", true);
-            keyValuePairs.Add("Entidade", EntidadeSelecionada.Entidade);
-            ViewModelParameterHandler.Instance.AdicionaParametros(GetType(), keyValuePairs);
-
-            //try
-            //{
-            //    EntidadeSelecionada.Entidade.InicializaLazyLoad();
-            //}
-            //catch (NotImplementedException e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
-
-            //openView.ShowDialog(GetEditarViewModel());
-            //_session.Evict(EntidadeSelecionada.Entidade);
-            //OnPropertyChanged("TermoPesquisa");
+            _windowService.ShowDialog(new EditarProdutoVM(_session, EntidadeSelecionada.Entidade as Model.Produto), async result =>
+            {
+                if (result == true)
+                {
+                    await daoEntidade.RefreshEntidade(EntidadeSelecionada.Entidade);
+                    OnPropertyChanged("TermoPesquisa");
+                }
+            });
         }
         public void ChecarItensMarcados(object parameter)
         {
-            int marcados = Entidades.Where(w => w.IsChecked).Count();
+            bool marcados = Entidades.Where(w => w.IsChecked).Any();
 
-            if (marcados > 1)
+            if (marcados)
                 VisibilidadeBotaoApagarSelecionado = Visibility.Visible;
             else
                 VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
         }
         public async void ApagarMarcados(object parameter)
         {
-            MessageBoxResult telaApagar = MessageBoxService.Show(pesquisarViewModelStrategy.MensagemApagarMarcados(),
+            MessageBoxResult telaApagar = _messageBoxService.Show(pesquisarViewModelStrategy.MensagemApagarMarcados(),
                 pesquisarViewModelStrategy.TelaApagarCaption(),
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question,
@@ -215,13 +200,13 @@ namespace VandaModaIntimaWpf.ViewModel
                 try
                 {
                     await daoEntidade.Deletar(AApagar);
-                    MessageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
+                    _messageBoxService.Show(pesquisarViewModelStrategy.MensagemEntidadesDeletadas(), pesquisarViewModelStrategy.PesquisarEntidadeCaption());
                     VisibilidadeBotaoApagarSelecionado = Visibility.Collapsed;
                     OnPropertyChanged("TermoPesquisa");
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                    _messageBoxService.Show($"{pesquisarViewModelStrategy.MensagemEntidadesNaoDeletadas()}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
                         pesquisarViewModelStrategy.PesquisarEntidadeCaption(),
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -265,7 +250,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     }
                     catch (OperationCanceledException)
                     {
-                        MessageBoxService.Show("Exportação para Excel foi cancelada pelo usuário");
+                        _messageBoxService.Show("Exportação para Excel foi cancelada pelo usuário");
                         cancellationTokenSource.Dispose();
                         cancellationTokenSource = new CancellationTokenSource();
                     }
@@ -275,19 +260,19 @@ namespace VandaModaIntimaWpf.ViewModel
                         VisibilidadeStatusBar = Visibility.Collapsed;
                         IsThreadLocked = false;
                         if (!excelTask.IsCanceled)
-                            MessageBoxService.Show("Exportado para Excel com sucesso");
+                            _messageBoxService.Show("Exportado para Excel com sucesso");
                     });
                 }
             }
             catch (OperationCanceledException)
             {
-                MessageBoxService.Show("Exportação para Excel foi cancelada pela usuário");
+                _messageBoxService.Show("Exportação para Excel foi cancelada pela usuário");
                 cancellationTokenSource.Dispose();
                 cancellationTokenSource = new CancellationTokenSource();
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show(ex.Message);
+                _messageBoxService.Show(ex.Message);
             }
         }
         /// <summary>
@@ -306,7 +291,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        MessageBoxService.Show($"Erro ao realizar pesquisa de itens. Acesse {Log.LogBanco} para mais detalhes.\n\n{ex.Message}");
+                        _messageBoxService.Show($"Erro ao realizar pesquisa de itens. Acesse {Log.LogBanco} para mais detalhes.\n\n{ex.Message}");
                     }
                     break;
             }

@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 {
     public class EditarRepresentanteVM : CadastrarRepresentanteVM
     {
-        public EditarRepresentanteVM() : base()
+        public EditarRepresentanteVM(ISession session) : base(session, false)
         {
             //TODO: parametro representante
             viewModelStrategy = new EditarRepresentanteVMStrategy();

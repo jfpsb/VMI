@@ -1,7 +1,6 @@
 ﻿using NHibernate;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -10,7 +9,6 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -40,11 +38,10 @@ namespace VandaModaIntimaWpf.ViewModel
         /// </summary>
         /// <param name="session">Session do Hibernate que será usada na tela de cadastro</param>
         /// <param name="issoEUmUpdate">Marca se esta ViewModel está sendo usada em uma tela de cadastro ou tela de edição de entidade</param>
-        public ACadastrarViewModel()
+        public ACadastrarViewModel(ISession session, bool isUpdate)
         {
-            var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
-            _session = parametrosVM["NHibernateSession"] as ISession;
-            IssoEUmUpdate = (bool)parametrosVM["IssoEUmUpdate"];
+            _session = session;
+            IssoEUmUpdate = isUpdate;
             MessageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             openView = new OpenView();

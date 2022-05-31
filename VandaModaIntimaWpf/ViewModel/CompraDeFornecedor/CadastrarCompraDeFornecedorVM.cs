@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         public ICommand ImportarXmlNFeComando { get; set; }
         public ICommand AbrirArquivoComando { get; set; }
 
-        public CadastrarCompraDeFornecedorVM() : base()
+        public CadastrarCompraDeFornecedorVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarCompraDeFornecedorVMStrategy();
             daoEntidade = new DAO<Model.CompraDeFornecedor>(_session);
@@ -120,7 +120,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                                 if (msgBox == System.Windows.MessageBoxResult.Yes)
                                 {
-                                    CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM();
+                                    CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, false, nfe.NFe.infNFe.emit.Item);
                                     SalvarFornecedor view = new SalvarFornecedor { DataContext = vm };
                                     var result = view.ShowDialog();
 

@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 
 namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
     public class EditarFuncionarioVM : CadastrarFuncionarioVM
     {
-        public EditarFuncionarioVM() : base()
+        public EditarFuncionarioVM(ISession session) : base(session, false)
         {
             //TODO: parametros, funcionario
             viewModelStrategy = new EditarFuncionarioVMStrategy();

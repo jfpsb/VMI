@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AdicionarAliquotaComando { get; set; }
 
-        public CadastrarLojaVM() : base()
+        public CadastrarLojaVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);

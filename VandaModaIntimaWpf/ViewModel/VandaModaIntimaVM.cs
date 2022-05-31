@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
 using VandaModaIntimaWpf.ViewModel.Despesa;
@@ -39,6 +40,10 @@ namespace VandaModaIntimaWpf.ViewModel
         public VandaModaIntimaVM()
         {
             openView = new OpenView();
+
+            WindowService.RegistrarWindow<CadastrarProduto, CadastrarProdutoVM>();
+            WindowService.RegistrarWindow<EditarProduto, EditarProdutoVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

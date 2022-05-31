@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     class EditarFornecedorVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand AtualizarReceitaComando { get; set; }
-        public EditarFornecedorVM() : base()
+        public EditarFornecedorVM(ISession session) : base(session, false)
         {
             //TODO: parametro fornecedor
             //Entidade = fornecedor;

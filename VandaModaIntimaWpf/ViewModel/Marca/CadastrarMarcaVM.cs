@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 {
     class CadastrarMarcaVM : ACadastrarViewModel<MarcaModel>
     {
-        public CadastrarMarcaVM() : base()
+        public CadastrarMarcaVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarMarcaVMStrategy();
             daoEntidade = new DAOMarca(_session);

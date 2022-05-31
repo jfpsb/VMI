@@ -54,7 +54,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         private void AbrirDespesaGroupByLoja(object obj)
         {
-            openView.ShowDialog(new DespesaGroupByDescricaoViewModel());
+            _openView.ShowDialog(new DespesaGroupByDescricaoViewModel());
         }
 
         private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DateTime _dataEscolhida;
         private double _valorMaximoParcela;
 
-        public AdicionarAdiantamentoVM() : base()
+        public AdicionarAdiantamentoVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             //TODO: passar parametros, dataescolhida, funcionario
             viewModelStrategy = new CadastrarAdiantamentoVMStrategy();

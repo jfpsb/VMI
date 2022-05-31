@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void AbrirRelatorioFornecedor(object obj)
         {
-            openView.ShowDialog(new PesquisarEntradasPorFornecedorVM());
+            _openView.ShowDialog(new PesquisarEntradasPorFornecedorVM());
         }
 
         private async void GetLojas()

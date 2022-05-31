@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             }
             else
             {
-                MessageBoxService.Show("Não Há Itens Listados!", "Exportar Para Excel", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                _messageBoxService.Show("Não Há Itens Listados!", "Exportar Para Excel", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return null;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NHibernate;
+using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Interfaces;
 
@@ -8,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private double _salarioLiquido;
 
-        public AdicionarSalarioLiquidoVM() : base()
+        public AdicionarSalarioLiquidoVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             //TODO: pegar parametro folha
             daoEntidade = new DAOFolhaPagamento(_session);

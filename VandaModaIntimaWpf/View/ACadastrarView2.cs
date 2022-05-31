@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
 using VandaModaIntimaWpf.View.Interfaces;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View
 {
@@ -14,6 +15,11 @@ namespace VandaModaIntimaWpf.View
                 return openFileDialog.FileName;
             }
             return null;
+        }
+
+        protected void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = (DataContext as ICadastrarVM).ResultadoSalvar();
         }
     }
 }

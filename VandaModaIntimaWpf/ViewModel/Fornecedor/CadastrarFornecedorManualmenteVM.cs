@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using VandaModaIntimaWpf.Model.DAO;
@@ -14,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         private Visibility _visibilidadeBotaoPesquisar;
         private Visibility _visibilidadeBotaoAtualizarReceita;
 
-        public CadastrarFornecedorManualmenteVM() : base()
+        public CadastrarFornecedorManualmenteVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);

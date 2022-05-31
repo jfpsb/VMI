@@ -1,8 +1,10 @@
-﻿namespace VandaModaIntimaWpf.ViewModel.Despesa
+﻿using NHibernate;
+
+namespace VandaModaIntimaWpf.ViewModel.Despesa
 {
     public class EditarDespesaVM : CadastrarDespesaVM
     {
-        public EditarDespesaVM() : base()
+        public EditarDespesaVM(ISession session) : base(session, false)
         {
             //TODO:parametro, despesa
             //Entidade = despesa;

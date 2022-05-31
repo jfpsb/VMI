@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public ICommand SelecionarLojasComando { get; set; }
 
-        public CadastrarDespesaVM() : base()
+        public CadastrarDespesaVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             daoEntidade = new DAO<Model.Despesa>(_session);
             daoTipoDespesa = new DAOTipoDespesa(_session);

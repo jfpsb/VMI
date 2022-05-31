@@ -1,16 +1,15 @@
-﻿using System.Collections.ObjectModel;
+﻿using NHibernate;
+using System.Collections.ObjectModel;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoVM : CadastrarProdutoVM
     {
-        public EditarProdutoVM() : base()
+        public EditarProdutoVM(ISession session, Model.Produto produto, bool isUpdate = true) : base(session, isUpdate)
         {
             viewModelStrategy = new EditarProdutoVMStrategy();
-            var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
-            Entidade = parametrosVM["Entidade"] as Model.Produto;
+            Entidade = produto;
             ProdutoGrades = new ObservableCollection<ProdutoGrade>(Entidade.Grades);
             ProdutoGradeComposicaoPreco = ProdutoGrades[0];
         }

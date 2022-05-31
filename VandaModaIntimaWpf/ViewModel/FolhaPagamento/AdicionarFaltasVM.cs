@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Util;
@@ -9,7 +10,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Model.FolhaPagamento _folha;
 
-        public AdicionarFaltasVM() : base()
+        public AdicionarFaltasVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
             var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
             Folha = parametrosVM["Folha"] as Model.FolhaPagamento;
