@@ -13,7 +13,6 @@
                      Title="Pesquisar Contagem"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Contagem_Icon.ico"
-                     Closing="Pesquisar_Closing"
                      FocusManager.FocusedElement="{Binding ElementName=CmbLoja}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarContagemVM />

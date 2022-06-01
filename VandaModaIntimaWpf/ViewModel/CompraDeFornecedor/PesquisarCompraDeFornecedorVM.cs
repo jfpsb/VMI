@@ -127,5 +127,15 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         {
             throw new NotImplementedException();
         }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarCompraDeFornecedorVM(_session, false);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarCompraDeFornecedorVM(_session, EntidadeSelecionada.Entidade);
+        }
     }
 }

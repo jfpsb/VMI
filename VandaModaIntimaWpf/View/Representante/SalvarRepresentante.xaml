@@ -9,7 +9,6 @@
         Height="450"
         Width="700"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing"
         FocusManager.FocusedElement="{Binding ElementName=TxtNome}">
     <TabControl>
         <TabItem Header="Dados De Representante">

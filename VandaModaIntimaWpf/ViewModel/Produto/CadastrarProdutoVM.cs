@@ -295,47 +295,38 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void CadastrarMarca(object obj)
         {
-            CadastrarMarcaVM cadastrarMarcaViewModel = new CadastrarMarcaVM(_session, false);
-            CadastrarMarca cadastrarMarca = new CadastrarMarca()
+            _windowService.ShowDialog(new CadastrarMarcaVM(_session), (result, viewModel) =>
             {
-                DataContext = cadastrarMarcaViewModel
-            };
-            var result = cadastrarMarca.ShowDialog();
-
-            if (result == true)
-            {
-                GetMarcas();
-                Entidade.Marca = Marcas[0];
-            }
+                if (result == true)
+                {
+                    GetMarcas();
+                    Entidade.Marca = Marcas[0];
+                }
+            });
         }
 
         private void CadastrarFornecedorOnline(object obj)
         {
-            CadastrarFornecedorOnlineVM viewModel = new CadastrarFornecedorOnlineVM(_session, false);
-            SalvarFornecedor cadastrarFornecedorOnline = new SalvarFornecedor
+            _windowService.ShowDialog(new CadastrarFornecedorOnlineVM(_session), (result, viewModel) =>
             {
-                DataContext = viewModel
-            };
-            var result = cadastrarFornecedorOnline.ShowDialog();
-
-            if (result == true)
-            {
-                GetFornecedores();
-                Entidade.Fornecedor = Fornecedores[0];
-            }
+                if (result == true)
+                {
+                    GetFornecedores();
+                    Entidade.Fornecedor = Fornecedores[0];
+                }
+            });
         }
 
         private void CadastrarFornecedorManualmente(object obj)
         {
-            CadastrarFornecedorManualmenteVM cadastrarFornecedorManualmenteViewModel = new CadastrarFornecedorManualmenteVM(_session, false);
-            SalvarFornecedor cadastrar = new SalvarFornecedor() { DataContext = cadastrarFornecedorManualmenteViewModel };
-            var result = cadastrar.ShowDialog();
-
-            if (result == true)
+            _windowService.ShowDialog(new CadastrarFornecedorManualmenteVM(_session), (result, viewModel) =>
             {
-                GetFornecedores();
-                Entidade.Fornecedor = Fornecedores[0];
-            }
+                if(result == true)
+                {
+                    GetFornecedores();
+                    Entidade.Fornecedor = Fornecedores[0];
+                }
+            });
         }
 
         private void ConfiguraProdutoAntesDeInserir()
@@ -349,13 +340,15 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void AbreTelaCadastrarTipoGrade(object obj)
         {
-            openView.ShowDialog(new CadastrarTipoGradeVM(_session, false));
-            OnPropertyChanged("TiposGrade");
+            _windowService.ShowDialog(new CadastrarTipoGradeVM(_session), (result, viewModel) =>
+            {
+                OnPropertyChanged("TiposGrade");
+            });
         }
 
         private void AbreTelaCadastrarGrade(object obj)
         {
-            openView.ShowDialog(new CadastrarGradeVM(_session, false));
+            openView.ShowDialog(new CadastrarGradeVM(_session));
         }
 
         private void LimpaGrades(AposInserirBDEventArgs e)

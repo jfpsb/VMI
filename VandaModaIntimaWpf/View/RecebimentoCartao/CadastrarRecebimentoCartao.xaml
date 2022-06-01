@@ -12,7 +12,7 @@
         Width="1250"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Credit_Card_Icon.ico"
-        Closing="Window_Closing">
+        >
     <Window.Resources>
         <ViewModel:FormatoDoubleDataGrid x:Key="formatoDoubleDataGrid" />
     </Window.Resources>

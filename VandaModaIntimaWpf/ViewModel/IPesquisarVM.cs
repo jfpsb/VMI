@@ -17,5 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel
         bool IsThreadLocked();
         bool Editavel(object parameter);
         void AbrirExportarSQL(object parameter);
+        object GetCadastrarViewModel();
+        object GetEditarViewModel();
     }
 }

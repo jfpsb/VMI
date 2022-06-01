@@ -6,12 +6,16 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria"
                      mc:Ignorable="d"
                      Title="Pesquisar Entrada De Mercadoria"
                      Height="450"
                      Width="575"
                      WindowStartupLocation="CenterScreen"
-                     Closing="Pesquisar_Closing">
+                     >
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarEntradaVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="Apagar Entradas De Mercadoria Marcadas"
                                CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}">
         <View:TelaPesquisaTemplate.Menu>

@@ -3,7 +3,7 @@
     /// <summary>
     /// Interaction logic for SalvarCompraDeFornecedor.xaml
     /// </summary>
-    public partial class SalvarCompraDeFornecedor : ACadastrarView2
+    public partial class SalvarCompraDeFornecedor : ACadastrarView
     {
         public SalvarCompraDeFornecedor()
         {

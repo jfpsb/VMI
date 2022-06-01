@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Representante
 {
@@ -17,6 +15,16 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
         public override bool Editavel(object parameter)
         {
             return true;
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarRepresentanteVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarRepresentanteVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public async override Task PesquisaItens(string termo)

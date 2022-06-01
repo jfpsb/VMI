@@ -14,31 +14,61 @@ namespace VandaModaIntimaWpf.ViewModel.Services.Concretos
         {
             mapeamentoViewModel.Add(typeof(TViewModel), typeof(TView));
         }
-        public void Show(object viewModel, Action<bool?> onCloseCallback)
+        public void Show(object viewModel, Action<bool?, object> onCloseCallback)
         {
-            throw new NotImplementedException();
+            var typeView = mapeamentoViewModel[viewModel.GetType()];
+            if (typeView == null)
+                throw new ArgumentException("Não foi possível abrir janela.", "typeView",
+                    new NullReferenceException($"A janela referente à ViewModel {viewModel.GetType().Name} não foi registrada. Registre em VandaModaIntimaVM."));
+            ShowInternal(typeView, viewModel, onCloseCallback);
         }
 
-        public bool? ShowDialog(object viewModel, Action<bool?> onCloseCallback)
+        public bool? ShowDialog(object viewModel, Action<bool?, object> onCloseCallback)
         {
+            if (!mapeamentoViewModel.ContainsKey(viewModel.GetType()))
+                throw new ArgumentException("Não foi possível abrir janela.", "typeView",
+                    new NullReferenceException($"A janela referente à ViewModel {viewModel.GetType().Name} não foi registrada. Registre em VandaModaIntimaVM."));
+
             var typeView = mapeamentoViewModel[viewModel.GetType()];
             return ShowDialogInternal(typeView, viewModel, onCloseCallback);
         }
 
-        private bool? ShowDialogInternal(Type typeView, object viewModel, Action<bool?> onCloseCallback)
+        private bool? ShowDialogInternal(Type typeView, object viewModel, Action<bool?, object> onCloseCallback)
         {
             var window = Activator.CreateInstance(typeView) as Window;
 
-            CancelEventHandler eventHandler = null;
-            eventHandler = (s, e) =>
+            if (onCloseCallback != null)
             {
-                onCloseCallback(window.DialogResult);
-                window.Closing -= eventHandler;
-            };
+                CancelEventHandler eventHandler = null;
+                eventHandler = (s, e) =>
+                {
+                    onCloseCallback(window.DialogResult, viewModel);
+                    window.Closing -= eventHandler;
+                };
+                window.Closing += eventHandler;
+            }
 
-            window.Closing += eventHandler;
             window.DataContext = viewModel;
             return window.ShowDialog();
+        }
+
+        private void ShowInternal(Type typeView, object viewModel, Action<bool?, object> onCloseCallback)
+        {
+            var window = Activator.CreateInstance(typeView) as Window;
+
+            if (onCloseCallback != null)
+            {
+                CancelEventHandler eventHandler = null;
+                eventHandler = (s, e) =>
+                {
+                    onCloseCallback(window.DialogResult, viewModel);
+                    window.Closing -= eventHandler;
+                };
+                window.Closing += eventHandler;
+            }
+
+            window.DataContext = viewModel;
+            window.Show();
         }
     }
 }

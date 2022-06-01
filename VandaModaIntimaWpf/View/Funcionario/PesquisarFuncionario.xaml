@@ -12,10 +12,13 @@
                      Title="Pesquisar Funcionário"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Funcionario_Icon.ico"
-                     Closing="Pesquisar_Closing"
+                     
                      Width="1336"
                      Height="725"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarFuncionarioVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_funcionarios_marcados}"
                                CommandParameter="{Binding ElementName=TelaPesquisarFuncionario}">
         <View:TelaPesquisaTemplate.Resources>

@@ -40,12 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
         private void MaisDetalhes(object obj)
         {
-            MaisDetalhesVM viewModel = new MaisDetalhesVM(_session, EntidadeSelecionada.Entidade);
-            View.RecebimentoCartao.MaisDetalhes view = new View.RecebimentoCartao.MaisDetalhes()
-            {
-                DataContext = viewModel
-            };
-            view.ShowDialog();
+            _windowService.ShowDialog(new MaisDetalhesVM(_session, EntidadeSelecionada.Entidade), null);
         }
 
         private void Entidades_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -94,6 +89,16 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         }
 
         protected override WorksheetContainer<RecebimentoCartaoModel>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarRecebimentoVM(_session);
+        }
+
+        public override object GetEditarViewModel()
         {
             throw new NotImplementedException();
         }

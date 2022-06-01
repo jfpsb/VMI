@@ -11,7 +11,7 @@
                      Title="Pesquisar Folha de Pagamento"
                      Icon="/Resources/FolhaPagamento.png"
                      WindowStartupLocation="CenterScreen"
-                     Closing="Pesquisar_Closing"
+                     
                      Width="1100"
                      Height="675">
     <View:APesquisarView.DataContext>

@@ -1,6 +1,6 @@
 ﻿namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    class CadastrarBonusVMStrategy : ICadastrarVMStrategy
+    class AdicionarBonusVMStrategy : ICadastrarVMStrategy
     {
         public string MensagemDocumentoSalvoComSucesso()
         {

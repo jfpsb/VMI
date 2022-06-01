@@ -17,9 +17,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// <summary>
     /// Interaction logic for InserirObservacaoFolha.xaml
     /// </summary>
-    public partial class InserirObservacaoFolha : Window
+    public partial class AdicionarObservacaoFolha : Window
     {
-        public InserirObservacaoFolha()
+        public AdicionarObservacaoFolha()
         {
             InitializeComponent();
         }

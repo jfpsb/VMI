@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ListViewGradesEnterComando { get; set; }
         public ICommand ListViewGradesEscComando { get; set; }
 
-        public CadastrarEntradaDeMercadoriaVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarEntradaDeMercadoriaVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarEntradaDeMercadoriaVMStrategy();
             daoEntidade = new DAOEntradaDeMercadoria(_session);

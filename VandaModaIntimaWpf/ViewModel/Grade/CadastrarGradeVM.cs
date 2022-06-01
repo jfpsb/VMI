@@ -11,7 +11,7 @@ namespace VandaModaIntimaWpf.ViewModel.Grade
         private DAOTipoGrade daoTipoGrade;
         private Model.TipoGrade _tipoGrade;
         public IList<Model.TipoGrade> TipoGrades { get; set; }
-        public CadastrarGradeVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarGradeVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             daoEntidade = new DAOGrade(_session);
             daoTipoGrade = new DAOTipoGrade(_session);

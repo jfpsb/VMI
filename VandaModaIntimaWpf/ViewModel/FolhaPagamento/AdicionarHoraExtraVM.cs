@@ -15,13 +15,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
         public int CmbDescricaoIndex { get; set; }
 
-        public AdicionarHoraExtraVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public AdicionarHoraExtraVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
-            //TODO: passar parametros, folha
             daoEntidade = new DAOHoraExtra(_session);
             daoTipoHoraExtra = new DAO<Model.TipoHoraExtra>(_session);
             viewModelStrategy = new AdicionarHoraExtraVMStrategy();
-            //Folha = folha;
+            Folha = folha;
 
             GetTiposHoraExtra();
 

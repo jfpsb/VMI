@@ -7,8 +7,6 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.View;
-using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
@@ -29,6 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private FolhaModel _folhaPagamento;
         private bool? _dialogResult = false;
         private IMessageBoxService MessageBoxService;
+        private IWindowService _windowService;
 
         public ICommand DeletarAdiantamentoComando { get; set; }
         public ICommand DeletarBonusComando { get; set; }
@@ -37,6 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             _session = session;
             MessageBoxService = new MessageBoxService();
+            _windowService = new WindowService();
 
             FolhaPagamento = folhaPagamento;
             daoBonus = new DAOBonus(session);
@@ -51,26 +51,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Bonus = new ObservableCollection<Bonus>(FolhaPagamento.Bonus);
         }
 
-        private async void GerenciarParcelas(object obj)
+        private void GerenciarParcelas(object obj)
         {
-            GerenciarParcelasVM vm = new GerenciarParcelasVM(_session, Parcela.Adiantamento, MessageBoxService);
-            GerenciarParcelas view = new GerenciarParcelas
+            _windowService.ShowDialog(new GerenciarParcelasVM(_session, Parcela.Adiantamento, MessageBoxService), async (result, viewModel) =>
             {
-                DataContext = vm
-            };
-
-            var result = view.ShowDialog();
-
-            if (!_dialogResult.HasValue || _dialogResult == false)
                 _dialogResult = result;
 
-            if (result == true)
-            {
-                var parc = await daoParcela.ListarPorFuncionarioMesAno(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
-                Parcelas = new ObservableCollection<Parcela>(parc);
-            }
-
-            OnPropertyChanged("TotalParcelas");
+                if (result == true)
+                {
+                    var parc = await daoParcela.ListarPorFuncionarioMesAno(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
+                    Parcelas = new ObservableCollection<Parcela>(parc);
+                }
+                OnPropertyChanged("TotalParcelas");
+            });
         }
 
         private async void DeletarBonus(object obj)
@@ -86,7 +79,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 try
                 {
-
                     if (BonusEscolhido.BonusMensal)
                     {
                         BonusEscolhido.BonusCancelado = true;

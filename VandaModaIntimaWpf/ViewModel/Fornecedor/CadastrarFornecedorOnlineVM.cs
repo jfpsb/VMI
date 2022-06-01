@@ -10,18 +10,17 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
     {
         public ICommand PesquisarComando { get; set; }
 
-        public CadastrarFornecedorOnlineVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarFornecedorOnlineVM(ISession session) : base(session, false)
         {
             VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
         }
 
-        public CadastrarFornecedorOnlineVM(ISession session, bool isUpdate, string cnpj) : base(session, isUpdate)
+        public CadastrarFornecedorOnlineVM(ISession session, string cnpj) : base(session, false)
         {
             //TODO: parametros, cnpj
             VisibilidadeBotaoPesquisar = Visibility.Visible;
             PesquisarComando = new RelayCommand(PesquisarFornecedor, (object p) => { return Entidade.Cnpj?.Length == 14; });
-
             Entidade.Cnpj = cnpj;
             PesquisarFornecedor(null);
         }

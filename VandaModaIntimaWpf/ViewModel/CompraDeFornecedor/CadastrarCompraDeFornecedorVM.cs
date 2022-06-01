@@ -120,7 +120,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                                 if (msgBox == System.Windows.MessageBoxResult.Yes)
                                 {
-                                    CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, false, nfe.NFe.infNFe.emit.Item);
+                                    CadastrarFornecedorOnlineVM vm = new CadastrarFornecedorOnlineVM(_session, nfe.NFe.infNFe.emit.Item);
                                     SalvarFornecedor view = new SalvarFornecedor { DataContext = vm };
                                     var result = view.ShowDialog();
 

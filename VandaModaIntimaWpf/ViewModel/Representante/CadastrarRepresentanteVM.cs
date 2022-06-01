@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
         public ICommand AdicionarFornecedorComando { get; set; }
 
-        public CadastrarRepresentanteVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarRepresentanteVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             daoEntidade = new DAO<Model.Representante>(_session);
             daoFornecedor = new DAOFornecedor(_session);

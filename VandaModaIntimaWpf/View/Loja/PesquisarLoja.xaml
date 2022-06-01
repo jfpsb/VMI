@@ -14,8 +14,11 @@
                      Height="675"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Loja_Icon.ico"
-                     Closing="Pesquisar_Closing"
+                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarLojaVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_lojas_marcadas}"
                                CommandParameter="{Binding ElementName=TelaPesquisarLoja}">
         <View:TelaPesquisaTemplate.Resources>

@@ -5,7 +5,6 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 {
@@ -67,6 +66,17 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
                 return null;
             }
         }
+
+        public override object GetCadastrarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
         public ObservableCollection<EntradaMercadoriaProdutoGrade> Entradas
         {
             get => _entradas;

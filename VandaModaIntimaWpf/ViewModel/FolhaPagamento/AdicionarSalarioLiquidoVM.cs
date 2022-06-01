@@ -9,12 +9,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private double _salarioLiquido;
 
-        public AdicionarSalarioLiquidoVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public AdicionarSalarioLiquidoVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
-            //TODO: pegar parametro folha
             daoEntidade = new DAOFolhaPagamento(_session);
             viewModelStrategy = new AdicionarSalarioLiquidoVMStrategy();
-            //Entidade = folha;
+            Entidade = folha;
             AposInserirNoBancoDeDados += FecharTela;
             PropertyChanged += SetaValorSalarioLiquido;
         }
@@ -40,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)

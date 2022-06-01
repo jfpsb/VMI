@@ -23,6 +23,7 @@
                FontSize="16" />
         <DataGrid x:Name="ChavePixDataGrid"
                   Grid.Row="1"
+                  SelectedItem="{Binding ChavePix}"
                   ItemsSource="{Binding ChavesPix}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Banco"
@@ -37,7 +38,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Copiar Chave Pix"
-                              Click="ChavePixMenuItem_Click" />
+                              Command="{Binding CopiarChavePixComando}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
@@ -47,6 +48,7 @@
                FontSize="16" />
         <DataGrid x:Name="ContasDataGrid"
                   Grid.Row="3"
+                  SelectedItem="{Binding ContaBancaria}"
                   ItemsSource="{Binding ContasBancarias}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Banco"

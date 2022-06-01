@@ -4,12 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -87,6 +84,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         }
 
         protected override WorksheetContainer<Model.HoraExtra>[] GetWorksheetContainers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetEditarViewModel()
         {
             throw new NotImplementedException();
         }

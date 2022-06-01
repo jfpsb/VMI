@@ -13,7 +13,7 @@
                      Width="550"
                      WindowStartupLocation="CenterScreen"
                      ResizeMode="NoResize"
-                     Closing="Pesquisar_Closing"
+                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarMarcaVM />

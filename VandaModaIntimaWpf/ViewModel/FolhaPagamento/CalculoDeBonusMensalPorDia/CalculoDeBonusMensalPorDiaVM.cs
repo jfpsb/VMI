@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             MenuItemHeader1 = calculoDeBonus.MenuItemHeader1();
             WindowCaption = calculoDeBonus.WindowCaption();
             ValorDiario = calculoDeBonus.ValorDiario();
-            this.messageBoxService = new MessageBoxService();
+            messageBoxService = new MessageBoxService();
 
             PropertyChanged += CalculaDatas;
             PropertyChanged += ValorDiarioAlterado;

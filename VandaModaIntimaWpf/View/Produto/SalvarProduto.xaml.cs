@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace VandaModaIntimaWpf.View.Produto
 {
-    public partial class SalvarProdutoUserControl : UserControl
+    public partial class SalvarProduto : ACadastrarView
     {
-        public SalvarProdutoUserControl()
+        public SalvarProduto()
         {
             InitializeComponent();
         }

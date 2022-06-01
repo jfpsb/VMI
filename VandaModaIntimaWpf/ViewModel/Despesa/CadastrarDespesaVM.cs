@@ -40,8 +40,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public ICommand SelecionarLojasComando { get; set; }
 
-        public CadastrarDespesaVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarDespesaVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
+            viewModelStrategy = new CadastrarDespesaVMStrategy();
             daoEntidade = new DAO<Model.Despesa>(_session);
             daoTipoDespesa = new DAOTipoDespesa(_session);
             daoFornecedor = new DAOFornecedor(_session);
@@ -53,7 +54,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 Data = DateTime.Now
             };
-            viewModelStrategy = new CadastrarDespesaVMStrategy();
 
             GetFornecedores();
             GetTiposDespesa();
@@ -69,18 +69,20 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         private void SelecionarLojas(object obj)
         {
-            SelecionaMultiplasLojasVM viewModel = new SelecionaMultiplasLojasVM(_session, lojasEntidadeComCampo);
-            openView.ShowDialog(viewModel);
-            if (!viewModel.Entidades.Where(w => w.IsChecked).Any())
+            _windowService.ShowDialog(new SelecionaMultiplasLojasVM(_session, lojasEntidadeComCampo), (result, viewModel) =>
             {
-                IsCmbLojasEnabled = true;
-                lojasEntidadeComCampo?.Clear();
-            }
-            else
-            {
-                IsCmbLojasEnabled = false;
-                lojasEntidadeComCampo = viewModel.Entidades;
-            }
+                var vm = viewModel as SelecionaMultiplasLojasVM;
+                if (!vm.Entidades.Where(w => w.IsChecked).Any())
+                {
+                    IsCmbLojasEnabled = true;
+                    lojasEntidadeComCampo?.Clear();
+                }
+                else
+                {
+                    IsCmbLojasEnabled = false;
+                    lojasEntidadeComCampo = vm.Entidades;
+                }
+            });
         }
 
         protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)

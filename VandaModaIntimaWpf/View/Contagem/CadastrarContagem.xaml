@@ -12,8 +12,7 @@
         ResizeMode="NoResize"
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=CmbLoja}"
-        Closing="Window_Closing">
+        FocusManager.FocusedElement="{Binding ElementName=CmbLoja}">
     <Grid Margin="15,15,15,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />

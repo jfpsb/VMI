@@ -5,11 +5,10 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 {
     public class EditarRepresentanteVM : CadastrarRepresentanteVM
     {
-        public EditarRepresentanteVM(ISession session) : base(session, false)
+        public EditarRepresentanteVM(ISession session, Model.Representante representante) : base(session, false)
         {
-            //TODO: parametro representante
             viewModelStrategy = new EditarRepresentanteVMStrategy();
-            //Entidade = representante;
+            Entidade = representante;
             Fornecedores = new ObservableCollection<Model.Fornecedor>(Entidade.Fornecedores);
         }
     }

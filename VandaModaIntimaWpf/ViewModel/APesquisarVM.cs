@@ -45,8 +45,8 @@ namespace VandaModaIntimaWpf.ViewModel
         private double _valorBarraProgresso;
         private string _descricaoBarraProgresso;
         private bool _isIndefinidaBarraProgresso;
-        private IWindowService _windowService;
 
+        protected IWindowService _windowService;
         protected CancellationTokenSource cancellationTokenSource;
         protected IProgress<double> setValorBarraProgresso;
         protected IProgress<string> setDescricaoBarraProgresso;
@@ -112,6 +112,8 @@ namespace VandaModaIntimaWpf.ViewModel
         }
 
         public abstract Task PesquisaItens(string termo);
+        public abstract object GetCadastrarViewModel();
+        public abstract object GetEditarViewModel();
         public void AbrirImprimir(object parameter)
         {
             //openView.ShowDialog(GetTelaRelatorioVM());
@@ -123,13 +125,40 @@ namespace VandaModaIntimaWpf.ViewModel
         }
         public void AbrirCadastrar(object parameter)
         {
-            _windowService.ShowDialog(new CadastrarProdutoVM(_session), result =>
+            try
             {
-                if (result == true)
+                _windowService.ShowDialog(GetCadastrarViewModel(), (result, viewModel) =>
                 {
-                    OnPropertyChanged("TermoPesquisa");
-                }
-            });
+                    if (result == true)
+                    {
+                        OnPropertyChanged("TermoPesquisa");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.Show(ex.Message, pesquisarViewModelStrategy.PesquisarEntidadeCaption(), MessageBoxButton.OK,
+                     MessageBoxImage.Error);
+            }
+        }
+        public void AbrirEditar(object parameter)
+        {
+            try
+            {
+                _windowService.ShowDialog(GetEditarViewModel(), async (result, viewModel) =>
+                {
+                    if (result == true)
+                    {
+                        await daoEntidade.RefreshEntidade(EntidadeSelecionada.Entidade);
+                        OnPropertyChanged("TermoPesquisa");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.Show(ex.Message, pesquisarViewModelStrategy.PesquisarEntidadeCaption(), MessageBoxButton.OK,
+                     MessageBoxImage.Error);
+            }
         }
         public async void AbrirApagarMsgBox(object parameter)
         {
@@ -164,17 +193,6 @@ namespace VandaModaIntimaWpf.ViewModel
 
                 ChamaAposDeletarDoBD(e2);
             }
-        }
-        public void AbrirEditar(object parameter)
-        {
-            _windowService.ShowDialog(new EditarProdutoVM(_session, EntidadeSelecionada.Entidade as Model.Produto), async result =>
-            {
-                if (result == true)
-                {
-                    await daoEntidade.RefreshEntidade(EntidadeSelecionada.Entidade);
-                    OnPropertyChanged("TermoPesquisa");
-                }
-            });
         }
         public void ChecarItensMarcados(object parameter)
         {

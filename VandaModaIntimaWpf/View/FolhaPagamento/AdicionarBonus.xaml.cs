@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// <summary>
     /// Interaction logic for AdicionarBonus.xaml
     /// </summary>
-    public partial class AdicionarBonus : Window
+    public partial class AdicionarBonus : ACadastrarView
     {
         public AdicionarBonus()
         {

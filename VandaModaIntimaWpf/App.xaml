@@ -24,7 +24,6 @@
                 <ResourceDictionary Source="Theme/TabItemTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBlockTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml" />
-                <ResourceDictionary Source="Resources/DataTemplate/DataTemplateViewModel.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             

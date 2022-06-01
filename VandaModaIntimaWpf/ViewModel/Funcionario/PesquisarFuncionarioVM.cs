@@ -68,6 +68,16 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             return worksheets;
         }
 
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarFuncionarioVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarFuncionarioVM(_session, EntidadeSelecionada.Entidade);
+        }
+
         public int PesquisarPor
         {
             get { return pesquisarPor; }

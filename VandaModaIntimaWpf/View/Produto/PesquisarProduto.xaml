@@ -13,7 +13,7 @@
                      Title="Pesquisar Produto"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Produto_Icon.ico"
-                     Closing="Pesquisar_Closing"
+                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarProdutoVM />

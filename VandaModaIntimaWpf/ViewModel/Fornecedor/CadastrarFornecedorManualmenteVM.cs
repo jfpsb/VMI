@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         private Visibility _visibilidadeBotaoPesquisar;
         private Visibility _visibilidadeBotaoAtualizarReceita;
 
-        public CadastrarFornecedorManualmenteVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarFornecedorManualmenteVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarFornecedorVMStrategy();
             daoEntidade = new DAOFornecedor(_session);

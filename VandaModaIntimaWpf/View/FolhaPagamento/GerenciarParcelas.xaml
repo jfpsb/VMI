@@ -13,7 +13,7 @@
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Closing="Window_Closing">
+        >
     <Window.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>

@@ -5,11 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.Despesa
 {
@@ -145,6 +141,17 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             return listas;
         }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarDespesaVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarDespesaVM(_session, EntidadeSelecionada.Entidade);
+        }
+
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;

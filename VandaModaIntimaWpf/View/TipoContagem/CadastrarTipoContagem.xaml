@@ -12,7 +12,7 @@
         Icon="/Resources/Contagem_Icon.ico"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtNome}"
-        Closing="Window_Closing">
+        >
     <Grid Margin="15,5,15,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

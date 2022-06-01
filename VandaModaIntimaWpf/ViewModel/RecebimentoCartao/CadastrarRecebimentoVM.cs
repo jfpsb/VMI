@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
         private DateTime dataEscolhida;
 
         public ICommand AbrirOfxComando { get; set; }
-        public CadastrarRecebimentoVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public CadastrarRecebimentoVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarRecebimentoVMStrategy();
             daoEntidade = new DAORecebimentoCartao(_session);

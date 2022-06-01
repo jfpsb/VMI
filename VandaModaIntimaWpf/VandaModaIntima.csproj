@@ -411,7 +411,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FolhaPagamento\InserirObservacaoFolha.xaml">
+    <Page Include="View\FolhaPagamento\AdicionarObservacaoFolha.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -499,15 +499,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Produto\CadastrarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\EditarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\SalvarProdutoUserControl.xaml">
+    <Page Include="View\Produto\SalvarProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -691,6 +683,7 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
+    <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
@@ -698,8 +691,6 @@
     <Compile Include="ViewModel\Util\Mediator.cs" />
     <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
     <Compile Include="View\ACadastrarView.cs" />
-    <Compile Include="View\ACadastrarView2.cs" />
-    <Compile Include="View\APesquisarView2.cs" />
     <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="View\Converters\CPFValueConverter.cs" />
     <Compile Include="View\Converters\IsDemitidoConverter.cs" />
@@ -777,8 +768,8 @@
     <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVM.cs" />
     <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarAdiantamentoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CadastrarBonusVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVMStrategy.cs" />
+    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVMStrategy.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeAlmoco.cs" />
     <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeBonusMensalPorDiaVM.cs" />
     <Compile Include="View\Converters\InverseBooleanConverter.cs" />
@@ -820,7 +811,6 @@
     <Compile Include="ViewModel\Loja\PesquisarLojaVM.cs" />
     <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\CadastrarMarcaVMStrategy.cs" />
-    <Compile Include="ViewModel\Marca\EditarMarcaVMStrategy.cs" />
     <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\CadastrarProdutoVMStrategy.cs" />
     <Compile Include="ViewModel\Produto\EditarProdutoVMStrategy.cs" />
@@ -958,8 +948,8 @@
     <Compile Include="View\FolhaPagamento\GerenciarParcelas.xaml.cs">
       <DependentUpon>GerenciarParcelas.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\FolhaPagamento\InserirObservacaoFolha.xaml.cs">
-      <DependentUpon>InserirObservacaoFolha.xaml</DependentUpon>
+    <Compile Include="View\FolhaPagamento\AdicionarObservacaoFolha.xaml.cs">
+      <DependentUpon>AdicionarObservacaoFolha.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
       <DependentUpon>MaisDetalhes.xaml</DependentUpon>
@@ -1058,14 +1048,8 @@
     <Compile Include="View\Produto\AjudaProduto.xaml.cs">
       <DependentUpon>AjudaProduto.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Produto\CadastrarProduto.xaml.cs">
-      <DependentUpon>CadastrarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\EditarProduto.xaml.cs">
-      <DependentUpon>EditarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\SalvarProdutoUserControl.xaml.cs">
-      <DependentUpon>SalvarProdutoUserControl.xaml</DependentUpon>
+    <Compile Include="View\Produto\SalvarProduto.xaml.cs">
+      <DependentUpon>SalvarProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
       <DependentUpon>PesquisarProduto.xaml</DependentUpon>

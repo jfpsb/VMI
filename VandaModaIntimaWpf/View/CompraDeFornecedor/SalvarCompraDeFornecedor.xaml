@@ -1,4 +1,4 @@
-﻿<View:ACadastrarView2 x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
+﻿<View:ACadastrarView x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
                       x:Name="TelaSalvarCompraDeFornecedor"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,10 +12,10 @@
                       Height="450"
                       WindowStartupLocation="CenterScreen"
                       Icon="/Resources/Compras_De_Fornecedor.png">
-    <View:ACadastrarView2.InputBindings>
+    <View:ACadastrarView.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
-    </View:ACadastrarView2.InputBindings>
+    </View:ACadastrarView.InputBindings>
     <TabControl>
         <TabItem Header="Dados De Compra">
             <Grid>
@@ -161,4 +161,4 @@
             </Grid>
         </TabItem>
     </TabControl>
-</View:ACadastrarView2>
+</View:ACadastrarView>

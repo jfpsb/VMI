@@ -40,5 +40,15 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
 
             return worksheets;
         }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarMarcaVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

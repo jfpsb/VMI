@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         private Model.ProdutoGrade _produtoGrade;
         private ContagemProdutoModel _contagemProduto;
         private string _pesquisaProdutoTxtBox;
-        private DAOProduto _daoProduto;
+        private DAOProduto daoProduto;
         private DAOContagemProduto daoContagemProduto;
         private int _quantidade;
         private bool _isTxtPesquisaFocused;
@@ -34,16 +34,17 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemVM(ISession session) : base(session, false)
+        public EditarContagemVM(ISession session, Model.Contagem contagem) : base(session, false)
         {
+            Entidade = contagem;
             viewModelStrategy = new EditarContagemVMStrategy();
+            daoProduto = new DAOProduto(_session);
+            daoContagemProduto = new DAOContagemProduto(_session);
+            Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             AbrirAdicionarContagemProdutoComando = new RelayCommand(AbrirAdicionarContagemProduto);
             InserirContagemComando = new RelayCommand(InserirContagem);
             RemoverContagemProdutoComando = new RelayCommand(RemoverContagemProduto);
             AbrirEditarProdutoComando = new RelayCommand(AbrirEditarProduto);
-            _daoProduto = new DAOProduto(_session);
-            daoContagemProduto = new DAOContagemProduto(_session);
-            Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
             Quantidade = 1;
             GetProdutos();
         }
@@ -100,7 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
         private async void GetProdutos()
         {
-            Produtos = new ObservableCollection<ProdutoModel>(await _daoProduto.ListarPorDescricaoCodigoDeBarra(PesquisaProdutoTxtBox));
+            Produtos = new ObservableCollection<ProdutoModel>(await daoProduto.ListarPorDescricaoCodigoDeBarra(PesquisaProdutoTxtBox));
         }
 
         public Model.ProdutoGrade ProdutoGrade

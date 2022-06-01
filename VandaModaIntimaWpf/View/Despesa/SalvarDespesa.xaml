@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
         Icon="/Resources/Despesas_Icon.ico"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        >
     <Window.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>

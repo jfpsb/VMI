@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void AbrirRelatorioFornecedor(object obj)
         {
-            _openView.ShowDialog(new PesquisarEntradasPorFornecedorVM());
+            _windowService.ShowDialog(new PesquisarEntradasPorFornecedorVM(), null);
         }
 
         private async void GetLojas()
@@ -89,6 +89,17 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
             return worksheets;
         }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarEntradaDeMercadoriaVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
         public DateTime DataEscolhida
         {
             get => _dataEscolhida;

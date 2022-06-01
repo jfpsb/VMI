@@ -3,17 +3,15 @@ using System.IO;
 using System.Net;
 using System.Windows;
 using System.Windows.Input;
-using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 {
     class EditarFornecedorVM : CadastrarFornecedorManualmenteVM
     {
         public ICommand AtualizarReceitaComando { get; set; }
-        public EditarFornecedorVM(ISession session) : base(session, false)
+        public EditarFornecedorVM(ISession session, Model.Fornecedor fornecedor) : base(session, false)
         {
-            //TODO: parametro fornecedor
-            //Entidade = fornecedor;
+            Entidade = fornecedor;
             VisibilidadeBotaoAtualizarReceita = Visibility.Visible;
             viewModelStrategy = new EditarFornecedorVMStrategy();
             AtualizarReceitaComando = new RelayCommand(AtualizarReceita);
@@ -25,7 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             try
             {
                 var representante = Entidade.Representante;
-                FornecedorModel result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
+                Model.Fornecedor result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
                 result.Representante = representante;
                 await daoEntidade.Merge(result);
                 OnPropertyChanged("Entidade");

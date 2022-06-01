@@ -5,9 +5,6 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using VandaModaIntimaWpf.ViewModel.Representante;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using FornecedorModel = VandaModaIntimaWpf.Model.Fornecedor;
 
 namespace VandaModaIntimaWpf.ViewModel.Fornecedor
@@ -38,14 +35,18 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
         private void AbrirTelaPesquisarRepresentante(object obj)
         {
-            _openView.ShowDialog(new PesquisarRepresentanteVM());
-            OnPropertyChanged("TermoPesquisa");
+            _windowService.ShowDialog(new PesquisarRepresentanteVM(), (result, viewModel) =>
+            {
+                OnPropertyChanged("TermoPesquisa");
+            });
         }
 
         private void AbrirCadastrarOnline(object p)
         {
-            _openView.ShowDialog(new CadastrarFornecedorOnlineVM(_session, false));
-            OnPropertyChanged("TermoPesquisa");
+            _windowService.ShowDialog(new CadastrarFornecedorOnlineVM(_session), (result, viewModel) =>
+            {
+                OnPropertyChanged("TermoPesquisa");
+            });
         }
         public override async Task PesquisaItens(string termo)
         {
@@ -79,6 +80,16 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             };
 
             return worksheets;
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarFornecedorManualmenteVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarFornecedorVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public int PesquisarPor

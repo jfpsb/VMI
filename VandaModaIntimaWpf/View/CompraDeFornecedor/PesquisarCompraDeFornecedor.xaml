@@ -14,8 +14,7 @@
                      Height="600"
                      WindowState="Maximized"
                      WindowStartupLocation="CenterScreen"
-                     Closing="Pesquisar_Closing"
-                     Loaded="TelaPesquisarCompraDeFornecedor_Loaded">
+                     >
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarCompraDeFornecedorVM />
     </View:APesquisarView.DataContext>

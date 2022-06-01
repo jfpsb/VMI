@@ -14,7 +14,7 @@
                      Icon="/Resources/Fornecedor_Icon.ico"
                      Height="540"
                      Width="1000"
-                     Closing="Pesquisar_Closing"
+                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarFornecedorVM />

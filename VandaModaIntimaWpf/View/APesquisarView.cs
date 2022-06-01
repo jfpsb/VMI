@@ -8,17 +8,14 @@ namespace VandaModaIntimaWpf.View
 {
     public partial class APesquisarView : Window, IOpenFileDialog, ISaveFileDialog, IFolderBrowserDialog, ICloseable
     {
+        public APesquisarView()
+        {
+            Closing += Pesquisar_Closing;
+        }
         public void Pesquisar_Closing(object sender, CancelEventArgs e)
         {
-            if (((IPesquisarVM)DataContext).IsThreadLocked())
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                //Fecha sessao
-                ((IPesquisarVM)DataContext).DisposeSession();
-            }
+            //Fecha sessao
+            ((IPesquisarVM)DataContext).DisposeSession();
         }
 
         public string OpenFileDialog()

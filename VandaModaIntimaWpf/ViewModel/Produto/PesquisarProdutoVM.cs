@@ -7,8 +7,6 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
 
 namespace VandaModaIntimaWpf.ViewModel.Produto
@@ -39,12 +37,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void ListarMargensDeLucro(object obj)
         {
-            VisualizarMargensDeLucroVM viewModel = new VisualizarMargensDeLucroVM(_session);
-            VisualizarMargensDeLucro view = new VisualizarMargensDeLucro
-            {
-                DataContext = viewModel
-            };
-            view.ShowDialog();
+            _windowService.ShowDialog(new VisualizarMargensDeLucroVM(_session), null);
         }
 
         public int PesquisarPor
@@ -98,6 +91,16 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             };
 
             return worksheets;
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarProdutoVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarProdutoVM(_session, EntidadeSelecionada.Entidade);
         }
     }
 }

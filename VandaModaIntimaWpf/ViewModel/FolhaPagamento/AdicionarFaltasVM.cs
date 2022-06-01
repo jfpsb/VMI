@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -10,10 +9,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Model.FolhaPagamento _folha;
 
-        public AdicionarFaltasVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public AdicionarFaltasVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
-            var parametrosVM = ViewModelParameterHandler.Instance.GetParametros(GetType());
-            Folha = parametrosVM["Folha"] as Model.FolhaPagamento;
+            Folha = folha;
             daoEntidade = new DAOFaltas(_session);
             viewModelStrategy = new AdicionarFaltasVMStrategy();
             ResetaPropriedades(null);

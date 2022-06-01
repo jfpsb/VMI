@@ -1,12 +1,16 @@
-﻿using System;
+﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Media.Imaging;
 using VandaModaIntimaWpf.View.Interfaces;
+using VandaModaIntimaWpf.ViewModel;
 
 namespace VandaModaIntimaWpf.View
 {
-    public class ACadastrarView : System.Windows.Controls.UserControl, IOpenFileDialog
+    public class ACadastrarView : Window, IOpenFileDialog
     {
+        public ACadastrarView()
+        {
+            Closing += Window_Closing;
+        }
         public string OpenFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -17,19 +21,9 @@ namespace VandaModaIntimaWpf.View
             return null;
         }
 
-        protected BitmapImage GetIcon(string path)
+        protected void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            return new BitmapImage(new Uri($"pack://application:,,,/VandaModaIntimaWpf;component{path}"));
-        }
-
-        protected void SetWidth(double width)
-        {
-            System.Windows.Application.Current.MainWindow.Width = width;
-        }
-
-        protected void SetHeight(double heigth)
-        {
-            System.Windows.Application.Current.MainWindow.Height = heigth;
+            DialogResult = (DataContext as ICadastrarVM).ResultadoSalvar();
         }
     }
 }

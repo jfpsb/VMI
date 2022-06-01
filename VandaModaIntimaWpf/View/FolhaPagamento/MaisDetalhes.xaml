@@ -11,8 +11,7 @@
         Height="600"
         Width="775"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        Closing="Window_Closing">
+        ResizeMode="NoResize">
     <Window.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     </Window.Resources>

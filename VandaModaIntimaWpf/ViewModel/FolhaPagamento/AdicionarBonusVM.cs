@@ -3,33 +3,31 @@ using System;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using FolhaModel = VandaModaIntimaWpf.Model.FolhaPagamento;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarBonusVM : ACadastrarViewModel<Bonus>
     {
-        private FolhaModel _folha;
+        private Model.FolhaPagamento _folha;
         private DateTime _inicioPagamento;
         private DateTime dataEscolhida;
         private DAOBonusMensal daoBonusMensal;
 
-        public AdicionarBonusVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public AdicionarBonusVM(ISession session, Model.FolhaPagamento folha, DateTime dataEscolhida) : base(session, false)
         {
-            //TODO: parametros, folha, dataescolhida
             daoEntidade = new DAOBonus(_session);
             daoBonusMensal = new DAOBonusMensal(_session);
-            viewModelStrategy = new CadastrarBonusVMStrategy();
-            //Folha = folha;
-            //this.dataEscolhida = dataEscolhida;
+            viewModelStrategy = new AdicionarBonusVMStrategy();
+            Folha = folha;
+            this.dataEscolhida = dataEscolhida;
 
             AntesDeInserirNoBancoDeDados += ConfiguraBonus;
 
-            //Entidade = new Bonus()
-            //{
-            //    Funcionario = folha.Funcionario,
-            //    LojaTrabalho = folha.Funcionario.LojaTrabalho
-            //};
+            Entidade = new Bonus()
+            {
+                Funcionario = folha.Funcionario,
+                LojaTrabalho = folha.Funcionario.LojaTrabalho
+            };
 
             PropertyChanged += AdicionarBonusVM_PropertyChanged;
 
@@ -120,7 +118,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public FolhaModel Folha
+        public Model.FolhaPagamento Folha
         {
             get => _folha;
             set

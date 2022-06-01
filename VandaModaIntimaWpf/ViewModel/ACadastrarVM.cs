@@ -23,6 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool _result;
         protected IMessageBoxService MessageBoxService;
         protected IOpenViewService openView;
+        protected IWindowService _windowService;
 
         private bool antesInserirBDChecagem;
         private bool issoEUmUpdate;
@@ -38,10 +39,11 @@ namespace VandaModaIntimaWpf.ViewModel
         /// </summary>
         /// <param name="session">Session do Hibernate que será usada na tela de cadastro</param>
         /// <param name="issoEUmUpdate">Marca se esta ViewModel está sendo usada em uma tela de cadastro ou tela de edição de entidade</param>
-        public ACadastrarViewModel(ISession session, bool isUpdate)
+        public ACadastrarViewModel(ISession session, bool isUpdate = false)
         {
             _session = session;
             IssoEUmUpdate = isUpdate;
+            _windowService = new WindowService();
             MessageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
             openView = new OpenView();

@@ -13,7 +13,7 @@
                      Width="800"
                      Icon="/Resources/Credit_Card_Icon.ico"
                      WindowStartupLocation="CenterScreen"
-                     Closing="Pesquisar_Closing">
+                     >
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarRecebimentoVM />
     </View:APesquisarView.DataContext>

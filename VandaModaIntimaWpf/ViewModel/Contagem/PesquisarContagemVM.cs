@@ -66,6 +66,16 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             throw new NotImplementedException();
         }
 
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarContagemVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarContagemVM(_session, EntidadeSelecionada.Entidade);
+        }
+
         public DateTime DataInicial
         {
             get

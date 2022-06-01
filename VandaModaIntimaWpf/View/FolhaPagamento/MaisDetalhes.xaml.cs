@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         public MaisDetalhes()
         {
             InitializeComponent();
+            Closing += Window_Closing;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

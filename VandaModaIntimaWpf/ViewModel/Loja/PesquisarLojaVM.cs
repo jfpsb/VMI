@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
 namespace VandaModaIntimaWpf.ViewModel.Loja
@@ -62,6 +61,16 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             };
 
             return worksheets;
+        }
+
+        public override object GetCadastrarViewModel()
+        {
+            return new CadastrarLojaVM(_session);
+        }
+
+        public override object GetEditarViewModel()
+        {
+            return new EditarLojaVM(_session, EntidadeSelecionada.Entidade);
         }
     }
 }

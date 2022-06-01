@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Marca_Icon.ico"
         FocusManager.FocusedElement="{Binding ElementName=TxtMarca}"
-        Closing="Window_Closing">
+        >
     <Grid Margin="15, 15, 15, 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80" />

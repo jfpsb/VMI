@@ -7,12 +7,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
     public class AdicionarTotalVendidoVM : ACadastrarViewModel<Model.FolhaPagamento>
     {
-        public AdicionarTotalVendidoVM(ISession session, bool isUpdate) : base(session, isUpdate)
+        public AdicionarTotalVendidoVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
-            //TODO: passar parametros, Folha
             daoEntidade = new DAOFolhaPagamento(_session);
             viewModelStrategy = new AdicionarTotalVendidoVMStrategy();
-            //Entidade = folha;
+            Entidade = folha;
             AposInserirNoBancoDeDados += FecharTela;
         }
 
