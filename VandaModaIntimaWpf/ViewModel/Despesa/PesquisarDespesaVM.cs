@@ -92,14 +92,16 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             TotalGeralDespesas = await dao.RetornaSomaTodasDespesas(DataEscolhida);
 
-            //TODO: USAR FUTURE QUERIES
             var tipoEmpresarial = TiposDespesa.Where(w => w.Nome.Equals("DESPESA EMPRESARIAL")).Single();
             var tipoFamiliar = TiposDespesa.Where(w => w.Nome.Equals("DESPESA FAMILIAR")).Single();
             var tipoResidencial = TiposDespesa.Where(w => w.Nome.Equals("DESPESA RESIDENCIAL")).Single();
 
+            //TODO: USAR FUTURE QUERIES
             DespesasEmpresarial = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoEmpresarial, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
             DespesasFamiliar = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoFamiliar, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
             DespesasResidencial = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarPorTipoDespesaFiltroMesAno(tipoResidencial, Loja, DataEscolhida, FiltrarPor, TermoPesquisa)));
+
+            OnPropertyChanged("AbaSelecionada");
         }
         private async void GetTiposDespesa()
         {

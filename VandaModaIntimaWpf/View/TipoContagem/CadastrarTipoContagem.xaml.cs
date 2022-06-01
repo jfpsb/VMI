@@ -7,17 +7,11 @@ namespace VandaModaIntimaWpf.View.TipoContagem
     /// <summary>
     /// Interaction logic for CadastrarTipoContagem.xaml
     /// </summary>
-    public partial class CadastrarTipoContagem : Window
+    public partial class CadastrarTipoContagem : ACadastrarView
     {
         public CadastrarTipoContagem()
         {
             InitializeComponent();
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //TODO: Ver forma de arrumar isso pra não ter código repetido em cada WindowClosing de cada tela
-            DialogResult = ((ACadastrarViewModel<Model.TipoContagem>)DataContext).ResultadoSalvar();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

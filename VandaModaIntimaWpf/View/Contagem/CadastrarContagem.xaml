@@ -1,4 +1,5 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Contagem.CadastrarContagem"
+﻿<View:ACadastrarView  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      x:Class="VandaModaIntimaWpf.View.Contagem.CadastrarContagem"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -49,4 +50,4 @@
                 Command="{Binding SalvarComando}"
                 Click="Button_Click" />
     </Grid>
-</Window>
+</View:ACadastrarView>
