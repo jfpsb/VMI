@@ -684,10 +684,8 @@
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
-    <Compile Include="ViewModel\Services\Concretos\OpenView.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IOpenViewService.cs" />
     <Compile Include="ViewModel\Util\Mediator.cs" />
     <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
     <Compile Include="View\ACadastrarView.cs" />

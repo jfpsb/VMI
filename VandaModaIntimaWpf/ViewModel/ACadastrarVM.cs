@@ -22,7 +22,6 @@ namespace VandaModaIntimaWpf.ViewModel
         protected E _entidade;
         protected bool _result;
         protected IMessageBoxService MessageBoxService;
-        protected IOpenViewService openView;
         protected IWindowService _windowService;
 
         private bool antesInserirBDChecagem;
@@ -46,7 +45,6 @@ namespace VandaModaIntimaWpf.ViewModel
             _windowService = new WindowService();
             MessageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
-            openView = new OpenView();
 
             AposInserirNoBancoDeDados += RedefinirTela;
             AposInserirNoBancoDeDados += RefreshEntidade;

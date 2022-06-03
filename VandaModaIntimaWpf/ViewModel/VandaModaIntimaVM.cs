@@ -10,6 +10,7 @@ using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria;
 using VandaModaIntimaWpf.View.FolhaPagamento;
+using VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Grade;
@@ -24,6 +25,7 @@ using VandaModaIntimaWpf.ViewModel.Contagem;
 using VandaModaIntimaWpf.ViewModel.Despesa;
 using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Grade;
@@ -48,6 +50,9 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<SalvarDespesa, CadastrarDespesaVM>();
             WindowService.RegistrarWindow<SalvarDespesa, EditarDespesaVM>();
             WindowService.RegistrarWindow<SalvarEntradaDeMercadoria, CadastrarEntradaDeMercadoriaVM>();
+
+            WindowService.RegistrarWindow<CalculoBonusMensalPorDiaView, CalculoDeBonusMensalPorDiaVM>();
+            WindowService.RegistrarWindow<SalvarBonusDeFuncionario, SalvarBonusPorMesVM>();
 
             WindowService.RegistrarWindow<AdicionarAdiantamento, AdicionarAdiantamentoVM>();
             WindowService.RegistrarWindow<AdicionarBonus, AdicionarBonusVM>();

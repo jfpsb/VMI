@@ -7,16 +7,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class CalculoDePassagem : ICalculoDeBonus
     {
-        private IOpenViewService openView;
+        private IWindowService _windowService;
 
         public CalculoDePassagem()
         {
-            openView = new OpenView();
+            _windowService = new WindowService();
         }
 
         public void AbrirAdicionarBonus(ISession session, bool isUpdate, DateTime DataEscolhida, double Total, double valorDiario, int numDias, DateTime primeiroDia, DateTime ultimoDia)
         {
-            openView.ShowDialog(new SalvarBonusPorMesVM(session, DataEscolhida, Total, valorDiario, numDias, primeiroDia, ultimoDia, new SalvarPassagem()));
+            _windowService.ShowDialog(new SalvarBonusPorMesVM(session, DataEscolhida, Total, valorDiario, numDias, primeiroDia, ultimoDia, new SalvarPassagem()), null);
         }
 
         public string MenuItemHeader1()

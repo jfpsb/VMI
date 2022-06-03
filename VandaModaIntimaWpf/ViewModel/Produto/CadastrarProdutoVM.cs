@@ -321,7 +321,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             _windowService.ShowDialog(new CadastrarFornecedorManualmenteVM(_session), (result, viewModel) =>
             {
-                if(result == true)
+                if (result == true)
                 {
                     GetFornecedores();
                     Entidade.Fornecedor = Fornecedores[0];
@@ -348,7 +348,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
         private void AbreTelaCadastrarGrade(object obj)
         {
-            openView.ShowDialog(new CadastrarGradeVM(_session));
+            _windowService.ShowDialog(new CadastrarGradeVM(_session), null);
         }
 
         private void LimpaGrades(AposInserirBDEventArgs e)

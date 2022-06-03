@@ -32,8 +32,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia
 
             targetBitmap.Render(dv);
 
+            var bitmap = new TransformedBitmap(targetBitmap, new ScaleTransform(630.0 / targetBitmap.PixelWidth, 470.0 / targetBitmap.PixelHeight));
+
             PngBitmapEncoder pngEnconder = new PngBitmapEncoder();
-            pngEnconder.Frames.Add(BitmapFrame.Create(targetBitmap));
+            pngEnconder.Frames.Add(BitmapFrame.Create(bitmap));
             using (Stream stream = File.Create(Path.Combine(Path.GetTempPath(), "UltimoCalendario.png")))
             {
                 pngEnconder.Save(stream);
