@@ -50,6 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<SalvarDespesa, CadastrarDespesaVM>();
             WindowService.RegistrarWindow<SalvarDespesa, EditarDespesaVM>();
             WindowService.RegistrarWindow<SalvarEntradaDeMercadoria, CadastrarEntradaDeMercadoriaVM>();
+            WindowService.RegistrarWindow<SelecionaMultiplasLojas, SelecionaMultiplasLojasVM>();
 
             WindowService.RegistrarWindow<CalculoBonusMensalPorDiaView, CalculoDeBonusMensalPorDiaVM>();
             WindowService.RegistrarWindow<SalvarBonusDeFuncionario, SalvarBonusPorMesVM>();

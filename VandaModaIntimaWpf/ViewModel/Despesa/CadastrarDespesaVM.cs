@@ -112,7 +112,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     {
                         IList<Model.Despesa> despesas = new List<Model.Despesa>();
 
-                        foreach (var lojaComCampo in lojasEntidadeComCampo)
+                        foreach (var lojaComCampo in lojasMarcadas)
                         {
                             var loja = lojaComCampo.Entidade;
                             var despesa = new Model.Despesa()
