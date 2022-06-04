@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia
     /// <summary>
     /// Interaction logic for AdicionarBonusPassagemFuncionario.xaml
     /// </summary>
-    public partial class SalvarBonusDeFuncionario : Window
+    public partial class SalvarBonusDeFuncionario : ACadastrarView
     {
         public SalvarBonusDeFuncionario()
         {

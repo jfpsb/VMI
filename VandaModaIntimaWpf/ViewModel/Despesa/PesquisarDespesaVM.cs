@@ -50,28 +50,34 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         private void AbrirDespesaGroupByLoja(object obj)
         {
-            _openView.ShowDialog(new DespesaGroupByDescricaoViewModel());
+            _windowService.ShowDialog(new DespesaGroupByDescricaoViewModel(), null);
         }
 
         private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("AbaSelecionada"))
+            switch (e.PropertyName)
             {
-                if (DespesasEmpresarial == null || DespesasFamiliar == null || DespesasResidencial == null)
-                    return;
+                case "AbaSelecionada":
+                    if (DespesasEmpresarial == null || DespesasFamiliar == null || DespesasResidencial == null)
+                        return;
 
-                switch (AbaSelecionada)
-                {
-                    case 0:
-                        TotalEmDespesas = DespesasEmpresarial.Sum(s => s.Entidade.Valor);
-                        break;
-                    case 1:
-                        TotalEmDespesas = DespesasFamiliar.Sum(s => s.Entidade.Valor);
-                        break;
-                    case 2:
-                        TotalEmDespesas = DespesasResidencial.Sum(s => s.Entidade.Valor);
-                        break;
-                }
+                    switch (AbaSelecionada)
+                    {
+                        case 0:
+                            TotalEmDespesas = DespesasEmpresarial.Sum(s => s.Entidade.Valor);
+                            break;
+                        case 1:
+                            TotalEmDespesas = DespesasFamiliar.Sum(s => s.Entidade.Valor);
+                            break;
+                        case 2:
+                            TotalEmDespesas = DespesasResidencial.Sum(s => s.Entidade.Valor);
+                            break;
+                    }
+                    break;
+                case "FiltrarPor":
+                    if (FiltrarPor.Equals("Sem Filtro"))
+                        TermoPesquisa = string.Empty;
+                    break;
             }
         }
 
@@ -83,6 +89,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         public async override Task PesquisaItens(string termo)
         {
             if (FiltrarPor == null)
+                return;
+
+            if (FiltrarPor.Equals("Sem Filtro") && TermoPesquisa?.Length > 0)
                 return;
 
             if (DataEscolhida.Year == 1)
@@ -173,7 +182,6 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 _filtrarPor = value;
                 OnPropertyChanged("FiltrarPor");
                 OnPropertyChanged("TermoPesquisa");
-                OnPropertyChanged("AbaSelecionada");
             }
         }
 

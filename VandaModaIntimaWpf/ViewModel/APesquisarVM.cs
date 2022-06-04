@@ -33,7 +33,6 @@ namespace VandaModaIntimaWpf.ViewModel
         protected ObservableCollection<EntidadeComCampo<E>> _entidadesOriginal;
         protected IMessageBoxService _messageBoxService;
         protected DAO<E> daoEntidade;
-        protected IOpenViewService _openView;
 
         private string termoPesquisa;
         private bool _threadLocked;
@@ -70,7 +69,6 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             _messageBoxService = new MessageBoxService();
             _windowService = new WindowService();
-            _openView = new OpenView();
 
             cancellationTokenSource = new CancellationTokenSource();
 

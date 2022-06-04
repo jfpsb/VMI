@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
     {
         public string DescricaoBonus(int numDias, double valorDiario, DateTime primeiroDia, DateTime ultimoDia)
         {
-            return $"PASSAGEM DE {primeiroDia.ToString("dd/MM")} A {ultimoDia.ToString("dd/MM")} ({valorDiario.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))} x {numDias} DIAS)";
+            return $"PASSAGEM DE {primeiroDia:dd/MM} A {ultimoDia:dd/MM} ({valorDiario.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"))} x {numDias} DIAS)";
         }
 
         public string MensagemCaption()
