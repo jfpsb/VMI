@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.View
         public string OpenFileDialog()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
             if (openFileDialog.FileName != string.Empty)
             {
                 return openFileDialog.FileName;
