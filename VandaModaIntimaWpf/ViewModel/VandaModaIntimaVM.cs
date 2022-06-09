@@ -66,6 +66,7 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<GerenciarParcelas, GerenciarParcelasVM>();
             WindowService.RegistrarWindow<View.FolhaPagamento.MaisDetalhes, FolhaPagamento.MaisDetalhesVM>();
             WindowService.RegistrarWindow<VisualizarHoraExtraFaltas, VisualizarHoraExtraFaltasVM>();
+            WindowService.RegistrarWindow<VisualizarDadosBancarios, VisualizarDadosBancariosVM>();
 
             WindowService.RegistrarWindow<SalvarFornecedor, CadastrarFornecedorManualmenteVM>();
             WindowService.RegistrarWindow<SalvarFornecedor, CadastrarFornecedorOnlineVM>();
