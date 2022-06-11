@@ -1,22 +1,22 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.GerenciarParcelas"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
-        mc:Ignorable="d"
-        Title="GerenciarParcelas"
-        Height="450"
-        Width="800"
-        SizeToContent="Height"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        >
-    <Window.Resources>
+﻿<View:ACadastrarView  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      x:Class="VandaModaIntimaWpf.View.FolhaPagamento.GerenciarParcelas"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
+                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+                      mc:Ignorable="d"
+                      Title="GerenciarParcelas"
+                      Height="450"
+                      Width="800"
+                      SizeToContent="Height"
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="NoResize">
+    <View:ACadastrarView.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    </Window.Resources>
+    </View:ACadastrarView.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding AoFecharTelaComando}" />
@@ -101,4 +101,4 @@
                 Content="Salvar"
                 Command="{Binding SalvarParcelasComando}" />
     </Grid>
-</Window>
+</View:ACadastrarView>

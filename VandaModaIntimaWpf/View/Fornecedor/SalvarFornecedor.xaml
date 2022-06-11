@@ -1,4 +1,5 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.Fornecedor.SalvarFornecedor"
+﻿<View:ACadastrarView  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      x:Class="VandaModaIntimaWpf.View.Fornecedor.SalvarFornecedor"
         x:Name="TelaCadastrarFornecedor"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,14 +15,14 @@
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
         Closing="TelaCadastrarFornecedor_Closing">
-    <Window.InputBindings>
+    <View:ACadastrarView.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
-    </Window.InputBindings>
-    <Window.Resources>
+    </View:ACadastrarView.InputBindings>
+    <View:ACadastrarView.Resources>
         <Converters:CNPJValueConverter x:Key="CNPJValueConverter" />
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    </Window.Resources>
+    </View:ACadastrarView.Resources>
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />
@@ -113,4 +114,4 @@
                 Command="{Binding SalvarComando}"
                 Click="Button_Click" />
     </Grid>
-</Window>
+</View:ACadastrarView>

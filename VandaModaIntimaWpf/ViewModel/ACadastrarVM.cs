@@ -12,7 +12,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
-    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM where E : AModel, IModel
+    public abstract class ACadastrarViewModel<E> : ObservableObject, ICadastrarVM, IDialogResult where E : AModel, IModel
     {
         protected ISession _session;
         protected DAO<E> daoEntidade;
@@ -161,14 +161,16 @@ namespace VandaModaIntimaWpf.ViewModel
                     ResetaPropriedades(e);
             }
         }
+
         /// <summary>
         /// Método utilizado nas telas de ediçao para saber se houve edição.
         /// </summary>
         /// <returns>True se entidade tiver sido salva</returns>
-        public bool ResultadoSalvar()
+        public bool? ResultadoDialog()
         {
             return _result;
         }
+
         public Visibility VisibilidadeAvisoItemJaExiste
         {
             get { return visibilidadeAvisoItemJaExiste; }

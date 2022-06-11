@@ -555,15 +555,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BancoDeDados\ConnectionFactory\ProdutoGradePostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\ProdutoPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\LojaPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\GradePostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\FuncionarioPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\EntradaDeMercadoriaPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\ContagemPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\CompraDeFornecedorPostEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\AdiantamentoPostEventListener.cs" />
+    <Compile Include="BancoDeDados\ConnectionFactory\PostUpdateEventListener.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\NHibernatePreEventListener.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\TriggerInterceptor.cs" />
     <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />

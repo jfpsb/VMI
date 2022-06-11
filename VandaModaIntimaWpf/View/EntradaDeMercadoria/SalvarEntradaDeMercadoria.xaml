@@ -1,21 +1,21 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.EntradaDeMercadoria.SalvarEntradaDeMercadoria"
+﻿<View:ACadastrarView x:Class="VandaModaIntimaWpf.View.EntradaDeMercadoria.SalvarEntradaDeMercadoria"
         x:Name="TelaCadastrarEntrada"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
-        xmlns:view="clr-namespace:VandaModaIntimaWpf.View"
+        xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Cadastrar Entrada De Mercadoria"
         WindowStartupLocation="CenterScreen"
         Height="500"
         Width="950"
         Closing="TelaCadastrarEntrada_Closing">
-    <Window.InputBindings>
+    <View:ACadastrarView.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
-    </Window.InputBindings>
+    </View:ACadastrarView.InputBindings>
     <Grid x:Name="EntradaGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -53,7 +53,7 @@
                  Grid.ColumnSpan="2"
                  FontSize="14"
                  PreviewKeyDown="TxtTermoProduto_PreviewKeyDown"
-                 view:FocusableTextBox.IsFocused="{Binding IsTxtPesquisaProdutoFocused}"
+                 View:FocusableTextBox.IsFocused="{Binding IsTxtPesquisaProdutoFocused}"
                  Text="{Binding TermoPesquisaProduto, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return"
@@ -64,7 +64,7 @@
         <TextBox Grid.Row="3"
                  Grid.Column="2"
                  x:Name="TxtQuantidade"
-                 view:FocusableTextBox.IsFocused="{Binding IsTxtQuantidadeFocused}"
+                 View:FocusableTextBox.IsFocused="{Binding IsTxtQuantidadeFocused}"
                  GotFocus="TxtQuantidade_GotFocus"
                  Text="{Binding Quantidade, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
@@ -91,7 +91,7 @@
                   ItemsSource="{Binding ProdutosPesquisa}"
                   SelectedItem="{Binding Produto}"
                   VerticalAlignment="Top"
-                  view:FocusableListView.IsFocused="{Binding IsListViewFocused}"
+                  View:FocusableListView.IsFocused="{Binding IsListViewFocused}"
                   PreviewKeyDown="ProdutoListView_PreviewKeyDown"
                   Margin="5">
             <ListView.InputBindings>
@@ -166,7 +166,7 @@
                                   HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding Grades}"
                                   SelectedItem="{Binding Grade}"
-                                  view:FocusableListView.IsFocused="{Binding IsGradesListViewFocused}"
+                                  View:FocusableListView.IsFocused="{Binding IsGradesListViewFocused}"
                                   ScrollViewer.VerticalScrollBarVisibility="Visible"
                                   ScrollViewer.CanContentScroll="True">
                             <ListView.View>
@@ -193,4 +193,4 @@
             </Popup.InputBindings>
         </Popup>
     </Grid>
-</Window>
+</View:ACadastrarView>

@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
     /// <summary>
     /// Interaction logic for SalvarEntradaDeMercadoria.xaml
     /// </summary>
-    public partial class SalvarEntradaDeMercadoria : Window
+    public partial class SalvarEntradaDeMercadoria : ACadastrarView
     {
         public SalvarEntradaDeMercadoria()
         {
@@ -64,11 +64,6 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
         {
             TextBox textBox = (TextBox)sender;
             textBox.Dispatcher.BeginInvoke(new Action(() => textBox.SelectAll()));
-        }
-
-        private void TelaCadastrarEntrada_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            DialogResult = ((ACadastrarViewModel<Model.EntradaDeMercadoria>)DataContext).ResultadoSalvar();
         }
     }
 }

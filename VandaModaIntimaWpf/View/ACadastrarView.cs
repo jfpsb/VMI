@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.View
 
         protected void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            DialogResult = (DataContext as ICadastrarVM).ResultadoSalvar();
+            DialogResult = (DataContext as IDialogResult).ResultadoDialog();
         }
     }
 }

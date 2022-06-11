@@ -31,15 +31,7 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
             MainConfiguration.Configure();
             MainConfiguration.SetListener(ListenerType.PreUpdate, new NHibernatePreEventListener());
             MainConfiguration.SetListener(ListenerType.PreInsert, new NHibernatePreEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new AdiantamentoPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new CompraDeFornecedorPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new ContagemPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new EntradaDeMercadoriaPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new FuncionarioPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new GradePostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new LojaPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new ProdutoPostEventListener());
-            MainConfiguration.SetListener(ListenerType.PostUpdate, new ProdutoGradePostEventListener());
+            MainConfiguration.SetListener(ListenerType.PostUpdate, new PostUpdateEventListener());
             return MainConfiguration.BuildSessionFactory();
         }
 

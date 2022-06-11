@@ -1,20 +1,21 @@
-﻿<Window x:Class="VandaModaIntimaWpf.View.FolhaPagamento.MaisDetalhes"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
-        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
-        xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
-        mc:Ignorable="d"
-        Title="Mais Detalhes"
-        Height="600"
-        Width="775"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
-    <Window.Resources>
+﻿<View:ACadastrarView  xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                      x:Class="VandaModaIntimaWpf.View.FolhaPagamento.MaisDetalhes"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.FolhaPagamento"
+                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.FolhaPagamento"
+                      xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
+                      mc:Ignorable="d"
+                      Title="Mais Detalhes"
+                      Height="600"
+                      Width="775"
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="NoResize">
+    <View:ACadastrarView.Resources>
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-    </Window.Resources>
+    </View:ACadastrarView.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -134,4 +135,4 @@
                  FontSize="14"
                  Height="Auto" />
     </Grid>
-</Window>
+</View:ACadastrarView>

@@ -56,7 +56,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             _windowService.ShowDialog(new GerenciarParcelasVM(_session, Parcela.Adiantamento, MessageBoxService), async (result, viewModel) =>
             {
                 _dialogResult = result;
-
                 if (result == true)
                 {
                     var parc = await daoParcela.ListarPorFuncionarioMesAno(FolhaPagamento.Funcionario, FolhaPagamento.Mes, FolhaPagamento.Ano);
@@ -89,6 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         await daoBonus.Deletar(BonusEscolhido);
                     }
                     Bonus.Remove(BonusEscolhido);
+                    _dialogResult = true;
                     OnPropertyChanged("TotalBonus");
                     MessageBoxService.Show("Bônus Deletado Com Sucesso", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -114,6 +114,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 {
                     await daoAdiantamento.Deletar(Parcela.Adiantamento);
                     Parcelas.Remove(Parcela);
+                    _dialogResult = true;
                     OnPropertyChanged("TotalParcelas");
                     MessageBoxService.Show("Adiantamento Deletado Com Sucesso!", "Mais Detalhes", MessageBoxButton.OK, MessageBoxImage.Information);
                 }

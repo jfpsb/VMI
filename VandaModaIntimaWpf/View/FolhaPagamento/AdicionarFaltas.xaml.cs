@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using VandaModaIntimaWpf.ViewModel;
+﻿using System.Windows;
 
 namespace VandaModaIntimaWpf.View.FolhaPagamento
 {
@@ -12,12 +10,6 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         public AdicionarFaltas()
         {
             InitializeComponent();
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            base.OnClosing(e);
-            DialogResult = ((ACadastrarViewModel<Model.Faltas>)DataContext).ResultadoSalvar();
         }
     }
 }
