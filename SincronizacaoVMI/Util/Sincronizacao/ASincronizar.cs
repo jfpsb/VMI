@@ -63,7 +63,7 @@ namespace SincronizacaoVMI.Util
                 }
             }
         }
-        protected async Task InsertRemotoParaLocal(IList<E> insertsRemotoParaLocal)
+        protected async Task<bool> InsertRemotoParaLocal(IList<E> insertsRemotoParaLocal)
         {
             using (ITransaction tx = _local.BeginTransaction())
             {
@@ -82,6 +82,8 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
                         await tx.CommitAsync();
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +94,7 @@ namespace SincronizacaoVMI.Util
                 }
             }
         }
-        protected async Task UpdateRemotoParaLocal(IList<E> updatesRemotoParaLocal)
+        protected async Task<bool> UpdateRemotoParaLocal(IList<E> updatesRemotoParaLocal)
         {
             using (ITransaction tx = _local.BeginTransaction())
             {
@@ -111,6 +113,8 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
                         await tx.CommitAsync();
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -121,7 +125,7 @@ namespace SincronizacaoVMI.Util
                 }
             }
         }
-        protected async Task InsertLocalParaRemoto(IList<E> insertsLocalParaRemoto)
+        protected async Task<bool> InsertLocalParaRemoto(IList<E> insertsLocalParaRemoto)
         {
             using (ITransaction tx = _remoto.BeginTransaction())
             {
@@ -140,6 +144,8 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
                         await tx.CommitAsync();
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -150,7 +156,7 @@ namespace SincronizacaoVMI.Util
                 }
             }
         }
-        protected async Task UpdateLocalParaRemoto(IList<E> updatesLocalParaRemoto)
+        protected async Task<bool> UpdateLocalParaRemoto(IList<E> updatesLocalParaRemoto)
         {
             using (ITransaction tx = _remoto.BeginTransaction())
             {
@@ -169,6 +175,7 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
                         await tx.CommitAsync();
                     }
+                    return true;
                 }
                 catch (Exception ex)
                 {

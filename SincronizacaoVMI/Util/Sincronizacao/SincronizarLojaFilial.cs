@@ -147,11 +147,11 @@ namespace SincronizacaoVMI.Util
                 throw;
             }
 
-            await InsertRemotoParaLocal(insertsRemotoParaLocal);
-            await UpdateRemotoParaLocal(updatesRemotoParaLocal);
-            await InsertLocalParaRemoto(insertsLocalParaRemoto);
-            await UpdateLocalParaRemoto(updatesLocalParaRemoto);
-            if (insertsRemotoParaLocal.Count > 0 || updatesRemotoParaLocal.Count > 0 || insertsLocalParaRemoto.Count > 0 || updatesLocalParaRemoto.Count > 0)
+            var res1 = await InsertRemotoParaLocal(insertsRemotoParaLocal);
+            var res2 = await UpdateRemotoParaLocal(updatesRemotoParaLocal);
+            var res3 = await InsertLocalParaRemoto(insertsLocalParaRemoto);
+            var res4 = await UpdateLocalParaRemoto(updatesLocalParaRemoto);
+            if (res1 && res2 && res3 && res4)
                 await SaveLastSyncTime(lastSync, inicioSync);
         }
     }
