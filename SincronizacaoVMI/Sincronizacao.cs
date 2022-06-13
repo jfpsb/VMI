@@ -14,53 +14,16 @@ namespace SincronizacaoVMI
     public class Sincronizacao
     {
         private Timer timerConexao;
-        private Thread threadBanco;
-        private Thread threadAdiantamento;
-        private Thread threadTipoDespesa;
-        private Thread threadLojaMatriz;
-        private Thread threadLojaFilial;
-        private Thread threadFuncionario;
-        private Thread threadContaBancaria;
-        private Thread threadMembroFamiliar;
-        private Thread threadTipoContagem;
-        private Thread threadContagem;
-        private Thread threadContagemProduto;
-        private Thread threadAliquotasImposto;
-        private Thread threadRepresentante;
-        private Thread threadFornecedor;
-        private Thread threadCompraDeFornecedor;
-        private Thread threadArquivosCompraFornecedor;
-        private Thread threadBonus;
-        private Thread threadBonusMensal;
-        private Thread threadChavePix;
-        private Thread threadDespesa;
-        private Thread threadEntradaDeMercadoria;
-        private Thread threadEntradaDeMercadoriaProdutoGrade;
-        private Thread threadEstoque;
-        private Thread threadFaltas;
-        private Thread threadFolhaPagamento;
-        private Thread threadTipoGrade;
-        private Thread threadGrade;
-        private Thread threadHistoricoProdutoGrade;
-        private Thread threadTipoHoraExtra;
-        private Thread threadHoraExtra;
-        private Thread threadInscricaoImobiliaria;
-        private Thread threadMarca;
-        private Thread threadOperadoraCartao;
-        private Thread threadParcela;
-        private Thread threadProduto;
-        private Thread threadProdutoGrade;
-        private Thread threadRecebimentoCartao;
-        private Thread threadSubGrade;
-
-        private IList<Thread> _threads;
+        private Dictionary<string, Thread> _threadsByType;
+        private Dictionary<string, bool> _threadsStatus;
         private SemaphoreSlim _semaphoreSlim;
 
         public Sincronizacao()
         {
-            _threads = new List<Thread>();
+            _threadsByType = new Dictionary<string, Thread>();
+            _threadsStatus = new Dictionary<string, bool>();
             _semaphoreSlim = new SemaphoreSlim(3);
-            timerConexao = new Timer(3000) { AutoReset = false };
+            timerConexao = new Timer(5000) { AutoReset = false };
             timerConexao.Elapsed += CriarSessionFactory;
         }
 
@@ -76,6 +39,7 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
+                _threadsStatus["LojaMatriz"] = false;
             }
             catch (Exception ex)
             {
@@ -98,6 +62,7 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
+                _threadsStatus["LojaFilial"] = false;
             }
             catch (Exception ex)
             {
@@ -120,6 +85,7 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
+                _threadsStatus[typeof(E).Name] = false;
             }
             catch (Exception ex)
             {
@@ -152,99 +118,129 @@ namespace SincronizacaoVMI
                 if (SessionProviderBackup.BackupSessionFactory == null)
                     SessionProviderBackup.BackupSessionFactory = SessionProviderBackup.BuildSessionFactory();
 
-                threadBanco = new Thread(() => { ElapsedGenerico<Banco>(); });
-                threadAdiantamento = new Thread(() => { ElapsedGenerico<Adiantamento>(); });
-                threadTipoDespesa = new Thread(() => { ElapsedGenerico<TipoDespesa>(); });
-                threadLojaMatriz = new Thread(() => { ElapsedtimerLojaMatriz(); });
-                threadLojaFilial = new Thread(() => { ElapsedtimerLojaFilial(); });
-                threadFuncionario = new Thread(() => { ElapsedGenerico<Funcionario>(); });
-                threadContaBancaria = new Thread(() => { ElapsedGenerico<ContaBancaria>(); });
-                threadMembroFamiliar = new Thread(() => { ElapsedGenerico<MembroFamiliar>(); });
-                threadTipoContagem = new Thread(() => { ElapsedGenerico<TipoContagem>(); });
-                threadContagem = new Thread(() => { ElapsedGenerico<Contagem>(); });
-                threadContagemProduto = new Thread(() => { ElapsedGenerico<ContagemProduto>(); });
-                threadAliquotasImposto = new Thread(() => { ElapsedGenerico<AliquotasImposto>(); });
-                threadRepresentante = new Thread(() => { ElapsedGenerico<Representante>(); });
-                threadFornecedor = new Thread(() => { ElapsedGenerico<Fornecedor>(); });
-                threadCompraDeFornecedor = new Thread(() => { ElapsedGenerico<CompraDeFornecedor>(); });
-                threadArquivosCompraFornecedor = new Thread(() => { ElapsedGenerico<ArquivosCompraFornecedor>(); });
-                threadBonus = new Thread(() => { ElapsedGenerico<Bonus>(); });
-                threadBonusMensal = new Thread(() => { ElapsedGenerico<BonusMensal>(); });
-                threadChavePix = new Thread(() => { ElapsedGenerico<ChavePix>(); });
-                threadDespesa = new Thread(() => { ElapsedGenerico<Despesa>(); });
-                threadEntradaDeMercadoria = new Thread(() => { ElapsedGenerico<EntradaDeMercadoria>(); });
-                threadEntradaDeMercadoriaProdutoGrade = new Thread(() => { ElapsedGenerico<EntradaMercadoriaProdutoGrade>(); });
-                threadEstoque = new Thread(() => { ElapsedGenerico<Estoque>(); });
-                threadFaltas = new Thread(() => { ElapsedGenerico<Faltas>(); });
-                threadFolhaPagamento = new Thread(() => { ElapsedGenerico<FolhaPagamento>(); });
-                threadTipoGrade = new Thread(() => { ElapsedGenerico<TipoGrade>(); });
-                threadGrade = new Thread(() => { ElapsedGenerico<Grade>(); });
-                threadHistoricoProdutoGrade = new Thread(() => { ElapsedGenerico<HistoricoProdutoGrade>(); });
-                threadTipoHoraExtra = new Thread(() => { ElapsedGenerico<TipoHoraExtra>(); });
-                threadHoraExtra = new Thread(() => { ElapsedGenerico<HoraExtra>(); });
-                threadInscricaoImobiliaria = new Thread(() => { ElapsedGenerico<InscricaoImobiliaria>(); });
-                threadMarca = new Thread(() => { ElapsedGenerico<Marca>(); });
-                threadOperadoraCartao = new Thread(() => { ElapsedGenerico<OperadoraCartao>(); });
-                threadParcela = new Thread(() => { ElapsedGenerico<Parcela>(); });
-                threadProduto = new Thread(() => { ElapsedGenerico<Produto>(); });
-                threadProdutoGrade = new Thread(() => { ElapsedGenerico<ProdutoGrade>(); });
-                threadRecebimentoCartao = new Thread(() => { ElapsedGenerico<RecebimentoCartao>(); });
-                threadSubGrade = new Thread(() => { ElapsedGenerico<SubGrade>(); });
-
-                _threads.Clear();
-                _threads.Add(threadBanco);
-                _threads.Add(threadAdiantamento);
-                _threads.Add(threadTipoDespesa);
-                _threads.Add(threadLojaMatriz);
-                _threads.Add(threadLojaFilial);
-                _threads.Add(threadFuncionario);
-                _threads.Add(threadContaBancaria);
-                _threads.Add(threadMembroFamiliar);
-                _threads.Add(threadTipoContagem);
-                _threads.Add(threadContagem);
-                _threads.Add(threadContagemProduto);
-                _threads.Add(threadAliquotasImposto);
-                _threads.Add(threadRepresentante);
-                _threads.Add(threadFornecedor);
-                _threads.Add(threadCompraDeFornecedor);
-                _threads.Add(threadArquivosCompraFornecedor);
-                _threads.Add(threadBonus);
-                _threads.Add(threadBonusMensal);
-                _threads.Add(threadChavePix);
-                _threads.Add(threadDespesa);
-                _threads.Add(threadEntradaDeMercadoria);
-                _threads.Add(threadEntradaDeMercadoriaProdutoGrade);
-                _threads.Add(threadEstoque);
-                _threads.Add(threadFaltas);
-                _threads.Add(threadFolhaPagamento);
-                _threads.Add(threadTipoGrade);
-                _threads.Add(threadGrade);
-                _threads.Add(threadHistoricoProdutoGrade);
-                _threads.Add(threadTipoHoraExtra);
-                _threads.Add(threadHoraExtra);
-                _threads.Add(threadInscricaoImobiliaria);
-                _threads.Add(threadMarca);
-                _threads.Add(threadOperadoraCartao);
-                _threads.Add(threadParcela);
-                _threads.Add(threadProduto);
-                _threads.Add(threadProdutoGrade);
-                _threads.Add(threadRecebimentoCartao);
-                _threads.Add(threadSubGrade);
-
-                foreach (Thread t in _threads)
+                if (_threadsByType.Count == 0)
                 {
-                    t.Start();
+                    _threadsByType.Add("Banco", new Thread((instancia) => { ElapsedGenerico<Banco>(); }));
+                    _threadsByType.Add("Adiantamento", new Thread((instancia) => { ElapsedGenerico<Adiantamento>(); }));
+                    _threadsByType.Add("TipoDespesa", new Thread((instancia) => { ElapsedGenerico<TipoDespesa>(); }));
+                    _threadsByType.Add("LojaMatriz", new Thread((instancia) => { ElapsedtimerLojaMatriz(); }));
+                    _threadsByType.Add("LojaFilial", new Thread((instancia) => { ElapsedtimerLojaFilial(); }));
+                    _threadsByType.Add("Funcionario", new Thread((instancia) => { ElapsedGenerico<Funcionario>(); }));
+                    _threadsByType.Add("ContaBancaria", new Thread((instancia) => { ElapsedGenerico<ContaBancaria>(); }));
+                    _threadsByType.Add("MembroFamiliar", new Thread((instancia) => { ElapsedGenerico<MembroFamiliar>(); }));
+                    _threadsByType.Add("TipoContagem", new Thread((instancia) => { ElapsedGenerico<TipoContagem>(); }));
+                    _threadsByType.Add("Contagem", new Thread((instancia) => { ElapsedGenerico<Contagem>(); }));
+                    _threadsByType.Add("ContagemProduto", new Thread((instancia) => { ElapsedGenerico<ContagemProduto>(); }));
+                    _threadsByType.Add("AliquotasImposto", new Thread((instancia) => { ElapsedGenerico<AliquotasImposto>(); }));
+                    _threadsByType.Add("Representante", new Thread((instancia) => { ElapsedGenerico<Representante>(); }));
+                    _threadsByType.Add("Fornecedor", new Thread((instancia) => { ElapsedGenerico<Fornecedor>(); }));
+                    _threadsByType.Add("CompraDeFornecedor", new Thread((instancia) => { ElapsedGenerico<CompraDeFornecedor>(); }));
+                    _threadsByType.Add("ArquivosCompraFornecedor", new Thread((instancia) => { ElapsedGenerico<ArquivosCompraFornecedor>(); }));
+                    _threadsByType.Add("Bonus", new Thread((instancia) => { ElapsedGenerico<Bonus>(); }));
+                    _threadsByType.Add("BonusMensal", new Thread((instancia) => { ElapsedGenerico<BonusMensal>(); }));
+                    _threadsByType.Add("ChavePix", new Thread((instancia) => { ElapsedGenerico<ChavePix>(); }));
+                    _threadsByType.Add("Despesa", new Thread((instancia) => { ElapsedGenerico<Despesa>(); }));
+                    _threadsByType.Add("EntradaDeMercadoria", new Thread((instancia) => { ElapsedGenerico<EntradaDeMercadoria>(); }));
+                    _threadsByType.Add("EntradaMercadoriaProdutoGrade", new Thread((instancia) => { ElapsedGenerico<EntradaMercadoriaProdutoGrade>(); }));
+                    _threadsByType.Add("Estoque", new Thread(new ParameterizedThreadStart((instancia) => { ElapsedGenerico<Estoque>(); })));
+                    _threadsByType.Add("Faltas", new Thread((instancia) => { ElapsedGenerico<Faltas>(); }));
+                    _threadsByType.Add("FolhaPagamento", new Thread((instancia) => { ElapsedGenerico<FolhaPagamento>(); }));
+                    _threadsByType.Add("TipoGrade", new Thread((instancia) => { ElapsedGenerico<TipoGrade>(); }));
+                    _threadsByType.Add("Grade", new Thread((instancia) => { ElapsedGenerico<Grade>(); }));
+                    _threadsByType.Add("HistoricoProdutoGrade", new Thread((instancia) => { ElapsedGenerico<HistoricoProdutoGrade>(); }));
+                    _threadsByType.Add("TipoHoraExtra", new Thread((instancia) => { ElapsedGenerico<TipoHoraExtra>(); }));
+                    _threadsByType.Add("HoraExtra", new Thread((instancia) => { ElapsedGenerico<HoraExtra>(); }));
+                    _threadsByType.Add("InscricaoImobiliaria", new Thread((instancia) => { ElapsedGenerico<InscricaoImobiliaria>(); }));
+                    _threadsByType.Add("Marca", new Thread((instancia) => { ElapsedGenerico<Marca>(); }));
+                    _threadsByType.Add("OperadoraCartao", new Thread((instancia) => { ElapsedGenerico<OperadoraCartao>(); }));
+                    _threadsByType.Add("Parcela", new Thread((instancia) => { ElapsedGenerico<Parcela>(); }));
+                    _threadsByType.Add("Produto", new Thread((instancia) => { ElapsedGenerico<Produto>(); }));
+                    _threadsByType.Add("ProdutoGrade", new Thread((instancia) => { ElapsedGenerico<ProdutoGrade>(); }));
+                    _threadsByType.Add("RecebimentoCartao", new Thread((instancia) => { ElapsedGenerico<RecebimentoCartao>(); }));
+                    _threadsByType.Add("SubGrade", new Thread((instancia) => { ElapsedGenerico<SubGrade>(); }));
+
+                    _threadsStatus.Add("Banco", false);
+                    _threadsStatus.Add("Adiantamento", false);
+                    _threadsStatus.Add("TipoDespesa", false);
+                    _threadsStatus.Add("LojaMatriz", false);
+                    _threadsStatus.Add("LojaFilial", false);
+                    _threadsStatus.Add("Funcionario", false);
+                    _threadsStatus.Add("ContaBancaria", false);
+                    _threadsStatus.Add("MembroFamiliar", false);
+                    _threadsStatus.Add("TipoContagem", false);
+                    _threadsStatus.Add("Contagem", false);
+                    _threadsStatus.Add("ContagemProduto", false);
+                    _threadsStatus.Add("AliquotasImposto", false);
+                    _threadsStatus.Add("Representante", false);
+                    _threadsStatus.Add("Fornecedor", false);
+                    _threadsStatus.Add("CompraDeFornecedor", false);
+                    _threadsStatus.Add("ArquivosCompraFornecedor", false);
+                    _threadsStatus.Add("Bonus", false);
+                    _threadsStatus.Add("BonusMensal", false);
+                    _threadsStatus.Add("ChavePix", false);
+                    _threadsStatus.Add("Despesa", false);
+                    _threadsStatus.Add("EntradaDeMercadoria", false);
+                    _threadsStatus.Add("EntradaMercadoriaProdutoGrade", false);
+                    _threadsStatus.Add("Estoque", false);
+                    _threadsStatus.Add("Faltas", false);
+                    _threadsStatus.Add("FolhaPagamento", false);
+                    _threadsStatus.Add("TipoGrade", false);
+                    _threadsStatus.Add("Grade", false);
+                    _threadsStatus.Add("HistoricoProdutoGrade", false);
+                    _threadsStatus.Add("TipoHoraExtra", false);
+                    _threadsStatus.Add("HoraExtra", false);
+                    _threadsStatus.Add("InscricaoImobiliaria", false);
+                    _threadsStatus.Add("Marca", false);
+                    _threadsStatus.Add("OperadoraCartao", false);
+                    _threadsStatus.Add("Parcela", false);
+                    _threadsStatus.Add("Produto", false);
+                    _threadsStatus.Add("ProdutoGrade", false);
+                    _threadsStatus.Add("RecebimentoCartao", false);
+                    _threadsStatus.Add("SubGrade", false);
+                }
+                else
+                {
+                    foreach (var item in _threadsByType)
+                    {
+                        if (_threadsStatus[item.Key]) continue;
+
+                        if (item.Key.Equals("LojaMatriz"))
+                        {
+                            _threadsByType[item.Key] = new Thread((instancia) => { ElapsedtimerLojaMatriz(); });
+                        }
+                        else if (item.Key.Equals("LojaFilial"))
+                        {
+                            _threadsByType[item.Key] = new Thread((instancia) => { ElapsedtimerLojaFilial(); });
+                        }
+                        else
+                        {
+                            _threadsByType[item.Key] = new Thread((instancia) =>
+                            {
+                                var tipo = Type.GetType($"SincronizacaoVMI.Model.{item.Key}, SincronizacaoVMI", true);
+                                var metodo = instancia.GetType().GetMethod("ElapsedGenerico", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                                var generMetodo = metodo.MakeGenericMethod(tipo);
+                                generMetodo.Invoke(instancia, null);
+                            });
+                        }
+                    }
+                }
+
+                foreach (var t in _threadsByType)
+                {
+                    if (_threadsStatus[t.Key]) continue;
+                    t.Value.Start(this);
+                    _threadsStatus[t.Key] = true;
                 }
             }
             catch (MySqlException mex)
             {
                 Console.WriteLine("Erro ao abrir conexão com banco de dados local ou remoto." +
-                    "\nSem esta conexão a sincronização não é possível.\nNova tentativa em 3 segundos." + mex.Message);
+                    "\nSem esta conexão a sincronização não é possível.\nNova tentativa em 5 segundos." + mex.Message);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                Console.WriteLine("Nova tentativa de criar SessionFactory em 3 segundos.");
+                Console.WriteLine("Nova tentativa de criar SessionFactory em 5 segundos.");
             }
             finally
             {

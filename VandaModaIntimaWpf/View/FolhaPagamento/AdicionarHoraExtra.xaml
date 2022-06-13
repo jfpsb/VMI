@@ -7,14 +7,12 @@
         xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Adicionar Hora Extra"
-        Height="250"
-        Width="425"
+        Height="600"
+        Width="475"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="15,5,15,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -23,13 +21,14 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Content="Folha de Pagamento:" />
         <TextBox Grid.Column="1"
                  IsReadOnly="True"
                  IsEnabled="False"
-                 Grid.ColumnSpan="3"
                  Text="{Binding Folha.MesReferencia, Mode=OneWay}" />
         <Label Grid.Row="1"
                Content="Funcionário:" />
@@ -37,41 +36,52 @@
                  Grid.Column="1"
                  IsEnabled="False"
                  IsReadOnly="True"
-                 Grid.ColumnSpan="3"
                  Text="{Binding Folha.Funcionario.Nome}" />
         <Label Grid.Row="2"
-               Content="Descrição:" />
+               Content="Tipo Hora Extra:" />
         <ComboBox x:Name="CmbDescricao"
                   Grid.Row="2"
                   Grid.Column="1"
-                  Grid.ColumnSpan="3"
                   DisplayMemberPath="Descricao"
                   ItemsSource="{Binding Path=TiposHoraExtra}"
-                  SelectedItem="{Binding Path=TipoHoraExtra, Mode=TwoWay}"
-                  SelectedIndex="{Binding CmbDescricaoIndex}" />
+                  SelectedItem="{Binding Path=TipoHoraExtra, Mode=TwoWay}" />
         <Label Grid.Row="3"
-               Content="Quant. De Horas:" />
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 MaxLength="2"
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding Entidade.Horas, UpdateSourceTrigger=PropertyChanged}" />
-        <Label Content=":"
-               Grid.Row="3"
-               FontWeight="Bold"
-               FontSize="24"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               Grid.Column="2" />
-        <TextBox Grid.Row="3"
-                 Grid.Column="3"
-                 MaxLength="2"
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding Entidade.Minutos, UpdateSourceTrigger=PropertyChanged}" />
+               Content="Lista De Horas Extras:"
+               FontWeight="Bold" />
+        <DataGrid Grid.Row="4"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding HorasExtras}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dia"
+                                    Width="*"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Data, StringFormat='dd/MM/yyyy'}" />
+                <DataGridTextColumn Header="Dia da semana"
+                                    Width="*"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Data, StringFormat='dddd', ConverterCulture=pt-BR}"/>
+                <DataGridTextColumn Header="Horas"
+                                    Binding="{Binding Horas, StringFormat=D2}" />
+                <DataGridTextColumn Header="Minutos"
+                                    Binding="{Binding Minutos, StringFormat=D2}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Grid.Row="5"
+               Grid.Column="1"
+               HorizontalAlignment="Right"
+               HorizontalContentAlignment="Right"
+               FontWeight="Bold">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="Total em horas: {0:D2}:{1:D2}">
+                        <Binding Path="TotalEmHoras" />
+                        <Binding Path="TotalEmMinutos" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Label>
         <Button Grid.ColumnSpan="4"
-                Grid.Row="4"
+                Grid.Row="6"
                 Style="{StaticResource BotaoCadastrar}"
                 Command="{Binding SalvarComando}"
                 Content="Salvar"

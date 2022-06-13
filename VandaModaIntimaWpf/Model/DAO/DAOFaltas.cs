@@ -28,6 +28,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                     .Add(Projections.Sum("Minutos"), "Minutos")
                     .Add(Projections.Property("Data"), "Data")
                     .Add(Projections.Property("Id"), "Id")
+                    .Add(Projections.Property("Uuid"), "Uuid")
                     .Add(Projections.GroupProperty("Funcionario"), "Funcionario"));
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Faltas>());

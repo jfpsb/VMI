@@ -9,11 +9,9 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private TipoHoraExtra _tipoHoraExtra;
         private Loja _lojaTrabalho;
-        private int _mes;
-        private int _ano;
+        private DateTime _data;
         private int _horas;
         private int _minutos;
-        private string _descricao;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -43,7 +41,6 @@ namespace VandaModaIntimaWpf.Model
             set
             {
                 _tipoHoraExtra = value;
-                Descricao = TipoHoraExtra.Descricao;
                 OnPropertyChanged("TipoHoraExtra");
             }
         }
@@ -54,24 +51,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 _lojaTrabalho = value;
                 OnPropertyChanged("LojaTrabalho");
-            }
-        }
-        public virtual int Mes
-        {
-            get => _mes;
-            set
-            {
-                _mes = value;
-                OnPropertyChanged("Mes");
-            }
-        }
-        public virtual int Ano
-        {
-            get => _ano;
-            set
-            {
-                _ano = value;
-                OnPropertyChanged("Ano");
             }
         }
         public virtual int Horas
@@ -117,17 +96,17 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual string Descricao
+        public virtual DateTime Data
         {
             get
             {
-                return _descricao;
+                return _data;
             }
 
             set
             {
-                _descricao = value;
-                OnPropertyChanged("Descricao");
+                _data = value;
+                OnPropertyChanged("Data");
             }
         }
 

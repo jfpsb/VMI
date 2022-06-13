@@ -67,7 +67,6 @@ namespace SincronizacaoVMI.Model
             {
                 _valorOperadora = value;
                 OnPropertyChanged("ValorOperadora");
-                OnPropertyChanged("Diferenca");
             }
         }
         public virtual string Observacao

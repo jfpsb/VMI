@@ -1,8 +1,13 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -11,9 +16,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private Model.FolhaPagamento _folha;
         private DAO<Model.TipoHoraExtra> daoTipoHoraExtra;
         private TipoHoraExtra _tipoHoraExtra;
+        private ObservableCollection<HoraExtra> _horasExtras;
+        private int _totalEmHoras;
+        private int _totalEmMinutos;
 
         public ObservableCollection<TipoHoraExtra> TiposHoraExtra { get; set; }
-        public int CmbDescricaoIndex { get; set; }
 
         public AdicionarHoraExtraVM(ISession session, Model.FolhaPagamento folha) : base(session, false)
         {
@@ -26,95 +33,99 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             PropertyChanged += AoEscolherTipoHoraExtra;
 
-            ResetaPropriedades(null);
+            HorasExtras = new ObservableCollection<HoraExtra>();
+            PopulaHorasExtras();
         }
 
-        private async void AoEscolherTipoHoraExtra(object sender, PropertyChangedEventArgs e)
+        private async void PopulaHorasExtras()
+        {
+            var dao = daoEntidade as DAOHoraExtra;
+            HorasExtras.Clear();
+            foreach (var dia in DateTimeUtil.RetornaDiasEmMes(Folha.Ano, Folha.Mes))
+            {
+                var horaExtra = await dao.ListarPorDiaFuncionarioTipoHoraExtra(dia, Folha.Funcionario, TipoHoraExtra);
+
+                if (horaExtra == null)
+                {
+                    horaExtra = new HoraExtra
+                    {
+                        Data = dia,
+                        Funcionario = Folha.Funcionario,
+                        TipoHoraExtra = TipoHoraExtra,
+                        LojaTrabalho = Folha.Funcionario.LojaTrabalho
+                    };
+                }
+
+                horaExtra.PropertyChanged += HoraExtra_PropertyChanged;
+
+                HorasExtras.Add(horaExtra);
+            }
+
+            TotalEmHoras = HorasExtras.Sum(s => s.Horas);
+            TotalEmMinutos = HorasExtras.Sum(s => s.Minutos);
+        }
+
+        private void HoraExtra_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Horas":
+                    TotalEmHoras = HorasExtras.Sum(s => s.Horas);
+                    break;
+                case "Minutos":
+                    TotalEmMinutos = HorasExtras.Sum(s => s.Minutos);
+                    break;
+            }
+        }
+
+        private void AoEscolherTipoHoraExtra(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("TipoHoraExtra"))
             {
-                HoraExtra horaExtra = await (daoEntidade as DAOHoraExtra).ListarPorAnoMesFuncionarioTipo(Folha.Ano, Folha.Mes, Folha.Funcionario, TipoHoraExtra);
-                int horasAtual = Entidade.Horas;
-                int minsAtual = Entidade.Minutos;
-
-                if (horaExtra != null)
-                {
-                    Entidade = horaExtra;
-                }
-                else
-                {
-                    Entidade = new Model.HoraExtra()
-                    {
-                        Ano = Folha.Ano,
-                        Mes = Folha.Mes,
-                        Funcionario = Folha.Funcionario,
-                        LojaTrabalho = Folha.Funcionario.LojaTrabalho,
-                        Horas = horasAtual,
-                        Minutos = minsAtual
-                    };
-
-                    Entidade.TipoHoraExtra = TipoHoraExtra;
-                }
+                PopulaHorasExtras();
             }
         }
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            CmbDescricaoIndex = 0;
-
-            Entidade = new Model.HoraExtra()
-            {
-                Ano = Folha.Ano,
-                Mes = Folha.Mes,
-                Funcionario = Folha.Funcionario,
-                TipoHoraExtra = TiposHoraExtra[0],
-                LojaTrabalho = Folha.Funcionario.LojaTrabalho
-            };
-
-            TipoHoraExtra = TiposHoraExtra[0];
         }
 
         public override bool ValidacaoSalvar(object parameter)
         {
-            BtnSalvarToolTip = "";
-            bool valido = true;
+            return true;
+        }
 
-            if (Entidade.Horas < 0 && Entidade.Minutos < 0)
+        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        {
+            _result = false;
+            try
             {
-                BtnSalvarToolTip += "Horas e Minutos Não Podem Ser Menores Que Zero!\n";
-                valido = false;
+                var horasExtrasValidas = HorasExtras.Where(w => (w.Uuid != null && w.Uuid != Guid.Empty) || (w.Horas != 0 || w.Minutos != 0)).ToList();
+                await daoEntidade.InserirOuAtualizar(horasExtrasValidas);
+                _result = true;
+                MessageBoxService.Show("Horas extras foram salvas com sucesso.", viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxService.Show($"Erro ao salvar horas extras.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (Entidade.Horas < 0)
+            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
             {
-                BtnSalvarToolTip += "Valor de Horas Não Pode Ser Menor Que Zero!\n";
-                valido = false;
-            }
+                IssoEUmUpdate = IssoEUmUpdate,
+                Sucesso = _result,
+                Parametro = parametro
+            };
 
-            if (Entidade.Horas > 99)
-            {
-                BtnSalvarToolTip += "Valor de Horas É Alto Demais!\n";
-                valido = false;
-            }
-
-            if (Entidade.Minutos >= 60)
-            {
-                BtnSalvarToolTip += "Valor de Minutos Não Pode Ser Maior Ou Igual a 60!\n";
-                valido = false;
-            }
-
-            if (Entidade.Minutos < 0)
-            {
-                BtnSalvarToolTip += "Valor de Minutos Não Pode Ser Menor Que Zero!\n";
-                valido = false;
-            }
-
-            return valido;
+            return e;
         }
 
         private async void GetTiposHoraExtra()
         {
             TiposHoraExtra = new ObservableCollection<Model.TipoHoraExtra>(await daoTipoHoraExtra.Listar());
+            TipoHoraExtra = TiposHoraExtra[0];
         }
 
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -139,6 +150,48 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _tipoHoraExtra = value;
                 OnPropertyChanged("TipoHoraExtra");
+            }
+        }
+
+        public ObservableCollection<HoraExtra> HorasExtras
+        {
+            get
+            {
+                return _horasExtras;
+            }
+
+            set
+            {
+                _horasExtras = value;
+                OnPropertyChanged("HorasExtras");
+            }
+        }
+
+        public int TotalEmHoras
+        {
+            get
+            {
+                return _totalEmHoras;
+            }
+
+            set
+            {
+                _totalEmHoras = value;
+                OnPropertyChanged("TotalEmHoras");
+            }
+        }
+
+        public int TotalEmMinutos
+        {
+            get
+            {
+                return _totalEmMinutos;
+            }
+
+            set
+            {
+                _totalEmMinutos = value;
+                OnPropertyChanged("TotalEmMinutos");
             }
         }
     }

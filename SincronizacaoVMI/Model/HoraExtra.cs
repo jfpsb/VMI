@@ -8,11 +8,9 @@ namespace SincronizacaoVMI.Model
         private Funcionario _funcionario;
         private TipoHoraExtra _tipoHoraExtra;
         private Loja _lojaTrabalho;
-        private int _mes;
-        private int _ano;
+        private DateTime _data;
         private int _horas;
         private int _minutos;
-        private string _descricao;
 
         public virtual int Id
         {
@@ -38,7 +36,6 @@ namespace SincronizacaoVMI.Model
             set
             {
                 _tipoHoraExtra = value;
-                Descricao = TipoHoraExtra.Descricao;
                 OnPropertyChanged("TipoHoraExtra");
             }
         }
@@ -51,22 +48,17 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("LojaTrabalho");
             }
         }
-        public virtual int Mes
+        public virtual DateTime Data
         {
-            get => _mes;
-            set
+            get
             {
-                _mes = value;
-                OnPropertyChanged("Mes");
+                return _data;
             }
-        }
-        public virtual int Ano
-        {
-            get => _ano;
+
             set
             {
-                _ano = value;
-                OnPropertyChanged("Ano");
+                _data = value;
+                OnPropertyChanged("Data");
             }
         }
         public virtual int Horas
@@ -109,20 +101,6 @@ namespace SincronizacaoVMI.Model
             {
                 TimeSpan timeSpan = new TimeSpan(Horas, Minutos, 0);
                 return timeSpan;
-            }
-        }
-
-        public virtual string Descricao
-        {
-            get
-            {
-                return _descricao;
-            }
-
-            set
-            {
-                _descricao = value;
-                OnPropertyChanged("Descricao");
             }
         }
         public virtual object GetIdentifier()
