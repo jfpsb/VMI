@@ -22,12 +22,13 @@ namespace SincronizacaoVMI.Util
 
         public async override Task Sincronizar()
         {
+            var inicioSync = DateTime.Now;
+
             IList<E> insertsRemotoParaLocal = new List<E>();
             IList<E> updatesRemotoParaLocal = new List<E>();
             IList<E> insertsLocalParaRemoto = new List<E>();
             IList<E> updatesLocalParaRemoto = new List<E>();
 
-            var inicioSync = DateTime.Now;
             var lastSync = await GetLastSyncTime(typeof(E).Name.ToLower());
 
             if (lastSync == null)
