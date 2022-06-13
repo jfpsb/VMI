@@ -39,7 +39,6 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
-                _threadsStatus["LojaMatriz"] = false;
             }
             catch (Exception ex)
             {
@@ -48,6 +47,7 @@ namespace SincronizacaoVMI
             finally
             {
                 _semaphoreSlim.Release();
+                _threadsStatus["LojaMatriz"] = false;
             }
         }
         private async void ElapsedtimerLojaFilial()
@@ -62,7 +62,6 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
-                _threadsStatus["LojaFilial"] = false;
             }
             catch (Exception ex)
             {
@@ -71,6 +70,7 @@ namespace SincronizacaoVMI
             finally
             {
                 _semaphoreSlim.Release();
+                _threadsStatus["LojaFilial"] = false;
             }
         }
         private async void ElapsedGenerico<E>() where E : AModel, IModel, new()
@@ -85,7 +85,6 @@ namespace SincronizacaoVMI
                 await aSync.Sincronizar();
                 SessionProvider.FechaSession(local);
                 SessionProviderBackup.FechaSession(remote);
-                _threadsStatus[typeof(E).Name] = false;
             }
             catch (Exception ex)
             {
@@ -94,6 +93,7 @@ namespace SincronizacaoVMI
             finally
             {
                 _semaphoreSlim.Release();
+                _threadsStatus[typeof(E).Name] = false;
             }
         }
         public void Start()
