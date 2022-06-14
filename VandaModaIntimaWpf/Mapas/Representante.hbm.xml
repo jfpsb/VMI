@@ -17,7 +17,7 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" >
 			<key column="representante" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Fornecedor"/>
 		</bag>

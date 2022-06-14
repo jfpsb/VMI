@@ -24,19 +24,19 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Adiantamentos" table="adiantamento" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Adiantamentos" table="adiantamento" inverse="true" where="Deletado = false" >
 			<key column="funcionario" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Adiantamento" />
 		</bag>
-		<bag name="Bonus" table="bonus" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Bonus" table="bonus" inverse="true" where="Deletado = false" >
 			<key column="funcionario" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Bonus" />
 		</bag>
-		<bag name="ContasBancarias" table="contabancaria" where="Deletado = false" inverse="true" cascade="all-delete-orphan">
+		<bag name="ContasBancarias" table="contabancaria" where="Deletado = false" inverse="true" >
 			<key column="funcionario" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ContaBancaria" />
 		</bag>
-		<bag name="ChavesPix" table="chave_pix" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="ChavesPix" table="chave_pix" inverse="true" where="Deletado = false" >
 			<key column="funcionario" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ChavePix" />
 		</bag>

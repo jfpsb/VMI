@@ -16,7 +16,7 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<bag name="Contagens" table="contagemproduto" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Contagens" table="contagemproduto" inverse="true" where="Deletado = false" >
 			<key>
 				<column name="contagem" />
 			</key>

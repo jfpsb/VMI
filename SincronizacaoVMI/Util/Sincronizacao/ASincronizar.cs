@@ -81,6 +81,11 @@ namespace SincronizacaoVMI.Util
                         }
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
                         await tx.CommitAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 catch (Exception ex)
@@ -110,6 +115,11 @@ namespace SincronizacaoVMI.Util
                         }
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
                         await tx.CommitAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 catch (Exception ex)
@@ -139,6 +149,11 @@ namespace SincronizacaoVMI.Util
                         }
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
                         await tx.CommitAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 catch (Exception ex)
@@ -168,6 +183,11 @@ namespace SincronizacaoVMI.Util
                         }
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
                         await tx.CommitAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
                 catch (Exception ex)

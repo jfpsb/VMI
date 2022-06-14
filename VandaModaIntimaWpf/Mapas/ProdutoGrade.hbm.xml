@@ -18,11 +18,11 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<bag name="SubGrades" table="sub_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan" lazy="false">
+		<bag name="SubGrades" table="sub_grade" inverse="true" where="Deletado = false"  lazy="false">
 			<key column="produto_grade" />
 			<one-to-many class="VandaModaIntimaWpf.Model.SubGrade"/>
 		</bag>
-		<bag name="Historico" table="historico_produto_grade" inverse="true" where="Deletado = false" cascade="all-delete-orphan">
+		<bag name="Historico" table="historico_produto_grade" inverse="true" where="Deletado = false" >
 			<key column="produto_grade" />
 			<one-to-many class="VandaModaIntimaWpf.Model.HistoricoProdutoGrade"/>
 		</bag>
