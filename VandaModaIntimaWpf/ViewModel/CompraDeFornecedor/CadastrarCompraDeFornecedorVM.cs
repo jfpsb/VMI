@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using VandaModaIntimaWpf.Model;
@@ -15,7 +16,6 @@ using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 {
@@ -34,6 +34,8 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         public ICommand ProcurarArquivoComando { get; set; }
         public ICommand ImportarXmlNFeComando { get; set; }
         public ICommand AbrirArquivoComando { get; set; }
+        public ICommand AbrirLocalArquivoComando { get; set; }
+        public ICommand DeletarArquivoComando { get; set; }
 
         public CadastrarCompraDeFornecedorVM(ISession session, bool isUpdate) : base(session, isUpdate)
         {
@@ -50,14 +52,56 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             GetLojas();
             GetRepresentantes();
 
-            AntesDeInserirNoBancoDeDados += InsereArquivosEmEntidade;
             AposInserirNoBancoDeDados += CopiarArquivos;
 
             ProcurarArquivoComando = new RelayCommand(ProcurarArquivo);
             ImportarXmlNFeComando = new RelayCommand(ImportarXmlNFe);
             AbrirArquivoComando = new RelayCommand(AbrirArquivo);
+            AbrirLocalArquivoComando = new RelayCommand(AbrirLocalArquivo);
+            DeletarArquivoComando = new RelayCommand(DeletarArquivo);
         }
 
+        private void DeletarArquivo(object obj)
+        {
+            if (ArquivoSelecionado != null)
+            {
+                var dialogResult = MessageBoxService.Show($"Deseja remover o arquivo {ArquivoSelecionado.Nome}?", "Compra de Fornecedor",
+                    MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                if (dialogResult == MessageBoxResult.Yes)
+                {
+                    ArquivoSelecionado.Deletado = true;
+                    Entidade.Arquivos.Remove(ArquivoSelecionado);
+                    Arquivos.Remove(ArquivoSelecionado);
+                }
+            }
+        }
+
+        private void AbrirLocalArquivo(object obj)
+        {
+            if (ArquivoSelecionado != null)
+            {
+                string caminho;
+
+                if (ArquivoSelecionado.CaminhoOriginal != null)
+                {
+                    caminho = ArquivoSelecionado.CaminhoOriginal;
+                }
+                else
+                {
+                    caminho = Path.Combine(caminhoDocVMI, Entidade.Uuid.ToString(), ArquivoSelecionado.Nome);
+                }
+
+                try
+                {
+                    Process.Start("explorer.exe", $"/select, {caminho}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
+                }
+            }
+        }
         private void AbrirArquivo(object obj)
         {
             if (ArquivoSelecionado != null)
@@ -83,7 +127,6 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
             }
         }
-
         private async void ImportarXmlNFe(object parameter)
         {
             try
@@ -152,14 +195,6 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 MessageBoxService.Show(ex.Message);
             }
         }
-
-        private void InsereArquivosEmEntidade()
-        {
-            Entidade.Arquivos.Clear();
-            foreach (var arquivo in Arquivos)
-                Entidade.Arquivos.Add(arquivo);
-        }
-
         private void CopiarArquivos(AposInserirBDEventArgs e)
         {
             if (Arquivos.Count > 0 && e.Sucesso)
@@ -194,7 +229,6 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
             }
         }
-
         private void ProcurarArquivo(object parameter)
         {
             try
@@ -205,7 +239,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 var openFileDialog = parameter as IOpenFileDialog;
                 var caminhoArquivo = openFileDialog.OpenFileDialog();
 
-                if(caminhoArquivo != null)
+                if (caminhoArquivo != null)
                 {
                     AddArquivo(caminhoArquivo);
                 }
@@ -226,7 +260,8 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 CompraDeFornecedor = Entidade
             };
 
-            Arquivos.Add(arquivo);
+            Entidade.Arquivos.Add(arquivo);
+            Arquivos = new ObservableCollection<ArquivosCompraFornecedor>(Entidade.Arquivos);
         }
 
         public ObservableCollection<ArquivosCompraFornecedor> Arquivos

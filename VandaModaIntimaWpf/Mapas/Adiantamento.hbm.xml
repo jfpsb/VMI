@@ -16,7 +16,7 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<bag name="Parcelas" table="parcela" inverse="true"  where="Deletado = false" lazy="true">
+		<bag name="Parcelas" table="parcela" inverse="true" cascade="save-update" where="Deletado = false" lazy="true">
 			<key column="adiantamento" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Parcela" />
 		</bag>

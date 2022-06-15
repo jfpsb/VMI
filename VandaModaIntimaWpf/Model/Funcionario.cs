@@ -246,6 +246,18 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual void AddChavePix(ChavePix chave)
+        {
+            chave.Funcionario = this;
+            ChavesPix.Add(chave);
+        }
+
+        public virtual void AddContaBancaria(ContaBancaria contaBancaria)
+        {
+            contaBancaria.Funcionario = this;
+            ContasBancarias.Add(contaBancaria);
+        }
+
         public virtual object GetIdentifier()
         {
             return _cpf;

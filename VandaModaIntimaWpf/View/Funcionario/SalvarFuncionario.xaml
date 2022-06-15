@@ -172,9 +172,15 @@
                     <Label Content="Chaves PIX:"
                            FontWeight="Bold"
                            FontSize="16" />
-                    <DataGrid Grid.Row="1"
+                    <DataGrid x:Name="DataGridChavePix"
+                              Grid.Row="1"
                               Grid.ColumnSpan="3"
                               ItemsSource="{Binding ChavesPix}">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete"
+                                        Command="{Binding DeletarChavePixComando}"
+                                        CommandParameter="{Binding ElementName=DataGridChavePix, Path=SelectedItem}" />
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Banco"
                                                 Width="*"
@@ -206,9 +212,15 @@
                            FontWeight="Bold"
                            Content="Contas Bancárias:"
                            FontSize="16" />
-                    <DataGrid Grid.Row="5"
+                    <DataGrid x:Name="DataGridContaBancaria"
+                              Grid.Row="5"
                               Grid.ColumnSpan="3"
                               ItemsSource="{Binding ContasBancarias}">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete"
+                                        Command="{Binding DeletarContaBancariaComando}"
+                                        CommandParameter="{Binding ElementName=DataGridContaBancaria, Path=SelectedItem}" />
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Banco"
                                                 Width="*"

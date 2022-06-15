@@ -18,13 +18,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private ObservableCollection<Model.ChavePix> _chavesPix;
         private ObservableCollection<Model.ContaBancaria> _contasBancarias;
         private ObservableCollection<Model.Banco> _bancos;
-        private Model.ChavePix _chavePix;
         private Model.ContaBancaria _contaBancaria;
         private Model.Banco _bancoContaBancaria;
         private Model.Banco _bancoPix;
+        private Model.ChavePix _chavePix;
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ICommand AdicionarChavePixComando { get; set; }
         public ICommand AdicionarContaBancariaComando { get; set; }
+        public ICommand DeletarChavePixComando { get; set; }
+        public ICommand DeletarContaBancariaComando { get; set; }
 
         public CadastrarFuncionarioVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -43,7 +45,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 Admissao = DateTime.Now
             };
 
-            ChavePix = new Model.ChavePix();
             ContaBancaria = new Model.ContaBancaria();
             BancoContaBancaria = Bancos[0];
             BancoPix = Bancos[0];
@@ -57,6 +58,30 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             AdicionarChavePixComando = new RelayCommand(AdicionarChavePix, ValidaChavePix);
             AdicionarContaBancariaComando = new RelayCommand(AdicionarContaBancaria, ValidaContaBancaria);
+            DeletarChavePixComando = new RelayCommand(DeletarChavePix);
+            DeletarContaBancariaComando = new RelayCommand(DeletarContaBancaria);
+        }
+
+        private void DeletarContaBancaria(object obj)
+        {
+            var contaBancaria = obj as Model.ContaBancaria;
+            if (contaBancaria != null)
+            {
+                contaBancaria.Deletado = true;
+                ContasBancarias.Remove(contaBancaria);
+                Entidade.ContasBancarias.Remove(contaBancaria);
+            }
+        }
+
+        private void DeletarChavePix(object obj)
+        {
+            var chavePix = obj as Model.ChavePix;
+            if (chavePix != null)
+            {
+                chavePix.Deletado = true;
+                ChavesPix.Remove(chavePix);
+                Entidade.ChavesPix.Remove(chavePix);
+            }
         }
 
         private bool ValidaContaBancaria(object arg)
@@ -77,15 +102,25 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void AdicionarContaBancaria(object obj)
         {
+            //Atribui banco selecionado
             ContaBancaria.Banco = BancoContaBancaria;
-            ContasBancarias.Add(ContaBancaria);
+            //Adiciona em coleção
+            Entidade.AddContaBancaria(ContaBancaria);
+            //Atualiza coleção com binding na view
+            ContasBancarias = new ObservableCollection<Model.ContaBancaria>(Entidade.ContasBancarias);
+            //Reseta objeto ContaBancaria para nova conta
             ContaBancaria = new Model.ContaBancaria();
         }
 
         private void AdicionarChavePix(object obj)
         {
+            //Atribui banco selecionado
             ChavePix.Banco = BancoPix;
-            ChavesPix.Add(ChavePix);
+            //Adiciona em coleção
+            Entidade.AddChavePix(ChavePix);
+            //Atualiza coleção com binding na view
+            ChavesPix = new ObservableCollection<Model.ChavePix>(Entidade.ChavesPix);
+            //Reseta objeto ContaBancaria para nova conta
             ChavePix = new Model.ChavePix();
         }
 
@@ -98,20 +133,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             if (Entidade.Loja.Cnpj == null)
                 Entidade.Loja = null;
-
-            Entidade.ChavesPix.Clear();
-            foreach (var cp in ChavesPix)
-            {
-                cp.Funcionario = Entidade;
-                Entidade.ChavesPix.Add(cp);
-            }
-
-            Entidade.ContasBancarias.Clear();
-            foreach (var cb in ContasBancarias)
-            {
-                cb.Funcionario = Entidade;
-                Entidade.ContasBancarias.Add(cb);
-            }
         }
 
         override public async void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -183,16 +204,6 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 OnPropertyChanged("ContasBancarias");
             }
         }
-
-        public Model.ChavePix ChavePix
-        {
-            get => _chavePix;
-            set
-            {
-                _chavePix = value;
-                OnPropertyChanged("ChavePix");
-            }
-        }
         public Model.ContaBancaria ContaBancaria
         {
             get => _contaBancaria;
@@ -230,6 +241,20 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             {
                 _bancoPix = value;
                 OnPropertyChanged("BancoPix");
+            }
+        }
+
+        public Model.ChavePix ChavePix
+        {
+            get
+            {
+                return _chavePix;
+            }
+
+            set
+            {
+                _chavePix = value;
+                OnPropertyChanged("ChavePix");
             }
         }
     }

@@ -1,17 +1,17 @@
 ﻿<View:ACadastrarView x:Class="VandaModaIntimaWpf.View.CompraDeFornecedor.SalvarCompraDeFornecedor"
-                      x:Name="TelaSalvarCompraDeFornecedor"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
-                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
-                      mc:Ignorable="d"
-                      Title="Salvar Compra De Fornecedor"
-                      Width="600"
-                      Height="450"
-                      WindowStartupLocation="CenterScreen"
-                      Icon="/Resources/Compras_De_Fornecedor.png">
+                     x:Name="TelaSalvarCompraDeFornecedor"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+                     xmlns:local="clr-namespace:VandaModaIntimaWpf.View.CompraDeFornecedor"
+                     mc:Ignorable="d"
+                     Title="Salvar Compra De Fornecedor"
+                     Width="600"
+                     Height="450"
+                     WindowStartupLocation="CenterScreen"
+                     Icon="/Resources/Compras_De_Fornecedor.png">
     <View:ACadastrarView.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
@@ -111,6 +111,10 @@
                           Grid.ColumnSpan="2"
                           ItemsSource="{Binding Arquivos, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding ArquivoSelecionado, Mode=OneWayToSource}">
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Delete"
+                                    Command="{Binding DeletarArquivoComando}" />
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome"
                                             Width="*"

@@ -16,10 +16,8 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		<bag name="Contagens" table="contagemproduto" inverse="true" where="Deletado = false" >
-			<key>
-				<column name="contagem" />
-			</key>
+		<bag name="Contagens" table="contagemproduto" inverse="true" where="Deletado = false" cascade="save-update">
+			<key column="contagem" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ContagemProduto" />
 		</bag>
 	</class>

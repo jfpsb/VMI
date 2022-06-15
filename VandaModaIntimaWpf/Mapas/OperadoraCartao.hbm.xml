@@ -6,14 +6,15 @@
 	<class name="OperadoraCartao" table="operadoracartao" dynamic-insert="true">
 		<id name="Nome" />
 		<property name="Uuid" />
-		<bag name="IdentificadoresBanco" table="operadorabancoid" where="Deletado = false" inverse="false" lazy="false" cascade="delete">
-			<key column="operadoracartao" />
-			<element column="identificador" type="String" />
-		</bag>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
+
+		<bag name="IdentificadoresBanco" table="operadorabancoid" where="Deletado = false" inverse="false" lazy="false" cascade="save-update">
+			<key column="operadoracartao" />
+			<element column="identificador" type="String" />
+		</bag>
 	</class>
 
 </hibernate-mapping>

@@ -19,7 +19,7 @@
 		<many-to-one name="Fornecedor" class="VandaModaIntimaWpf.Model.Fornecedor" />
 		<many-to-one name="Marca" class="VandaModaIntimaWpf.Model.Marca" />
 
-		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" >
+		<bag name="Grades" table="produto_grade" inverse="true" where="Deletado = false" cascade="save-update">
 			<key column="produto" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ProdutoGrade"/>
 		</bag>

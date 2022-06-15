@@ -16,6 +16,8 @@
                 Value="5" />
         <Setter Property="CanUserAddRows"
                 Value="False" />
+        <Setter Property="CanUserDeleteRows"
+                Value="False" />
         <Setter Property="AutoGenerateColumns"
                 Value="False" />
         <Setter Property="RowHeaderWidth"

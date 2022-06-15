@@ -48,12 +48,17 @@
                Content="Adiantamentos"
                FontWeight="Bold"
                FontSize="16" />
-        <DataGrid Grid.Row="2"
+        <DataGrid x:Name="DataGridParcelas"
+                  Grid.Row="2"
                   Grid.ColumnSpan="2"
                   IsReadOnly="True"
                   ItemsSource="{Binding Parcelas}"
                   SelectedItem="{Binding Parcela, Mode=OneWayToSource}"
                   MinHeight="150">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete"
+                            Command="{Binding DeletarAdiantamentoComando}" />
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="# Parcela"
                                     Width="Auto"
@@ -95,6 +100,10 @@
                   MinHeight="150"
                   ItemsSource="{Binding Bonus}"
                   SelectedItem="{Binding BonusEscolhido, Mode=OneWayToSource}">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete"
+                            Command="{Binding DeletarBonusComando}" />
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Data do Bônus"
                                     Binding="{Binding DataString}"

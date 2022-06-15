@@ -3,21 +3,19 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using VandaModaIntimaWpf.Model.DAO;
-using ParcelaModel = VandaModaIntimaWpf.Model.Parcela;
-using AdiantamentoModel = VandaModaIntimaWpf.Model.Adiantamento;
 using System.Windows;
 using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
-    public class AdicionarAdiantamentoVM : ACadastrarViewModel<AdiantamentoModel>
+    public class AdicionarAdiantamentoVM : ACadastrarViewModel<Model.Adiantamento>
     {
         private DAODespesa daoDespesa;
         private DAOTipoDespesa daoTipoDespesa;
         private DateTime _inicioPagamento;
         private int _numParcelas;
         private double _valor;
-        private ObservableCollection<ParcelaModel> _parcelas;
+        private ObservableCollection<Model.Parcela> _parcelas;
         private int _minParcelas;
         private DateTime _dataEscolhida;
         private double _valorMaximoParcela;
@@ -29,11 +27,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoDespesa = new DAODespesa(_session);
             daoTipoDespesa = new DAOTipoDespesa(_session);
             PropertyChanged += AdicionarAdiantamento_PropertyChanged;
-            Parcelas = new ObservableCollection<ParcelaModel>();
+            Parcelas = new ObservableCollection<Model.Parcela>();
 
             _dataEscolhida = dataEscolhida;
 
-            Entidade = new AdiantamentoModel()
+            Entidade = new Model.Adiantamento()
             {
                 Funcionario = funcionario,
                 Valor = 0
@@ -43,7 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AposInserirNoBancoDeDados += SalvaDespesaDeAdiantamento;
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
-            ValorMaximoParcela = 694.69;
+            ValorMaximoParcela = funcionario.Salario / 2;
         }
 
         private async void SalvaDespesaDeAdiantamento(AposInserirBDEventArgs e)
@@ -64,8 +62,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 try
                 {
-                    await daoDespesa.Inserir(despesa);
-                    MessageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var dialogResult = MessageBoxService.Show("Deseja cadastrar este adiantamento como uma despesa?", "Adicionar Adiantamento",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        await daoDespesa.Inserir(despesa);
+                        MessageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -109,7 +113,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public ObservableCollection<ParcelaModel> Parcelas
+        public ObservableCollection<Model.Parcela> Parcelas
         {
             get => _parcelas;
             set
@@ -141,7 +145,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     for (int i = 0; i < NumParcelas; i++)
                     {
-                        ParcelaModel p = new ParcelaModel
+                        Model.Parcela p = new Model.Parcela
                         {
                             Numero = i + 1,
                             Paga = false,
@@ -196,7 +200,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            Entidade = new AdiantamentoModel()
+            Entidade = new Model.Adiantamento()
             {
                 Funcionario = Entidade.Funcionario,
                 Valor = 0

@@ -40,12 +40,12 @@ namespace VandaModaIntimaWpf.BancoDeDados.ConnectionFactory
                     {
                         try
                         {
-                            foreach (var parcs in ad.Parcelas)
+                            foreach (var parcela in ad.Parcelas)
                             {
-                                parcs.Deletado = true;
-                                parcs.ModificadoEm = now;
-                                parcs.DeletadoEm = now;
-                                await statelessSession.UpdateAsync(parcs);
+                                parcela.Deletado = true;
+                                parcela.ModificadoEm = now;
+                                parcela.DeletadoEm = now;
+                                await statelessSession.UpdateAsync(parcela);
                             }
 
                             await tx.CommitAsync();

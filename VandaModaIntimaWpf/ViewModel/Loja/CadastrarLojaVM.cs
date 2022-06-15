@@ -17,16 +17,30 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         private bool _isMatriz;
         public ObservableCollection<LojaModel> Matrizes { get; set; }
         public ICommand AdicionarAliquotaComando { get; set; }
+        public ICommand DeletarAliquotaComando { get; set; }
 
         public CadastrarLojaVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarLojaVMStrategy();
             daoEntidade = new DAOLoja(_session);
             Entidade = new LojaModel();
+            Aliquota = new Model.AliquotasImposto();
+            Aliquotas = new ObservableCollection<Model.AliquotasImposto>();
             GetMatrizes();
             AntesDeInserirNoBancoDeDados += ConfiguraLojaAntesDeInserir;
             AdicionarAliquotaComando = new RelayCommand(AdicionarAliquota);
-            Aliquota = new Model.AliquotasImposto();
+            DeletarAliquotaComando = new RelayCommand(DeletarAliquota);
+        }
+
+        private void DeletarAliquota(object obj)
+        {
+            var aliquota = obj as Model.AliquotasImposto;
+            if (aliquota != null)
+            {
+                aliquota.Deletado = true;
+                Aliquotas.Remove(aliquota);
+                Entidade.Aliquotas.Remove(aliquota);
+            }
         }
 
         private void AdicionarAliquota(object obj)
@@ -35,7 +49,8 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Aliquota.Loja = Entidade;
             Aliquota.Simples /= 100;
             Aliquota.Icms /= 100;
-            Aliquotas.Add(Aliquota);
+            Entidade.Aliquotas.Add(Aliquota);
+            Aliquotas = new ObservableCollection<Model.AliquotasImposto>(Entidade.Aliquotas);
             Aliquota = new Model.AliquotasImposto();
         }
 
@@ -43,16 +58,6 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
         {
             if (Entidade.Matriz?.Cnpj == null)
                 Entidade.Matriz = null;
-
-            Entidade.Aliquotas.Clear();
-
-            if (Aliquotas != null)
-            {
-                foreach (var a in Aliquotas)
-                {
-                    Entidade.Aliquotas.Add(a);
-                }
-            }
         }
 
         public override bool ValidacaoSalvar(object parameter)

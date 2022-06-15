@@ -127,11 +127,16 @@
                         Grid.ColumnSpan="2"
                         Content="Adicionar Alíquotas"
                         Command="{Binding AdicionarAliquotaComando}" />
-                <DataGrid Grid.Row="3"
+                <DataGrid x:Name="DataGridAliquotas"
+                          Grid.Row="3"
                           Grid.ColumnSpan="2"
                           ItemsSource="{Binding Aliquotas, UpdateSourceTrigger=PropertyChanged}"
-                          IsReadOnly="True"
-                          CanUserDeleteRows="True">
+                          IsReadOnly="True">
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Delete"
+                                    Command="{Binding DeletarAliquotaComando}"
+                                    CommandParameter="{Binding ElementName=DataGridAliquotas, Path=SelectedItem}" />
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Data De Inserção"
                                             Binding="{Binding DataInsercao, StringFormat=dd/MM/yyyy}" />
