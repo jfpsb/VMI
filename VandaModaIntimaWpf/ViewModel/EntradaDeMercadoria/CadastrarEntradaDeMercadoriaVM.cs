@@ -34,6 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
         public ICommand ListViewEnterComando { get; set; }
         public ICommand ListViewGradesEnterComando { get; set; }
         public ICommand ListViewGradesEscComando { get; set; }
+        public ICommand DeletarEntradaDeProdutoComando { get; set; }
 
         public CadastrarEntradaDeMercadoriaVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -48,6 +49,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             ListViewEnterComando = new RelayCommand(ListViewEnter);
             ListViewGradesEnterComando = new RelayCommand(ListViewGradesEnter);
             ListViewGradesEscComando = new RelayCommand(ListViewGradesEsc);
+            DeletarEntradaDeProdutoComando = new RelayCommand(DeletarEntradaDeProduto);
 
             PropertyChanged += PesquisaProdutos;
             AntesDeInserirNoBancoDeDados += CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados;
@@ -56,6 +58,17 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             TermoPesquisaProduto = "";
             ProdutoDescricao = "";
             IsPopupOpen = false;
+        }
+
+        private void DeletarEntradaDeProduto(object obj)
+        {
+            var entrada = obj as EntradaMercadoriaProdutoGrade;
+            if (entrada != null)
+            {
+                entrada.Deletado = true;
+                Entradas.Remove(entrada);
+                Entidade.Entradas.Remove(entrada);
+            }
         }
 
         private void ListViewGradesEsc(object obj)
@@ -79,7 +92,8 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
                 Quantidade = Quantidade
             };
 
-            Entradas.Add(entradaMercadoriaProdutoGrade);
+            Entidade.Entradas.Add(entradaMercadoriaProdutoGrade);
+            Entradas = new ObservableCollection<EntradaMercadoriaProdutoGrade>(Entidade.Entradas);
 
             Quantidade = 0;
             TermoPesquisaProduto = "";
@@ -92,7 +106,6 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         private void CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados()
         {
-            Entidade.Entradas = Entradas;
             Entidade.Data = DateTime.Now;
         }
 
@@ -145,7 +158,8 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
                     Quantidade = Quantidade
                 };
 
-                Entradas.Add(entradaMercadoriaProdutoGrade);
+                Entidade.Entradas.Add(entradaMercadoriaProdutoGrade);
+                Entradas = new ObservableCollection<EntradaMercadoriaProdutoGrade>(Entidade.Entradas);
 
                 Quantidade = 0;
                 TermoPesquisaProduto = "";
@@ -258,7 +272,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             set
             {
                 _entradas = value;
-                OnPropertyChanged("ProdutoGrades");
+                OnPropertyChanged("Entradas");
             }
         }
 

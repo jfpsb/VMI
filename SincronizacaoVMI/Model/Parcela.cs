@@ -85,8 +85,6 @@ namespace SincronizacaoVMI.Model
             {
                 _mes = value;
                 OnPropertyChanged("Mes");
-                OnPropertyChanged("Vencimento");
-                OnPropertyChanged("FolhaReferencia");
             }
         }
         public virtual int Ano
@@ -96,8 +94,6 @@ namespace SincronizacaoVMI.Model
             {
                 _ano = value;
                 OnPropertyChanged("Ano");
-                OnPropertyChanged("Vencimento");
-                OnPropertyChanged("FolhaReferencia");
             }
         }
         public virtual object GetIdentifier()
