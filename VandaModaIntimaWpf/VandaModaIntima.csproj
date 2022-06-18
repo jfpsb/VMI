@@ -636,6 +636,7 @@
     <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Model\TipoHoraExtra.cs" />
     <Compile Include="Resources\StringResource.cs" />
+    <Compile Include="Util\CPF.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
     <Compile Include="Util\Log.cs" />

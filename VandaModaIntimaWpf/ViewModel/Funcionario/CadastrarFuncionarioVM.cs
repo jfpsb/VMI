@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Util;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -44,6 +45,9 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 Loja = Lojas[0],
                 Admissao = DateTime.Now
             };
+
+            ChavePix = new Model.ChavePix();
+            ContaBancaria = new Model.ContaBancaria();
 
             ContaBancaria = new Model.ContaBancaria();
             BancoContaBancaria = Bancos[0];
@@ -179,6 +183,12 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             if (string.IsNullOrEmpty(Entidade.Cpf) || string.IsNullOrEmpty(Entidade.Nome))
             {
                 BtnSalvarToolTip += "CPF Ou Nome Não Podem Ser Vazios!\n";
+                valido = false;
+            }
+
+            if (!CPF.IsValid(Entidade.Cpf))
+            {
+                BtnSalvarToolTip += "CPF informado é inválido!\n";
                 valido = false;
             }
 
