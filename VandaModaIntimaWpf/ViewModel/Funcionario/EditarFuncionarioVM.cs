@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
     public class EditarFuncionarioVM : CadastrarFuncionarioVM
     {
-        public EditarFuncionarioVM(ISession session, Model.Funcionario funcionario) : base(session, false)
+        public EditarFuncionarioVM(ISession session, Model.Funcionario funcionario) : base(session, true)
         {
             viewModelStrategy = new EditarFuncionarioVMStrategy();
             Entidade = funcionario;
