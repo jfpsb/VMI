@@ -7,7 +7,7 @@
                       xmlns:Converters="clr-namespace:VandaModaIntimaWpf.View.Converters"
                       mc:Ignorable="d"
                       Title="Cadastrar Funcionário"
-                      Height="700"
+                      Height="750"
                       Width="675"
                       Icon="/Resources/Funcionario_Icon.ico"
                       ResizeMode="NoResize"
@@ -275,6 +275,97 @@
                                 Command="{Binding AdicionarContaBancariaComando}" />
                     </Grid>
                 </Grid>
+            </TabItem>
+            <TabItem Header="Férias"
+                     IsEnabled="{Binding IssoEUmUpdate}">
+                <DockPanel Margin="5,5,5,50"
+                           LastChildFill="True">
+                    <GroupBox DockPanel.Dock="Top"
+                              Margin="0,5,0,0">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Label Content="Adicionar novo período de férias"
+                                       FontWeight="Bold"
+                                       FontSize="18" />
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="Início de período aquisitivo:"
+                                   FontSize="16" />
+                            <View:DataUpDownAno Grid.Column="1"
+                                                Data="{Binding InicioAquisitivo, Mode=TwoWay}" />
+                            <Label Grid.Row="1"
+                                   Content="Fim de período aquisitivo:"
+                                   FontSize="16" />
+                            <TextBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     IsEnabled="False"
+                                     Text="{Binding FimAquisitivo, Mode=OneWay, StringFormat=dd/MM/yyyy, ConverterCulture=pt-BR}" />
+                            <Label Grid.Row="2"
+                                   Content="Início de período concessivo:"
+                                   FontSize="16" />
+                            <TextBox Grid.Row="2"
+                                     Grid.Column="1"
+                                     IsEnabled="False"
+                                     Text="{Binding InicioConcessivo, Mode=OneWay,StringFormat=dd/MM/yyyy, ConverterCulture=pt-BR}" />
+                            <Label Grid.Row="3"
+                                   Content="Fim de período concessivo:"
+                                   FontSize="16" />
+                            <TextBox Grid.Row="3"
+                                     Grid.Column="1"
+                                     IsEnabled="False"
+                                     Text="{Binding FimConcessivo, Mode=OneWay,StringFormat=dd/MM/yyyy, ConverterCulture=pt-BR}" />
+                            <Label Grid.Row="4"
+                                   Content="Selecione o dia inicial das férias:"
+                                   FontSize="16" />
+                            <DatePicker Grid.Row="4"
+                                        Grid.Column="1"
+                                        SelectedDate="{Binding InicioFerias, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Grid.Row="5"
+                                   Content="Último dia de férias:"
+                                   FontSize="16" />
+                            <TextBox Grid.Row="5"
+                                     Grid.Column="1"
+                                     IsEnabled="False"
+                                     Text="{Binding FimFerias, Mode=OneWay,StringFormat=dd/MM/yyyy, ConverterCulture=pt-BR}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Row="2"
+                              Grid.ColumnSpan="2"
+                              Margin="0,5,0,0">
+                        <GroupBox.Header>
+                            <TextBlock>
+                                <Label Content="Períodos de férias registrados"
+                                       FontWeight="Bold"
+                                       FontSize="18" />
+                            </TextBlock>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Período aquisitivo" />
+                                    <DataGridTextColumn Header="Período concessivo" />
+                                    <DataGridTextColumn Header="Período de férias" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                </DockPanel>
             </TabItem>
         </TabControl>
         <Button Panel.ZIndex="10"

@@ -311,6 +311,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DataUpDownAno.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Despesa\DespesasGroupByDescricao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -607,6 +611,7 @@
     <Compile Include="Model\EntradaMercadoriaProdutoGrade.cs" />
     <Compile Include="Model\Estoque.cs" />
     <Compile Include="Model\Faltas.cs" />
+    <Compile Include="Model\Ferias.cs" />
     <Compile Include="Model\FolhaPagamento.cs" />
     <Compile Include="Model\Fornecedor.cs" />
     <Compile Include="Model\Funcionario.cs" />
@@ -821,6 +826,9 @@
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
+    <Compile Include="View\DataUpDownAno.xaml.cs">
+      <DependentUpon>DataUpDownAno.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
     </Compile>
@@ -1492,6 +1500,9 @@
   <ItemGroup>
     <Resource Include="Resources\Selecionar_Varios.ico" />
     <Resource Include="Resources\Selecionar_Varios.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\Ferias.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

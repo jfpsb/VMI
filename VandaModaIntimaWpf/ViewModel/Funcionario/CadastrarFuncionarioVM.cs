@@ -23,6 +23,12 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private Model.Banco _bancoContaBancaria;
         private Model.Banco _bancoPix;
         private Model.ChavePix _chavePix;
+
+        #region "Usado em EditarFuncionarioVM"
+        private DateTime _inicioAquisitivo;
+        private DateTime _inicioFerias;
+        #endregion
+
         public ObservableCollection<LojaModel> Lojas { get; set; }
         public ICommand AdicionarChavePixComando { get; set; }
         public ICommand AdicionarContaBancariaComando { get; set; }
@@ -130,7 +136,10 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
+            if (e.PropertyName.Equals("InicioAquisitivo"))
+            {
+                InicioFerias = InicioConcessivo;
+            }
         }
 
         private void ConfiguraFuncionarioAntesDeInserir()
@@ -266,6 +275,60 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 _chavePix = value;
                 OnPropertyChanged("ChavePix");
             }
+        }
+
+        public DateTime InicioAquisitivo
+        {
+            get
+            {
+                return _inicioAquisitivo;
+            }
+
+            set
+            {
+                _inicioAquisitivo = value;
+                OnPropertyChanged("InicioAquisitivo");
+                OnPropertyChanged("FimAquisitivo");
+                OnPropertyChanged("InicioConcessivo");
+                OnPropertyChanged("FimConcessivo");
+            }
+        }
+
+        public DateTime FimAquisitivo
+        {
+            get => InicioAquisitivo.AddYears(1).AddDays(-1);
+        }
+
+        public DateTime InicioConcessivo
+        {
+            get => FimAquisitivo.AddDays(1);
+        }
+
+        public DateTime FimConcessivo
+        {
+            get => FimAquisitivo.AddYears(1).AddDays(-1);
+        }
+
+        public DateTime InicioFerias
+        {
+            get
+            {
+                return _inicioFerias;
+            }
+
+            set
+            {
+                _inicioFerias = value;
+                OnPropertyChanged("InicioFerias");
+                OnPropertyChanged("FimFerias");
+            }
+        }
+
+        public DateTime FimFerias
+        {
+            //O dia de início das férias conta como o primeiro dia
+            //então só preciso somar 29 para achar o último dia das férias
+            get => InicioFerias.AddDays(29);
         }
     }
 }
