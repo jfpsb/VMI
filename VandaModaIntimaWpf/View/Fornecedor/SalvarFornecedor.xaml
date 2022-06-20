@@ -13,8 +13,7 @@
         Icon="/Resources/Fornecedor_Icon.ico"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}"
-        Closing="TelaCadastrarFornecedor_Closing">
+        FocusManager.FocusedElement="{Binding ElementName=TxtCnpj}">
     <View:ACadastrarView.InputBindings>
         <KeyBinding Key="F2"
                     Command="{Binding SalvarComando}" />
