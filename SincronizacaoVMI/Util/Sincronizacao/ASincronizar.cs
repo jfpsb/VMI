@@ -76,7 +76,7 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Inserindo {insertsRemotoParaLocal.Count} registro(s) do banco remoto para o local.");
                         foreach (E insert in insertsRemotoParaLocal)
                         {
-                            await _local.SaveAsync(insert);
+                            await _local.SaveOrUpdateAsync(insert);
                             Console.WriteLine($"{typeof(E).Name} - Inserindo de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
                         }
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsRemotoParaLocal.Count * 100, 2)}%");
@@ -87,8 +87,6 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
-
-                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +110,7 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Atualizando {updatesRemotoParaLocal.Count} registro(s) do banco remoto para o local.");
                         foreach (E update in updatesRemotoParaLocal)
                         {
-                            await _local.UpdateAsync(update);
+                            await _local.SaveOrUpdateAsync(update);
                             Console.WriteLine($"{typeof(E).Name} - Atualizando de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
                         }
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco remoto para local -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesRemotoParaLocal.Count * 100, 2)}%");
@@ -123,8 +121,6 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
-
-                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -148,7 +144,7 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Inserindo {insertsLocalParaRemoto.Count} registro(s) do banco local para o remoto.");
                         foreach (E insert in insertsLocalParaRemoto)
                         {
-                            await _remoto.SaveAsync(insert);
+                            await _remoto.SaveOrUpdateAsync(insert);
                             Console.WriteLine($"{typeof(E).Name} - Inserindo de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
                         }
                         Console.WriteLine($"{typeof(E).Name} - Inserindo de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / insertsLocalParaRemoto.Count * 100, 2)}%");
@@ -159,8 +155,6 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
-
-                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -184,7 +178,7 @@ namespace SincronizacaoVMI.Util
                         Console.WriteLine($"{typeof(E).Name} - Atualizando {updatesLocalParaRemoto.Count} registro(s) do banco local para o remoto.");
                         foreach (E update in updatesLocalParaRemoto)
                         {
-                            await _remoto.UpdateAsync(update);
+                            await _remoto.SaveOrUpdateAsync(update);
                             Console.WriteLine($"{typeof(E).Name} - Atualizando de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
                         }
                         Console.WriteLine($"{typeof(E).Name} - Atualizando de banco local para remoto -> Inserindo dados -> Progresso: {Math.Round(i++ / updatesLocalParaRemoto.Count * 100, 2)}%");
@@ -195,7 +189,6 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
-                    return true;
                 }
                 catch (Exception ex)
                 {

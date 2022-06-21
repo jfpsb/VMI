@@ -49,7 +49,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureInserts.Any())
                 {
-                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção remoto para local.");
                     foreach (Loja e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -68,7 +67,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureUpdates.Any())
                 {
-                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização remoto para local.");
                     foreach (Loja e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -106,7 +104,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureInserts.Any())
                 {
-                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção local para remoto.");
                     foreach (Loja e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -125,7 +122,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureUpdates.Any())
                 {
-                    Console.WriteLine($"LojaMatriz - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização local para remoto.");
                     foreach (Loja e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;

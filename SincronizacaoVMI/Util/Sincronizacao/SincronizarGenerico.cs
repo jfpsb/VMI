@@ -75,7 +75,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção remoto para local.");
                     foreach (E e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -129,7 +128,6 @@ namespace SincronizacaoVMI.Util
                                 object manyToOneLocal = null;
                                 if (manyToOneValue != null)
                                 {
-                                    //manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
                                     var propValue = futuredic[manyToOneValue.Uuid].GetType().GetProperty("Value");
                                     manyToOneLocal = propValue.GetValue(futuredic[manyToOneValue.Uuid]);
                                 }
@@ -139,8 +137,7 @@ namespace SincronizacaoVMI.Util
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
 
-                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
-                                //persister.SetPropertyValue(eASalvar, property, manyToOneLocal);
+                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);                                
                             }
                         }
                         insertsRemotoParaLocal.Add(eASalvar);
@@ -164,7 +161,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureUpdates.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização remoto para local.");
                     foreach (E e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -275,7 +271,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureInserts.GetEnumerable().Count()} itens para inserção local para remoto.");
                     foreach (E e in futureInserts.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -363,7 +358,6 @@ namespace SincronizacaoVMI.Util
 
                 if (futureUpdates.Any() && persister.PropertyTypes != null)
                 {
-                    Console.WriteLine($"{typeof(E).Name} - Encontrado(s) {futureUpdates.GetEnumerable().Count()} itens para atualização local para remoto.");
                     foreach (E e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
@@ -444,7 +438,7 @@ namespace SincronizacaoVMI.Util
             var res2 = await UpdateRemotoParaLocal(updatesRemotoParaLocal);
             var res3 = await InsertLocalParaRemoto(insertsLocalParaRemoto);
             var res4 = await UpdateLocalParaRemoto(updatesLocalParaRemoto);
-            if (res1 && res2 && res3 && res4)
+            if (res1 || res2 || res3 || res4)
                 await SaveLastSyncTime(lastSync, inicioSync);
         }
     }
