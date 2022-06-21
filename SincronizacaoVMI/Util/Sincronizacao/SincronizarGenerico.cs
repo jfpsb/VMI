@@ -128,7 +128,11 @@ namespace SincronizacaoVMI.Util
 
                                 object manyToOneLocal = null;
                                 if (manyToOneValue != null)
-                                    manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+                                {
+                                    //manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+                                    var propValue = futuredic[manyToOneValue.Uuid].GetType().GetProperty("Value");
+                                    manyToOneLocal = propValue.GetValue(futuredic[manyToOneValue.Uuid]);
+                                }
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {
@@ -210,7 +214,11 @@ namespace SincronizacaoVMI.Util
 
                                 object manyToOneLocal = null;
                                 if (manyToOneValue != null)
-                                    manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+                                {
+                                    //manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
+                                    var propValue = updateDic[manyToOneValue.Uuid].GetType().GetProperty("Value");
+                                    manyToOneLocal = propValue.GetValue(updateDic[manyToOneValue.Uuid]);
+                                }
 
                                 if (isPropNullable == false && manyToOneLocal == null)
                                 {

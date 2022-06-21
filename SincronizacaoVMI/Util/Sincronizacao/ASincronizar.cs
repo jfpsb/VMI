@@ -87,6 +87,8 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -121,6 +123,8 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -155,6 +159,8 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -189,6 +195,7 @@ namespace SincronizacaoVMI.Util
                     {
                         return false;
                     }
+                    return true;
                 }
                 catch (Exception ex)
                 {
