@@ -6,10 +6,6 @@
 	<class name="Fornecedor" table="fornecedor" dynamic-insert="true">
 		<cache usage="read-write"/>
 		<id name="Cnpj" column="cnpj"/>
-		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false">
-			<key column="fornecedor" />
-			<one-to-many class="VandaModaIntimaWpf.Model.Produto" />
-		</bag>
 		<many-to-one name="Representante"
 					 class="VandaModaIntimaWpf.Model.Representante"
 					 column="representante" />
@@ -22,6 +18,11 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
+
+		<bag name="Produtos" table="produto" inverse="true" where="Deletado = false" cascade="save-update">
+			<key column="fornecedor" />
+			<one-to-many class="VandaModaIntimaWpf.Model.Produto" />
+		</bag>
 	</class>
 
 </hibernate-mapping>

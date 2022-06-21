@@ -17,7 +17,7 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" >
+		<bag name="Fornecedores" table="fornecedor" inverse="true" where="Deletado = false" cascade="save-update">
 			<key column="representante" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Fornecedor"/>
 		</bag>
