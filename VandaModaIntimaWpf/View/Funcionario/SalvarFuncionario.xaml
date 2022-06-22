@@ -8,7 +8,7 @@
                       mc:Ignorable="d"
                       Title="Cadastrar Funcionário"
                       Height="750"
-                      Width="675"
+                      Width="700"
                       Icon="/Resources/Funcionario_Icon.ico"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
@@ -20,6 +20,7 @@
     <View:ACadastrarView.Resources>
         <Converters:CPFValueConverter x:Key="CPFValueConverter" />
         <Converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        <Converters:PeriodoEmStringConverter x:Key="PeriodoEmStringConverter" />
     </View:ACadastrarView.Resources>
     <Grid>
         <TabControl>
@@ -301,6 +302,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Label Content="Início de período aquisitivo:"
                                    FontSize="16" />
@@ -340,6 +343,22 @@
                                      Grid.Column="1"
                                      IsEnabled="False"
                                      Text="{Binding FimFerias, Mode=OneWay,StringFormat=dd/MM/yyyy, ConverterCulture=pt-BR}" />
+                            <Label Grid.Row="6"
+                                   Content="Observação:"
+                                   FontSize="16" />
+                            <TextBox Grid.Row="6"
+                                     Grid.Column="1"
+                                     Text="{Binding Observacao}"
+                                     TextWrapping="Wrap"
+                                     FontSize="14"
+                                     Height="75"
+                                     MaxLength="150"
+                                     AcceptsReturn="True" />
+                            <Button Grid.Row="7"
+                                    Grid.ColumnSpan="2"
+                                    Style="{StaticResource BotaoCadastrar}"
+                                    Content="Salvar"
+                                    Command="{Binding SalvarFeriasComando}" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Row="2"
@@ -356,11 +375,58 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <DataGrid>
+                            <DataGrid x:Name="DataGridFeriasRegistradas"
+                                      ItemsSource="{Binding FeriasRegistradas}"
+                                      IsReadOnly="True">
+                                <DataGrid.InputBindings>
+                                    <KeyBinding Key="Delete"
+                                                Command="{Binding DeletarFeriasRegistradaComando}"
+                                                CommandParameter="{Binding ElementName=DataGridFeriasRegistradas, Path=SelectedItem}" />
+                                </DataGrid.InputBindings>
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Período aquisitivo" />
-                                    <DataGridTextColumn Header="Período concessivo" />
-                                    <DataGridTextColumn Header="Período de férias" />
+                                    <DataGridTemplateColumn Header="Período aquisitivo">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource PeriodoEmStringConverter}">
+                                                            <Binding Path="InicioAquisitivo" />
+                                                            <Binding Path="FimAquisitivo" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Período concessivo">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource PeriodoEmStringConverter}">
+                                                            <Binding Path="InicioConcessivo" />
+                                                            <Binding Path="FimConcessivo" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Período de férias"
+                                                            Width="*">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource PeriodoEmStringConverter}">
+                                                            <Binding Path="Inicio" />
+                                                            <Binding Path="Fim" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </Grid>

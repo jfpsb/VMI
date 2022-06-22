@@ -122,27 +122,27 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 WidgetsMes1.Clear();
                 WidgetsMes2.Clear();
 
-                if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json"))
-                {
-                    try
-                    {
-                        string url = string.Format("https://api.calendario.com.br/?json=true&ano={0}&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA", DataEscolhida.Year);
-                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                        WebResponse response = request.GetResponse();
-                        using (Stream responseStream = response.GetResponseStream())
-                        {
-                            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                            File.WriteAllText($"Resources/Feriados/{DataEscolhida.Year}.json", reader.ReadToEnd());
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
+                //if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json"))
+                //{
+                //    try
+                //    {
+                //        string url = string.Format("https://api.calendario.com.br/?json=true&ano={0}&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA", DataEscolhida.Year);
+                //        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                //        WebResponse response = request.GetResponse();
+                //        using (Stream responseStream = response.GetResponseStream())
+                //        {
+                //            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                //            File.WriteAllText($"Resources/Feriados/{DataEscolhida.Year}.json", reader.ReadToEnd());
+                //        }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Console.WriteLine(ex.Message);
+                //    }
+                //}
 
-                var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{DataEscolhida.Year}.json");
-                datasFeriados = JsonConvert.DeserializeObject<DataFeriado[]>(datasFeriadosJson);
+                //var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{DataEscolhida.Year}.json");
+                datasFeriados = FeriadoJsonUtil.RetornaListagemDeFeriados(DataEscolhida.Year);
 
                 Metodo(DataEscolhida, WidgetsMes1, 1);
                 Metodo(DataEscolhida.AddMonths(1), WidgetsMes2, 2);

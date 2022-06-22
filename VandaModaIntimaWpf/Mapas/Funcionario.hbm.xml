@@ -40,6 +40,10 @@
 			<key column="funcionario" />
 			<one-to-many class="VandaModaIntimaWpf.Model.ChavePix" />
 		</bag>
+		<bag name="Ferias" table="ferias" inverse="true" cascade="save-update" where="Deletado = false" >
+			<key column="funcionario" />
+			<one-to-many class="VandaModaIntimaWpf.Model.Ferias" />
+		</bag>
 	</class>
 
 </hibernate-mapping>

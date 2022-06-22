@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VandaModaIntimaWpf.Model
+namespace SincronizacaoVMI.Model
 {
     public class Ferias : AModel, IModel
     {

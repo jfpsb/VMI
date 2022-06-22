@@ -26,6 +26,7 @@ namespace VandaModaIntimaWpf.Model
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
         private IList<ChavePix> _chavesPix = new List<ChavePix>();
+        private IList<Ferias> _ferias = new List<Ferias>();
 
         private string regularmentePropriedade;
 
@@ -243,6 +244,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _lojaTrabalho = value;
                 OnPropertyChanged("LojaTrabalho");
+            }
+        }
+
+        public virtual IList<Ferias> Ferias
+        {
+            get
+            {
+                return _ferias;
+            }
+
+            set
+            {
+                _ferias = value;
+                OnPropertyChanged("Ferias");
             }
         }
 

@@ -2,8 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Util;
@@ -27,6 +29,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         #region "Usado em EditarFuncionarioVM"
         private DateTime _inicioAquisitivo;
         private DateTime _inicioFerias;
+        private ObservableCollection<Ferias> _feriasRegistradas;
+        private string _observacao;
         #endregion
 
         public ObservableCollection<LojaModel> Lojas { get; set; }
@@ -34,6 +38,8 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public ICommand AdicionarContaBancariaComando { get; set; }
         public ICommand DeletarChavePixComando { get; set; }
         public ICommand DeletarContaBancariaComando { get; set; }
+        public ICommand DeletarFeriasRegistradaComando { get; set; }
+        public ICommand SalvarFeriasComando { get; set; }
 
         public CadastrarFuncionarioVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -61,6 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             ChavesPix = new ObservableCollection<Model.ChavePix>();
             ContasBancarias = new ObservableCollection<Model.ContaBancaria>();
+            FeriasRegistradas = new ObservableCollection<Ferias>();
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
@@ -70,6 +77,61 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             AdicionarContaBancariaComando = new RelayCommand(AdicionarContaBancaria, ValidaContaBancaria);
             DeletarChavePixComando = new RelayCommand(DeletarChavePix);
             DeletarContaBancariaComando = new RelayCommand(DeletarContaBancaria);
+            DeletarFeriasRegistradaComando = new RelayCommand(DeletarFeriasRegistrada);
+            SalvarFeriasComando = new RelayCommand(SalvarFerias);
+        }
+
+        private void SalvarFerias(object obj)
+        {
+            if (InicioFerias.DayOfWeek == DayOfWeek.Sunday)
+            {
+                MessageBoxService.Show("Período de férias não pode iniciar em dia de domingo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var feriados = FeriadoJsonUtil.RetornaListagemDeFeriados(InicioFerias.Year);
+            var feriado = feriados.FirstOrDefault(s => s.Date.Day == InicioFerias.Day && s.Date.Month == InicioFerias.Month);
+
+            if (feriado != null && InicioFerias.DayOfWeek != DayOfWeek.Sunday)
+            {
+                if (feriado.Type.ToLower().Equals("feriado nacional")
+                    || feriado.Type.ToLower().Equals("feriado estadual")
+                    || feriado.Type.ToLower().Equals("feriado municipal")
+                    || feriado.Type.ToLower().Equals("dia não útil"))
+                {
+                    MessageBoxService.Show("Período de férias não pode iniciar em dia de feriado.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+            }
+
+            if (InicioFerias < InicioConcessivo || InicioFerias > FimConcessivo)
+            {
+                MessageBoxService.Show("Início de período de férias não pode estar fora do período concessivo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            Ferias ferias = new Ferias
+            {
+                Funcionario = Entidade,
+                InicioAquisitivo = InicioAquisitivo,
+                Inicio = InicioFerias,
+                Fim = FimFerias,
+                Observacao = Observacao
+            };
+
+            Entidade.Ferias.Add(ferias);
+            FeriasRegistradas.Add(ferias);
+        }
+
+        private void DeletarFeriasRegistrada(object obj)
+        {
+            Ferias ferias = obj as Ferias;
+            if (obj != null)
+            {
+                ferias.Deletado = true;
+                Entidade.Ferias.Remove(ferias);
+                FeriasRegistradas.Remove(ferias);
+            }
         }
 
         private void DeletarContaBancaria(object obj)
@@ -136,9 +198,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("InicioAquisitivo"))
+            switch (e.PropertyName)
             {
-                InicioFerias = InicioConcessivo;
+                case "InicioAquisitivo":
+                    InicioFerias = InicioConcessivo;
+                    break;
             }
         }
 
@@ -179,10 +243,11 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         }
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            Entidade = new FuncionarioModel
+            if (e.Sucesso)
             {
-                Loja = Lojas[0]
-            };
+                IssoEUmUpdate = true;
+                viewModelStrategy = new EditarFuncionarioVMStrategy();
+            }
         }
         public override bool ValidacaoSalvar(object parameter)
         {
@@ -306,7 +371,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         public DateTime FimConcessivo
         {
-            get => FimAquisitivo.AddYears(1).AddDays(-1);
+            get => InicioConcessivo.AddYears(1).AddDays(-1);
         }
 
         public DateTime InicioFerias
@@ -328,7 +393,35 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             //O dia de início das férias conta como o primeiro dia
             //então só preciso somar 29 para achar o último dia das férias
-            get => InicioFerias.AddDays(29);
+            get => InicioFerias.AddDays(30).AddDays(-1);
+        }
+
+        public ObservableCollection<Ferias> FeriasRegistradas
+        {
+            get
+            {
+                return _feriasRegistradas;
+            }
+
+            set
+            {
+                _feriasRegistradas = value;
+                OnPropertyChanged("FeriasRegistradas");
+            }
+        }
+
+        public string Observacao
+        {
+            get
+            {
+                return _observacao;
+            }
+
+            set
+            {
+                _observacao = value;
+                OnPropertyChanged("Observacao");
+            }
         }
     }
 }

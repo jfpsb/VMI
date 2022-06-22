@@ -54,8 +54,8 @@ namespace SincronizacaoVMI.Util
 
                 var persister = SessionProviderBackup.BackupSessionFactory.GetClassMetadata(typeof(E));
 
-                Dictionary<Guid, object> futureInsertsDic = new Dictionary<Guid, object>();
-                Dictionary<Guid, object> futureUpdatesDic = new Dictionary<Guid, object>();
+                Dictionary<string, object> futureInsertsDic = new Dictionary<string, object>();
+                Dictionary<string, object> futureUpdatesDic = new Dictionary<string, object>();
 
                 if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
@@ -69,7 +69,7 @@ namespace SincronizacaoVMI.Util
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                        futureInsertsDic.Add(e.Uuid, metodoGenerico.Invoke(criteria, null));
+                        futureInsertsDic.Add(e.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                     }
                 }
 
@@ -79,8 +79,8 @@ namespace SincronizacaoVMI.Util
                     {
                         if (e == null) continue;
 
-                        var propInsertValue = futureInsertsDic[e.Uuid].GetType().GetProperty("Value");
-                        var ent = propInsertValue.GetValue(futureInsertsDic[e.Uuid]);
+                        var propInsertValue = futureInsertsDic[e.Uuid.ToString()].GetType().GetProperty("Value");
+                        var ent = propInsertValue.GetValue(futureInsertsDic[e.Uuid.ToString()]);
 
                         if (ent != null) continue;
                         E eASalvar = new();
@@ -90,33 +90,22 @@ namespace SincronizacaoVMI.Util
                         {
                             var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
 
-                            Dictionary<string, ICriteria> criteriaDic = new Dictionary<string, ICriteria>();
-                            Dictionary<Guid, object> futuredic = new Dictionary<Guid, object>();
+                            Dictionary<string, object> futureDictionary = new Dictionary<string, object>();
 
                             foreach (var property in manyToOneProperties)
                             {
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 if (manyToOneValue == null) continue;
-                                if (futuredic.ContainsKey(manyToOneValue.Uuid)) continue;
+                                if (futureDictionary.ContainsKey(manyToOneValue.Uuid.ToString())) continue;
 
-                                ICriteria criteria = null;
-                                if (criteriaDic.ContainsKey(persister.GetPropertyTypeSimpleName(property)))
-                                {
-                                    criteria = criteriaDic[persister.GetPropertyTypeSimpleName(property)];
-                                }
-                                else
-                                {
-                                    criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
-                                    criteriaDic.Add(persister.GetPropertyTypeSimpleName(property), criteria);
-                                }
-
+                                ICriteria criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
                                 var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                                futuredic.Add(manyToOneValue.Uuid, metodoGenerico.Invoke(criteria, null));
+                                futureDictionary.Add(manyToOneValue.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                             }
 
                             foreach (var property in manyToOneProperties)
@@ -128,8 +117,8 @@ namespace SincronizacaoVMI.Util
                                 object manyToOneLocal = null;
                                 if (manyToOneValue != null)
                                 {
-                                    var propValue = futuredic[manyToOneValue.Uuid].GetType().GetProperty("Value");
-                                    manyToOneLocal = propValue.GetValue(futuredic[manyToOneValue.Uuid]);
+                                    var propValue = futureDictionary[manyToOneValue.Uuid.ToString()].GetType().GetProperty("Value");
+                                    manyToOneLocal = propValue.GetValue(futureDictionary[manyToOneValue.Uuid.ToString()]);
                                 }
 
                                 if (isPropNullable == false && manyToOneLocal == null)
@@ -137,7 +126,7 @@ namespace SincronizacaoVMI.Util
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
 
-                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);                                
+                                eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
                             }
                         }
                         insertsRemotoParaLocal.Add(eASalvar);
@@ -155,7 +144,7 @@ namespace SincronizacaoVMI.Util
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                        futureUpdatesDic.Add(e.Uuid, metodoGenerico.Invoke(criteria, null));
+                        futureUpdatesDic.Add(e.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                     }
                 }
 
@@ -164,8 +153,8 @@ namespace SincronizacaoVMI.Util
                     foreach (E e in futureUpdates.GetEnumerable())
                     {
                         if (e == null) continue;
-                        var propUpdateValue = futureUpdatesDic[e.Uuid].GetType().GetProperty("Value");
-                        var entLocal = propUpdateValue.GetValue(futureUpdatesDic[e.Uuid]) as E;
+                        var propUpdateValue = futureUpdatesDic[e.Uuid.ToString()].GetType().GetProperty("Value");
+                        var entLocal = propUpdateValue.GetValue(futureUpdatesDic[e.Uuid.ToString()]) as E;
                         if (entLocal == null) continue;
                         entLocal.Copiar(e);
 
@@ -173,33 +162,22 @@ namespace SincronizacaoVMI.Util
                         {
                             var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
 
-                            Dictionary<string, ICriteria> criteriaDic = new Dictionary<string, ICriteria>();
-                            Dictionary<Guid, object> updateDic = new Dictionary<Guid, object>();
+                            Dictionary<string, object> updateDic = new Dictionary<string, object>();
 
                             foreach (var property in manyToOneProperties)
                             {
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 if (manyToOneValue == null) continue;
-                                if (updateDic.ContainsKey(manyToOneValue.Uuid)) continue;
+                                if (updateDic.ContainsKey(manyToOneValue.Uuid.ToString())) continue;
 
-                                ICriteria criteria = null;
-                                if (criteriaDic.ContainsKey(persister.GetPropertyTypeSimpleName(property)))
-                                {
-                                    criteria = criteriaDic[persister.GetPropertyTypeSimpleName(property)];
-                                }
-                                else
-                                {
-                                    criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
-                                    criteriaDic.Add(persister.GetPropertyTypeSimpleName(property), criteria);
-                                }
-
+                                ICriteria criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
                                 var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                                updateDic.Add(manyToOneValue.Uuid, metodoGenerico.Invoke(criteria, null));
+                                updateDic.Add(manyToOneValue.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                             }
 
                             foreach (var property in manyToOneProperties)
@@ -211,9 +189,8 @@ namespace SincronizacaoVMI.Util
                                 object manyToOneLocal = null;
                                 if (manyToOneValue != null)
                                 {
-                                    //manyToOneLocal = await ListarPorUuidLocal(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
-                                    var propValue = updateDic[manyToOneValue.Uuid].GetType().GetProperty("Value");
-                                    manyToOneLocal = propValue.GetValue(updateDic[manyToOneValue.Uuid]);
+                                    var propValue = updateDic[manyToOneValue.Uuid.ToString()].GetType().GetProperty("Value");
+                                    manyToOneLocal = propValue.GetValue(updateDic[manyToOneValue.Uuid.ToString()]);
                                 }
 
                                 if (isPropNullable == false && manyToOneLocal == null)
@@ -250,8 +227,8 @@ namespace SincronizacaoVMI.Util
 
                 var persister = SessionProvider.SessionFactory.GetClassMetadata(typeof(E));
 
-                Dictionary<Guid, object> futureInsertsDic = new Dictionary<Guid, object>();
-                Dictionary<Guid, object> futureUpdatesDic = new Dictionary<Guid, object>();
+                Dictionary<string, object> futureInsertsDic = new Dictionary<string, object>();
+                Dictionary<string, object> futureUpdatesDic = new Dictionary<string, object>();
 
                 if (futureInserts.Any() && persister.PropertyTypes != null)
                 {
@@ -265,7 +242,7 @@ namespace SincronizacaoVMI.Util
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                        futureInsertsDic.Add(e.Uuid, metodoGenerico.Invoke(criteria, null));
+                        futureInsertsDic.Add(e.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                     }
                 }
 
@@ -275,8 +252,8 @@ namespace SincronizacaoVMI.Util
                     {
                         if (e == null) continue;
 
-                        var propInsertValue = futureInsertsDic[e.Uuid].GetType().GetProperty("Value");
-                        var ent = propInsertValue.GetValue(futureInsertsDic[e.Uuid]);
+                        var propInsertValue = futureInsertsDic[e.Uuid.ToString()].GetType().GetProperty("Value");
+                        var ent = propInsertValue.GetValue(futureInsertsDic[e.Uuid.ToString()]);
 
                         if (ent != null) continue;
                         E eASalvar = new();
@@ -286,33 +263,22 @@ namespace SincronizacaoVMI.Util
                         {
                             var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
 
-                            Dictionary<string, ICriteria> criteriaDic = new Dictionary<string, ICriteria>();
-                            Dictionary<Guid, object> futuredic = new Dictionary<Guid, object>();
+                            Dictionary<string, object> futuredic = new Dictionary<string, object>();
 
                             foreach (var property in manyToOneProperties)
                             {
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 if (manyToOneValue == null) continue;
-                                if (futuredic.ContainsKey(manyToOneValue.Uuid)) continue;
+                                if (futuredic.ContainsKey(manyToOneValue.Uuid.ToString())) continue;
 
-                                ICriteria criteria = null;
-                                if (criteriaDic.ContainsKey(persister.GetPropertyTypeSimpleName(property)))
-                                {
-                                    criteria = criteriaDic[persister.GetPropertyTypeSimpleName(property)];
-                                }
-                                else
-                                {
-                                    criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
-                                    criteriaDic.Add(persister.GetPropertyTypeSimpleName(property), criteria);
-                                }
-
+                                ICriteria criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
                                 var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                                futuredic.Add(manyToOneValue.Uuid, metodoGenerico.Invoke(criteria, null));
+                                futuredic.Add(manyToOneValue.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                             }
 
                             foreach (var property in manyToOneProperties)
@@ -325,8 +291,8 @@ namespace SincronizacaoVMI.Util
                                 if (manyToOneValue != null)
                                 {
                                     //manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
-                                    var propValue = futuredic[manyToOneValue.Uuid].GetType().GetProperty("Value");
-                                    manyToOneLocal = propValue.GetValue(futuredic[manyToOneValue.Uuid]);
+                                    var propValue = futuredic[manyToOneValue.Uuid.ToString()].GetType().GetProperty("Value");
+                                    manyToOneLocal = propValue.GetValue(futuredic[manyToOneValue.Uuid.ToString()]);
                                 }
 
                                 if (isPropNullable == false && manyToOneLocal == null)
@@ -352,7 +318,7 @@ namespace SincronizacaoVMI.Util
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                        futureUpdatesDic.Add(e.Uuid, metodoGenerico.Invoke(criteria, null));
+                        futureUpdatesDic.Add(e.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                     }
                 }
 
@@ -362,8 +328,8 @@ namespace SincronizacaoVMI.Util
                     {
                         if (e == null) continue;
                         //E entRemoto = await ListarPorUuidRemoto(typeof(E).Name, e.Uuid) as E;
-                        var propUpdateValue = futureUpdatesDic[e.Uuid].GetType().GetProperty("Value");
-                        var entRemoto = propUpdateValue.GetValue(futureUpdatesDic[e.Uuid]) as E;
+                        var propUpdateValue = futureUpdatesDic[e.Uuid.ToString()].GetType().GetProperty("Value");
+                        var entRemoto = propUpdateValue.GetValue(futureUpdatesDic[e.Uuid.ToString()]) as E;
                         if (entRemoto == null) continue;
                         entRemoto.Copiar(e);
 
@@ -371,33 +337,22 @@ namespace SincronizacaoVMI.Util
                         {
                             var manyToOneProperties = persister.PropertyNames.GetManyToOnePropertyNames(persister);
 
-                            Dictionary<string, ICriteria> criteriaDic = new Dictionary<string, ICriteria>();
-                            Dictionary<Guid, object> updateDic = new Dictionary<Guid, object>();
+                            Dictionary<string, object> updateDic = new Dictionary<string, object>();
 
                             foreach (var property in manyToOneProperties)
                             {
                                 var manyToOneValue = persister.GetPropertyValue(e, property) as AModel;
                                 if (manyToOneValue == null) continue;
-                                if (updateDic.ContainsKey(manyToOneValue.Uuid)) continue;
+                                if (updateDic.ContainsKey(manyToOneValue.Uuid.ToString())) continue;
 
-                                ICriteria criteria = null;
-                                if (criteriaDic.ContainsKey(persister.GetPropertyTypeSimpleName(property)))
-                                {
-                                    criteria = criteriaDic[persister.GetPropertyTypeSimpleName(property)];
-                                }
-                                else
-                                {
-                                    criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
-                                    criteriaDic.Add(persister.GetPropertyTypeSimpleName(property), criteria);
-                                }
-
+                                ICriteria criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
                                 var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
-                                updateDic.Add(manyToOneValue.Uuid, metodoGenerico.Invoke(criteria, null));
+                                updateDic.Add(manyToOneValue.Uuid.ToString(), metodoGenerico.Invoke(criteria, null));
                             }
 
                             foreach (var property in manyToOneProperties)
@@ -410,8 +365,9 @@ namespace SincronizacaoVMI.Util
                                 if (manyToOneValue != null)
                                 {
                                     //manyToOneLocal = await ListarPorUuidRemoto(persister.GetPropertyTypeSimpleName(property), manyToOneValue.Uuid);
-                                    var propValue = updateDic[manyToOneValue.Uuid].GetType().GetProperty("Value");
-                                    manyToOneLocal = propValue.GetValue(updateDic[manyToOneValue.Uuid]);
+                                    var propValue = updateDic[manyToOneValue.Uuid.ToString()].GetType().GetProperty("Value");
+                                    //var t2 = updateDic[manyToOneValue.Uuid.ToString()];
+                                    manyToOneLocal = propValue.GetValue(updateDic[manyToOneValue.Uuid.ToString()]);
                                 }
 
                                 if (isPropNullable == false && manyToOneLocal == null)

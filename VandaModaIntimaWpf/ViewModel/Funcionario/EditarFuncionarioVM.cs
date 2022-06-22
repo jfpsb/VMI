@@ -12,6 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             Entidade = funcionario;
             ChavesPix = new ObservableCollection<Model.ChavePix>(Entidade.ChavesPix);
             ContasBancarias = new ObservableCollection<Model.ContaBancaria>(Entidade.ContasBancarias);
+            FeriasRegistradas = new ObservableCollection<Model.Ferias>(Entidade.Ferias);
 
             SetInicioAquisitivo();
             //InicioFerias = InicioConcessivo;
