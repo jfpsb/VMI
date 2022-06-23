@@ -355,6 +355,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Ferias\VisualControlFerias.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Ferias\VisualizadorDeFerias.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -836,6 +844,12 @@
     </Compile>
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ferias\VisualControlFerias.xaml.cs">
+      <DependentUpon>VisualControlFerias.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ferias\VisualizadorDeFerias.xaml.cs">
+      <DependentUpon>VisualizadorDeFerias.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Interfaces\IFolderBrowserDialog.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
