@@ -14,7 +14,7 @@ namespace SincronizacaoVMI.Util
     /// <summary>
     /// Usado para sincronizar entidades sem chaves estrangeiras.
     /// </summary>
-    public class SincronizarGenerico<E> : ASincronizar<E> where E : AModel, IModel, new()
+    public class SincronizarGenerico<E> : ASincronizar<E> where E : AModel, new()
     {
         public SincronizarGenerico(ISession local, ISession remoto, bool isChaveAutoIncremento = true) : base(local, remoto, isChaveAutoIncremento)
         {

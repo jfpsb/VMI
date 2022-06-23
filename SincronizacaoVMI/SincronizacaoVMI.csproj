@@ -36,6 +36,7 @@
     <None Remove="Mapas\Marca.hbm.xml" />
     <None Remove="Mapas\MembroFamiliar.hbm.xml" />
     <None Remove="Mapas\OperadoraCartao.hbm.xml" />
+    <None Remove="Mapas\OperadoraCartaoId.hbm.xml" />
     <None Remove="Mapas\Parcela.hbm.xml" />
     <None Remove="Mapas\Produto.hbm.xml" />
     <None Remove="Mapas\ProdutoGrade.hbm.xml" />
@@ -98,6 +99,7 @@
     <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
     <EmbeddedResource Include="Mapas\Marca.hbm.xml" />
     <EmbeddedResource Include="Mapas\MembroFamiliar.hbm.xml" />
+    <EmbeddedResource Include="Mapas\OperadoraCartaoId.hbm.xml" />
     <EmbeddedResource Include="Mapas\OperadoraCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\Parcela.hbm.xml">
       <SubType>Designer</SubType>

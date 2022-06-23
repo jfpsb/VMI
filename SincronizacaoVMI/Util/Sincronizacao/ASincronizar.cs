@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SincronizacaoVMI.Util
 {
-    public abstract class ASincronizar<E> where E : AModel, IModel
+    public abstract class ASincronizar<E> where E : AModel
     {
         protected ISession _local, _remoto;
         protected bool _isChaveAutoIncremento;

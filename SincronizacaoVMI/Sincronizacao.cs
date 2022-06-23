@@ -73,7 +73,7 @@ namespace SincronizacaoVMI
                 _threadsStatus["LojaFilial"] = false;
             }
         }
-        private async void ElapsedGenerico<E>() where E : AModel, IModel, new()
+        private async void ElapsedGenerico<E>() where E : AModel, new()
         {
             try
             {
@@ -158,6 +158,7 @@ namespace SincronizacaoVMI
                     _threadsByType.Add("ProdutoGrade", new Thread((instancia) => { ElapsedGenerico<ProdutoGrade>(); }));
                     _threadsByType.Add("RecebimentoCartao", new Thread((instancia) => { ElapsedGenerico<RecebimentoCartao>(); }));
                     _threadsByType.Add("SubGrade", new Thread((instancia) => { ElapsedGenerico<SubGrade>(); }));
+                    _threadsByType.Add("OperadoraCartaoId", new Thread((instancia) => { ElapsedGenerico<OperadoraCartaoId>(); }));
 
                     _threadsStatus.Add("Banco", false);
                     _threadsStatus.Add("Adiantamento", false);
@@ -197,6 +198,7 @@ namespace SincronizacaoVMI
                     _threadsStatus.Add("ProdutoGrade", false);
                     _threadsStatus.Add("RecebimentoCartao", false);
                     _threadsStatus.Add("SubGrade", false);
+                    _threadsStatus.Add("OperadoraCartaoId", false);
                 }
                 else
                 {
