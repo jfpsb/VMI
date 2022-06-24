@@ -19,16 +19,6 @@ namespace SincronizacaoVMI.Model
                 prop.SetValue(this, source.GetType().GetProperty(prop.Name).GetValue(source));
             }
         }
-
-        protected virtual void CopiarDadosSinc(object source)
-        {
-            AModel a = source as AModel;
-            Uuid = a.Uuid;
-            CriadoEm = a.CriadoEm;
-            ModificadoEm = a.ModificadoEm;
-            DeletadoEm = a.DeletadoEm;
-            Deletado = a.Deletado;
-        }
         public virtual string Tipo => GetType().Name.ToLower();
         public virtual bool Deletado
         {
