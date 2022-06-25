@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:VandaModaIntimaWpf.View"
              mc:Ignorable="d"
-             d:DesignWidth="250">
+             d:DesignWidth="250"
+             Loaded="UserControl_Loaded">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -15,11 +16,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <!-- O binding do Text é configurado no code-behind -->
         <TextBox x:Name="TxtNumero"
                  Grid.RowSpan="2"
                  Margin="0"
-                 VerticalAlignment="Center"
-                 Text="{Binding Data, Mode=TwoWay, StringFormat=MMM/yyyy, ConverterCulture=pt-BR, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                 VerticalAlignment="Center" />
         <Button x:Name="BtnSomar"
                 Grid.Column="1"
                 Grid.Row="0"

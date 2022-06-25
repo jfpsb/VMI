@@ -1,7 +1,6 @@
-﻿using NHibernate;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 
@@ -11,11 +10,13 @@ namespace VandaModaIntimaWpf.ViewModel.Ferias
     {
         private DAOFuncionario daoFuncionario;
         private ObservableCollection<Model.Funcionario> _funcionarios;
+        private DateTime _anoEscolhido;
 
         public VisualizadorDeFeriasVM()
         {
             daoFuncionario = new DAOFuncionario(_session);
             GetFuncionarios();
+            AnoEscolhido = DateTime.Now;
         }
 
         private async void GetFuncionarios()
@@ -34,6 +35,20 @@ namespace VandaModaIntimaWpf.ViewModel.Ferias
             {
                 _funcionarios = value;
                 OnPropertyChanged("Funcionarios");
+            }
+        }
+
+        public DateTime AnoEscolhido
+        {
+            get
+            {
+                return _anoEscolhido;
+            }
+
+            set
+            {
+                _anoEscolhido = value;
+                OnPropertyChanged("AnoEscolhido");
             }
         }
 

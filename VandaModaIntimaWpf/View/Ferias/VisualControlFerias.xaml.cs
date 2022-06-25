@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -17,6 +18,10 @@ namespace VandaModaIntimaWpf.View.Ferias
             DependencyProperty.Register("Funcionarios", typeof(IEnumerable<Model.Funcionario>), typeof(VisualControlFerias),
                 new FrameworkPropertyMetadata(OnPropertyChanged));
 
+        public static readonly DependencyProperty AnoProperty =
+            DependencyProperty.Register("Ano", typeof(DateTime), typeof(VisualControlFerias),
+                new FrameworkPropertyMetadata(OnPropertyChanged));
+
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GridLengthConverter converter = new GridLengthConverter();
@@ -29,62 +34,74 @@ namespace VandaModaIntimaWpf.View.Ferias
             {
                 RowDefinition rowDefinition = new RowDefinition();
                 rowDefinition.Height = (GridLength)converter.ConvertFromString("*");
-                rowDefinition.MinHeight = 35;
+                rowDefinition.MaxHeight = 35;
                 (d as VisualControlFerias).GridItensFerias.RowDefinitions.Add(rowDefinition);
 
                 for (int i = 0; i < 13; i++)
                 {
                     if (i == 0)
                     {
-                        Border textBlockBorderNome = new Border
+                        Border textBoxBorderNome = new Border
                         {
-                            BorderThickness = new Thickness(0.3),
+                            BorderThickness = new Thickness(0.6),
                             BorderBrush = new SolidColorBrush(Colors.Black)
                         };
-                        TextBlock textBlockNome = new TextBlock
+                        ScrollViewer scrollViewer = new ScrollViewer()
+                        {
+                            VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
+                            CanContentScroll = true,
+                            MaxHeight = 35
+                        };
+                        TextBlock textBoxNome = new TextBlock
                         {
                             FontSize = 14,
-                            TextWrapping = TextWrapping.Wrap,
                             Text = funcionario.Nome,
-                            FontWeight = FontWeights.Bold
+                            TextWrapping = TextWrapping.Wrap,
+                            FontWeight = FontWeights.Bold,
+                            Background = new SolidColorBrush(Colors.LightGray),
+                            Margin = new Thickness(1, 1, 1, 1),
+                            Padding = new Thickness(0)
                         };
 
-                        textBlockBorderNome.Child = textBlockNome;
-                        (d as VisualControlFerias).GridItensFerias.Children.Add(textBlockBorderNome);
-                        Grid.SetColumn(textBlockBorderNome, i);
-                        Grid.SetRow(textBlockBorderNome, row);
+                        scrollViewer.Content = textBoxNome;
+                        textBoxBorderNome.Child = scrollViewer;
+                        (d as VisualControlFerias).GridItensFerias.Children.Add(textBoxBorderNome);
+                        Grid.SetColumn(textBoxBorderNome, i);
+                        Grid.SetRow(textBoxBorderNome, row);
                         continue;
                     }
 
-                    Model.Ferias ferias = funcionario.Ferias.Where(w => w.Inicio.Year == 2022 && w.Inicio.Month == i && w.Deletado == false).FirstOrDefault();
+                    Model.Ferias ferias = funcionario.Ferias.Where(w => w.Inicio.Year == (d as VisualControlFerias).Ano.Year && w.Inicio.Month == i && w.Deletado == false).FirstOrDefault();
 
-                    Border textBlockBorder = new Border
+                    Border textBoxBorder = new Border
                     {
                         BorderThickness = new Thickness(0.3),
                         BorderBrush = new SolidColorBrush(Colors.Black)
                     };
-                    TextBlock textBlock = new TextBlock
+                    TextBlock textBox = new TextBlock
                     {
                         FontSize = 14,
-                        TextWrapping = TextWrapping.Wrap
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(1),
+                        Padding = new Thickness(0)
                     };
 
                     if (ferias != null)
                     {
-                        textBlock.Background = new SolidColorBrush(Colors.Yellow);
-                        textBlock.Text = $"Início em {ferias.Inicio:dd/MM/yyyy}";
-                        textBlockBorder.BorderThickness = new Thickness(2.0);
+                        textBox.Background = new SolidColorBrush(Colors.Yellow);
+                        textBox.Text = $"Início em {ferias.Inicio:dd/MM/yyyy}";
+                        textBoxBorder.BorderThickness = new Thickness(1.5);
                     }
                     else
                     {
-                        textBlock.Background = new SolidColorBrush(Colors.White);
+                        textBox.Background = new SolidColorBrush(Colors.White);
                     }
 
-                    textBlockBorder.Child = textBlock;
+                    textBoxBorder.Child = textBox;
 
-                    (d as VisualControlFerias).GridItensFerias.Children.Add(textBlockBorder);
-                    Grid.SetColumn(textBlockBorder, i);
-                    Grid.SetRow(textBlockBorder, row);
+                    (d as VisualControlFerias).GridItensFerias.Children.Add(textBoxBorder);
+                    Grid.SetColumn(textBoxBorder, i);
+                    Grid.SetRow(textBoxBorder, row);
                 }
 
                 row++;
@@ -145,6 +162,16 @@ namespace VandaModaIntimaWpf.View.Ferias
             {
                 SetValue(FuncionariosProperty, value);
                 OnPropertyChanged("Funcionarios");
+            }
+        }
+
+        public DateTime Ano
+        {
+            get => (DateTime)GetValue(AnoProperty);
+            set
+            {
+                SetValue(AnoProperty, value);
+                OnPropertyChanged("Ano");
             }
         }
 

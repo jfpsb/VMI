@@ -11,7 +11,24 @@
                       Width="1200"
                       WindowStartupLocation="CenterScreen"
                       WindowState="Maximized">
-    <Grid>
-        <local:VisualControlFerias Funcionarios="{Binding Funcionarios, Mode=OneTime}" />
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="Selecione o ano para consulta:" />
+        <View:DataUpDown Grid.Column="1"
+                         Data="{Binding AnoEscolhido, Mode=TwoWay}"
+                         DataStringFormat="yyyy"
+                         Width="100"
+                         HorizontalAlignment="Left" />
+        <local:VisualControlFerias Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   Ano="{Binding AnoEscolhido}"
+                                   Funcionarios="{Binding Funcionarios, Mode=OneTime}" />
     </Grid>
 </View:APesquisarView>

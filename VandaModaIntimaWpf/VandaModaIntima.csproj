@@ -315,10 +315,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\DataUpDownAno.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\Despesa\DespesasGroupByDescricao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -841,9 +837,6 @@
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
     <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
-    <Compile Include="View\DataUpDownAno.xaml.cs">
-      <DependentUpon>DataUpDownAno.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
     </Compile>
@@ -853,6 +846,9 @@
     <Compile Include="View\Ferias\VisualizadorDeFerias.xaml.cs">
       <DependentUpon>VisualizadorDeFerias.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Interfaces\DataUpDown\IDataUpDown.cs" />
+    <Compile Include="View\Interfaces\DataUpDown\SomaAno.cs" />
+    <Compile Include="View\Interfaces\DataUpDown\SomaMes.cs" />
     <Compile Include="View\Interfaces\IFolderBrowserDialog.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
     <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
@@ -1187,7 +1183,6 @@
     <None Include="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="VandaModaIntima_TemporaryKey.pfx" />
     <None Include="ViewModel\DataSets\BonusDataSet.xsc">
       <DependentUpon>BonusDataSet.xsd</DependentUpon>
     </None>

@@ -307,8 +307,9 @@
                             </Grid.RowDefinitions>
                             <Label Content="Início de período aquisitivo:"
                                    FontSize="16" />
-                            <View:DataUpDownAno Grid.Column="1"
-                                                Data="{Binding InicioAquisitivo, Mode=TwoWay}" />
+                            <View:DataUpDown Grid.Column="1"
+                                                Data="{Binding InicioAquisitivo, Mode=TwoWay}"
+                                             DataStringFormat="dd/MM/yyyy"/>
                             <Label Grid.Row="1"
                                    Content="Fim de período aquisitivo:"
                                    FontSize="16" />

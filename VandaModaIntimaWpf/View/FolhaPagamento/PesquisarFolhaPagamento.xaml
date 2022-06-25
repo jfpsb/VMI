@@ -151,7 +151,8 @@
                     <View:DataUpDown Width="150"
                                      HorizontalAlignment="Left"
                                      Grid.Column="1"
-                                     Data="{Binding DataEscolhida, Mode=TwoWay}" />
+                                     Data="{Binding DataEscolhida, Mode=TwoWay}"
+                                     DataStringFormat="MMM/yyyy"/>
                     <DataGrid Grid.Row="1"
                               Grid.ColumnSpan="2"
                               Grid.RowSpan="2"
