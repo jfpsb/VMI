@@ -9,6 +9,7 @@ using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria;
+using VandaModaIntimaWpf.View.Ferias;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.View.Fornecedor;
@@ -24,6 +25,7 @@ using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
 using VandaModaIntimaWpf.ViewModel.Despesa;
 using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
+using VandaModaIntimaWpf.ViewModel.Ferias;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
@@ -92,6 +94,11 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<SalvarRepresentante, EditarRepresentanteVM>();
 
             WindowService.RegistrarWindow<CadastrarTipoGrade, CadastrarTipoGradeVM>();
+
+            WindowService.RegistrarWindow<VisualizadorDeFerias, VisualizadorDeFeriasVM>();
+
+            WindowService windowService = new WindowService();
+            windowService.ShowDialog(new VisualizadorDeFeriasVM(), null);
 
             try
             {

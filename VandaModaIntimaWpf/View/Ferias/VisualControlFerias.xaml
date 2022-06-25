@@ -17,7 +17,7 @@
             <RowDefinition Height="120" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border BorderThickness="0.3,0.3,0.0,0"
+        <Border BorderThickness="0.3,0.3,0,0.3"
                 BorderBrush="Black">
             <Grid>
                 <Line X1="0"
@@ -31,7 +31,7 @@
                 </Line>
                 <Label Grid.Row="1"
                        Content="Funcionário"
-                       FontSize="16"
+                       FontSize="17"
                        Height="35"
                        Width="120"
                        HorizontalAlignment="Center"
@@ -45,7 +45,7 @@
                 </Label>
                 <Label Grid.Column="1"
                        Content="Mês"
-                       FontSize="16"
+                       FontSize="17"
                        Height="30"
                        HorizontalAlignment="Center"
                        HorizontalContentAlignment="Center"
@@ -73,11 +73,13 @@
                         <Setter Property="VerticalContentAlignment"
                                 Value="Center" />
                         <Setter Property="FontSize"
-                                Value="14" />
+                                Value="17" />
                         <Setter Property="BorderThickness"
                                 Value="0.3" />
                         <Setter Property="BorderBrush"
                                 Value="Black" />
+                        <Setter Property="FontWeight"
+                                Value="Bold" />
                     </Style>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
@@ -119,5 +121,27 @@
                        Content="Dez" />
             </Grid>
         </Border>
+        <ScrollViewer Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      VerticalScrollBarVisibility="Hidden"
+                      CanContentScroll="True">
+            <Grid x:Name="GridItensFerias">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </UserControl>

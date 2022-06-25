@@ -285,7 +285,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             Entidade.Loja = Lojas[0];
             TipoDescricao = "CONTA DE LUZ"; //Primeiro item
             Entidade.Data = DateTime.Now;
-            Entidade.DataVencimento = DateTime.Now;
+            if (InserirVencimentoFlag)
+                Entidade.DataVencimento = DateTime.Now;
         }
 
         public override bool ValidacaoSalvar(object parameter)

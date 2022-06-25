@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         #region "Usado em EditarFuncionarioVM"
         private DateTime _inicioAquisitivo;
         private DateTime _inicioFerias;
-        private ObservableCollection<Ferias> _feriasRegistradas;
+        private ObservableCollection<Model.Ferias> _feriasRegistradas;
         private string _observacao;
         #endregion
 
@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             ChavesPix = new ObservableCollection<Model.ChavePix>();
             ContasBancarias = new ObservableCollection<Model.ContaBancaria>();
-            FeriasRegistradas = new ObservableCollection<Ferias>();
+            FeriasRegistradas = new ObservableCollection<Model.Ferias>();
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
@@ -110,7 +110,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                 return;
             }
 
-            Ferias ferias = new Ferias
+            Model.Ferias ferias = new Model.Ferias
             {
                 Funcionario = Entidade,
                 InicioAquisitivo = InicioAquisitivo,
@@ -125,7 +125,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
         private void DeletarFeriasRegistrada(object obj)
         {
-            Ferias ferias = obj as Ferias;
+            Model.Ferias ferias = obj as Model.Ferias;
             if (obj != null)
             {
                 ferias.Deletado = true;
@@ -396,7 +396,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             get => InicioFerias.AddDays(30).AddDays(-1);
         }
 
-        public ObservableCollection<Ferias> FeriasRegistradas
+        public ObservableCollection<Model.Ferias> FeriasRegistradas
         {
             get
             {

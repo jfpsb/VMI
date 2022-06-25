@@ -596,6 +596,7 @@
     <Compile Include="Model\DAO\DAOBonusMensal.cs" />
     <Compile Include="Model\DAO\DAOEntradaDeMercadoria.cs" />
     <Compile Include="Model\DAO\DAOEntradaMercadoriaProdutoGrade.cs" />
+    <Compile Include="Model\DAO\DAOFerias.cs" />
     <Compile Include="Model\DAO\DAOHistoricoProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
     <Compile Include="Model\DAO\DAOContagem.cs" />
@@ -693,6 +694,7 @@
     <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
     <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
+    <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />

@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.View.Ferias
     /// <summary>
     /// Interaction logic for VisualizadorDeFerias.xaml
     /// </summary>
-    public partial class VisualizadorDeFerias : Window
+    public partial class VisualizadorDeFerias : APesquisarView
     {
         public VisualizadorDeFerias()
         {
