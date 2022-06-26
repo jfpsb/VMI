@@ -5,12 +5,16 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Ferias"
+                      xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.Ferias"
                       mc:Ignorable="d"
                       Title="VisualizadorDeFerias"
                       Height="600"
                       Width="1200"
                       WindowStartupLocation="CenterScreen"
                       WindowState="Maximized">
+    <View:APesquisarView.DataContext>
+        <ViewModel:VisualizadorDeFeriasVM />
+    </View:APesquisarView.DataContext>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

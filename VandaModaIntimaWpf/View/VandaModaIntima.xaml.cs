@@ -4,6 +4,7 @@ using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria;
+using VandaModaIntimaWpf.View.Ferias;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
@@ -92,10 +93,16 @@ namespace VandaModaIntimaWpf.View
             pesquisarFolhaPagamento.Show();
         }
 
-        private void BtnEntradeDeMercadoria_Click(object sender, RoutedEventArgs e)
+        private void BtnEntradaDeMercadoria_Click(object sender, RoutedEventArgs e)
         {
             PesquisarEntradaDeMercadoria pesquisarEntradaDeMercadoria = new PesquisarEntradaDeMercadoria();
             pesquisarEntradaDeMercadoria.Show();
+        }
+
+        private void BtnFerias_Click(object sender, RoutedEventArgs e)
+        {
+            VisualizadorDeFerias visualizadorDeFerias = new VisualizadorDeFerias();
+            visualizadorDeFerias.Show();
         }
     }
 }

@@ -1502,5 +1502,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapas\Ferias.hbm.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ferias_Icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

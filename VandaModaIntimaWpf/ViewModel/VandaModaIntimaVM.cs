@@ -95,11 +95,6 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<CadastrarTipoGrade, CadastrarTipoGradeVM>();
 
-            WindowService.RegistrarWindow<VisualizadorDeFerias, VisualizadorDeFeriasVM>();
-
-            WindowService windowService = new WindowService();
-            windowService.ShowDialog(new VisualizadorDeFeriasVM(), null);
-
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

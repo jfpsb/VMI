@@ -134,13 +134,24 @@
                     </Button.Content>
                 </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
-                        Click="BtnEntradeDeMercadoria_Click">
+                        Click="BtnEntradaDeMercadoria_Click">
                     <Button.Content>
                         <StackPanel>
                             <Image Source="/Resources/EntradaDeMercadoria.png"
                                    Height="300"
                                    Width="300" />
                             <Label Content="Entrada De Mercadoria" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnFerias_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Ferias_Icon.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Visualizar Férias" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
