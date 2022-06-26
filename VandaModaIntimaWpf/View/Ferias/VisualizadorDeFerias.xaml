@@ -33,6 +33,7 @@
         <local:VisualControlFerias Grid.Row="1"
                                    Grid.ColumnSpan="2"
                                    Ano="{Binding AnoEscolhido}"
+                                   NHibernateSession="{Binding Session}"
                                    Funcionarios="{Binding Funcionarios, Mode=OneTime}" />
     </Grid>
 </View:APesquisarView>

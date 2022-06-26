@@ -23,7 +23,7 @@
         <Converters:PeriodoEmStringConverter x:Key="PeriodoEmStringConverter" />
     </View:ACadastrarView.Resources>
     <Grid>
-        <TabControl>
+        <TabControl SelectedIndex="{Binding IndexAba}">
             <TabItem Header="Dados De Funcionário">
                 <Grid Margin="15,5,15,0">
                     <Grid.ColumnDefinitions>
@@ -308,8 +308,8 @@
                             <Label Content="Início de período aquisitivo:"
                                    FontSize="16" />
                             <View:DataUpDown Grid.Column="1"
-                                                Data="{Binding InicioAquisitivo, Mode=TwoWay}"
-                                             DataStringFormat="dd/MM/yyyy"/>
+                                             Data="{Binding InicioAquisitivo, Mode=TwoWay}"
+                                             DataStringFormat="dd/MM/yyyy" />
                             <Label Grid.Row="1"
                                    Content="Fim de período aquisitivo:"
                                    FontSize="16" />
@@ -384,6 +384,12 @@
                                                 Command="{Binding DeletarFeriasRegistradaComando}"
                                                 CommandParameter="{Binding ElementName=DataGridFeriasRegistradas, Path=SelectedItem}" />
                                 </DataGrid.InputBindings>
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Setter Property="ToolTip"
+                                                Value="{Binding Observacao}" />
+                                    </Style>
+                                </DataGrid.RowStyle>
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Período aquisitivo">
                                         <DataGridTemplateColumn.CellTemplate>

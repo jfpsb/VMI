@@ -25,6 +25,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private Model.Banco _bancoContaBancaria;
         private Model.Banco _bancoPix;
         private Model.ChavePix _chavePix;
+        private int _indexAba;
 
         #region "Usado em EditarFuncionarioVM"
         private DateTime _inicioAquisitivo;
@@ -421,6 +422,20 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             {
                 _observacao = value;
                 OnPropertyChanged("Observacao");
+            }
+        }
+
+        public int IndexAba
+        {
+            get
+            {
+                return _indexAba;
+            }
+
+            set
+            {
+                _indexAba = value;
+                OnPropertyChanged("IndexAba");
             }
         }
     }

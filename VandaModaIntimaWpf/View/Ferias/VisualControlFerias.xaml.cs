@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,6 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using VandaModaIntimaWpf.ViewModel;
+using VandaModaIntimaWpf.ViewModel.Funcionario;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
 namespace VandaModaIntimaWpf.View.Ferias
 {
@@ -22,10 +26,15 @@ namespace VandaModaIntimaWpf.View.Ferias
             DependencyProperty.Register("Ano", typeof(DateTime), typeof(VisualControlFerias),
                 new FrameworkPropertyMetadata(OnPropertyChanged));
 
+        public static readonly DependencyProperty NHibernateSessionProperty =
+            DependencyProperty.Register("NHibernateSession", typeof(ISession), typeof(VisualControlFerias),
+                new FrameworkPropertyMetadata(OnPropertyChanged));
+
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GridLengthConverter converter = new GridLengthConverter();
             (d as VisualControlFerias).GridItensFerias.RowDefinitions.Clear();
+            (d as VisualControlFerias).GridItensFerias.Children.Clear();
             int row = 0;
 
             if ((d as VisualControlFerias).Funcionarios == null) return;
@@ -39,6 +48,26 @@ namespace VandaModaIntimaWpf.View.Ferias
 
                 for (int i = 0; i < 13; i++)
                 {
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem itemNome = new MenuItem(); //Somente mostra nome de funcionário no contextmenu
+                    MenuItem itemAbrirTelaEditar = new MenuItem();
+
+                    itemNome.Header = funcionario.Nome;
+                    itemNome.FontWeight = FontWeights.Bold;
+                    itemAbrirTelaEditar.Header = "Editar férias";
+                    itemAbrirTelaEditar.Command = new RelayCommand(new Action<object>((parameter) =>
+                    {
+                        new WindowService().ShowDialog(new EditarFuncionarioVM((d as VisualControlFerias).NHibernateSession, funcionario, 2), new Action<bool?, object>((result, viewModel) =>
+                        {
+                            if (result == true)
+                                OnPropertyChanged(d, e);
+                        }));
+                    }));
+
+                    contextMenu.Items.Add(itemNome);
+                    contextMenu.Items.Add(new Separator());
+                    contextMenu.Items.Add(itemAbrirTelaEditar);
+
                     if (i == 0)
                     {
                         Border textBoxBorderNome = new Border
@@ -58,11 +87,12 @@ namespace VandaModaIntimaWpf.View.Ferias
                             Text = funcionario.Nome,
                             TextWrapping = TextWrapping.Wrap,
                             FontWeight = FontWeights.Bold,
-                            Background = new SolidColorBrush(Colors.LightGray),
+                            Background = new SolidColorBrush(Colors.DarkGray),
                             Margin = new Thickness(1, 1, 1, 1),
                             Padding = new Thickness(0)
                         };
 
+                        textBoxBorderNome.ContextMenu = contextMenu;
                         scrollViewer.Content = textBoxNome;
                         textBoxBorderNome.Child = scrollViewer;
                         (d as VisualControlFerias).GridItensFerias.Children.Add(textBoxBorderNome);
@@ -91,13 +121,19 @@ namespace VandaModaIntimaWpf.View.Ferias
                         textBox.Background = new SolidColorBrush(Colors.Yellow);
                         textBox.Text = $"Início em {ferias.Inicio:dd/MM/yyyy}";
                         textBoxBorder.BorderThickness = new Thickness(1.5);
+                        textBoxBorder.Tag = ferias;
                     }
                     else
                     {
-                        textBox.Background = new SolidColorBrush(Colors.White);
+                        if(row % 2 == 0)
+                            textBox.Background = new SolidColorBrush(Colors.White);
+                        else
+                            textBox.Background = new SolidColorBrush(Colors.LightGray);
                     }
 
                     textBoxBorder.Child = textBox;
+
+                    textBoxBorder.ContextMenu = contextMenu;
 
                     (d as VisualControlFerias).GridItensFerias.Children.Add(textBoxBorder);
                     Grid.SetColumn(textBoxBorder, i);
@@ -172,6 +208,16 @@ namespace VandaModaIntimaWpf.View.Ferias
             {
                 SetValue(AnoProperty, value);
                 OnPropertyChanged("Ano");
+            }
+        }
+
+        public ISession NHibernateSession
+        {
+            get => (ISession)GetValue(NHibernateSessionProperty);
+            set
+            {
+                SetValue(NHibernateSessionProperty, value);
+                OnPropertyChanged("NHibernateSession");
             }
         }
 

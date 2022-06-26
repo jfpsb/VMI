@@ -6,7 +6,13 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 {
     public class EditarFuncionarioVM : CadastrarFuncionarioVM
     {
-        public EditarFuncionarioVM(ISession session, Model.Funcionario funcionario) : base(session, true)
+        /// <summary>
+        /// Construtor de ViewModel para editar dados de funcionário.
+        /// </summary>
+        /// <param name="session">Session atual do NHibernate</param>
+        /// <param name="funcionario">Objeto do funcionário que terá os dados editados</param>
+        /// <param name="indexAba">Número da aba que deve estar selecionada ao abrir tela. Padrão é zero (primeira aba)</param>
+        public EditarFuncionarioVM(ISession session, Model.Funcionario funcionario, int indexAba = 0) : base(session, true)
         {
             viewModelStrategy = new EditarFuncionarioVMStrategy();
             Entidade = funcionario;
@@ -15,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             FeriasRegistradas = new ObservableCollection<Model.Ferias>(Entidade.Ferias);
 
             SetInicioAquisitivo();
-            //InicioFerias = InicioConcessivo;
+            IndexAba = indexAba;
         }
 
         private void SetInicioAquisitivo()
