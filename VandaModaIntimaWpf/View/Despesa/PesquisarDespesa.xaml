@@ -12,8 +12,7 @@
                      Height="650"
                      Width="1000"
                      WindowState="Maximized"
-                     Icon="/Resources/Despesas_Icon.ico"
-                     >
+                     Icon="/Resources/Despesas_Icon.ico">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarDespesaVM />
     </View:APesquisarView.DataContext>
@@ -98,7 +97,8 @@
                            Content="Mês Referência:" />
                     <View:DataUpDown Grid.Row="1"
                                      Grid.Column="1"
-                                     Data="{Binding DataEscolhida, Mode=TwoWay}" />
+                                     Data="{Binding DataEscolhida, Mode=TwoWay}"
+                                     DataStringFormat="MMM/yyyy"/>
                     <Label Grid.Row="2"
                            Content="Loja:" />
                     <ComboBox Grid.Row="2"

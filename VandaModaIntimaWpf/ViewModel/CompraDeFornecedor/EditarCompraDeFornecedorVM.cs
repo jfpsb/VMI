@@ -5,7 +5,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 {
     public class EditarCompraDeFornecedorVM : CadastrarCompraDeFornecedorVM
     {
-        public EditarCompraDeFornecedorVM(ISession session, Model.CompraDeFornecedor compraDeFornecedor) : base(session, false)
+        public EditarCompraDeFornecedorVM(ISession session, Model.CompraDeFornecedor compraDeFornecedor) : base(session, true)
         {
             Entidade = compraDeFornecedor;
             daoEntidade = new DAO<Model.CompraDeFornecedor>(_session);

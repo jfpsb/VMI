@@ -6,7 +6,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 {
     public class EditarProdutoVM : CadastrarProdutoVM
     {
-        public EditarProdutoVM(ISession session, Model.Produto produto, bool isUpdate = true) : base(session, isUpdate)
+        public EditarProdutoVM(ISession session, Model.Produto produto) : base(session, true)
         {
             viewModelStrategy = new EditarProdutoVMStrategy();
             Entidade = produto;

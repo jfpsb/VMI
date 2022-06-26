@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
         public ICommand RemoverContagemProdutoComando { get; set; }
         public ICommand AbrirEditarProdutoComando { get; set; }
 
-        public EditarContagemVM(ISession session, Model.Contagem contagem) : base(session, false)
+        public EditarContagemVM(ISession session, Model.Contagem contagem) : base(session, true)
         {
             Entidade = contagem;
             viewModelStrategy = new EditarContagemVMStrategy();

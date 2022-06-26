@@ -231,9 +231,12 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         VisibilidadeDespesaEmpresarial = Visibility.Collapsed;
                         VisibilidadeMembroFamiliar = Visibility.Visible;
 
-                        Entidade.Fornecedor = null;
-                        Entidade.Familiar = MembrosFamiliar[0];
-                        OnPropertyChanged("TipoDescricao");
+                        if (!IssoEUmUpdate)
+                        {
+                            Entidade.Fornecedor = null;
+                            Entidade.Familiar = MembrosFamiliar[0];
+                            OnPropertyChanged("TipoDescricao");
+                        }
                     }
                     else
                     {
