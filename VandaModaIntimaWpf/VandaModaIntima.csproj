@@ -351,6 +351,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Ferias\TelaComunicacaoDeFerias.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Ferias\VisualControlFerias.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -662,6 +666,14 @@
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\ATelaRelatorio.cs" />
+    <Compile Include="ViewModel\DataSets\FeriasDataSet.cs">
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DataSets\FeriasDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Despesa\SelecionaMultiplasLojasVM.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\CRFolhaPagamentoParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\ICrystalReportsParaPDF.cs" />
@@ -839,6 +851,15 @@
     <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
     <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
       <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ferias\Relatorios\ComunicacaoFerias.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComunicacaoFerias.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Ferias\TelaComunicacaoDeFerias.xaml.cs">
+      <DependentUpon>TelaComunicacaoDeFerias.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Ferias\VisualControlFerias.xaml.cs">
       <DependentUpon>VisualControlFerias.xaml</DependentUpon>
@@ -1146,6 +1167,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioEntradaMercadoria.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Ferias\Relatorios\ComunicacaoFerias.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ComunicacaoFerias.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
@@ -1215,6 +1240,17 @@
     </None>
     <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xss">
       <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\FeriasDataSet.xsc">
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ViewModel\DataSets\FeriasDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FeriasDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ViewModel\DataSets\FeriasDataSet.xss">
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </None>
     <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xsc">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>

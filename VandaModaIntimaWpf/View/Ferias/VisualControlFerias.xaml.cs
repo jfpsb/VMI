@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.View.Ferias
                             TextWrapping = TextWrapping.Wrap,
                             FontWeight = FontWeights.Bold,
                             Background = new SolidColorBrush(Colors.DarkGray),
-                            Margin = new Thickness(1, 1, 1, 1),
+                            Margin = new Thickness(1),
                             Padding = new Thickness(0)
                         };
 

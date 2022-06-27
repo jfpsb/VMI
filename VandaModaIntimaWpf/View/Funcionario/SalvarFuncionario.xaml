@@ -390,6 +390,13 @@
                                                 Value="{Binding Observacao}" />
                                     </Style>
                                 </DataGrid.RowStyle>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Imprimir comunicação de férias"
+                                                  Command="{Binding ImprimirComunicacaoComando}"
+                                                  CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Período aquisitivo">
                                         <DataGridTemplateColumn.CellTemplate>

@@ -9,6 +9,7 @@ using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.View.Ferias;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 
@@ -41,6 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         public ICommand DeletarContaBancariaComando { get; set; }
         public ICommand DeletarFeriasRegistradaComando { get; set; }
         public ICommand SalvarFeriasComando { get; set; }
+        public ICommand ImprimirComunicacaoComando { get; set; }
 
         public CadastrarFuncionarioVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -80,6 +82,13 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             DeletarContaBancariaComando = new RelayCommand(DeletarContaBancaria);
             DeletarFeriasRegistradaComando = new RelayCommand(DeletarFeriasRegistrada);
             SalvarFeriasComando = new RelayCommand(SalvarFerias);
+            ImprimirComunicacaoComando = new RelayCommand(ImprimirComunicacao);
+        }
+
+        private void ImprimirComunicacao(object obj)
+        {
+            TelaComunicacaoDeFerias tela = new TelaComunicacaoDeFerias(obj as Model.Ferias);
+            tela.ShowDialog();
         }
 
         private void SalvarFerias(object obj)

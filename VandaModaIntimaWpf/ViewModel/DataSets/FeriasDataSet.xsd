@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="FeriasDataSet" targetNamespace="http://tempuri.org/FeriasDataSet.xsd" xmlns:mstns="http://tempuri.org/FeriasDataSet.xsd" xmlns="http://tempuri.org/FeriasDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="FeriasDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="FeriasDataSet" msprop:Generator_UserDSName="FeriasDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ferias" msprop:Generator_TableClassName="feriasDataTable" msprop:Generator_TableVarName="tableferias" msprop:Generator_TablePropName="ferias" msprop:Generator_RowDeletingName="feriasRowDeleting" msprop:Generator_RowChangingName="feriasRowChanging" msprop:Generator_RowEvHandlerName="feriasRowChangeEventHandler" msprop:Generator_RowDeletedName="feriasRowDeleted" msprop:Generator_UserTableName="ferias" msprop:Generator_RowChangedName="feriasRowChanged" msprop:Generator_RowEvArgName="feriasRowChangeEvent" msprop:Generator_RowClassName="feriasRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nomefuncionario" msprop:Generator_ColumnVarNameInTable="columnnomefuncionario" msprop:Generator_ColumnPropNameInRow="nomefuncionario" msprop:Generator_ColumnPropNameInTable="nomefuncionarioColumn" msprop:Generator_UserColumnName="nomefuncionario" type="xs:string" minOccurs="0" />
+              <xs:element name="inicioferias" msprop:Generator_ColumnVarNameInTable="columninicioferias" msprop:Generator_ColumnPropNameInRow="inicioferias" msprop:Generator_ColumnPropNameInTable="inicioferiasColumn" msprop:Generator_UserColumnName="inicioferias" type="xs:string" minOccurs="0" />
+              <xs:element name="fimferias" msprop:Generator_ColumnVarNameInTable="columnfimferias" msprop:Generator_ColumnPropNameInRow="fimferias" msprop:Generator_ColumnPropNameInTable="fimferiasColumn" msprop:Generator_UserColumnName="fimferias" type="xs:string" minOccurs="0" />
+              <xs:element name="inicioaquisitivo" msprop:Generator_ColumnVarNameInTable="columninicioaquisitivo" msprop:Generator_ColumnPropNameInRow="inicioaquisitivo" msprop:Generator_ColumnPropNameInTable="inicioaquisitivoColumn" msprop:Generator_UserColumnName="inicioaquisitivo" type="xs:string" minOccurs="0" />
+              <xs:element name="razaosocial" msprop:Generator_ColumnVarNameInTable="columnrazaosocial" msprop:Generator_ColumnPropNameInRow="razaosocial" msprop:Generator_ColumnPropNameInTable="razaosocialColumn" msprop:Generator_UserColumnName="razaosocial" type="xs:string" minOccurs="0" />
+              <xs:element name="cnpj" msprop:Generator_ColumnVarNameInTable="columncnpj" msprop:Generator_ColumnPropNameInRow="cnpj" msprop:Generator_ColumnPropNameInTable="cnpjColumn" msprop:Generator_UserColumnName="cnpj" type="xs:string" minOccurs="0" />
+              <xs:element name="cpffuncionario" msprop:Generator_ColumnVarNameInTable="columncpffuncionario" msprop:Generator_ColumnPropNameInRow="cpffuncionario" msprop:Generator_ColumnPropNameInTable="cpffuncionarioColumn" msprop:Generator_UserColumnName="cpffuncionario" type="xs:string" minOccurs="0" />
+              <xs:element name="fimaquisitivo" msprop:Generator_ColumnVarNameInTable="columnfimaquisitivo" msprop:Generator_ColumnPropNameInRow="fimaquisitivo" msprop:Generator_ColumnPropNameInTable="fimaquisitivoColumn" msprop:Generator_UserColumnName="fimaquisitivo" type="xs:string" minOccurs="0" />
+              <xs:element name="dataretorno" msprop:Generator_ColumnVarNameInTable="columndataretorno" msprop:Generator_ColumnPropNameInRow="dataretorno" msprop:Generator_ColumnPropNameInTable="dataretornoColumn" msprop:Generator_UserColumnName="dataretorno" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
