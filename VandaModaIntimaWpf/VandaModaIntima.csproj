@@ -307,6 +307,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Avisos\TelaDeAviso.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -666,6 +670,7 @@
     <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
     <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
     <Compile Include="ViewModel\ATelaRelatorio.cs" />
+    <Compile Include="ViewModel\Avisos\TelaDeAvisoVM.cs" />
     <Compile Include="ViewModel\DataSets\FeriasDataSet.cs">
       <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </Compile>
@@ -704,11 +709,15 @@
     <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
+    <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
     <Compile Include="ViewModel\Util\Mediator.cs" />
     <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
     <Compile Include="View\ACadastrarView.cs" />
+    <Compile Include="View\Avisos\TelaDeAviso.xaml.cs">
+      <DependentUpon>TelaDeAviso.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
     <Compile Include="View\Converters\CPFValueConverter.cs" />
     <Compile Include="View\Converters\IsDemitidoConverter.cs" />
@@ -1541,5 +1550,6 @@
   <ItemGroup>
     <Resource Include="Resources\Ferias_Icon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

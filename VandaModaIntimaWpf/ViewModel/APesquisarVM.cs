@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,10 +14,8 @@ using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel
 {

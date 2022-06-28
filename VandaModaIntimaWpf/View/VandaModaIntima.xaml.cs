@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
+using VandaModaIntimaWpf.View.Avisos;
 using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
@@ -103,6 +104,13 @@ namespace VandaModaIntimaWpf.View
         {
             VisualizadorDeFerias visualizadorDeFerias = new VisualizadorDeFerias();
             visualizadorDeFerias.Show();
+        }
+
+        private void TelaPrincipal_Loaded(object sender, RoutedEventArgs e)
+        {
+            TelaDeAviso telaDeAviso = new TelaDeAviso();
+            telaDeAviso.Owner = this;
+            telaDeAviso.ShowDialog();
         }
     }
 }

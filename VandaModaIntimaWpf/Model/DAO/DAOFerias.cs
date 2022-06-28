@@ -34,5 +34,29 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao retornar férias usando mês, ano e funcionário. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+
+        /// <summary>
+        /// Consulta no banco de dados as férias registradas que começarão daqui dois meses para fins de geração de documento
+        /// de comunicação de férias.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<Ferias>> RetornaFeriasParaComunicao()
+        {
+            try
+            {
+                var mesConsulta = DateTime.Now.AddMonths(2);
+
+                var criteria = CriarCriteria();
+                criteria.Add(Expression.Sql("MONTH({alias}.Inicio) = ?", mesConsulta.Month, NHibernateUtil.Int32));
+                criteria.Add(Expression.Sql("YEAR({alias}.Inicio) = ?", mesConsulta.Year, NHibernateUtil.Int32));
+
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "retorna ferias daqui dois meses");
+                throw new Exception($"Erro ao retornar férias para finsd de geração de documento de comunicação de férias. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
     }
 }

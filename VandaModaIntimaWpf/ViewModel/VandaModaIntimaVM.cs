@@ -5,11 +5,11 @@ using System.IO;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View.Avisos;
 using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
 using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria;
-using VandaModaIntimaWpf.View.Ferias;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.View.Fornecedor;
@@ -21,11 +21,11 @@ using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.Representante;
 using VandaModaIntimaWpf.View.TipoGrade;
+using VandaModaIntimaWpf.ViewModel.Avisos;
 using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
 using VandaModaIntimaWpf.ViewModel.Despesa;
 using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
-using VandaModaIntimaWpf.ViewModel.Ferias;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Fornecedor;
@@ -95,6 +95,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<CadastrarTipoGrade, CadastrarTipoGradeVM>();
 
+            WindowService.RegistrarWindow<TelaDeAviso, TelaDeAvisoVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();
@@ -123,6 +125,8 @@ namespace VandaModaIntimaWpf.ViewModel
             }
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+
+            //new WindowService().ShowDialog(new TelaDeAvisoVM(), null);
         }
     }
 }

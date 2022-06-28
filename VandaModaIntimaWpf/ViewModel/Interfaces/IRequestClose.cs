@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.ViewModel.Interfaces
     /// <code>
     /// if (DataContext is IRequestClose)
     /// {
-    ///     (DataContext as IRequestClose).RequestClose += (_, _) =>
+    ///     (DataContext as IRequestClose).RequestClose += (_, __) =>
     ///     {
     ///         Close();
     ///     };
