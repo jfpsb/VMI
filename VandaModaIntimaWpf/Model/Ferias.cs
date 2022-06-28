@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private DateTime _inicio;
         private DateTime _fim;
         private DateTime _inicioAquisitivo;
+        private bool _comunicado;
         private string _observacao;
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
@@ -119,6 +120,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _observacao = value;
                 OnPropertyChanged("Observacao");
+            }
+        }
+
+        public virtual bool Comunicado
+        {
+            get
+            {
+                return _comunicado;
+            }
+
+            set
+            {
+                _comunicado = value;
+                OnPropertyChanged("Comunicado");
             }
         }
 

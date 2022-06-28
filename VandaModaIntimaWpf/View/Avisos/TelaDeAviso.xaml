@@ -82,7 +82,8 @@
                             <CheckBox Grid.Row="3"
                                       Grid.Column="1"
                                       VerticalAlignment="Center"
-                                      IsChecked="{Binding FoiComunicada}" />
+                                      IsChecked="{Binding Comunicado}"
+                                      IsEnabled="False" />
                             <Button Grid.Row="4"
                                     Grid.ColumnSpan="2"
                                     Content="Gerar comunicação de férias"

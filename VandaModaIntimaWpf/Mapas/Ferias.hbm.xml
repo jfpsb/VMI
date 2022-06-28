@@ -12,6 +12,7 @@
 		<property name="Inicio" />
 		<property name="Fim" />
 		<property name="InicioAquisitivo" />
+		<property name="Comunicado" />
 		<property name="Observacao" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
