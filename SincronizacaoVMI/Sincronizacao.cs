@@ -159,6 +159,7 @@ namespace SincronizacaoVMI
                     _threadsByType.Add("RecebimentoCartao", new Thread((instancia) => { ElapsedGenerico<RecebimentoCartao>(); }));
                     _threadsByType.Add("SubGrade", new Thread((instancia) => { ElapsedGenerico<SubGrade>(); }));
                     _threadsByType.Add("OperadoraCartaoId", new Thread((instancia) => { ElapsedGenerico<OperadoraCartaoId>(); }));
+                    _threadsByType.Add("Ferias", new Thread((instancia) => { ElapsedGenerico<Ferias>(); }));
 
                     _threadsStatus.Add("Banco", false);
                     _threadsStatus.Add("Adiantamento", false);
@@ -199,6 +200,7 @@ namespace SincronizacaoVMI
                     _threadsStatus.Add("RecebimentoCartao", false);
                     _threadsStatus.Add("SubGrade", false);
                     _threadsStatus.Add("OperadoraCartaoId", false);
+                    _threadsStatus.Add("Ferias", false);
                 }
                 else
                 {
