@@ -73,7 +73,8 @@
                 <View:DataUpDown Grid.Column="1"
                                  Width="230"
                                  HorizontalAlignment="Left"
-                                 Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                 Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 DataStringFormat="MMM/yyyy"/>
                 <Label Content="{DynamicResource mes_de_referencia}" />
                 <Label Grid.Row="1"
                        Content="{DynamicResource loja_dois_pontos}" />

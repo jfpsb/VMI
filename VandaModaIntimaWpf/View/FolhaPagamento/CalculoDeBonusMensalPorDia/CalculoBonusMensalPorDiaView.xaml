@@ -44,7 +44,8 @@
             </Grid.ColumnDefinitions>
             <Label Content="Mês de Referência:" />
             <View:DataUpDown Grid.Column="1"
-                             Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
+                             Data="{Binding Path=DataEscolhida, Mode=TwoWay}"
+                             DataStringFormat="MMM/yyyy" />
         </Grid>
         <Grid x:Name="GridCalendario"
               Margin="0,5,0,0"

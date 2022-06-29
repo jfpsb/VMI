@@ -62,7 +62,8 @@
                ToolTip="Escolha A Folha de Pagamento Em Que Será Inserida a Primeira Parcela a Ser Paga" />
         <View:DataUpDown Grid.Column="1"
                          Grid.Row="5"
-                         Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                         Data="{Binding InicioPagamento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         DataStringFormat="MMM/yyyy"/>
         <DataGrid Grid.Row="6"
                   Grid.ColumnSpan="2"
                   ItemsSource="{Binding Parcelas, UpdateSourceTrigger=PropertyChanged}">

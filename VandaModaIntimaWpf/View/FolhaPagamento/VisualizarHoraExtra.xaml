@@ -23,7 +23,8 @@
         </Grid.RowDefinitions>
         <Label Content="Mês Referência:" />
         <view:DataUpDown Grid.Column="1"
-                         Data="{Binding Path=DataEscolhida, Mode=TwoWay}" />
+                         Data="{Binding Path=DataEscolhida, Mode=TwoWay}"
+                         DataStringFormat="MMM/yyyy" />
         <DataGrid Grid.Row="1"
                   Grid.ColumnSpan="2"
                   ItemsSource="{Binding ListaHoraExtra, UpdateSourceTrigger=PropertyChanged}">

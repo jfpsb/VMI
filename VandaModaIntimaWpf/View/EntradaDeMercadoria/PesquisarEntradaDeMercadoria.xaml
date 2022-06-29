@@ -69,7 +69,8 @@
                 </Grid.RowDefinitions>
                 <Label  Content="{DynamicResource mes_de_referencia}" />
                 <View:DataUpDown Grid.Column="1"
-                                 Data="{Binding DataEscolhida, Mode=TwoWay}" />
+                                 Data="{Binding DataEscolhida, Mode=TwoWay}"
+                                 DataStringFormat="MMM/yyyy"/>
                 <Label Content="{DynamicResource loja_dois_pontos}"
                        Grid.Row="1" />
                 <ComboBox Grid.Row="1"

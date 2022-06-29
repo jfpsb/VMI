@@ -98,7 +98,8 @@
                     <View:DataUpDown Grid.Column="1"
                                      Width="210"
                                      HorizontalAlignment="Left"
-                                     Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                     Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     DataStringFormat="MMM/yyyy"/>
                     <Label Grid.Row="1"
                            Content="Pesquisar Por:" />
                     <ComboBox Grid.Row="1"
