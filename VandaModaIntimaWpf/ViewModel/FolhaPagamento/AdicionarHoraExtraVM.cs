@@ -63,6 +63,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             TotalEmHoras = HorasExtras.Sum(s => s.Horas);
             TotalEmMinutos = HorasExtras.Sum(s => s.Minutos);
+
+            if (TotalEmMinutos >= 60)
+            {
+                int minutosParaHoras = TotalEmMinutos / 60;
+                TotalEmHoras += minutosParaHoras;
+                TotalEmMinutos %= 60;
+            }
         }
 
         private void HoraExtra_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -82,7 +82,17 @@ namespace VandaModaIntimaWpf.Model
                 }
                 else
                 {
-                    return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
+                    int horas = Horas;
+                    int minutos = Minutos;
+
+                    if (Minutos >= 60)
+                    {
+                        int minutosParaHoras = Minutos / 60;
+                        horas += minutosParaHoras; //Soma às horas os minutos convertidos em horas
+                        minutos = Minutos % 60; //Restante dos minutos após converter em horas
+                    }
+
+                    return string.Format("{0:0#}:{1:0#}", horas, minutos);
                 }
             }
         }
