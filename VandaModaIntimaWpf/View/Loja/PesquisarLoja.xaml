@@ -13,8 +13,7 @@
                      Width="1200"
                      Height="675"
                      WindowStartupLocation="CenterScreen"
-                     Icon="/Resources/Loja_Icon.ico"
-                     
+                     Icon="/Resources/Loja_Icon.ico"                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarLojaVM />
@@ -39,7 +38,7 @@
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
                                   Command="{Binding ExportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarFornecedor}" />
+                                  CommandParameter="{Binding ElementName=TelaPesquisarLoja}" />
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>

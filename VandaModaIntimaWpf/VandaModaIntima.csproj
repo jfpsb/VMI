@@ -515,6 +515,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PontoEletronico\PesquisarPontoEletronico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Produto\AjudaProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -648,6 +652,7 @@
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Parcela.cs" />
+    <Compile Include="Model\PontoEletronico.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\ProdutoGrade.cs" />
     <Compile Include="Model\RecebimentoCartao.cs" />
@@ -710,6 +715,7 @@
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
+    <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
     <Compile Include="ViewModel\Util\Mediator.cs" />
@@ -1090,6 +1096,9 @@
     </Compile>
     <Compile Include="View\OperadoraCartao\CadastrarOperadoraCartao.xaml.cs">
       <DependentUpon>CadastrarOperadoraCartao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PontoEletronico\PesquisarPontoEletronico.xaml.cs">
+      <DependentUpon>PesquisarPontoEletronico.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Produto\AjudaProduto.xaml.cs">
       <DependentUpon>AjudaProduto.xaml</DependentUpon>
@@ -1550,6 +1559,11 @@
   <ItemGroup>
     <Resource Include="Resources\Ferias_Icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Calendario_Relogio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\PontoEletronico.hbm.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

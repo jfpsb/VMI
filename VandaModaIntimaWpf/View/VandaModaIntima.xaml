@@ -7,7 +7,7 @@
         WindowState="Maximized"
         Closing="TelaPrincipal_Closing"
         Width="1366"
-        Height="1200"
+        Height="1450"
         Loaded="TelaPrincipal_Loaded">
     <Window.DataContext>
         <ViewModel:VandaModaIntimaVM />
@@ -153,6 +153,17 @@
                                    Height="300"
                                    Width="300" />
                             <Label Content="Visualizar Férias" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnPontoEletronico_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Calendario_Relogio.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Ponto Eletrônico" />
                         </StackPanel>
                     </Button.Content>
                 </Button>

@@ -27,6 +27,7 @@
                          DataStringFormat="MMM/yyyy" />
         <DataGrid Grid.Row="1"
                   Grid.ColumnSpan="2"
+                  CanUserDeleteRows="True"
                   ItemsSource="{Binding ListaHoraExtra, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Funcionário"

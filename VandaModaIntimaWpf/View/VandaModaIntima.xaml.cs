@@ -112,5 +112,10 @@ namespace VandaModaIntimaWpf.View
             telaDeAviso.Owner = this;
             telaDeAviso.ShowDialog();
         }
+
+        private void BtnPontoEletronico_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
