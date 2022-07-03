@@ -11,6 +11,7 @@ using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 
@@ -115,7 +116,8 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnPontoEletronico_Click(object sender, RoutedEventArgs e)
         {
-
+            PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
+            pesquisarPonto.Show();
         }
     }
 }

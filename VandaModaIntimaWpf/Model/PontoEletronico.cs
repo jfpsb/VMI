@@ -11,9 +11,9 @@ namespace VandaModaIntimaWpf.Model
         private DateTime? _saida;
         private DateTime? _entradaAlmoco;
         private DateTime? _saidaAlmoco;
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public int Id
+        public virtual int Id
         {
             get
             {
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public Funcionario Funcionario
+        public virtual Funcionario Funcionario
         {
             get
             {
@@ -41,7 +41,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime? Entrada
+        public virtual DateTime? Entrada
         {
             get
             {
@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime? Saida
+        public virtual DateTime? Saida
         {
             get
             {
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime? EntradaAlmoco
+        public virtual DateTime? EntradaAlmoco
         {
             get
             {
@@ -83,7 +83,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime? SaidaAlmoco
+        public virtual DateTime? SaidaAlmoco
         {
             get
             {
@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public DateTime Dia
+        public virtual DateTime Dia
         {
             get
             {
@@ -111,12 +111,27 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public object GetIdentifier()
+        public virtual TimeSpan Jornada
+        {
+            get
+            {
+                if (Saida != null && Entrada != null)
+                {
+                    TimeSpan totalNoDia = DateTime.Parse(Saida.Value.ToShortTimeString()).Subtract(DateTime.Parse(Entrada.Value.ToShortTimeString()));
+                    TimeSpan descanso = DateTime.Parse(SaidaAlmoco.Value.ToShortTimeString()).Subtract(DateTime.Parse(EntradaAlmoco.Value.ToShortTimeString()));
+                    return totalNoDia - descanso;
+                }
+
+                return new TimeSpan();
+            }
+        }
+
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
 
         }

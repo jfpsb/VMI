@@ -619,6 +619,7 @@
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
+    <Compile Include="Model\DAO\DAOPontoEletronico.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
     <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />

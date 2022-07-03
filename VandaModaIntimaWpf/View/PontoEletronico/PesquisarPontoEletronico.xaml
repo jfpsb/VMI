@@ -6,10 +6,15 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:VandaModaIntimaWpf.View.PontoEletronico"
+                     xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.PontoEletronico"
                      mc:Ignorable="d"
                      Title="Pesquisar Ponto Eletrônico"
-                     Height="450"
-                     Width="950">
+                     Height="550"
+                     Width="1000"
+                     WindowStartupLocation="CenterScreen">
+    <View:APesquisarView.DataContext>
+        <ViewModel:PesquisarPontoEletronicoVM />
+    </View:APesquisarView.DataContext>
     <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarPonto}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
@@ -48,14 +53,25 @@
                             Width="200"
                             HorizontalAlignment="Left" />
                 <DataGrid Grid.Row="1"
-                          Grid.ColumnSpan="2">
+                          Grid.ColumnSpan="2"
+                          ItemsSource="{Binding PontosEletronicos}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Nome"
-                                            Width="*" />
-                        <DataGridTextColumn Header="Entrada" />
-                        <DataGridTextColumn Header="Saída" />
-                        <DataGridTextColumn Header="Início Descanso/Almoço" />
-                        <DataGridTextColumn Header="Fim Descanso/Almoço" />
+                                            Width="*"
+                                            Binding="{Binding Funcionario.Nome}" />
+                        <DataGridTextColumn Header="Loja Trabalho"
+                                            Width="*"
+                                            Binding="{Binding Funcionario.Loja.Nome}" />
+                        <DataGridTextColumn Header="Entrada"
+                                            Binding="{Binding Entrada, StringFormat=HH:mm}" />
+                        <DataGridTextColumn Header="Saída"
+                                            Binding="{Binding Saida, StringFormat=HH:mm}" />
+                        <DataGridTextColumn Header="Início Almoço"
+                                            Binding="{Binding EntradaAlmoco, StringFormat=HH:mm}" />
+                        <DataGridTextColumn Header="Fim Almoço"
+                                            Binding="{Binding SaidaAlmoco, StringFormat=HH:mm}" />
+                        <DataGridTextColumn Header="Jornada"
+                                            Binding="{Binding Jornada, StringFormat=hh\\:mm}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
