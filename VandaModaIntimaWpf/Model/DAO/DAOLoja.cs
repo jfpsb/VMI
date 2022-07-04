@@ -1,12 +1,11 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
 
-namespace VandaModaIntimaWpf.Model.DAO.MySQL
+namespace VandaModaIntimaWpf.Model.DAO
 {
     public class DAOLoja : DAO<Loja>
     {

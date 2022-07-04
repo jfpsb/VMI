@@ -14,6 +14,8 @@ using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
+using VandaModaIntimaWpf.ViewModel.PontoEletronico;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
 namespace VandaModaIntimaWpf.View
 {
@@ -116,8 +118,14 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnPontoEletronico_Click(object sender, RoutedEventArgs e)
         {
-            PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
-            pesquisarPonto.Show();
+            //PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
+            //pesquisarPonto.Show();
+
+            var session = SessionProvider.GetSession();
+            new WindowService().Show(new RegistrarPontoVM(session), (result, viewModel) =>
+            {
+                SessionProvider.FechaSession(session);
+            });
         }
     }
 }

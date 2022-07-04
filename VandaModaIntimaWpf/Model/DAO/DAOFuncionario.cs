@@ -97,5 +97,21 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar funcionários não demitidos. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+
+        public async Task<IList<Model.Funcionario>> ListarPorLojaTrabalho()
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.IsNull("Demissao"));
+                criteria.AddOrder(Order.Asc("Nome"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar nao demitidos");
+                throw new Exception($"Erro ao listar funcionários não demitidos. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
     }
 }

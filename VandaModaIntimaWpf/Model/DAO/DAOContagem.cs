@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
 
-namespace VandaModaIntimaWpf.Model.DAO.MySQL
+namespace VandaModaIntimaWpf.Model.DAO
 {
     class DAOContagem : DAO<Contagem>
     {

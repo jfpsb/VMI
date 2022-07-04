@@ -22,6 +22,7 @@ namespace VandaModaIntimaWpf.Model
         private DateTime? _admissao;
         private DateTime? _demissao;
         private double _salario;
+        private string _senha;
         private IList<Adiantamento> _adiantamentos = new List<Adiantamento>();
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<ContaBancaria> _contasBancarias = new List<ContaBancaria>();
@@ -258,6 +259,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _ferias = value;
                 OnPropertyChanged("Ferias");
+            }
+        }
+
+        public virtual string Senha
+        {
+            get
+            {
+                return _senha;
+            }
+
+            set
+            {
+                _senha = value;
+                OnPropertyChanged("Senha");
             }
         }
 

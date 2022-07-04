@@ -17,6 +17,7 @@ using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Grade;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.Representante;
@@ -33,6 +34,7 @@ using VandaModaIntimaWpf.ViewModel.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Grade;
 using VandaModaIntimaWpf.ViewModel.Loja;
 using VandaModaIntimaWpf.ViewModel.Marca;
+using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.Representante;
@@ -96,6 +98,8 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<CadastrarTipoGrade, CadastrarTipoGradeVM>();
 
             WindowService.RegistrarWindow<TelaDeAviso, TelaDeAvisoVM>();
+
+            WindowService.RegistrarWindow<RegistrarPonto, RegistrarPontoVM>();
 
             try
             {

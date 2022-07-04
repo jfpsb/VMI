@@ -69,6 +69,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        /// <summary>
+        /// Horário de ínício de almoço/descanso.
+        /// </summary>
         public virtual DateTime? EntradaAlmoco
         {
             get
@@ -83,6 +86,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        /// <summary>
+        /// Horário de fim de almoço/descanso.
+        /// </summary>
         public virtual DateTime? SaidaAlmoco
         {
             get

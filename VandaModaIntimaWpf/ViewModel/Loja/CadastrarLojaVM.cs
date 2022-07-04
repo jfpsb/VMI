@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Resources;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 

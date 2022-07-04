@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 

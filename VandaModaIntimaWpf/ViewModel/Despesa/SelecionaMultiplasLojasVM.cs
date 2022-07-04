@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Interfaces;
 
 namespace VandaModaIntimaWpf.ViewModel.Despesa

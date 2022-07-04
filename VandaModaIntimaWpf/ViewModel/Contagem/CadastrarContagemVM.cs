@@ -2,7 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
+using VandaModaIntimaWpf.Model.DAO;
 using ContagemModel = VandaModaIntimaWpf.Model.Contagem;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using TipoContagemModel = VandaModaIntimaWpf.Model.TipoContagem;

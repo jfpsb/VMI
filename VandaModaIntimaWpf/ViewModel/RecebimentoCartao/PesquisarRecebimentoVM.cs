@@ -3,11 +3,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Resources;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 using LojaModel = VandaModaIntimaWpf.Model.Loja;
 using RecebimentoCartaoModel = VandaModaIntimaWpf.Model.RecebimentoCartao;
 
