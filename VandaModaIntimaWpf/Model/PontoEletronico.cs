@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -9,8 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private DateTime _dia;
         private DateTime? _entrada;
         private DateTime? _saida;
-        private DateTime? _entradaAlmoco;
-        private DateTime? _saidaAlmoco;
+        private IList<IntervaloPonto> _intervalos = new List<IntervaloPonto>();
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual int Id
@@ -68,41 +68,6 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Saida");
             }
         }
-
-        /// <summary>
-        /// Horário de ínício de almoço/descanso.
-        /// </summary>
-        public virtual DateTime? EntradaAlmoco
-        {
-            get
-            {
-                return _entradaAlmoco;
-            }
-
-            set
-            {
-                _entradaAlmoco = value;
-                OnPropertyChanged("EntradaAlmoco");
-            }
-        }
-
-        /// <summary>
-        /// Horário de fim de almoço/descanso.
-        /// </summary>
-        public virtual DateTime? SaidaAlmoco
-        {
-            get
-            {
-                return _saidaAlmoco;
-            }
-
-            set
-            {
-                _saidaAlmoco = value;
-                OnPropertyChanged("SaidaAlmoco");
-            }
-        }
-
         public virtual DateTime Dia
         {
             get
@@ -124,11 +89,48 @@ namespace VandaModaIntimaWpf.Model
                 if (Saida != null && Entrada != null)
                 {
                     TimeSpan totalNoDia = DateTime.Parse(Saida.Value.ToShortTimeString()).Subtract(DateTime.Parse(Entrada.Value.ToShortTimeString()));
-                    TimeSpan descanso = DateTime.Parse(SaidaAlmoco.Value.ToShortTimeString()).Subtract(DateTime.Parse(EntradaAlmoco.Value.ToShortTimeString()));
-                    return totalNoDia - descanso;
+                    TimeSpan intervaloTotal = new TimeSpan();
+                    foreach (var intervalo in Intervalos)
+                    {
+                        if (intervalo.Fim == null) continue;
+                        TimeSpan ts = DateTime.Parse(intervalo.Fim.Value.ToShortTimeString()).Subtract(DateTime.Parse(intervalo.Inicio.ToShortTimeString()));
+                        intervaloTotal = intervaloTotal.Add(ts);
+                    }
+                    return totalNoDia - intervaloTotal;
                 }
 
                 return new TimeSpan();
+            }
+        }
+
+        public virtual string IntervalosEmString
+        {
+            get
+            {
+                if (Intervalos.Count == 0)
+                    return "SEM INTERVALOS";
+
+                string result = "";
+                foreach (var i in Intervalos)
+                {
+                    var fim = i.Fim == null ? "-- : --" : i.Fim.Value.ToString("HH:mm");
+                    result += $"{i.Inicio:HH:mm} a {fim}\n";
+                }
+                return result.Remove(result.Length - 1);
+            }
+        }
+
+        public virtual IList<IntervaloPonto> Intervalos
+        {
+            get
+            {
+                return _intervalos;
+            }
+
+            set
+            {
+                _intervalos = value;
+                OnPropertyChanged("Intervalos");
             }
         }
 

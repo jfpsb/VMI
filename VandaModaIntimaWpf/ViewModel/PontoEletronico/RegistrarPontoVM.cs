@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
@@ -24,8 +26,8 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
         public ICommand RegistrarEntradaComando { get; set; }
         public ICommand RegistrarSaidaComando { get; set; }
-        public ICommand RegistrarEntradaAlmocoComando { get; set; }
-        public ICommand RegistrarSaidaAlmocoComando { get; set; }
+        public ICommand RegistrarSaidaParaIntervaloComando { get; set; }
+        public ICommand RegistrarRetornoDeIntervaloComando { get; set; }
 
         public RegistrarPontoVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -48,84 +50,183 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             var task2 = PopulaListaDePontos();
             task2.Wait();
 
-            PontoEletronico = PontosEletronicos[0];
-
             RegistrarEntradaComando = new RelayCommand(RegistrarEntrada, RegistrarEntradaValidacao);
             RegistrarSaidaComando = new RelayCommand(RegistrarSaida, RegistrarSaidaValidacao);
-            RegistrarEntradaAlmocoComando = new RelayCommand(RegistrarEntradaAlmoco, RegistrarEntradaAlmocoValidacao);
-            RegistrarSaidaAlmocoComando = new RelayCommand(RegistrarSaidaAlmoco, RegistrarSaidaAlmocoValidacao);
+            RegistrarSaidaParaIntervaloComando = new RelayCommand(RegistrarSaidaParaIntervalo, RegistrarSaidaParaIntervaloValidacao);
+            RegistrarRetornoDeIntervaloComando = new RelayCommand(RegistrarRetornoDeIntervalo, RegistrarRetornoDeIntervaloValidacao);
         }
 
-        private bool RegistrarSaidaAlmocoValidacao(object arg)
+        private bool RegistrarRetornoDeIntervaloValidacao(object arg)
         {
-            if (PontoEletronico.SaidaAlmoco != null)
+            if (PontoEletronico == null)
+                return false;
+
+            if (PontoEletronico.Saida != null)
+                return false;
+
+            //Não há intervalos
+            if (PontoEletronico.Intervalos.Count == 0)
+                return false;
+
+            //Não há intervalos com tempo de fim nulos
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+            if (intervaloPonto.Fim != null)
                 return false;
 
             return true;
         }
 
-        private void RegistrarSaidaAlmoco(object obj)
+        private async void RegistrarRetornoDeIntervalo(object obj)
         {
-            throw new NotImplementedException();
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+            intervaloPonto.Fim = DateTime.Now;
+
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                messageBoxService.Show("Retorno de intervalo salvo com sucesso.");
+                await PopulaListaDePontos();
+            }
+            catch (Exception ex)
+            {
+                messageBoxService.Show($"Erro ao salvar retorno de intervalo.\n\n{ex.Message}");
+            }
         }
 
-        private bool RegistrarEntradaAlmocoValidacao(object arg)
+        private bool RegistrarSaidaParaIntervaloValidacao(object arg)
         {
-            if (PontoEletronico.EntradaAlmoco != null)
+            if (PontoEletronico == null)
+                return false;
+
+            if (PontoEletronico.Entrada == null)
+                return false;
+
+            if (PontoEletronico.Saida != null)
+                return false;
+
+            //Não pode abrir outro intervalo pois já há um em aberto
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+            if (intervaloPonto != null && intervaloPonto.Fim == null)
                 return false;
 
             return true;
         }
 
-        private void RegistrarEntradaAlmoco(object obj)
+        private async void RegistrarSaidaParaIntervalo(object obj)
         {
-            throw new NotImplementedException();
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+
+            if (intervaloPonto == null || intervaloPonto.Fim != null)
+            {
+                intervaloPonto = new IntervaloPonto
+                {
+                    PontoEletronico = PontoEletronico
+                };
+            }
+
+            intervaloPonto.Inicio = DateTime.Now;
+            PontoEletronico.Intervalos.Add(intervaloPonto);
+
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                messageBoxService.Show("Saída para intervalo salva com sucesso.");
+                await PopulaListaDePontos();
+            }
+            catch (Exception ex)
+            {
+                messageBoxService.Show($"Erro ao salvar saída para intervalo.\n\n{ex.Message}");
+            }
         }
 
         private bool RegistrarSaidaValidacao(object arg)
         {
+            if (PontoEletronico == null)
+                return false;
+
+            if (PontoEletronico.Entrada == null)
+                return false;
+
             if (PontoEletronico.Saida != null)
+                return false;
+
+            //Não pode sair se houver intervalo aberto
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+            if (intervaloPonto != null && intervaloPonto.Fim == null)
                 return false;
 
             return true;
         }
 
-        private void RegistrarSaida(object obj)
+        private async void RegistrarSaida(object obj)
         {
-            throw new NotImplementedException();
+            PontoEletronico.Saida = DateTime.Now;
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                messageBoxService.Show("Saída salva com sucesso.");
+                await PopulaListaDePontos();
+            }
+            catch (Exception ex)
+            {
+                messageBoxService.Show($"Erro ao salvar saída.\n\n{ex.Message}");
+            }
         }
 
         private bool RegistrarEntradaValidacao(object arg)
         {
+            if (PontoEletronico == null)
+                return false;
+
             if (PontoEletronico.Entrada != null)
                 return false;
 
             return true;
         }
 
-        private void RegistrarEntrada(object obj)
+        private async void RegistrarEntrada(object obj)
         {
-            throw new NotImplementedException();
+            PontoEletronico.Entrada = DateTime.Now;
+            try
+            {
+                await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                messageBoxService.Show("Entrada salva com sucesso.");
+                await PopulaListaDePontos();
+            }
+            catch (Exception ex)
+            {
+                messageBoxService.Show($"Erro ao salvar entrada.\n\n{ex.Message}");
+            }
         }
 
         private async Task PopulaListaDePontos()
         {
             var dao = daoEntidade as DAOPontoEletronico;
 
-            foreach (var f in funcionarios)
+            if (PontosEletronicos.Count == 0)
             {
-                var ponto = await dao.ListarPorDiaFuncionario(DateTime.Now, f);
-
-                if (ponto == null)
+                foreach (var f in funcionarios)
                 {
-                    ponto = new Model.PontoEletronico
+                    var ponto = await dao.ListarPorDiaFuncionario(DateTime.Now, f);
+
+                    if (ponto == null)
                     {
-                        Funcionario = f,
-                        Dia = DateTime.Now
-                    };
+                        ponto = new Model.PontoEletronico
+                        {
+                            Funcionario = f,
+                            Dia = DateTime.Now
+                        };
+                    }
+
+                    PontosEletronicos.Add(ponto);
                 }
 
-                PontosEletronicos.Add(ponto);
+                PontoEletronico = PontosEletronicos[0];
+            }
+            else
+            {
+                await daoEntidade.RefreshEntidade(PontosEletronicos);
+                PontosEletronicos = new ObservableCollection<Model.PontoEletronico>(PontosEletronicos);
             }
         }
 

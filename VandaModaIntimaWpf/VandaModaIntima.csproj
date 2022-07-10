@@ -679,6 +679,7 @@
     <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaUmPorcento.cs" />
     <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaMeioPorcento.cs" />
     <Compile Include="Model\Interfaces\ICalculaBonusMeta.cs" />
+    <Compile Include="Model\IntervaloPonto.cs" />
     <Compile Include="Model\Loja.cs" />
     <Compile Include="Model\Marca.cs" />
     <Compile Include="Model\MembroFamiliar.cs" />
@@ -1137,7 +1138,6 @@
     <Compile Include="View\PontoEletronico\PesquisarPontoEletronico.xaml.cs">
       <DependentUpon>PesquisarPontoEletronico.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PontoEletronico\PontoNullableDateTimeConverter.cs" />
     <Compile Include="View\PontoEletronico\RegistrarPonto.xaml.cs">
       <DependentUpon>RegistrarPonto.xaml</DependentUpon>
     </Compile>
@@ -1608,6 +1608,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\PontoEletronico.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapas\IntervaloPonto.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

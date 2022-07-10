@@ -19,6 +19,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Eq("Dia", dia));
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Deletado", false));
                 return await criteria.UniqueResultAsync<PontoEletronico>();
             }
             catch (Exception ex)

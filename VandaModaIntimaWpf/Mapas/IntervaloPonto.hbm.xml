@@ -3,17 +3,14 @@
                    assembly="VandaModaIntimaWpf"
                    namespace="VandaModaIntimaWpf.Model">
 
-	<class name="Faltas" table="faltas">
+	<class name="IntervaloPonto" table="intervalo_ponto">
 		<id name="Id" type="Int32">
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
-		<property name="Data" />
-		<property name="Horas" />
-		<property name="Minutos" />
-		<property name="Justificado" />
-		<property name="Justificativa" />
+		<many-to-one name="PontoEletronico" class="VandaModaIntimaWpf.Model.PontoEletronico" column="ponto_eletronico" />
+		<property name="Inicio" type="Time" />
+		<property name="Fim" type="Time" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

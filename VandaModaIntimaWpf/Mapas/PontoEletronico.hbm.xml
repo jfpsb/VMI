@@ -12,12 +12,15 @@
 		<property name="Dia" type="Date" />
 		<property name="Entrada" type="Time" />
 		<property name="Saida" type="Time"/>
-		<property name="EntradaAlmoco" column="entrada_almoco" type="Time"/>
-		<property name="SaidaAlmoco" column="saida_almoco" type="Time"/>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
+
+		<bag name="Intervalos" table="intervalo_ponto" inverse="true" cascade="save-update" where="Deletado = false">
+			<key column="ponto_eletronico" />
+			<one-to-many class="VandaModaIntimaWpf.Model.IntervaloPonto" />
+		</bag>
 	</class>
 
 </hibernate-mapping>

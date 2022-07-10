@@ -7,11 +7,13 @@
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.PontoEletronico"
         mc:Ignorable="d"
         Title="Registrar Ponto"
-        Height="800"
-        Width="700"
+        Height="700"
+        Width="800"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=DataGridPontos}">
-    <Grid>
+    <Grid MaxWidth="850"
+          HorizontalAlignment="Center">
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Margin"
@@ -19,7 +21,6 @@
                 <Setter Property="FontSize"
                         Value="35" />
             </Style>
-            <local:PontoNullableDateTimeConverter x:Key="PontoNullableDateTimeConverter" />
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -68,27 +69,28 @@
         <Button Grid.Row="5"
                 Grid.Column="1"
                 IsTabStop="False"
-                Command="{Binding RegistrarEntradaAlmocoComando}">
+                Command="{Binding RegistrarSaidaParaIntervaloComando}">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap"
                            TextAlignment="Center">
-                    Saída para Almoço
+                    Saída para Intervalo
                 </TextBlock>
             </Button.Content>
         </Button>
         <Button Grid.Row="6"
                 IsTabStop="False"
-                Command="{Binding RegistrarSaidaAlmocoComando}">
+                Command="{Binding RegistrarRetornoDeIntervaloComando}">
             <Button.Content>
                 <TextBlock TextWrapping="Wrap"
                            TextAlignment="Center">
-                    Retorno de Almoço
+                    Retorno de Intervalo
                 </TextBlock>
             </Button.Content>
         </Button>
         <Button Grid.Row="6"
                 Grid.Column="2"
                 Content="Saída"
+                Padding="25"
                 IsTabStop="False"
                 Command="{Binding RegistrarSaidaComando}" />
         <DataGrid x:Name="DataGridPontos"
@@ -104,13 +106,11 @@
                                     Width="*"
                                     Binding="{Binding Funcionario.Nome}" />
                 <DataGridTextColumn Header="Entrada"
-                                    Binding="{Binding Entrada, StringFormat=HH:mm, Converter={StaticResource PontoNullableDateTimeConverter}}" />
-                <DataGridTextColumn Header="Início Almoço"
-                                    Binding="{Binding EntradaAlmoco, StringFormat=HH:mm, Converter={StaticResource PontoNullableDateTimeConverter}}" />
-                <DataGridTextColumn Header="Fim Almoço"
-                                    Binding="{Binding SaidaAlmoco, StringFormat=HH:mm, Converter={StaticResource PontoNullableDateTimeConverter}}" />
+                                    Binding="{Binding Entrada, StringFormat=HH:mm, TargetNullValue=-- : --}" />
+                <DataGridTextColumn Header="Intervalos"
+                                    Binding="{Binding IntervalosEmString}" />
                 <DataGridTextColumn Header="Saída"
-                                    Binding="{Binding Saida, StringFormat=HH:mm, Converter={StaticResource PontoNullableDateTimeConverter}}" />
+                                    Binding="{Binding Saida, StringFormat=HH:mm, TargetNullValue=-- : --}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

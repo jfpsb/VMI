@@ -10,6 +10,8 @@ namespace VandaModaIntimaWpf.Model
         private DateTime _data;
         private int _horas;
         private int _minutos;
+        private bool _justificado;
+        private string _justificativa;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -76,6 +78,34 @@ namespace VandaModaIntimaWpf.Model
             {
                 _minutos = value;
                 OnPropertyChanged("Minutos");
+            }
+        }
+
+        public virtual bool Justificado
+        {
+            get
+            {
+                return _justificado;
+            }
+
+            set
+            {
+                _justificado = value;
+                OnPropertyChanged("Justificado");
+            }
+        }
+
+        public virtual string Justificativa
+        {
+            get
+            {
+                return _justificativa;
+            }
+
+            set
+            {
+                _justificativa = value;
+                OnPropertyChanged("Justificativa");
             }
         }
 
