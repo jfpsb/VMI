@@ -22,6 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Deletado", false));
                 criteria.Add(Restrictions.Between("Data", new DateTime(ano, mes, 1, 0, 0, 0), new DateTime(ano, mes, daysInMonth, 23, 59, 59)));
                 criteria.SetProjection(Projections.ProjectionList()
                     .Add(Projections.Sum("Horas"), "Horas")
