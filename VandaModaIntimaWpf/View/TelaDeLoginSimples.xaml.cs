@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VandaModaIntimaWpf.ViewModel.Interfaces;
 
 namespace VandaModaIntimaWpf.View
 {
@@ -29,6 +30,22 @@ namespace VandaModaIntimaWpf.View
             if (DataContext != null)
             {
                 ((dynamic)DataContext).Senha = ((PasswordBox)sender).Password;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DialogResult = ((dynamic)DataContext).Resultado;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is IRequestClose)
+            {
+                (DataContext as IRequestClose).RequestClose += (_, __) =>
+                {
+                    Close();
+                };
             }
         }
     }

@@ -23,6 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         private DAOFuncionario daoFuncionario;
         private IList<Model.Funcionario> funcionarios;
         private IMessageBoxService messageBoxService;
+        private IWindowService windowService;
 
         public ICommand RegistrarEntradaComando { get; set; }
         public ICommand RegistrarSaidaComando { get; set; }
@@ -43,6 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             daoFuncionario = new DAOFuncionario(_session);
             PontosEletronicos = new ObservableCollection<Model.PontoEletronico>();
             messageBoxService = new MessageBoxService();
+            windowService = new WindowService();
 
             var task = GetFuncionarios();
             task.Wait();
@@ -76,21 +78,27 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             return true;
         }
 
-        private async void RegistrarRetornoDeIntervalo(object obj)
+        private void RegistrarRetornoDeIntervalo(object obj)
         {
-            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
-            intervaloPonto.Fim = DateTime.Now;
+            windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
+            {
+                if (res == true)
+                {
+                    var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+                    intervaloPonto.Fim = DateTime.Now;
 
-            try
-            {
-                await daoEntidade.InserirOuAtualizar(PontoEletronico);
-                messageBoxService.Show("Retorno de intervalo salvo com sucesso.");
-                await PopulaListaDePontos();
-            }
-            catch (Exception ex)
-            {
-                messageBoxService.Show($"Erro ao salvar retorno de intervalo.\n\n{ex.Message}");
-            }
+                    try
+                    {
+                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        messageBoxService.Show("Retorno de intervalo salvo com sucesso.");
+                        await PopulaListaDePontos();
+                    }
+                    catch (Exception ex)
+                    {
+                        messageBoxService.Show($"Erro ao salvar retorno de intervalo.\n\n{ex.Message}");
+                    }
+                }
+            });
         }
 
         private bool RegistrarSaidaParaIntervaloValidacao(object arg)
@@ -112,31 +120,36 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             return true;
         }
 
-        private async void RegistrarSaidaParaIntervalo(object obj)
+        private void RegistrarSaidaParaIntervalo(object obj)
         {
-            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
-
-            if (intervaloPonto == null || intervaloPonto.Fim != null)
+            windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
             {
-                intervaloPonto = new IntervaloPonto
+                if (res == true)
                 {
-                    PontoEletronico = PontoEletronico
-                };
-            }
+                    var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+                    if (intervaloPonto == null || intervaloPonto.Fim != null)
+                    {
+                        intervaloPonto = new IntervaloPonto
+                        {
+                            PontoEletronico = PontoEletronico
+                        };
+                    }
 
-            intervaloPonto.Inicio = DateTime.Now;
-            PontoEletronico.Intervalos.Add(intervaloPonto);
+                    intervaloPonto.Inicio = DateTime.Now;
+                    PontoEletronico.Intervalos.Add(intervaloPonto);
 
-            try
-            {
-                await daoEntidade.InserirOuAtualizar(PontoEletronico);
-                messageBoxService.Show("Saída para intervalo salva com sucesso.");
-                await PopulaListaDePontos();
-            }
-            catch (Exception ex)
-            {
-                messageBoxService.Show($"Erro ao salvar saída para intervalo.\n\n{ex.Message}");
-            }
+                    try
+                    {
+                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        messageBoxService.Show("Saída para intervalo salva com sucesso.");
+                        await PopulaListaDePontos();
+                    }
+                    catch (Exception ex)
+                    {
+                        messageBoxService.Show($"Erro ao salvar saída para intervalo.\n\n{ex.Message}");
+                    }
+                }
+            });
         }
 
         private bool RegistrarSaidaValidacao(object arg)
@@ -158,19 +171,26 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             return true;
         }
 
-        private async void RegistrarSaida(object obj)
+        private void RegistrarSaida(object obj)
         {
-            PontoEletronico.Saida = DateTime.Now;
-            try
+            windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
             {
-                await daoEntidade.InserirOuAtualizar(PontoEletronico);
-                messageBoxService.Show("Saída salva com sucesso.");
-                await PopulaListaDePontos();
-            }
-            catch (Exception ex)
-            {
-                messageBoxService.Show($"Erro ao salvar saída.\n\n{ex.Message}");
-            }
+                if (res == true)
+                {
+                    PontoEletronico.Saida = DateTime.Now;
+                    try
+                    {
+                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        messageBoxService.Show("Saída salva com sucesso.");
+                        await PopulaListaDePontos();
+                    }
+                    catch (Exception ex)
+                    {
+                        messageBoxService.Show($"Erro ao salvar saída.\n\n{ex.Message}");
+                    }
+                }
+            });
+
         }
 
         private bool RegistrarEntradaValidacao(object arg)
@@ -184,19 +204,25 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             return true;
         }
 
-        private async void RegistrarEntrada(object obj)
+        private void RegistrarEntrada(object obj)
         {
-            PontoEletronico.Entrada = DateTime.Now;
-            try
+            windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
             {
-                await daoEntidade.InserirOuAtualizar(PontoEletronico);
-                messageBoxService.Show("Entrada salva com sucesso.");
-                await PopulaListaDePontos();
-            }
-            catch (Exception ex)
-            {
-                messageBoxService.Show($"Erro ao salvar entrada.\n\n{ex.Message}");
-            }
+                if (res == true)
+                {
+                    PontoEletronico.Entrada = DateTime.Now;
+                    try
+                    {
+                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        messageBoxService.Show("Entrada salva com sucesso.");
+                        await PopulaListaDePontos();
+                    }
+                    catch (Exception ex)
+                    {
+                        messageBoxService.Show($"Erro ao salvar entrada.\n\n{ex.Message}");
+                    }
+                }
+            });
         }
 
         private async Task PopulaListaDePontos()

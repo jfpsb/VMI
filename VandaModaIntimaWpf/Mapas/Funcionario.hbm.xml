@@ -19,7 +19,7 @@
 		<property name="PisPasepNit" />
 		<property name="Ctps" />
 		<property name="Salario" />
-		<property name="Senha" />
+		<property name="Senha"/>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

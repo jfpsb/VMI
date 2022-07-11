@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.View;
 using VandaModaIntimaWpf.View.Avisos;
 using VandaModaIntimaWpf.View.CompraDeFornecedor;
 using VandaModaIntimaWpf.View.Contagem;
@@ -100,6 +101,8 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<TelaDeAviso, TelaDeAvisoVM>();
 
             WindowService.RegistrarWindow<RegistrarPonto, RegistrarPontoVM>();
+
+            WindowService.RegistrarWindow<TelaDeLoginSimples, InserirSenhaPontoVM>();
 
             try
             {

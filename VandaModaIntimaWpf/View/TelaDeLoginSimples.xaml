@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View"
         mc:Ignorable="d"
         Title="Tela De Login"
-        Height="150"
+        Height="200"
         Width="300"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        Loaded="Window_Loaded"
+        FocusManager.FocusedElement="{Binding ElementName=PswBox}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,15 +22,21 @@
         <Label Content="Insira sua senha abaixo:"
                HorizontalAlignment="Center"
                FontSize="18" />
-        <PasswordBox Grid.Row="1"
+        <PasswordBox x:Name="PswBox"
+                     Grid.Row="1"
                      FontSize="18"
-                     Margin="5" 
+                     Margin="5"
                      Padding="5"
-                     PasswordChanged="PasswordBox_PasswordChanged"/>
+                     PasswordChanged="PasswordBox_PasswordChanged">
+            <PasswordBox.InputBindings>
+                <KeyBinding Key="Return"
+                            Command="{Binding ConfirmarSenhaComando}" />
+            </PasswordBox.InputBindings>
+        </PasswordBox>
         <Button Grid.Row="2"
                 Content="Confirmar"
                 Padding="10"
                 FontSize="20"
-                Command="{Binding ConfirmarSenhaComando}"/>
+                Command="{Binding ConfirmarSenhaComando}" />
     </Grid>
 </Window>
