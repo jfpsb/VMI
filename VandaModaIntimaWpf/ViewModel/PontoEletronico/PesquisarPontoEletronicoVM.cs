@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 
 namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
@@ -11,8 +12,10 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
     {
         private DAOFuncionario daoFuncionario;
         private ObservableCollection<Model.PontoEletronico> _pontosEletronicos;
-        private IList<Model.Funcionario> funcionarios;
+        private IList<Model.Funcionario> _funcionarios;
+        private Model.Funcionario _funcionario;
         private DateTime _dataEscolhida;
+        private int _pesquisarPor;
 
         public PesquisarPontoEletronicoVM()
         {
@@ -23,12 +26,33 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             var task = GetFuncionarios();
             task.Wait();
 
+            Funcionario = Funcionarios[0];
+
             DataEscolhida = DateTime.Now; //Realiza pesquisa ao atribuir data
+            PropertyChanged += PesquisarPontoEletronicoVM_PropertyChanged;
+
+            PesquisarPor = 0;
+        }
+
+        private void PesquisarPontoEletronicoVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "PesquisarPor":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+                case "Funcionario":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+                case "DataEscolhida":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+            }
         }
 
         private async Task GetFuncionarios()
         {
-            funcionarios = await daoFuncionario.ListarNaoDemitidos();
+            Funcionarios = await daoFuncionario.ListarNaoDemitidos();
         }
 
         public override bool Editavel(object parameter)
@@ -52,20 +76,43 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
             var dao = daoEntidade as DAOPontoEletronico;
 
-            foreach (var f in funcionarios)
+            if (PesquisarPor == 0)
             {
-                var ponto = await dao.ListarPorDiaFuncionario(DataEscolhida, f);
-
-                if (ponto == null)
+                foreach (var f in Funcionarios)
                 {
-                    ponto = new Model.PontoEletronico
-                    {
-                        Funcionario = f,
-                        Dia = DateTime.Now
-                    };
-                }
+                    var ponto = await dao.ListarPorDiaFuncionario(DataEscolhida, f);
 
-                PontosEletronicos.Add(ponto);
+                    if (ponto == null)
+                    {
+                        ponto = new Model.PontoEletronico
+                        {
+                            Funcionario = f,
+                            Dia = DateTime.Now
+                        };
+                    }
+
+                    PontosEletronicos.Add(ponto);
+                }
+            }
+            else
+            {
+                var dias = DateTimeUtil.RetornaDiasEmMes(DataEscolhida.Year, DataEscolhida.Month);
+
+                foreach (var dia in dias)
+                {
+                    var ponto = await dao.ListarPorDiaFuncionario(dia, Funcionario);
+
+                    if (ponto == null)
+                    {
+                        ponto = new Model.PontoEletronico
+                        {
+                            Funcionario = Funcionario,
+                            Dia = dia
+                        };
+                    }
+
+                    PontosEletronicos.Add(ponto);
+                }
             }
         }
 
@@ -99,7 +146,48 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
-                OnPropertyChanged("TermoPesquisa");
+            }
+        }
+
+        public int PesquisarPor
+        {
+            get
+            {
+                return _pesquisarPor;
+            }
+
+            set
+            {
+                _pesquisarPor = value;
+                OnPropertyChanged("PesquisarPor");
+            }
+        }
+
+        public IList<Model.Funcionario> Funcionarios
+        {
+            get
+            {
+                return _funcionarios;
+            }
+
+            set
+            {
+                _funcionarios = value;
+                OnPropertyChanged("Funcionarios");
+            }
+        }
+
+        public Model.Funcionario Funcionario
+        {
+            get
+            {
+                return _funcionario;
+            }
+
+            set
+            {
+                _funcionario = value;
+                OnPropertyChanged("Funcionario");
             }
         }
     }

@@ -10,11 +10,15 @@
                      mc:Ignorable="d"
                      Title="Pesquisar Ponto Eletrônico"
                      Height="600"
-                     Width="1100"
+                     Width="1200"
                      WindowStartupLocation="CenterScreen">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarPontoEletronicoVM />
     </View:APesquisarView.DataContext>
+    <View:APesquisarView.Resources>
+        <local:VisibilidadePesquisaPorDiaConverter x:Key="VisibilidadePesquisaPorDiaConverter" />
+        <local:VisibilidadePesquisaPorFuncionarioConverter x:Key="VisibilidadePesquisaPorFuncionarioConverter" />
+    </View:APesquisarView.Resources>
     <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarPonto}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
@@ -45,14 +49,50 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Content="Dia:" />
+                <Label Content="Pesquisar Por:" />
+                <ComboBox Grid.Column="1"
+                          Width="200"
+                          HorizontalAlignment="Left"
+                          ItemsSource="{DynamicResource CmbPesquisaPorPontoEletronico}"
+                          SelectedIndex="{Binding PesquisarPor, Mode=TwoWay}" />
+                <Label Grid.Row="1"
+                       Content="Dia:"
+                       Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorDiaConverter}}" />
                 <DatePicker Grid.Column="1"
+                            Grid.Row="1"
                             SelectedDate="{Binding DataEscolhida}"
                             Width="200"
-                            HorizontalAlignment="Left" />
-                <DataGrid Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorDiaConverter}}" />
+                <Label Grid.Row="2"
+                       Content="Funcionário:"
+                       Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorFuncionarioConverter}}" />
+                <ComboBox Grid.Row="2"
+                          Grid.Column="1"
+                          ItemsSource="{Binding Funcionarios}"
+                          SelectedItem="{Binding Funcionario}"
+                          DisplayMemberPath="Nome"
+                          Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorFuncionarioConverter}}"
+                          Width="250"
+                          HorizontalAlignment="Left" />
+                <Label Grid.Row="3"
+                       Content="Mês"
+                       Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorFuncionarioConverter}}" />
+                <View:DataUpDown Grid.Row="3"
+                                 Grid.Column="1"
+                                 Width="210"
+                                 HorizontalAlignment="Left"
+                                 Data="{Binding DataEscolhida, Mode=TwoWay}"
+                                 DataStringFormat="MMM/yyyy"
+                                 Visibility="{Binding PesquisarPor, Converter={StaticResource VisibilidadePesquisaPorFuncionarioConverter}}" />
+                <FrameworkElement x:Name="FrameWorkElementProxy"
+                                  Visibility="Collapsed" />
+                <DataGrid Grid.Row="4"
                           Grid.ColumnSpan="2"
                           IsReadOnly="True"
                           ItemsSource="{Binding PontosEletronicos}">
@@ -60,9 +100,12 @@
                         <DataGridTextColumn Header="Nome"
                                             Width="*"
                                             Binding="{Binding Funcionario.Nome}" />
-                        <DataGridTextColumn Header="Loja Trabalho"
+                        <DataGridTextColumn Header="Loja"
                                             Width="*"
                                             Binding="{Binding Funcionario.Loja.Nome}" />
+                        <DataGridTextColumn Header="Dia"
+                                            Binding="{Binding Dia, StringFormat=dd/MM/yyyy}"
+                                            Visibility="{Binding DataContext.PesquisarPor, Source={x:Reference Name=FrameWorkElementProxy}, Converter={StaticResource VisibilidadePesquisaPorFuncionarioConverter}}" />
                         <DataGridTextColumn Header="Entrada"
                                             Binding="{Binding Entrada, StringFormat=HH:mm, TargetNullValue=-- : --}" />
                         <DataGridTextColumn Header="Saída"

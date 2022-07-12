@@ -755,6 +755,8 @@
     <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />
+    <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorConverter.cs" />
+    <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorFuncionarioConverter.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
     <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
     <Compile Include="ViewModel\Util\Mediator.cs" />

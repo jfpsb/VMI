@@ -24,9 +24,7 @@
                 <ResourceDictionary Source="Theme/TabItemTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBlockTheme.xaml" />
                 <ResourceDictionary Source="Theme/TextBoxTheme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            
+            </ResourceDictionary.MergedDictionaries>            
 
             <BitmapImage x:Key="ImagemSucesso"
                          UriSource="/Resources/Sucesso.png" />
@@ -139,6 +137,5 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-
     </Application.Resources>
 </Application>

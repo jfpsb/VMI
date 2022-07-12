@@ -286,4 +286,10 @@
         <System:String>Membro Familiar</System:String>
     </x:Array>
 
+    <x:Array x:Key="CmbPesquisaPorPontoEletronico"
+             Type="System:String">
+        <System:String>Dia</System:String>
+        <System:String>Funcionário</System:String>
+    </x:Array>
+
 </ResourceDictionary>
