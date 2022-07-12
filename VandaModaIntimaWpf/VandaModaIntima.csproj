@@ -699,6 +699,7 @@
     <Compile Include="Model\TipoGrade.cs" />
     <Compile Include="Model\TipoHoraExtra.cs" />
     <Compile Include="Resources\StringResource.cs" />
+    <Compile Include="Util\ConfiguraPosPrinter.cs" />
     <Compile Include="Util\CPF.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
@@ -1611,6 +1612,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\IntervaloPonto.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ACBrLib\x64\ACBrPosPrinter64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ACBrLib\x86\ACBrPosPrinter32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Import\Dinamico\ST\ACBrLib.PosPrinter.csproj">
+      <Project>{FBC3019F-D96B-461C-92EE-17A50D6ECD04}</Project>
+      <Name>ACBrLib.PosPrinter</Name>
+    </ProjectReference>
+    <ProjectReference Include="Shared\ACBrLib.Core\ACBrLib.Core.csproj">
+      <Project>{94B07428-D996-4BE8-BA7C-E8EF24190682}</Project>
+      <Name>ACBrLib.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

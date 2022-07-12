@@ -11,6 +11,7 @@ namespace SincronizacaoVMI.Model
         private string _endereco;
         private string _inscricaoestadual;
         private double _aluguel;
+        private string _razaoSocial;
 
         public virtual string Cnpj
         {
@@ -76,6 +77,21 @@ namespace SincronizacaoVMI.Model
                 OnPropertyChanged("Aluguel");
             }
         }
+
+        public virtual string RazaoSocial
+        {
+            get
+            {
+                return _razaoSocial;
+            }
+
+            set
+            {
+                _razaoSocial = value;
+                OnPropertyChanged("RazaoSocial");
+            }
+        }
+
         public virtual object GetIdentifier()
         {
             return Cnpj;

@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using ACBrLib.PosPrinter;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,9 +7,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
 
@@ -24,6 +27,15 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         private IList<Model.Funcionario> funcionarios;
         private IMessageBoxService messageBoxService;
         private IWindowService windowService;
+        private ACBrPosPrinter posPrinter;
+
+        private enum TipoPonto
+        {
+            Entrada,
+            Saida,
+            SaidaParaIntervalo,
+            RetornoDeIntervalo
+        }
 
         public ICommand RegistrarEntradaComando { get; set; }
         public ICommand RegistrarSaidaComando { get; set; }
@@ -56,6 +68,9 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             RegistrarSaidaComando = new RelayCommand(RegistrarSaida, RegistrarSaidaValidacao);
             RegistrarSaidaParaIntervaloComando = new RelayCommand(RegistrarSaidaParaIntervalo, RegistrarSaidaParaIntervaloValidacao);
             RegistrarRetornoDeIntervaloComando = new RelayCommand(RegistrarRetornoDeIntervalo, RegistrarRetornoDeIntervaloValidacao);
+
+            posPrinter = new ACBrPosPrinter();
+            ConfiguraPosPrinter.Configurar(posPrinter);
         }
 
         private bool RegistrarRetornoDeIntervaloValidacao(object arg)
@@ -77,7 +92,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
             return true;
         }
-
         private void RegistrarRetornoDeIntervalo(object obj)
         {
             windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
@@ -90,6 +104,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     try
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.RetornoDeIntervalo);
                         messageBoxService.Show("Retorno de intervalo salvo com sucesso.");
                         await PopulaListaDePontos();
                     }
@@ -100,7 +115,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 }
             });
         }
-
         private bool RegistrarSaidaParaIntervaloValidacao(object arg)
         {
             if (PontoEletronico == null)
@@ -119,7 +133,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
             return true;
         }
-
         private void RegistrarSaidaParaIntervalo(object obj)
         {
             windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
@@ -141,6 +154,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     try
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.SaidaParaIntervalo);
                         messageBoxService.Show("Saída para intervalo salva com sucesso.");
                         await PopulaListaDePontos();
                     }
@@ -151,7 +165,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 }
             });
         }
-
         private bool RegistrarSaidaValidacao(object arg)
         {
             if (PontoEletronico == null)
@@ -170,7 +183,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
             return true;
         }
-
         private void RegistrarSaida(object obj)
         {
             windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
@@ -181,6 +193,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     try
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Saida);
                         messageBoxService.Show("Saída salva com sucesso.");
                         await PopulaListaDePontos();
                     }
@@ -192,7 +205,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             });
 
         }
-
         private bool RegistrarEntradaValidacao(object arg)
         {
             if (PontoEletronico == null)
@@ -203,7 +215,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
             return true;
         }
-
         private void RegistrarEntrada(object obj)
         {
             windowService.ShowDialog(new InserirSenhaPontoVM(PontoEletronico.Funcionario), async (res, vm) =>
@@ -214,6 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     try
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Entrada);
                         messageBoxService.Show("Entrada salva com sucesso.");
                         await PopulaListaDePontos();
                     }
@@ -224,7 +236,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 }
             });
         }
-
         private async Task PopulaListaDePontos()
         {
             var dao = daoEntidade as DAOPontoEletronico;
@@ -255,32 +266,77 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 PontosEletronicos = new ObservableCollection<Model.PontoEletronico>(PontosEletronicos);
             }
         }
-
         private async Task GetFuncionarios()
         {
             funcionarios = await daoFuncionario.ListarNaoDemitidos();
         }
+        private void ImprimirComprovanteRegistroPonto(Model.PontoEletronico ponto, TipoPonto tipoPonto)
+        {
+            string texto = "</zera>\n";
+            texto += "</ce>\n";
+            texto += "</logo>\n";
+            texto += "<e>COMPROVANTE DE REGISTRO DE PONTO DO TRABALHADOR</e>\n";
+            texto += "</ae>" + "\n";
+            texto += "<i><n>EMPRESA</i>\n";
+            texto += $"CNPJ</n>: {ponto.Funcionario.Loja.Cnpj}\n";
+            texto += $"<n>Razão Social</n>: {ponto.Funcionario.Loja.RazaoSocial}\n";
+            texto += $"<n>Endereço</n>: {ponto.Funcionario.Loja.Endereco}\n";
+            texto += "<i><n>FUNCIONÁRIO</i>\n";
+            texto += $"CPF</n>: {ponto.Funcionario.Cpf}\n";
+            texto += $"<n>Nome</n>: {ponto.Funcionario.Nome}\n";
+            texto += "</linha_dupla>\n";
+            texto += "</ce><e>HORÁRIO DE REGISTRO</e>\n";
 
+            var intervaloPonto = PontoEletronico.Intervalos.LastOrDefault();
+            switch (tipoPonto)
+            {
+                case TipoPonto.Entrada:
+                    texto += $"TIPO: ENTRADA\n";
+                    texto += $"{ponto.Dia:dd/MM/yyyy} - {ponto.Entrada.Value:HH:mm}\n";
+                    break;
+                case TipoPonto.Saida:
+                    texto += $"TIPO: SAÍDA\n";
+                    texto += $"{ponto.Dia:dd/MM/yyyy} - {ponto.Saida.Value:HH:mm}\n";
+                    break;
+                case TipoPonto.SaidaParaIntervalo:
+                    texto += $"TIPO: SAÍDA PARA INTERVALO\n";
+                    texto += $"{ponto.Dia:dd/MM/yyyy} - {intervaloPonto.Inicio:HH:mm}\n";
+                    break;
+                case TipoPonto.RetornoDeIntervalo:
+                    texto += $"TIPO: RETORNO DE INTERVALO\n";
+                    texto += $"{ponto.Dia:dd/MM/yyyy} - {intervaloPonto.Fim.Value:HH:mm}\n";
+                    break;
+            }
+
+            texto += "</linha_dupla>\n";
+            texto += "</pular_linhas>\n";
+            texto += "</corte_total>" + "\n";
+
+            try
+            {
+                posPrinter.Imprimir(texto);
+            }
+            catch (Exception ex)
+            {
+                messageBoxService.Show("Erro ao imprimir comprovante. Cheque se a impressora está conectada corretamente e que está ligada.\n\n" + ex.Message, "Impressão De Comprovante Pix", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void HoraAtualTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             HoraAtual = e.SignalTime;
         }
-
         public override void Entidade_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             throw new NotImplementedException();
         }
-
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
 
         }
-
         public override bool ValidacaoSalvar(object parameter)
         {
             return false;
         }
-
         public DateTime HoraAtual
         {
             get
@@ -294,7 +350,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 OnPropertyChanged("HoraAtual");
             }
         }
-
         public ObservableCollection<Model.PontoEletronico> PontosEletronicos
         {
             get
@@ -308,7 +363,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 OnPropertyChanged("PontosEletronicos");
             }
         }
-
         public Model.PontoEletronico PontoEletronico
         {
             get

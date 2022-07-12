@@ -57,10 +57,6 @@ namespace SincronizacaoVMI.Util
                         if (ent != null) continue;
                         Loja eASalvar = new Loja();
                         eASalvar.Copiar(e);
-
-                        Loja matrizLocal = await ListarPorUuidLocal("Loja", e.Matriz.Uuid) as Loja;
-                        eASalvar.Matriz = matrizLocal;
-
                         insertsRemotoParaLocal.Add(eASalvar);
                     }
                 }
@@ -73,10 +69,6 @@ namespace SincronizacaoVMI.Util
                         Loja entLocal = await ListarPorUuidLocal("Loja", e.Uuid) as Loja;
                         if (entLocal == null) continue;
                         entLocal.Copiar(e);
-
-                        Loja matrizLocal = await ListarPorUuidLocal("Loja", e.Matriz.Uuid) as Loja;
-                        entLocal.Matriz = matrizLocal;
-
                         updatesRemotoParaLocal.Add(entLocal);
                     }
                 }
@@ -128,10 +120,6 @@ namespace SincronizacaoVMI.Util
                         Loja entRemoto = await ListarPorUuidRemoto("Loja", e.Uuid) as Loja;
                         if (entRemoto == null) continue;
                         entRemoto.Copiar(e);
-
-                        Loja matrizRemoto = await ListarPorUuidRemoto("Loja", e.Matriz.Uuid) as Loja;
-                        entRemoto.Matriz = matrizRemoto;
-
                         updatesLocalParaRemoto.Add(entRemoto);
                     }
                 }

@@ -14,6 +14,7 @@ namespace VandaModaIntimaWpf.Model
         private string _endereco;
         private string _inscricaoestadual;
         private double _aluguel;
+        private string _razaoSocial;
         private IList<AliquotasImposto> _aliquotas = new List<AliquotasImposto>();
 
         public Loja() { }
@@ -145,6 +146,20 @@ namespace VandaModaIntimaWpf.Model
         public virtual AliquotasImposto UltimaAliquota
         {
             get => Aliquotas.Count > 0 ? Aliquotas.Last() : null;
+        }
+
+        public virtual string RazaoSocial
+        {
+            get
+            {
+                return _razaoSocial;
+            }
+
+            set
+            {
+                _razaoSocial = value;
+                OnPropertyChanged("RazaoSocial");
+            }
         }
 
         public virtual object GetIdentifier()

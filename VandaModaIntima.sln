@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VandaModaIntima", "VandaModaIntimaWpf\VandaModaIntima.csproj", "{FA1805B3-C7C6-4892-812B-EC6111B7D48A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SincronizacaoVMI", "SincronizacaoVMI\SincronizacaoVMI.csproj", "{82B57DBB-A157-439F-8040-8770F35EFB84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SincronizacaoVMI", "SincronizacaoVMI\SincronizacaoVMI.csproj", "{82B57DBB-A157-439F-8040-8770F35EFB84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACBrLib.PosPrinter", "VandaModaIntimaWpf\Import\Dinamico\ST\ACBrLib.PosPrinter.csproj", "{FBC3019F-D96B-461C-92EE-17A50D6ECD04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACBrLib.Core", "VandaModaIntimaWpf\Shared\ACBrLib.Core\ACBrLib.Core.csproj", "{94B07428-D996-4BE8-BA7C-E8EF24190682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{82B57DBB-A157-439F-8040-8770F35EFB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82B57DBB-A157-439F-8040-8770F35EFB84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82B57DBB-A157-439F-8040-8770F35EFB84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC3019F-D96B-461C-92EE-17A50D6ECD04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC3019F-D96B-461C-92EE-17A50D6ECD04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC3019F-D96B-461C-92EE-17A50D6ECD04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC3019F-D96B-461C-92EE-17A50D6ECD04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94B07428-D996-4BE8-BA7C-E8EF24190682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B07428-D996-4BE8-BA7C-E8EF24190682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B07428-D996-4BE8-BA7C-E8EF24190682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B07428-D996-4BE8-BA7C-E8EF24190682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

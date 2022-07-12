@@ -13,6 +13,7 @@
 		<property name="Endereco" column="endereco" />
 		<property name="InscricaoEstadual" column="inscricaoestadual" />
 		<property name="Aluguel" />
+		<property name="RazaoSocial" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
