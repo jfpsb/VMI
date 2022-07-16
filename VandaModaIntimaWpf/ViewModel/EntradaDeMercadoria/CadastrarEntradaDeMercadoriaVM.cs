@@ -9,7 +9,7 @@ using VandaModaIntimaWpf.Model.DAO.MySQL;
 
 namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 {
-    class CadastrarEntradaDeMercadoriaVM : ACadastrarViewModel<Model.EntradaDeMercadoria>
+    public class CadastrarEntradaDeMercadoriaVM : ACadastrarViewModel<Model.EntradaDeMercadoria>
     {
         private string _termoPesquisaProduto;
         private DAOProduto daoProduto;

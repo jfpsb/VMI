@@ -112,6 +112,14 @@
                 <DataGridTextColumn Header="Saída"
                                     Binding="{Binding Saida, StringFormat=HH:mm, TargetNullValue=-- : --}" />
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{Binding PontoEletronico.Funcionario.Nome}" />
+                    <Separator />
+                    <MenuItem Header="Imprimir registros de ponto de hoje" />
+                    <MenuItem Header="Imprimir registros de ponto de mês atual" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
     </Grid>
 </Window>

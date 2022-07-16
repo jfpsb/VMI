@@ -722,6 +722,8 @@
       <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Despesa\SelecionaMultiplasLojasVM.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\EditarEntradaDeMercadoriaVMStrategy.cs" />
+    <Compile Include="ViewModel\EntradaDeMercadoria\EditarEntradaDeMercadoriaVM.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\CRFolhaPagamentoParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\ICrystalReportsParaPDF.cs" />
     <Compile Include="ViewModel\ExportaParaArquivo\Excel\DespesaExcelStrategy.cs" />

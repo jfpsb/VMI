@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         public override object GetEditarViewModel()
         {
-            throw new NotImplementedException();
+            return new EditarEntradaDeMercadoriaVM(_session, EntidadeSelecionada.Entidade);
         }
 
         public DateTime DataEscolhida
