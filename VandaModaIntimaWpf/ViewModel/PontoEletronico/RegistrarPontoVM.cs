@@ -41,6 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         public ICommand RegistrarSaidaComando { get; set; }
         public ICommand RegistrarSaidaParaIntervaloComando { get; set; }
         public ICommand RegistrarRetornoDeIntervaloComando { get; set; }
+        public ICommand TrocarSenhaComando { get; set; }
 
         public RegistrarPontoVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -68,9 +69,15 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             RegistrarSaidaComando = new RelayCommand(RegistrarSaida, RegistrarSaidaValidacao);
             RegistrarSaidaParaIntervaloComando = new RelayCommand(RegistrarSaidaParaIntervalo, RegistrarSaidaParaIntervaloValidacao);
             RegistrarRetornoDeIntervaloComando = new RelayCommand(RegistrarRetornoDeIntervalo, RegistrarRetornoDeIntervaloValidacao);
+            TrocarSenhaComando = new RelayCommand(TrocarSenha);
 
             posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(posPrinter);
+        }
+
+        private void TrocarSenha(object obj)
+        {
+            windowService.ShowDialog(new TrocarSenhaFuncionarioVM(_session, PontoEletronico.Funcionario, messageBoxService), null);
         }
 
         private bool RegistrarRetornoDeIntervaloValidacao(object arg)

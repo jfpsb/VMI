@@ -106,6 +106,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<SalvarEntradaDeMercadoria, EditarEntradaDeMercadoriaVM>();
 
+            WindowService.RegistrarWindow<TrocarSenhaFuncionario, TrocarSenhaFuncionarioVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

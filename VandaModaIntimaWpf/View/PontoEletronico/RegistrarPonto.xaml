@@ -118,6 +118,8 @@
                     <Separator />
                     <MenuItem Header="Imprimir registros de ponto de hoje" />
                     <MenuItem Header="Imprimir registros de ponto de mês atual" />
+                    <MenuItem Header="Trocar senha"
+                              Command="{Binding TrocarSenhaComando}" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

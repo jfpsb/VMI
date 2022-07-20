@@ -5,6 +5,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.ViewModel.Interfaces;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
+using VandaModaIntimaWpf.ViewModel.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 {
@@ -28,20 +29,9 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
         private void ConfirmarSenha(object obj)
         {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            md5.ComputeHash(Encoding.ASCII.GetBytes(Senha));
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < md5.Hash.Length; i++)
+            Resultado = Autenticacao.ConfirmaSenha(Senha, funcionario.Senha);
+            if (Resultado)
             {
-                sb.Append(md5.Hash[i].ToString("X2"));
-            }
-
-            var emString = sb.ToString();
-
-            if (emString.Equals(funcionario.Senha.ToUpper()))
-            {
-                Resultado = true;
                 RequestClose?.Invoke(this, EventArgs.Empty);
             }
             else

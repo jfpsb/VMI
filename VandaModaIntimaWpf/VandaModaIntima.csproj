@@ -549,6 +549,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PontoEletronico\TrocarSenhaFuncionario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Produto\AjudaProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -757,6 +761,11 @@
     <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />
+    <Compile Include="ViewModel\PontoEletronico\TrocarSenhaFuncionarioVM.cs" />
+    <Compile Include="ViewModel\Util\Autenticacao.cs" />
+    <Compile Include="View\PontoEletronico\TrocarSenhaFuncionario.xaml.cs">
+      <DependentUpon>TrocarSenhaFuncionario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorConverter.cs" />
     <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorFuncionarioConverter.cs" />
     <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
