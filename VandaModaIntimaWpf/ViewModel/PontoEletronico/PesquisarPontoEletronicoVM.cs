@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 
 namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
@@ -16,6 +18,8 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         private Model.Funcionario _funcionario;
         private DateTime _dataEscolhida;
         private int _pesquisarPor;
+
+        public ICommand AbrirConsolidarPontosComando { get; set; }
 
         public PesquisarPontoEletronicoVM()
         {
@@ -32,6 +36,13 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             PropertyChanged += PesquisarPontoEletronicoVM_PropertyChanged;
 
             PesquisarPor = 0;
+
+            AbrirConsolidarPontosComando = new RelayCommand(AbrirConsolidarPontos);
+        }
+
+        private void AbrirConsolidarPontos(object obj)
+        {
+            new ConsolidarPontosEletronicos().ShowDialog();
         }
 
         private void PesquisarPontoEletronicoVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

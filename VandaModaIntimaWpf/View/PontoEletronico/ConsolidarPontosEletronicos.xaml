@@ -1,0 +1,57 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.PontoEletronico.ConsolidarPontosEletronicos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.PontoEletronico"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.PontoEletronico"
+        mc:Ignorable="d"
+        Title="ConsolidarPontosEletronicos"
+        Height="450"
+        Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <ViewModel:PesquisarPontoEletronicoVM />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.9*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.9*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="ScrollViewer"
+                      Grid.Column="1"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Disabled"
+                      PreviewKeyDown="ScrollViewer_PreviewKeyDown">
+            <ItemsControl x:Name="ItemsControl"
+                          Grid.Column="2"
+                          ItemsSource="{Binding PontosEletronicos}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black"
+                                BorderThickness="1"
+                                Margin="3"
+                                SnapsToDevicePixels="True">
+                            <TextBlock Text="{Binding Funcionario.Nome}"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="250"
+                                       Margin="1"
+                                       FontSize="20"
+                                       Padding="3" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -31,7 +31,8 @@
                                   Command="{Binding ExportarExcelComando}"
                                   CommandParameter="{Binding ElementName=TelaPesquisarPonto}" />
                     </MenuItem>
-
+                    <MenuItem Header="Consolidar Pontos Eletrônicos"
+                              Command="{Binding AbrirConsolidarPontosComando}" />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>
