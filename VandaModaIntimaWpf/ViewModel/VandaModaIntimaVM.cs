@@ -108,6 +108,10 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<TrocarSenhaFuncionario, TrocarSenhaFuncionarioVM>();
 
+            WindowService.RegistrarWindow<PesquisarRepresentante, PesquisarRepresentanteVM>();
+
+            WindowService.RegistrarWindow<ConsolidarPontosEletronicos, ConsolidarPontosEletronicosVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

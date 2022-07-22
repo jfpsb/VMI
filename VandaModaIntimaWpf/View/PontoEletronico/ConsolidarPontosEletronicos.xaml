@@ -11,47 +11,19 @@
         Height="450"
         Width="900"
         WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <ViewModel:PesquisarPontoEletronicoVM />
-    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.9*" />
+            <ColumnDefinition Width="0.5*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.9*" />
+            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="ScrollViewer"
-                      Grid.Column="1"
-                      HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Disabled"
-                      PreviewKeyDown="ScrollViewer_PreviewKeyDown">
-            <ItemsControl x:Name="ItemsControl"
-                          Grid.Column="2"
-                          ItemsSource="{Binding PontosEletronicos}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="Black"
-                                BorderThickness="1"
-                                Margin="3"
-                                SnapsToDevicePixels="True">
-                            <TextBlock Text="{Binding Funcionario.Nome}"
-                                       TextWrapping="Wrap"
-                                       MaxWidth="250"
-                                       Margin="1"
-                                       FontSize="20"
-                                       Padding="3" />
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <ComboBox Grid.Column="1"
+                  FontSize="28"
+                  Padding="5"
+                  ItemsSource="{Binding Funcionarios}"
+                  DisplayMemberPath="Nome" />
     </Grid>
 </Window>

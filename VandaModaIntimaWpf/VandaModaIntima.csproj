@@ -762,6 +762,7 @@
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
+    <Compile Include="ViewModel\PontoEletronico\ConsolidarPontosEletronicosVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />

@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
         private void AbrirConsolidarPontos(object obj)
         {
-            new ConsolidarPontosEletronicos().ShowDialog();
+            _windowService.ShowDialog(new ConsolidarPontosEletronicosVM(_session), null);
         }
 
         private void PesquisarPontoEletronicoVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
