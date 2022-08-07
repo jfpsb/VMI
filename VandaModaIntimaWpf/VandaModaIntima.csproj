@@ -768,9 +768,14 @@
     <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\TrocarSenhaFuncionarioVM.cs" />
     <Compile Include="ViewModel\Util\Autenticacao.cs" />
+    <Compile Include="View\PontoEletronico\CalculoSaldoJornada.cs" />
+    <Compile Include="View\PontoEletronico\ChecaIntervalosConverter.cs" />
     <Compile Include="View\PontoEletronico\ConsolidarPontosEletronicos.xaml.cs">
       <DependentUpon>ConsolidarPontosEletronicos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PontoEletronico\DescreveDataFeriadoConverter.cs" />
+    <Compile Include="View\PontoEletronico\IsDataFeriadoConverter.cs" />
+    <Compile Include="View\PontoEletronico\ProcessaJornadaConverter.cs" />
     <Compile Include="View\PontoEletronico\TrocarSenhaFuncionario.xaml.cs">
       <DependentUpon>TrocarSenhaFuncionario.xaml</DependentUpon>
     </Compile>

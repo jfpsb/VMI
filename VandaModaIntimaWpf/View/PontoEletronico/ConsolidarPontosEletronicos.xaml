@@ -6,24 +6,198 @@
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.PontoEletronico"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         xmlns:ViewModel="clr-namespace:VandaModaIntimaWpf.ViewModel.PontoEletronico"
+        xmlns:View="clr-namespace:VandaModaIntimaWpf.View"
+        xmlns:Model="clr-namespace:VandaModaIntimaWpf.Model"
         mc:Ignorable="d"
         Title="ConsolidarPontosEletronicos"
-        Height="450"
-        Width="900"
+        Height="700"
+        Width="1000"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:ProcessaJornadaConverter x:Key="ProcessaJornadaConverter" />
+        <local:CalculoSaldoJornada x:Key="CalculoSaldoJornada" />
+        <local:IsDataFeriadoConverter x:Key="IsDataFeriadoConverter" />
+        <local:DescreveDataFeriadoConverter x:Key="DescreveDataFeriadoConverter" />
+        <local:ChecaSeIntervalosSaoValidosConverter x:Key="ChecaSeIntervalosSaoValidosConverter" />
+
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Label Content="Mês Referência:" />
+        <View:DataUpDown Grid.Column="1"
+                         Width="200"
+                         HorizontalAlignment="Left"
+                         Data="{Binding DataEscolhida, Mode=TwoWay}"
+                         DataStringFormat="MMM/yyyy" />
+        <Label Grid.Row="1"
+               Content="Funcionário:" />
         <ComboBox Grid.Column="1"
-                  FontSize="28"
+                  Grid.Row="1"
+                  FontSize="20"
                   Padding="5"
                   ItemsSource="{Binding Funcionarios}"
+                  SelectedValue="{Binding Funcionario}"
                   DisplayMemberPath="Nome" />
+        <ListBox Grid.Row="2"
+                 Grid.ColumnSpan="2"
+                 ItemsSource="{Binding PontosEletronicos}"
+                 SelectedItem="{Binding PontoEletronico}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch"></Setter>
+                    <Setter Property="Background"
+                            Value="White" />
+                    <Setter Property="Padding"
+                            Value="0" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type Model:PontoEletronico}">
+                    <Border Padding="3"
+                            BorderThickness="0,0,0,2"
+                            BorderBrush="Black">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.ColumnSpan="2"
+                                   Content="{Binding Dia}"
+                                   ContentStringFormat="dd/MM/yyyy (dddd)"
+                                   Language="pt-BR"
+                                   FontWeight="Bold"
+                                   FontSize="15"
+                                   BorderBrush="Black"
+                                   BorderThickness="1.5">
+                                <Label.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ProcessaJornadaConverter}, Path=.}"
+                                                         Value="horaextra">
+                                                <Setter Property="Label.Background"
+                                                        Value="LightGreen" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ProcessaJornadaConverter}, Path=.}"
+                                                         Value="feriadotrabalhado">
+                                                <Setter Property="Label.Background"
+                                                        Value="Yellow" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ProcessaJornadaConverter}, Path=.}"
+                                                         Value="falta">
+                                                <Setter Property="Label.Background"
+                                                        Value="IndianRed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ProcessaJornadaConverter}, Path=.}"
+                                                         Value="feriado">
+                                                <Setter Property="Label.Background"
+                                                        Value="IndianRed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ProcessaJornadaConverter}, Path=.}"
+                                                         Value="dianormal">
+                                                <Setter Property="Label.Background"
+                                                        Value="LightGray" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+
+                            </Label>
+                            <Label Grid.Row="1"
+                                   ContentStringFormat="Entrada: {0:HH:mm}"
+                                   Content="{Binding Entrada, TargetNullValue=-- : --}"
+                                   FontWeight="Bold" />
+                            <Label Grid.Row="2"
+                                   ContentStringFormat="Saída: {0:HH:mm}"
+                                   Content="{Binding Saida, TargetNullValue=-- : --}"
+                                   FontWeight="Bold" />
+                            <Label Grid.Row="3"
+                                   Content="{Binding Path=., Converter={StaticResource CalculoSaldoJornada}}"
+                                   FontWeight="Bold" />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   ContentStringFormat="Intervalos: {0}"
+                                   Content="{Binding IntervalosEmString}"
+                                   FontWeight="Bold" />
+                            <Border Grid.Row="4"
+                                    Grid.ColumnSpan="2">
+                                <Border.Style>
+                                    <Style>
+                                        <Setter Property="Border.BorderBrush"
+                                                Value="Black" />
+                                        <Setter Property="Border.BorderThickness"
+                                                Value="1" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Dia, Converter={StaticResource IsDataFeriadoConverter}}"
+                                                         Value="True">
+                                                <Setter Property="Border.Visibility"
+                                                        Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Dia, Converter={StaticResource IsDataFeriadoConverter}}"
+                                                         Value="False">
+                                                <Setter Property="Border.Visibility"
+                                                        Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Label Content="{Binding Dia, Converter={StaticResource DescreveDataFeriadoConverter}}"
+                                       Background="Yellow"
+                                       FontWeight="Bold" />
+                            </Border>
+                            <Border Grid.Row="4"
+                                    Grid.ColumnSpan="2">
+                                <Border.Style>
+                                    <Style>
+                                        <Setter Property="Border.BorderBrush"
+                                                Value="Black" />
+                                        <Setter Property="Border.BorderThickness"
+                                                Value="1" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=., Converter={StaticResource ChecaSeIntervalosSaoValidosConverter}}"
+                                                         Value="False">
+                                                <Setter Property="Border.Visibility"
+                                                        Value="Visible" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=., Converter={StaticResource ChecaSeIntervalosSaoValidosConverter}}"
+                                                         Value="True">
+                                                <Setter Property="Border.Visibility"
+                                                        Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Label Content="NÃO FORAM REGISTRADOS INTERVALOS"
+                                       Foreground="Red"
+                                       FontWeight="Bold" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.Resources>
+        </ListBox>
+        <Button Grid.Row="3"
+                Grid.ColumnSpan="2"
+                FontSize="28"
+                Content="Consolidar Pontos Eletrônicos"
+                Command="{Binding ConsolidarPontosComando}"
+                Style="{StaticResource BotaoCadastrar}" />
     </Grid>
 </Window>

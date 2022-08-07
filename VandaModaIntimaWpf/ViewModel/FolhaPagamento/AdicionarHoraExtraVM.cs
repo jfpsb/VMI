@@ -57,10 +57,27 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 }
 
                 horaExtra.PropertyChanged += HoraExtra_PropertyChanged;
-
                 HorasExtras.Add(horaExtra);
             }
 
+            CalculaTotalHoras();
+        }
+
+        private void HoraExtra_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Horas":
+                    CalculaTotalHoras();
+                    break;
+                case "Minutos":
+                    CalculaTotalHoras();
+                    break;
+            }
+        }
+
+        private void CalculaTotalHoras()
+        {
             TotalEmHoras = HorasExtras.Sum(s => s.Horas);
             TotalEmMinutos = HorasExtras.Sum(s => s.Minutos);
 
@@ -69,19 +86,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 int minutosParaHoras = TotalEmMinutos / 60;
                 TotalEmHoras += minutosParaHoras;
                 TotalEmMinutos %= 60;
-            }
-        }
-
-        private void HoraExtra_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Horas":
-                    TotalEmHoras = HorasExtras.Sum(s => s.Horas);
-                    break;
-                case "Minutos":
-                    TotalEmMinutos = HorasExtras.Sum(s => s.Minutos);
-                    break;
             }
         }
 

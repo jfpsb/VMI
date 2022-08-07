@@ -30,6 +30,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        /// <summary>
+        /// Lista pontos eletrônicos do funcionário com base no mês presete em data.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="funcionario"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<IList<PontoEletronico>> ListarPontosPorFuncionarioMes(DateTime data, Funcionario funcionario)
         {
             try

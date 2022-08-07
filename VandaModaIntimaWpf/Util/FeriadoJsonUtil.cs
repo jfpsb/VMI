@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using VandaModaIntimaWpf.Model;
@@ -37,6 +38,19 @@ namespace VandaModaIntimaWpf.Util
 
             var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{ano}.json");
             return JsonConvert.DeserializeObject<DataFeriado[]>(datasFeriadosJson);
+        }
+
+        /// <summary>
+        /// Retorna se data informada é feriado.
+        /// </summary>
+        /// <param name="dia">Dia de data</param>
+        /// <param name="mes">Mês de data</param>
+        /// <param name="ano">Ano de data</param>
+        /// <returns>Objeto DataFeriado se data for feriado, null se não for.</returns>
+        public static DataFeriado IsDataFeriado(int dia, int mes, int ano)
+        {
+            var feriados = RetornaListagemDeFeriados(ano);
+            return feriados.FirstOrDefault(f => f.Date.Day == dia && f.Date.Month == mes && f.Date.Year == ano);
         }
     }
 }
