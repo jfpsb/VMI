@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -12,8 +11,6 @@ namespace VandaModaIntimaWpf.Model
         private int _minutos;
         private bool _justificado;
         private string _justificativa;
-
-        public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
@@ -58,7 +55,17 @@ namespace VandaModaIntimaWpf.Model
                 }
                 else
                 {
-                    return string.Format("{0:0#}:{1:0#}", Horas, Minutos);
+                    int horas = Horas;
+                    int minutos = Minutos;
+
+                    if (Minutos >= 60)
+                    {
+                        int minutosParaHoras = Minutos / 60;
+                        horas += minutosParaHoras; //Soma às horas os minutos convertidos em horas
+                        minutos = Minutos % 60; //Restante dos minutos após converter em horas
+                    }
+
+                    return string.Format("{0:0#}:{1:0#}", horas, minutos);
                 }
             }
         }
@@ -104,8 +111,11 @@ namespace VandaModaIntimaWpf.Model
 
             set
             {
-                _justificativa = value;
-                OnPropertyChanged("Justificativa");
+                if (value != null)
+                {
+                    _justificativa = value.ToUpper();
+                    OnPropertyChanged("Justificativa");
+                }
             }
         }
 

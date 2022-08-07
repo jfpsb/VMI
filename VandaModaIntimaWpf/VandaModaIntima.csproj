@@ -541,6 +541,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PontoEletronico\ConsolidarPontosEletronicos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -762,6 +766,7 @@
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
+    <Compile Include="ViewModel\PontoEletronico\ConfirmarConsolidacaoPontosEletronicosVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\ConsolidarPontosEletronicosVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
@@ -770,6 +775,9 @@
     <Compile Include="ViewModel\Util\Autenticacao.cs" />
     <Compile Include="View\PontoEletronico\CalculoSaldoJornada.cs" />
     <Compile Include="View\PontoEletronico\ChecaIntervalosConverter.cs" />
+    <Compile Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml.cs">
+      <DependentUpon>ConfirmarConsolidacaoPontosEletronicos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PontoEletronico\ConsolidarPontosEletronicos.xaml.cs">
       <DependentUpon>ConsolidarPontosEletronicos.xaml</DependentUpon>
     </Compile>

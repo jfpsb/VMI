@@ -13,13 +13,22 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
             Model.PontoEletronico ponto = value as Model.PontoEletronico;
             DataFeriado dataFeriado = FeriadoJsonUtil.IsDataFeriado(ponto.Dia.Day, ponto.Dia.Month, ponto.Dia.Year);
             TimeSpan limiteAtraso = new TimeSpan(0, 10, 0);
+            TimeSpan zeroCargaHoraria = new TimeSpan(0, 0, 0);
 
             //Determina carga horária do dia do ponto
-            TimeSpan cargaHoraria = ponto.Dia.DayOfWeek == DayOfWeek.Sunday ? new TimeSpan(4, 0, 0) : new TimeSpan(8, 0, 0);
+            TimeSpan cargaHoraria = ponto.Dia.DayOfWeek == DayOfWeek.Saturday ? new TimeSpan(4, 0, 0) : new TimeSpan(8, 0, 0);
 
-            //Data não é nenhum tipo de feriado
+            //Data não é feriado
             if (dataFeriado == null)
             {
+                if (ponto.Dia.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    if (ponto.Jornada == zeroCargaHoraria)
+                        return "dianormal";
+
+                    return "horaextra";
+                }
+
                 if (ponto.Jornada > cargaHoraria)
                 {
                     var dif = ponto.Jornada - cargaHoraria;
@@ -43,9 +52,7 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
                     || dataFeriado.Type.ToLower().Equals("feriado estadual")
                     || dataFeriado.Type.ToLower().Equals("feriado municipal"))
                 {
-                    TimeSpan zeroCarga = new TimeSpan(0, 0, 0);
-
-                    if (ponto.Jornada > zeroCarga)
+                    if (ponto.Jornada > zeroCargaHoraria)
                         return "feriadotrabalhado";
 
                     return "feriado";

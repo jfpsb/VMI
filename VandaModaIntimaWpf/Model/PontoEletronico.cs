@@ -11,6 +11,7 @@ namespace VandaModaIntimaWpf.Model
         private DateTime? _entrada;
         private DateTime? _saida;
         private IList<IntervaloPonto> _intervalos = new List<IntervaloPonto>();
+        private bool _isDiaUtil; //Guarda se o dia do ponto eletrônico será considerado um dia útil caso seja um feriado com dia de trabalho normal
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual int Id
@@ -131,6 +132,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _intervalos = value;
                 OnPropertyChanged("Intervalos");
+            }
+        }
+
+        public virtual bool IsDiaUtil
+        {
+            get
+            {
+                return _isDiaUtil;
+            }
+
+            set
+            {
+                _isDiaUtil = value;
+                OnPropertyChanged("IsDiaUtil");
             }
         }
 

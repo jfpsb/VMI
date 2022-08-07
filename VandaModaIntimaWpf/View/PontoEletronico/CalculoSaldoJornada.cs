@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
         {
             Model.PontoEletronico ponto = value as Model.PontoEletronico;
             DataFeriado dataFeriado = FeriadoJsonUtil.IsDataFeriado(ponto.Dia.Day, ponto.Dia.Month, ponto.Dia.Year);
-            TimeSpan cargaHoraria = ponto.Dia.DayOfWeek == DayOfWeek.Sunday ? new TimeSpan(4, 0, 0) : new TimeSpan(8, 0, 0);
+            TimeSpan cargaHoraria = ponto.Dia.DayOfWeek == DayOfWeek.Saturday ? new TimeSpan(4, 0, 0) : new TimeSpan(8, 0, 0);
 
             if (dataFeriado == null)
             {
@@ -31,6 +31,9 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
 
         private static object RetornaSaldoDiaNormal(Model.PontoEletronico ponto, TimeSpan cargaHoraria)
         {
+            if (ponto.Dia.DayOfWeek == DayOfWeek.Sunday)
+                return $"Saldo: {ponto.Jornada.ToString("hh\\:mm", new CultureInfo("pt-BR"))}";
+
             string sinal = "";
             if (ponto.Jornada < cargaHoraria)
                 sinal = "-";

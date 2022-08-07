@@ -12,7 +12,15 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
         {
             DateTime dia = (DateTime)value;
             DataFeriado dataFeriado = FeriadoJsonUtil.IsDataFeriado(dia.Day, dia.Month, dia.Year);
-            return dataFeriado != null;
+
+            if (dataFeriado != null && (dataFeriado.Type.ToLower().Equals("feriado nacional")
+                    || dataFeriado.Type.ToLower().Equals("feriado estadual")
+                    || dataFeriado.Type.ToLower().Equals("feriado municipal")))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

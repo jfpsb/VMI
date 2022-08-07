@@ -112,6 +112,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<ConsolidarPontosEletronicos, ConsolidarPontosEletronicosVM>();
 
+            WindowService.RegistrarWindow<ConfirmarConsolidacaoPontosEletronicos, ConfirmarConsolidacaoPontosEletronicosVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

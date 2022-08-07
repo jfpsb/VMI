@@ -158,9 +158,27 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <Label Content="{Binding Dia, Converter={StaticResource DescreveDataFeriadoConverter}}"
-                                       Background="Yellow"
-                                       FontWeight="Bold" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Content="{Binding Dia, Converter={StaticResource DescreveDataFeriadoConverter}}"
+                                           Background="Yellow"
+                                           FontWeight="Bold" />
+                                    <Grid Grid.Column="1"
+                                          Background="Yellow"
+                                          VerticalAlignment="Stretch">
+                                        <CheckBox Content="Marcar como dia útil"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="14"
+                                                  FontWeight="Bold"
+                                                  IsChecked="{Binding IsDiaUtil}" />
+                                    </Grid>
+                                </Grid>
                             </Border>
                             <Border Grid.Row="4"
                                     Grid.ColumnSpan="2">
