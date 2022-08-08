@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
         }
 
-        public async Task<Faltas> GetFaltasPorMesFuncionario(int ano, int mes, Funcionario funcionario)
+        public async Task<Faltas> ListarFaltasPorMesFuncionarioSoma(int ano, int mes, Funcionario funcionario)
         {
             try
             {
@@ -42,6 +42,22 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 Log.EscreveLogBanco(ex, "listagem de faltas por mês e funcionário");
                 throw new Exception($"Erro ao listar faltas de funcionário neste mês. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
+        public async Task<Faltas> ListarPorDiaFuncionario(DateTime dia, Funcionario funcionario)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Data", dia));
+                criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                return await criteria.UniqueResultAsync<Faltas>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de falta por dia e funcionário");
+                throw new Exception($"Erro ao listar falta de funcionário por dia. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
     }

@@ -61,5 +61,21 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+
+        public async Task<HoraExtra> ListarPorDiaFuncionario(DateTime dia, Funcionario funcionario)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Data", dia))
+                    .Add(Restrictions.Eq("Funcionario", funcionario));
+                return await criteria.UniqueResultAsync<HoraExtra>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar hora extra por dia funcionario");
+                throw new Exception($"Erro ao listar hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
     }
 }

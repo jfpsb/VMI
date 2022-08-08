@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                 {
                     foreach (var item in ListaConsolidacao)
                     {
-                        await _session.SaveAsync(item);
+                        await _session.SaveOrUpdateAsync(item);
                     }
 
                     await tx.CommitAsync();

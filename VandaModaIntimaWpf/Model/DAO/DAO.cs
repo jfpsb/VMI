@@ -16,35 +16,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public static async Task Inserir(ISession session, IList<object> lista)
-        {
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                try
-                {
-                    foreach (var item in lista)
-                    {
-                        await session.SaveAsync(item);
-                    }
-
-                    await tx.CommitAsync();
-                }
-                catch (Exception ex)
-                {
-                    await tx.RollbackAsync();
-                    Log.EscreveLogBanco(ex, "inserir lista metodo estático em banco de dados");
-                    throw new Exception($"Erro ao inserir lista em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
-                }
-            }
-        }
-
         public virtual async Task Inserir(E objeto)
         {
             using (ITransaction tx = session.BeginTransaction())
             {
                 try
                 {
-                    var result = await session.SaveAsync(objeto);
+                    await session.SaveAsync(objeto);
                     await tx.CommitAsync();
                 }
                 catch (Exception ex)

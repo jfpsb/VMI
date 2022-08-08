@@ -19,6 +19,8 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         private DAOFuncionario daoFuncionario;
         private DAOPontoEletronico daoPonto;
         private DAO<Model.TipoHoraExtra> daoTipoHoraExtra;
+        private DAOFaltas daoFalta;
+        private DAOHoraExtra daoHoraExtra;
         private DateTime _dataEscolhida;
         private ObservableCollection<Model.PontoEletronico> _pontosEletronicos;
         private Model.PontoEletronico _pontoEletronico;
@@ -26,6 +28,9 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         private IWindowService windowService;
 
         public ICommand ConsolidarPontosComando { get; set; }
+        public ICommand AlterarEntradaComando { get; set; }
+        public ICommand AlterarSaidaComando { get; set; }
+        public ICommand AlterarIntervalosComando { get; set; }
 
         public ConsolidarPontosEletronicosVM(ISession session)
         {
@@ -33,6 +38,8 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             daoFuncionario = new DAOFuncionario(session);
             daoPonto = new DAOPontoEletronico(session);
             daoTipoHoraExtra = new DAO<Model.TipoHoraExtra>(_session);
+            daoFalta = new DAOFaltas(session);
+            daoHoraExtra = new DAOHoraExtra(session);
             DataEscolhida = DateTime.Now;
             PontosEletronicos = new ObservableCollection<Model.PontoEletronico>();
             windowService = new WindowService();
@@ -47,6 +54,24 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             Funcionario = Funcionarios[0];
 
             ConsolidarPontosComando = new RelayCommand(ConsolidarPontos);
+            AlterarEntradaComando = new RelayCommand(AlterarEntrada);
+            AlterarSaidaComando = new RelayCommand(AlterarSaida);
+            AlterarIntervalosComando = new RelayCommand(AlterarIntervalos);
+        }
+
+        private void AlterarIntervalos(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AlterarSaida(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AlterarEntrada(object obj)
+        {
+            Console.WriteLine("Teste");
         }
 
         private async void ConsolidarPontos(object obj)
@@ -120,30 +145,44 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             windowService.ShowDialog(new ConfirmarConsolidacaoPontosEletronicosVM(_session, listaConsolidacao), null);
         }
 
-        private static void CriaFaltaParaConsolidar(IList<object> listaConsolidacao, Model.PontoEletronico ponto, TimeSpan dif)
+        private async void CriaFaltaParaConsolidar(IList<object> listaConsolidacao, Model.PontoEletronico ponto, TimeSpan dif)
         {
-            var falta = new Model.Faltas
+            var falta = await daoFalta.ListarPorDiaFuncionario(ponto.Dia, ponto.Funcionario);
+
+            if (falta == null)
             {
-                Funcionario = ponto.Funcionario,
-                Data = ponto.Dia,
-                Horas = dif.Hours,
-                Minutos = dif.Minutes
-            };
+                falta = new Model.Faltas
+                {
+                    Funcionario = ponto.Funcionario,
+                    Data = ponto.Dia
+                };
+            }
+
+            //Atribuído aqui caso o usuário esteja consolidando falta novamente com novos dados.
+            falta.Horas = dif.Hours;
+            falta.Minutos = dif.Minutes;
 
             listaConsolidacao.Add(falta);
         }
 
-        private static void CriaHoraExtraParaConsolidar(IList<object> listaConsolidacao, Model.PontoEletronico ponto, TimeSpan diferenca, TipoHoraExtra tipoHoraExtra)
+        private async void CriaHoraExtraParaConsolidar(IList<object> listaConsolidacao, Model.PontoEletronico ponto, TimeSpan diferenca, TipoHoraExtra tipoHoraExtra)
         {
-            var horaExtra = new Model.HoraExtra
+            var horaExtra = await daoHoraExtra.ListarPorDiaFuncionario(ponto.Dia, ponto.Funcionario);
+
+            if (horaExtra == null)
             {
-                Funcionario = ponto.Funcionario,
-                TipoHoraExtra = tipoHoraExtra,
-                LojaTrabalho = ponto.Funcionario.LojaTrabalho,
-                Data = ponto.Dia,
-                Horas = diferenca.Hours,
-                Minutos = diferenca.Minutes
-            };
+                horaExtra = new Model.HoraExtra
+                {
+                    Funcionario = ponto.Funcionario,
+                    LojaTrabalho = ponto.Funcionario.LojaTrabalho,
+                    Data = ponto.Dia
+                };
+            }
+
+            //Atribuído aqui caso o usuário esteja consolidando hora extra novamente com novos dados.
+            horaExtra.TipoHoraExtra = tipoHoraExtra;
+            horaExtra.Horas = diferenca.Hours;
+            horaExtra.Minutos = diferenca.Minutes;
 
             listaConsolidacao.Add(horaExtra);
         }

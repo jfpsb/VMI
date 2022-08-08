@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -12,7 +13,31 @@ namespace VandaModaIntimaWpf.Model
         private DateTime? _saida;
         private IList<IntervaloPonto> _intervalos = new List<IntervaloPonto>();
         private bool _isDiaUtil; //Guarda se o dia do ponto eletrônico será considerado um dia útil caso seja um feriado com dia de trabalho normal
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => ContextMenuHeader();
+
+        private string ContextMenuHeader()
+        {
+            string entrada, saida;
+            if (Entrada == null)
+            {
+                entrada = "-- : --";
+            }
+            else
+            {
+                entrada = Entrada.Value.ToString("HH:mm", new CultureInfo("pt-BR"));
+            }
+
+            if (Saida == null)
+            {
+                saida = "-- : --";
+            }
+            else
+            {
+                saida = Saida.Value.ToString("HH:mm", new CultureInfo("pt-BR"));
+            }
+
+            return $"{entrada} - {saida} - {Intervalos.Count} intervalo(s)";
+        }
 
         public virtual int Id
         {

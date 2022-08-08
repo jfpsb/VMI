@@ -52,17 +52,18 @@
                  Grid.ColumnSpan="2"
                  ItemsSource="{Binding PontosEletronicos}"
                  SelectedItem="{Binding PontoEletronico}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment"
-                            Value="Stretch"></Setter>
-                    <Setter Property="Background"
-                            Value="White" />
-                    <Setter Property="Padding"
-                            Value="0" />
-                </Style>
-            </ListBox.ItemContainerStyle>
             <ListBox.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                    <MenuItem Header="{Binding GetContextMenuHeader}"
+                              FontWeight="Bold" />
+                    <Separator />
+                    <MenuItem Header="Alterar horário de entrada"
+                              Command="{Binding Path=DataContext.AlterarEntradaComando, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                    <MenuItem Header="Alterar horário de saída"
+                              Command="{Binding Path=DataContext.AlterarSaidaComando, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                    <MenuItem Header="Alterar intervalos"
+                              Command="{Binding Path=DataContext.AlterarIntervalosComando, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                </ContextMenu>
                 <DataTemplate DataType="{x:Type Model:PontoEletronico}">
                     <Border Padding="3"
                             BorderThickness="0,0,0,2"
@@ -210,6 +211,18 @@
                     </Border>
                 </DataTemplate>
             </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch"></Setter>
+                    <Setter Property="Background"
+                            Value="White" />
+                    <Setter Property="Padding"
+                            Value="0" />
+                    <Setter Property="ContextMenu"
+                            Value="{StaticResource ItemContextMenu}" />
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
         <Button Grid.Row="3"
                 Grid.ColumnSpan="2"
