@@ -19,6 +19,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             _windowService.ShowDialog(new SalvarBonusPorMesVM(session, DataEscolhida, Total, valorDiario, numDias, primeiroDia, ultimoDia, new SalvarPassagem()), null);
         }
 
+        public void AtribuirNovoValorDiario(double valorDiario)
+        {
+            Config.Instancia.ValorDiarioPassagemOnibus = valorDiario;
+        }
+
         public string MenuItemHeader1()
         {
             return "Adicionar Bônus de Passagem À Folha";

@@ -142,8 +142,6 @@ namespace VandaModaIntimaWpf.ViewModel
             }
 
             Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
-
-            //new WindowService().ShowDialog(new TelaDeAvisoVM(), null);
         }
     }
 }

@@ -60,18 +60,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         {
             if (e.PropertyName.Equals("ValorDiario"))
             {
-                var result = messageBoxService.Show("O Valor Diário Da Passagem Foi Alterado. Deseja Confirmar A Alteração E Salvar O Novo Valor?", "Cálculo De Passagem de Ônibus", System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
+                var result = messageBoxService.Show("O valor diário foi alterado. Deseja confirmar a alteração e salvar o novo valor?", calculoDeBonus.WindowCaption(), System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question);
 
                 if (result == System.Windows.MessageBoxResult.Yes)
                 {
-                    Config.Instancia.ValorDiarioPassagemOnibus = ValorDiario;
+                    calculoDeBonus.AtribuirNovoValorDiario(ValorDiario);
                     var json = JsonConvert.SerializeObject(Config.Instancia);
                     File.WriteAllText("Config.json", json);
                     CalcultaTotal(null, null);
                 }
                 else
                 {
-                    ValorDiario = Config.Instancia.ValorDiarioPassagemOnibus;
+                    ValorDiario = calculoDeBonus.ValorDiario();
                 }
             }
         }

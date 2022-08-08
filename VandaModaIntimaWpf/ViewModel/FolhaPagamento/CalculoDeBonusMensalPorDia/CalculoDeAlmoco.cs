@@ -22,6 +22,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             return "Adicionar Vale Alimentação À Folha";
         }
 
+        public void AtribuirNovoValorDiario(double valorDiario)
+        {
+            Config.Instancia.ValorDiarioValeAlimentacao = valorDiario;
+        }
+
         public double ValorDiario()
         {
             return Config.Instancia.ValorDiarioValeAlimentacao;
