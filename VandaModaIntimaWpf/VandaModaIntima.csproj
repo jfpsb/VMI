@@ -700,6 +700,16 @@
     <Compile Include="Model\ObservableObject.cs" />
     <Compile Include="Model\OperadoraCartao.cs" />
     <Compile Include="Model\Parcela.cs" />
+    <Compile Include="Model\Pix\Calendario.cs" />
+    <Compile Include="Model\Pix\Cobranca.cs" />
+    <Compile Include="Model\Pix\Devolucao.cs" />
+    <Compile Include="Model\Pix\ListaCobrancas.cs" />
+    <Compile Include="Model\Pix\ListaPixs.cs" />
+    <Compile Include="Model\Pix\Loc.cs" />
+    <Compile Include="Model\Pix\Parametros.cs" />
+    <Compile Include="Model\Pix\Pix.cs" />
+    <Compile Include="Model\Pix\QRCode.cs" />
+    <Compile Include="Model\Pix\Valor.cs" />
     <Compile Include="Model\PontoEletronico.cs" />
     <Compile Include="Model\Produto.cs" />
     <Compile Include="Model\ProdutoGrade.cs" />
