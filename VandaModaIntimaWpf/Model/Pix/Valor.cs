@@ -5,12 +5,12 @@
         private int _id;
         private double _original;
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new System.NotImplementedException();
         }
@@ -43,6 +43,6 @@
             }
         }
 
-        public string GetContextMenuHeader => throw new System.NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new System.NotImplementedException();
     }
 }

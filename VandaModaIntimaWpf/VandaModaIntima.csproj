@@ -141,9 +141,8 @@
     <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.20.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.20.1\lib\net45\Google.Protobuf.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Google.Protobuf, Version=3.21.5.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.21.5\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
@@ -160,9 +159,8 @@
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.7\lib\net46\K4os.Hash.xxHash.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.15\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
@@ -219,16 +217,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Printing" />
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
@@ -541,6 +539,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Pix\PagamentoPix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pix\PesquisarPix.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -665,6 +671,7 @@
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
+    <Compile Include="Model\DAO\DAOPix.cs" />
     <Compile Include="Model\DAO\DAOPontoEletronico.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
@@ -776,6 +783,8 @@
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
+    <Compile Include="ViewModel\Pix\PesquisarPixVM.cs" />
+    <Compile Include="ViewModel\Pix\PesquisarPixVMStrategy.cs" />
     <Compile Include="ViewModel\PontoEletronico\ConfirmarConsolidacaoPontosEletronicosVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\ConsolidarPontosEletronicosVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
@@ -783,6 +792,12 @@
     <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />
     <Compile Include="ViewModel\PontoEletronico\TrocarSenhaFuncionarioVM.cs" />
     <Compile Include="ViewModel\Util\Autenticacao.cs" />
+    <Compile Include="View\Pix\PagamentoPix.xaml.cs">
+      <DependentUpon>PagamentoPix.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pix\PesquisarPix.xaml.cs">
+      <DependentUpon>PesquisarPix.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PontoEletronico\CalculoSaldoJornada.cs" />
     <Compile Include="View\PontoEletronico\ChecaIntervalosConverter.cs" />
     <Compile Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml.cs">
@@ -1664,6 +1679,16 @@
     <Content Include="ACBrLib\x86\ACBrPosPrinter32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\icone_pix.png" />
+    <EmbeddedResource Include="Mapas\Pix\Calendario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Cobranca.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Devolucao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Horario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Loc.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pagador.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pix.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\QRCode.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Valor.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Import\Dinamico\ST\ACBrLib.PosPrinter.csproj">

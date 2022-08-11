@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.Model
         private double _valor;
         private string _status;
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
@@ -101,9 +101,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
@@ -157,14 +157,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }

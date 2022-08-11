@@ -7,6 +7,7 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Cobranca : AModel, IModel
     {
+        private int _id;
         private string _txid;
         private Calendario _calendario;
         private Valor _valor;
@@ -18,6 +19,20 @@ namespace VandaModaIntimaWpf.Model
         private string _chave;
         private string _location;
         private DateTime _pagoEm;
+
+        public virtual int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
 
         [JsonProperty(PropertyName = "calendario")]
         public virtual Calendario Calendario
@@ -192,14 +207,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
-            return Txid;
+            return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             if (!NHibernateUtil.IsInitialized(Calendario))
             {

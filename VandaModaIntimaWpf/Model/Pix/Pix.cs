@@ -6,8 +6,10 @@ namespace VandaModaIntimaWpf.Model
 {
     public class Pix : AModel, IModel
     {
+        private int _id;
         private string _endToEndId;
         private string _txid;
+        private Loja _loja;
         private Pagador _pagador;
         private Cobranca _cobranca;
         private double _valor;
@@ -16,9 +18,37 @@ namespace VandaModaIntimaWpf.Model
         private string _infoPagador;
         private IList<Devolucao> _devolucoes = new List<Devolucao>();
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
-            return EndToEndId;
+            return Id;
+        }
+
+        public virtual int Id
+        {
+            get
+            {
+                return _id;
+            }
+
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        public virtual Loja Loja
+        {
+            get
+            {
+                return _loja;
+            }
+
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
+            }
         }
 
         [JsonProperty(PropertyName = "txid")]
@@ -157,9 +187,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
@@ -228,14 +258,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }

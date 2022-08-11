@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string _tipoCob;
         private Cobranca _cobranca;
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
@@ -30,7 +30,7 @@ namespace VandaModaIntimaWpf.Model
         }
 
         [JsonProperty(PropertyName = "id")]
-        public int LocId
+        public virtual int LocId
         {
             get
             {
@@ -86,9 +86,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new System.NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new System.NotImplementedException();
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new System.NotImplementedException();
         }

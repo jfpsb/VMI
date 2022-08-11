@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private string _qrcode;
         private string _imagemQrcode;
 
-        public object GetIdentifier()
+        public virtual object GetIdentifier()
         {
             return Id;
         }
@@ -70,9 +70,9 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
-        public void InicializaLazyLoad()
+        public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException();
         }
