@@ -3,7 +3,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Cobranca : AModel, IModel
     {

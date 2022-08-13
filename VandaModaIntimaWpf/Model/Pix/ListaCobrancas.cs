@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class ListaCobrancas : ObservableObject
     {

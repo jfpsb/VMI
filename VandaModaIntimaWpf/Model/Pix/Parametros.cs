@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Parametros : ObservableObject
     {

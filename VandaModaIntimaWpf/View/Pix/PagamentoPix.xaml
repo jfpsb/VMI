@@ -4,17 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Pix"
+        xmlns:Pix="clr-namespace:VandaModaIntimaWpf.Model.Pix"
         mc:Ignorable="d"
         Title="Pagamento de Pix"
         Height="650"
         Width="900"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Closing="Window_Closing">
+    <Window.Resources>
+        <local:PossuiTxIdConverter x:Key="PossuiTxIdConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -45,11 +51,21 @@
                 <!--<KeyBinding Key="Return" />-->
             </TextBox.InputBindings>
         </TextBox>
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                Grid.RowSpan="4"
+                Margin="3" />
+        <Border Grid.Column="1"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Grid.RowSpan="4"
+                Margin="3" />
         <Button Grid.Row="3"
                 Width="200"
                 Padding="10"
                 FontWeight="Bold"
                 FontSize="22"
+                Margin="10"
                 Content="Gerar QR Code" />
         <Label Grid.Column="1"
                Grid.Row="1"
@@ -66,6 +82,7 @@
                 Grid.Row="3"
                 Width="300"
                 Padding="10"
+                Margin="10"
                 FontWeight="Bold"
                 FontSize="22">
             <Button.Content>
@@ -76,9 +93,55 @@
                 </TextBlock>
             </Button.Content>
         </Button>
-        <ListBox Grid.Row="4"
-                 Grid.ColumnSpan="2">
-
-        </ListBox>
+        <Label Grid.Row="4"
+               Content="Pix Recebidos:"
+               FontSize="22"
+               FontWeight="Bold" />
+        <Border Grid.Row="5"
+                Grid.ColumnSpan="2"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Margin="3,0,3,3">
+            <ListBox ItemsSource="{Binding ListaPix}">
+                <ListBox.Resources>
+                    <DataTemplate DataType="{x:Type Pix:Pix}">
+                        <Grid Margin="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Content="{Binding Pix.EndToEndId}"
+                                   ContentStringFormat="EndToEndId: {0}" />
+                            <Border Grid.Row="1"
+                                    BorderBrush="Black"
+                                    BorderThickness="1"
+                                    CornerRadius="1">
+                                <Label>
+                                    <Label.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=., Converter={StaticResource PossuiTxIdConverter}}"
+                                                             Value="True">
+                                                    <Setter Property="Label.Content"
+                                                            Value="PAGO VIA QR CODE" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=., Converter={StaticResource PossuiTxIdConverter}}"
+                                                             Value="False">
+                                                    <Setter Property="Label.Content"
+                                                            Value="PAGO VIA CHAVE" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.Resources>
+            </ListBox>
+        </Border>
     </Grid>
 </Window>

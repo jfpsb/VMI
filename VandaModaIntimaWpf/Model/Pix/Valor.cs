@@ -1,4 +1,4 @@
-﻿namespace VandaModaIntimaWpf.Model
+﻿namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Valor : AModel, IModel
     {

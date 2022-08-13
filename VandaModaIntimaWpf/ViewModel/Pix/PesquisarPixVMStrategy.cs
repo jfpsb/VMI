@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VandaModaIntimaWpf.ViewModel.Pix
 {
-    public class PesquisarPixVMStrategy : IPesquisarMsgVMStrategy<Model.Pix>
+    public class PesquisarPixVMStrategy : IPesquisarMsgVMStrategy<Model.Pix.Pix>
     {
-        public string MensagemApagarEntidadeCerteza(Model.Pix e)
+        public string MensagemApagarEntidadeCerteza(Model.Pix.Pix e)
         {
             throw new NotImplementedException();
         }
@@ -18,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             throw new NotImplementedException();
         }
 
-        public string MensagemEntidadeDeletada(Model.Pix e)
+        public string MensagemEntidadeDeletada(Model.Pix.Pix e)
         {
             throw new NotImplementedException();
         }

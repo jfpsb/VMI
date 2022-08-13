@@ -1,7 +1,7 @@
 ﻿using System;
 using VandaModaIntimaWpf.Util;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Devolucao : AModel, IModel
     {

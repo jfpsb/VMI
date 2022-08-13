@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class QRCode : AModel, IModel
     {

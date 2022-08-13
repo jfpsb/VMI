@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Loc : AModel, IModel
     {

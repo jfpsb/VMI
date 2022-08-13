@@ -7,12 +7,12 @@ using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
 
 namespace VandaModaIntimaWpf.ViewModel.Pix
 {
-    public class PesquisarPixVM : APesquisarViewModel<Model.Pix>
+    public class PesquisarPixVM : APesquisarViewModel<Model.Pix.Pix>
     {
         private DateTime _dataEscolhida;
         private Model.Loja _loja;
         private ObservableCollection<Model.Loja> _lojas;
-        private ObservableCollection<Model.Pix> _listaPix;
+        private ObservableCollection<Model.Pix.Pix> _listaPix;
         private DAOLoja daoLoja;
         private double _totalPorQRCode;
         private double _totalPorChave;
@@ -63,12 +63,12 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
         public async override Task PesquisaItens(string termo)
         {
-            ListaPix = new ObservableCollection<Model.Pix>(await (daoEntidade as DAOPix).ListarPixPorDiaLoja(DataEscolhida, Loja));
+            ListaPix = new ObservableCollection<Model.Pix.Pix>(await (daoEntidade as DAOPix).ListarPixPorDiaLoja(DataEscolhida, Loja));
             TotalPorChave = ListaPix.Where(w => w.Cobranca == null).Sum(s => s.Valor);
             TotalPorQRCode = ListaPix.Where(w => w.Cobranca != null).Sum(s => s.Valor);
         }
 
-        protected override WorksheetContainer<Model.Pix>[] GetWorksheetContainers()
+        protected override WorksheetContainer<Model.Pix.Pix>[] GetWorksheetContainers()
         {
             throw new NotImplementedException();
         }
@@ -115,7 +115,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             }
         }
 
-        public ObservableCollection<Model.Pix> ListaPix
+        public ObservableCollection<Model.Pix.Pix> ListaPix
         {
             get
             {

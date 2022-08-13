@@ -671,7 +671,6 @@
     <Compile Include="Model\DAO\DAOLoja.cs" />
     <Compile Include="Model\DAO\DAOMarca.cs" />
     <Compile Include="Model\DAO\DAOParcela.cs" />
-    <Compile Include="Model\DAO\DAOPix.cs" />
     <Compile Include="Model\DAO\DAOPontoEletronico.cs" />
     <Compile Include="Model\DAO\DAOProduto.cs" />
     <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
@@ -680,6 +679,7 @@
     <Compile Include="Model\DAO\DAOTipoContagem.cs" />
     <Compile Include="Model\DAO\DAOTipoDespesa.cs" />
     <Compile Include="Model\DAO\DAOTipoGrade.cs" />
+    <Compile Include="Model\DAO\Pix\DAOPix.cs" />
     <Compile Include="Model\DataFeriado.cs" />
     <Compile Include="Model\Despesa.cs" />
     <Compile Include="Model\EntradaDeMercadoria.cs" />
@@ -732,6 +732,7 @@
     <Compile Include="Util\CPF.cs" />
     <Compile Include="Util\DateTimeUtil.cs" />
     <Compile Include="Util\FeriadoJsonUtil.cs" />
+    <Compile Include="Util\GetLojaAplicacao.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\MultiDictionary.cs" />
     <Compile Include="ViewModel\AAjudarVM.cs" />
@@ -783,6 +784,7 @@
     <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
     <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
+    <Compile Include="ViewModel\Pix\PagamentoPixVM.cs" />
     <Compile Include="ViewModel\Pix\PesquisarPixVM.cs" />
     <Compile Include="ViewModel\Pix\PesquisarPixVMStrategy.cs" />
     <Compile Include="ViewModel\PontoEletronico\ConfirmarConsolidacaoPontosEletronicosVM.cs" />
@@ -798,6 +800,7 @@
     <Compile Include="View\Pix\PesquisarPix.xaml.cs">
       <DependentUpon>PesquisarPix.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pix\PossuiTxIdConverter.cs" />
     <Compile Include="View\PontoEletronico\CalculoSaldoJornada.cs" />
     <Compile Include="View\PontoEletronico\ChecaIntervalosConverter.cs" />
     <Compile Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml.cs">

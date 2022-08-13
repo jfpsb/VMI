@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class Calendario : AModel, IModel
     {

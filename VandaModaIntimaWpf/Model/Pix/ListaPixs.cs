@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using VandaModaIntimaWpf.Util;
 
-namespace VandaModaIntimaWpf.Model
+namespace VandaModaIntimaWpf.Model.Pix
 {
     public class ListaPixs : ObservableObject
     {
