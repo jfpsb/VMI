@@ -1,6 +1,8 @@
 ﻿using NHibernate;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO.Pix;
@@ -13,6 +15,9 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         private ISession _session;
         private DAOPix daoPix;
         private ObservableCollection<Model.Pix.Pix> _listaPix;
+        private double _valorQrCodePix;
+
+        public ICommand GerarQRCodeComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -21,11 +26,24 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
             var task = GetListaPix();
             task.Wait();
+
+            GerarQRCodeComando = new RelayCommand(GerarQRCode, GerarQRCodeValidacao);
+        }
+
+        private void GerarQRCode(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool GerarQRCodeValidacao(object arg)
+        {
+            return ValorQrCodePix > 0;
         }
 
         private async Task GetListaPix()
         {
-            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(System.DateTime.Now, GetLojaAplicacao.LojaAplicacao(_session)));
+            var dt = new DateTime(2022, 8, 5);
+            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(dt, GetLojaAplicacao.LojaAplicacao(_session)));
         }
 
         public void FechaSession()
@@ -44,6 +62,20 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             {
                 _listaPix = value;
                 OnPropertyChanged("ListaPix");
+            }
+        }
+
+        public double ValorQrCodePix
+        {
+            get
+            {
+                return _valorQrCodePix;
+            }
+
+            set
+            {
+                _valorQrCodePix = value;
+                OnPropertyChanged("ValorQrCodePix");
             }
         }
     }

@@ -735,6 +735,7 @@
     <Compile Include="Util\GetLojaAplicacao.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\MultiDictionary.cs" />
+    <Compile Include="Util\ScrollIntoViewBehavior.cs" />
     <Compile Include="ViewModel\AAjudarVM.cs" />
     <Compile Include="ViewModel\ACadastrarVM.cs" />
     <Compile Include="ViewModel\APesquisarVM.cs" />
