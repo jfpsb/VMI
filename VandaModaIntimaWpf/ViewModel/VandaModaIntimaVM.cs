@@ -123,9 +123,6 @@ namespace VandaModaIntimaWpf.ViewModel
                 MessageBox.Show(ex.Message);
             }
 
-            var configJson = File.ReadAllText("Config.json");
-            JsonConvert.PopulateObject(configJson, Config.Instancia);
-
             ResourceDictionary resourceDictionary = new ResourceDictionary();
 
             switch (CultureInfo.CurrentCulture.Name)
