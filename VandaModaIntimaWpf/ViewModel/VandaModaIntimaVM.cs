@@ -18,6 +18,7 @@ using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Grade;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.View.Pix;
 using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
@@ -35,6 +36,7 @@ using VandaModaIntimaWpf.ViewModel.Funcionario;
 using VandaModaIntimaWpf.ViewModel.Grade;
 using VandaModaIntimaWpf.ViewModel.Loja;
 using VandaModaIntimaWpf.ViewModel.Marca;
+using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Produto;
 using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
@@ -113,6 +115,10 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<ConsolidarPontosEletronicos, ConsolidarPontosEletronicosVM>();
 
             WindowService.RegistrarWindow<ConfirmarConsolidacaoPontosEletronicos, ConfirmarConsolidacaoPontosEletronicosVM>();
+
+            WindowService.RegistrarWindow<ApresentaQRCodePix, ApresentaQRCodePixVM>();
+
+            WindowService.RegistrarWindow<ConfigurarCredenciaisPix, ConfiguraCredenciaisPixVM>();
 
             try
             {

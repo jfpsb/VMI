@@ -24,14 +24,28 @@ namespace VandaModaIntimaWpf
             return session.Get<Model.Loja>(cnpj);
         }
 
-        private static JObject GetCredenciaisEncriptadas(Model.Loja loja)
+        public static string ChaveEstatica()
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            return json["loja"]["chave_estatica"].ToString();
+        }
+
+        public static string NomeLoja()
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            return json["loja"]["nome"].ToString();
+        }
+
+        private static JToken GetCredenciaisEncriptadas(Model.Loja loja)
         {
             try
             {
                 var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
                 JObject json = JObject.Parse(configJson);
                 string credencialId = loja.Cnpj.Substring(0, 8);
-                return JObject.Parse(json["credenciais_pix"][credencialId].ToString());
+                return json["credenciais_pix"][credencialId];
             }
             catch (Exception ex)
             {
@@ -40,11 +54,19 @@ namespace VandaModaIntimaWpf
             }
         }
 
+        public static void SetCredenciaisEncriptadas(string lojaId, string credenciais_json)
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            json["credenciais_pix"][lojaId] = JToken.Parse(credenciais_json);
+            File.WriteAllText(Path.Combine(AppDocumentsFolder, "Config.json"), json.ToString());
+        }
+
         public static JObject GNEndpoints(ISession session)
         {
             try
             {
-                JObject credentials_encrypted = GetCredenciaisEncriptadas(LojaAplicacao(session));
+                JToken credentials_encrypted = GetCredenciaisEncriptadas(LojaAplicacao(session));
 
                 byte[] clientIDEncrypted = Convert.FromBase64String((string)credentials_encrypted["client_id"]);
                 byte[] clientSecretEncrypted = Convert.FromBase64String((string)credentials_encrypted["client_secret"]);
@@ -53,7 +75,7 @@ namespace VandaModaIntimaWpf
                 {
                     client_id = Encoding.Unicode.GetString(ProtectedData.Unprotect(clientIDEncrypted, null, DataProtectionScope.LocalMachine)),
                     client_secret = Encoding.Unicode.GetString(ProtectedData.Unprotect(clientSecretEncrypted, null, DataProtectionScope.LocalMachine)),
-                    pix_cert = (string)credentials_encrypted["pix_cert"],
+                    certificate = (string)credentials_encrypted["certificate"],
                     sandbox = (string)credentials_encrypted["sandbox"]
                 };
 

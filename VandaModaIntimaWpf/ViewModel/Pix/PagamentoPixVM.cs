@@ -1,6 +1,5 @@
 ﻿using Gerencianet.NETCore.SDK;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NHibernate;
 using System;
 using System.Collections.ObjectModel;
@@ -26,8 +25,10 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         private double _valorQrCodePix;
         private bool _botaoGerarQrCodeEnabled = true;
         private IMessageBoxService messageBoxService;
+        private IWindowService windowService;
 
         public ICommand GerarQRCodeComando { get; set; }
+        public ICommand ConfigurarCredenciaisComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -35,11 +36,18 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             daoPix = new DAOPix(_session);
             daoCobranca = new DAOCobranca(_session);
             messageBoxService = new MessageBoxService();
+            windowService = new WindowService();
 
             var task = GetListaPix();
             task.Wait();
 
             GerarQRCodeComando = new RelayCommand(GerarQRCode, GerarQRCodeValidacao);
+            ConfigurarCredenciaisComando = new RelayCommand(ConfigurarCredenciais);
+        }
+
+        private void ConfigurarCredenciais(object obj)
+        {
+            windowService.ShowDialog(new ConfiguraCredenciaisPixVM(Config.LojaAplicacao(_session)), null);
         }
 
         private async void GerarQRCode(object obj)
@@ -48,6 +56,9 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
             try
             {
+                if (ValorQrCodePix <= 0)
+                    throw new FormatException("Valor de Pix não pode ser menor ou igual a zero.");
+
                 var gnEndPoints = Config.GNEndpoints(_session);
 
                 if (gnEndPoints == null)
@@ -79,8 +90,8 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 {
                     await daoCobranca.Inserir(cobranca);
                     await daoCobranca.RefreshEntidade(cobranca);
-                    ApresentaQRCodeEDadosViewModel dadosPixViewModel = new ApresentaQRCodeEDadosViewModel(cobranca.Txid, new MessageBoxService(), obj as ICloseable);
-                    openView.ShowDialog(dadosPixViewModel);
+                    ApresentaQRCodePixVM dadosPixViewModel = new ApresentaQRCodePixVM(_session, cobranca.Id, messageBoxService);
+                    windowService.ShowDialog(dadosPixViewModel, null);
                 }
                 catch (Exception ex)
                 {
@@ -92,9 +103,13 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 Log.EscreveLogGn(e);
                 messageBoxService.Show($"Erro ao criar cobrança Pix na GerenciaNet.\nAcesse {Log.LogGn} para mais detalhes.", "Erro ao criar cobrança", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (FormatException fex)
+            {
+                messageBoxService.Show(fex.Message, "Criar Cobrança Pix", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
-                messageBoxService.Show($"Não Foi Possível Criar Cobrança Pix. Cheque Sua Conexão Com A Internet.\n\n{ex.GetType().Name}\n{ex.Message}\n{ex.ToString()}", "Criar Cobrança Pix", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                messageBoxService.Show($"Não Foi Possível Criar Cobrança Pix. Cheque Sua Conexão Com A Internet.\n\n{ex.GetType().Name}\n{ex.Message}\n{ex}", "Criar Cobrança Pix", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             _botaoGerarQrCodeEnabled = true;
@@ -102,13 +117,13 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
         private bool GerarQRCodeValidacao(object arg)
         {
-            return _botaoGerarQrCodeEnabled && ValorQrCodePix > 0;
+            return _botaoGerarQrCodeEnabled;
         }
 
         private async Task GetListaPix()
         {
             var dt = new DateTime(2022, 8, 5);
-            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(dt, GetLojaAplicacao.LojaAplicacao(_session)));
+            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(dt, Config.LojaAplicacao(_session)));
         }
 
         public void FechaSession()
@@ -142,6 +157,11 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 _valorQrCodePix = value;
                 OnPropertyChanged("ValorQrCodePix");
             }
+        }
+
+        public string ChaveEstatica
+        {
+            get => Config.ChaveEstatica();
         }
     }
 }

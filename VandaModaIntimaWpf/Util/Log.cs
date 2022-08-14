@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using Gerencianet.NETCore.SDK;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.IO;
 
@@ -10,7 +11,8 @@ namespace VandaModaIntimaWpf.Util
         public static readonly string LogBanco = Path.Combine(AppDocumentsLogsFolder, "LogBanco.txt");
         public static readonly string LogExcel = Path.Combine(AppDocumentsLogsFolder, "LogExcel.txt");
         public static readonly string LogCredenciais = Path.Combine(AppDocumentsLogsFolder, "LogCredenciais.txt");
-
+        public static readonly string LogGn = Path.Combine(AppDocumentsLogsFolder, "GnLog.txt");
+        public static readonly string LogExceptionGenerica = Path.Combine(AppDocumentsLogsFolder, "ExceptionGenerica.txt");
 
         public static void EscreveLogBanco(Exception ex, string descricao)
         {
@@ -57,6 +59,28 @@ namespace VandaModaIntimaWpf.Util
             string msg = $"Data/Hora: {DateTime.Now};\nMensagem: \n{ex.Message};";
             msg += $"\nStackTrace: \n{ex.StackTrace}\n\n";
             File.AppendAllText(LogCredenciais, msg);
+        }
+
+        public static void EscreveLogGn(GnException ex)
+        {
+            Directory.CreateDirectory(AppDocumentsLogsFolder);
+            string msg = $"Data/Hora: {DateTime.Now};\nMensagem: \n{ex.Message};\nErrorType: \n{ex.ErrorType}";
+            msg += $"\nStackTrace: \n{ex.StackTrace}\n\n";
+            File.AppendAllText(LogGn, msg);
+        }
+
+        public static void EscreveExceptionGenerica(Exception ex)
+        {
+            Directory.CreateDirectory(AppDocumentsLogsFolder);
+            string msg = $"Data/Hora: {DateTime.Now};\nMensagem:\n{ex.Message}\n";
+
+            if (ex.InnerException != null)
+            {
+                msg += $"InnerException:\n{ex.InnerException.Message}\n";
+            }
+
+            msg += $"\nStackTrace: \n{ex.StackTrace}\n\n";
+            File.AppendAllText(LogExceptionGenerica, msg);
         }
     }
 }

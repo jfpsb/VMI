@@ -162,30 +162,6 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Grid.Row="4"
-                    Content="Imprimir Comprovante"
-                    VerticalAlignment="Bottom"
-                    Margin="10"
-                    FontSize="22"
-                    Command="{Binding ImprimirComprovanteComando}">
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}"
-                           BasedOn="{StaticResource BotaoCadastrar}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsPagamentoEfetuado}"
-                                         Value="True">
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsPagamentoEfetuado}"
-                                         Value="False">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
         </Grid>
         <Grid Grid.Column="1"
               Margin="10">
