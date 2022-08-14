@@ -31,7 +31,7 @@ namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 
             WorksheetContainer<Model.EntradaMercadoriaProdutoGrade> wscontainer = containers[0];
             var lista = wscontainer.Lista;
-            var worksheet = workbook.Worksheets.Add();
+            dynamic worksheet = workbook.Worksheets.Add();
             worksheet.Name = wscontainer.Nome;
             worksheet.Cells.Font.Size = wscontainer.TamanhoFonteGeral;
             worksheet.Cells.HorizontalAlignment = XlHAlign.xlHAlignLeft;

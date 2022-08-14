@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Threading;
 using ProdutoModel = VandaModaIntimaWpf.Model.Produto;
+using Range = Microsoft.Office.Interop.Excel.Range;
 
 namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
