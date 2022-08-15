@@ -52,8 +52,13 @@ namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
             report.Subreports[0].SetDataSource(entradaMercadoriaProdutoGradeDataSet);
             report.SetDataSource(entradaMercadoriaDataSet);
 
-            EntradaReport.ViewerCore.EnableDrillDown = false;
-            EntradaReport.ViewerCore.ReportSource = report;
+            //EntradaReport.ViewerCore.EnableDrillDown = false;
+            //EntradaReport.ViewerCore.ReportSource = report;
+        }
+
+        private void ReportV_Load(object sender, System.EventArgs e)
+        {
+
         }
     }
 }
