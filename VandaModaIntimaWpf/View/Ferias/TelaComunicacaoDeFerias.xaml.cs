@@ -14,14 +14,14 @@ namespace VandaModaIntimaWpf.View.Ferias
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FeriasReport.Owner = this;
+            //FeriasReport.Owner = this;
         }
 
         public TelaComunicacaoDeFerias(Model.Ferias ferias)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FeriasReport.Owner = this;
+            //FeriasReport.Owner = this;
 
             FeriasDataSet feriasDataSet = new FeriasDataSet();
 
@@ -54,8 +54,8 @@ namespace VandaModaIntimaWpf.View.Ferias
             feriasDataSet.ferias.AddferiasRow(frow);
 
             report.SetDataSource(feriasDataSet);
-            FeriasReport.ViewerCore.EnableDrillDown = false;
-            FeriasReport.ViewerCore.ReportSource = report;
+            //FeriasReport.ViewerCore.EnableDrillDown = false;
+            //FeriasReport.ViewerCore.ReportSource = report;
         }
     }
 }

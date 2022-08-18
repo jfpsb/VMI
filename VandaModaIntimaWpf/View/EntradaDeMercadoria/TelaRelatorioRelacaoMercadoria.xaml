@@ -4,13 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
-        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
         mc:Ignorable="d"
         Title="Relação De Mercadorias Enviadas"
         Height="450"
         Width="800"
         WindowState="Maximized">
     <Grid>
-        <Viewer:CrystalReportsViewer x:Name="RelacaoReport" />
+        
     </Grid>
 </Window>

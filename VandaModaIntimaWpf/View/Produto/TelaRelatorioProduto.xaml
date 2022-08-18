@@ -3,7 +3,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Produto"
-        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
         x:Class="VandaModaIntimaWpf.View.Produto.TelaRelatorioProduto"
         mc:Ignorable="d"
         Title="Relatório de Produtos"
@@ -11,8 +10,6 @@
         Width="800"
         WindowState="Maximized">
     <Grid>
-
-        <Viewer:CrystalReportsViewer x:Name="ProdutoReport" />
 
     </Grid>
 </Window>

@@ -52,8 +52,8 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             if (first != null)
                 txtHoraExtraNormal.Text = first.Item3.TipoHoraExtra.Descricao;
             report.SetDataSource(horaExtraDataSet);
-            HoraExtraReport.ViewerCore.EnableDrillDown = false;
-            HoraExtraReport.ViewerCore.ReportSource = report;
+            //HoraExtraReport.ViewerCore.EnableDrillDown = false;
+            //HoraExtraReport.ViewerCore.ReportSource = report;
         }
     }
 }

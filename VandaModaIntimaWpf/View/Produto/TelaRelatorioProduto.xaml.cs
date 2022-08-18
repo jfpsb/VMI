@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.View.Produto
 
             var report = new RelatorioProduto();
             report.SetDataSource(produtoDataSet);
-            ProdutoReport.ViewerCore.ReportSource = report;
+            //ProdutoReport.ViewerCore.ReportSource = report;
         }
     }
 }

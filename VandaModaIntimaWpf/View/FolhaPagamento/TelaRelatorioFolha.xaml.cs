@@ -24,14 +24,14 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FolhaReport.Owner = this;
+            //FolhaReport.Owner = this;
         }
 
         public TelaRelatorioFolha(ISession session, Model.FolhaPagamento FolhaPagamento)
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FolhaReport.Owner = this;
+            //FolhaReport.Owner = this;
 
             daoParcela = new DAOParcela(session);
             daoHoraExtra = new DAOHoraExtra(session);
@@ -120,8 +120,8 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             report.Subreports[0].SetDataSource(bonusDataSet);
             report.Subreports[1].SetDataSource(parcelaDataSet);
             report.SetDataSource(folhaPagamentoDataSet);
-            FolhaReport.ViewerCore.EnableDrillDown = false;
-            FolhaReport.ViewerCore.ReportSource = report;
+            //FolhaReport.ViewerCore.EnableDrillDown = false;
+            //FolhaReport.ViewerCore.ReportSource = report;
         }
 
         private async Task<string> GetRestanteAdiantamento(Model.Funcionario funcionario, Model.FolhaPagamento folha)

@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Ferias"
-        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Ferias"        
         mc:Ignorable="d"
         Title="Comunicação De Férias"
         Height="450"
         Width="800"
         WindowState="Maximized">
     <Grid>
-        <Viewer:CrystalReportsViewer x:Name="FeriasReport" />
+        
     </Grid>
 </Window>
