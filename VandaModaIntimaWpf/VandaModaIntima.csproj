@@ -64,6 +64,11 @@
     <Compile Update="ViewModel\DataSets\FeriasDataSet.cs">
       <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="ViewModel\DataSets\FeriasDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
@@ -149,6 +154,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ComunicacaoFerias.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
@@ -795,6 +801,7 @@
   <ItemGroup>
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
+    <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

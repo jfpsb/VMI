@@ -107,9 +107,6 @@
                             <MenuItem Header="Imprimir"
                                       Command="{Binding ImprimirComando}"
                                       CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}" />
-                            <MenuItem Header="Imprimir Relação"
-                                      Command="{Binding ImprimirRelacaoComando}"
-                                      CommandParameter="{Binding ElementName=TelaPesquisarEntradaDeMercadoria}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

@@ -12,8 +12,6 @@
         WindowState="Maximized">
     <Grid>
 
-        <!--<Viewer:CrystalReportsViewer x:Name="EntradaReport" />-->
-
         <WindowsFormsHost x:Name="WindowsFormsHost">
             <RViewer:ReportViewer x:Name="EntradaMercadoriaReportViewer" Load="ReportV_Load" />
         </WindowsFormsHost>
