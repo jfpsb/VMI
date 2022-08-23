@@ -72,6 +72,11 @@
     <Compile Update="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="ViewModel\DataSets\FolhaPagamentoDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
@@ -155,10 +160,12 @@
       <LastGenOutput>ComunicacaoFerias.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioFolhaPagamento.cs</LastGenOutput>
@@ -167,6 +174,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioHoraExtraFaltas.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>RelatorioParcela.cs</LastGenOutput>
@@ -802,6 +810,9 @@
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

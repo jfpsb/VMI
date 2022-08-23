@@ -115,7 +115,7 @@ namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.CrystalReports
                     report.DetailSection3.SectionFormat.EnableSuppress = !(File.Exists(calendarioPassagem) || File.Exists(calendarioAlimentacao));
 
                     fprow.horaextra100 = "00:00";
-                    fprow.horaextranormal = "00:00";
+                    fprow.horaextra55 = "00:00";
 
                     var horasExtras = daoHoraExtra.ListarPorAnoMesFuncionario(folha.Ano, folha.Mes, folha.Funcionario).Result;
                     var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).SingleOrDefault();
@@ -128,7 +128,7 @@ namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.CrystalReports
 
                     if (henormal != null)
                     {
-                        fprow.horaextranormal = henormal.TotalEmString;
+                        fprow.horaextra55 = henormal.TotalEmString;
                     }
 
                     folhaPagamentoDataSet.FolhaPagamento.AddFolhaPagamentoRow(fprow);

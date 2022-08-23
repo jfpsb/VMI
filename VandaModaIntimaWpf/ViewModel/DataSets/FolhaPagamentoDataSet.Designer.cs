@@ -311,6 +311,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnhoraextra55;
             
+            private global::System.Data.DataColumn columnfaltas;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public FolhaPagamentoDataTable() {
@@ -474,6 +476,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn faltasColumn {
+                get {
+                    return this.columnfaltas;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -525,7 +535,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         string calendariopassagem, 
                         string calendarioalimentacao, 
                         string horaextra100, 
-                        string horaextra55) {
+                        string horaextra55, 
+                        string faltas) {
                 FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mes,
@@ -543,7 +554,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         calendariopassagem,
                         calendarioalimentacao,
                         horaextra100,
-                        horaextra55};
+                        horaextra55,
+                        faltas};
                 rowFolhaPagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFolhaPagamentoRow);
                 return rowFolhaPagamentoRow;
@@ -590,6 +602,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columncalendarioalimentacao = base.Columns["calendarioalimentacao"];
                 this.columnhoraextra100 = base.Columns["horaextra100"];
                 this.columnhoraextra55 = base.Columns["horaextra55"];
+                this.columnfaltas = base.Columns["faltas"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -627,6 +640,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnhoraextra100);
                 this.columnhoraextra55 = new global::System.Data.DataColumn("horaextra55", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnhoraextra55);
+                this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfaltas);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnmes}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
@@ -1008,7 +1023,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string horaextranormal {
+            public string horaextra55 {
                 get {
                     try {
                         return ((string)(this[this.tableFolhaPagamento.horaextra55Column]));
@@ -1019,6 +1034,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 }
                 set {
                     this[this.tableFolhaPagamento.horaextra55Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string faltas {
+                get {
+                    try {
+                        return ((string)(this[this.tableFolhaPagamento.faltasColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'faltas\' in table \'FolhaPagamento\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFolhaPagamento.faltasColumn] = value;
                 }
             }
             
@@ -1188,6 +1219,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Sethoraextra55Null() {
                 this[this.tableFolhaPagamento.horaextra55Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsfaltasNull() {
+                return this.IsNull(this.tableFolhaPagamento.faltasColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetfaltasNull() {
+                this[this.tableFolhaPagamento.faltasColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -22,6 +22,7 @@ namespace VandaModaIntimaWpf.Util
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
+            reportViewer.LocalReport.EnableExternalImages = true;
             reportViewer.LocalReport.Refresh();
             reportViewer.RefreshReport();
         }
