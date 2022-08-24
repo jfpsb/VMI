@@ -2,7 +2,6 @@
 using System;
 using System.Windows;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.View.Ferias.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
 namespace VandaModaIntimaWpf.View.Ferias

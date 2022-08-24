@@ -83,106 +83,17 @@
     <Compile Update="ViewModel\DataSets\ProdutoDataSet.cs">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Update="View\Ferias\Relatorios\ComunicacaoFerias.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComunicacaoFerias.rpt</DependentUpon>
-    </Compile>
-    <Compile Update="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.cs">
-      <DependentUpon>RelatorioRelacaoMercadoriaProdutoGrade.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Update="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.cs">
-      <DependentUpon>RelatorioRelacaoMercadoria.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Update="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.cs">
-      <DependentUpon>RelatorioEntradaMercadoriaProdutoGrade.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Update="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.cs">
-      <DependentUpon>RelatorioEntradaMercadoria.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Update="View\FolhaPagamento\Relatorios\RelatorioBonus.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioBonus.rpt</DependentUpon>
-    </Compile>
-    <Compile Update="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioFolhaPagamento.rpt</DependentUpon>
-    </Compile>
-    <Compile Update="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioHoraExtraFaltas.rpt</DependentUpon>
-    </Compile>
-    <Compile Update="View\FolhaPagamento\Relatorios\RelatorioParcela.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioParcela.rpt</DependentUpon>
-    </Compile>
-    <Compile Update="View\Produto\Relatorios\RelatorioProduto.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioProduto.rpt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioRelacaoMercadoriaProdutoGrade.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioRelacaoMercadoria.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioEntradaMercadoriaProdutoGrade.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioEntradaMercadoria.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Ferias\Relatorios\ComunicacaoFerias.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ComunicacaoFerias.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioFolhaPagamento.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioHoraExtraFaltas.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioParcela.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Produto\Relatorios\RelatorioProduto.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioProduto.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Update="Config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -572,7 +483,6 @@
     <PackageReference Include="BouncyCastle">
       <Version>1.8.9</Version>
     </PackageReference>
-    <PackageReference Include="CrystalReports.WPF.Viewer" Version="13.0.4001" />
     <PackageReference Include="FluentNHibernate">
       <Version>3.1.0</Version>
     </PackageReference>
@@ -616,7 +526,7 @@
     <PackageReference Include="System.Security.Cryptography.Algorithms">
       <Version>4.3.1</Version>
     </PackageReference>
-    <PackageReference Include="System.ServiceModel.Federation" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -812,6 +722,7 @@
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
   </ItemGroup>
   <ItemGroup>

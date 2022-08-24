@@ -1,9 +1,9 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+﻿using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using VandaModaIntimaWpf.View.FolhaPagamento.Relatorios;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
 namespace VandaModaIntimaWpf.View.FolhaPagamento
@@ -13,6 +13,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// </summary>
     public partial class TelaRelatorioHoraExtraFaltas : Window
     {
+        private ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
         public TelaRelatorioHoraExtraFaltas()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
@@ -21,13 +22,15 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
         public TelaRelatorioHoraExtraFaltas(ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> listaHoraExtra)
         {
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
-
             InitializeComponent();
+            _listaHoraExtra = listaHoraExtra;
+        }
 
+        private void HoraExtraFaltaReportViewer_Load(object sender, EventArgs e)
+        {
             HoraExtraFaltasDataSet horaExtraDataSet = new HoraExtraFaltasDataSet();
 
-            var listaOrdenadaPorLoja = listaHoraExtra.OrderBy(o => o.Item1.Loja.Cnpj);
+            var listaOrdenadaPorLoja = _listaHoraExtra.OrderBy(o => o.Item1.Loja.Cnpj);
 
             foreach (var horaExtra in listaOrdenadaPorLoja)
             {
@@ -46,14 +49,23 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 }
             }
 
-            var report = new RelatorioHoraExtraFaltas();
-            var txtHoraExtraNormal = report.ReportDefinition.ReportObjects["TxtHoraExtraNormal"] as TextObject;
+            ReportParameter descTipoHoraExtraParameter = null;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoraExtraFalta", horaExtraDataSet.Tables[0]);
+
             var first = listaOrdenadaPorLoja.Where(w => w.Item3.TipoHoraExtra != null).FirstOrDefault();
             if (first != null)
-                txtHoraExtraNormal.Text = first.Item3.TipoHoraExtra.Descricao;
-            report.SetDataSource(horaExtraDataSet);
-            //HoraExtraReport.ViewerCore.EnableDrillDown = false;
-            //HoraExtraReport.ViewerCore.ReportSource = report;
+                descTipoHoraExtraParameter = new ReportParameter("TipoHoraExtraDescricao", first.Item3.TipoHoraExtra.Descricao);
+
+            ReportViewerUtil.ConfiguraReportViewer(HoraExtraFaltaReportViewer,
+                "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtraFaltas.rdlc",
+                reportDataSource,
+                null);
+
+            if (descTipoHoraExtraParameter != null)
+                HoraExtraFaltaReportViewer.LocalReport.SetParameters(descTipoHoraExtraParameter);
+
+            HoraExtraFaltaReportViewer.LocalReport.Refresh();
+            HoraExtraFaltaReportViewer.RefreshReport();
         }
     }
 }

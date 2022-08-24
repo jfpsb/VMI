@@ -1,10 +1,8 @@
 ﻿using Microsoft.Reporting.WinForms;
-using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.Windows;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.View.EntradaDeMercadoria.Relatorios;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
 namespace VandaModaIntimaWpf.View.EntradaDeMercadoria
