@@ -7,7 +7,7 @@ namespace VandaModaIntimaWpf.Util
 {
     public class Log
     {
-        private static readonly string AppDocumentsLogsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Logs");
+        private static readonly string AppDocumentsLogsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima", "Logs");
         public static readonly string LogBanco = Path.Combine(AppDocumentsLogsFolder, "LogBanco.txt");
         public static readonly string LogExcel = Path.Combine(AppDocumentsLogsFolder, "LogExcel.txt");
         public static readonly string LogCredenciais = Path.Combine(AppDocumentsLogsFolder, "LogCredenciais.txt");

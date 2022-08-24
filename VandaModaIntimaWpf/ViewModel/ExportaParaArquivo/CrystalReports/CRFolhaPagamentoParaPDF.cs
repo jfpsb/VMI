@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.CrystalReports
     {
         private DAOParcela daoParcela;
         private DAOHoraExtra daoHoraExtra;
-        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
+        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima", "Folha De Pagamento");
         public CRFolhaPagamentoParaPDF(ISession session)
         {
             daoParcela = new DAOParcela(session);

@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         private DAOParcela daoParcela;
         private DAOHoraExtra daoHoraExtra;
         private DAOFaltas daoFalta;
-        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
+        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima", "Folha De Pagamento");
         public TelaRelatorioFolha()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;

@@ -10,7 +10,7 @@ namespace SincronizacaoVMI.Util
 {
     public class Credentials
     {
-        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima");
 
         public static string HibernateLocalConnString()
         {

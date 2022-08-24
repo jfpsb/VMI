@@ -5,7 +5,7 @@ namespace SincronizacaoVMI.Util
 {
     public class Log
     {
-        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima");
         public static readonly string LogSync = Path.Combine(AppDocumentsFolder, "Logs", "SyncLog.txt");
         public static readonly string LogCredenciais = Path.Combine(AppDocumentsFolder, "Logs", "CredenciaisLog.txt");
         public static readonly string LogExceptionGenerica = Path.Combine(AppDocumentsFolder, "Logs", "ExceptionGenerica.txt");

@@ -27,6 +27,8 @@
                       FontSize="16">
                 <MenuItem Header="Configurar Credenciais"
                           Command="{Binding ConfigurarCredenciaisComando}" />
+                <MenuItem Header="Imprimir Relatório Pix"
+                          Command="{Binding ImprimirRelatorioComando}" />
             </MenuItem>
         </Menu>
         <Grid>
@@ -41,15 +43,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel HorizontalAlignment="Center"
                         Margin="0,0,20,0">
                 <Label Content="Por QR Code"
-                       FontWeight="Bold"
-                       FontSize="28"
-                       HorizontalAlignment="Center" />
-                <Label Grid.Column="1"
-                       Content="Por Chave"
                        FontWeight="Bold"
                        FontSize="28"
                        HorizontalAlignment="Center" />
@@ -83,11 +81,12 @@
                        Grid.Column="1"
                        Margin="0,0,20,0">
                 <Label DockPanel.Dock="Top"
-                       HorizontalAlignment="Center"
-                       Content="Chave pix"
-                       FontSize="18" />
+                       Content="Por Chave"
+                       FontWeight="Bold"
+                       FontSize="28"
+                       HorizontalAlignment="Center" />
                 <Label DockPanel.Dock="Top"
-                       FontSize="24"
+                       FontSize="26"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        Content="{Binding ChaveEstatica}" />
@@ -116,10 +115,17 @@
                     BorderBrush="Black"
                     BorderThickness="1"
                     Margin="3,0,3,3">
-                <ListBox ItemsSource="{Binding ListaPix}">
+                <ListBox x:Name="ListBoxPix"
+                         ItemsSource="{Binding ListaPix}">
                     <b:Interaction.Behaviors>
                         <Util:ScrollIntoViewBehavior />
                     </b:Interaction.Behaviors>
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="MouseLeftButtonUp">
+                            <b:InvokeCommandAction Command="{Binding ListBoxPixLeftMouseClickComando}"
+                                                   CommandParameter="{Binding ElementName=ListBoxPix, Path=SelectedItem}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment"
@@ -194,7 +200,7 @@
                                                         <Setter Property="Label.Content"
                                                                 Value="PAGO VIA DADOS BANCÁRIOS" />
                                                         <Setter Property="Label.Background"
-                                                                Value="LightCoral" />
+                                                                Value="LightYellow" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -206,6 +212,15 @@
                     </ListBox.Resources>
                 </ListBox>
             </Border>
+            <Label Grid.Column="1"
+                   Grid.Row="6"
+                   Content="{Binding TotalPix}"
+                   ContentStringFormat="Total recebido por Pix: {0:C}"
+                   Language="pt-BR"
+                   HorizontalAlignment="Right"
+                   FontSize="26"
+                   FontWeight="Bold"
+                   Margin="5,0,5,5" />
         </Grid>
     </DockPanel>
 </Window>

@@ -120,6 +120,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<ConfigurarCredenciaisPix, ConfiguraCredenciaisPixVM>();
 
+            WindowService.RegistrarWindow<MaisDetalhesPix, MaisDetalhesPixVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

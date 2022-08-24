@@ -9,7 +9,7 @@ namespace VandaModaIntimaWpf.Util
 {
     public class ConfiguraPosPrinter
     {
-        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        private static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima");
         static IMessageBoxService messageBoxService;
 
         static ConfiguraPosPrinter()

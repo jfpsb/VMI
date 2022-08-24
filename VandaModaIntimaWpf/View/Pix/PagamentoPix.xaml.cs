@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.View.Pix
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (DataContext != null)
-                (DataContext as dynamic).FechaSession();
+                (DataContext as dynamic).AoFecharTela();
         }
     }
 }

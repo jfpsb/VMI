@@ -94,6 +94,12 @@
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <None Update="ACBrLib\x64\ACBrPosPrinter64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ACBrLib\x86\ACBrPosPrinter32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

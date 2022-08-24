@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         private string _recebeRegularmenteHeader;
         private ObservableCollection<EntidadeComCampo<Model.Funcionario>> _funcionarios;
         private string caminhoImagemCalendario = Path.Combine(Path.GetTempPath(), "UltimoCalendario.png");
-        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima", "Folha De Pagamento");
+        private string caminhoFolhaPagamentoVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima", "Folha De Pagamento");
 
         public event EventHandler<EventArgs> RequestClose;
 

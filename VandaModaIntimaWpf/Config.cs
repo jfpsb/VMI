@@ -13,7 +13,7 @@ namespace VandaModaIntimaWpf
     {
         private static readonly Lazy<Config> lazyClient = new Lazy<Config>(() => new Config());
 
-        public static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Íntima");
+        public static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima");
         public static Config Instancia => lazyClient.Value;
 
         public static Model.Loja LojaAplicacao(ISession session)
