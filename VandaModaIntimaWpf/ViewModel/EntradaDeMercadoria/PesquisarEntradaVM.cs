@@ -22,7 +22,6 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         public ICommand AbrirRelatorioFornecedorComando { get; set; }
         public ICommand ImprimirComando { get; set; }
-        public ICommand ImprimirRelacaoComando { get; set; }
 
         public PesquisarEntradaVM()
         {
@@ -32,17 +31,10 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
             AbrirRelatorioFornecedorComando = new RelayCommand(AbrirRelatorioFornecedor);
             ImprimirComando = new RelayCommand(Imprimir);
-            ImprimirRelacaoComando = new RelayCommand(ImprimirRelacao);
 
             GetLojas();
 
             DataEscolhida = DateTime.Now;
-        }
-
-        private void ImprimirRelacao(object obj)
-        {
-            TelaRelatorioRelacaoMercadoria telaRelatorioRelacaoMercadoria = new TelaRelatorioRelacaoMercadoria(EntidadeSelecionada.Entidade);
-            telaRelatorioRelacaoMercadoria.ShowDialog();
         }
 
         private void Imprimir(object obj)

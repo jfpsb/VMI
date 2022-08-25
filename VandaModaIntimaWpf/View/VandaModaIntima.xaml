@@ -35,6 +35,17 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnPix_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/icone_pix.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Pix" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </WrapPanel>
         </ScrollViewer>
     </DockPanel>

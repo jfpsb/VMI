@@ -1,0 +1,83 @@
+﻿<Window x:Class="VandaModaIntimaWpf.View.Pix.MaisDetalhesPix"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VandaModaIntimaWpf.View.Pix"
+        mc:Ignorable="d"
+        Title="Mais Detalhes de Pix"
+        Height="300"
+        Width="550"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:ProcessaViaPixConverter x:Key="PossuiTxIdConverter" />
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Pix.EndToEndId}"
+               ContentStringFormat="EndToEndID: {0}" />
+        <Label Grid.Row="1"
+               ContentStringFormat="Chave utilizada: {0}"
+               Content="{Binding Pix.Chave}" />
+        <Label Grid.Row="2"
+               ContentStringFormat="Pago em: {0:G}"
+               Content="{Binding Pix.HorarioLocalTime}"
+               Language="pt-BR"/>
+        <Label Grid.Row="3"
+               FontWeight="Bold"
+               FontSize="16">
+            <Label.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Pix, Converter={StaticResource PossuiTxIdConverter}}"
+                                     Value="True">
+                            <Setter Property="Label.Content"
+                                    Value="Pago via: QR CODE" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Pix, Converter={StaticResource PossuiTxIdConverter}}"
+                                     Value="False">
+                            <Setter Property="Label.Content"
+                                    Value="Pago via: CHAVE" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Pix, Converter={StaticResource PossuiTxIdConverter}}"
+                                     Value="{x:Null}">
+                            <Setter Property="Label.Content"
+                                    Value="Pago via: DADOS BANCÁRIOS" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Label Grid.Row="4"
+               Content="Informações Enviadas Pelo Pagador:" />
+        <TextBlock Grid.Row="5"
+                   Language="pt-BR"
+                   Height="40"
+                   Margin="5"
+                   TextWrapping="Wrap"
+                   Text="{Binding Pix.InfoPagador}" />
+        <Label Grid.Row="6"
+               ContentStringFormat="Valor: {0:C}"
+               Content="{Binding Pix.Valor}"
+               FontSize="24"
+               Language="pt-BR"
+               FontWeight="Bold" />
+    </Grid>
+</Window>

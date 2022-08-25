@@ -52,6 +52,7 @@ namespace VandaModaIntimaWpf.Util
                     WebResponse response = request.GetResponse();
                     using (Stream responseStream = response.GetResponseStream())
                     {
+                        Directory.CreateDirectory("Resources/Feriados");
                         StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
                         File.WriteAllText($"Resources/Feriados/{ano}.json", reader.ReadToEnd());
                     }

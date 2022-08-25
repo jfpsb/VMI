@@ -279,17 +279,19 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class entradamercadoria_produtogradeDataTable : global::System.Data.TypedTableBase<entradamercadoria_produtogradeRow> {
             
-            private global::System.Data.DataColumn columncodbarra_grade;
+            private global::System.Data.DataColumn columncod_barra;
             
-            private global::System.Data.DataColumn columncodbarraalt_grade;
+            private global::System.Data.DataColumn columncod_barra_alternativo;
             
-            private global::System.Data.DataColumn columndescricao_produto;
+            private global::System.Data.DataColumn columnproduto_descricao;
             
-            private global::System.Data.DataColumn columndescricao_grade;
+            private global::System.Data.DataColumn columngrade_descricao;
             
-            private global::System.Data.DataColumn columnpreco_grade;
+            private global::System.Data.DataColumn columngrade_preco;
             
             private global::System.Data.DataColumn columnquantidade;
+            
+            private global::System.Data.DataColumn columnentradamercadoria;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -326,41 +328,41 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn codbarra_gradeColumn {
+            public global::System.Data.DataColumn cod_barraColumn {
                 get {
-                    return this.columncodbarra_grade;
+                    return this.columncod_barra;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn codbarraalt_gradeColumn {
+            public global::System.Data.DataColumn cod_barra_alternativoColumn {
                 get {
-                    return this.columncodbarraalt_grade;
+                    return this.columncod_barra_alternativo;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn descricao_produtoColumn {
+            public global::System.Data.DataColumn produto_descricaoColumn {
                 get {
-                    return this.columndescricao_produto;
+                    return this.columnproduto_descricao;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn descricao_gradeColumn {
+            public global::System.Data.DataColumn grade_descricaoColumn {
                 get {
-                    return this.columndescricao_grade;
+                    return this.columngrade_descricao;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn preco_gradeColumn {
+            public global::System.Data.DataColumn grade_precoColumn {
                 get {
-                    return this.columnpreco_grade;
+                    return this.columngrade_preco;
                 }
             }
             
@@ -369,6 +371,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public global::System.Data.DataColumn quantidadeColumn {
                 get {
                     return this.columnquantidade;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn entradamercadoriaColumn {
+                get {
+                    return this.columnentradamercadoria;
                 }
             }
             
@@ -409,15 +419,16 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public entradamercadoria_produtogradeRow Addentradamercadoria_produtogradeRow(string codbarra_grade, string codbarraalt_grade, string descricao_produto, string descricao_grade, string preco_grade, string quantidade) {
+            public entradamercadoria_produtogradeRow Addentradamercadoria_produtogradeRow(string cod_barra, string cod_barra_alternativo, string produto_descricao, string grade_descricao, string grade_preco, string quantidade, int entradamercadoria) {
                 entradamercadoria_produtogradeRow rowentradamercadoria_produtogradeRow = ((entradamercadoria_produtogradeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        codbarra_grade,
-                        codbarraalt_grade,
-                        descricao_produto,
-                        descricao_grade,
-                        preco_grade,
-                        quantidade};
+                        cod_barra,
+                        cod_barra_alternativo,
+                        produto_descricao,
+                        grade_descricao,
+                        grade_preco,
+                        quantidade,
+                        entradamercadoria};
                 rowentradamercadoria_produtogradeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowentradamercadoria_produtogradeRow);
                 return rowentradamercadoria_produtogradeRow;
@@ -440,29 +451,32 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columncodbarra_grade = base.Columns["codbarra_grade"];
-                this.columncodbarraalt_grade = base.Columns["codbarraalt_grade"];
-                this.columndescricao_produto = base.Columns["descricao_produto"];
-                this.columndescricao_grade = base.Columns["descricao_grade"];
-                this.columnpreco_grade = base.Columns["preco_grade"];
+                this.columncod_barra = base.Columns["cod_barra"];
+                this.columncod_barra_alternativo = base.Columns["cod_barra_alternativo"];
+                this.columnproduto_descricao = base.Columns["produto_descricao"];
+                this.columngrade_descricao = base.Columns["grade_descricao"];
+                this.columngrade_preco = base.Columns["grade_preco"];
                 this.columnquantidade = base.Columns["quantidade"];
+                this.columnentradamercadoria = base.Columns["entradamercadoria"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columncodbarra_grade = new global::System.Data.DataColumn("codbarra_grade", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodbarra_grade);
-                this.columncodbarraalt_grade = new global::System.Data.DataColumn("codbarraalt_grade", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodbarraalt_grade);
-                this.columndescricao_produto = new global::System.Data.DataColumn("descricao_produto", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndescricao_produto);
-                this.columndescricao_grade = new global::System.Data.DataColumn("descricao_grade", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndescricao_grade);
-                this.columnpreco_grade = new global::System.Data.DataColumn("preco_grade", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnpreco_grade);
+                this.columncod_barra = new global::System.Data.DataColumn("cod_barra", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncod_barra);
+                this.columncod_barra_alternativo = new global::System.Data.DataColumn("cod_barra_alternativo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncod_barra_alternativo);
+                this.columnproduto_descricao = new global::System.Data.DataColumn("produto_descricao", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnproduto_descricao);
+                this.columngrade_descricao = new global::System.Data.DataColumn("grade_descricao", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngrade_descricao);
+                this.columngrade_preco = new global::System.Data.DataColumn("grade_preco", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columngrade_preco);
                 this.columnquantidade = new global::System.Data.DataColumn("quantidade", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnquantidade);
+                this.columnentradamercadoria = new global::System.Data.DataColumn("entradamercadoria", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnentradamercadoria);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -605,86 +619,86 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string codbarra_grade {
+            public string cod_barra {
                 get {
                     try {
-                        return ((string)(this[this.tableentradamercadoria_produtograde.codbarra_gradeColumn]));
+                        return ((string)(this[this.tableentradamercadoria_produtograde.cod_barraColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'codbarra_grade\' in table \'entradamercadoria_produtograde\' i" +
-                                "s DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'cod_barra\' in table \'entradamercadoria_produtograde\' is DBN" +
+                                "ull.", e);
                     }
                 }
                 set {
-                    this[this.tableentradamercadoria_produtograde.codbarra_gradeColumn] = value;
+                    this[this.tableentradamercadoria_produtograde.cod_barraColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string codbarraalt_grade {
+            public string cod_barra_alternativo {
                 get {
                     try {
-                        return ((string)(this[this.tableentradamercadoria_produtograde.codbarraalt_gradeColumn]));
+                        return ((string)(this[this.tableentradamercadoria_produtograde.cod_barra_alternativoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'codbarraalt_grade\' in table \'entradamercadoria_produtograde" +
+                        throw new global::System.Data.StrongTypingException("The value for column \'cod_barra_alternativo\' in table \'entradamercadoria_produtog" +
+                                "rade\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableentradamercadoria_produtograde.cod_barra_alternativoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string produto_descricao {
+                get {
+                    try {
+                        return ((string)(this[this.tableentradamercadoria_produtograde.produto_descricaoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'produto_descricao\' in table \'entradamercadoria_produtograde" +
                                 "\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableentradamercadoria_produtograde.codbarraalt_gradeColumn] = value;
+                    this[this.tableentradamercadoria_produtograde.produto_descricaoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string descricao_produto {
+            public string grade_descricao {
                 get {
                     try {
-                        return ((string)(this[this.tableentradamercadoria_produtograde.descricao_produtoColumn]));
+                        return ((string)(this[this.tableentradamercadoria_produtograde.grade_descricaoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'descricao_produto\' in table \'entradamercadoria_produtograde" +
-                                "\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableentradamercadoria_produtograde.descricao_produtoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string descricao_grade {
-                get {
-                    try {
-                        return ((string)(this[this.tableentradamercadoria_produtograde.descricao_gradeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'descricao_grade\' in table \'entradamercadoria_produtograde\' " +
+                        throw new global::System.Data.StrongTypingException("The value for column \'grade_descricao\' in table \'entradamercadoria_produtograde\' " +
                                 "is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableentradamercadoria_produtograde.descricao_gradeColumn] = value;
+                    this[this.tableentradamercadoria_produtograde.grade_descricaoColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string preco_grade {
+            public string grade_preco {
                 get {
                     try {
-                        return ((string)(this[this.tableentradamercadoria_produtograde.preco_gradeColumn]));
+                        return ((string)(this[this.tableentradamercadoria_produtograde.grade_precoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'preco_grade\' in table \'entradamercadoria_produtograde\' is D" +
+                        throw new global::System.Data.StrongTypingException("The value for column \'grade_preco\' in table \'entradamercadoria_produtograde\' is D" +
                                 "BNull.", e);
                     }
                 }
                 set {
-                    this[this.tableentradamercadoria_produtograde.preco_gradeColumn] = value;
+                    this[this.tableentradamercadoria_produtograde.grade_precoColumn] = value;
                 }
             }
             
@@ -707,62 +721,79 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Iscodbarra_gradeNull() {
-                return this.IsNull(this.tableentradamercadoria_produtograde.codbarra_gradeColumn);
+            public int entradamercadoria {
+                get {
+                    try {
+                        return ((int)(this[this.tableentradamercadoria_produtograde.entradamercadoriaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'entradamercadoria\' in table \'entradamercadoria_produtograde" +
+                                "\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableentradamercadoria_produtograde.entradamercadoriaColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setcodbarra_gradeNull() {
-                this[this.tableentradamercadoria_produtograde.codbarra_gradeColumn] = global::System.Convert.DBNull;
+            public bool Iscod_barraNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.cod_barraColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Iscodbarraalt_gradeNull() {
-                return this.IsNull(this.tableentradamercadoria_produtograde.codbarraalt_gradeColumn);
+            public void Setcod_barraNull() {
+                this[this.tableentradamercadoria_produtograde.cod_barraColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setcodbarraalt_gradeNull() {
-                this[this.tableentradamercadoria_produtograde.codbarraalt_gradeColumn] = global::System.Convert.DBNull;
+            public bool Iscod_barra_alternativoNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.cod_barra_alternativoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Isdescricao_produtoNull() {
-                return this.IsNull(this.tableentradamercadoria_produtograde.descricao_produtoColumn);
+            public void Setcod_barra_alternativoNull() {
+                this[this.tableentradamercadoria_produtograde.cod_barra_alternativoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setdescricao_produtoNull() {
-                this[this.tableentradamercadoria_produtograde.descricao_produtoColumn] = global::System.Convert.DBNull;
+            public bool Isproduto_descricaoNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.produto_descricaoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Isdescricao_gradeNull() {
-                return this.IsNull(this.tableentradamercadoria_produtograde.descricao_gradeColumn);
+            public void Setproduto_descricaoNull() {
+                this[this.tableentradamercadoria_produtograde.produto_descricaoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setdescricao_gradeNull() {
-                this[this.tableentradamercadoria_produtograde.descricao_gradeColumn] = global::System.Convert.DBNull;
+            public bool Isgrade_descricaoNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.grade_descricaoColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Ispreco_gradeNull() {
-                return this.IsNull(this.tableentradamercadoria_produtograde.preco_gradeColumn);
+            public void Setgrade_descricaoNull() {
+                this[this.tableentradamercadoria_produtograde.grade_descricaoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setpreco_gradeNull() {
-                this[this.tableentradamercadoria_produtograde.preco_gradeColumn] = global::System.Convert.DBNull;
+            public bool Isgrade_precoNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.grade_precoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setgrade_precoNull() {
+                this[this.tableentradamercadoria_produtograde.grade_precoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -775,6 +806,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetquantidadeNull() {
                 this[this.tableentradamercadoria_produtograde.quantidadeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsentradamercadoriaNull() {
+                return this.IsNull(this.tableentradamercadoria_produtograde.entradamercadoriaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetentradamercadoriaNull() {
+                this[this.tableentradamercadoria_produtograde.entradamercadoriaColumn] = global::System.Convert.DBNull;
             }
         }
         

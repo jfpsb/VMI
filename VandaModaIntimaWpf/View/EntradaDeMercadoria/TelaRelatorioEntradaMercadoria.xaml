@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VandaModaIntimaWpf.View.EntradaDeMercadoria"
-        xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+        xmlns:RViewer="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
         Title="Entrada De Mercadoria"
         Height="450"
@@ -12,7 +12,9 @@
         WindowState="Maximized">
     <Grid>
 
-        <Viewer:CrystalReportsViewer x:Name="EntradaReport" />
+        <WindowsFormsHost x:Name="WindowsFormsHost">
+            <RViewer:ReportViewer x:Name="EntradaMercadoriaReportViewer" Load="ReportV_Load" />
+        </WindowsFormsHost>
 
     </Grid>
 </Window>

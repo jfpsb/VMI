@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Windows;
-using VandaModaIntimaWpf.View.Ferias.Relatorios;
+using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
 namespace VandaModaIntimaWpf.View.Ferias
@@ -10,52 +11,42 @@ namespace VandaModaIntimaWpf.View.Ferias
     /// </summary>
     public partial class TelaComunicacaoDeFerias : Window
     {
+        private Model.Ferias _ferias;
         public TelaComunicacaoDeFerias()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FeriasReport.Owner = this;
+            //FeriasReport.Owner = this;
         }
 
         public TelaComunicacaoDeFerias(Model.Ferias ferias)
         {
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
-            FeriasReport.Owner = this;
+            _ferias = ferias;
+        }
 
+        private void FeriasReportViewer_Load(object sender, EventArgs e)
+        {
             FeriasDataSet feriasDataSet = new FeriasDataSet();
-
-            var report = new ComunicacaoFerias();
-
             var frow = feriasDataSet.ferias.NewferiasRow();
 
-            frow.cnpj = Convert.ToUInt64(ferias.Funcionario.Loja.Cnpj).ToString(@"00\.000\.000\/0000\-00");
-            frow.nomefuncionario = ferias.Funcionario.Nome;
-            frow.cpffuncionario = Convert.ToUInt64(ferias.Funcionario.Cpf).ToString(@"000\.000\.000\-00");
-            frow.dataretorno = ferias.Fim.AddDays(1).ToString("dd 'de' MMMM 'de' yyyy");
-            frow.inicioferias = ferias.Inicio.ToString("dd 'de' MMMM 'de' yyyy");
-            frow.fimferias = ferias.Fim.ToString("dd 'de' MMMM 'de' yyyy");
-            frow.inicioaquisitivo = ferias.InicioAquisitivo.ToString("dd 'de' MMMM 'de' yyyy");
-            frow.fimaquisitivo = ferias.FimAquisitivo.ToString("dd 'de' MMMM 'de' yyyy");
-
-            if (ferias.Funcionario.Loja.Cnpj.StartsWith("17361873"))
-            {
-                frow.razaosocial = "JOSÉ FELIPE SILVA BORGES";
-            }
-            else if (ferias.Funcionario.Loja.Cnpj.StartsWith("13938943"))
-            {
-                frow.razaosocial = "JOSÉ LUCAS SILVA BORGES";
-            }
-            else
-            {
-                frow.razaosocial = "MARIA VANDA SILVA BORGES";
-            }
+            frow.loja = Convert.ToUInt64(_ferias.Funcionario.Loja.Cnpj).ToString(@"00\.000\.000\/0000\-00");
+            frow.nome_funcionario = _ferias.Funcionario.Nome;
+            frow.cpf = Convert.ToUInt64(_ferias.Funcionario.Cpf).ToString(@"000\.000\.000\-00");
+            frow.retorno = _ferias.Fim.AddDays(1).ToString("dd 'de' MMMM 'de' yyyy");
+            frow.inicio = _ferias.Inicio.ToString("dd 'de' MMMM 'de' yyyy");
+            frow.fim = _ferias.Fim.ToString("dd 'de' MMMM 'de' yyyy");
+            frow.inicioaquisitivo = _ferias.InicioAquisitivo.ToString("dd 'de' MMMM 'de' yyyy");
+            frow.fimaquisitivo = _ferias.FimAquisitivo.ToString("dd 'de' MMMM 'de' yyyy");
 
             feriasDataSet.ferias.AddferiasRow(frow);
 
-            report.SetDataSource(feriasDataSet);
-            FeriasReport.ViewerCore.EnableDrillDown = false;
-            FeriasReport.ViewerCore.ReportSource = report;
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetFerias", feriasDataSet.Tables[0]);
+
+            ReportViewerUtil.ConfiguraReportViewer(FeriasReportViewer,
+                "VandaModaIntimaWpf.View.Ferias.Relatorios.RelatorioFerias.rdlc",
+                reportDataSource,
+                null);
         }
     }
 }

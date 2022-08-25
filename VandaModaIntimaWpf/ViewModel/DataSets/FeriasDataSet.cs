@@ -4,5 +4,8 @@
 
     partial class FeriasDataSet
     {
+        partial class feriasDataTable
+        {
+        }
     }
 }

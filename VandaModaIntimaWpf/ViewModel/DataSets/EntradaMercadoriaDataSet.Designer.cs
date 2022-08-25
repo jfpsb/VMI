@@ -281,7 +281,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnid;
             
-            private global::System.Data.DataColumn columnloja_nome;
+            private global::System.Data.DataColumn columnloja;
             
             private global::System.Data.DataColumn columndata;
             
@@ -328,9 +328,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn loja_nomeColumn {
+            public global::System.Data.DataColumn lojaColumn {
                 get {
-                    return this.columnloja_nome;
+                    return this.columnloja;
                 }
             }
             
@@ -379,11 +379,11 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public entradamercadoriaRow AddentradamercadoriaRow(string id, string loja_nome, string data) {
+            public entradamercadoriaRow AddentradamercadoriaRow(string id, string loja, string data) {
                 entradamercadoriaRow rowentradamercadoriaRow = ((entradamercadoriaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
-                        loja_nome,
+                        loja,
                         data};
                 rowentradamercadoriaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowentradamercadoriaRow);
@@ -415,7 +415,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
-                this.columnloja_nome = base.Columns["loja_nome"];
+                this.columnloja = base.Columns["loja"];
                 this.columndata = base.Columns["data"];
             }
             
@@ -424,8 +424,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             private void InitClass() {
                 this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
-                this.columnloja_nome = new global::System.Data.DataColumn("loja_nome", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnloja_nome);
+                this.columnloja = new global::System.Data.DataColumn("loja", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnloja);
                 this.columndata = new global::System.Data.DataColumn("data", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndata);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -585,17 +585,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string loja_nome {
+            public string loja {
                 get {
                     try {
-                        return ((string)(this[this.tableentradamercadoria.loja_nomeColumn]));
+                        return ((string)(this[this.tableentradamercadoria.lojaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'loja_nome\' in table \'entradamercadoria\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'loja\' in table \'entradamercadoria\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableentradamercadoria.loja_nomeColumn] = value;
+                    this[this.tableentradamercadoria.lojaColumn] = value;
                 }
             }
             
@@ -617,14 +617,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Isloja_nomeNull() {
-                return this.IsNull(this.tableentradamercadoria.loja_nomeColumn);
+            public bool IslojaNull() {
+                return this.IsNull(this.tableentradamercadoria.lojaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setloja_nomeNull() {
-                this[this.tableentradamercadoria.loja_nomeColumn] = global::System.Convert.DBNull;
+            public void SetlojaNull() {
+                this[this.tableentradamercadoria.lojaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

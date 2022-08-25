@@ -1,22 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FA1805B3-C7C6-4892-812B-EC6111B7D48A}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RootNamespace>VandaModaIntimaWpf</RootNamespace>
     <AssemblyName>VandaModaIntimaWpf</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\jfpsb\Desktop\publish\</PublishUrl>
     <Install>true</Install>
@@ -33,25 +20,10 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
@@ -72,1229 +44,64 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.AxShockwaveFlashObjects.13.0.4001\lib\net40\AxShockwaveFlashObjects.dll</HintPath>
-    </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.Engine.13.0.4001\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.ClientDoc.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommLayer.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommonControls, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonControls.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommonControls.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.Controllers.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.DataSetConversion, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.DataSetConversion.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.DataSetConversion.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.ObjectFactory, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.ObjectFactory.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ObjectFactory.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.Prompting, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.Prompting.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.Prompting.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportAppServer.XmlSerialize, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportAppServer.XmlSerialize.13.0.4001\lib\net40\CrystalDecisions.ReportAppServer.XmlSerialize.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ReportSource.13.0.4001\lib\net40\CrystalDecisions.ReportSource.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.Shared.13.0.4001\lib\net40\CrystalDecisions.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf, Version=3.20.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.20.1\lib\net45\Google.Protobuf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="K4os.Compression.LZ4, Version=1.2.16.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.1.2.16\lib\net46\K4os.Compression.LZ4.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.2.16.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.2.16\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="K4os.Hash.xxHash, Version=1.0.7.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Hash.xxHash.1.0.7\lib\net46\K4os.Hash.xxHash.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.14\lib\net45\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.5.3.12\lib\net461\NHibernate.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate.Caches.SysCache, Version=5.7.0.0, Culture=neutral, PublicKeyToken=6876f2ea66c9f443, processorArchitecture=MSIL">
-      <HintPath>..\packages\NHibernate.Caches.SysCache.5.7.0\lib\net461\NHibernate.Caches.SysCache.dll</HintPath>
-    </Reference>
     <Reference Include="ReachFramework" />
-    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
-    </Reference>
-    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
-    </Reference>
-    <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.WPF.Viewer.13.0.4001\lib\net40\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
-    </Reference>
-    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.WPF.ViewerShared.13.0.4001\lib\net40\SAPBusinessObjects.WPF.ViewerShared.dll</HintPath>
-    </Reference>
-    <Reference Include="ShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalReports.ShockwaveFlashObjects.13.0.4001\lib\net40\ShockwaveFlashObjects.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
     <Reference Include="System.Printing" />
-    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="Resources\Linguagem\EN-US.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Theme\ButtonTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\ComboBoxTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\DataGridTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\DatePickerTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\FonteTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\GridTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\LabelTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\MenuItemTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\MenuTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\TabControlTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\TabItemTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\TextBlockTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Theme\TextBoxTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Avisos\TelaDeAviso.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Despesa\DespesasGroupByDescricao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Despesa\PesquisarDespesa.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Despesa\SalvarDespesa.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Despesa\SelecionaMultiplasLojas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EntradaDeMercadoria\TelaRelatorioEntradaMercadoria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EntradaDeMercadoria\TelaRelatorioRelacaoMercadoria.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Ferias\TelaComunicacaoDeFerias.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Ferias\VisualControlFerias.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Ferias\VisualizadorDeFerias.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarTotalVendido.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DataUpDown.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Contagem\AdicionarContagemProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Contagem\CadastrarContagem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Contagem\EditarContagem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Contagem\PesquisarContagem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Contagem\VisualizarContagemProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DataWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarAdiantamento.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarBonus.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionario.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarHoraExtra.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDiaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarMetaIndividual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\GerenciarParcelas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarObservacaoFolha.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\MaisDetalhes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\FolhaPagamento\AdicionarFaltas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\TelaRelatorioFolha.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\TelaRelatorioHoraExtraFaltas.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\FolhaPagamento\VisualizarHoraExtra.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Fornecedor\SalvarFornecedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Fornecedor\PesquisarFornecedor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Linguagem\PT-BR.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Funcionario\AjudaFuncionario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Funcionario\SalvarFuncionario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Funcionario\PesquisarFuncionario.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Funcionario\VisualizarDadosBancarios.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Grade\CadastrarGrade.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Loja\AjudaLoja.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Loja\SalvarLoja.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Loja\PesquisarLoja.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Marca\CadastrarMarca.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Marca\PesquisarMarca.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\OperadoraCartao\CadastrarOperadoraCartao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PontoEletronico\ConsolidarPontosEletronicos.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PontoEletronico\PesquisarPontoEletronico.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PontoEletronico\RegistrarPonto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\PontoEletronico\TrocarSenhaFuncionario.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\AjudaProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\SalvarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\PesquisarProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\TelaRelatorioProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Produto\VisualizarMargensDeLucro.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\RecebimentoCartao\MaisDetalhes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\RecebimentoCartao\PesquisarRecebimento.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Representante\PesquisarRepresentante.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Representante\SalvarRepresentante.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\SQL\ExportarSQL.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TelaDeLoginSimples.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TipoContagem\CadastrarTipoContagem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TipoGrade\CadastrarTipoGrade.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\VandaModaIntima.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BancoDeDados\ConnectionFactory\PostUpdateEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\NHibernatePreEventListener.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\TriggerInterceptor.cs" />
-    <Compile Include="BancoDeDados\ConnectionFactory\SessionProvider.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="Model\Adiantamento.cs" />
-    <Compile Include="Model\AliquotasImposto.cs" />
-    <Compile Include="Model\AModel.cs" />
-    <Compile Include="Model\ArquivosCompraFornecedor.cs" />
-    <Compile Include="Model\Banco.cs" />
-    <Compile Include="Model\Bonus.cs" />
-    <Compile Include="Model\BonusMensal.cs" />
-    <Compile Include="Model\ChavePix.cs" />
-    <Compile Include="Model\ComposicaoPreco.cs" />
-    <Compile Include="Model\CompraDeFornecedor.cs" />
-    <Compile Include="Model\ContaBancaria.cs" />
-    <Compile Include="Model\Contagem.cs" />
-    <Compile Include="Model\ContagemProduto.cs" />
-    <Compile Include="Model\Converters\CalculoPassagemDataConverter.cs" />
-    <Compile Include="Model\Converters\TabelaINSSDataConverter.cs" />
-    <Compile Include="Model\DAO\DAO.cs" />
-    <Compile Include="Model\DAO\DAOBonus.cs" />
-    <Compile Include="Model\DAO\DAOBonusMensal.cs" />
-    <Compile Include="Model\DAO\DAOEntradaDeMercadoria.cs" />
-    <Compile Include="Model\DAO\DAOEntradaMercadoriaProdutoGrade.cs" />
-    <Compile Include="Model\DAO\DAOFerias.cs" />
-    <Compile Include="Model\DAO\DAOHistoricoProdutoGrade.cs" />
-    <Compile Include="Model\DAO\DAOCompraDeFornecedor.cs" />
-    <Compile Include="Model\DAO\DAOContagem.cs" />
-    <Compile Include="Model\DAO\DAOContagemProduto.cs" />
-    <Compile Include="Model\DAO\DAODespesa.cs" />
-    <Compile Include="Model\DAO\DAOFaltas.cs" />
-    <Compile Include="Model\DAO\DAOFolhaPagamento.cs" />
-    <Compile Include="Model\DAO\DAOFornecedor.cs" />
-    <Compile Include="Model\DAO\DAOFuncionario.cs" />
-    <Compile Include="Model\DAO\DAOGrade.cs" />
-    <Compile Include="Model\DAO\DAOHoraExtra.cs" />
-    <Compile Include="Model\DAO\DAOLoja.cs" />
-    <Compile Include="Model\DAO\DAOMarca.cs" />
-    <Compile Include="Model\DAO\DAOParcela.cs" />
-    <Compile Include="Model\DAO\DAOPontoEletronico.cs" />
-    <Compile Include="Model\DAO\DAOProduto.cs" />
-    <Compile Include="Model\DAO\DAOProdutoGrade.cs" />
-    <Compile Include="Model\DAO\DAORecebimentoCartao.cs" />
-    <Compile Include="Model\DAO\DAORepresentante.cs" />
-    <Compile Include="Model\DAO\DAOTipoContagem.cs" />
-    <Compile Include="Model\DAO\DAOTipoDespesa.cs" />
-    <Compile Include="Model\DAO\DAOTipoGrade.cs" />
-    <Compile Include="Model\DataFeriado.cs" />
-    <Compile Include="Model\Despesa.cs" />
-    <Compile Include="Model\EntradaDeMercadoria.cs" />
-    <Compile Include="Model\EntradaMercadoriaProdutoGrade.cs" />
-    <Compile Include="Model\Estoque.cs" />
-    <Compile Include="Model\Faltas.cs" />
-    <Compile Include="Model\Ferias.cs" />
-    <Compile Include="Model\FolhaPagamento.cs" />
-    <Compile Include="Model\Fornecedor.cs" />
-    <Compile Include="Model\Funcionario.cs" />
-    <Compile Include="Model\Grade.cs" />
-    <Compile Include="Model\HistoricoProdutoGrade.cs" />
-    <Compile Include="Model\HoraExtra.cs" />
-    <Compile Include="Model\IModel.cs" />
-    <Compile Include="Model\InscricaoImobiliaria.cs" />
-    <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaUmPorcento.cs" />
-    <Compile Include="Model\Interfaces\Concreto\CalculaBonusMetaMeioPorcento.cs" />
-    <Compile Include="Model\Interfaces\ICalculaBonusMeta.cs" />
-    <Compile Include="Model\IntervaloPonto.cs" />
-    <Compile Include="Model\Loja.cs" />
-    <Compile Include="Model\Marca.cs" />
-    <Compile Include="Model\MembroFamiliar.cs" />
-    <Compile Include="Model\MySQLAliases.cs" />
-    <Compile Include="Model\NFe\ProcNFe_v4_00.cs" />
-    <Compile Include="Model\ObservableObject.cs" />
-    <Compile Include="Model\OperadoraCartao.cs" />
-    <Compile Include="Model\Parcela.cs" />
-    <Compile Include="Model\PontoEletronico.cs" />
-    <Compile Include="Model\Produto.cs" />
-    <Compile Include="Model\ProdutoGrade.cs" />
-    <Compile Include="Model\RecebimentoCartao.cs" />
-    <Compile Include="Model\Representante.cs" />
-    <Compile Include="Model\SubGrade.cs" />
-    <Compile Include="Model\TipoContagem.cs" />
-    <Compile Include="Model\TipoDespesa.cs" />
-    <Compile Include="Model\TipoGrade.cs" />
-    <Compile Include="Model\TipoHoraExtra.cs" />
-    <Compile Include="Resources\StringResource.cs" />
-    <Compile Include="Util\ConfiguraPosPrinter.cs" />
-    <Compile Include="Util\CPF.cs" />
-    <Compile Include="Util\DateTimeUtil.cs" />
-    <Compile Include="Util\FeriadoJsonUtil.cs" />
-    <Compile Include="Util\Log.cs" />
-    <Compile Include="Util\MultiDictionary.cs" />
-    <Compile Include="ViewModel\AAjudarVM.cs" />
-    <Compile Include="ViewModel\ACadastrarVM.cs" />
-    <Compile Include="ViewModel\APesquisarVM.cs" />
-    <Compile Include="ViewModel\AposDeletarDoBDEventArgs.cs" />
-    <Compile Include="ViewModel\AposSalvarEditarEventArgs.cs" />
-    <Compile Include="ViewModel\AposInserirBDEventArgs.cs" />
-    <Compile Include="ViewModel\ATelaRelatorio.cs" />
-    <Compile Include="ViewModel\Avisos\TelaDeAvisoVM.cs" />
-    <Compile Include="ViewModel\DataSets\FeriasDataSet.cs">
-      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\DataSets\FeriasDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="ViewModel\DataSets\EntradaMercadoriaDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
-      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\Despesa\SelecionaMultiplasLojasVM.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\EditarEntradaDeMercadoriaVMStrategy.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\EditarEntradaDeMercadoriaVM.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\CRFolhaPagamentoParaPDF.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\CrystalReports\ICrystalReportsParaPDF.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\DespesaExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\EntradaMercadoriaPorFornecedorExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\Excel.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\FolhaPagamentoExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\FornecedorExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\AExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\FuncionarioExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\LojaExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\MarcaExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\ProdutoExcelStrategy.cs" />
-    <Compile Include="ViewModel\ExportaParaArquivo\Excel\WorksheetContainer.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVM.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\EditarCompraDeFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVM.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\PesquisarCompraDeFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\CompraDeFornecedor\CadastrarCompraDeFornecedorVM.cs" />
-    <Compile Include="ViewModel\Contagem\CadastrarContagemVM.cs" />
-    <Compile Include="ViewModel\Contagem\CadastrarContagemVMStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\EditarContagemVM.cs" />
-    <Compile Include="ViewModel\Contagem\EditarContagemVMJanela.cs" />
-    <Compile Include="ViewModel\Contagem\EditarContagemVMStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\PesquisarContagemVM.cs" />
-    <Compile Include="ViewModel\Contagem\PesquisarContMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Contagem\VisualizarContagemProdutoVM.cs" />
-    <Compile Include="ViewModel\Ferias\VisualizadorDeFeriasVM.cs" />
-    <Compile Include="ViewModel\Funcionario\VisualizarDadosBancariosVM.cs" />
-    <Compile Include="ViewModel\Interfaces\IViewModelClosing.cs" />
-    <Compile Include="ViewModel\PontoEletronico\ConfirmarConsolidacaoPontosEletronicosVM.cs" />
-    <Compile Include="ViewModel\PontoEletronico\ConsolidarPontosEletronicosVM.cs" />
-    <Compile Include="ViewModel\PontoEletronico\InserirSenhaPontoVM.cs" />
-    <Compile Include="ViewModel\PontoEletronico\PesquisarPontoEletronicoVM.cs" />
-    <Compile Include="ViewModel\PontoEletronico\RegistrarPontoVM.cs" />
-    <Compile Include="ViewModel\PontoEletronico\TrocarSenhaFuncionarioVM.cs" />
-    <Compile Include="ViewModel\Util\Autenticacao.cs" />
-    <Compile Include="View\PontoEletronico\CalculoSaldoJornada.cs" />
-    <Compile Include="View\PontoEletronico\ChecaIntervalosConverter.cs" />
-    <Compile Include="View\PontoEletronico\ConfirmarConsolidacaoPontosEletronicos.xaml.cs">
-      <DependentUpon>ConfirmarConsolidacaoPontosEletronicos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PontoEletronico\ConsolidarPontosEletronicos.xaml.cs">
-      <DependentUpon>ConsolidarPontosEletronicos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PontoEletronico\DescreveDataFeriadoConverter.cs" />
-    <Compile Include="View\PontoEletronico\IsDataFeriadoConverter.cs" />
-    <Compile Include="View\PontoEletronico\ProcessaJornadaConverter.cs" />
-    <Compile Include="View\PontoEletronico\TrocarSenhaFuncionario.xaml.cs">
-      <DependentUpon>TrocarSenhaFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorConverter.cs" />
-    <Compile Include="View\PontoEletronico\VisibilidadePesquisaPorFuncionarioConverter.cs" />
-    <Compile Include="ViewModel\Services\Concretos\WindowService.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IWindowService.cs" />
-    <Compile Include="ViewModel\Util\Mediator.cs" />
-    <Compile Include="ViewModel\Util\ViewModelParameterHandler.cs" />
-    <Compile Include="View\ACadastrarView.cs" />
-    <Compile Include="View\Avisos\TelaDeAviso.xaml.cs">
-      <DependentUpon>TelaDeAviso.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Converters\BooleanToYesOrNoStringConverter.cs" />
-    <Compile Include="View\Converters\CPFValueConverter.cs" />
-    <Compile Include="View\Converters\IsDemitidoConverter.cs" />
-    <Compile Include="View\Converters\MenorQueValorConverter.cs" />
-    <Compile Include="ViewModel\DataSets\BonusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BonusDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\DataSets\EntradaMercadoriaDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
+    <Compile Update="ViewModel\DataSets\FeriasDataSet.cs">
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ViewModel\DataSets\FeriasDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FeriasDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ViewModel\DataSets\FolhaPagamentoDataSet.cs">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataSets\FolhaPagamentoDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="ViewModel\DataSets\FolhaPagamentoDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
+    <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\DataSets\HoraExtraFaltasDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\DataSets\ParcelaDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\DataSets\ProdutoDataSet.cs">
+    <Compile Update="ViewModel\DataSets\ProdutoDataSet.cs">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\DataSets\ProdutoDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModel\Despesa\CadastrarDespesaVM.cs" />
-    <Compile Include="ViewModel\Despesa\CadastrarDespesaVMStrategy.cs" />
-    <Compile Include="ViewModel\Despesa\DespesaGroupByDescricaoViewModel.cs" />
-    <Compile Include="ViewModel\Despesa\EditarDespesaVM.cs" />
-    <Compile Include="ViewModel\Despesa\EditarDespesaVMStrategy.cs" />
-    <Compile Include="ViewModel\Despesa\PesquisarDespesaVM.cs" />
-    <Compile Include="ViewModel\Despesa\PesquisarDespesaVMStrategy.cs" />
-    <Compile Include="ViewModel\EntidadeComCampo.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradasPorFornecedorVM.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradasPorFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVM.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\PesquisarEntradaVMStrategy.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVM.cs" />
-    <Compile Include="ViewModel\EntradaDeMercadoria\CadastrarEntradaDeMercadoriaVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarFaltasVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarFaltasVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarMetaIndividualVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarObservacaoFolhaVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarTotalVendidoVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarTotalVendidoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ISalvarBonus.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarAlmoco.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusPorMesVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarHoraExtraVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarSalarioLiquidoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarAdiantamentoVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\AdicionarBonusVMStrategy.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeAlmoco.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDeBonusMensalPorDiaVM.cs" />
-    <Compile Include="View\Converters\InverseBooleanConverter.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoDePassagem.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\ICalculoDeBonus.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarPassagem.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\GerenciarParcelasVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\MaisDetalhesVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaVM.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\PesquisarFolhaMsgVMStrategy.cs" />
-    <Compile Include="View\Converters\MultiValueConverter.cs" />
-    <Compile Include="View\Converters\ValorAPagarConverter.cs" />
-    <Compile Include="ViewModel\FolhaPagamento\VisualizarHoraExtraFaltasVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorManualmenteVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorOnlineVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\CadastrarFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\Fornecedor\EditarFornecedorVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\EditarFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVM.cs" />
-    <Compile Include="ViewModel\Fornecedor\PesquisarFornecedorVMStrategy.cs" />
-    <Compile Include="ViewModel\Fornecedor\RequisicaoReceitaFederal.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVM.cs" />
-    <Compile Include="ViewModel\Funcionario\CadastrarFuncionarioVMStrategy.cs" />
-    <Compile Include="ViewModel\Funcionario\EditarFuncionarioVMStrategy.cs" />
-    <Compile Include="ViewModel\Funcionario\EditarFuncionarioVM.cs" />
-    <Compile Include="ViewModel\Funcionario\PesquisarFuncionarioVM.cs" />
-    <Compile Include="ViewModel\Funcionario\PesquisarFuncMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\GlobalConfigs.cs" />
-    <Compile Include="ViewModel\Grade\CadastrarGradeVM.cs" />
-    <Compile Include="ViewModel\Grade\CadastrarGradeVMStrategy.cs" />
-    <Compile Include="ViewModel\ICadastrarVM.cs" />
-    <Compile Include="ViewModel\ICadastrarVMStrategy.cs" />
-    <Compile Include="ViewModel\IDialogResult.cs" />
-    <Compile Include="ViewModel\Interfaces\IRequestClose.cs" />
-    <Compile Include="ViewModel\IPesquisarMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Loja\CadastrarLojaVM.cs" />
-    <Compile Include="ViewModel\Loja\CadastrarLojaVMStrategy.cs" />
-    <Compile Include="ViewModel\Loja\EditarLojaVM.cs" />
-    <Compile Include="ViewModel\Loja\EditarLojaVMStrategy.cs" />
-    <Compile Include="ViewModel\Loja\PesquisarLojaVM.cs" />
-    <Compile Include="ViewModel\Loja\PesquisarLojaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Marca\CadastrarMarcaVMStrategy.cs" />
-    <Compile Include="ViewModel\Marca\PesquisarMarcaMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Produto\CadastrarProdutoVMStrategy.cs" />
-    <Compile Include="ViewModel\Produto\EditarProdutoVMStrategy.cs" />
-    <Compile Include="ViewModel\Produto\PesqProdutoMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\Produto\VisualizarMargensDeLucroVM.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVM.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\CadastrarRecebimentoVMStrategy.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\FormatoDoubleDataGrid.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\ImportOfx.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\MaisDetalhesVM.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebMsgVMStrategy.cs" />
-    <Compile Include="ViewModel\RecebimentoCartao\PesquisarRecebimentoVM.cs" />
-    <Compile Include="ViewModel\Representante\CadastrarRepresentanteVM.cs" />
-    <Compile Include="ViewModel\Representante\CadastrarRepresentanteVMStrategy.cs" />
-    <Compile Include="ViewModel\Representante\EditarRepresentanteVMStrategy.cs" />
-    <Compile Include="ViewModel\Representante\EditarRepresentanteVM.cs" />
-    <Compile Include="ViewModel\Representante\PesquisarRepresentanteVM.cs" />
-    <Compile Include="ViewModel\Representante\PesquisarRepresentanteVMStrategy.cs" />
-    <Compile Include="ViewModel\Services\Concretos\MessageBoxService.cs" />
-    <Compile Include="View\Despesa\SelecionaMultiplasLojas.xaml.cs">
-      <DependentUpon>SelecionaMultiplasLojas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Ferias\Relatorios\ComunicacaoFerias.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComunicacaoFerias.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\Ferias\TelaComunicacaoDeFerias.xaml.cs">
-      <DependentUpon>TelaComunicacaoDeFerias.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Ferias\VisualControlFerias.xaml.cs">
-      <DependentUpon>VisualControlFerias.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Ferias\VisualizadorDeFerias.xaml.cs">
-      <DependentUpon>VisualizadorDeFerias.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Interfaces\DataUpDown\IDataUpDown.cs" />
-    <Compile Include="View\Interfaces\DataUpDown\SomaAno.cs" />
-    <Compile Include="View\Interfaces\DataUpDown\SomaMes.cs" />
-    <Compile Include="View\Interfaces\IFolderBrowserDialog.cs" />
-    <Compile Include="ViewModel\Services\Interfaces\IMessageBoxService.cs" />
-    <Compile Include="ViewModel\SQL\ExportarSQLFornecedor.cs" />
-    <Compile Include="ViewModel\SQL\ExportarSQLProduto.cs" />
-    <Compile Include="ViewModel\SQL\ExportarSQLViewModel.cs" />
-    <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVM.cs" />
-    <Compile Include="ViewModel\TipoGrade\CadastrarTipoGradeVMStrategy.cs" />
-    <Compile Include="View\CompraDeFornecedor\PesquisarCompraDeFornecedor.xaml.cs">
-      <DependentUpon>PesquisarCompraDeFornecedor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CompraDeFornecedor\SalvarCompraDeFornecedor.xaml.cs">
-      <DependentUpon>SalvarCompraDeFornecedor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Controles\DataGridDespesaGroupByDescricao.cs" />
-    <Compile Include="View\Despesa\DespesasGroupByDescricao.xaml.cs">
-      <DependentUpon>DespesasGroupByDescricao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Despesa\PesquisarDespesa.xaml.cs">
-      <DependentUpon>PesquisarDespesa.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Despesa\SalvarDespesa.xaml.cs">
-      <DependentUpon>SalvarDespesa.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\PesquisarEntradaDeMercadoria.xaml.cs">
-      <DependentUpon>PesquisarEntradaDeMercadoria.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\PesquisarEntradasPorFornecedor.xaml.cs">
-      <DependentUpon>PesquisarEntradasPorFornecedor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.cs">
-      <DependentUpon>RelatorioRelacaoMercadoriaProdutoGrade.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.cs">
-      <DependentUpon>RelatorioRelacaoMercadoria.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.cs">
-      <DependentUpon>RelatorioEntradaMercadoriaProdutoGrade.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.cs">
-      <DependentUpon>RelatorioEntradaMercadoria.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\SalvarEntradaDeMercadoria.xaml.cs">
-      <DependentUpon>SalvarEntradaDeMercadoria.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\TelaRelatorioEntradaMercadoria.xaml.cs">
-      <DependentUpon>TelaRelatorioEntradaMercadoria.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EntradaDeMercadoria\TelaRelatorioRelacaoMercadoria.xaml.cs">
-      <DependentUpon>TelaRelatorioRelacaoMercadoria.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FocusableListView.cs" />
-    <Compile Include="View\FocusableTextBox.cs" />
-    <Compile Include="View\FolhaPagamento\AdicionarTotalVendido.xaml.cs">
-      <DependentUpon>AdicionarTotalVendido.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\APesquisarView.cs" />
-    <Compile Include="View\DataUpDown.xaml.cs">
-      <DependentUpon>DataUpDown.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Contagem\AddContagemProdutoDataGrid.cs" />
-    <Compile Include="View\Contagem\AdicionarContagemProduto.xaml.cs">
-      <DependentUpon>AdicionarContagemProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Contagem\CadastrarContagem.xaml.cs">
-      <DependentUpon>CadastrarContagem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Contagem\EditarContagem.xaml.cs">
-      <DependentUpon>EditarContagem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Contagem\FocusExtension.cs" />
-    <Compile Include="View\Contagem\PesquisarContagem.xaml.cs">
-      <DependentUpon>PesquisarContagem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Contagem\VisualizarContagemProduto.xaml.cs">
-      <DependentUpon>VisualizarContagemProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DataWidget.xaml.cs">
-      <DependentUpon>DataWidget.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarAdiantamento.xaml.cs">
-      <DependentUpon>AdicionarAdiantamento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarBonus.xaml.cs">
-      <DependentUpon>AdicionarBonus.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\SalvarBonusDeFuncionario.xaml.cs">
-      <DependentUpon>SalvarBonusDeFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarHoraExtra.xaml.cs">
-      <DependentUpon>AdicionarHoraExtra.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarSalarioLiquido.xaml.cs">
-      <DependentUpon>AdicionarSalarioLiquido.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\CalculoDeBonusMensalPorDia\CalculoBonusMensalPorDiaView.xaml.cs">
-      <DependentUpon>CalculoBonusMensalPorDiaView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarMetaIndividual.xaml.cs">
-      <DependentUpon>AdicionarMetaIndividual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\GerenciarParcelas.xaml.cs">
-      <DependentUpon>GerenciarParcelas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarObservacaoFolha.xaml.cs">
-      <DependentUpon>AdicionarObservacaoFolha.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\MaisDetalhes.xaml.cs">
-      <DependentUpon>MaisDetalhes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\PesquisarFolhaPagamento.xaml.cs">
-      <DependentUpon>PesquisarFolhaPagamento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioBonus.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioBonus.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioFolhaPagamento.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioHoraExtraFaltas.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\Relatorios\RelatorioParcela.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioParcela.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\AdicionarFaltas.xaml.cs">
-      <DependentUpon>AdicionarFaltas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\TelaRelatorioFolha.xaml.cs">
-      <DependentUpon>TelaRelatorioFolha.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\TelaRelatorioHoraExtraFaltas.xaml.cs">
-      <DependentUpon>TelaRelatorioHoraExtraFaltas.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FolhaPagamento\VisualizarHoraExtra.xaml.cs">
-      <DependentUpon>VisualizarHoraExtra.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Converters\CNPJValueConverter.cs" />
-    <Compile Include="View\Funcionario\AjudaFuncionario.xaml.cs">
-      <DependentUpon>AjudaFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Funcionario\SalvarFuncionario.xaml.cs">
-      <DependentUpon>SalvarFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Funcionario\PesquisarFuncionario.xaml.cs">
-      <DependentUpon>PesquisarFuncionario.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Funcionario\VisualizarDadosBancarios.xaml.cs">
-      <DependentUpon>VisualizarDadosBancarios.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Grade\CadastrarGrade.xaml.cs">
-      <DependentUpon>CadastrarGrade.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Interfaces\ICloseable.cs" />
-    <Compile Include="View\Interfaces\ISaveFileDialog.cs" />
-    <Compile Include="View\Interfaces\IOpenFileDialog.cs" />
-    <Compile Include="ViewModel\IPesquisarVM.cs" />
-    <Compile Include="ViewModel\Marca\CadastrarMarcaVM.cs" />
-    <Compile Include="ViewModel\Marca\PesquisarMarcaVM.cs" />
-    <Compile Include="ViewModel\Produto\CadastrarProdutoVM.cs" />
-    <Compile Include="ViewModel\Produto\EditarProdutoVM.cs" />
-    <Compile Include="ViewModel\Produto\PesquisarProdutoVM.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="ViewModel\VandaModaIntimaVM.cs" />
-    <Compile Include="View\Fornecedor\SalvarFornecedor.xaml.cs">
-      <DependentUpon>SalvarFornecedor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Fornecedor\PesquisarFornecedor.xaml.cs">
-      <DependentUpon>PesquisarFornecedor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Interfaces\IWindowClosing.cs" />
-    <Compile Include="View\Loja\AjudaLoja.xaml.cs">
-      <DependentUpon>AjudaLoja.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Loja\SalvarLoja.xaml.cs">
-      <DependentUpon>SalvarLoja.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Loja\PesquisarLoja.xaml.cs">
-      <DependentUpon>PesquisarLoja.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Marca\CadastrarMarca.xaml.cs">
-      <DependentUpon>CadastrarMarca.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Marca\PesquisarMarca.xaml.cs">
-      <DependentUpon>PesquisarMarca.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\OperadoraCartao\CadastrarOperadoraCartao.xaml.cs">
-      <DependentUpon>CadastrarOperadoraCartao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PontoEletronico\PesquisarPontoEletronico.xaml.cs">
-      <DependentUpon>PesquisarPontoEletronico.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PontoEletronico\RegistrarPonto.xaml.cs">
-      <DependentUpon>RegistrarPonto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\AjudaProduto.xaml.cs">
-      <DependentUpon>AjudaProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\SalvarProduto.xaml.cs">
-      <DependentUpon>SalvarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\PesquisarProduto.xaml.cs">
-      <DependentUpon>PesquisarProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\Relatorios\RelatorioProduto.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RelatorioProduto.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\Produto\TelaRelatorioProduto.xaml.cs">
-      <DependentUpon>TelaRelatorioProduto.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Produto\VisualizarMargensDeLucro.xaml.cs">
-      <DependentUpon>VisualizarMargensDeLucro.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RecebimentoCartao\CadastrarRecebimentoCartao.xaml.cs">
-      <DependentUpon>CadastrarRecebimentoCartao.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RecebimentoCartao\MaisDetalhes.xaml.cs">
-      <DependentUpon>MaisDetalhes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RecebimentoCartao\PesquisarRecebimento.xaml.cs">
-      <DependentUpon>PesquisarRecebimento.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Representante\PesquisarRepresentante.xaml.cs">
-      <DependentUpon>PesquisarRepresentante.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Representante\SalvarRepresentante.xaml.cs">
-      <DependentUpon>SalvarRepresentante.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SQL\ExportarSQL.xaml.cs">
-      <DependentUpon>ExportarSQL.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaDeLoginSimples.xaml.cs">
-      <DependentUpon>TelaDeLoginSimples.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TelaPesquisaTemplate.cs" />
-    <Compile Include="View\TipoContagem\CadastrarTipoContagem.xaml.cs">
-      <DependentUpon>CadastrarTipoContagem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TipoGrade\CadastrarTipoGrade.xaml.cs">
-      <DependentUpon>CadastrarTipoGrade.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\VandaModaIntima.xaml.cs">
-      <DependentUpon>VandaModaIntima.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoriaProdutoGrade.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioRelacaoMercadoriaProdutoGrade.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioRelacaoMercadoria.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioRelacaoMercadoria.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoriaProdutoGrade.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioEntradaMercadoriaProdutoGrade.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\RelatorioEntradaMercadoria.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioEntradaMercadoria.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Ferias\Relatorios\ComunicacaoFerias.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>ComunicacaoFerias.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioBonus.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioFolhaPagamento.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioHoraExtraFaltas.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioParcela.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Produto\Relatorios\RelatorioProduto.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>RelatorioProduto.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="Config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
+    <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <None Update="ACBrLib\x64\ACBrPosPrinter64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Update="ACBrLib\x86\ACBrPosPrinter32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1302,100 +109,97 @@
     <Resource Include="Resources\Fonts\Astral Sisters.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Bold.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Regular.ttf" />
-    <None Include="Resources\tabelas_inss.json">
+    <None Update="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ViewModel\DataSets\BonusDataSet.xsc">
+    <None Update="ViewModel\DataSets\BonusDataSet.xsc">
       <DependentUpon>BonusDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\BonusDataSet.xsd">
+    <None Update="ViewModel\DataSets\BonusDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>BonusDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\BonusDataSet.xss">
+    <None Update="ViewModel\DataSets\BonusDataSet.xss">
       <DependentUpon>BonusDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xsc">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaDataSet.xsc">
       <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xsd">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EntradaMercadoriaDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaDataSet.xss">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaDataSet.xss">
       <DependentUpon>EntradaMercadoriaDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsc">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsc">
       <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsd">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EntradaMercadoriaProdutoGradeDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xss">
+    <None Update="ViewModel\DataSets\EntradaMercadoriaProdutoGradeDataSet.xss">
       <DependentUpon>EntradaMercadoriaProdutoGradeDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\FeriasDataSet.xsc">
+    <None Update="ViewModel\DataSets\FeriasDataSet.xsc">
       <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\FeriasDataSet.xsd">
+    <None Update="ViewModel\DataSets\FeriasDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FeriasDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\FeriasDataSet.xss">
+    <None Update="ViewModel\DataSets\FeriasDataSet.xss">
       <DependentUpon>FeriasDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xsc">
+    <None Update="ViewModel\DataSets\FolhaPagamentoDataSet.xsc">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xsd">
+    <None Update="ViewModel\DataSets\FolhaPagamentoDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>FolhaPagamentoDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\FolhaPagamentoDataSet.xss">
+    <None Update="ViewModel\DataSets\FolhaPagamentoDataSet.xss">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\HoraExtraFaltasDataSet.xsc">
+    <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xsc">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\HoraExtraFaltasDataSet.xsd">
+    <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>HoraExtraFaltasDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\HoraExtraFaltasDataSet.xss">
+    <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xss">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\ParcelaDataSet.xsc">
+    <None Update="ViewModel\DataSets\ParcelaDataSet.xsc">
       <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\ParcelaDataSet.xsd">
+    <None Update="ViewModel\DataSets\ParcelaDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ParcelaDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\ParcelaDataSet.xss">
+    <None Update="ViewModel\DataSets\ParcelaDataSet.xss">
       <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\ProdutoDataSet.xsc">
+    <None Update="ViewModel\DataSets\ProdutoDataSet.xsc">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ViewModel\DataSets\ProdutoDataSet.xsd">
+    <None Update="ViewModel\DataSets\ProdutoDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ProdutoDataSet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewModel\DataSets\ProdutoDataSet.xss">
+    <None Update="ViewModel\DataSets\ProdutoDataSet.xss">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Produto.png" />
@@ -1452,6 +256,24 @@
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
@@ -1648,22 +470,268 @@
     <EmbeddedResource Include="Mapas\IntervaloPonto.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ACBrLib\x64\ACBrPosPrinter64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ACBrLib\x86\ACBrPosPrinter32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\icone_pix.png" />
+    <EmbeddedResource Include="Mapas\Pix\Calendario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Cobranca.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Devolucao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Horario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Loc.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pagador.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pix.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\QRCode.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Valor.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Import\Dinamico\ST\ACBrLib.PosPrinter.csproj">
-      <Project>{FBC3019F-D96B-461C-92EE-17A50D6ECD04}</Project>
-      <Name>ACBrLib.PosPrinter</Name>
-    </ProjectReference>
-    <ProjectReference Include="Shared\ACBrLib.Core\ACBrLib.Core.csproj">
-      <Project>{94B07428-D996-4BE8-BA7C-E8EF24190682}</Project>
-      <Name>ACBrLib.Core</Name>
-    </ProjectReference>
+    <ProjectReference Include="Import\Dinamico\ST\ACBrLib.PosPrinter.csproj" />
+    <ProjectReference Include="Shared\ACBrLib.Core\ACBrLib.Core.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle">
+      <Version>1.8.9</Version>
+    </PackageReference>
+    <PackageReference Include="FluentNHibernate">
+      <Version>3.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Gerencianet.NETCore.SDK" Version="3.0.0" />
+    <PackageReference Include="K4os.Compression.LZ4.Streams">
+      <Version>1.2.16</Version>
+    </PackageReference>
+    <PackageReference Include="K4os.Hash.xxHash">
+      <Version>1.0.7</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.15</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.ReportViewer.Common" Version="10.0.40219.1" />
+    <PackageReference Include="Microsoft.ReportViewer.WinForms" Version="10.0.40219.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="MySql.Data" Version="8.0.30" />
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NHibernate">
+      <Version>5.3.12</Version>
+    </PackageReference>
+    <PackageReference Include="NHibernate.Caches.CoreMemoryCache" Version="5.7.0" />
+    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Memory">
+      <Version>4.5.5</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Algorithms">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Import\Dinamico\MT\ACBrPosPrinter.cs" />
+    <Compile Remove="Import\Dinamico\MT\ACBrPosPrinter.Delegates.cs" />
+    <Compile Remove="Import\Dinamico\Shared\PosPrinterConfig.cs" />
+    <Compile Remove="Import\Dinamico\ST\ACBrPosPrinter.cs" />
+    <Compile Remove="Import\Dinamico\ST\ACBrPosPrinter.Delegates.cs" />
+    <Compile Remove="Import\Dinamico\ST\obj\Debug\net461\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" />
+    <Compile Remove="Import\Dinamico\ST\obj\Debug\net461\ACBrLib.PosPrinter.AssemblyInfo.cs" />
+    <Compile Remove="Import\Dinamico\ST\obj\Debug\netstandard2.0\.NETStandard,Version=v2.0.AssemblyAttributes.cs" />
+    <Compile Remove="Import\Dinamico\ST\obj\Debug\netstandard2.0\ACBrLib.PosPrinter.AssemblyInfo.cs" />
+    <Compile Remove="Import\Estatico\ACBrPosPrinter.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ACBrLibHandle.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ACBrLibHandle.Loader.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ACBrSessao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\BAL\ACBrBALModelo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrBoletoFiltro.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrBolLayOut.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrLayoutRemessa.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrPessoa.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrResponEmissao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrTipoCarteira.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrTipoCobranca.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\ACBrTipoDocumento.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\AmbienteWebservice.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\BoletoTpSaida.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\CaracTitulo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\IdentDistribuicao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Boleto\OperacaoBoleto.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CEP\WebService.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CodResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ACBrLibConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ACBrLibConfigBase.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ACBrLibDFeConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\CasasDecimaisConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\DeviceConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\DFeConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\DownloadConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\EmailConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\EmissorConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ExpandeLogoMarcaConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\FontConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterBarrasConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterGavetaConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterLogoConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterMPaginaConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PosPrinterQRCodeConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\PrincipalConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ProxyConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\ReportConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\SistemaConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Config\SoftwareHouseConfig.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CTe\ModeloCTe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CTe\TipoDACTE.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CTe\TipoPathCTe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\CTe\VersaoCTe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\AutXML.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\CSOSNIcms.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\CSTCofins.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\CSTIcms.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\CSTPIS.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\DadosAdicionais.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\DFeUF.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\EventoBase.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\FonteNome.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\IndBoolDFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\IndicadorIE.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\IndIncentivo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\InfoCertificado.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\InfRespTec.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\OrigemMercadoria.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\PosCanhoto.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\ProcessoEmissao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\CancelamentoRespostaBase.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\ConsultaCadastroItemResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\ConsultaCadastroResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\DFeRespostaBase.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\DistribuicaoDFeItemResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\DistribuicaoDFeResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\DistSchema.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\EnvioResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\EnvioRetornoResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\EventoItemBase.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\EventoResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\InfEventoResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\ProcEveResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\ResDFeResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\ResEveResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\RetornoItemResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\RetornoResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\SituacaoDFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\Respostas\StatusServicoResposta.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\SSLCryptLib.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\SSLHttpLib.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\SSLType.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\SSLXmlSignLib.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\TamanhoPapel.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\TimezoneMode.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\TipoAmbiente.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\DFe\TipoEmissao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQBackFeed.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQBarraExibeCodigo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQDPI.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQModelo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQOrientacao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQOrigem.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQPageCode.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\ETQUnidade.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\ETQ\TipoCodBarra.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Extensions\AttributeExtensions.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Extensions\EnumExtensions.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Extensions\StreamExtensions.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\GNRe\VersaoGNRe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\IBGE\IgnorarCaixaEAcentos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\ACBrIniFile.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\ACBrIniSection.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\EnumValueAttribute.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\IniIgnoreAttribute.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\IniKeyAttribute.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\IniUtil.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Ini\IniValueWrapper.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Mail\MailAttachmentDisposition.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Mail\MessPriority.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Mail\MimeChar.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\MDFe\TipoDAMDFE.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\MDFe\TipoPathMDFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\MDFe\VersaoMDFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\CRT.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\DescricaoPagamentos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\DetArmamentos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\DetCombustiveis.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\DetMedicamentos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\DetVeiculos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\ExibeCampoDePagamento.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\ExibeInfoAdicProduto.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\ImprimeTributos.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\ImprimeValor.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\ModeloNFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\PosCanhotoLayout.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TagNT2018005.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TipoDANFE.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TipoNFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TipoPathNFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TipoRelatorioBobina.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TipoRelatorioEvento.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\TributosPercentual.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\VersaoNFe.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NFe\VersaoQrCode.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\NivelLog.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\obj\Debug\net461\.NETFramework,Version=v4.6.1.AssemblyAttributes.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\obj\Debug\net461\ACBrLib.Core.AssemblyInfo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\obj\Debug\netstandard2.0\.NETStandard,Version=v2.0.AssemblyAttributes.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\obj\Debug\netstandard2.0\ACBrLib.Core.AssemblyInfo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\PosPrinter\ACBrPosPrinterModelo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\PosPrinter\ACBrPosTipoStatus.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\PosPrinter\PosPaginaCodigo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\AutoSimNao.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\indRatISSQN.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\RegTrib.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\RegTribISSQN.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\SATExtratoFiltro.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\SATModelo.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\SegSemFio.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\TipoExtrato.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\TipoInterface.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Sat\TipoLan.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Serial\SerialBaud.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Serial\SerialDataBits.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Serial\SerialHandShake.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Serial\SerialParity.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\Serial\SerialStopBytes.cs" />
+    <Compile Remove="Shared\ACBrLib.Core\TipoResposta.cs" />
+    <Compile Remove="Shared\FrmWait.cs" />
+    <Compile Remove="Shared\FrmWait.Designer.cs" />
+    <Compile Remove="Shared\Helpers.cs" />
+    <Compile Remove="Shared\InputBox.cs" />
+    <Compile Remove="Shared\ISplash.cs" />
+    <Compile Remove="Shared\ItemData.cs" />
+    <Compile Remove="Shared\SplashInfo.cs" />
+    <Compile Remove="Shared\SplashScreenManager.cs" />
+    <Compile Remove="Shared\UIExtensions.cs" />
+    <Compile Remove="Shared\User32.cs" />
+    <EmbeddedResource Remove="Shared\FrmWait.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
+    <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
+    <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

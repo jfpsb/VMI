@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Threading;
+using Range = Microsoft.Office.Interop.Excel.Range;
 
 namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {

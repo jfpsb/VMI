@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using VandaModaIntimaWpf.Model.DAO;
+using Range = Microsoft.Office.Interop.Excel.Range;
 
 namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
 {
