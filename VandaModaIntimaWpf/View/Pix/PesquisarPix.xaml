@@ -14,80 +14,88 @@
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarPixVM />
     </View:APesquisarView.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Content="Dia:" />
-        <DatePicker SelectedDate="{Binding DataEscolhida}"
-                    Grid.Column="1" />
-        <Label Grid.Row="1"
-               Content="Loja:" />
-        <ComboBox Grid.Column="1"
-                  Grid.Row="1"
-                  ItemsSource="{Binding Lojas}"
-                  SelectedItem="{Binding Loja}"
-                  DisplayMemberPath="Nome" />
-        <DataGrid Grid.Row="2"
-                  Grid.ColumnSpan="2"
-                  IsReadOnly="True"
-                  ItemsSource="{Binding ListaPix}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Horário de Pag."
-                                    Binding="{Binding HorarioLocalTime, StringFormat=dd/MM/yyyy HH:mm:ss}" />
-                <DataGridTextColumn Header="Loja"
-                                    Binding="{Binding Loja.Nome}" />
-                <DataGridTextColumn Header="EndToEndID"
-                                    Binding="{Binding EndToEndId}"
-                                    Width="*" />
-                <DataGridTextColumn Header="Cobrança"
-                                    Binding="{Binding Txid}"
-                                    Width="*" />
-                <DataGridTextColumn Header="Chave"
-                                    Binding="{Binding Chave}" />
-                <DataGridTextColumn Header="Valor"
-                                    Binding="{Binding Valor, StringFormat=C, ConverterCulture=pt-BR}" />
-            </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Mais detalhes" />
-                    <Separator />
-                    <MenuItem Header="Realizar devolução" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
-        </DataGrid>
-        <Label Grid.Row="3"
-               Grid.Column="1"
-               HorizontalAlignment="Right"
-               FontSize="20"
-               FontWeight="Bold"
-               Content="{Binding TotalPorQRCode}"
-               ContentStringFormat="Total de Pix por QR Code: {0:C}"
-               Language="pt-BR" />
-        <Label Grid.Row="4"
-               Grid.Column="1"
-               HorizontalAlignment="Right"
-               FontSize="20"
-               FontWeight="Bold"
-               Content="{Binding TotalPorChave}"
-               ContentStringFormat="Total de Pix por chave: {0:C}"
-               Language="pt-BR" />
-        <Label Grid.Row="5"
-               Grid.Column="1"
-               HorizontalAlignment="Right"
-               FontSize="20"
-               FontWeight="Bold"
-               Content="{Binding TotalGeral}"
-               ContentStringFormat="Total Geral: {0:C}"
-               Language="pt-BR" />
-    </Grid>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Opções">
+                <MenuItem Header="Configurar Credenciais Pix"
+                          Command="{Binding ConfigurarCredenciaisComando}" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Dia:" />
+            <DatePicker SelectedDate="{Binding DataEscolhida}"
+                        Grid.Column="1" />
+            <Label Grid.Row="1"
+                   Content="Loja:" />
+            <ComboBox Grid.Column="1"
+                      Grid.Row="1"
+                      ItemsSource="{Binding Lojas}"
+                      SelectedItem="{Binding Loja}"
+                      DisplayMemberPath="Nome" />
+            <DataGrid Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding ListaPix}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Horário de Pag."
+                                        Binding="{Binding HorarioLocalTime, StringFormat=dd/MM/yyyy HH:mm:ss}" />
+                    <DataGridTextColumn Header="Loja"
+                                        Binding="{Binding Loja.Nome}" />
+                    <DataGridTextColumn Header="EndToEndID"
+                                        Binding="{Binding EndToEndId}"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Cobrança"
+                                        Binding="{Binding Txid}"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Chave"
+                                        Binding="{Binding Chave}" />
+                    <DataGridTextColumn Header="Valor"
+                                        Binding="{Binding Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Mais detalhes" />
+                        <Separator />
+                        <MenuItem Header="Realizar devolução" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+            <Label Grid.Row="3"
+                   Grid.Column="1"
+                   HorizontalAlignment="Right"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Content="{Binding TotalPorQRCode}"
+                   ContentStringFormat="Total de Pix por QR Code: {0:C}"
+                   Language="pt-BR" />
+            <Label Grid.Row="4"
+                   Grid.Column="1"
+                   HorizontalAlignment="Right"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Content="{Binding TotalPorChave}"
+                   ContentStringFormat="Total de Pix por chave: {0:C}"
+                   Language="pt-BR" />
+            <Label Grid.Row="5"
+                   Grid.Column="1"
+                   HorizontalAlignment="Right"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Content="{Binding TotalGeral}"
+                   ContentStringFormat="Total Geral: {0:C}"
+                   Language="pt-BR" />
+        </Grid>
+    </DockPanel>
 </View:APesquisarView>

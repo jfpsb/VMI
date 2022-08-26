@@ -100,8 +100,8 @@
     <None Update="ACBrLib\x86\ACBrPosPrinter32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Update="Config Skeleton.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Resource Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

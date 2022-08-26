@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Model.DAO.Pix;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
@@ -17,13 +18,14 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         private DAOLoja daoLoja;
         private double _totalPorQRCode;
         private double _totalPorChave;
+        public ICommand ConfigurarCredenciaisComando { get; set; }
         public PesquisarPixVM()
         {
             daoEntidade = new DAOPix(_session);
             daoLoja = new DAOLoja(_session);
             pesquisarViewModelStrategy = new PesquisarPixVMStrategy();
 
-            DataEscolhida = DateTime.Now.AddDays(-2);
+            DataEscolhida = DateTime.Now;
 
             var task = GetLojas();
             task.Wait();
@@ -31,6 +33,13 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             PropertyChanged += PesquisarPixVM_PropertyChanged;
 
             OnPropertyChanged("TermoPesquisa");
+
+            ConfigurarCredenciaisComando = new RelayCommand(ConfigurarCredenciais);
+        }
+
+        private void ConfigurarCredenciais(object obj)
+        {
+            _windowService.ShowDialog(new ConfiguraCredenciaisPixVM(_session), null);
         }
 
         private void PesquisarPixVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
