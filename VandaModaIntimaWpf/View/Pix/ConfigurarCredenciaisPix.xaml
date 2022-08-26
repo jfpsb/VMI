@@ -38,6 +38,14 @@
                   FontWeight="Bold"
                   Margin="5">
             <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Loja:"
+                           FontWeight="Normal" />
+                    <ComboBox FontWeight="Normal"
+                              ItemsSource="{Binding Matrizes}"
+                              SelectedItem="{Binding Matriz}"
+                              DisplayMemberPath="Nome" />
+                </StackPanel>
                 <TextBlock FontWeight="Normal"
                            FontSize="14"
                            TextWrapping="Wrap"

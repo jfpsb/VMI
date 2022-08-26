@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                     };
 
                     string credentials_json = JsonConvert.SerializeObject(credentials_encrypted, Formatting.Indented);
-                    Config.SetCredenciaisEncriptadas(_lojaAplicacao.Cnpj, credentials_json);
+                    Config.SetCredenciaisEncriptadas(Matriz.Cnpj, credentials_json);
                 }
 
                 messageBox.Show("Credenciais Salvas Com Sucesso!");

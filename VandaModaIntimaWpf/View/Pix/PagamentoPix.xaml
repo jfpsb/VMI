@@ -96,8 +96,7 @@
                         Padding="10"
                         Margin="10"
                         FontWeight="Bold"
-                        FontSize="22"
-                        Command="{Binding ConsultarRecebimentoPixComando}">
+                        FontSize="22">
                     <Button.Content>
                         <TextBlock TextAlignment="Center">
                     Consultar
