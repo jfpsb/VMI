@@ -98,12 +98,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
-        public async Task<IList<Model.Funcionario>> ListarPorLojaTrabalho()
+        public async Task<IList<Model.Funcionario>> ListarPorLojaTrabalho(Model.Loja loja)
         {
             try
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.IsNull("Demissao"));
+                criteria.Add(Restrictions.Eq("LojaTrabalho", loja));
                 criteria.AddOrder(Order.Asc("Nome"));
                 return await Listar(criteria);
             }

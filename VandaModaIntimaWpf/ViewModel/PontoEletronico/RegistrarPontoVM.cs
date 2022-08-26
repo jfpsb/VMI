@@ -275,7 +275,8 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         }
         private async Task GetFuncionarios()
         {
-            funcionarios = await daoFuncionario.ListarNaoDemitidos();
+            var loja_trabalho = Config.LojaAplicacao(_session);
+            funcionarios = await daoFuncionario.ListarPorLojaTrabalho(loja_trabalho);
         }
         private void ImprimirComprovanteRegistroPonto(Model.PontoEletronico ponto, TipoPonto tipoPonto)
         {

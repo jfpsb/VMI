@@ -377,8 +377,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
         private async Task GetListaPix()
         {
-            var dt = new DateTime(2022, 8, 5);
-            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(dt, Config.LojaAplicacao(_session)));
+            ListaPix = new ObservableCollection<Model.Pix.Pix>(await daoPix.ListarPixPorDiaLoja(DateTime.Now, Config.LojaAplicacao(_session)));
             TotalPix = ListaPix.Sum(s => s.Valor);
         }
 

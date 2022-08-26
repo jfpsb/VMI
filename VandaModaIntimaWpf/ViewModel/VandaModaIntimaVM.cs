@@ -1,40 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.View;
-using VandaModaIntimaWpf.View.Avisos;
-using VandaModaIntimaWpf.View.CompraDeFornecedor;
-using VandaModaIntimaWpf.View.Contagem;
-using VandaModaIntimaWpf.View.Despesa;
 using VandaModaIntimaWpf.View.EntradaDeMercadoria;
-using VandaModaIntimaWpf.View.FolhaPagamento;
-using VandaModaIntimaWpf.View.FolhaPagamento.CalculoDeBonusMensalPorDia;
-using VandaModaIntimaWpf.View.Fornecedor;
-using VandaModaIntimaWpf.View.Funcionario;
-using VandaModaIntimaWpf.View.Grade;
-using VandaModaIntimaWpf.View.Loja;
-using VandaModaIntimaWpf.View.Marca;
+using VandaModaIntimaWpf.View.Pix;
 using VandaModaIntimaWpf.View.PontoEletronico;
-using VandaModaIntimaWpf.View.Produto;
-using VandaModaIntimaWpf.View.RecebimentoCartao;
-using VandaModaIntimaWpf.View.Representante;
-using VandaModaIntimaWpf.View.TipoGrade;
-using VandaModaIntimaWpf.ViewModel.Avisos;
-using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
-using VandaModaIntimaWpf.ViewModel.Contagem;
-using VandaModaIntimaWpf.ViewModel.Despesa;
 using VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
-using VandaModaIntimaWpf.ViewModel.Fornecedor;
-using VandaModaIntimaWpf.ViewModel.Funcionario;
-using VandaModaIntimaWpf.ViewModel.Grade;
-using VandaModaIntimaWpf.ViewModel.Loja;
-using VandaModaIntimaWpf.ViewModel.Marca;
+using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
@@ -52,7 +26,6 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<TrocarSenhaFuncionario, TrocarSenhaFuncionarioVM>();
 
-            WindowService.RegistrarWindow<PesquisarRepresentante, PesquisarRepresentanteVM>();
 
             WindowService.RegistrarWindow<ConsolidarPontosEletronicos, ConsolidarPontosEletronicosVM>();
 
