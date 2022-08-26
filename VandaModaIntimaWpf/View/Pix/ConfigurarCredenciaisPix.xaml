@@ -9,7 +9,7 @@
         Title="Configurar Credenciais Pix"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Height="450"
+        Height="500"
         Width="600"
         Loaded="Window_Loaded">
     <Grid Margin="5"
@@ -38,6 +38,14 @@
                   FontWeight="Bold"
                   Margin="5">
             <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Loja:"
+                           FontWeight="Normal" />
+                    <ComboBox FontWeight="Normal"
+                              ItemsSource="{Binding Matrizes}"
+                              SelectedItem="{Binding Matriz}"
+                              DisplayMemberPath="Nome" />
+                </StackPanel>
                 <TextBlock FontWeight="Normal"
                            FontSize="14"
                            TextWrapping="Wrap"

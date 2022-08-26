@@ -1,0 +1,76 @@
+{
+  "valor_diario_passagem_onibus": 7.8,
+  "valor_diario_vale_alimentacao": 10.0,
+  "credenciais_pix": {
+    "13938943000101": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "13938943000292": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "13938943000373": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "17361873000122": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "17361873000203": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "20970327000101": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    },
+    "20970327000284": {
+      "client_id": "",
+      "client_secret": "",
+      "pix_cert": "",
+      "sandbox": false
+    }
+  },
+  "dados_recebedor": {
+    "13938943": {
+      "fantasia": "VANDA MODA INTIMA",
+      "razaosocial": "JOSE LUCAS SILVA BORGES",
+      "cnpj": "13.938.943/0001-01",
+      "instituicao": "GERENCIANET",
+      "chave": "082c726b-63e7-4e2b-b7b5-3a4f505ca03a"
+    },
+    "17361873": {
+      "fantasia": "VANDA MODA INTIMA",
+      "razaosocial": "JOSE FELIPE SILVA BORGES",
+      "cnpj": "17.361.873/0001-22",
+      "instituicao": "GERENCIANET",
+      "chave": "7cd4f18d-86d4-4bf7-8905-be0e1c46e9da"
+    },
+    "20970327": {
+      "fantasia": "VANDA MODA INTIMA",
+      "razaosocial": "MARIA VANDA SILVA BORGES",
+      "cnpj": "20.970.327/0001-01",
+      "instituicao": "GERENCIANET",
+      "chave": "1e0c889b-1dc1-4325-97a2-f508e99465ac"
+    }
+  },
+  "loja": {
+    "cnpj": "",
+    "nome": "",
+    "chave_estatica": ""
+  }
+}

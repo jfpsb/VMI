@@ -44,8 +44,7 @@ namespace VandaModaIntimaWpf
             {
                 var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
                 JObject json = JObject.Parse(configJson);
-                string credencialId = loja.Cnpj.Substring(0, 8);
-                return json["credenciais_pix"][credencialId];
+                return json["credenciais_pix"][loja.Cnpj];
             }
             catch (Exception ex)
             {
