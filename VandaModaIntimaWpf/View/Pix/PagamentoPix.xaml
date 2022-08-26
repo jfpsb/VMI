@@ -67,6 +67,13 @@
                                     Command="{Binding GerarQRCodeComando}" />
                     </TextBox.InputBindings>
                 </TextBox>
+                <TextBlock FontSize="14"
+                           TextDecorations="Underline"
+                           TextAlignment="Center">
+                    Solicite ao cliente para abrir o app 
+                    <LineBreak />
+                    de seu banco antes de gerar o QR Code
+                </TextBlock>
                 <Button Grid.Row="3"
                         Width="200"
                         Padding="10"
