@@ -40,6 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         public ICommand ImprimirRelatorioComando { get; set; }
         public ICommand ListBoxPixLeftMouseClickComando { get; set; }
         public ICommand ImprimirRelatorioPixComando { get; set; }
+        public ICommand ConsultarRecebimentoPixComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -57,9 +58,16 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             ImprimirRelatorioComando = new RelayCommand(ImprimirRelatorio);
             ListBoxPixLeftMouseClickComando = new RelayCommand(ListBoxPixLeftMouseClick);
             ImprimirRelatorioPixComando = new RelayCommand(ImprimirRelatorio);
+            ConsultarRecebimentoPixComando = new RelayCommand(ConsultarRecebimentoPix);
 
             _posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(_posPrinter);
+        }
+
+        private async void ConsultarRecebimentoPix(object obj)
+        {
+            AtualizarListaPixPelaGN();
+            await GetListaPix();
         }
 
         private async void ImprimirRelatorio(object obj)
@@ -124,7 +132,6 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 messageBoxService.Show("Erro ao imprimir relatório Pix. Cheque se a impressora está conectada corretamente e que está ligada.\n\n" + ex.Message, "Impressão De QR Code Pix", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
-
         /// <summary>
         /// Consulta A API da GerenciaNet para retornar os Pix do dia atual
         /// </summary>
@@ -188,7 +195,6 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 messageBoxService.Show($"Erro ao listar pix da instituição GerenciaNet. Cheque se está conectado a internet.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", "Erro ao Consultar Pix", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         /// <summary>
         /// Consulta A API da GerenciaNet para retornar as cobranças do dia atual com seus respectivos status
         /// </summary>
