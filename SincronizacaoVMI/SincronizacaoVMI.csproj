@@ -32,6 +32,7 @@
     <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <None Remove="Mapas\HoraExtra.hbm.xml" />
     <None Remove="Mapas\InscricaoImobiliaria.hbm.xml" />
+    <None Remove="Mapas\IntervaloPonto.hbm.xml" />
     <None Remove="Mapas\LastSync.hbm.xml" />
     <None Remove="Mapas\Loja.hbm.xml" />
     <None Remove="Mapas\Marca.hbm.xml" />
@@ -48,6 +49,7 @@
     <None Remove="Mapas\Pix\Pix.hbm.xml" />
     <None Remove="Mapas\Pix\QRCode.hbm.xml" />
     <None Remove="Mapas\Pix\Valor.hbm.xml" />
+    <None Remove="Mapas\PontoEletronico.hbm.xml" />
     <None Remove="Mapas\Produto.hbm.xml" />
     <None Remove="Mapas\ProdutoGrade.hbm.xml" />
     <None Remove="Mapas\RecebimentoCartao.hbm.xml" />
@@ -106,6 +108,7 @@
     <EmbeddedResource Include="Mapas\Grade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HoraExtra.hbm.xml" />
+    <EmbeddedResource Include="Mapas\IntervaloPonto.hbm.xml" />
     <EmbeddedResource Include="Mapas\LastSync.hbm.xml" />
     <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
     <EmbeddedResource Include="Mapas\Marca.hbm.xml" />
@@ -124,6 +127,7 @@
     <EmbeddedResource Include="Mapas\Pix\Pix.hbm.xml" />
     <EmbeddedResource Include="Mapas\Pix\QRCode.hbm.xml" />
     <EmbeddedResource Include="Mapas\Pix\Valor.hbm.xml" />
+    <EmbeddedResource Include="Mapas\PontoEletronico.hbm.xml" />
     <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
     <EmbeddedResource Include="Mapas\ProdutoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />

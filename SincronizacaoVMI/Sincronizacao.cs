@@ -173,6 +173,8 @@ namespace SincronizacaoVMI
                     _threadsByType.Add(typeof(Pix).FullName, new Thread((instancia) => { ElapsedGenerico<Pix>(); }));
                     _threadsByType.Add(typeof(QRCode).FullName, new Thread((instancia) => { ElapsedGenerico<QRCode>(); }));
                     _threadsByType.Add(typeof(Valor).FullName, new Thread((instancia) => { ElapsedGenerico<Valor>(); }));
+                    _threadsByType.Add(typeof(PontoEletronico).FullName, new Thread((instancia) => { ElapsedGenerico<PontoEletronico>(); }));
+                    _threadsByType.Add(typeof(IntervaloPonto).FullName, new Thread((instancia) => { ElapsedGenerico<IntervaloPonto>(); }));
 
                     foreach (var t in _threadsByType)
                     {

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="PontoEletronico" table="ponto_eletronico">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" />
+		<property name="Dia" type="Date" />
+		<property name="Entrada" type="Time" />
+		<property name="Saida" type="Time"/>
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

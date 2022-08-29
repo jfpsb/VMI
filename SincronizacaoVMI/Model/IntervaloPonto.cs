@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VandaModaIntimaWpf.Model
+namespace SincronizacaoVMI.Model
 {
     public class IntervaloPonto : AModel, IModel
     {
@@ -8,8 +8,6 @@ namespace VandaModaIntimaWpf.Model
         private PontoEletronico _pontoEletronico;
         private DateTime _inicio;
         private DateTime? _fim;
-
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
 
         public virtual int Id
         {
@@ -66,11 +64,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetIdentifier()
         {
             return Id;
-        }
-
-        public virtual void InicializaLazyLoad()
-        {
-            throw new NotImplementedException();
         }
     }
 }
