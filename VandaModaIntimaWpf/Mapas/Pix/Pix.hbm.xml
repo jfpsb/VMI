@@ -19,7 +19,7 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Devolucoes" table="devolucao" inverse="true" cascade="all-delete-orphan" lazy="false">
+		<bag name="Devolucoes" table="devolucao" inverse="true" cascade="save-update" lazy="false">
 			<key column="pix" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Pix.Devolucao"/>
 		</bag>
