@@ -23,7 +23,139 @@
             </MenuItem>
         </Menu>
         <ScrollViewer>
-            <WrapPanel HorizontalAlignment="Left">
+            <WrapPanel HorizontalAlignment="Center">
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnProduto_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Produto.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource produto_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnFornecedor_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Fornecedor.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource fornecedor_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnCompraDeFornecedor_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Compras_De_Fornecedor.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource compra_de_fornecedor_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnMarca_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Marca.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource marca_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnLoja_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Loja_Icon.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource loja_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnFuncionario_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Funcionario.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource funcionario_header}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnRecebimentoCartao_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Credit_Card.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource recebimento_de_cartao}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnContagem_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Contagem.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource contagem}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnDespesa_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Despesas.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource despesas}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnFolhaPagamento_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/FolhaPagamento.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="{DynamicResource folha_pagamento}" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnEntradaDeMercadoria_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/EntradaDeMercadoria.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Entrada De Mercadoria" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource BotoesTelaInicial}"
+                        Click="BtnFerias_Click">
+                    <Button.Content>
+                        <StackPanel>
+                            <Image Source="/Resources/Ferias_Icon.png"
+                                   Height="300"
+                                   Width="300" />
+                            <Label Content="Visualizar Férias" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
                 <Button Style="{StaticResource BotoesTelaInicial}"
                         Click="BtnPontoEletronico_Click">
                     <Button.Content>
