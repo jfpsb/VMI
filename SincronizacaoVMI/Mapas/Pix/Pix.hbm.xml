@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model.Pix">
+
+	<class name="Pix" table="pix">
+		<id name="Id" column="id" type="Int32">
+			<generator class="increment" />
+		</id>
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" cascade="save-update" lazy="false" not-null="true"/>
+		<many-to-one name="Pagador" class="SincronizacaoVMI.Model.Pix.Pagador" cascade="save-update" lazy="false" />
+		<many-to-one name="Cobranca" class="SincronizacaoVMI.Model.Pix.Cobranca" cascade="save-update" lazy="false" />
+		<property name="Uuid"/>
+		<property name="EndToEndId" />
+		<property name="Txid" />
+		<property name="Valor" />
+		<property name="Horario" />
+		<property name="Chave" />
+		<property name="InfoPagador" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>
