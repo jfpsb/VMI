@@ -8,7 +8,7 @@
 			<generator class="native" />
 		</id>
 		<property name="Uuid" />
-		<many-to-one name="PontoEletronico" class="SincronizacaoVMI.Model.PontoEletronico" column="ponto_eletronico" />
+		<many-to-one name="PontoEletronico" class="SincronizacaoVMI.Model.PontoEletronico" column="ponto_eletronico" not-null="true" />
 		<property name="Inicio" type="Time" />
 		<property name="Fim" type="Time" />
 		<property name="CriadoEm" />

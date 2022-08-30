@@ -14,6 +14,7 @@ namespace SincronizacaoVMI.Model
         private int _anoReferencia;
         private bool _bonusMensal;
         private bool _bonusCancelado;
+        private bool _pagoEmFolha = true;
 
         public virtual int Id
         {
@@ -111,6 +112,19 @@ namespace SincronizacaoVMI.Model
             {
                 _lojaTrabalho = value;
                 OnPropertyChanged("LojaTrabalho");
+            }
+        }
+        public virtual bool PagoEmFolha
+        {
+            get
+            {
+                return _pagoEmFolha;
+            }
+
+            set
+            {
+                _pagoEmFolha = value;
+                OnPropertyChanged("PagoEmFolha");
             }
         }
         public virtual object GetIdentifier()
