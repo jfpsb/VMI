@@ -331,6 +331,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirVisualizarHoraExtraFaltas(object obj)
         {
+            _messageBoxService.Show("CERTIFIQUE-SE DE FECHAR AS FOLHAS DE PAGAMENTO ANTES DE EXPORTAR O RELATÓRIO DE HORAS EXTRAS/FALTAS/COMISSÕES PARA O CONTADOR." +
+                "\n\nEXPORTAR ESTE RELATÓRIO SEM FECHAR AS FOLHAS PREVIAMENTE IRÁ GERAR RELATÓRIO INCORRETO, COM INFORMAÇÕES FALTANDO.", "Horas Extras/Faltas/Comissões", MessageBoxButton.OK, MessageBoxImage.Warning);
             _windowService.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida), null);
         }
 
@@ -519,7 +521,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                                 Valor = bonusMensal.Valor,
                                 MesReferencia = folha.Mes,
                                 AnoReferencia = folha.Ano,
-                                BonusMensal = true
+                                BonusMensal = true,
+                                PagoEmFolha = bonusMensal.PagoEmFolha
                             };
 
                             folha.Bonus.Add(bonus);
@@ -534,7 +537,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"META MÊS {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))} - BASE DE CÁLCULO {folha.BaseDeCalculoMeta.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"COMISSÃO DE VENDA - {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano

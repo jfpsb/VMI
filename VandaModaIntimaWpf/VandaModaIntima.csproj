@@ -51,6 +51,11 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ViewModel\DataSets\BonusDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\EntradaMercadoriaDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -80,6 +85,11 @@
     <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\ProdutoDataSet.cs">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </Compile>
@@ -90,6 +100,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
@@ -727,6 +738,7 @@
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />

@@ -16,6 +16,7 @@ namespace VandaModaIntimaWpf.Model
         private int _anoReferencia;
         private bool _bonusMensal;
         private bool _bonusCancelado;
+        private bool _pagoEmFolha = true;
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => string.Format("R$ {0}", Valor);
@@ -129,6 +130,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _lojaTrabalho = value;
                 OnPropertyChanged("LojaTrabalho");
+            }
+        }
+
+        public virtual bool PagoEmFolha
+        {
+            get
+            {
+                return _pagoEmFolha;
+            }
+
+            set
+            {
+                _pagoEmFolha = value;
+                OnPropertyChanged("PagoEmFolha");
             }
         }
 

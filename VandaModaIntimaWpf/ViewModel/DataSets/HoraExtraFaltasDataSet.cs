@@ -4,5 +4,8 @@
 
     partial class HoraExtraFaltasDataSet
     {
+        partial class HoraExtraDataTable
+        {
+        }
     }
 }

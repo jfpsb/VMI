@@ -53,6 +53,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             var parcelasNaoPagas = GetRestanteAdiantamento(_folha.Funcionario, _folha);
 
             var fprow = folhaPagamentoDataSet.FolhaPagamento.NewFolhaPagamentoRow();
+            fprow.cpf_funcionario = _folha.Funcionario.Cpf;
             fprow.mes = _folha.Mes.ToString();
             fprow.ano = _folha.Ano.ToString();
             fprow.mesreferencia = _folha.MesReferencia;
