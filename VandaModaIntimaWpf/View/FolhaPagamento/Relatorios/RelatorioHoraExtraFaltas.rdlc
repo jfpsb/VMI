@@ -505,7 +505,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>2.825mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -586,14 +586,11 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <RepeatColumnHeaders>true</RepeatColumnHeaders>
-            <RepeatRowHeaders>true</RepeatRowHeaders>
-            <FixedColumnHeaders>true</FixedColumnHeaders>
-            <FixedRowHeaders>true</FixedRowHeaders>
+            <KeepTogether>true</KeepTogether>
             <DataSetName>DataSetHoraExtraFalta</DataSetName>
             <Top>9.43959mm</Top>
             <Left>0mm</Left>
-            <Height>34.13958mm</Height>
+            <Height>30.96458mm</Height>
             <Width>199mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -603,7 +600,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>43.57917mm</Height>
+        <Height>40.40417mm</Height>
         <Style>
           <Border>
             <Style>None</Style>

@@ -32,10 +32,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Funcionário"
                                     Width="*"
-                                    Binding="{Binding Item1.Nome}" />
+                                    Binding="{Binding Item1.Funcionario.Nome}" />
                 <DataGridTextColumn Header="Loja"
                                     Width="*"
-                                    Binding="{Binding Item1.Loja.Nome}" />
+                                    Binding="{Binding Item1.Funcionario.Loja.Nome}" />
                 <DataGridTextColumn Header="HORA EXTRA C/100%"
                                     Width="Auto"
                                     Binding="{Binding Item2.TotalEmString}" />

@@ -333,7 +333,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             _messageBoxService.Show("CERTIFIQUE-SE DE FECHAR AS FOLHAS DE PAGAMENTO ANTES DE EXPORTAR O RELATÓRIO DE HORAS EXTRAS/FALTAS/COMISSÕES PARA O CONTADOR." +
                 "\n\nEXPORTAR ESTE RELATÓRIO SEM FECHAR AS FOLHAS PREVIAMENTE IRÁ GERAR RELATÓRIO INCORRETO, COM INFORMAÇÕES FALTANDO.", "Horas Extras/Faltas/Comissões", MessageBoxButton.OK, MessageBoxImage.Warning);
-            _windowService.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida), null);
+            _windowService.Show(new VisualizarHoraExtraFaltasVM(FolhaPagamentos, DataEscolhida), null);
         }
 
         private void AbrirImprimirFolha(object obj)

@@ -14,24 +14,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOFaltas daoFaltas;
-        private ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
+        private ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
         private IList<Model.Funcionario> funcionarios;
+        private IList<Model.FolhaPagamento> folhas;
         private DateTime _dataEscolhida;
 
         public ICommand AbrirImprimirHEComando { get; set; }
 
-        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida)
+        public VisualizarHoraExtraFaltasVM(IList<Model.FolhaPagamento> listaFolhas, DateTime dataEscolhida)
         {
             daoEntidade = new DAOHoraExtra(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoFaltas = new DAOFaltas(_session);
-
-            ListaHoraExtra = new ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
-
+            folhas = listaFolhas;
+            ListaHoraExtra = new ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
             GetFuncionarios();
-
             DataEscolhida = dataEscolhida;
-
             AbrirImprimirHEComando = new RelayCommand(AbrirImprimirHE);
         }
 
@@ -53,10 +51,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             ListaHoraExtra.Clear();
 
-            foreach (var f in funcionarios)
+            foreach (var f in folhas)
             {
-                var horasExtras = await daoHoraExtra.ListarPorAnoMesFuncionario(DataEscolhida.Year, DataEscolhida.Month, f);
-                var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(DataEscolhida.Year, DataEscolhida.Month, f);
+                var horasExtras = await daoHoraExtra.ListarPorAnoMesFuncionario(DataEscolhida.Year, DataEscolhida.Month, f.Funcionario);
+                var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(DataEscolhida.Year, DataEscolhida.Month, f.Funcionario);
 
                 if (falta == null)
                     falta = new Model.Faltas();
@@ -70,7 +68,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (heNormal == null)
                     heNormal = new Model.HoraExtra();
 
-                if (he100.EmTimeSpan.TotalSeconds == 0 && heNormal.EmTimeSpan.TotalSeconds == 0 && falta.EmTimeSpan.TotalSeconds == 0)
+                var possuiBonusPagoEmFolha = f.Bonus.Where(w => w.PagoEmFolha).Count() > 0;
+
+                if (he100.EmTimeSpan.TotalSeconds == 0
+                    && heNormal.EmTimeSpan.TotalSeconds == 0
+                    && falta.EmTimeSpan.TotalSeconds == 0
+                    && !possuiBonusPagoEmFolha)
                     continue;
 
                 var tupla = Tuple.Create(f, he100, heNormal, falta, DataEscolhida);
@@ -98,7 +101,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
+        public ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
         {
             get => _listaHoraExtra;
             set
