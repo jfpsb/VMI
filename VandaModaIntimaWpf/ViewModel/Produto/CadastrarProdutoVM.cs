@@ -67,6 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         public ICommand CadastrarMarcaComando { get; set; }
         public ICommand CopiarCodBarraComando { get; set; }
         public ICommand SalvaComposicaoPrecoComando { get; set; }
+        public ICommand RemoverGradeDeListaComando { get; set; }
         public CadastrarProdutoVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
             viewModelStrategy = new CadastrarProdutoVMStrategy();
@@ -92,6 +93,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             CadastrarMarcaComando = new RelayCommand(CadastrarMarca);
             CopiarCodBarraComando = new RelayCommand(CopiarCodBarra);
             SalvaComposicaoPrecoComando = new RelayCommand(SalvaComposicaoPreco);
+            RemoverGradeDeListaComando = new RelayCommand(RemoverGradeDeLista);
 
             PropertyChanged += GetGrades;
             PropertyChanged += FreteAlterado;
@@ -115,6 +117,17 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             ComposicaoPrecos.CollectionChanged += ComposicaoPrecos_CollectionChanged;
 
             CriaComposicaoPreco();
+        }
+
+        private void RemoverGradeDeLista(object obj)
+        {
+            var produto_grade = obj as ProdutoGrade;
+            if (produto_grade != null)
+            {
+                produto_grade.Deletado = true;
+                ProdutoGrades.Remove(produto_grade);
+                Entidade.Grades.Remove(produto_grade);
+            }
         }
 
         private void ChecaProdutoGrades()
