@@ -282,14 +282,15 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-            Entidade = new Model.Despesa();
-            Entidade.TipoDespesa = TiposDespesa[0];
-            Entidade.Fornecedor = Fornecedores[0];
-            Entidade.Loja = Lojas[0];
-            TipoDescricao = "CONTA DE LUZ"; //Primeiro item
-            Entidade.Data = DateTime.Now;
+            Model.Despesa novaEntidade = new Model.Despesa();
+            novaEntidade.TipoDespesa = Entidade.TipoDespesa;
+            novaEntidade.Fornecedor = Entidade.Fornecedor;
+            novaEntidade.Loja = Entidade.Loja;
+            novaEntidade.Data = Entidade.Data;
             if (InserirVencimentoFlag)
-                Entidade.DataVencimento = DateTime.Now;
+                novaEntidade.DataVencimento = Entidade.DataVencimento;
+
+            Entidade = novaEntidade;
         }
 
         public override bool ValidacaoSalvar(object parameter)

@@ -13,10 +13,11 @@ using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.CrystalReports;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
+using Microsoft.Reporting.WinForms;
+using System.IO;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -35,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private double _totalEmPassagem;
         private double _totalEmAlimentacao;
         private double _totalEmMeta;
-        private ICrystalReportsParaPDF<Model.FolhaPagamento> crystalReportsParaPDF;
+        private IConfiguraReportViewer configuraReportViewer;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -70,8 +71,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             pesquisarViewModelStrategy = new PesquisarFolhaMsgVMStrategy();
             excelStrategy = new FolhaPagamentoExcelStrategy();
             FolhaPagamentos = new ObservableCollection<Model.FolhaPagamento>();
-            crystalReportsParaPDF = new CRFolhaPagamentoParaPDF(_session);
             cancellationTokenSource = new CancellationTokenSource();
+            configuraReportViewer = new ConfiguraReportViewerFolha(_session);
 
             GetFuncionarios();
 
@@ -117,7 +118,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     Loja = item.Loja,
                     Valor = item.Soma,
                     DataVencimento = item.Vencimento,
-                    Data = DateTime.Now,
+                    Data = item.Vencimento,
                     Descricao = "SALÁRIOS DE FUNCIONÁRIOS"
                 };
 
@@ -186,12 +187,48 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 var folderBrowserDialog = parameter as IFolderBrowserDialog;
                 string caminhoPasta = folderBrowserDialog.OpenFolderBrowserDialog();
+                IList<Tuple<string, byte[]>> listaBytes = new List<Tuple<string, byte[]>>();
 
                 if (caminhoPasta != null)
                 {
                     CancellationToken token = cancellationTokenSource.Token;
                     VisibilidadeStatusBar = Visibility.Visible;
-                    Task task = crystalReportsParaPDF.Salvar(caminhoPasta, FolhaPagamentos, setValorBarraProgresso, setDescricaoBarraProgresso, setIsIndefinidaBarraProgresso, token);
+
+                    //Se der exceção ao executar no debug, aperte em Continue que flui normalmente
+                    Task task = Task.Run(() =>
+                    {
+                        token.ThrowIfCancellationRequested();
+
+                        setIsIndefinidaBarraProgresso.Report(true);
+                        setDescricaoBarraProgresso.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
+                        double incremento = 100.0 / FolhaPagamentos.Count;
+                        setValorBarraProgresso.Report(-1);
+                        setIsIndefinidaBarraProgresso.Report(false);
+
+                        foreach (var folha in FolhaPagamentos)
+                        {
+                            token.ThrowIfCancellationRequested();
+                            setDescricaoBarraProgresso.Report($"Gerando folha de {folha.Funcionario.Nome}");
+
+                            var reportDataSource = configuraReportViewer.ConfigurarReportDataSource(folha).Result;
+                            var relatorio = new ReportViewer();
+                            configuraReportViewer.Configurar(relatorio, reportDataSource, "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioFolhaPagamento.rdlc");
+                            byte[] Bytes = relatorio.LocalReport.Render("PDF", "");
+                            string caminhoCompleto = Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf");
+                            listaBytes.Add(new Tuple<string, byte[]>(caminhoCompleto, Bytes));
+                            setValorBarraProgresso.Report(incremento);
+                        }
+
+                        foreach (var tupla in listaBytes)
+                        {
+                            using (FileStream stream = new FileStream(tupla.Item1, FileMode.Create))
+                            {
+                                stream.Write(tupla.Item2, 0, tupla.Item2.Length);
+                            }
+                        }
+
+                        setDescricaoBarraProgresso.Report($"Folhas de pagamento foram exportadas em PDF com sucesso em {caminhoPasta}");
+                    }, token);
 
                     try
                     {
@@ -199,24 +236,21 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     }
                     catch (OperationCanceledException)
                     {
-                        _messageBoxService.Show("Exportação para PDF foi cancelada pelo usuário");
+                        _messageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
+                    }
+                    finally
+                    {
                         cancellationTokenSource.Dispose();
                         cancellationTokenSource = new CancellationTokenSource();
                     }
 
-                    await task.ContinueWith(t =>
+                    task.ContinueWith(t =>
                     {
                         VisibilidadeStatusBar = Visibility.Collapsed;
                         if (!task.IsCanceled)
                             _messageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
                     });
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                _messageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
-                cancellationTokenSource.Dispose();
-                cancellationTokenSource = new CancellationTokenSource();
             }
             catch (Exception ex)
             {
@@ -507,7 +541,10 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         foreach (var bonusMensal in bonusMensais)
                         {
                             //Checa se o bônus mensal já existe na lista de bônus de funcionário
-                            var bonusJaInserido = folha.Bonus.Count > 0 && folha.Bonus.Any(a => a.Descricao.Equals(bonusMensal.Descricao));
+                            var descricao = bonusMensal.Descricao;
+                            if (bonusMensal.PagoEmFolha)
+                                descricao += " (PAGO EM FOLHA)";
+                            var bonusJaInserido = folha.Bonus.Count > 0 && folha.Bonus.Any(a => a.Descricao.Equals(descricao));
 
                             if (bonusJaInserido)
                                 continue;
@@ -524,6 +561,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                                 BonusMensal = true,
                                 PagoEmFolha = bonusMensal.PagoEmFolha
                             };
+
+                            if (bonus.PagoEmFolha)
+                                bonus.Descricao += " (PAGO EM FOLHA)";
 
                             folha.Bonus.Add(bonus);
                         }
@@ -543,6 +583,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             AnoReferencia = folha.Ano
                         };
 
+                        if (bonus.PagoEmFolha)
+                            bonus.Descricao += " (PAGO EM FOLHA)";
+
                         folha.Bonus.Add(bonus);
                     }
                 }
@@ -557,7 +600,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
             TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
             //Bonus de meta não são salvos até que a folha seja fechada então uso linq com a coleção atual para conseguir o valor e não do banco de dados
-            TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META")).Sum(s => s.Valor);
+            TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META") || w.Descricao.Contains("COMISSÃO")).Sum(s => s.Valor);
 
             FolhaPagamentos = folhas;
         }
