@@ -9,6 +9,7 @@ namespace SincronizacaoVMI.Model.Pix
     {
         private int _id;
         private string _txid;
+        private Loja _loja;
         private Calendario _calendario;
         private Valor _valor;
         private Loc _loc;
@@ -188,6 +189,20 @@ namespace SincronizacaoVMI.Model.Pix
             {
                 _qrCode = value;
                 OnPropertyChanged("QrCode");
+            }
+        }
+
+        public virtual Loja Loja
+        {
+            get
+            {
+                return _loja;
+            }
+
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
             }
         }
 

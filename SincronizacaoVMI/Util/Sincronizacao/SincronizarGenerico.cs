@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using NHibernate.Type;
 using SincronizacaoVMI.BancoDeDados;
 using SincronizacaoVMI.Model;
+using SincronizacaoVMI.Model.Pix;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
@@ -128,7 +129,13 @@ namespace SincronizacaoVMI.Util
 
                                 eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
                             }
+
+                            if (eASalvar.GetType() == typeof(Pix) && (eASalvar as Pix).Txid != null && (eASalvar as Pix).Cobranca == null)
+                            {
+                                throw new Exception("O PIX possui TXID mas a Cobrança está nula");
+                            }
                         }
+
                         insertsRemotoParaLocal.Add(eASalvar);
                     }
                 }
@@ -299,7 +306,13 @@ namespace SincronizacaoVMI.Util
                                 {
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
+
                                 eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
+                            }
+
+                            if (eASalvar.GetType() == typeof(Pix) && (eASalvar as Pix).Txid != null && (eASalvar as Pix).Cobranca == null)
+                            {
+                                throw new Exception("O PIX possui TXID mas a Cobrança está nula");
                             }
                         }
 

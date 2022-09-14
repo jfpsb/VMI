@@ -7,6 +7,7 @@
 		<id name="Id" column="id" type="Int32">
 			<generator class="native" />
 		</id>
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" cascade="save-update" lazy="false" not-null="true"/>
 		<many-to-one name="Calendario" class="SincronizacaoVMI.Model.Pix.Calendario" cascade="save-update" lazy="false" not-null="true"/>
 		<many-to-one name="Valor" class="SincronizacaoVMI.Model.Pix.Valor" cascade="save-update" lazy="false" not-null="true"/>
 		<many-to-one name="Loc" class="SincronizacaoVMI.Model.Pix.Loc" cascade="save-update" lazy="false" not-null="true"/>
