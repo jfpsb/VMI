@@ -114,6 +114,8 @@
     <None Update="Config Skeleton.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\CheckMark.png" />
+    <Resource Include="Resources\ErrorMark.png" />
     <Resource Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -734,6 +736,8 @@
     <EmbeddedResource Remove="Shared\FrmWait.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\CheckMark.png" />
+    <None Remove="Resources\ErrorMark.png" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />

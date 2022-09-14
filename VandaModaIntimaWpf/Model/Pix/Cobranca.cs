@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.Model.Pix
     {
         private int _id;
         private string _txid;
+        private Loja _loja;
         private Calendario _calendario;
         private Valor _valor;
         private Loc _loc;
@@ -208,6 +209,20 @@ namespace VandaModaIntimaWpf.Model.Pix
         }
 
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
+
+        public virtual Loja Loja
+        {
+            get
+            {
+                return _loja;
+            }
+
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
+            }
+        }
 
         public virtual object GetIdentifier()
         {

@@ -15,6 +15,7 @@ using VandaModaIntimaWpf.View.Pix;
 using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
+using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
@@ -125,6 +126,9 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnPix_Click(object sender, RoutedEventArgs e)
         {
+            //PagamentoPix pagamentoPix = new PagamentoPix();
+            //pagamentoPix.Show();
+
             PesquisarPix pesquisarPix = new PesquisarPix();
             pesquisarPix.Show();
         }

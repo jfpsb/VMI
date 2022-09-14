@@ -40,6 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         public ICommand ImprimirRelatorioComando { get; set; }
         public ICommand ListBoxPixLeftMouseClickComando { get; set; }
         public ICommand ImprimirRelatorioPixComando { get; set; }
+        public ICommand ListarQRCodesComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -57,9 +58,20 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             ImprimirRelatorioComando = new RelayCommand(ImprimirRelatorio);
             ListBoxPixLeftMouseClickComando = new RelayCommand(ListBoxPixLeftMouseClick);
             ImprimirRelatorioPixComando = new RelayCommand(ImprimirRelatorio);
+            ListarQRCodesComando = new RelayCommand(ListarQRCodes);
 
             _posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(_posPrinter);
+        }
+
+        private void ListarQRCodes(object obj)
+        {
+            ListarCobrancasPixVM viewModel = new ListarCobrancasPixVM(_session);
+            windowService.ShowDialog(viewModel, (res, vm) =>
+            {
+                AtualizarCobrancasPelaGN();
+                AtualizarListaPixPelaGN();
+            });
         }
 
         private async void ImprimirRelatorio(object obj)
@@ -152,10 +164,12 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 var response = endpoints.PixListReceived(param);
                 ListaPixs listaPixs = JsonConvert.DeserializeObject<ListaPixs>(response);
                 IList<Model.Pix.Pix> pixAtt = new List<Model.Pix.Pix>();
+                var lojaApp = Config.LojaAplicacao(_session);
 
                 foreach (var pixConsulta in listaPixs.Pixs.Where(w => w.Chave == null || w.Chave.ToLower().Equals((string)dados["chave_estatica"])))
                 {
-                    var pixLocal = await daoPix.ListarPorId(pixConsulta.EndToEndId);
+                    pixConsulta.Loja = lojaApp;
+                    var pixLocal = await daoPix.ListarPorId(pixConsulta.Id);
                     if (pixLocal != null) continue; //Não insere pix que já existem no banco local
                     pixAtt.Add(pixConsulta); //Novo pix para inserir no banco
                 }
@@ -216,10 +230,11 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 var response = endpoints.PixListCharges(param);
                 ListaCobrancas listaCobranca = JsonConvert.DeserializeObject<ListaCobrancas>(response);
                 IList<Cobranca> cobrancasAtt = new List<Cobranca>();
+                var lojaApp = Config.LojaAplicacao(_session);
 
                 foreach (var cobrancaConsulta in listaCobranca.Cobrancas)
                 {
-                    var cobrancaLocal = await daoCobranca.ListarPorId(cobrancaConsulta.Txid);
+                    var cobrancaLocal = await daoCobranca.ListarPorId(cobrancaConsulta.Id);
 
                     //Cobrança já existe no banco local
                     if (cobrancaLocal != null)
@@ -227,7 +242,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                         cobrancaLocal.Pix.Clear();
                         foreach (var p in cobrancaConsulta.Pix)
                         {
-                            var pixLocal = await daoPix.ListarPorId(p.EndToEndId);
+                            var pixLocal = await daoPix.ListarPorId(p.Id);
 
                             if (pixLocal == null)
                             {
@@ -253,9 +268,12 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                     }
                     else
                     {
+                        cobrancaConsulta.Loja = lojaApp;
+
                         foreach (var p in cobrancaConsulta.Pix)
                         {
                             p.Cobranca = cobrancaConsulta;
+                            p.Loja = cobrancaConsulta.Loja;
                         }
 
                         if (cobrancaConsulta.Pix.Count > 0)
@@ -337,6 +355,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
                 var cobrancaPix = endpoints.PixCreateImmediateCharge(null, body);
                 Model.Pix.Cobranca cobranca = JsonConvert.DeserializeObject<Model.Pix.Cobranca>(cobrancaPix);
+                cobranca.Loja = Config.LojaAplicacao(_session);
 
                 try
                 {

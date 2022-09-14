@@ -117,6 +117,14 @@
                    Content="Pix Recebidos:"
                    FontSize="22"
                    FontWeight="Bold" />
+            <Button Grid.Column="1"
+                    Grid.Row="4"
+                    Content="Listar QR Codes"
+                    HorizontalAlignment="Right"
+                    Padding="10"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Command="{Binding ListarQRCodesComando}" />
             <Border Grid.Row="5"
                     Grid.ColumnSpan="2"
                     BorderBrush="Black"
