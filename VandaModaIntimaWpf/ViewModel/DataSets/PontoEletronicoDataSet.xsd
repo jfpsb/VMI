@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PontoEletronicoDataSet" targetNamespace="http://tempuri.org/PontoEletronicoDataSet.xsd" xmlns:mstns="http://tempuri.org/PontoEletronicoDataSet.xsd" xmlns="http://tempuri.org/PontoEletronicoDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PontoEletronicoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="PontoEletronicoDataSet" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="PontoEletronicoDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="pontoeletronico" msprop:Generator_RowClassName="pontoeletronicoRow" msprop:Generator_RowEvHandlerName="pontoeletronicoRowChangeEventHandler" msprop:Generator_RowDeletedName="pontoeletronicoRowDeleted" msprop:Generator_RowDeletingName="pontoeletronicoRowDeleting" msprop:Generator_RowEvArgName="pontoeletronicoRowChangeEvent" msprop:Generator_TablePropName="pontoeletronico" msprop:Generator_RowChangedName="pontoeletronicoRowChanged" msprop:Generator_UserTableName="pontoeletronico" msprop:Generator_RowChangingName="pontoeletronicoRowChanging" msprop:Generator_TableClassName="pontoeletronicoDataTable" msprop:Generator_TableVarName="tablepontoeletronico">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="entrada" msprop:Generator_UserColumnName="entrada" msprop:Generator_ColumnPropNameInTable="entradaColumn" msprop:Generator_ColumnPropNameInRow="entrada" msprop:Generator_ColumnVarNameInTable="columnentrada" type="xs:string" minOccurs="0" />
+              <xs:element name="saida" msprop:Generator_UserColumnName="saida" msprop:Generator_ColumnPropNameInTable="saidaColumn" msprop:Generator_ColumnPropNameInRow="saida" msprop:Generator_ColumnVarNameInTable="columnsaida" type="xs:string" minOccurs="0" />
+              <xs:element name="intervalos" msprop:Generator_UserColumnName="intervalos" msprop:Generator_ColumnPropNameInTable="intervalosColumn" msprop:Generator_ColumnPropNameInRow="intervalos" msprop:Generator_ColumnVarNameInTable="columnintervalos" type="xs:string" minOccurs="0" />
+              <xs:element name="mesreferencia" msprop:Generator_UserColumnName="mesreferencia" msprop:Generator_ColumnPropNameInTable="mesreferenciaColumn" msprop:Generator_ColumnPropNameInRow="mesreferencia" msprop:Generator_ColumnVarNameInTable="columnmesreferencia" type="xs:string" minOccurs="0" />
+              <xs:element name="nomefuncionario" msprop:Generator_UserColumnName="nomefuncionario" msprop:Generator_ColumnPropNameInTable="nomefuncionarioColumn" msprop:Generator_ColumnPropNameInRow="nomefuncionario" msprop:Generator_ColumnVarNameInTable="columnnomefuncionario" type="xs:string" minOccurs="0" />
+              <xs:element name="dia" msprop:Generator_ColumnPropNameInRow="dia" msprop:Generator_ColumnPropNameInTable="diaColumn" msprop:Generator_ColumnVarNameInTable="columndia" msprop:Generator_UserColumnName="dia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

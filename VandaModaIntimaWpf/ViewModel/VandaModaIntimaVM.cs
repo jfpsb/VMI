@@ -124,6 +124,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
             WindowService.RegistrarWindow<ListarCobrancasPix, ListarCobrancasPixVM>();
 
+            WindowService.RegistrarWindow<TelaExportarImprimirPontoEletronico, TelaExportarImprimirPontoEletronicoVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

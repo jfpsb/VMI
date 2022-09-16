@@ -42,6 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         public ICommand RegistrarSaidaParaIntervaloComando { get; set; }
         public ICommand RegistrarRetornoDeIntervaloComando { get; set; }
         public ICommand TrocarSenhaComando { get; set; }
+        public ICommand ExportarImprimirPontosComando { get; set; }
 
         public RegistrarPontoVM(ISession session, bool isUpdate = false) : base(session, isUpdate)
         {
@@ -70,9 +71,17 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             RegistrarSaidaParaIntervaloComando = new RelayCommand(RegistrarSaidaParaIntervalo, RegistrarSaidaParaIntervaloValidacao);
             RegistrarRetornoDeIntervaloComando = new RelayCommand(RegistrarRetornoDeIntervalo, RegistrarRetornoDeIntervaloValidacao);
             TrocarSenhaComando = new RelayCommand(TrocarSenha);
+            ExportarImprimirPontosComando = new RelayCommand(ExportarImprimirPontos);
 
             posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(posPrinter);
+        }
+
+        private void ExportarImprimirPontos(object obj)
+        {
+            Model.PontoEletronico ponto = obj as Model.PontoEletronico;
+            TelaExportarImprimirPontoEletronicoVM vm = new TelaExportarImprimirPontoEletronicoVM(_session, posPrinter, ponto.Funcionario);
+            windowService.ShowDialog(vm, null);
         }
 
         private void TrocarSenha(object obj)

@@ -15,6 +15,6 @@ namespace VandaModaIntimaWpf.View.Interfaces
         void Configurar(ReportViewer relatorio,
             ReportDataSource reportDataSource,
             string embeddedPath);
-        Task<ReportDataSource> ConfigurarReportDataSource(object fonte);
+        Task<ReportDataSource> ConfigurarReportDataSource(params object[] fonte);
     }
 }

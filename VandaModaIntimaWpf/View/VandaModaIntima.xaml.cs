@@ -120,8 +120,16 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnPontoEletronico_Click(object sender, RoutedEventArgs e)
         {
-            PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
-            pesquisarPonto.Show();
+            var session = SessionProvider.GetSession();
+
+            RegistrarPontoVM registrarPontoVM = new RegistrarPontoVM(session);
+            new WindowService().ShowDialog(registrarPontoVM, (r, vm) =>
+            {
+                SessionProvider.FechaSession(session);
+            });
+
+            //PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
+            //pesquisarPonto.Show();
         }
 
         private void BtnPix_Click(object sender, RoutedEventArgs e)

@@ -116,8 +116,14 @@
                 <ContextMenu>
                     <MenuItem Header="{Binding PontoEletronico.Funcionario.Nome}" />
                     <Separator />
-                    <MenuItem Header="Imprimir registros de ponto de hoje" />
-                    <MenuItem Header="Imprimir registros de ponto de mês atual" />
+                    <MenuItem Header="Exportar/Imprimir registros de ponto"
+                              Command="{Binding ExportarImprimirPontosComando}"
+                              CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+                    <Separator />
+                    <MenuItem Header="Reimprimir registro de entrada" />
+                    <MenuItem Header="Reimprimir registro de saída" />
+                    <MenuItem Header="Reimprimir registros de intervalos" />
+                    <Separator />
                     <MenuItem Header="Trocar senha"
                               Command="{Binding TrocarSenhaComando}" />
                 </ContextMenu>

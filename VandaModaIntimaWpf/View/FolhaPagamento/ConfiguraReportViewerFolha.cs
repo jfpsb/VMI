@@ -1,13 +1,9 @@
 ﻿using Microsoft.Reporting.WinForms;
-using MySqlX.XDevAPI;
 using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
@@ -27,6 +23,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         public ConfiguraReportViewerFolha(ISession session)
         {
             _session = session;
+            daoParcela = new DAOParcela(_session);
+            daoHoraExtra = new DAOHoraExtra(_session);
+            daoFalta = new DAOFaltas(_session);
         }
         public void Configurar(ReportViewer relatorio, ReportDataSource reportDataSource, string embeddedPath)
         {
@@ -36,13 +35,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                     LocalReport_SubreportProcessing);
         }
 
-        public async Task<ReportDataSource> ConfigurarReportDataSource(object fonte)
+        public async Task<ReportDataSource> ConfigurarReportDataSource(params object[] fonte)
         {
-            _folha = fonte as Model.FolhaPagamento;
-            ReportDataSource reportDataSource = null;
-            daoParcela = new DAOParcela(_session);
-            daoHoraExtra = new DAOHoraExtra(_session);
-            daoFalta = new DAOFaltas(_session);
+            _folha = fonte[0] as Model.FolhaPagamento;
             FolhaPagamentoDataSet folhaPagamentoDataSet = new FolhaPagamentoDataSet();
 
             var parcelasNaoPagas = GetRestanteAdiantamento(_folha.Funcionario, _folha);
