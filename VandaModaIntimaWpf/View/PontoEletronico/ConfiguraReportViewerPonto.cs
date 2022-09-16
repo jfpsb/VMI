@@ -38,6 +38,8 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
             parameters.Add(new ReportParameter("MesReferencia", _data.ToString("MMM/yyyy").ToUpper()));
 
             relatorio.LocalReport.SetParameters(parameters);
+            relatorio.LocalReport.Refresh();
+            relatorio.RefreshReport();            
         }
 
         public async Task<ReportDataSource> ConfigurarReportDataSource(params object[] fonte)

@@ -39,7 +39,14 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
             _messageBoxService = new MessageBoxService();
 
             ExportarParaPDFComando = new RelayCommand(ExportarParaPDF);
+            ImprimirA4Comando = new RelayCommand(ImprimirA4);
             DataEscolhida = DateTime.Now;
+        }
+
+        private void ImprimirA4(object obj)
+        {
+            TelaRelatorioPontosPorMes telaRelatorioPontoEletronico = new TelaRelatorioPontosPorMes(_session, Funcionario, DataEscolhida);
+            telaRelatorioPontoEletronico.ShowDialog();
         }
 
         private async void ExportarParaPDF(object obj)

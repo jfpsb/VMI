@@ -54,7 +54,7 @@
                 Content="Imprimir Para Folha A4"
                 Command="{Binding ImprimirA4Comando}" />
         <Button Grid.Row="6"
-                Content="Imprimir Em Impressora de cupom"
+                Content="Imprimir Em Impressora de Cupom"
                 Padding="15"
                 FontWeight="Bold"
                 FontSize="24"
