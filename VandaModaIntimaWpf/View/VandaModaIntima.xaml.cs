@@ -134,11 +134,11 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnPix_Click(object sender, RoutedEventArgs e)
         {
-            //PagamentoPix pagamentoPix = new PagamentoPix();
-            //pagamentoPix.Show();
+            PagamentoPix pagamentoPix = new PagamentoPix();
+            pagamentoPix.Show();
 
-            PesquisarPix pesquisarPix = new PesquisarPix();
-            pesquisarPix.Show();
+            //PesquisarPix pesquisarPix = new PesquisarPix();
+            //pesquisarPix.Show();
         }
     }
 }
