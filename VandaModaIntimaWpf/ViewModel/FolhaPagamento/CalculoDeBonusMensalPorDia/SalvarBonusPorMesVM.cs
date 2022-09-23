@@ -100,6 +100,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                     bonus.Valor = ValorTotal;
                     bonus.MesReferencia = dataFolha.Month;
                     bonus.AnoReferencia = dataFolha.Year;
+                    bonus.PagoEmFolha = false;
                     bonuses.Add(bonus);
                 }
 

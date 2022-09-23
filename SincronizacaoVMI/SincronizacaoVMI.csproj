@@ -32,6 +32,7 @@
     <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <None Remove="Mapas\HoraExtra.hbm.xml" />
     <None Remove="Mapas\InscricaoImobiliaria.hbm.xml" />
+    <None Remove="Mapas\IntervaloPonto.hbm.xml" />
     <None Remove="Mapas\LastSync.hbm.xml" />
     <None Remove="Mapas\Loja.hbm.xml" />
     <None Remove="Mapas\Marca.hbm.xml" />
@@ -39,6 +40,16 @@
     <None Remove="Mapas\OperadoraCartao.hbm.xml" />
     <None Remove="Mapas\OperadoraCartaoId.hbm.xml" />
     <None Remove="Mapas\Parcela.hbm.xml" />
+    <None Remove="Mapas\Pix\Calendario.hbm.xml" />
+    <None Remove="Mapas\Pix\Cobranca.hbm.xml" />
+    <None Remove="Mapas\Pix\Devolucao.hbm.xml" />
+    <None Remove="Mapas\Pix\Horario.hbm.xml" />
+    <None Remove="Mapas\Pix\Loc.hbm.xml" />
+    <None Remove="Mapas\Pix\Pagador.hbm.xml" />
+    <None Remove="Mapas\Pix\Pix.hbm.xml" />
+    <None Remove="Mapas\Pix\QRCode.hbm.xml" />
+    <None Remove="Mapas\Pix\Valor.hbm.xml" />
+    <None Remove="Mapas\PontoEletronico.hbm.xml" />
     <None Remove="Mapas\Produto.hbm.xml" />
     <None Remove="Mapas\ProdutoGrade.hbm.xml" />
     <None Remove="Mapas\RecebimentoCartao.hbm.xml" />
@@ -97,6 +108,7 @@
     <EmbeddedResource Include="Mapas\Grade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HistoricoProdutoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\HoraExtra.hbm.xml" />
+    <EmbeddedResource Include="Mapas\IntervaloPonto.hbm.xml" />
     <EmbeddedResource Include="Mapas\LastSync.hbm.xml" />
     <EmbeddedResource Include="Mapas\Loja.hbm.xml" />
     <EmbeddedResource Include="Mapas\Marca.hbm.xml" />
@@ -106,6 +118,16 @@
     <EmbeddedResource Include="Mapas\Parcela.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\Pix\Calendario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Cobranca.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Devolucao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Horario.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Loc.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pagador.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Pix.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\QRCode.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Pix\Valor.hbm.xml" />
+    <EmbeddedResource Include="Mapas\PontoEletronico.hbm.xml" />
     <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
     <EmbeddedResource Include="Mapas\ProdutoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />

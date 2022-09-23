@@ -62,12 +62,12 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar funcionários por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
-        public async Task<IList<Funcionario>> ListarPorCpf(string cnpj, bool mostraDemitido)
+        public async Task<IList<Funcionario>> ListarPorCpf(string cpf, bool mostraDemitido)
         {
             try
             {
                 var criteria = CriarCriteria();
-                criteria.Add(Restrictions.Like("Cpf", "%" + cnpj + "%"));
+                criteria.Add(Restrictions.Like("Cpf", "%" + cpf + "%"));
                 if (!mostraDemitido)
                 {
                     criteria.Add(Restrictions.IsNull("Demissao"));

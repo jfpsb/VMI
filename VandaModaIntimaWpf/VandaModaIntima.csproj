@@ -28,9 +28,7 @@
   <PropertyGroup>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ManifestCertificateThumbprint>0CCC38D4CE3DDCBFB4C3AE270DF4A3F7CA03C2B1</ManifestCertificateThumbprint>
   </PropertyGroup>
@@ -41,7 +39,9 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>False</SignManifests>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ReachFramework" />
@@ -51,6 +51,11 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ViewModel\DataSets\BonusDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BonusDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\EntradaMercadoriaDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -80,6 +85,16 @@
     <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ViewModel\DataSets\PontoEletronicoDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PontoEletronicoDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\ProdutoDataSet.cs">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
     </Compile>
@@ -90,10 +105,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <EmbeddedResource Include="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <EmbeddedResource Include="View\PontoEletronico\Relatorios\PontoEletronicoRelatorioFuncionario.rdlc" />
     <None Update="ACBrLib\x64\ACBrPosPrinter64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -103,6 +120,8 @@
     <None Update="Config Skeleton.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\CheckMark.png" />
+    <Resource Include="Resources\ErrorMark.png" />
     <Resource Include="Resources\Feriados\2021.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -188,6 +207,10 @@
     </None>
     <None Update="ViewModel\DataSets\ParcelaDataSet.xss">
       <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
+    </None>
+    <None Update="ViewModel\DataSets\PontoEletronicoDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PontoEletronicoDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Update="ViewModel\DataSets\ProdutoDataSet.xsc">
       <DependentUpon>ProdutoDataSet.xsd</DependentUpon>
@@ -723,13 +746,17 @@
     <EmbeddedResource Remove="Shared\FrmWait.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\CheckMark.png" />
+    <None Remove="Resources\ErrorMark.png" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <None Remove="View\PontoEletronico\Relatorios\PontoEletronicoRelatorioFuncionario.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />

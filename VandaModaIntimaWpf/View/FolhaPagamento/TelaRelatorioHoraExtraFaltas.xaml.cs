@@ -1,8 +1,11 @@
 ﻿using Microsoft.Reporting.WinForms;
+using NHibernate;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
+using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.ViewModel.DataSets;
 
@@ -13,24 +16,30 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// </summary>
     public partial class TelaRelatorioHoraExtraFaltas : Window
     {
-        private ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
+        private ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
+        private DAOBonus daoBonus;
+        private DAOFuncionario daoFuncionario;
+        private DateTime dataEscolhida;
         public TelaRelatorioHoraExtraFaltas()
         {
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             InitializeComponent();
         }
 
-        public TelaRelatorioHoraExtraFaltas(ObservableCollection<Tuple<Model.Funcionario, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> listaHoraExtra)
+        public TelaRelatorioHoraExtraFaltas(ISession session, ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> listaHoraExtra)
         {
             InitializeComponent();
             _listaHoraExtra = listaHoraExtra;
+            daoBonus = new DAOBonus(session);
+            daoFuncionario = new DAOFuncionario(session);
+            dataEscolhida = listaHoraExtra[0].Item5;
         }
 
         private void HoraExtraFaltaReportViewer_Load(object sender, EventArgs e)
         {
             HoraExtraFaltasDataSet horaExtraDataSet = new HoraExtraFaltasDataSet();
 
-            var listaOrdenadaPorLoja = _listaHoraExtra.OrderBy(o => o.Item1.Loja.Cnpj);
+            var listaOrdenadaPorLoja = _listaHoraExtra.OrderBy(o => o.Item1.Funcionario.Loja.Cnpj);
 
             foreach (var horaExtra in listaOrdenadaPorLoja)
             {
@@ -38,8 +47,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 {
                     var herow = horaExtraDataSet.HoraExtra.NewHoraExtraRow();
 
-                    herow.nome_funcionario = horaExtra.Item1.Nome;
-                    herow.nome_loja = horaExtra.Item1.Loja.Nome;
+                    herow.cpf_funcionario = horaExtra.Item1.Funcionario.Cpf;
+                    herow.nome_funcionario = horaExtra.Item1.Funcionario.Nome;
+                    herow.nome_loja = horaExtra.Item1.Funcionario.Loja.Nome;
                     herow.hora_100 = horaExtra.Item2.TotalEmString;
                     herow.hora_normal = horaExtra.Item3.TotalEmString;
                     herow.faltas = horaExtra.Item4.TotalEmString;
@@ -58,14 +68,39 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             ReportViewerUtil.ConfiguraReportViewer(HoraExtraFaltaReportViewer,
                 "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtraFaltas.rdlc",
-                reportDataSource,
-                null);
+                reportDataSource, SubReportProcessing);
 
             if (descTipoHoraExtraParameter != null)
                 HoraExtraFaltaReportViewer.LocalReport.SetParameters(descTipoHoraExtraParameter);
 
             HoraExtraFaltaReportViewer.LocalReport.Refresh();
             HoraExtraFaltaReportViewer.RefreshReport();
+        }
+
+        private async void SubReportProcessing(object sender, SubreportProcessingEventArgs e)
+        {
+            var cpf = e.Parameters["CPFFuncionario"].Values[0].ToString();
+            var folha = _listaHoraExtra.Where(w => w.Item1.Funcionario.Cpf.Equals(cpf)).Select(w => w.Item1).FirstOrDefault();
+
+            BonusDataSet bonusDataSet = new BonusDataSet();
+
+            int i = 0;
+
+            var Bonus = folha.Bonus;
+
+            foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
+            {
+                var brow = bonusDataSet.Bonus.NewBonusRow();
+                brow.id = i++.ToString();
+                brow.data = bonus.DataString;
+                brow.descricao = bonus.Descricao;
+                brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                bonusDataSet.Bonus.AddBonusRow(brow);
+            }
+
+            ReportDataSource reportDataSource1 = new ReportDataSource("DataSetBonus", bonusDataSet.Tables[0]);
+            e.DataSources.Add(reportDataSource1);
         }
     }
 }

@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using NHibernate.Type;
 using SincronizacaoVMI.BancoDeDados;
 using SincronizacaoVMI.Model;
+using SincronizacaoVMI.Model.Pix;
 using SincronizacaoVMI.Util.Sincronizacao;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace SincronizacaoVMI.Util
                         var criteria = _local.CreateCriteria(typeof(E).Name);
                         criteria.Add(Restrictions.Eq("Uuid", e.Uuid));
 
-                        var tipo = Type.GetType($"SincronizacaoVMI.Model.{typeof(E).Name}, SincronizacaoVMI", true);
+                        var tipo = Type.GetType($"{typeof(E).FullName}, SincronizacaoVMI", true);
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -101,7 +102,7 @@ namespace SincronizacaoVMI.Util
                                 ICriteria criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
-                                var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
+                                var tipo = Type.GetType($"{persister.GetPropertyType(property).Name}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -128,7 +129,13 @@ namespace SincronizacaoVMI.Util
 
                                 eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
                             }
+
+                            if (eASalvar.GetType() == typeof(Pix) && (eASalvar as Pix).Txid != null && (eASalvar as Pix).Cobranca == null)
+                            {
+                                throw new Exception("O PIX possui TXID mas a Cobrança está nula");
+                            }
                         }
+
                         insertsRemotoParaLocal.Add(eASalvar);
                     }
                 }
@@ -140,7 +147,7 @@ namespace SincronizacaoVMI.Util
                         if (e == null) continue;
                         var criteria = _local.CreateCriteria(typeof(E).Name);
                         criteria.Add(Restrictions.Eq("Uuid", e.Uuid));
-                        var tipo = Type.GetType($"SincronizacaoVMI.Model.{typeof(E).Name}, SincronizacaoVMI", true);
+                        var tipo = Type.GetType($"{typeof(E).FullName}, SincronizacaoVMI", true);
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -173,7 +180,7 @@ namespace SincronizacaoVMI.Util
                                 ICriteria criteria = _local.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
-                                var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
+                                var tipo = Type.GetType($"{persister.GetPropertyType(property).Name}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -238,7 +245,7 @@ namespace SincronizacaoVMI.Util
                         var criteria = _remoto.CreateCriteria(typeof(E).Name);
                         criteria.Add(Restrictions.Eq("Uuid", e.Uuid));
 
-                        var tipo = Type.GetType($"SincronizacaoVMI.Model.{typeof(E).Name}, SincronizacaoVMI", true);
+                        var tipo = Type.GetType($"{typeof(E).FullName}, SincronizacaoVMI", true);
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -274,7 +281,7 @@ namespace SincronizacaoVMI.Util
                                 ICriteria criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
-                                var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
+                                var tipo = Type.GetType($"{persister.GetPropertyType(property).Name}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -299,7 +306,13 @@ namespace SincronizacaoVMI.Util
                                 {
                                     throw new Exception($"{property} não pode ser nulo.");
                                 }
+
                                 eASalvar.GetType().GetProperty(property).SetValue(eASalvar, manyToOneLocal);
+                            }
+
+                            if (eASalvar.GetType() == typeof(Pix) && (eASalvar as Pix).Txid != null && (eASalvar as Pix).Cobranca == null)
+                            {
+                                throw new Exception("O PIX possui TXID mas a Cobrança está nula");
                             }
                         }
 
@@ -314,7 +327,7 @@ namespace SincronizacaoVMI.Util
                         if (e == null) continue;
                         var criteria = _remoto.CreateCriteria(typeof(E).Name);
                         criteria.Add(Restrictions.Eq("Uuid", e.Uuid));
-                        var tipo = Type.GetType($"SincronizacaoVMI.Model.{typeof(E).Name}, SincronizacaoVMI", true);
+                        var tipo = Type.GetType($"{typeof(E).FullName}, SincronizacaoVMI", true);
                         var metodo = criteria.GetType().GetMethod("FutureValue");
                         var metodoGenerico = metodo.MakeGenericMethod(tipo);
 
@@ -348,7 +361,7 @@ namespace SincronizacaoVMI.Util
                                 ICriteria criteria = _remoto.CreateCriteria(persister.GetPropertyTypeSimpleName(property));
                                 criteria.Add(Restrictions.Eq("Uuid", manyToOneValue.Uuid));
 
-                                var tipo = Type.GetType($"SincronizacaoVMI.Model.{persister.GetPropertyTypeSimpleName(property)}, SincronizacaoVMI", true);
+                                var tipo = Type.GetType($"{persister.GetPropertyType(property).Name}, SincronizacaoVMI", true);
                                 var metodo = criteria.GetType().GetMethod("FutureValue");
                                 var metodoGenerico = metodo.MakeGenericMethod(tipo);
 

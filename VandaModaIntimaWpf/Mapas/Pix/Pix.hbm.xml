@@ -4,11 +4,14 @@
                    namespace="VandaModaIntimaWpf.Model.Pix">
 
 	<class name="Pix" table="pix">
-		<id name="EndToEndId" />
+		<id name="Id" column="id" type="Int32">
+			<generator class="increment" />
+		</id>
 		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" cascade="save-update" lazy="false"/>
 		<many-to-one name="Pagador" class="VandaModaIntimaWpf.Model.Pix.Pagador" cascade="save-update" lazy="false"/>
 		<many-to-one name="Cobranca" class="VandaModaIntimaWpf.Model.Pix.Cobranca" cascade="save-update" lazy="false"/>
 		<property name="Uuid"/>
+		<property name="EndToEndId" />
 		<property name="Txid" />
 		<property name="Valor" />
 		<property name="Horario" />
@@ -19,7 +22,7 @@
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
 
-		<bag name="Devolucoes" table="devolucao" inverse="true" cascade="all-delete-orphan" lazy="false">
+		<bag name="Devolucoes" table="devolucao" inverse="true" cascade="save-update" lazy="false">
 			<key column="pix" />
 			<one-to-many class="VandaModaIntimaWpf.Model.Pix.Devolucao"/>
 		</bag>

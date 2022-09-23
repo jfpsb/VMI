@@ -9,6 +9,7 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private string _descricao;
         private double _valor;
+        private bool _pagoEmFolha = true;
 
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
@@ -48,6 +49,19 @@ namespace VandaModaIntimaWpf.Model
             {
                 _valor = value;
                 OnPropertyChanged("Valor");
+            }
+        }
+        public virtual bool PagoEmFolha
+        {
+            get
+            {
+                return _pagoEmFolha;
+            }
+
+            set
+            {
+                _pagoEmFolha = value;
+                OnPropertyChanged("PagoEmFolha");
             }
         }
 

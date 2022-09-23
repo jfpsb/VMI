@@ -36,6 +36,24 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        public async Task<IList<Bonus>> ListarPorFuncionarioPagoEmFolha(Funcionario funcionario, int mes, int ano)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("MesReferencia", mes))
+                    .Add(Restrictions.Eq("AnoReferencia", ano))
+                    .Add(Restrictions.Eq("Funcionario", funcionario))
+                    .Add(Restrictions.Eq("PagoEmFolha", true));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar por funcionário em DAOBonus");
+                throw new Exception($"Erro ao listar bônus por funcionário. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
         public async Task<double> SomaAlimentacaoPorMesAno(DateTime data)
         {
             try

@@ -8,6 +8,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>b260b780-752a-45ef-8feb-95c3b53d4829</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -85,6 +86,10 @@
         <Field Name="faltas">
           <DataField>faltas</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cpf_funcionario">
+          <DataField>cpf_funcionario</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
         </Field>
       </Fields>
       <rd:DataSetInfo>
@@ -294,9 +299,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.36438cm</Top>
-            <Left>11.68547cm</Left>
+            <Left>11.42089cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.93568cm</Width>
+            <Width>4.2573cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -330,9 +335,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>1.96125cm</Top>
-            <Left>11.65901cm</Left>
+            <Left>11.42089cm</Left>
             <Height>0.6cm</Height>
-            <Width>5.07339cm</Width>
+            <Width>5.31152cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -365,10 +370,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>1.14076cm</Top>
-            <Left>11.68547cm</Left>
+            <Top>1.18486cm</Top>
+            <Left>11.42089cm</Left>
             <Height>0.6cm</Height>
-            <Width>3.53881cm</Width>
+            <Width>3.93568cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -567,9 +572,9 @@
             </Paragraphs>
             <rd:DefaultName>salario_liquido</rd:DefaultName>
             <Top>1.18486cm</Top>
-            <Left>15.85457cm</Left>
+            <Left>15.53295cm</Left>
             <Height>0.6cm</Height>
-            <Width>4.04543cm</Width>
+            <Width>4.36705cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
@@ -600,9 +605,9 @@
             </Paragraphs>
             <rd:DefaultName>totalvendido</rd:DefaultName>
             <Top>1.96125cm</Top>
-            <Left>16.99228cm</Left>
+            <Left>16.90879cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.90772cm</Width>
+            <Width>2.99121cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -918,6 +923,11 @@
           </Line>
           <Subreport Name="SubreportBonus">
             <ReportName>VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioBonus</ReportName>
+            <Parameters>
+              <Parameter Name="CPFFuncionario">
+                <Value>=First(Fields!cpf_funcionario.Value, "DataSetFolha")</Value>
+              </Parameter>
+            </Parameters>
             <Top>7.26361cm</Top>
             <Height>0.87958cm</Height>
             <Width>19.9cm</Width>
@@ -1150,7 +1160,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>30.27373mm</Height>
+          <Height>30.2738mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>

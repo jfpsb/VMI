@@ -151,7 +151,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return Bonus.Sum(s => s.Valor);
+                return Bonus.Where(w => w.PagoEmFolha == false).Sum(s => s.Valor);
             }
         }
 

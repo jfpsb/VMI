@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         public ICommand ImprimirRelatorioComando { get; set; }
         public ICommand ListBoxPixLeftMouseClickComando { get; set; }
         public ICommand ImprimirRelatorioPixComando { get; set; }
-        public ICommand ConsultarRecebimentoPixComando { get; set; }
+        public ICommand ListarQRCodesComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -58,16 +58,20 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             ImprimirRelatorioComando = new RelayCommand(ImprimirRelatorio);
             ListBoxPixLeftMouseClickComando = new RelayCommand(ListBoxPixLeftMouseClick);
             ImprimirRelatorioPixComando = new RelayCommand(ImprimirRelatorio);
-            ConsultarRecebimentoPixComando = new RelayCommand(ConsultarRecebimentoPix);
+            ListarQRCodesComando = new RelayCommand(ListarQRCodes);
 
             _posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(_posPrinter);
         }
 
-        private async void ConsultarRecebimentoPix(object obj)
+        private void ListarQRCodes(object obj)
         {
-            AtualizarListaPixPelaGN();
-            await GetListaPix();
+            ListarCobrancasPixVM viewModel = new ListarCobrancasPixVM(_session);
+            windowService.ShowDialog(viewModel, (res, vm) =>
+            {
+                AtualizarCobrancasPelaGN();
+                AtualizarListaPixPelaGN();
+            });
         }
 
         private async void ImprimirRelatorio(object obj)
@@ -132,6 +136,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 messageBoxService.Show("Erro ao imprimir relatório Pix. Cheque se a impressora está conectada corretamente e que está ligada.\n\n" + ex.Message, "Impressão De QR Code Pix", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
+
         /// <summary>
         /// Consulta A API da GerenciaNet para retornar os Pix do dia atual
         /// </summary>
@@ -159,10 +164,12 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 var response = endpoints.PixListReceived(param);
                 ListaPixs listaPixs = JsonConvert.DeserializeObject<ListaPixs>(response);
                 IList<Model.Pix.Pix> pixAtt = new List<Model.Pix.Pix>();
+                var lojaApp = Config.LojaAplicacao(_session);
 
                 foreach (var pixConsulta in listaPixs.Pixs.Where(w => w.Chave == null || w.Chave.ToLower().Equals((string)dados["chave_estatica"])))
                 {
-                    var pixLocal = await daoPix.ListarPorId(pixConsulta.EndToEndId);
+                    pixConsulta.Loja = lojaApp;
+                    var pixLocal = await daoPix.ListarPorId(pixConsulta.Id);
                     if (pixLocal != null) continue; //Não insere pix que já existem no banco local
                     pixAtt.Add(pixConsulta); //Novo pix para inserir no banco
                 }
@@ -195,6 +202,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 messageBoxService.Show($"Erro ao listar pix da instituição GerenciaNet. Cheque se está conectado a internet.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", "Erro ao Consultar Pix", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         /// <summary>
         /// Consulta A API da GerenciaNet para retornar as cobranças do dia atual com seus respectivos status
         /// </summary>
@@ -222,10 +230,11 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 var response = endpoints.PixListCharges(param);
                 ListaCobrancas listaCobranca = JsonConvert.DeserializeObject<ListaCobrancas>(response);
                 IList<Cobranca> cobrancasAtt = new List<Cobranca>();
+                var lojaApp = Config.LojaAplicacao(_session);
 
                 foreach (var cobrancaConsulta in listaCobranca.Cobrancas)
                 {
-                    var cobrancaLocal = await daoCobranca.ListarPorId(cobrancaConsulta.Txid);
+                    var cobrancaLocal = await daoCobranca.ListarPorId(cobrancaConsulta.Id);
 
                     //Cobrança já existe no banco local
                     if (cobrancaLocal != null)
@@ -233,7 +242,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                         cobrancaLocal.Pix.Clear();
                         foreach (var p in cobrancaConsulta.Pix)
                         {
-                            var pixLocal = await daoPix.ListarPorId(p.EndToEndId);
+                            var pixLocal = await daoPix.ListarPorId(p.Id);
 
                             if (pixLocal == null)
                             {
@@ -259,9 +268,12 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                     }
                     else
                     {
+                        cobrancaConsulta.Loja = lojaApp;
+
                         foreach (var p in cobrancaConsulta.Pix)
                         {
                             p.Cobranca = cobrancaConsulta;
+                            p.Loja = cobrancaConsulta.Loja;
                         }
 
                         if (cobrancaConsulta.Pix.Count > 0)
@@ -343,6 +355,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
                 var cobrancaPix = endpoints.PixCreateImmediateCharge(null, body);
                 Model.Pix.Cobranca cobranca = JsonConvert.DeserializeObject<Model.Pix.Cobranca>(cobrancaPix);
+                cobranca.Loja = Config.LojaAplicacao(_session);
 
                 try
                 {

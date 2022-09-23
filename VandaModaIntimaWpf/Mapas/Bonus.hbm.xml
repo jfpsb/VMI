@@ -17,6 +17,7 @@
 		<property name="AnoReferencia" column="ano_referencia" />
 		<property name="BonusMensal" column="bonus_mensal" />
 		<property name="BonusCancelado" column="bonus_cancelado" />
+		<property name="PagoEmFolha" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

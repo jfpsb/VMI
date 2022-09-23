@@ -313,6 +313,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnfaltas;
             
+            private global::System.Data.DataColumn columncpf_funcionario;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public FolhaPagamentoDataTable() {
@@ -484,6 +486,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn cpf_funcionarioColumn {
+                get {
+                    return this.columncpf_funcionario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -536,7 +546,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         string calendarioalimentacao, 
                         string horaextra100, 
                         string horaextra55, 
-                        string faltas) {
+                        string faltas, 
+                        string cpf_funcionario) {
                 FolhaPagamentoRow rowFolhaPagamentoRow = ((FolhaPagamentoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mes,
@@ -555,7 +566,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         calendarioalimentacao,
                         horaextra100,
                         horaextra55,
-                        faltas};
+                        faltas,
+                        cpf_funcionario};
                 rowFolhaPagamentoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowFolhaPagamentoRow);
                 return rowFolhaPagamentoRow;
@@ -603,6 +615,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnhoraextra100 = base.Columns["horaextra100"];
                 this.columnhoraextra55 = base.Columns["horaextra55"];
                 this.columnfaltas = base.Columns["faltas"];
+                this.columncpf_funcionario = base.Columns["cpf_funcionario"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -642,6 +655,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnhoraextra55);
                 this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfaltas);
+                this.columncpf_funcionario = new global::System.Data.DataColumn("cpf_funcionario", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncpf_funcionario);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnmes}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("FolhaPagamentoKey1", new global::System.Data.DataColumn[] {
@@ -1055,6 +1070,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string cpf_funcionario {
+                get {
+                    try {
+                        return ((string)(this[this.tableFolhaPagamento.cpf_funcionarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cpf_funcionario\' in table \'FolhaPagamento\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableFolhaPagamento.cpf_funcionarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsfuncionarioNull() {
                 return this.IsNull(this.tableFolhaPagamento.funcionarioColumn);
             }
@@ -1231,6 +1262,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetfaltasNull() {
                 this[this.tableFolhaPagamento.faltasColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscpf_funcionarioNull() {
+                return this.IsNull(this.tableFolhaPagamento.cpf_funcionarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcpf_funcionarioNull() {
+                this[this.tableFolhaPagamento.cpf_funcionarioColumn] = global::System.Convert.DBNull;
             }
         }
         

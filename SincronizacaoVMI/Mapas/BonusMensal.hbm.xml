@@ -11,6 +11,7 @@
 		<many-to-one name="Funcionario" class="SincronizacaoVMI.Model.Funcionario" column="funcionario" lazy="false" not-null="true"/>
 		<property name="Descricao" column="descricao" />
 		<property name="Valor" column="valor" />
+		<property name="PagoEmFolha" />
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

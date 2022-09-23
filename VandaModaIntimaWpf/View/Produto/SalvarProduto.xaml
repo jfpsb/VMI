@@ -214,6 +214,7 @@
                 <DataGrid Grid.Row="8"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
+                          CanUserDeleteRows="True"
                           ItemsSource="{Binding Grades, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tipo"
@@ -229,12 +230,17 @@
                        Foreground="Green"
                        Content="Grades do Produto:"
                        FontWeight="Bold" />
-                <DataGrid Grid.Row="10"
+                <DataGrid x:Name="DataGridGradeProduto"
+                          Grid.Row="10"
                           Grid.ColumnSpan="3"
                           CanUserAddRows="False"
-                          CanUserDeleteRows="True"
                           ItemsSource="{Binding ProdutoGrades, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                           SelectedItem="{Binding ProdutoGradeSelecionada, Mode=OneWayToSource}">
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Delete"
+                                    Command="{Binding RemoverGradeDeListaComando}"
+                                    CommandParameter="{Binding ElementName=DataGridGradeProduto, Path=SelectedItem}" />
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource cod_barra_header}"
                                             Binding="{Binding CodBarra}"

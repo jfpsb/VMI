@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model.Pix">
+
+	<class name="Cobranca" table="pix_cobranca">
+		<id name="Id" column="id" type="Int32">
+			<generator class="native" />
+		</id>
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" cascade="save-update" lazy="false" not-null="true"/>
+		<many-to-one name="Calendario" class="SincronizacaoVMI.Model.Pix.Calendario" cascade="save-update" lazy="false" not-null="true"/>
+		<many-to-one name="Valor" class="SincronizacaoVMI.Model.Pix.Valor" cascade="save-update" lazy="false" not-null="true"/>
+		<many-to-one name="Loc" class="SincronizacaoVMI.Model.Pix.Loc" cascade="save-update" lazy="false" not-null="true"/>
+		<many-to-one name="QrCode" class="SincronizacaoVMI.Model.Pix.QRCode" cascade="save-update" lazy="false" />
+		<property name="Txid" not-null="true" />
+		<property name="Uuid"/>
+		<property name="Revisao" />
+		<property name="Status" />
+		<property name="Chave" />
+		<property name="Location" />
+		<property name="PagoEm" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

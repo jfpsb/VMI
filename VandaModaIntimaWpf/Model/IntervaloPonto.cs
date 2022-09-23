@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.Model
 
         public virtual object GetIdentifier()
         {
-            throw new NotImplementedException();
+            return Id;
         }
 
         public virtual void InicializaLazyLoad()
