@@ -113,9 +113,9 @@ namespace VandaModaIntimaWpf.View
 
         private void TelaPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            TelaDeAviso telaDeAviso = new TelaDeAviso();
-            telaDeAviso.Owner = this;
-            telaDeAviso.ShowDialog();
+            //TelaDeAviso telaDeAviso = new TelaDeAviso();
+            //telaDeAviso.Owner = this;
+            //telaDeAviso.ShowDialog();
         }
 
         private void BtnPontoEletronico_Click(object sender, RoutedEventArgs e)
