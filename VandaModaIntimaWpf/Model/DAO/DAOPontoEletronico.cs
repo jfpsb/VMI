@@ -3,6 +3,7 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.Model.DAO
@@ -53,6 +54,36 @@ namespace VandaModaIntimaWpf.Model.DAO
                 Log.EscreveLogBanco(ex, "listar por funcionario mes em DAOPontoEletronico");
                 throw new Exception($"Erro ao listar pontos por funcionário e mês. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
+        }
+
+        /// <summary>
+        /// Retorna todos os pontos eletrônicos de dado mês, de dado funcionário, incluindo dias que não houve registros de pontos.
+        /// </summary>
+        /// <param name="funcionario">Funcionário a consultar</param>
+        /// <param name="dataMes">Mês e ano a consultar</param>
+        /// <returns></returns>
+        public async Task<IList<PontoEletronico>> ListarPontosTotaisDoMes(Funcionario funcionario, DateTime dataMes)
+        {
+            IList<PontoEletronico> pontos = new List<PontoEletronico>();
+            var dias = DateTimeUtil.RetornaDiasEmMes(dataMes.Year, dataMes.Month);
+
+            foreach (var dia in dias)
+            {
+                var ponto = await ListarPorDiaFuncionario(dia, funcionario);
+
+                if (ponto == null)
+                {
+                    ponto = new PontoEletronico
+                    {
+                        Funcionario = funcionario,
+                        Dia = dia
+                    };
+                }
+
+                pontos.Add(ponto);
+            }
+
+            return pontos;
         }
     }
 }

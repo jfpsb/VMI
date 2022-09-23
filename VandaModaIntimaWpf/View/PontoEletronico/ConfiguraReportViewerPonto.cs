@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
 
             relatorio.LocalReport.SetParameters(parameters);
             relatorio.LocalReport.Refresh();
-            relatorio.RefreshReport();            
+            relatorio.RefreshReport();
         }
 
         public async Task<ReportDataSource> ConfigurarReportDataSource(params object[] fonte)
@@ -48,27 +48,27 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
             DateTime data = _data = (DateTime)fonte[1];
             PontoEletronicoDataSet dataSet = new PontoEletronicoDataSet();
 
-            var dias = DateTimeUtil.RetornaDiasEmMes(data.Year, data.Month);
+            var pontos = await daoPonto.ListarPontosTotaisDoMes(funcionario, data);
 
-            foreach (var dia in dias)
+            foreach (var ponto in pontos)
             {
-                var ponto = await daoPonto.ListarPorDiaFuncionario(dia, funcionario);
                 var row = dataSet.pontoeletronico.NewpontoeletronicoRow();
 
-                if (ponto == null)
+                if (ponto.Entrada == null)
                 {
-                    ponto = new Model.PontoEletronico
-                    {
-                        Funcionario = funcionario,
-                        Dia = dia
-                    };
-
                     row.entrada = "-- : --";
-                    row.saida = "-- : --";
                 }
                 else
                 {
                     row.entrada = ponto.Entrada?.ToString("HH:mm");
+                }
+
+                if (ponto.Saida == null)
+                {
+                    row.saida = "-- : --";
+                }
+                else
+                {
                     row.saida = ponto.Saida?.ToString("HH:mm");
                 }
 
@@ -79,6 +79,7 @@ namespace VandaModaIntimaWpf.View.PontoEletronico
 
                 dataSet.pontoeletronico.AddpontoeletronicoRow(row);
             }
+
             return new ReportDataSource("PontoEletronicoDataSet", dataSet.Tables[0]);
         }
     }

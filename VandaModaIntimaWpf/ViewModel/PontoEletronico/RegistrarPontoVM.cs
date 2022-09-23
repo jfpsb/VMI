@@ -210,7 +210,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Saida);
-                        messageBoxService.Show("Saída salva com sucesso.");
                         await PopulaListaDePontos();
                     }
                     catch (Exception ex)
@@ -242,7 +241,6 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     {
                         await daoEntidade.InserirOuAtualizar(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Entrada);
-                        messageBoxService.Show("Entrada salva com sucesso.");
                         await PopulaListaDePontos();
                     }
                     catch (Exception ex)
