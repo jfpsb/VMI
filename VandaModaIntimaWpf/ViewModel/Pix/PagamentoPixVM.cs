@@ -41,6 +41,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
         public ICommand ListBoxPixLeftMouseClickComando { get; set; }
         public ICommand ImprimirRelatorioPixComando { get; set; }
         public ICommand ListarQRCodesComando { get; set; }
+        public ICommand ConsultarRecebimentoPixComando { get; set; }
 
         public PagamentoPixVM()
         {
@@ -59,9 +60,16 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
             ListBoxPixLeftMouseClickComando = new RelayCommand(ListBoxPixLeftMouseClick);
             ImprimirRelatorioPixComando = new RelayCommand(ImprimirRelatorio);
             ListarQRCodesComando = new RelayCommand(ListarQRCodes);
+            ConsultarRecebimentoPixComando = new RelayCommand(ConsultarRecebimentoPix);
 
             _posPrinter = new ACBrPosPrinter();
             ConfiguraPosPrinter.Configurar(_posPrinter);
+        }
+
+        private async void ConsultarRecebimentoPix(object obj)
+        {
+            AtualizarListaPixPelaGN();
+            await GetListaPix();
         }
 
         private void ListarQRCodes(object obj)
