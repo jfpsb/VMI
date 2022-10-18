@@ -8,7 +8,6 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>3f5b4691-f5f2-462b-9686-fd31e9b47325</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -151,7 +150,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>21.08125mm</Height>
+                  <Height>15.78958mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -505,7 +504,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.825mm</Height>
+                  <Height>7.05833mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -583,14 +582,14 @@
                     <TablixMember />
                     <TablixMember />
                   </TablixMembers>
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <KeepTogether>true</KeepTogether>
             <DataSetName>DataSetHoraExtraFalta</DataSetName>
             <Top>9.43959mm</Top>
             <Left>0mm</Left>
-            <Height>30.96458mm</Height>
+            <Height>29.90625mm</Height>
             <Width>199mm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -600,7 +599,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>40.40417mm</Height>
+        <Height>39.34584mm</Height>
         <Style>
           <Border>
             <Style>None</Style>

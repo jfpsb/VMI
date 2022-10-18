@@ -22,10 +22,9 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
 
             try
             {
-                var representante = Entidade.Representante;
                 Model.Fornecedor result = await new RequisicaoReceitaFederal().GetFornecedor(Entidade.Cnpj);
-                result.Representante = representante;
-                await daoEntidade.Merge(result);
+                Entidade.CopiaDadosDeConsultaNaReceita(result);
+                await daoEntidade.Atualizar(Entidade);
                 OnPropertyChanged("Entidade");
                 MessageBoxService.Show("Pesquisa Realizada Com Sucesso.", viewModelStrategy.MessageBoxCaption());
             }

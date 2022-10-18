@@ -14,7 +14,6 @@
                      Icon="/Resources/Fornecedor_Icon.ico"
                      Height="540"
                      Width="1000"
-                     
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarFornecedorVM />
@@ -62,8 +61,8 @@
         <View:TelaPesquisaTemplate.Content>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6.135" />
-                    <ColumnDefinition Width="103.865" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -71,8 +70,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Grid.ColumnSpan="3"
-                       Content="{DynamicResource pesquisar_por_dois_pontos}"
+                <Label Content="{DynamicResource pesquisar_por_dois_pontos}"
                        Margin="0,0,0,37"
                        Grid.RowSpan="2" />
                 <ComboBox Grid.Column="2"
@@ -82,10 +80,7 @@
                           HorizontalAlignment="Left"
                           Margin="5,5,0,5" />
                 <Label Grid.Row="1"
-                       Grid.ColumnSpan="3"
-                       Content="{DynamicResource pesquisa_dois_pontos}"
-                       Margin="0,0,0,340"
-                       Grid.RowSpan="2" />
+                       Content="{DynamicResource pesquisa_dois_pontos}" />
                 <TextBox x:Name="TxtPesquisa"
                          Grid.Row="1"
                          Grid.Column="2"

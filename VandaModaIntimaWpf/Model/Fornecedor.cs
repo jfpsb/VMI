@@ -166,23 +166,12 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj != null && Cnpj != null && obj is Fornecedor)
-        //    {
-        //        Fornecedor fornecedor = (Fornecedor)obj;
-        //        return Cnpj.Equals(fornecedor.Cnpj);
-        //    }
-
-        //    return false;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    if (Cnpj != null)
-        //        return Cnpj.GetHashCode();
-
-        //    return base.GetHashCode();
-        //}
+        public virtual void CopiaDadosDeConsultaNaReceita(Fornecedor fornecedorConsultado)
+        {
+            Nome = fornecedorConsultado.Nome;
+            Fantasia = fornecedorConsultado.Fantasia;
+            Email = fornecedorConsultado.Email;
+            Telefone = fornecedorConsultado.Telefone;
+        }
     }
 }
