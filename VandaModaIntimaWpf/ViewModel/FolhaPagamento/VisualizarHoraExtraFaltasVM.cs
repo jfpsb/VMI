@@ -7,6 +7,7 @@ using System.Windows.Input;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -21,14 +22,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public ICommand AbrirImprimirHEComando { get; set; }
 
-        public VisualizarHoraExtraFaltasVM(IList<Model.FolhaPagamento> listaFolhas, DateTime dataEscolhida)
+        public VisualizarHoraExtraFaltasVM(DateTime dataEscolhida)
         {
             daoEntidade = new DAOHoraExtra(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoFaltas = new DAOFaltas(_session);
-            folhas = listaFolhas;
             ListaHoraExtra = new ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
-            GetFuncionarios();
+            folhas = new ObservableCollection<Model.FolhaPagamento>();
+            var task1 = GetFuncionarios();
+            task1.Wait();
+            var task2 = GetFolhas();
+            task2.Wait();
             DataEscolhida = dataEscolhida;
             AbrirImprimirHEComando = new RelayCommand(AbrirImprimirHE);
         }
@@ -50,6 +54,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             var daoHoraExtra = daoEntidade as DAOHoraExtra;
 
             ListaHoraExtra.Clear();
+            folhas.Clear();
+            await GetFolhas();
 
             foreach (var f in folhas)
             {
@@ -81,9 +87,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private async void GetFuncionarios()
+        private async Task GetFuncionarios()
         {
             funcionarios = await daoFuncionario.Listar();
+        }
+
+        private async Task GetFolhas()
+        {
+            folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(_session, funcionarios, DataEscolhida);
         }
 
         protected override WorksheetContainer<Model.HoraExtra>[] GetWorksheetContainers()

@@ -18,6 +18,7 @@ using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.Funcionario;
 using Microsoft.Reporting.WinForms;
 using System.IO;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -365,9 +366,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void AbrirVisualizarHoraExtraFaltas(object obj)
         {
-            _messageBoxService.Show("CERTIFIQUE-SE DE FECHAR AS FOLHAS DE PAGAMENTO ANTES DE EXPORTAR O RELATÓRIO DE HORAS EXTRAS/FALTAS/COMISSÕES PARA O CONTADOR." +
-                "\n\nEXPORTAR ESTE RELATÓRIO SEM FECHAR AS FOLHAS PREVIAMENTE IRÁ GERAR RELATÓRIO INCORRETO, COM INFORMAÇÕES FALTANDO.", "Horas Extras/Faltas/Comissões", MessageBoxButton.OK, MessageBoxImage.Warning);
-            _windowService.Show(new VisualizarHoraExtraFaltasVM(FolhaPagamentos, DataEscolhida), null);
+            _windowService.Show(new VisualizarHoraExtraFaltasVM(DataEscolhida), null);
         }
 
         private void AbrirImprimirFolha(object obj)
@@ -499,110 +498,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async Task PesquisaItens(string termo)
         {
-            ObservableCollection<Model.FolhaPagamento> folhas = new ObservableCollection<Model.FolhaPagamento>();
-            DAOFolhaPagamento daoFolha = (DAOFolhaPagamento)daoEntidade;
-
-            foreach (Model.Funcionario funcionario in _funcionarios)
-            {
-                Model.FolhaPagamento folha = await daoFolha.ListarPorMesAnoFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
-
-                if (folha == null)
-                {
-                    if (DataEscolhida < funcionario.Admissao)
-                        continue;
-
-                    if (DataEscolhida > funcionario.Demissao)
-                        continue;
-
-                    folha = new Model.FolhaPagamento
-                    {
-                        Mes = DataEscolhida.Month,
-                        Ano = DataEscolhida.Year,
-                        Funcionario = funcionario
-                    };
-                }
-
-                //Lista as parcelas somente se folha já existe
-                var parcelas = await daoParcela.ListarPorFuncionarioMesAno(folha.Funcionario, folha.Mes, folha.Ano);
-                folha.Parcelas = parcelas;
-
-                //Lista todos os bônus do funcionário (inclusive bônus cancelados)
-                folha.Bonus = await daoBonus.ListarPorFuncionario(funcionario, DataEscolhida.Month, DataEscolhida.Year);
-
-                //Adiciona bônus
-                //Só é feito em folhas abertas porque nas fechadas os bônus mensais e de meta já estão inseridos no BD
-                if (!folha.Fechada)
-                {
-                    //Lista todos os bônus mensais do funcionário
-                    var bonusMensais = await daoBonusMensal.ListarPorFuncionario(funcionario);
-
-                    if (bonusMensais != null && bonusMensais.Count > 0)
-                    {
-                        foreach (var bonusMensal in bonusMensais)
-                        {
-                            //Checa se o bônus mensal já existe na lista de bônus de funcionário
-                            var descricao = bonusMensal.Descricao;
-                            if (bonusMensal.PagoEmFolha)
-                                descricao += " (PAGO EM FOLHA)";
-                            var bonusJaInserido = folha.Bonus.Count > 0 && folha.Bonus.Any(a => a.Descricao.Equals(descricao));
-
-                            if (bonusJaInserido)
-                                continue;
-
-                            //Se não existe cria e adiciona o bônus
-                            Bonus bonus = new Bonus
-                            {
-                                Funcionario = funcionario,
-                                Data = new DateTime(folha.Ano, folha.Mes, 1),
-                                Descricao = bonusMensal.Descricao,
-                                Valor = bonusMensal.Valor,
-                                MesReferencia = folha.Mes,
-                                AnoReferencia = folha.Ano,
-                                BonusMensal = true,
-                                PagoEmFolha = bonusMensal.PagoEmFolha
-                            };
-
-                            if (bonus.PagoEmFolha)
-                                bonus.Descricao += " (PAGO EM FOLHA)";
-
-                            folha.Bonus.Add(bonus);
-                        }
-                    }
-
-                    //Insere bônus de meta se houver
-                    if (folha.ValorDoBonusDeMeta > 0)
-                    {
-                        var mesFolha = new DateTime(folha.Ano, folha.Mes, 1);
-                        Bonus bonus = new Bonus
-                        {
-                            Funcionario = funcionario,
-                            Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"COMISSÃO DE VENDA - {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}",
-                            Valor = folha.ValorDoBonusDeMeta,
-                            MesReferencia = folha.Mes,
-                            AnoReferencia = folha.Ano
-                        };
-
-                        if (bonus.PagoEmFolha)
-                            bonus.Descricao += " (PAGO EM FOLHA)";
-
-                        folha.Bonus.Add(bonus);
-                    }
-                }
-
-                //Depois da checagem acima, removo os bônus cancelados da listagem
-                if (folha.Bonus != null)
-                    folha.Bonus = folha.Bonus.Where(w => w.BonusCancelado == false).ToList();
-
-                folhas.Add(folha);
-            }
+            var folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(Session, _funcionarios, DataEscolhida);
 
             TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
             TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
             //Bonus de meta não são salvos até que a folha seja fechada então uso linq com a coleção atual para conseguir o valor e não do banco de dados
             TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META") || w.Descricao.Contains("COMISSÃO")).Sum(s => s.Valor);
 
-            FolhaPagamentos = folhas;
+            FolhaPagamentos = new ObservableCollection<Model.FolhaPagamento>(folhas);
         }
 
         private async void GetFuncionarios()
