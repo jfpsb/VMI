@@ -287,6 +287,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             novaEntidade.Fornecedor = Entidade.Fornecedor;
             novaEntidade.Loja = Entidade.Loja;
             novaEntidade.Data = Entidade.Data;
+            novaEntidade.Descricao = Entidade.Descricao;
+            OnPropertyChanged("TipoDescricao");
             if (InserirVencimentoFlag)
                 novaEntidade.DataVencimento = Entidade.DataVencimento;
 
