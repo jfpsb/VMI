@@ -15,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOFaltas daoFaltas;
-        private ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
+        private ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
         private IList<Model.Funcionario> funcionarios;
         private IList<Model.FolhaPagamento> folhas;
         private DateTime _dataEscolhida;
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOHoraExtra(_session);
             daoFuncionario = new DAOFuncionario(_session);
             daoFaltas = new DAOFaltas(_session);
-            ListaHoraExtra = new ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
+            ListaHoraExtra = new ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>>();
             folhas = new ObservableCollection<Model.FolhaPagamento>();
             var task1 = GetFuncionarios();
             task1.Wait();
@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void AbrirImprimirHE(object obj)
         {
             //TODO: implementar viewmodel
-            TelaRelatorioHoraExtraFaltas telaRelatorioHoraExtra = new TelaRelatorioHoraExtraFaltas(_session, ListaHoraExtra);
+            TelaRelatorioHoraExtraFaltas telaRelatorioHoraExtra = new TelaRelatorioHoraExtraFaltas(_session, folhas, DataEscolhida);
             telaRelatorioHoraExtra.ShowDialog();
         }
 
@@ -66,23 +66,28 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     falta = new Model.Faltas();
 
                 var he100 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/100%")).FirstOrDefault();
-                var heNormal = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/060%")).FirstOrDefault();
+                var he60 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/060%")).FirstOrDefault();
+                var he50 = horasExtras.Where(w => w.TipoHoraExtra.Descricao.Equals("HORA EXTRA C/050%")).FirstOrDefault();
 
                 if (he100 == null)
                     he100 = new Model.HoraExtra();
 
-                if (heNormal == null)
-                    heNormal = new Model.HoraExtra();
+                if (he60 == null)
+                    he60 = new Model.HoraExtra();
+
+                if (he50 == null)
+                    he50 = new Model.HoraExtra();
 
                 var possuiBonusPagoEmFolha = f.Bonus.Where(w => w.PagoEmFolha).Count() > 0;
 
                 if (he100.EmTimeSpan.TotalSeconds == 0
-                    && heNormal.EmTimeSpan.TotalSeconds == 0
+                    && he60.EmTimeSpan.TotalSeconds == 0
                     && falta.EmTimeSpan.TotalSeconds == 0
+                    && he50.EmTimeSpan.TotalSeconds == 0
                     && !possuiBonusPagoEmFolha)
                     continue;
 
-                var tupla = Tuple.Create(f, he100, heNormal, falta, DataEscolhida);
+                var tupla = Tuple.Create(f, he100, he60, he50, falta, DataEscolhida);
                 ListaHoraExtra.Add(tupla);
             }
         }
@@ -112,7 +117,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
+        public ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> ListaHoraExtra
         {
             get => _listaHoraExtra;
             set

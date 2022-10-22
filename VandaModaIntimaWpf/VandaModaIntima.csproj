@@ -90,6 +90,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="ViewModel\DataSets\HoraExtraSubReportDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HoraExtraSubReportDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Update="ViewModel\DataSets\PontoEletronicoDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -110,6 +115,7 @@
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\SubRelatorioHoraExtra.rdlc" />
     <EmbeddedResource Include="View\PontoEletronico\Relatorios\PontoEletronicoRelatorioFuncionario.rdlc" />
     <None Update="ACBrLib\x64\ACBrPosPrinter64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -196,6 +202,10 @@
     </None>
     <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xss">
       <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
+    </None>
+    <None Update="ViewModel\DataSets\HoraExtraSubReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HoraExtraSubReportDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Update="ViewModel\DataSets\ParcelaDataSet.xsc">
       <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
@@ -756,6 +766,7 @@
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\SubRelatorioHoraExtra.rdlc" />
     <None Remove="View\PontoEletronico\Relatorios\PontoEletronicoRelatorioFuncionario.rdlc" />
   </ItemGroup>
   <ItemGroup>

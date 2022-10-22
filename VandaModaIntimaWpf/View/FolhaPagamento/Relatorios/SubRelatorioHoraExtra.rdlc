@@ -3,46 +3,34 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="BonusDataSet">
+    <DataSource Name="HoraExtraSubReportDataSet">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>9ed4e88b-5dcd-4c1b-b431-2fb66b9e0ec3</rd:DataSourceID>
+      <rd:DataSourceID>0742099d-7075-4637-ac7d-3434a999bdcd</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetBonus">
+    <DataSet Name="DataSetHoraExtra">
       <Query>
-        <DataSourceName>BonusDataSet</DataSourceName>
+        <DataSourceName>HoraExtraSubReportDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="id">
-          <DataField>id</DataField>
+        <Field Name="tipohoraextra">
+          <DataField>tipohoraextra</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="data">
-          <DataField>data</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="descricao">
-          <DataField>descricao</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="valor">
-          <DataField>valor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="total_bonus">
-          <DataField>total_bonus</DataField>
+        <Field Name="totalhoras">
+          <DataField>totalhoras</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>BonusDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\jfpsb\source\repos\jfpsb\VMI\VandaModaIntimaWpf\ViewModel\DataSets\BonusDataSet.xsd</rd:SchemaPath>
-        <rd:TableName>Bonus</rd:TableName>
+        <rd:DataSetName>HoraExtraSubReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\jfpsb\source\repos\jfpsb\VMI\VandaModaIntimaWpf\ViewModel\DataSets\HoraExtraSubReportDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>horaextra</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -53,14 +41,47 @@
     <ReportSection>
       <Body>
         <ReportItems>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Horas Extras</Value>
+                    <Style>
+                      <FontFamily>Gotham</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>Underline</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>0mm</Top>
+            <Left>0mm</Left>
+            <Height>6mm</Height>
+            <Width>62.23959mm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
           <Tablix Name="Tablix1">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>96.62708mm</Width>
+                  <Width>46.38229mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>27.77291mm</Width>
+                  <Width>27.6177mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -69,7 +90,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox5">
+                        <Textbox Name="Textbox2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -86,7 +107,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox5</rd:DefaultName>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -102,14 +123,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox7">
+                        <Textbox Name="Textbox4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Valor</Value>
+                                  <Value>HORAS</Value>
                                   <Style>
                                     <FontFamily>gotham</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -119,7 +140,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox7</rd:DefaultName>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -140,14 +161,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="descricao">
+                        <Textbox Name="tipohoraextra">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!descricao.Value</Value>
+                                  <Value>=Fields!tipohoraextra.Value</Value>
                                   <Style>
                                     <FontFamily>gotham</FontFamily>
                                   </Style>
@@ -156,7 +177,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>descricao</rd:DefaultName>
+                          <rd:DefaultName>tipohoraextra</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -172,14 +193,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="valor">
+                        <Textbox Name="totalhoras">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!valor.Value</Value>
+                                  <Value>=Fields!totalhoras.Value</Value>
                                   <Style>
                                     <FontFamily>gotham</FontFamily>
                                   </Style>
@@ -188,7 +209,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>valor</rd:DefaultName>
+                          <rd:DefaultName>totalhoras</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -219,56 +240,22 @@
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
-                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
-            <DataSetName>DataSetBonus</DataSetName>
+            <DataSetName>DataSetHoraExtra</DataSetName>
             <Top>6mm</Top>
             <Left>0mm</Left>
             <Height>12mm</Height>
-            <Width>124.39999mm</Width>
+            <Width>73.99999mm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Comissões e outros bônus</Value>
-                    <Style>
-                      <FontFamily>Gotham</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0mm</Top>
-            <Left>0mm</Left>
-            <Height>6mm</Height>
-            <Width>79.17292mm</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
         </ReportItems>
         <Height>18mm</Height>
         <Style>
@@ -277,7 +264,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>124.4mm</Width>
+      <Width>74mm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
@@ -306,5 +293,5 @@
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>1ff1f99e-d5bf-4605-aa3a-c40c46f9723e</rd:ReportID>
+  <rd:ReportID>2723b9ae-2bf8-4f07-a032-fc27dea59777</rd:ReportID>
 </Report>

@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="Visualização de Hora Extra"
         Height="500"
-        Width="1000"
+        Width="1100"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Icon="/Resources/Hora_Extra_Icon.ico">
     <Grid Margin="5">
@@ -42,9 +43,12 @@
                 <DataGridTextColumn Header="HORA EXTRA C/060%"
                                     Width="Auto"
                                     Binding="{Binding Item3.TotalEmString}" />
-                <DataGridTextColumn Header="FALTAS (TOTAL EM HORAS)"
+                <DataGridTextColumn Header="HORA EXTRA C/050%"
                                     Width="Auto"
                                     Binding="{Binding Item4.TotalEmString}" />
+                <DataGridTextColumn Header="FALTAS (TOTAL EM HORAS)"
+                                    Width="Auto"
+                                    Binding="{Binding Item5.TotalEmString}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Column="2"

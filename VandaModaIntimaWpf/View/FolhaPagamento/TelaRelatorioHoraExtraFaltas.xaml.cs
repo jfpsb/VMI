@@ -1,6 +1,7 @@
 ﻿using Microsoft.Reporting.WinForms;
 using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     /// </summary>
     public partial class TelaRelatorioHoraExtraFaltas : Window
     {
-        private ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> _listaHoraExtra;
-        private DAOBonus daoBonus;
-        private DAOFuncionario daoFuncionario;
+        private IList<Model.FolhaPagamento> _folhas;
+        private DAOHoraExtra daoHoraExtra;
+        private DAOFaltas daoFaltas;
         private DateTime dataEscolhida;
         public TelaRelatorioHoraExtraFaltas()
         {
@@ -26,52 +27,42 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             InitializeComponent();
         }
 
-        public TelaRelatorioHoraExtraFaltas(ISession session, ObservableCollection<Tuple<Model.FolhaPagamento, Model.HoraExtra, Model.HoraExtra, Model.Faltas, DateTime>> listaHoraExtra)
+        public TelaRelatorioHoraExtraFaltas(ISession session, IList<Model.FolhaPagamento> folhas, DateTime data)
         {
             InitializeComponent();
-            _listaHoraExtra = listaHoraExtra;
-            daoBonus = new DAOBonus(session);
-            daoFuncionario = new DAOFuncionario(session);
-            dataEscolhida = listaHoraExtra[0].Item5;
+            _folhas = folhas;
+            daoHoraExtra = new DAOHoraExtra(session);
+            daoFaltas = new DAOFaltas(session);
+            dataEscolhida = data;
         }
 
-        private void HoraExtraFaltaReportViewer_Load(object sender, EventArgs e)
+        private async void HoraExtraFaltaReportViewer_Load(object sender, EventArgs e)
         {
-            HoraExtraFaltasDataSet horaExtraDataSet = new HoraExtraFaltasDataSet();
+            HoraExtraFaltasDataSet horaExtraFaltasDataSet = new HoraExtraFaltasDataSet();
 
-            var listaOrdenadaPorLoja = _listaHoraExtra.OrderBy(o => o.Item1.Funcionario.Loja.Cnpj);
+            var listaOrdenadaPorLoja = _folhas.OrderBy(o => o.Funcionario.Loja.Cnpj);
 
-            foreach (var horaExtra in listaOrdenadaPorLoja)
+            foreach (var folha in listaOrdenadaPorLoja)
             {
-                if (!horaExtra.Item2.TotalEmString.Equals("--:--") || !horaExtra.Item3.TotalEmString.Equals("--:--") || !horaExtra.Item4.TotalEmString.Equals("--:--"))
-                {
-                    var herow = horaExtraDataSet.HoraExtra.NewHoraExtraRow();
+                var herow = horaExtraFaltasDataSet.HoraExtra.NewHoraExtraRow();
 
-                    herow.cpf_funcionario = horaExtra.Item1.Funcionario.Cpf;
-                    herow.nome_funcionario = horaExtra.Item1.Funcionario.Nome;
-                    herow.nome_loja = horaExtra.Item1.Funcionario.Loja.Nome;
-                    herow.hora_100 = horaExtra.Item2.TotalEmString;
-                    herow.hora_normal = horaExtra.Item3.TotalEmString;
-                    herow.faltas = horaExtra.Item4.TotalEmString;
-                    herow.mes_referencia = horaExtra.Item5.ToString("MM/yyyy");
+                herow.cpf_funcionario = folha.Funcionario.Cpf;
+                herow.nome_funcionario = folha.Funcionario.Nome;
+                herow.nome_loja = folha.Funcionario.Loja.Nome;
+                herow.mes_referencia = folha.MesReferencia;
+                var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario);
+                if (falta == null) falta = new Model.Faltas();
 
-                    horaExtraDataSet.HoraExtra.AddHoraExtraRow(herow);
-                }
+                herow.faltas = falta.TotalEmString;
+
+                horaExtraFaltasDataSet.HoraExtra.AddHoraExtraRow(herow);
             }
 
-            ReportParameter descTipoHoraExtraParameter = null;
-            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoraExtraFalta", horaExtraDataSet.Tables[0]);
-
-            var first = listaOrdenadaPorLoja.Where(w => w.Item3.TipoHoraExtra != null).FirstOrDefault();
-            if (first != null)
-                descTipoHoraExtraParameter = new ReportParameter("TipoHoraExtraDescricao", first.Item3.TipoHoraExtra.Descricao);
+            ReportDataSource reportDataSource = new ReportDataSource("DataSetHoraExtraFalta", horaExtraFaltasDataSet.Tables[0]);
 
             ReportViewerUtil.ConfiguraReportViewer(HoraExtraFaltaReportViewer,
                 "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtraFaltas.rdlc",
                 reportDataSource, SubReportProcessing);
-
-            if (descTipoHoraExtraParameter != null)
-                HoraExtraFaltaReportViewer.LocalReport.SetParameters(descTipoHoraExtraParameter);
 
             HoraExtraFaltaReportViewer.LocalReport.Refresh();
             HoraExtraFaltaReportViewer.RefreshReport();
@@ -80,9 +71,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         private async void SubReportProcessing(object sender, SubreportProcessingEventArgs e)
         {
             var cpf = e.Parameters["CPFFuncionario"].Values[0].ToString();
-            var folha = _listaHoraExtra.Where(w => w.Item1.Funcionario.Cpf.Equals(cpf)).Select(w => w.Item1).FirstOrDefault();
+            var folha = _folhas.Where(w => w.Funcionario.Cpf.Equals(cpf)).FirstOrDefault();
 
             BonusDataSet bonusDataSet = new BonusDataSet();
+            HoraExtraSubReportDataSet horaExtraSubReportDataSet = new HoraExtraSubReportDataSet();
 
             int i = 0;
 
@@ -123,8 +115,20 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 bonusDataSet.Bonus.AddBonusRow(brow2);
             }
 
+            IList<Model.HoraExtra> horasExtras = await daoHoraExtra.ListarPorMesFuncionarioGroupByTipoHoraExtra(dataEscolhida, folha.Funcionario);
+
+            foreach (var horaextra in horasExtras)
+            {
+                var herow = horaExtraSubReportDataSet.horaextra.NewhoraextraRow();
+                herow.totalhoras = horaextra.TotalEmString;
+                herow.tipohoraextra = horaextra.TipoHoraExtra.Descricao;
+                horaExtraSubReportDataSet.horaextra.AddhoraextraRow(herow);
+            }
+
             ReportDataSource reportDataSource1 = new ReportDataSource("DataSetBonus", bonusDataSet.Tables[0]);
+            ReportDataSource reportDataSource2 = new ReportDataSource("DataSetHoraExtra", horaExtraSubReportDataSet.Tables[0]);
             e.DataSources.Add(reportDataSource1);
+            e.DataSources.Add(reportDataSource2);
         }
     }
 }
