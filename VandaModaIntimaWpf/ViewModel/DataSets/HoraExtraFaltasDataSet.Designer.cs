@@ -285,13 +285,15 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnhora_100;
             
-            private global::System.Data.DataColumn columnhora_normal;
+            private global::System.Data.DataColumn columnhora_60;
             
             private global::System.Data.DataColumn columnmes_referencia;
             
             private global::System.Data.DataColumn columnfaltas;
             
             private global::System.Data.DataColumn columncpf_funcionario;
+            
+            private global::System.Data.DataColumn columnhora_50;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -352,9 +354,9 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn hora_normalColumn {
+            public global::System.Data.DataColumn hora_60Column {
                 get {
-                    return this.columnhora_normal;
+                    return this.columnhora_60;
                 }
             }
             
@@ -379,6 +381,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             public global::System.Data.DataColumn cpf_funcionarioColumn {
                 get {
                     return this.columncpf_funcionario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn hora_50Column {
+                get {
+                    return this.columnhora_50;
                 }
             }
             
@@ -419,16 +429,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_normal, string mes_referencia, string faltas, string cpf_funcionario) {
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string hora_100, string hora_60, string mes_referencia, string faltas, string cpf_funcionario, string hora_50) {
                 HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nome_funcionario,
                         nome_loja,
                         hora_100,
-                        hora_normal,
+                        hora_60,
                         mes_referencia,
                         faltas,
-                        cpf_funcionario};
+                        cpf_funcionario,
+                        hora_50};
                 rowHoraExtraRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHoraExtraRow);
                 return rowHoraExtraRow;
@@ -454,10 +465,11 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnnome_funcionario = base.Columns["nome_funcionario"];
                 this.columnnome_loja = base.Columns["nome_loja"];
                 this.columnhora_100 = base.Columns["hora_100"];
-                this.columnhora_normal = base.Columns["hora_normal"];
+                this.columnhora_60 = base.Columns["hora_60"];
                 this.columnmes_referencia = base.Columns["mes_referencia"];
                 this.columnfaltas = base.Columns["faltas"];
                 this.columncpf_funcionario = base.Columns["cpf_funcionario"];
+                this.columnhora_50 = base.Columns["hora_50"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -469,14 +481,16 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnnome_loja);
                 this.columnhora_100 = new global::System.Data.DataColumn("hora_100", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnhora_100);
-                this.columnhora_normal = new global::System.Data.DataColumn("hora_normal", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnhora_normal);
+                this.columnhora_60 = new global::System.Data.DataColumn("hora_60", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_60);
                 this.columnmes_referencia = new global::System.Data.DataColumn("mes_referencia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmes_referencia);
                 this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfaltas);
                 this.columncpf_funcionario = new global::System.Data.DataColumn("cpf_funcionario", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncpf_funcionario);
+                this.columnhora_50 = new global::System.Data.DataColumn("hora_50", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_50);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -667,17 +681,17 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string hora_normal {
+            public string hora_60 {
                 get {
                     try {
-                        return ((string)(this[this.tableHoraExtra.hora_normalColumn]));
+                        return ((string)(this[this.tableHoraExtra.hora_60Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'hora_normal\' in table \'HoraExtra\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_60\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableHoraExtra.hora_normalColumn] = value;
+                    this[this.tableHoraExtra.hora_60Column] = value;
                 }
             }
             
@@ -731,6 +745,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string hora_50 {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.hora_50Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_50\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.hora_50Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isnome_funcionarioNull() {
                 return this.IsNull(this.tableHoraExtra.nome_funcionarioColumn);
             }
@@ -767,14 +797,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Ishora_normalNull() {
-                return this.IsNull(this.tableHoraExtra.hora_normalColumn);
+            public bool Ishora_60Null() {
+                return this.IsNull(this.tableHoraExtra.hora_60Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Sethora_normalNull() {
-                this[this.tableHoraExtra.hora_normalColumn] = global::System.Convert.DBNull;
+            public void Sethora_60Null() {
+                this[this.tableHoraExtra.hora_60Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -811,6 +841,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setcpf_funcionarioNull() {
                 this[this.tableHoraExtra.cpf_funcionarioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Ishora_50Null() {
+                return this.IsNull(this.tableHoraExtra.hora_50Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Sethora_50Null() {
+                this[this.tableHoraExtra.hora_50Column] = global::System.Convert.DBNull;
             }
         }
         
