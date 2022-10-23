@@ -13,6 +13,14 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
         }
 
+        /// <summary>
+        /// Lista todas as faltas de funcionário em determinado mês, exceto faltas justificadas
+        /// </summary>
+        /// <param name="ano">Ano para consulta</param>
+        /// <param name="mes">Mês para consulta</param>
+        /// <param name="funcionario">Funcionário para consultar faltas</param>
+        /// <returns>Lista com faltas ou nenhum item</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<Faltas> ListarFaltasPorMesFuncionarioSoma(int ano, int mes, Funcionario funcionario)
         {
             try
@@ -45,6 +53,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        /// <summary>
+        /// Lista falta de funcionário em dia específico.
+        /// </summary>
+        /// <param name="dia">Datetime contendo o dia para consulta.</param>
+        /// <param name="funcionario">Funcionário para consultar faltas</param>
+        /// <returns>Falta encontrada em banco de dados ou null</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<Faltas> ListarPorDiaFuncionario(DateTime dia, Funcionario funcionario)
         {
             try

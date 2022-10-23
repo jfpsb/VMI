@@ -59,7 +59,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             foreach (var f in folhas)
             {
-                var horasExtras = await daoHoraExtra.ListarPorAnoMesFuncionario(DataEscolhida.Year, DataEscolhida.Month, f.Funcionario);
+                var horasExtras = await daoHoraExtra.ListarPorMesFuncionario(DataEscolhida.Year, DataEscolhida.Month, f.Funcionario);
                 var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(DataEscolhida.Year, DataEscolhida.Month, f.Funcionario);
 
                 if (falta == null)

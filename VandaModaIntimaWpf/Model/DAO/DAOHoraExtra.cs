@@ -14,7 +14,15 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
         }
 
-        public async Task<IList<HoraExtra>> ListarPorAnoMesFuncionario(int ano, int mes, Funcionario funcionario)
+        /// <summary>
+        /// Lista horas extras de mês e funcionário específico.
+        /// </summary>
+        /// <param name="ano">Ano para consulta.</param>
+        /// <param name="mes">Mês para consulta.</param>
+        /// <param name="funcionario">Funcionário para consulta.</param>
+        /// <returns>Lista com horas extras encontradas ou nenhum item.</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IList<HoraExtra>> ListarPorMesFuncionario(int ano, int mes, Funcionario funcionario)
         {
             try
             {
@@ -45,6 +53,14 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        /// <summary>
+        /// Lista horas extras de mês, funcionário e tipo de hora extra específicos.
+        /// </summary>
+        /// <param name="dia">Dia para consulta</param>
+        /// <param name="funcionario">Funcionário para consulta</param>
+        /// <param name="tipo">Tipo de hora extra para consulta</param>
+        /// <returns>Hora extra específica do dia ou null</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<HoraExtra> ListarPorDiaFuncionarioTipoHoraExtra(DateTime dia, Funcionario funcionario, TipoHoraExtra tipo)
         {
             try
@@ -62,6 +78,13 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        /// <summary>
+        /// Lista horas extras de mês e funcionário específicos, agrupados por tipo de hora extra.
+        /// </summary>
+        /// <param name="data">Datetime com mês e ano para consulta.</param>
+        /// <param name="funcionario">Funcionário para consulta</param>
+        /// <returns>Lista de horas extras ou nenhum item</returns>
+        /// <exception cref="Exception"></exception>
         public async Task<IList<HoraExtra>> ListarPorMesFuncionarioGroupByTipoHoraExtra(DateTime data, Funcionario funcionario)
         {
             try
@@ -87,8 +110,8 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
             catch (Exception ex)
             {
-                Log.EscreveLogBanco(ex, "listar hora extra por dia funcionario");
-                throw new Exception($"Erro ao listar hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
+                Log.EscreveLogBanco(ex, "listar hora extra por dia funcionario agrupado por tipo de hora");
+                throw new Exception($"Erro ao listar hora extra por período, agrupado por tipo de hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
 
