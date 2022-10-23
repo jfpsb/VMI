@@ -46,6 +46,9 @@ namespace VandaModaIntimaWpf.View
 
             switch (DataStringFormat)
             {
+                case "MM/yyyy":
+                    dataUpDown = new SomaMes();
+                    break;
                 case "MMM/yyyy":
                     dataUpDown = new SomaMes();
                     break;

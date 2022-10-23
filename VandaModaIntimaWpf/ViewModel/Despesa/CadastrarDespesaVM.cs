@@ -102,7 +102,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                     mensagem += "\nConfirma?";
 
-                    var result = MessageBoxService.Show(mensagem,
+                    var result = _messageBoxService.Show(mensagem,
                         viewModelStrategy.MessageBoxCaption(),
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Question,
@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                         await daoEntidade.Inserir(despesas);
                         _result = true;
-                        MessageBoxService.Show("Despesas foram salvas com sucesso.",
+                        _messageBoxService.Show("Despesas foram salvas com sucesso.",
                             viewModelStrategy.MessageBoxCaption(),
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
@@ -143,7 +143,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show($"Erro ao salvar despesas.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                _messageBoxService.Show($"Erro ao salvar despesas.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 

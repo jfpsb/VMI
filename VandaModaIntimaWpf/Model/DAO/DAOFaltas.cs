@@ -2,6 +2,7 @@
 using NHibernate.Criterion;
 using NHibernate.Transform;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
 
@@ -14,12 +15,12 @@ namespace VandaModaIntimaWpf.Model.DAO
         }
 
         /// <summary>
-        /// Lista todas as faltas de funcionário em determinado mês, exceto faltas justificadas
+        /// Soma o total de horas e minutos de todas as faltas de funcionário em determinado mês, exceto faltas justificadas.
         /// </summary>
         /// <param name="ano">Ano para consulta</param>
         /// <param name="mes">Mês para consulta</param>
         /// <param name="funcionario">Funcionário para consultar faltas</param>
-        /// <returns>Lista com faltas ou nenhum item</returns>
+        /// <returns>Objeto Falta com a soma das horas e minutos ou nulo.</returns>
         /// <exception cref="Exception"></exception>
         public async Task<Faltas> ListarFaltasPorMesFuncionarioSoma(int ano, int mes, Funcionario funcionario)
         {
@@ -52,9 +53,39 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar faltas de funcionário neste mês. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+        /// <summary>
+        /// Lista todas as faltas de funcionário em determinado mês, incluindo justificadas ou não.
+        /// </summary>
+        /// <param name="ano">Ano para consulta</param>
+        /// <param name="mes">Mês para consulta</param>
+        /// <param name="funcionario">Funcionário para consulta</param>
+        /// <returns>Lista com todas as faltas ou nenhum item</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IList<Faltas>> ListarFaltasPorMesFuncionario(int ano, int mes, Funcionario funcionario)
+        {
+            try
+            {
+                var inicio = new DateTime(ano, mes, 1);
+                var fim = inicio.AddMonths(1).AddSeconds(-1);
+
+                var criteria = CriarCriteria();
+
+                criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Deletado", false));
+                criteria.Add(Restrictions.Between("Data", inicio, fim));
+                criteria.AddOrder(Order.Asc("Data"));
+
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de faltas por mês e funcionário");
+                throw new Exception($"Erro ao listar faltas de funcionário neste mês. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
 
         /// <summary>
-        /// Lista falta de funcionário em dia específico.
+        /// Lista falta não justificada de funcionário em dia específico.
         /// </summary>
         /// <param name="dia">Datetime contendo o dia para consulta.</param>
         /// <param name="funcionario">Funcionário para consultar faltas</param>
@@ -67,6 +98,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Eq("Data", dia));
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Justificado", false));
                 return await criteria.UniqueResultAsync<Faltas>();
             }
             catch (Exception ex)

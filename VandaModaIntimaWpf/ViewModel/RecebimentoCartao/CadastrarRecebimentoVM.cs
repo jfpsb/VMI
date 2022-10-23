@@ -92,12 +92,12 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             try
             {
                 await daoEntidade.InserirOuAtualizar(Recebimentos);
-                MessageBoxService.Show("Recebimentos em conta cadastrados com sucesso.", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Information);
+                _messageBoxService.Show("Recebimentos em conta cadastrados com sucesso.", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Information);
                 _result = true;
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show("Erro ao cadastrar recebimentos em conta. " +
+                _messageBoxService.Show("Erro ao cadastrar recebimentos em conta. " +
                     $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 

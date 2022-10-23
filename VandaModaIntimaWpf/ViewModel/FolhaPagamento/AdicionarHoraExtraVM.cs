@@ -114,12 +114,12 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 var horasExtrasValidas = HorasExtras.Where(w => (w.Uuid != null && w.Uuid != Guid.Empty) || (w.Horas != 0 || w.Minutos != 0)).ToList();
                 await daoEntidade.InserirOuAtualizar(horasExtrasValidas);
                 _result = true;
-                MessageBoxService.Show("Horas extras foram salvas com sucesso.", viewModelStrategy.MessageBoxCaption(),
+                _messageBoxService.Show("Horas extras foram salvas com sucesso.", viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show($"Erro ao salvar horas extras.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                _messageBoxService.Show($"Erro ao salvar horas extras.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 

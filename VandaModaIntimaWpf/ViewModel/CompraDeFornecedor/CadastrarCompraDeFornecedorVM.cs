@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         {
             if (ArquivoSelecionado != null)
             {
-                var dialogResult = MessageBoxService.Show($"Deseja remover o arquivo {ArquivoSelecionado.Nome}?", "Compra de Fornecedor",
+                var dialogResult = _messageBoxService.Show($"Deseja remover o arquivo {ArquivoSelecionado.Nome}?", "Compra de Fornecedor",
                     MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
                 if (dialogResult == MessageBoxResult.Yes)
@@ -98,7 +98,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
+                    _messageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
                 }
             }
         }
@@ -123,7 +123,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
+                    _messageBoxService.Show($"Erro Ao Tentar Abrir Arquivo!\n{ex.Message}");
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                             if (fornecedor == null)
                             {
-                                var msgBox = MessageBoxService.Show("O Fornecedor Desta Nota Fiscal Não Está Cadastrado. Deseja Cadastrar Este Fornecedor?", "Fornecedor Não Encontrado",
+                                var msgBox = _messageBoxService.Show("O Fornecedor Desta Nota Fiscal Não Está Cadastrado. Deseja Cadastrar Este Fornecedor?", "Fornecedor Não Encontrado",
                                     System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Question, System.Windows.MessageBoxResult.No);
 
                                 if (msgBox == System.Windows.MessageBoxResult.Yes)
@@ -186,13 +186,13 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                     }
                     catch (Exception ex)
                     {
-                        MessageBoxService.Show($"Erro Ao Ler Arquivo De Nota Fiscal. Cheque Se O Arquivo Está Marcado Como \"Somente Leitura\", Se Estiver, Desmarque.\n\n{ex.Message}");
+                        _messageBoxService.Show($"Erro Ao Ler Arquivo De Nota Fiscal. Cheque Se O Arquivo Está Marcado Como \"Somente Leitura\", Se Estiver, Desmarque.\n\n{ex.Message}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show(ex.Message);
+                _messageBoxService.Show(ex.Message);
             }
         }
         private void CopiarArquivos(AposInserirBDEventArgs e)
@@ -225,7 +225,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro Ao Copiar Arquivos. Certifique-se Que Os Arquivos Escolhidos Ainda Estão No Local E Que Não Estão Abertos.\n\nMensagem de Erro: {ex.Message}");
+                    _messageBoxService.Show($"Erro Ao Copiar Arquivos. Certifique-se Que Os Arquivos Escolhidos Ainda Estão No Local E Que Não Estão Abertos.\n\nMensagem de Erro: {ex.Message}");
                 }
             }
         }
@@ -246,7 +246,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show(ex.Message);
+                _messageBoxService.Show(ex.Message);
             }
         }
 

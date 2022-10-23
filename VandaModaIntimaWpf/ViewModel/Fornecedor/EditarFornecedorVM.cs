@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
         }
         private async void AtualizarReceita(object parameter)
         {
-            MessageBoxService.Show("Pesquisando CNPJ na Receita Federal. Aguarde.", viewModelStrategy.MessageBoxCaption());
+            _messageBoxService.Show("Pesquisando CNPJ na Receita Federal. Aguarde.", viewModelStrategy.MessageBoxCaption());
 
             try
             {
@@ -26,22 +26,22 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                 Entidade.CopiaDadosDeConsultaNaReceita(result);
                 await daoEntidade.Atualizar(Entidade);
                 OnPropertyChanged("Entidade");
-                MessageBoxService.Show("Pesquisa Realizada Com Sucesso.", viewModelStrategy.MessageBoxCaption());
+                _messageBoxService.Show("Pesquisa Realizada Com Sucesso.", viewModelStrategy.MessageBoxCaption());
             }
             catch (WebException we)
             {
                 if (we.Message.Contains("429"))
                 {
-                    MessageBoxService.Show("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.", viewModelStrategy.MessageBoxCaption());
+                    _messageBoxService.Show("Muitas Pesquisas Realizadas Sucessivamente. Aguarde Um Pouco.", viewModelStrategy.MessageBoxCaption());
                 }
                 else
                 {
-                    MessageBoxService.Show(we.Message);
+                    _messageBoxService.Show(we.Message);
                 }
             }
             catch (InvalidDataException ide)
             {
-                MessageBoxService.Show(ide.Message);
+                _messageBoxService.Show(ide.Message);
             }
         }
     }

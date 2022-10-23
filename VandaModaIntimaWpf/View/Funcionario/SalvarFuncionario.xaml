@@ -8,7 +8,7 @@
                       mc:Ignorable="d"
                       Title="Cadastrar Funcionário"
                       Height="750"
-                      Width="700"
+                      Width="750"
                       Icon="/Resources/Funcionario_Icon.ico"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen"
@@ -446,6 +446,64 @@
                         </Grid>
                     </GroupBox>
                 </DockPanel>
+            </TabItem>
+            <TabItem Header="Faltas"
+                     IsEnabled="{Binding IssoEUmUpdate}">
+                <Grid Margin="5,5,5,50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Content="Mês Referência:" />
+                    <View:DataUpDown Grid.Column="1"
+                                     Width="200"
+                                     HorizontalAlignment="Left"
+                                     Data="{Binding DataEscolhida, Mode=TwoWay}"
+                                     DataStringFormat="MMM/yyyy" />
+                    <TextBlock Grid.ColumnSpan="2"
+                               Grid.Row="1"
+                               FontSize="14"
+                               Foreground="Red"
+                               FontWeight="Bold"
+                               TextWrapping="Wrap">
+                        Alterações em faltas serão salvas automaticamente ao finalizar a edição.
+                        <LineBreak />
+                        Escreva a justificativa que automaticamente o campo "justificado" será marcado.
+                        <LineBreak />
+                        Deixe o campo "justificativa" em branco que a falta será desmarcada como "justificada".
+                    </TextBlock>
+                    <DataGrid Grid.ColumnSpan="2"
+                              Grid.Row="2"
+                              ItemsSource="{Binding Faltas}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Data"
+                                                IsReadOnly="True"
+                                                Binding="{Binding Data, StringFormat=dd/MM/yyyy}" />
+                            <DataGridTextColumn Header="Faltas (Em Horas)"
+                                                IsReadOnly="True"
+                                                Binding="{Binding TotalEmString}" />
+                            <DataGridCheckBoxColumn Header="Justificada"
+                                                    IsReadOnly="True"
+                                                    Binding="{Binding Justificado}" />
+                            <DataGridTextColumn Header="Justificativa"
+                                                IsReadOnly="False"
+                                                Binding="{Binding Justificativa, UpdateSourceTrigger=LostFocus}"
+                                                Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Label Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           Content="{Binding TotalHorasFaltas}"
+                           ContentStringFormat="Total de horas em faltas não justificadas: {0}" />
+                </Grid>
             </TabItem>
         </TabControl>
         <Button Panel.ZIndex="10"

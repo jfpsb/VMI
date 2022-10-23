@@ -82,7 +82,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
             if (marcados.Count == 0)
             {
-                MessageBoxService.Show("Nenhum Funcionário Foi Selecionado!");
+                _messageBoxService.Show("Nenhum Funcionário Foi Selecionado!");
             }
             else
             {
@@ -108,7 +108,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 {
                     await daoEntidade.Inserir(bonuses);
                     _result = true;
-                    MessageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(),
+                    _messageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(),
                         _salvarBonus.MensagemCaption(),
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -117,7 +117,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show(_salvarBonus.MensagemInseridoErro() +
+                    _messageBoxService.Show(_salvarBonus.MensagemInseridoErro() +
                         $" Para mais detalhes acesse {Log.LogBanco}\n\n" +
                         $"{ex.Message}\n\n{ex.InnerException.Message}",
                         _salvarBonus.MensagemCaption(),

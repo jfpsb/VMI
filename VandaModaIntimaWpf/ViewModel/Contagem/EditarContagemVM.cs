@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show("Erro ao inserir contagem de produto nesta contagem. " +
+                _messageBoxService.Show("Erro ao inserir contagem de produto nesta contagem. " +
                     $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Edição De Contagem", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -87,7 +87,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show($"Erro ao deletar contagem de produto. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Edição De Contagem",
+                _messageBoxService.Show($"Erro ao deletar contagem de produto. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Edição De Contagem",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

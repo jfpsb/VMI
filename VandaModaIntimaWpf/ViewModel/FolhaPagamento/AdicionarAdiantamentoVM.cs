@@ -62,18 +62,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 try
                 {
-                    var dialogResult = MessageBoxService.Show("Deseja cadastrar este adiantamento como uma despesa?", "Adicionar Adiantamento",
+                    var dialogResult = _messageBoxService.Show("Deseja cadastrar este adiantamento como uma despesa?", "Adicionar Adiantamento",
                         MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
 
                     if (dialogResult == MessageBoxResult.Yes)
                     {
                         await daoDespesa.Inserir(despesa);
-                        MessageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _messageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show("Erro ao cadastrar despesa decorrente de adiantamento." +
+                    _messageBoxService.Show("Erro ao cadastrar despesa decorrente de adiantamento." +
                         $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Adicionar Adiantamento",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);

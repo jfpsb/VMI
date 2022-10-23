@@ -20,6 +20,9 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             ContasBancarias = new ObservableCollection<Model.ContaBancaria>(Entidade.ContasBancarias);
             FeriasRegistradas = new ObservableCollection<Model.Ferias>(Entidade.Ferias);
 
+            var task = GetFaltas();
+            task.Wait();
+
             SetInicioAquisitivo();
             IndexAba = indexAba;
         }

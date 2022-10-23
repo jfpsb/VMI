@@ -3,11 +3,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.Ferias;
 using FuncionarioModel = VandaModaIntimaWpf.Model.Funcionario;
@@ -18,15 +18,19 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
     public class CadastrarFuncionarioVM : ACadastrarViewModel<FuncionarioModel>
     {
         private DAOLoja daoLoja;
-        private DAO<Model.Banco> daoBanco;
-        private ObservableCollection<Model.ChavePix> _chavesPix;
-        private ObservableCollection<Model.ContaBancaria> _contasBancarias;
-        private ObservableCollection<Model.Banco> _bancos;
-        private Model.ContaBancaria _contaBancaria;
-        private Model.Banco _bancoContaBancaria;
-        private Model.Banco _bancoPix;
-        private Model.ChavePix _chavePix;
+        private DAOFaltas daoFaltas;
+        private DAO<Banco> daoBanco;
+        private ObservableCollection<ChavePix> _chavesPix;
+        private ObservableCollection<ContaBancaria> _contasBancarias;
+        private ObservableCollection<Banco> _bancos;
+        private ObservableCollection<Faltas> _faltas;
+        private ContaBancaria _contaBancaria;
+        private Banco _bancoContaBancaria;
+        private Banco _bancoPix;
+        private ChavePix _chavePix;
         private int _indexAba;
+        private DateTime _dataEscolhida;
+        private string _totalHorasFaltas;
 
         #region "Usado em EditarFuncionarioVM"
         private DateTime _inicioAquisitivo;
@@ -50,9 +54,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             daoEntidade = new DAOFuncionario(_session);
             daoLoja = new DAOLoja(_session);
             daoBanco = new DAO<Model.Banco>(_session);
+            daoFaltas = new DAOFaltas(session);
 
-            GetLojas();
-            GetBancos();
+            DataEscolhida = DateTime.Now;
+
+            var task1 = GetLojas();
+            var task2 = GetBancos();
+
+            task1.Wait();
+            task2.Wait();
 
             Entidade = new FuncionarioModel
             {
@@ -95,7 +105,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         {
             if (InicioFerias.DayOfWeek == DayOfWeek.Sunday)
             {
-                MessageBoxService.Show("Período de férias não pode iniciar em dia de domingo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                _messageBoxService.Show("Período de férias não pode iniciar em dia de domingo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -109,14 +119,14 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                     || feriado.Type.ToLower().Equals("feriado municipal")
                     || feriado.Type.ToLower().Equals("dia não útil"))
                 {
-                    MessageBoxService.Show("Período de férias não pode iniciar em dia de feriado.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                    _messageBoxService.Show("Período de férias não pode iniciar em dia de feriado.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
             }
 
             if (InicioFerias < InicioConcessivo || InicioFerias > FimConcessivo)
             {
-                MessageBoxService.Show("Início de período de férias não pode estar fora do período concessivo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                _messageBoxService.Show("Início de período de férias não pode estar fora do período concessivo.", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -206,12 +216,15 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             ChavePix = new Model.ChavePix();
         }
 
-        private void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private async void CadastrarFuncionarioVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "InicioAquisitivo":
                     InicioFerias = InicioConcessivo;
+                    break;
+                case "DataEscolhida":
+                    await GetFaltas();
                     break;
             }
         }
@@ -243,14 +256,71 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
                     break;
             }
         }
-        private async void GetLojas()
+        private async Task GetLojas()
         {
             Lojas = new ObservableCollection<LojaModel>(await daoLoja.ListarSomenteLojas());
         }
-        private async void GetBancos()
+        private async Task GetBancos()
         {
             Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
         }
+        protected async Task GetFaltas()
+        {
+            if (Faltas != null)
+            {
+                foreach (var falta in Faltas)
+                {
+                    falta.PropertyChanged -= FaltaPropertyChanged;
+                }
+            }
+
+            Faltas = new ObservableCollection<Faltas>(await daoFaltas.ListarFaltasPorMesFuncionario(DataEscolhida.Year, DataEscolhida.Month, Entidade));
+
+            int horas = 0, minutos = 0;
+
+            foreach (var falta in Faltas)
+            {
+                falta.PropertyChanged += FaltaPropertyChanged;
+                if (!falta.Justificado)
+                {
+                    horas += falta.Horas;
+                    minutos += falta.Minutos;
+                }
+            }
+
+            if (minutos > 60)
+            {
+                int resto = minutos % 60;
+                horas += resto;
+            }
+
+            TotalHorasFaltas = $"{horas:00}:{minutos:00}";
+        }
+
+        private async void FaltaPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Faltas falta = sender as Model.Faltas;
+            if (e.PropertyName.Equals("Justificativa"))
+            {
+                if (falta.Justificativa.Trim().Length > 0)
+                {
+                    falta.Justificado = true;
+                }
+                else
+                {
+                    falta.Justificado = false;
+                }
+                try
+                {
+                    await daoFaltas.Atualizar(falta);
+                }
+                catch (Exception ex)
+                {
+                    _messageBoxService.Show($"Erro ao atualizar faltas.\n\n{ex.Message}");
+                }
+            }
+        }
+
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
             if (e.Sucesso)
@@ -445,6 +515,48 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             {
                 _indexAba = value;
                 OnPropertyChanged("IndexAba");
+            }
+        }
+
+        public ObservableCollection<Faltas> Faltas
+        {
+            get
+            {
+                return _faltas;
+            }
+
+            set
+            {
+                _faltas = value;
+                OnPropertyChanged("Faltas");
+            }
+        }
+
+        public DateTime DataEscolhida
+        {
+            get
+            {
+                return _dataEscolhida;
+            }
+
+            set
+            {
+                _dataEscolhida = value;
+                OnPropertyChanged("DataEscolhida");
+            }
+        }
+
+        public string TotalHorasFaltas
+        {
+            get
+            {
+                return _totalHorasFaltas;
+            }
+
+            set
+            {
+                _totalHorasFaltas = value;
+                OnPropertyChanged("TotalHorasFaltas");
             }
         }
     }

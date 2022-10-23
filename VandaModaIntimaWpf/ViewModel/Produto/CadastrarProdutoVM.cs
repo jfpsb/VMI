@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
         {
             if (ProdutoGrades.Count == 0)
             {
-                MessageBoxService.Show("O Produto Precisa De Ao Menos Uma Grade Para Ser Cadastrado!");
+                _messageBoxService.Show("O Produto Precisa De Ao Menos Uma Grade Para Ser Cadastrado!");
                 AntesInserirBDChecagem = false;
             }
         }
@@ -189,12 +189,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 try
                 {
                     await daoProdutoGrade.InserirOuAtualizar(ProdutoGrades);
-                    MessageBoxService.Show("Grades atualizadas com novos preços de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                    _messageBoxService.Show("Grades atualizadas com novos preços de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                     HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro ao salvar composição de preço das grades.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                    _messageBoxService.Show($"Erro ao salvar composição de preço das grades.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
                         viewModelStrategy.MessageBoxCaption(),
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -218,12 +218,12 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
                 try
                 {
                     await daoProdutoGrade.Atualizar(ProdutoGradeComposicaoPreco);
-                    MessageBoxService.Show("Grade atualizada com novo preço de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
+                    _messageBoxService.Show("Grade atualizada com novo preço de custo com sucesso!", viewModelStrategy.MessageBoxCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
                     HistoricoProdutoGrade = new ObservableCollection<HistoricoProdutoGrade>(ProdutoGradeComposicaoPreco.Historico);
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro ao salvar composição de preço da grade.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
+                    _messageBoxService.Show($"Erro ao salvar composição de preço da grade.\nPara mais detalhes acesse {Log.LogBanco}\n\n{ex.Message}\n\n{ex.InnerException.Message}",
                         viewModelStrategy.MessageBoxCaption(),
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }

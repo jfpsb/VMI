@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected bool isEnabled = true;
         protected E _entidade;
         protected bool _result;
-        protected IMessageBoxService MessageBoxService;
+        protected IMessageBoxService _messageBoxService;
         protected IWindowService _windowService;
 
         private bool antesInserirBDChecagem;
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.ViewModel
             _session = session;
             IssoEUmUpdate = isUpdate;
             _windowService = new WindowService();
-            MessageBoxService = new MessageBoxService();
+            _messageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
 
             AposInserirNoBancoDeDados += RedefinirTela;
@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    MessageBoxService.Show($"Erro ao dar refresh em entidade. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n" +
+                    _messageBoxService.Show($"Erro ao dar refresh em entidade. Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n" +
                         $"{ex.InnerException.Message}");
                 }
             }
@@ -95,7 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel
             }
             catch (Exception e)
             {
-                MessageBoxService.Show(e.Message, viewModelStrategy.MessageBoxCaption());
+                _messageBoxService.Show(e.Message, viewModelStrategy.MessageBoxCaption());
             }
         }
         /// <summary>
@@ -109,12 +109,12 @@ namespace VandaModaIntimaWpf.ViewModel
             {
                 await daoEntidade.InserirOuAtualizar(Entidade);
                 _result = true;
-                MessageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
+                _messageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBoxService.Show($"{viewModelStrategy.MensagemEntidadeErroAoSalvar()}\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                _messageBoxService.Show($"{viewModelStrategy.MensagemEntidadeErroAoSalvar()}\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
