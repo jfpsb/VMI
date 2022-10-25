@@ -104,6 +104,7 @@
                         Margin="10"
                         FontWeight="Bold"
                         FontSize="22"
+                        Foreground="Red"
                         Command="{Binding ConsultarRecebimentoPixComando}">
                     <Button.Content>
                         <TextBlock TextAlignment="Center">
