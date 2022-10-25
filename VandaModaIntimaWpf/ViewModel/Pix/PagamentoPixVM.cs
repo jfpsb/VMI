@@ -1,8 +1,6 @@
 ﻿using ACBrLib.PosPrinter;
 using Gerencianet.NETCore.SDK;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NHibernate;
 using System;
 using System.Collections.Generic;
