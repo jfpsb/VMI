@@ -300,24 +300,36 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private async void FaltaPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Faltas falta = sender as Model.Faltas;
-            if (e.PropertyName.Equals("Justificativa"))
+            switch (e.PropertyName)
             {
-                if (falta.Justificativa.Trim().Length > 0)
-                {
-                    falta.Justificado = true;
-                }
-                else
-                {
-                    falta.Justificado = false;
-                }
-                try
-                {
-                    await daoFaltas.Atualizar(falta);
-                }
-                catch (Exception ex)
-                {
-                    _messageBoxService.Show($"Erro ao atualizar faltas.\n\n{ex.Message}");
-                }
+                case "Justificativa":
+                    if (falta.Justificativa.Trim().Length > 0)
+                    {
+                        falta.Justificado = true;
+                    }
+                    else
+                    {
+                        falta.Justificado = false;
+                    }
+                    try
+                    {
+                        await daoFaltas.Atualizar(falta);
+                    }
+                    catch (Exception ex)
+                    {
+                        _messageBoxService.Show($"Erro ao atualizar faltas.\n\n{ex.Message}");
+                    }
+                    break;
+                case "Justificado":
+                    try
+                    {
+                        await daoFaltas.Atualizar(falta);
+                    }
+                    catch (Exception ex)
+                    {
+                        _messageBoxService.Show($"Erro ao atualizar faltas.\n\n{ex.Message}");
+                    }
+                    break;
             }
         }
 

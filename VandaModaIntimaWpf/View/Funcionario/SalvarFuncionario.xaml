@@ -489,7 +489,7 @@
                                                 IsReadOnly="True"
                                                 Binding="{Binding TotalEmString}" />
                             <DataGridCheckBoxColumn Header="Justificada"
-                                                    IsReadOnly="True"
+                                                    IsReadOnly="False"
                                                     Binding="{Binding Justificado}" />
                             <DataGridTextColumn Header="Justificativa"
                                                 IsReadOnly="False"
