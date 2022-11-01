@@ -477,6 +477,8 @@
                         Escreva a justificativa que automaticamente o campo "justificado" será marcado.
                         <LineBreak />
                         Deixe o campo "justificativa" em branco que a falta será desmarcada como "justificada".
+                        <LineBreak />
+                        É possível escrever uma justificativa e desmarcar falta como 'justificado'.
                     </TextBlock>
                     <DataGrid Grid.ColumnSpan="2"
                               Grid.Row="2"

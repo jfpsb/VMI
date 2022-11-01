@@ -29,10 +29,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
 
                 if (folha == null)
                 {
-                    if (dataReferencia < funcionario.Admissao)
+                    if ((dataReferencia.Month < funcionario.Admissao.Value.Month && dataReferencia.Year == funcionario.Admissao.Value.Year) ||
+                        dataReferencia.Year < funcionario.Admissao.Value.Year)
                         continue;
 
-                    if (dataReferencia > funcionario.Demissao)
+                    if (funcionario.Demissao != null &&
+                        ((dataReferencia.Month > funcionario.Demissao.Value.Month && dataReferencia.Year == funcionario.Demissao.Value.Year) ||
+                        dataReferencia.Year > funcionario.Demissao.Value.Year))
                         continue;
 
                     folha = new Model.FolhaPagamento
