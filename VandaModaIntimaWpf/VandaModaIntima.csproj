@@ -530,7 +530,7 @@
       <Version>1.2.16</Version>
     </PackageReference>
     <PackageReference Include="K4os.Hash.xxHash">
-      <Version>1.0.7</Version>
+      <Version>1.0.8</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.15</Version>
@@ -541,14 +541,14 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.39</Version>
     </PackageReference>
-    <PackageReference Include="MySql.Data" Version="8.0.30" />
+    <PackageReference Include="MySql.Data" Version="8.0.31" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NHibernate">
-      <Version>5.3.12</Version>
+      <Version>5.3.14</Version>
     </PackageReference>
-    <PackageReference Include="NHibernate.Caches.CoreMemoryCache" Version="5.7.0" />
+    <PackageReference Include="NHibernate.Caches.CoreMemoryCache" Version="5.8.0" />
     <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
     <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
@@ -566,10 +566,10 @@
       <Version>4.3.1</Version>
     </PackageReference>
     <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Import\Dinamico\MT\ACBrPosPrinter.cs" />

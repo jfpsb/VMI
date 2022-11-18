@@ -103,10 +103,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AdicionarValoresDespesaComando = new RelayCommand(AdicionarValoresDespesa);
         }
 
+        /// <summary>
+        /// Comando responsável por adicionar os valores pagos aos funcionários como despesas no sistema.
+        /// </summary>
+        /// <param name="obj"></param>
         private async void AdicionarValoresDespesa(object obj)
         {
+            //Agrupamento é feito por loja em que funcionário está trabalhando atualmente.
             IList<Model.Despesa> despesas = new List<Model.Despesa>();
-            var folhasPorLojaSoma = FolhaPagamentos.GroupBy(g => g.Funcionario.Loja)
+            var folhasPorLojaSoma = FolhaPagamentos.GroupBy(g => g.Funcionario.LojaTrabalho)
                 .Select(g => new { Loja = g.Key, Soma = g.Sum(s => s.ValorATransferir), Vencimento = g.First().Vencimento });
 
             foreach (var item in folhasPorLojaSoma)

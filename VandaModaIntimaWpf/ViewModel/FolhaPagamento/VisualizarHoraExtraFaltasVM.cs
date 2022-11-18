@@ -51,6 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public async override Task PesquisaItens(string termo)
         {
+            //TODO melhorar UI e consequentemente melhorar essa consulta
             var daoHoraExtra = daoEntidade as DAOHoraExtra;
 
             ListaHoraExtra.Clear();
@@ -78,7 +79,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (he50 == null)
                     he50 = new Model.HoraExtra();
 
-                var possuiBonusPagoEmFolha = f.Bonus.Where(w => w.PagoEmFolha).Count() > 0;
+                var possuiBonusPagoEmFolha = f.Bonus.Any(w => w.PagoEmFolha);
 
                 if (he100.EmTimeSpan.TotalSeconds == 0
                     && he60.EmTimeSpan.TotalSeconds == 0

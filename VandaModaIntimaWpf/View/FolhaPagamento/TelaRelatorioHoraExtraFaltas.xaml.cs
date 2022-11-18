@@ -44,14 +44,23 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             foreach (var folha in listaOrdenadaPorLoja)
             {
+                var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario);
+                var possuiHorasExtras = (await daoHoraExtra.ListarPorMesFuncionario(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario)).Any();
+
+                //Exclui do relatório funcionários que não possuem bônus que são pagos em folha, não possuem faltas, nem horas extras.
+                if (!folha.Bonus.Any(a => a.PagoEmFolha) && falta == null && !possuiHorasExtras)
+                {
+                    continue;
+                }
+
+                if (falta == null) falta = new Model.Faltas();
+
                 var herow = horaExtraFaltasDataSet.HoraExtra.NewHoraExtraRow();
 
                 herow.cpf_funcionario = folha.Funcionario.Cpf;
                 herow.nome_funcionario = folha.Funcionario.Nome;
                 herow.nome_loja = folha.Funcionario.Loja.Nome;
                 herow.mes_referencia = folha.MesReferencia;
-                var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario);
-                if (falta == null) falta = new Model.Faltas();
 
                 herow.faltas = falta.TotalEmString;
 
