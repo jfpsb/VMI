@@ -25,19 +25,19 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
 
             foreach (Model.Funcionario funcionario in funcionarios)
             {
+                if ((dataReferencia.Month < funcionario.Admissao.Value.Month && dataReferencia.Year == funcionario.Admissao.Value.Year) ||
+                        dataReferencia.Year < funcionario.Admissao.Value.Year)
+                    continue;
+
+                if (funcionario.Demissao != null &&
+                    ((dataReferencia.Month >= funcionario.Demissao.Value.Month && dataReferencia.Year == funcionario.Demissao.Value.Year) ||
+                    dataReferencia.Year > funcionario.Demissao.Value.Year))
+                    continue;
+
                 Model.FolhaPagamento folha = await daoFolha.ListarPorMesAnoFuncionario(funcionario, dataReferencia.Month, dataReferencia.Year);
 
                 if (folha == null)
                 {
-                    if ((dataReferencia.Month < funcionario.Admissao.Value.Month && dataReferencia.Year == funcionario.Admissao.Value.Year) ||
-                        dataReferencia.Year < funcionario.Admissao.Value.Year)
-                        continue;
-
-                    if (funcionario.Demissao != null &&
-                        ((dataReferencia.Month > funcionario.Demissao.Value.Month && dataReferencia.Year == funcionario.Demissao.Value.Year) ||
-                        dataReferencia.Year > funcionario.Demissao.Value.Year))
-                        continue;
-
                     folha = new Model.FolhaPagamento
                     {
                         Mes = dataReferencia.Month,
@@ -101,14 +101,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"COMISSÃO DE VENDA - {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}",
+                            Descricao = $"COMISSÃO DE VENDA - 1% - {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}",
                             Valor = folha.ValorDoBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano
                         };
 
-                        if (bonus.PagoEmFolha)
-                            bonus.Descricao += " (PAGO EM FOLHA)";
+                        bonus.Descricao += " (PAGO EM FOLHA)";
 
                         folha.Bonus.Add(bonus);
                     }

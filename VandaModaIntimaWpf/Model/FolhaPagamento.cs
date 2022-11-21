@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.Model
         public FolhaPagamento()
         {
             PropertyChanged += FolhaPagamento_PropertyChanged;
-            _calculaBonusMeta = new CalculaBonusMetaMeioPorcento();
+            _calculaBonusMeta = new CalculaBonusMetaUmPorcento();
         }
 
         private void FolhaPagamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
