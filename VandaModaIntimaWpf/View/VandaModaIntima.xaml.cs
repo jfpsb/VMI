@@ -140,5 +140,10 @@ namespace VandaModaIntimaWpf.View
             PesquisarPix pesquisarPix = new PesquisarPix();
             pesquisarPix.Show();
         }
+
+        private void BtnVendaEmCartao_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

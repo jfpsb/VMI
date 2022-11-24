@@ -52,5 +52,18 @@ namespace VandaModaIntimaWpf.Util
             var feriados = RetornaListagemDeFeriados(ano);
             return feriados.FirstOrDefault(f => f.Date.Day == dia && f.Date.Month == mes && f.Date.Year == ano);
         }
+
+        public static bool IsDataFeriadoNacional(DateTime data)
+        {
+            var dataFeriado = IsDataFeriado(data.Day, data.Month, data.Year);
+            if (dataFeriado != null)
+            {
+                if (dataFeriado.Type.ToLower().Contains("nacional"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
