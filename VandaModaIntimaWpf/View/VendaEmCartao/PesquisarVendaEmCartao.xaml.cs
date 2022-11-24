@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.View.VendaEmCartao
     /// <summary>
     /// Interaction logic for PesquisarVendaEmCartao.xaml
     /// </summary>
-    public partial class PesquisarVendaEmCartao : Window
+    public partial class PesquisarVendaEmCartao : APesquisarView
     {
         public PesquisarVendaEmCartao()
         {

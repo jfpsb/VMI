@@ -188,6 +188,19 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual int NumParcelas
+        {
+            get => Parcelas.Count;
+        }
+
+        public virtual double TaxaOperadora
+        {
+            get
+            {
+                return (ValorBruto - ValorLiquido) / ValorBruto;
+            }
+        }
+
         public virtual object GetIdentifier()
         {
             return Id;

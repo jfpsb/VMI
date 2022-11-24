@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:VandaModaIntimaWpf.View"
              mc:Ignorable="d"
              d:DesignWidth="250"
+             Margin="5"
              Loaded="UserControl_Loaded">
-    <Grid Margin="5">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />

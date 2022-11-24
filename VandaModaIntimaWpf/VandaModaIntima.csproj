@@ -105,6 +105,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mapas\ParcelaCartao.hbm.xml" />
+    <EmbeddedResource Include="Mapas\VendaEmCartao.hbm.xml" />
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -756,6 +758,8 @@
     <EmbeddedResource Remove="Shared\FrmWait.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Mapas\ParcelaCartao.hbm.xml" />
+    <None Remove="Mapas\VendaEmCartao.hbm.xml" />
     <None Remove="Resources\CheckMark.png" />
     <None Remove="Resources\ErrorMark.png" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
