@@ -18,30 +18,55 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
         private Model.OperadoraCartao _operadora;
         private DAOLoja daoLoja;
         private DAO<Model.OperadoraCartao> daoOperadora;
+        private DateTime _dataEscolhida;
+        private double _totalBruto;
+        private double _totalLiquido;
 
         public PesquisarVendaEmCartaoVM()
         {
             daoLoja = new DAOLoja(Session);
             daoOperadora = new DAO<OperadoraCartao>(Session);
-            daoEntidade = new DAO<Model.VendaEmCartao>(Session);
+            daoEntidade = new DAOVendaEmCartao(Session);
             pesquisarViewModelStrategy = new PesquisarVendaEmCartaoVMStrategy();
+
+            DataEscolhida = DateTime.Now;
 
             var task1 = GetLojas();
             task1.Wait();
 
             var task2 = GetOperadoras();
             task2.Wait();
+
+            PropertyChanged += PesquisarVendaEmCartaoVM_PropertyChanged;
+        }
+
+        private void PesquisarVendaEmCartaoVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "DataEscolhida":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+                case "Operadora":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+                case "Loja":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+            }
         }
 
         private async Task GetLojas()
         {
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarSomenteLojas());
+            Loja = Lojas[0];
         }
 
         private async Task GetOperadoras()
         {
             Operadoras = new ObservableCollection<Model.OperadoraCartao>(await daoOperadora.Listar());
             Operadoras.Insert(0, new OperadoraCartao() { Nome = "TODAS AS OPERADORAS" });
+            Operadora = Operadoras[0];
         }
 
         public override bool Editavel(object parameter)
@@ -51,7 +76,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 
         public override object GetCadastrarViewModel()
         {
-            throw new NotImplementedException();
+            return new CadastrarVendaEmCartaoVM(_session);
         }
 
         public override object GetEditarViewModel()
@@ -59,9 +84,22 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             throw new NotImplementedException();
         }
 
-        public override Task PesquisaItens(string termo)
+        public override async Task PesquisaItens(string termo)
         {
-            throw new NotImplementedException();
+            IList<Model.VendaEmCartao> vendas;
+
+            if (Operadora.Nome.StartsWith("TODAS"))
+            {
+                vendas = await (daoEntidade as DAOVendaEmCartao).ListarPorMesPorLoja(DataEscolhida, Loja);
+            }
+            else
+            {
+                vendas = await (daoEntidade as DAOVendaEmCartao).ListarPorMesPorLojaOperadora(DataEscolhida, Loja, Operadora);
+            }
+
+            Entidades = new ObservableCollection<EntidadeComCampo<Model.VendaEmCartao>>(EntidadeComCampo<Model.VendaEmCartao>.CriarListaEntidadeComCampo(vendas));
+            TotalBruto = vendas.Sum(s => s.ValorBruto);
+            TotalLiquido = vendas.Sum(s => s.ValorLiquido);
         }
 
         protected override WorksheetContainer<Model.VendaEmCartao>[] GetWorksheetContainers()
@@ -122,6 +160,48 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             {
                 _operadora = value;
                 OnPropertyChanged("Operadora");
+            }
+        }
+
+        public DateTime DataEscolhida
+        {
+            get
+            {
+                return _dataEscolhida;
+            }
+
+            set
+            {
+                _dataEscolhida = value;
+                OnPropertyChanged("DataEscolhida");
+            }
+        }
+
+        public double TotalBruto
+        {
+            get
+            {
+                return _totalBruto;
+            }
+
+            set
+            {
+                _totalBruto = value;
+                OnPropertyChanged("TotalBruto");
+            }
+        }
+
+        public double TotalLiquido
+        {
+            get
+            {
+                return _totalLiquido;
+            }
+
+            set
+            {
+                _totalLiquido = value;
+                OnPropertyChanged("TotalLiquido");
             }
         }
     }

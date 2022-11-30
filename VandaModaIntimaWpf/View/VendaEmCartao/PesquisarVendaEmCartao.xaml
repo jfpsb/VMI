@@ -32,7 +32,7 @@
                         </MenuItem.Icon>
                         <MenuItem Header="Excel (*.xlsx)"
                                   Command="{Binding ExportarExcelComando}"
-                                  CommandParameter="{Binding ElementName=TelaPesquisarLoja}" />
+                                  CommandParameter="{Binding ElementName=TelaPesquisarVendaEmCartao}" />
                         <MenuItem Header="SQL (*.sql)"
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
@@ -57,12 +57,15 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Content="Mês Referência:" />
                 <View:DataUpDown Grid.Column="1"
                                  DataStringFormat="MMM/yyyy"
                                  Width="210"
-                                 HorizontalAlignment="Left" />
+                                 HorizontalAlignment="Left"
+                                 Data="{Binding DataEscolhida, Mode=TwoWay}" />
                 <Label Grid.Row="1"
                        Content="Loja:" />
                 <ComboBox Grid.Row="1"
@@ -113,6 +116,18 @@
                                             Binding="{Binding Entidade.NumParcelas}" />
                     </DataGrid.Columns>
                 </DataGrid>
+                <Label Grid.Row="4"
+                       Content="{Binding TotalBruto}"
+                       ContentStringFormat="Total Bruto: {0:C}"
+                       Language="pt-BR"
+                       FontWeight="Bold"
+                       FontSize="17" />
+                <Label Grid.Row="5"
+                       Content="{Binding TotalLiquido}"
+                       ContentStringFormat="Total Líquido: {0:C}"
+                       Language="pt-BR"
+                       FontSize="17"
+                       FontWeight="Bold" />
             </Grid>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>

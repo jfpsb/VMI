@@ -24,6 +24,7 @@ using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.Representante;
 using VandaModaIntimaWpf.View.TipoGrade;
+using VandaModaIntimaWpf.View.VendaEmCartao;
 using VandaModaIntimaWpf.ViewModel.Avisos;
 using VandaModaIntimaWpf.ViewModel.CompraDeFornecedor;
 using VandaModaIntimaWpf.ViewModel.Contagem;
@@ -43,6 +44,7 @@ using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.Representante;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 using VandaModaIntimaWpf.ViewModel.TipoGrade;
+using VandaModaIntimaWpf.ViewModel.VendaEmCartao;
 
 namespace VandaModaIntimaWpf.ViewModel
 {
@@ -125,6 +127,9 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<ListarCobrancasPix, ListarCobrancasPixVM>();
 
             WindowService.RegistrarWindow<TelaExportarImprimirPontoEletronico, TelaExportarImprimirPontoEletronicoVM>();
+
+            WindowService.RegistrarWindow<PesquisarVendaEmCartao, PesquisarVendaEmCartaoVM>();
+            WindowService.RegistrarWindow<CadastrarVendaEmCartao, CadastrarVendaEmCartaoVM>();
 
             try
             {

@@ -68,7 +68,7 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public double ValorLiquido
+        public virtual double ValorLiquido
         {
             get
             {

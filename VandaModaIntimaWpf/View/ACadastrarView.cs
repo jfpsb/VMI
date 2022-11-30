@@ -11,9 +11,12 @@ namespace VandaModaIntimaWpf.View
         {
             Closing += Window_Closing;
         }
-        public string OpenFileDialog()
+        public string OpenFileDialog(string filtro = "")
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (filtro.Length > 0) openFileDialog.Filter = filtro;
+
             openFileDialog.ShowDialog();
             if (openFileDialog.FileName != string.Empty)
             {

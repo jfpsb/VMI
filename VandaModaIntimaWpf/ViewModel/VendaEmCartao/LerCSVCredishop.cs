@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Model;
+using VandaModaIntimaWpf.Util;
 
 namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 {
@@ -21,13 +23,13 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var values = line.Split(';');
+                    var values = line.Split(',');
 
                     var data = values[1];
-                    var hora = values[2];
+                    var hora = values[2].Remove(values[2].Length - 2);
                     var rv = values[4];
-                    var parcelas = int.Parse(values[6]);
-                    var valorBruto = values[7];
+                    var parcelas = int.Parse(values[7]);
+                    var valorBruto = values[8].Insert(values[8].Length - 2, ".");
 
                     var modalidade = "CRÉDITO";
                     var bandeira = "CREDISHOP";
@@ -35,8 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 
                     Model.VendaEmCartao vendaEmCartao = new Model.VendaEmCartao();
 
-                    vendaEmCartao.DataHora = DateTime.Parse($"{data} {hora}", new CultureInfo("pt-BR"));
-                    vendaEmCartao.ValorBruto = double.Parse(valorBruto, NumberStyles.Any, CultureInfo.CurrentCulture);
+                    vendaEmCartao.DataHora = DateTime.ParseExact($"{data} {hora}", "yyyyMMdd HHmmss", new CultureInfo("pt-BR"));
+                    vendaEmCartao.ValorBruto = double.Parse(valorBruto, NumberStyles.Any, CultureInfo.InvariantCulture);
 
                     if (parcelas > 1)
                     {
@@ -52,6 +54,32 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     vendaEmCartao.RvCredishop = rv;
                     vendaEmCartao.Loja = loja;
                     vendaEmCartao.OperadoraCartao = operadora;
+
+                    for (int i = 0; i < parcelas; i++)
+                    {
+                        //Data de pagamento de parcela é sempre calculada a partir da data original da compra, independente da data de parcela anterior
+                        //De acordo com a credishop são 32 dias de prazo para crédito para cada parcela
+                        DateTime dataPagamentoParcelaOriginal = vendaEmCartao.DataHora.Date.AddDays((i + 1) * 32);
+                        DateTime dataPagamentoParcela = dataPagamentoParcelaOriginal;
+
+                        ParcelaCartao parcelaCartao = new ParcelaCartao();
+                        parcelaCartao.VendaEmCartao = vendaEmCartao;
+                        parcelaCartao.ValorBruto = vendaEmCartao.ValorBruto / parcelas;
+                        parcelaCartao.ValorLiquido = vendaEmCartao.ValorLiquido / parcelas;
+
+                        //Se data de pagamento cair em dia de sábado, domingo ou feriado nacional, adiciono um dia até que encontre
+                        //um dia útil
+                        while (dataPagamentoParcela.DayOfWeek == DayOfWeek.Saturday ||
+                            dataPagamentoParcela.DayOfWeek == DayOfWeek.Sunday ||
+                            FeriadoJsonUtil.IsDataFeriadoNacional(dataPagamentoParcela))
+                        {
+                            dataPagamentoParcela = dataPagamentoParcela.AddDays(1);
+                        }
+
+                        parcelaCartao.DataPagamento = dataPagamentoParcela;
+
+                        vendaEmCartao.Parcelas.Add(parcelaCartao);
+                    }
 
                     vendas.Add(vendaEmCartao);
                 }

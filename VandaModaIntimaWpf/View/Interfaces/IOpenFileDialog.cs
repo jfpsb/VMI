@@ -2,6 +2,6 @@
 {
     public interface IOpenFileDialog
     {
-        string OpenFileDialog();
+        string OpenFileDialog(string filtro = "");
     }
 }

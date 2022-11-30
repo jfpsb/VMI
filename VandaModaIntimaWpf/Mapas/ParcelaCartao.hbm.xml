@@ -5,7 +5,7 @@
 
 	<class name="ParcelaCartao" table="parcela_cartao">
 		<id name="Id" type="Int32">
-			<generator class="native" />
+			<generator class="increment" />
 		</id>
 		<property name="Uuid" />
 
@@ -17,7 +17,7 @@
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />
 		<property name="Deletado" />
-		
+
 	</class>
 
 </hibernate-mapping>

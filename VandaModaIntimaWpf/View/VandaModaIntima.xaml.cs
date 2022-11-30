@@ -15,6 +15,7 @@ using VandaModaIntimaWpf.View.Pix;
 using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
+using VandaModaIntimaWpf.View.VendaEmCartao;
 using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
@@ -143,7 +144,8 @@ namespace VandaModaIntimaWpf.View
 
         private void BtnVendaEmCartao_Click(object sender, RoutedEventArgs e)
         {
-
+            PesquisarVendaEmCartao pesquisarVendaEmCartao = new PesquisarVendaEmCartao();
+            pesquisarVendaEmCartao.Show();
         }
     }
 }

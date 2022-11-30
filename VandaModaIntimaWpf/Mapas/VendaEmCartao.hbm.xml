@@ -5,7 +5,7 @@
 
 	<class name="VendaEmCartao" table="venda_em_cartao">
 		<id name="Id" type="Int32">
-			<generator class="native" />
+			<generator class="increment" />
 		</id>
 		<property name="Uuid" />
 
@@ -16,9 +16,9 @@
 		<property name="ValorLiquido" column="valor_liquido" />
 		<property name="Modalidade" />
 		<property name="Bandeira" />
-		<property name="NsuRede" />
-		<property name="RvCredishop" />
-		<property name="NumPedidoCaixa" />
+		<property name="NsuRede" column="nsu_rede"/>
+		<property name="RvCredishop" column="cv_credishop"/>
+		<property name="NumPedidoCaixa" column="num_pedido_caixa"/>
 		<property name="CriadoEm" />
 		<property name="ModificadoEm" />
 		<property name="DeletadoEm" />

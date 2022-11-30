@@ -18,9 +18,10 @@ namespace VandaModaIntimaWpf.View
             ((IPesquisarVM)DataContext).DisposeSession();
         }
 
-        public string OpenFileDialog()
+        public string OpenFileDialog(string filtro = "")
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (filtro.Length > 0) openFileDialog.Filter = filtro;
             openFileDialog.ShowDialog();
 
             if (openFileDialog.FileName != string.Empty)

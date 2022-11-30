@@ -27,9 +27,10 @@ namespace VandaModaIntimaWpf.View.Pix
             InitializeComponent();
         }
 
-        public string OpenFileDialog()
+        public string OpenFileDialog(string filtro = "")
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (filtro.Length > 0) openFileDialog.Filter = filtro;
 
             if (openFileDialog.ShowDialog() == true)
             {
