@@ -40,6 +40,7 @@
     <None Remove="Mapas\OperadoraCartao.hbm.xml" />
     <None Remove="Mapas\OperadoraCartaoId.hbm.xml" />
     <None Remove="Mapas\Parcela.hbm.xml" />
+    <None Remove="Mapas\ParcelaCartao.hbm.xml" />
     <None Remove="Mapas\Pix\Calendario.hbm.xml" />
     <None Remove="Mapas\Pix\Cobranca.hbm.xml" />
     <None Remove="Mapas\Pix\Devolucao.hbm.xml" />
@@ -59,6 +60,7 @@
     <None Remove="Mapas\TipoDespesa.hbm.xml" />
     <None Remove="Mapas\TipoGrade.hbm.xml" />
     <None Remove="Mapas\TipoHoraExtra.hbm.xml" />
+    <None Remove="Mapas\VendaEmCartao.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -118,6 +120,7 @@
     <EmbeddedResource Include="Mapas\Parcela.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mapas\ParcelaCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\Pix\Calendario.hbm.xml" />
     <EmbeddedResource Include="Mapas\Pix\Cobranca.hbm.xml" />
     <EmbeddedResource Include="Mapas\Pix\Devolucao.hbm.xml" />
@@ -141,6 +144,7 @@
     <EmbeddedResource Include="Mapas\TipoDespesa.hbm.xml" />
     <EmbeddedResource Include="Mapas\TipoGrade.hbm.xml" />
     <EmbeddedResource Include="Mapas\TipoHoraExtra.hbm.xml" />
+    <EmbeddedResource Include="Mapas\VendaEmCartao.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>

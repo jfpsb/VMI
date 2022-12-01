@@ -21,6 +21,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("Loja", loja));
                 criteria.Add(Expression.Sql("YEAR({alias}.data_hora) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("MONTH({alias}.data_hora) = ?", data.Month, NHibernateUtil.Int32));
+                criteria.AddOrder(Order.Asc("DataHora"));
                 return await Listar(criteria);
             }
             catch (Exception ex)
@@ -39,6 +40,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("OperadoraCartao", operadora));
                 criteria.Add(Expression.Sql("YEAR({alias}.data_hora) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("MONTH({alias}.data_hora) = ?", data.Month, NHibernateUtil.Int32));
+                criteria.AddOrder(Order.Asc("DataHora"));
                 return await Listar(criteria);
             }
             catch (Exception ex)

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="SincronizacaoVMI"
+                   namespace="SincronizacaoVMI.Model">
+
+	<class name="VendaEmCartao" table="venda_em_cartao">
+		<id name="Id" type="Int32">
+			<generator class="increment" />
+		</id>
+		<property name="Uuid" />
+
+		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" />
+		<many-to-one name="OperadoraCartao" class="SincronizacaoVMI.Model.OperadoraCartao" />
+		<property name="DataHora" column="data_hora" />
+		<property name="ValorBruto" column="valor_bruto" />
+		<property name="ValorLiquido" column="valor_liquido" />
+		<property name="Modalidade" />
+		<property name="Bandeira" />
+		<property name="NsuRede" column="nsu_rede"/>
+		<property name="RvCredishop" column="cv_credishop"/>
+		<property name="NumPedidoCaixa" column="num_pedido_caixa"/>
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+	</class>
+
+</hibernate-mapping>

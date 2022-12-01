@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -70,20 +71,26 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
         private void AbrirCSV(object obj)
         {
             VendasEmCartao.Clear();
+            List<Model.VendaEmCartao> listaVendasLocal = new List<Model.VendaEmCartao>();
             IOpenFileDialog openFile = obj as IOpenFileDialog;
             if (openFile != null)
             {
-                string caminho = openFile.OpenFileDialog("Arquivo CSV (*.csv)|*.csv");
+                string[] caminhos = openFile.OpenFileDialogMultiSelect("Arquivo CSV (*.csv)|*.csv");
 
-                if (caminho != null)
+                if (caminhos != null)
                 {
                     try
                     {
-                        VendasEmCartao = new ObservableCollection<Model.VendaEmCartao>(lerCSVVendaEmCartao.GeraListaVendaEmCartao(caminho, Loja, Operadora));
+                        foreach (string cam in caminhos)
+                        {
+                            var vendas = lerCSVVendaEmCartao.GeraListaVendaEmCartao(cam, Loja, Operadora);
+                            listaVendasLocal.AddRange(vendas);
+                        }
+                        VendasEmCartao = new ObservableCollection<Model.VendaEmCartao>(listaVendasLocal);
                     }
                     catch (Exception)
                     {
-                        _messageBoxService.Show("Erro ao ler arquivo csv.");
+                        _messageBoxService.Show("Erro ao ler arquivos csv.");
                     }
                 }
             }

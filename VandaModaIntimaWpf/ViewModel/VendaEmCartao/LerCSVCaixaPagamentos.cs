@@ -38,10 +38,10 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                         vendaEmCartao = new Model.VendaEmCartao();
 
                         var data_hora = values[9];
-                        var modalidade = values[5];
+                        var modalidade = values[25];
                         var valorBruto = values[14];
                         //Dependendo da modalidade o valor líquido está em local diferente
-                        var valorLiquido = modalidade.Equals("CRÉDITO") ? values[23] : values[13];
+                        var valorLiquido = modalidade.ToUpper().Equals("CRÉDITO") && !values[10].Equals("Compra") ? values[23] : values[13];
                         var bandeira = values[12];
 
                         vendaEmCartao.DataHora = DateTime.Parse(data_hora, new CultureInfo("pt-BR"));
@@ -56,8 +56,8 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                         dicionarioVendaEmCartao.Add(num_pedido, vendaEmCartao);
                     }
 
-                    double valorParcelaBruto = double.Parse(values[17], NumberStyles.Any, CultureInfo.CurrentCulture);
-                    double valorParcelaLiquido = double.Parse(values[13], NumberStyles.Any, CultureInfo.CurrentCulture);
+                    double valorParcelaBruto = double.Parse(values[17], NumberStyles.Any, CultureInfo.InvariantCulture);
+                    double valorParcelaLiquido = double.Parse(values[13], NumberStyles.Any, CultureInfo.InvariantCulture);
                     //Por algum motivo a Caixa informa a data de crédito em um dia mas sempre paga no dia seguinte ao informado
                     //então adiciono um dia na data de pagamento da parcela
                     DateTime dataPagamentoParcela = DateTime.Parse(values[1], CultureInfo.CurrentCulture).AddDays(1);

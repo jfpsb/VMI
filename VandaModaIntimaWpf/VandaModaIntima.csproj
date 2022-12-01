@@ -128,6 +128,7 @@
     <None Update="Config Skeleton.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\CartaoCredito.png" />
     <Resource Include="Resources\CheckMark.png" />
     <Resource Include="Resources\ErrorMark.png" />
     <Resource Include="Resources\Feriados\2021.json">
@@ -760,6 +761,7 @@
   <ItemGroup>
     <None Remove="Mapas\ParcelaCartao.hbm.xml" />
     <None Remove="Mapas\VendaEmCartao.hbm.xml" />
+    <None Remove="Resources\CartaoCredito.png" />
     <None Remove="Resources\CheckMark.png" />
     <None Remove="Resources\ErrorMark.png" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />

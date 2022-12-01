@@ -25,6 +25,21 @@ namespace VandaModaIntimaWpf.View
             return null;
         }
 
+        public string[] OpenFileDialogMultiSelect(string filtro = "")
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+
+            if (filtro.Length > 0) openFileDialog.Filter = filtro;
+
+            openFileDialog.ShowDialog();
+            if (openFileDialog.FileNames.Length != 0)
+            {
+                return openFileDialog.FileNames;
+            }
+            return null;
+        }
+
         protected void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             DialogResult = (DataContext as IDialogResult).ResultadoDialog();
