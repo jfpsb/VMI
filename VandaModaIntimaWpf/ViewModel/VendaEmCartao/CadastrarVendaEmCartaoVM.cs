@@ -139,7 +139,8 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 
         public override void ResetaPropriedades(AposInserirBDEventArgs e)
         {
-
+            if (e.Sucesso)
+                VendasEmCartao.Clear();
         }
 
         public override bool ValidacaoSalvar(object parameter)

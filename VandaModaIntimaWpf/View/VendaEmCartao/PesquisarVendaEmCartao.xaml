@@ -59,6 +59,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Label Content="Mês Referência:" />
                 <View:DataUpDown Grid.Column="1"
@@ -128,6 +129,17 @@
                        Language="pt-BR"
                        FontSize="17"
                        FontWeight="Bold" />
+                <Label Grid.Row="6"
+                       Content="{Binding TaxaOperadora}"
+                       ContentStringFormat="Taxa Para Operadora: {0:C}"
+                       Language="pt-BR"
+                       FontSize="17"
+                       FontWeight="Bold" />
+                <Button Grid.Row="6"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Content="Salvar valor de taxa como despesa"
+                        Command="{Binding SalvarTaxaComoDespesaComando}" />
             </Grid>
         </View:TelaPesquisaTemplate.Content>
     </View:TelaPesquisaTemplate>
