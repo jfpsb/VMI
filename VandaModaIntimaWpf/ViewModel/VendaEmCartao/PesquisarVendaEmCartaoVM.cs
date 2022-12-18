@@ -30,6 +30,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
         private double _taxaOperadora;
 
         public ICommand SalvarTaxaComoDespesaComando { get; set; }
+        public ICommand AbrirPesquisaParcelaCartaoComando { get; set; }
 
         public PesquisarVendaEmCartaoVM()
         {
@@ -51,6 +52,12 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             PropertyChanged += PesquisarVendaEmCartaoVM_PropertyChanged;
 
             SalvarTaxaComoDespesaComando = new RelayCommand(SalvarTaxaComoDespesa, SalvarTaxaValidacao);
+            AbrirPesquisaParcelaCartaoComando = new RelayCommand(AbrirPesquisaParcelaCartao);
+        }
+
+        private void AbrirPesquisaParcelaCartao(object obj)
+        {
+            _windowService.Show(new PesquisaParcelaCartaoVM(), null);
         }
 
         private async void SalvarTaxaComoDespesa(object obj)
@@ -260,5 +267,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                 OnPropertyChanged("TaxaOperadora");
             }
         }
+
+        
     }
 }

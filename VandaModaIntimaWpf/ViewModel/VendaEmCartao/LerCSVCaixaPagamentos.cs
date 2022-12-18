@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     var line = reader.ReadLine();
                     var values = line.Split(';');
 
-                    var num_pedido = values[7];
+                    var num_pedido = loja.Cnpj + values[5].TrimStart('0');
                     Model.VendaEmCartao vendaEmCartao;
 
                     if (dicionarioVendaEmCartao.ContainsKey(num_pedido))
@@ -58,9 +58,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 
                     double valorParcelaBruto = double.Parse(values[17], NumberStyles.Any, CultureInfo.InvariantCulture);
                     double valorParcelaLiquido = double.Parse(values[13], NumberStyles.Any, CultureInfo.InvariantCulture);
-                    //Por algum motivo a Caixa informa a data de crédito em um dia mas sempre paga no dia seguinte ao informado
-                    //então adiciono um dia na data de pagamento da parcela
-                    DateTime dataPagamentoParcela = DateTime.Parse(values[1], CultureInfo.CurrentCulture).AddDays(1);
+                    DateTime dataPagamentoParcela = DateTime.Parse(values[1], CultureInfo.CurrentCulture);
 
                     Model.ParcelaCartao parcelaCartao = new Model.ParcelaCartao();
                     parcelaCartao.VendaEmCartao = vendaEmCartao;

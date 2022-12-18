@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private void AbrirImprimirHE(object obj)
         {
             //TODO: implementar viewmodel
-            TelaRelatorioHoraExtraFaltas telaRelatorioHoraExtra = new TelaRelatorioHoraExtraFaltas(_session, folhas, DataEscolhida);
+            TelaRelatorioHoraExtraFaltas telaRelatorioHoraExtra = new TelaRelatorioHoraExtraFaltas(_session, ListaHoraExtra.Select(s => s.Item1).ToList(), DataEscolhida);
             telaRelatorioHoraExtra.ShowDialog();
         }
 

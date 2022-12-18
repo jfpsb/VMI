@@ -131,6 +131,10 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<PesquisarVendaEmCartao, PesquisarVendaEmCartaoVM>();
             WindowService.RegistrarWindow<CadastrarVendaEmCartao, CadastrarVendaEmCartaoVM>();
 
+            WindowService.RegistrarWindow<PesquisarEntradasPorFornecedor, PesquisarEntradasPorFornecedorVM>();
+
+            WindowService.RegistrarWindow<PesquisaParcelaCartao, PesquisaParcelaCartaoVM>();
+
             try
             {
                 SessionProvider.MainSessionFactory = SessionProvider.BuildSessionFactory();

@@ -37,6 +37,10 @@
                                   Command="{Binding ExportarSQLComando}" />
                     </MenuItem>
 
+                    <MenuItem Header="Pesquisar parcelas de venda em cartão"
+                              Command="{Binding AbrirPesquisaParcelaCartaoComando}">
+                    </MenuItem>
+
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
                         <MenuItem.Icon>

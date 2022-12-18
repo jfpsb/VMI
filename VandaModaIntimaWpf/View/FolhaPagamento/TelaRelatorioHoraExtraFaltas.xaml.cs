@@ -126,7 +126,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             IList<Model.HoraExtra> horasExtras = await daoHoraExtra.ListarPorMesFuncionarioGroupByTipoHoraExtra(dataEscolhida, folha.Funcionario);
 
-            foreach (var horaextra in horasExtras)
+            foreach (var horaextra in horasExtras.OrderBy(o => o.TipoHoraExtra.Descricao))
             {
                 var herow = horaExtraSubReportDataSet.horaextra.NewhoraextraRow();
                 herow.totalhoras = horaextra.TotalEmString;

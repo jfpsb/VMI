@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
 
                     var data = values[1];
                     var hora = values[2].Remove(values[2].Length - 2);
-                    var rv = values[4];
+                    var rv = loja.Cnpj + values[4].TrimStart('0');
                     var parcelas = int.Parse(values[7]);
                     var valorBruto = values[8].Insert(values[8].Length - 2, ".");
 

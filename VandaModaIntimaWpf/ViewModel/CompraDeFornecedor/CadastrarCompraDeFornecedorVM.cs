@@ -119,7 +119,12 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 
                 try
                 {
-                    Process.Start(caminho);
+                    Process process = new Process();
+                    process.StartInfo = new ProcessStartInfo(caminho)
+                    {
+                        UseShellExecute = true
+                    };
+                    process.Start();
                 }
                 catch (Exception ex)
                 {

@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     var valorLiquido = values[15];
                     var modalidade = values[5];
                     var bandeira = values[8];
-                    var nsu = values[16];
+                    var nsu = values[16].Trim();
 
                     Model.VendaEmCartao vendaEmCartao = new Model.VendaEmCartao();
 
