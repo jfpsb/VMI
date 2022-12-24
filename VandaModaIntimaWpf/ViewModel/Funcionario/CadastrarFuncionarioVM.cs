@@ -20,10 +20,12 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private DAOLoja daoLoja;
         private DAOFaltas daoFaltas;
         private DAO<Banco> daoBanco;
+        private DAO<Funcao> daoFuncao;
         private ObservableCollection<ChavePix> _chavesPix;
         private ObservableCollection<ContaBancaria> _contasBancarias;
         private ObservableCollection<Banco> _bancos;
         private ObservableCollection<Faltas> _faltas;
+        private ObservableCollection<Funcao> _funcoes;
         private ContaBancaria _contaBancaria;
         private Banco _bancoContaBancaria;
         private Banco _bancoPix;
@@ -55,14 +57,17 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             daoLoja = new DAOLoja(_session);
             daoBanco = new DAO<Model.Banco>(_session);
             daoFaltas = new DAOFaltas(session);
+            daoFuncao = new DAO<Funcao>(session);
 
             DataEscolhida = DateTime.Now;
 
             var task1 = GetLojas();
             var task2 = GetBancos();
+            var task3 = GetFuncoes();
 
             task1.Wait();
             task2.Wait();
+            task3.Wait();
 
             Entidade = new FuncionarioModel
             {
@@ -263,6 +268,10 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
         private async Task GetBancos()
         {
             Bancos = new ObservableCollection<Model.Banco>(await daoBanco.Listar());
+        }
+        private async Task GetFuncoes()
+        {
+            Funcoes = new ObservableCollection<Funcao>(await daoFuncao.Listar());
         }
         protected async Task GetFaltas()
         {
@@ -569,6 +578,20 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             {
                 _totalHorasFaltas = value;
                 OnPropertyChanged("TotalHorasFaltas");
+            }
+        }
+
+        public ObservableCollection<Funcao> Funcoes
+        {
+            get
+            {
+                return _funcoes;
+            }
+
+            set
+            {
+                _funcoes = value;
+                OnPropertyChanged("Funcoes");
             }
         }
     }

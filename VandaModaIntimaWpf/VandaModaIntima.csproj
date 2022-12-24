@@ -105,6 +105,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mapas\Funcao.hbm.xml" />
     <EmbeddedResource Include="Mapas\ParcelaCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\VendaEmCartao.hbm.xml" />
     <EmbeddedResource Include="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc">
@@ -759,6 +760,7 @@
     <EmbeddedResource Remove="Shared\FrmWait.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Mapas\Funcao.hbm.xml" />
     <None Remove="Mapas\ParcelaCartao.hbm.xml" />
     <None Remove="Mapas\VendaEmCartao.hbm.xml" />
     <None Remove="Resources\CartaoCredito.png" />

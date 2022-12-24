@@ -46,6 +46,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label Content="{DynamicResource cpf_dois_pontos}" />
                     <TextBox x:Name="TxtCpf"
@@ -71,82 +72,89 @@
                                 SelectedDate="{Binding Entidade.Demissao}"
                                 IsEnabled="{Binding IssoEUmUpdate}" />
                     <Label Grid.Row="4"
+                           Content="Função:" />
+                    <ComboBox Grid.Column="1"
+                              Grid.Row="4"
+                              ItemsSource="{Binding Funcoes}"
+                              SelectedValue="{Binding Entidade.Funcao}"
+                              DisplayMemberPath="GetContextMenuHeader" />
+                    <Label Grid.Row="5"
                            Content="{DynamicResource nome_dois_pontos}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              MaxLength="45"
                              Text="{Binding Entidade.Nome, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="5"
+                    <Label Grid.Row="6"
                            Content="{DynamicResource telefone_dois_pontos}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="5"
+                             Grid.Row="6"
                              MaxLength="100"
                              Text="{Binding Entidade.Telefone, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="6"
+                    <Label Grid.Row="7"
                            Content="{DynamicResource email_header}" />
                     <TextBox Grid.Column="1"
-                             Grid.Row="6"
+                             Grid.Row="7"
                              MaxLength="45"
                              Text="{Binding Entidade.Email, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="7"
-                           Content="PIS/PASEP/NIT:" />
-                    <TextBox Grid.Column="1"
-                             Grid.Row="7"
-                             MaxLength="100"
-                             Text="{Binding Entidade.PisPasepNit, UpdateSourceTrigger=PropertyChanged}"
-                             IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="8"
-                           Content="Nº Cart. De Trabalho (CTPS)(Com nº De Série):" />
+                           Content="PIS/PASEP/NIT:" />
                     <TextBox Grid.Column="1"
                              Grid.Row="8"
                              MaxLength="100"
-                             Text="{Binding Entidade.Ctps, UpdateSourceTrigger=PropertyChanged}"
+                             Text="{Binding Entidade.PisPasepNit, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="9"
-                           Content="{DynamicResource endereco_dois_pontos}" />
+                           Content="Nº Cart. De Trabalho (CTPS)(Com nº De Série):" />
                     <TextBox Grid.Column="1"
                              Grid.Row="9"
-                             MaxLength="200"
-                             Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
+                             MaxLength="100"
+                             Text="{Binding Entidade.Ctps, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="10"
-                           Content="{DynamicResource salario_dois_pontos}" />
+                           Content="{DynamicResource endereco_dois_pontos}" />
                     <TextBox Grid.Column="1"
                              Grid.Row="10"
                              MaxLength="200"
-                             Text="{Binding Entidade.Salario, StringFormat=C, ConverterCulture=pt-BR}"
+                             Text="{Binding Entidade.Endereco, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding IsEnabled}" />
                     <Label Grid.Row="11"
+                           Content="{DynamicResource salario_dois_pontos}" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="11"
+                             MaxLength="200"
+                             Text="{Binding Entidade.Salario, StringFormat=C, ConverterCulture=pt-BR}"
+                             IsEnabled="{Binding IsEnabled}" />
+                    <Label Grid.Row="12"
                            Content="Recebe Passagem:" />
-                    <CheckBox Grid.Row="11"
+                    <CheckBox Grid.Row="12"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebePassagem}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="12"
+                    <Label Grid.Row="13"
                            Content="Recebe Vale Alimentação:" />
-                    <CheckBox Grid.Row="12"
+                    <CheckBox Grid.Row="13"
                               Grid.Column="1"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
                               IsChecked="{Binding Entidade.RecebeValeAlimentacao}"
                               Margin="5, 10, 0, 10" />
-                    <Label Grid.Row="13"
+                    <Label Grid.Row="14"
                            Content="Loja Em Que Está Contratado:" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="13"
+                              Grid.Row="14"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.Loja, Mode=TwoWay}"
                               IsEnabled="{Binding IsEnabled}" />
-                    <Label Grid.Row="14"
+                    <Label Grid.Row="15"
                            Content="Loja Em Que Trabalha:" />
                     <ComboBox Grid.Column="1"
-                              Grid.Row="14"
+                              Grid.Row="15"
                               DisplayMemberPath="Nome"
                               ItemsSource="{Binding Path=Lojas}"
                               SelectedItem="{Binding Path=Entidade.LojaTrabalho, Mode=TwoWay}"

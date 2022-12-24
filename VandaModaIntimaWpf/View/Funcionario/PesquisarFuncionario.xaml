@@ -12,7 +12,7 @@
                      Title="Pesquisar Funcionário"
                      WindowStartupLocation="CenterScreen"
                      Icon="/Resources/Funcionario_Icon.ico"
-                     
+                     WindowState="Maximized"
                      Width="1336"
                      Height="725"
                      FocusManager.FocusedElement="{Binding ElementName=TxtPesquisa}">
@@ -183,6 +183,17 @@
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="ToolTip"
                                             Value="{Binding Entidade.Nome}" />
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Função"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Entidade.Funcao.Nome}"
+                                            Width="Auto">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="ToolTip"
+                                            Value="{Binding Entidade.Funcao.Nome}" />
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
