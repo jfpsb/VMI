@@ -17,6 +17,7 @@ using VandaModaIntimaWpf.ViewModel.Funcionario;
 using Microsoft.Reporting.WinForms;
 using System.IO;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -30,12 +31,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private DAOTipoDespesa daoTipoDespesa;
         private DateTime _dataEscolhida;
         private ObservableCollection<Model.FolhaPagamento> _folhaPagamentos;
+        private ObservableCollection<ICalculaBonusMeta> _listaCalculoBonusMeta;
         private Model.FolhaPagamento _folhaPagamento;
         private IList<Model.Funcionario> _funcionarios;
         private double _totalEmPassagem;
         private double _totalEmAlimentacao;
         private double _totalEmMeta;
         private IConfiguraReportViewer configuraReportViewer;
+        private ICalculaBonusMeta _calculaBonusMeta;
 
         public ICommand AbrirAdicionarAdiantamentoComando { get; set; }
         public ICommand AbrirAdicionarHoraExtraComando { get; set; }
@@ -73,7 +76,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             cancellationTokenSource = new CancellationTokenSource();
             configuraReportViewer = new ConfiguraReportViewerFolha(_session);
 
+            GetListaCalculoBonusMeta();
             GetFuncionarios();
+
+            //CalculaBonusMeta = Config.RetornaMetodoCalculoDeBonusDeMeta();
+            CalculaBonusMeta = ListaCalculoBonusMeta.Where(w => w.GetType().Name.Equals(Config.RetornaMetodoCalculoDeBonusDeMeta().GetType().Name)).FirstOrDefault();
 
             DataEscolhida = DateTime.Now;
 
@@ -494,6 +501,34 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
+        public ObservableCollection<ICalculaBonusMeta> ListaCalculoBonusMeta
+        {
+            get
+            {
+                return _listaCalculoBonusMeta;
+            }
+
+            set
+            {
+                _listaCalculoBonusMeta = value;
+                OnPropertyChanged("ListaCalculoBonusMeta");
+            }
+        }
+
+        public ICalculaBonusMeta CalculaBonusMeta
+        {
+            get
+            {
+                return _calculaBonusMeta;
+            }
+
+            set
+            {
+                _calculaBonusMeta = value;
+                OnPropertyChanged("CalculaBonusMeta");
+            }
+        }
+
         public override bool Editavel(object parameter)
         {
             return true;
@@ -514,6 +549,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         private async void GetFuncionarios()
         {
             _funcionarios = await daoFuncionario.Listar();
+        }
+
+        private void GetListaCalculoBonusMeta()
+        {
+            ListaCalculoBonusMeta = new ObservableCollection<ICalculaBonusMeta>();
+            ListaCalculoBonusMeta.Add(new CalculaBonusMetaMeioPorcento());
+            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcento());
+            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoAposMeta());
         }
 
         protected override WorksheetContainer<Model.FolhaPagamento>[] GetWorksheetContainers()

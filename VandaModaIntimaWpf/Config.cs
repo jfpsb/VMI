@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
 
 namespace VandaModaIntimaWpf
 {
@@ -22,6 +23,15 @@ namespace VandaModaIntimaWpf
             JObject json = JObject.Parse(configJson);
             var cnpj = json["loja"]["cnpj"].ToString();
             return session.Get<Model.Loja>(cnpj);
+        }
+
+        public static ICalculaBonusMeta RetornaMetodoCalculoDeBonusDeMeta()
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            var nomeClasse = json["metodo_calculo_bonus_meta"].ToString(); //Inclui namespace
+            Type tipoClasse = Type.GetType(nomeClasse);
+            return Activator.CreateInstance(tipoClasse) as ICalculaBonusMeta;
         }
 
         public static string ChaveEstatica()
@@ -58,6 +68,14 @@ namespace VandaModaIntimaWpf
             var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
             JObject json = JObject.Parse(configJson);
             json["credenciais_pix"][lojaId] = JToken.Parse(credenciais_json);
+            File.WriteAllText(Path.Combine(AppDocumentsFolder, "Config.json"), json.ToString());
+        }
+
+        public static void SetMetodoCalculoDeBonusDeMeta(ICalculaBonusMeta calculaBonusMeta)
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            json["metodo_calculo_bonus_meta"] = calculaBonusMeta.GetType().FullName;
             File.WriteAllText(Path.Combine(AppDocumentsFolder, "Config.json"), json.ToString());
         }
 

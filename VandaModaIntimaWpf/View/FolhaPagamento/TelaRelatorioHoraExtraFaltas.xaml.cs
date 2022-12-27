@@ -85,6 +85,11 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             BonusDataSet bonusDataSet = new BonusDataSet();
             HoraExtraSubReportDataSet horaExtraSubReportDataSet = new HoraExtraSubReportDataSet();
 
+            if(folha.Funcionario.Funcao.Nome.Equals("VENDEDOR"))
+            {
+
+            }
+
             int i = 0;
 
             var Bonus = folha.Bonus;

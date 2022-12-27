@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using VandaModaIntimaWpf.Model.Interfaces;
-using VandaModaIntimaWpf.Model.Interfaces.Concreto;
 using VandaModaIntimaWpf.Util;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -207,7 +206,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return _calculaBonusMeta.BonusDeMeta(BaseDeCalculoMeta);
+                return _calculaBonusMeta.RetornaValorDoBonus(BaseDeCalculoMeta);
             }
         }
 
@@ -215,7 +214,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return _calculaBonusMeta.CalculaBaseDeCalculo(TotalVendido, MetaDeVenda);
+                return _calculaBonusMeta.RetornaBaseDeCalculo(TotalVendido, MetaDeVenda);
             }
         }
 

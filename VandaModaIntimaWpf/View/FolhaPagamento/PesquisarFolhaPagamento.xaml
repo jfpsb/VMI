@@ -79,6 +79,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
@@ -143,6 +144,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -152,7 +154,22 @@
                                      Grid.Column="1"
                                      Data="{Binding DataEscolhida, Mode=TwoWay}"
                                      DataStringFormat="MMM/yyyy" />
-                    <DataGrid Grid.Row="1"
+                    <Label Grid.Row="1"
+                           Content="Método de cálculo de meta:"
+                           FontWeight="Bold" />
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="1"
+                              ItemsSource="{Binding ListaCalculoBonusMeta}"
+                              SelectedItem="{Binding CalculaBonusMeta, Mode=TwoWay}"
+                              DisplayMemberPath="NomeParaDisplay" />
+                    <TextBlock Grid.Row="2"
+                               Text="{Binding CalculaBonusMeta.Descricao}"
+                               Foreground="Red"
+                               Grid.ColumnSpan="2"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Margin="5" />
+                    <DataGrid Grid.Row="3"
                               Grid.ColumnSpan="2"
                               Grid.RowSpan="2"
                               Name="DataGridFolhaPagamento"
