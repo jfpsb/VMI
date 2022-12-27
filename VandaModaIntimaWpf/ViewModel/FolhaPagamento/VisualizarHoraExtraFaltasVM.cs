@@ -100,7 +100,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private async Task GetFolhas()
         {
-            folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(_session, funcionarios, DataEscolhida);
+            folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(_session, funcionarios, DataEscolhida, Config.RetornaMetodoCalculoDeBonusDeMeta());
         }
 
         protected override WorksheetContainer<Model.HoraExtra>[] GetWorksheetContainers()

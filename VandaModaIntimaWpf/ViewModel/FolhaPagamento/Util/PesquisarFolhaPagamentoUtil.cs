@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
 {
@@ -14,7 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
     {
         public static async Task<IList<Model.FolhaPagamento>> GeraListaDeFolhas(ISession session,
             IList<Model.Funcionario> funcionarios,
-            DateTime dataReferencia)
+            DateTime dataReferencia, ICalculaBonusMeta calculaBonusMeta)
         {
             DAOFolhaPagamento daoFolha = new DAOFolhaPagamento(session);
             DAOParcela daoParcela = new DAOParcela(session);
@@ -93,16 +94,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
                         }
                     }
 
+                    double valorBonusDeMeta = calculaBonusMeta.RetornaValorDoBonus(folha.TotalVendido, folha.MetaDeVenda);
                     //Insere bônus de meta se houver
-                    if (folha.ValorDoBonusDeMeta > 0)
+                    if (valorBonusDeMeta > 0)
                     {
                         var mesFolha = new DateTime(folha.Ano, folha.Mes, 1);
                         Bonus bonus = new Bonus
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = $"COMISSÃO DE VENDA - 1% - {mesFolha.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}",
-                            Valor = folha.ValorDoBonusDeMeta,
+                            Descricao = calculaBonusMeta.DescricaoBonus(mesFolha),
+                            Valor = valorBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano
                         };

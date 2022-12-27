@@ -25,7 +25,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private DAOFuncionario daoFuncionario;
         private DAOBonus daoBonus;
-        private DAOBonusMensal daoBonusMensal;
         private DAOParcela daoParcela;
         private DAODespesa daoDespesa;
         private DAOTipoDespesa daoTipoDespesa;
@@ -65,7 +64,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             //TODO: excel para folha de pagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
-            daoBonusMensal = new DAOBonusMensal(_session);
             daoTipoDespesa = new DAOTipoDespesa(_session);
             daoDespesa = new DAODespesa(_session);
             daoParcela = new DAOParcela(_session);
@@ -79,8 +77,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             GetListaCalculoBonusMeta();
             GetFuncionarios();
 
-            //CalculaBonusMeta = Config.RetornaMetodoCalculoDeBonusDeMeta();
             CalculaBonusMeta = ListaCalculoBonusMeta.Where(w => w.GetType().Name.Equals(Config.RetornaMetodoCalculoDeBonusDeMeta().GetType().Name)).FirstOrDefault();
+
+            PropertyChanged += PesquisarFolhaVM_PropertyChanged;
 
             DataEscolhida = DateTime.Now;
 
@@ -108,6 +107,20 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
             AbrirAdicionarFaltasComando = new RelayCommand(AbrirAdicionarFaltas);
             AdicionarValoresDespesaComando = new RelayCommand(AdicionarValoresDespesa);
+        }
+
+        private void PesquisarFolhaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "DataEscolhida":
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+                case "CalculaBonusMeta":
+                    Config.SetMetodoCalculoDeBonusDeMeta(CalculaBonusMeta);
+                    OnPropertyChanged("TermoPesquisa");
+                    break;
+            }
         }
 
         /// <summary>
@@ -255,7 +268,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         cancellationTokenSource = new CancellationTokenSource();
                     }
 
-                    task.ContinueWith(t =>
+                    await task.ContinueWith(t =>
                     {
                         VisibilidadeStatusBar = Visibility.Collapsed;
                         if (!task.IsCanceled)
@@ -444,7 +457,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 _dataEscolhida = value;
                 OnPropertyChanged("DataEscolhida");
-                OnPropertyChanged("TermoPesquisa");
             }
         }
 
@@ -536,7 +548,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         public override async Task PesquisaItens(string termo)
         {
-            var folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(Session, _funcionarios, DataEscolhida);
+            var folhas = await PesquisarFolhaPagamentoUtil.GeraListaDeFolhas(Session, _funcionarios, DataEscolhida, CalculaBonusMeta);
 
             TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
             TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
@@ -557,6 +569,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaMeioPorcento());
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcento());
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoAposMeta());
+            ListaCalculoBonusMeta.Add(new CalcuBonusMetaUmPorcentoMais200());
         }
 
         protected override WorksheetContainer<Model.FolhaPagamento>[] GetWorksheetContainers()

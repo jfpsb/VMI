@@ -73,10 +73,13 @@ namespace VandaModaIntimaWpf
 
         public static void SetMetodoCalculoDeBonusDeMeta(ICalculaBonusMeta calculaBonusMeta)
         {
-            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
-            JObject json = JObject.Parse(configJson);
-            json["metodo_calculo_bonus_meta"] = calculaBonusMeta.GetType().FullName;
-            File.WriteAllText(Path.Combine(AppDocumentsFolder, "Config.json"), json.ToString());
+            if (calculaBonusMeta.GetType().Name != RetornaMetodoCalculoDeBonusDeMeta().GetType().Name)
+            {
+                var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+                JObject json = JObject.Parse(configJson);
+                json["metodo_calculo_bonus_meta"] = calculaBonusMeta.GetType().FullName;
+                File.WriteAllText(Path.Combine(AppDocumentsFolder, "Config.json"), json.ToString());
+            }
         }
 
         public static JObject GNEndpoints(ISession session)

@@ -11,8 +11,8 @@
                      Title="Pesquisar Folha de Pagamento"
                      Icon="/Resources/FolhaPagamento.png"
                      WindowStartupLocation="CenterScreen"
-                     Width="1100"
-                     Height="675">
+                     Width="1150"
+                     Height="750">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarFolhaVM />
     </View:APesquisarView.DataContext>
@@ -168,7 +168,8 @@
                                Grid.ColumnSpan="2"
                                FontSize="14"
                                FontWeight="Bold"
-                               Margin="5" />
+                               Margin="5"
+                               TextWrapping="Wrap" />
                     <DataGrid Grid.Row="3"
                               Grid.ColumnSpan="2"
                               Grid.RowSpan="2"

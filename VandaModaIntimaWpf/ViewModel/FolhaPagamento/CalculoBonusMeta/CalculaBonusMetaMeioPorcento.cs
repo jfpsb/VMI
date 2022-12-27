@@ -1,4 +1,7 @@
-﻿namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
+﻿using System;
+using System.Globalization;
+
+namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 {
     /// <summary>
     /// Calcula o bônus de meta com base no total vendido, com alíquota de 0,5% (meio porcento).
@@ -9,16 +12,17 @@
 
         public string NomeParaDisplay => "0,5% DO TOTAL VENDIDO";
 
-        public double RetornaValorDoBonus(double baseDeCalculo)
+        public string DescricaoBonus(DateTime mes)
         {
-            return baseDeCalculo * 0.005; //0,5%
+            return $"COMISSÃO DE VENDA - 0,5% - {mes.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}";
         }
 
-        public double RetornaBaseDeCalculo(double totalVendido, double valorMeta)
+        public double RetornaValorDoBonus(double totalVendido, double valorMeta)
         {
-            if (totalVendido >= valorMeta)
-                return totalVendido; //Sobre todo o valor vendido.
-            return 0.0;
+            if (valorMeta == 0 || totalVendido == 0) return 0;
+            double baseDeCalculo = 0;
+            if (totalVendido >= valorMeta) baseDeCalculo = totalVendido;
+            return baseDeCalculo * 0.005; //0,5%
         }
     }
 }

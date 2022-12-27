@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 {
@@ -11,17 +12,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 
         public string Descricao => "Calcula o bônus de meta com base na diferença entre o total vendido e o valor da meta, com alíquota de 1% (um porcento).";
 
-        public double RetornaValorDoBonus(double baseDeCalculo)
+        public string DescricaoBonus(DateTime mes)
         {
-            return baseDeCalculo * 0.01;
+            return $"COMISSÃO DE VENDA - 1% DE VALOR ACIMA DA META - {mes.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}";
         }
 
-        public double RetornaBaseDeCalculo(double totalVendido, double valorMeta)
+        public double RetornaValorDoBonus(double totalVendido, double valorMeta)
         {
-            double baseCalculo = totalVendido - valorMeta;
-            if (baseCalculo <= 0)
-                return 0.0;
-            return baseCalculo;
+            if (valorMeta == 0 || totalVendido == 0) return 0;
+            double baseDeCalculo = 0;
+            if (totalVendido > valorMeta) baseDeCalculo = totalVendido - valorMeta;
+            return baseDeCalculo * 0.01; //1%
         }
     }
 }

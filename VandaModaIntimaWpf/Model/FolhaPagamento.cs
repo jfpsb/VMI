@@ -2,10 +2,8 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using VandaModaIntimaWpf.Util;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
 
 namespace VandaModaIntimaWpf.Model
 {
@@ -22,18 +20,6 @@ namespace VandaModaIntimaWpf.Model
         private double _totalVendido;
         private IList<Bonus> _bonus = new List<Bonus>();
         private IList<Parcela> _parcelas = new List<Parcela>();
-
-        private ICalculaBonusMeta _calculaBonusMeta;
-
-        public FolhaPagamento()
-        {
-            PropertyChanged += FolhaPagamento_PropertyChanged;
-            _calculaBonusMeta = new CalculaBonusMetaUmPorcento();
-        }
-
-        private void FolhaPagamento_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => $"{MesReferencia} - {Funcionario.Nome}";
@@ -199,22 +185,6 @@ namespace VandaModaIntimaWpf.Model
             {
                 _totalVendido = value;
                 OnPropertyChanged("TotalVendido");
-            }
-        }
-
-        public virtual double ValorDoBonusDeMeta
-        {
-            get
-            {
-                return _calculaBonusMeta.RetornaValorDoBonus(BaseDeCalculoMeta);
-            }
-        }
-
-        public virtual double BaseDeCalculoMeta
-        {
-            get
-            {
-                return _calculaBonusMeta.RetornaBaseDeCalculo(TotalVendido, MetaDeVenda);
             }
         }
 
