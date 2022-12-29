@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
         /// <returns></returns>
         double RetornaValorDoBonus(double totalVendido, double valorMeta);
 
-        string DescricaoBonus(DateTime mes);
+        string DescricaoBonus(DateTime mes, double totalVendido, double valorMeta);
 
         string NomeParaDisplay { get; }
 

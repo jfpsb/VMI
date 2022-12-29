@@ -11,7 +11,7 @@
                      Title="Pesquisar Folha de Pagamento"
                      Icon="/Resources/FolhaPagamento.png"
                      WindowStartupLocation="CenterScreen"
-                     Width="1150"
+                     Width="1175"
                      Height="750">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarFolhaVM />
@@ -101,28 +101,28 @@
                            FontWeight="Bold"
                            Language="pt-BR"
                            HorizontalAlignment="Right"
-                           ContentStringFormat="Valor Em Passagem: {0:C}"
+                           ContentStringFormat="Valor em passagem: {0:C}"
                            Content="{Binding TotalEmPassagem}" />
                     <Label Grid.Column="3"
                            Grid.Row="1"
                            FontWeight="Bold"
                            Language="pt-BR"
                            HorizontalAlignment="Right"
-                           ContentStringFormat="Valor Em Alimentação: {0:C}"
+                           ContentStringFormat="Valor em alimentação: {0:C}"
                            Content="{Binding TotalEmAlimentacao}" />
                     <Label Grid.Column="3"
                            Grid.Row="2"
                            FontWeight="Bold"
                            Language="pt-BR"
                            HorizontalAlignment="Right"
-                           ContentStringFormat="Total De Bônus De Meta: {0:C}"
+                           ContentStringFormat="Total de bônus de meta e gratificação: {0:C}"
                            Content="{Binding TotalEmMeta}" />
                     <Label Grid.Column="3"
                            Grid.Row="3"
                            FontWeight="Bold"
                            FontSize="16"
                            HorizontalAlignment="Right"
-                           ContentStringFormat="Total A Transferir: {0:C}"
+                           ContentStringFormat="TOTAL A TRANSFERIR: {0:C}"
                            Language="pt-BR"
                            Content="{Binding TotalAPagar}" />
                     <Rectangle Width="20"
@@ -169,7 +169,7 @@
                                FontSize="14"
                                FontWeight="Bold"
                                Margin="5"
-                               TextWrapping="Wrap" />
+                               TextWrapping="WrapWithOverflow" />
                     <DataGrid Grid.Row="3"
                               Grid.ColumnSpan="2"
                               Grid.RowSpan="2"

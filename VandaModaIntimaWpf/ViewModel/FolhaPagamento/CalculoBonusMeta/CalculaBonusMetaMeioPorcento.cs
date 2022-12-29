@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 
         public string NomeParaDisplay => "0,5% DO TOTAL VENDIDO";
 
-        public string DescricaoBonus(DateTime mes)
+        public string DescricaoBonus(DateTime mes, double totalVendido, double valorMeta)
         {
             return $"COMISSÃO DE VENDA - 0,5% - {mes.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}";
         }

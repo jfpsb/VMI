@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             BtnSalvarToolTip = "";
             bool valido = true;
 
-            if (Entidade.TotalVendido <= 0.0)
+            if (Entidade.TotalVendido < 0.0)
             {
                 BtnSalvarToolTip += "Informe Um Valor De Total Vendido Válido!\n";
                 valido = false;

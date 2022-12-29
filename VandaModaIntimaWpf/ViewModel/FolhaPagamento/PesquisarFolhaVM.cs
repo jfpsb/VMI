@@ -553,7 +553,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             TotalEmPassagem = await daoBonus.SomaPassagemPorMesAno(DataEscolhida);
             TotalEmAlimentacao = await daoBonus.SomaAlimentacaoPorMesAno(DataEscolhida);
             //Bonus de meta não são salvos até que a folha seja fechada então uso linq com a coleção atual para conseguir o valor e não do banco de dados
-            TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META") || w.Descricao.Contains("COMISSÃO")).Sum(s => s.Valor);
+            TotalEmMeta = folhas.SelectMany(sm => sm.Bonus).Where(w => w.Descricao.Contains("META") || w.Descricao.Contains("COMISSÃO") || w.Descricao.Contains("GRATIFICAÇÃO")).Sum(s => s.Valor);
 
             FolhaPagamentos = new ObservableCollection<Model.FolhaPagamento>(folhas);
         }
@@ -569,7 +569,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaMeioPorcento());
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcento());
             ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoAposMeta());
-            ListaCalculoBonusMeta.Add(new CalcuBonusMetaUmPorcentoMais200());
+            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoMais200());
+            ListaCalculoBonusMeta.Add(new CalculaBonusMetaFinalDeAno());
         }
 
         protected override WorksheetContainer<Model.FolhaPagamento>[] GetWorksheetContainers()

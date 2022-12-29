@@ -103,7 +103,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
                         {
                             Funcionario = funcionario,
                             Data = new DateTime(folha.Ano, folha.Mes, DateTime.DaysInMonth(folha.Ano, folha.Mes)),
-                            Descricao = calculaBonusMeta.DescricaoBonus(mesFolha),
+                            Descricao = calculaBonusMeta.DescricaoBonus(mesFolha, folha.TotalVendido, folha.MetaDeVenda),
                             Valor = valorBonusDeMeta,
                             MesReferencia = folha.Mes,
                             AnoReferencia = folha.Ano

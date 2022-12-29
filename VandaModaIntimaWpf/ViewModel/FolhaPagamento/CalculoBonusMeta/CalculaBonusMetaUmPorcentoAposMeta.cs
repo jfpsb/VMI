@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 
         public string Descricao => "Calcula o bônus de meta com base na diferença entre o total vendido e o valor da meta, com alíquota de 1% (um porcento).";
 
-        public string DescricaoBonus(DateTime mes)
+        public string DescricaoBonus(DateTime mes, double totalVendido, double valorMeta)
         {
             return $"COMISSÃO DE VENDA - 1% DE VALOR ACIMA DA META - {mes.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}";
         }
