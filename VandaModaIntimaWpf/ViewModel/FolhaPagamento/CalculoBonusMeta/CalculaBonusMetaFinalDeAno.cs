@@ -21,21 +21,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 
         public double RetornaValorDoBonus(double totalVendido, double valorMeta)
         {
+            double valorBonusMeta = 150; //Valor padrão
+
             if (totalVendido > 0 && valorMeta > 0) //Vendedor
             {
-                double baseDeCalculo = totalVendido;
-                double valorBonusMeta = 0;
+                double baseDeCalculo = 0;
 
                 if (totalVendido >= valorMeta)
                 {
                     valorBonusMeta = 200.0;
+                    baseDeCalculo = totalVendido;
                 }
 
                 return valorBonusMeta + (baseDeCalculo * 0.01); //1% + 200,00
             }
 
             //Outras funções
-            return 150.0;
+            return valorBonusMeta;
         }
     }
 }
