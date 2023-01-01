@@ -108,7 +108,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 var brow = bonusDataSet.Bonus.NewBonusRow();
                 brow.id = i++.ToString();
                 brow.data = bonus.DataString;
-                brow.descricao = bonus.Descricao;
+                brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
                 brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
                 bonusDataSet.Bonus.AddBonusRow(brow);
