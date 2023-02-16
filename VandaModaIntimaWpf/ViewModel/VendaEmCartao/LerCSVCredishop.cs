@@ -28,6 +28,13 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     var parcelas = int.Parse(values[7]);
                     var valorBruto = values[8].Insert(values[8].Length - 2, ".");
 
+                    var status = values[6];
+
+                    if (!status.Equals("I")) //Venda estornada
+                    {
+                        continue;
+                    }
+
                     var modalidade = "CRÉDITO";
                     var bandeira = "CREDISHOP";
 

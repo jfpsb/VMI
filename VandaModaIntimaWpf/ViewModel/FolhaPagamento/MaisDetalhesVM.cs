@@ -87,6 +87,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     {
                         await daoBonus.Deletar(BonusEscolhido);
                     }
+
                     Bonus.Remove(BonusEscolhido);
                     _dialogResult = true;
                     OnPropertyChanged("TotalBonus");

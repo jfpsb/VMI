@@ -81,7 +81,7 @@
         <ComboBox Grid.Column="1"
                   Grid.Row="5"
                   ItemsSource="{Binding Fornecedores}"
-                  DisplayMemberPath="Nome"
+                  DisplayMemberPath="GetContextMenuHeader"
                   SelectedItem="{Binding Entidade.Fornecedor, UpdateSourceTrigger=PropertyChanged}"
                   Visibility="{Binding VisibilidadeDespesaEmpresarial}" />
         <Label Grid.Row="6"

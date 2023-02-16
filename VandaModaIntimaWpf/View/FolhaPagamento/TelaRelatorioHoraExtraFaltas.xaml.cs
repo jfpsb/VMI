@@ -85,48 +85,58 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             BonusDataSet bonusDataSet = new BonusDataSet();
             HoraExtraSubReportDataSet horaExtraSubReportDataSet = new HoraExtraSubReportDataSet();
 
-            if(folha.Funcionario.Funcao.Nome.Equals("VENDEDOR"))
-            {
-
-            }
-
             int i = 0;
-
             var Bonus = folha.Bonus;
 
-            Model.Bonus bonusAgregado = new Model.Bonus();
-            double soma = Bonus.Where(w => w.PagoEmFolha && w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).Sum(s => s.Valor);
-
-            var b = Bonus.Where(w => w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).FirstOrDefault();
-
-            foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
+            if (folha.Funcionario.Funcao.Nome.Equals("VENDEDOR"))
             {
-                if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL"))
+                Model.Bonus bonusAgregado = new Model.Bonus();
+                double soma = Bonus.Where(w => w.PagoEmFolha && w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).Sum(s => s.Valor);
+
+                var b = Bonus.Where(w => w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).FirstOrDefault();
+
+                foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
                 {
-                    continue;
+                    if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL"))
+                    {
+                        continue;
+                    }
+                    var brow = bonusDataSet.Bonus.NewBonusRow();
+                    brow.id = i++.ToString();
+                    brow.data = bonus.DataString;
+                    brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
+                    brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    bonusDataSet.Bonus.AddBonusRow(brow);
                 }
-                var brow = bonusDataSet.Bonus.NewBonusRow();
-                brow.id = i++.ToString();
-                brow.data = bonus.DataString;
-                brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
-                brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                bonusDataSet.Bonus.AddBonusRow(brow);
+                if (soma != 0.0)
+                {
+                    bonusAgregado.Data = b.Data;
+                    bonusAgregado.Descricao = "COMISSÃO";
+                    bonusAgregado.Valor = soma;
+
+                    var brow2 = bonusDataSet.Bonus.NewBonusRow();
+                    brow2.id = i++.ToString();
+                    brow2.data = bonusAgregado.DataString;
+                    brow2.descricao = bonusAgregado.Descricao;
+                    brow2.valor = bonusAgregado.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+
+                    bonusDataSet.Bonus.AddBonusRow(brow2);
+                }
             }
-
-            if (soma != 0.0)
+            else
             {
-                bonusAgregado.Data = b.Data;
-                bonusAgregado.Descricao = "COMISSÃO";
-                bonusAgregado.Valor = soma;
+                foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
+                {
+                    var brow = bonusDataSet.Bonus.NewBonusRow();
+                    brow.id = i++.ToString();
+                    brow.data = bonus.DataString;
+                    brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
+                    brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
 
-                var brow2 = bonusDataSet.Bonus.NewBonusRow();
-                brow2.id = i++.ToString();
-                brow2.data = bonusAgregado.DataString;
-                brow2.descricao = bonusAgregado.Descricao;
-                brow2.valor = bonusAgregado.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                bonusDataSet.Bonus.AddBonusRow(brow2);
+                    bonusDataSet.Bonus.AddBonusRow(brow);
+                }
             }
 
             IList<Model.HoraExtra> horasExtras = await daoHoraExtra.ListarPorMesFuncionarioGroupByTipoHoraExtra(dataEscolhida, folha.Funcionario);

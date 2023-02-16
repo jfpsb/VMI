@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System;
+﻿using System;
 
 namespace VandaModaIntimaWpf.Model
 {

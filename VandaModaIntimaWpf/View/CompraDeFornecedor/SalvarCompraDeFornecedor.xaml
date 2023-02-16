@@ -57,7 +57,7 @@
                        Content="Fornecedor:" />
                 <ComboBox Grid.Row="3"
                           Grid.Column="1"
-                          DisplayMemberPath="Nome"
+                          DisplayMemberPath="GetContextMenuHeader"
                           ItemsSource="{Binding Fornecedores}"
                           SelectedItem="{Binding Entidade.Fornecedor, UpdateSourceTrigger=PropertyChanged}" />
                 <Label Grid.Row="4"

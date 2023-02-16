@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var values = line.Split(';');
+                    var values = line.Split(',');
 
                     var num_pedido = loja.Cnpj + values[5].TrimStart('0');
                     Model.VendaEmCartao vendaEmCartao;

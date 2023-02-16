@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                         }
                         VendasEmCartao = new ObservableCollection<Model.VendaEmCartao>(listaVendasLocal);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         _messageBoxService.Show("Erro ao ler arquivos csv.");
                     }

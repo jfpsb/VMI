@@ -26,20 +26,6 @@ namespace VandaModaIntimaWpf.Model
             Email = 5
         }
 
-        [JsonIgnore]
-        public virtual Dictionary<string, string> DictionaryIdentifier
-        {
-            get
-            {
-                var dic = new Dictionary<string, string>
-                {
-                    { "Cnpj", Cnpj }
-                };
-
-                return dic;
-            }
-        }
-
         public Fornecedor() { }
 
         /// <summary>
@@ -120,23 +106,8 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual bool IsIdentical(object obj)
-        {
-            if (obj != null && obj.GetType() == typeof(Fornecedor))
-            {
-                Fornecedor fornecedor = (Fornecedor)obj;
-
-                return fornecedor.Cnpj.Equals(Cnpj)
-                       && fornecedor.Nome.Equals(Nome)
-                       && fornecedor.Fantasia.Equals(Fantasia)
-                       && fornecedor.Email.Equals(Email)
-                       && fornecedor.Telefone.Equals(Telefone);
-            }
-            return false;
-        }
-
         [JsonIgnore]
-        public virtual string GetContextMenuHeader => Nome;
+        public virtual string GetContextMenuHeader => $"{Nome} - {Fantasia}";
 
         public virtual Representante Representante
         {

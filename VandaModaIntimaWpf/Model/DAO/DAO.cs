@@ -134,7 +134,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 try
                 {
                     objeto.Deletado = true;
-                    await session.UpdateAsync(objeto);
+                    await session.SaveOrUpdateAsync(objeto);
                     await transacao.CommitAsync();
                 }
                 catch (Exception ex)
