@@ -50,16 +50,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             {
                 var adiantamento = await daoEntidade.ListarPorUuid((Guid)e.UuidEntidade);
 
-                var despesa = new Model.Despesa
-                {
-                    Data = adiantamento.Data,
-                    Adiantamento = adiantamento,
-                    TipoDespesa = await daoTipoDespesa.RetornaTipoDespesaEmpresarial(),
-                    Loja = adiantamento.Funcionario.Loja,
-                    Descricao = $"{adiantamento.Descricao} - {adiantamento.Funcionario.Nome}",
-                    Valor = adiantamento.Valor
-                };
-
                 try
                 {
                     var dialogResult = _messageBoxService.Show("Deseja cadastrar este adiantamento como uma despesa?", "Adicionar Adiantamento",
@@ -67,7 +57,18 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     if (dialogResult == MessageBoxResult.Yes)
                     {
+                        var despesa = new Model.Despesa
+                        {
+                            Data = adiantamento.Data,
+                            Adiantamento = adiantamento,
+                            TipoDespesa = await daoTipoDespesa.RetornaTipoDespesaEmpresarial(),
+                            Loja = adiantamento.Funcionario.LojaTrabalho,
+                            Descricao = $"{adiantamento.Descricao} - {adiantamento.Funcionario.Nome}",
+                            Valor = adiantamento.Valor
+                        };
+
                         await daoDespesa.Inserir(despesa);
+
                         _messageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
