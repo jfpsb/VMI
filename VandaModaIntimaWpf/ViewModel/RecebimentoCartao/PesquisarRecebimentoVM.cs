@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             daoEntidade = new DAORecebimentoCartao(_session);
             daoLoja = new DAOLoja(_session);
             pesquisarViewModelStrategy = new PesquisarRecebMsgVMStrategy();
-            GetMatrizes();
+            GetLojas();
             MatrizComboBoxIndex = 0;
 
             MaisDetalhesComando = new RelayCommand(MaisDetalhes);
@@ -63,10 +63,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
             CalculaTotais();
         }
-        public async void GetMatrizes()
+        public async void GetLojas()
         {
-            Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new LojaModel(GetResource.GetString("matriz_nao_selecionada")));
+            Matrizes = new ObservableCollection<LojaModel>(await daoLoja.ListarExcetoDeposito());
+            Matrizes.Insert(0, new LojaModel(GetResource.GetString("loja_nao_selecionada")));
         }
         public override bool Editavel(object parameter)
         {

@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
 
             Recebimentos.CollectionChanged += RecebimentosChanged;
 
-            GetMatrizes();
+            GetLojas();
             GetBancos();
 
             DataEscolhida = DateTime.Now;
@@ -154,7 +154,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     {
                         string memo = transacao.Element("MEMO").Value;
 
-                        if (memo.Equals("CRED PIX"))
+                        if (memo.Contains("PIX"))
                         {
                             double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
 
@@ -315,10 +315,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                 OnPropertyChanged("DataEscolhida");
             }
         }
-        public async void GetMatrizes()
+        public async void GetLojas()
         {
-            Matrizes = new ObservableCollection<Model.Loja>(await daoLoja.ListarMatrizes());
-            Matrizes.Insert(0, new Model.Loja(GetResource.GetString("matriz_nao_selecionada")));
+            Matrizes = new ObservableCollection<Model.Loja>(await daoLoja.ListarExcetoDeposito());
+            Matrizes.Insert(0, new Model.Loja(GetResource.GetString("loja_nao_selecionada")));
         }
         public async void GetBancos()
         {

@@ -134,6 +134,8 @@ namespace VandaModaIntimaWpf.ViewModel
             WindowService.RegistrarWindow<PesquisarEntradasPorFornecedor, PesquisarEntradasPorFornecedorVM>();
 
             WindowService.RegistrarWindow<PesquisaParcelaCartao, PesquisaParcelaCartaoVM>();
+            
+            WindowService.RegistrarWindow<VisualizarMargensDeLucro, VisualizarMargensDeLucroVM>();
 
             try
             {
