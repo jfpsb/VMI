@@ -8,7 +8,7 @@
                      mc:Ignorable="d"
                      Title="Adicionar Bônus"
                      Height="340"
-                     Width="450"
+                     Width="475"
                      WindowStartupLocation="CenterScreen">
     <Grid Margin="15,5,15,0">
         <Grid.ColumnDefinitions>
@@ -63,7 +63,7 @@
                   VerticalAlignment="Center"
                   IsChecked="{Binding Entidade.BonusMensal}" />
         <Label Grid.Row="6"
-               Content="Pago em folha:" />
+               Content="Pago em folha ou meio externo:" />
         <CheckBox Grid.Row="6"
                   Grid.Column="1"
                   HorizontalAlignment="Center"

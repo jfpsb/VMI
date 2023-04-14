@@ -21,18 +21,6 @@ namespace VandaModaIntimaWpf.Model
         [JsonIgnore]
         public virtual string GetContextMenuHeader => string.Format("R$ {0}", Valor);
 
-        public virtual Dictionary<string, string> DictionaryIdentifier
-        {
-            get
-            {
-                var dic = new Dictionary<string, string>
-                {
-                    { "Id", Id.ToString() }
-                };
-                return dic;
-            }
-        }
-
         public virtual int Id
         {
             get => _id;
@@ -155,11 +143,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual void InicializaLazyLoad()
         {
             throw new NotImplementedException("Bonus Não Possui Propriedades Que Usam Lazy Loading");
-        }
-
-        public virtual bool IsIdentical(object obj)
-        {
-            throw new NotImplementedException();
         }
     }
 }

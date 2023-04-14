@@ -4,8 +4,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;

@@ -545,14 +545,14 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.39</Version>
     </PackageReference>
-    <PackageReference Include="MySql.Data" Version="8.0.32" />
+    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NHibernate">
-      <Version>5.4.1</Version>
+      <Version>5.4.2</Version>
     </PackageReference>
-    <PackageReference Include="NHibernate.Caches.CoreMemoryCache" Version="5.8.0" />
+    <PackageReference Include="NHibernate.Caches.CoreMemoryCache" Version="5.9.0" />
     <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
     <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
@@ -569,7 +569,7 @@
     <PackageReference Include="System.Security.Cryptography.Algorithms">
       <Version>4.3.1</Version>
     </PackageReference>
-    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.2" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.410601">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
