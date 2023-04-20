@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                     File.Delete(Path.Combine(diretorioFolha, calendarioNome));
                 }
 
-                File.Copy(caminhoImagemCalendario, Path.Combine(diretorioFolha, calendarioNome));
+                File.Copy(caminhoImagemCalendario, Path.Combine(diretorioFolha, calendarioNome), true);
             }
         }
 

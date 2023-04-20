@@ -16,8 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 {
     public class CalculoDeBonusMensalPorDiaVM : ObservableObject
     {
-        private BindingList<DataWidget> _widgetsMes1;
-        private BindingList<DataWidget> _widgetsMes2;
+        private BindingList<DataWidget> _widgetsMes;
         private DataFeriado[] datasFeriados;
         private DateTime _dataEscolhida;
         private double _valorTotal;
@@ -43,11 +42,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             PropertyChanged += CalculaDatas;
             PropertyChanged += ValorDiarioAlterado;
 
-            WidgetsMes1 = new BindingList<DataWidget>();
-            WidgetsMes1.ListChanged += CalcultaTotal;
-
-            WidgetsMes2 = new BindingList<DataWidget>();
-            WidgetsMes2.ListChanged += CalcultaTotal;
+            WidgetsMes = new BindingList<DataWidget>();
+            WidgetsMes.ListChanged += CalcultaTotal;
 
             DataEscolhida = dataEscolhida;
 
@@ -78,34 +74,23 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         {
             DateTime primeiroDia = new DateTime(), ultimoDia = new DateTime();
 
-            if (WidgetsMes1.Where(w => w.IsDiaUtil).Count() == 0 && WidgetsMes2.Where(w => w.IsDiaUtil).Count() == 0)
+            if (WidgetsMes.Where(w => w.IsDiaUtil).Count() == 0)
             {
-                messageBoxService.Show("Não Há Dias Marcados Como Dias Úteis Nos Calendários!");
+                messageBoxService.Show("Não há dias marcados como dias úteis no calendário!");
                 return;
-            }
-            else if (WidgetsMes2.Where(w => w.IsDiaUtil).Count() == 0)
-            {
-                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Date;
-                ultimoDia = WidgetsMes1.Where(w => w.IsDiaUtil).Last().Date;
-            }
-            else if (WidgetsMes1.Where(w => w.IsDiaUtil).Count() == 0)
-            {
-                primeiroDia = WidgetsMes2.Where(w => w.IsDiaUtil).First().Date;
-                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Date;
             }
             else
             {
-                primeiroDia = WidgetsMes1.Where(w => w.IsDiaUtil).First().Date;
-                ultimoDia = WidgetsMes2.Where(w => w.IsDiaUtil).Last().Date;
+                primeiroDia = WidgetsMes.Where(w => w.IsDiaUtil).First().Date;
             }
 
-            int numDias = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
+            int numDias = WidgetsMes.Where(w => w.IsDiaUtil).Count();
             calculoDeBonus.AbrirAdicionarBonus(_session, false, DataEscolhida, ValorTotal, ValorDiario, numDias, primeiroDia, ultimoDia);
         }
 
         private void CalcultaTotal(object sender, ListChangedEventArgs e)
         {
-            int quantDiasUteis = WidgetsMes1.Where(w => w.IsDiaUtil).Count() + WidgetsMes2.Where(w => w.IsDiaUtil).Count();
+            int quantDiasUteis = WidgetsMes.Where(w => w.IsDiaUtil).Count();
             ValorTotal = quantDiasUteis * ValorDiario;
         }
 
@@ -117,40 +102,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 if (DataEscolhida.Year < 2000)
                     return;
 
-                WidgetsMes1.Clear();
-                WidgetsMes2.Clear();
+                WidgetsMes.Clear();
 
-                //if (!File.Exists($"Resources/Feriados/{DataEscolhida.Year}.json"))
-                //{
-                //    try
-                //    {
-                //        string url = string.Format("https://api.calendario.com.br/?json=true&ano={0}&estado=MA&cidade=SAO_LUIS&token=amZwc2JfZmVsaXBlMkBob3RtYWlsLmNvbSZoYXNoPTE1NDcxMDY0NA", DataEscolhida.Year);
-                //        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                //        WebResponse response = request.GetResponse();
-                //        using (Stream responseStream = response.GetResponseStream())
-                //        {
-                //            StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                //            File.WriteAllText($"Resources/Feriados/{DataEscolhida.Year}.json", reader.ReadToEnd());
-                //        }
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Console.WriteLine(ex.Message);
-                //    }
-                //}
-
-                //var datasFeriadosJson = File.ReadAllText($"Resources/Feriados/{DataEscolhida.Year}.json");
                 datasFeriados = FeriadoJsonUtil.RetornaListagemDeFeriados(DataEscolhida.Year);
 
-                Metodo(DataEscolhida, WidgetsMes1, 1);
-                Metodo(DataEscolhida.AddMonths(1), WidgetsMes2, 2);
+                Metodo(MesSeguinte, WidgetsMes);
             }
         }
 
-        private void Metodo(DateTime Data, BindingList<DataWidget> Widgets, int ordemMes)
+        private void Metodo(DateTime Data, BindingList<DataWidget> Widgets)
         {
             int row = 0;
-            DateTime quintoDiaUtil = DateTimeUtil.RetornaDataUtil(5, Data.Month, Data.Year);
 
             foreach (DateTime dateTime in DateTimeUtil.RetornaDiasEmMes(Data.Year, Data.Month))
             {
@@ -180,42 +142,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                     dataWidgetPassagem.BtnAlternaDiaUtil.ToolTip = $"Nome: {feriado.Name}\nTipo: {feriado.Type}\nDescrição: {feriado.Description}";
                 }
 
-                if (ordemMes == 1)
-                {
-                    if (dateTime.Day <= quintoDiaUtil.Day)
-                    {
-                        dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
-                    }
-                }
-                else
-                {
-                    if (dateTime.Day > quintoDiaUtil.Day)
-                    {
-                        dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
-                    }
-                }
-
                 Widgets.Add(dataWidgetPassagem);
             }
         }
 
-        public BindingList<DataWidget> WidgetsMes1
+        public BindingList<DataWidget> WidgetsMes
         {
-            get => _widgetsMes1;
+            get => _widgetsMes;
             set
             {
-                _widgetsMes1 = value;
-                OnPropertyChanged("WidgetsMes1");
-            }
-        }
-
-        public BindingList<DataWidget> WidgetsMes2
-        {
-            get => _widgetsMes2;
-            set
-            {
-                _widgetsMes2 = value;
-                OnPropertyChanged("WidgetsMes2");
+                _widgetsMes = value;
+                OnPropertyChanged("WidgetsMes");
             }
         }
 
