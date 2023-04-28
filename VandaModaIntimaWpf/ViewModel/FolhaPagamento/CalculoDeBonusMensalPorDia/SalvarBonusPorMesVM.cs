@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
         {
             var marcados = Funcionarios.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
             string calendarioNome = "CalendarioPassagem.png";
-            DateTime dataFolha = DataEscolhida.AddMonths(-1);
+            DateTime dataFolha = DataEscolhida;
 
             if (_salvarBonus is SalvarAlmoco)
             {
@@ -88,7 +88,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             {
                 // O mês sendo calculado é adicionado na folha referente ao mês anterior
                 // para ser pago no vencimento desta folha
-                DateTime dataFolha = DataEscolhida.AddMonths(-1);
+                DateTime dataReferenciaFolha = DataEscolhida;
                 IList<Bonus> bonuses = new List<Bonus>();
                 foreach (var funcionario in marcados)
                 {
@@ -98,8 +98,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                     bonus.Data = now;
                     bonus.Descricao = _salvarBonus.DescricaoBonus(_numDias, _valorDiario, _primeiroDia, _ultimoDia);
                     bonus.Valor = ValorTotal;
-                    bonus.MesReferencia = dataFolha.Month;
-                    bonus.AnoReferencia = dataFolha.Year;
+                    bonus.MesReferencia = dataReferenciaFolha.Month;
+                    bonus.AnoReferencia = dataReferenciaFolha.Year;
                     bonuses.Add(bonus); //Propriedade PagoEmFolha já é true por padrão
                 }
 

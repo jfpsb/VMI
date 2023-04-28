@@ -91,13 +91,14 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             if (folha.Funcionario.Funcao.Nome.Equals("VENDEDOR"))
             {
                 Model.Bonus bonusAgregado = new Model.Bonus();
-                double soma = Bonus.Where(w => w.PagoEmFolha && w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).Sum(s => s.Valor);
+                double soma = Bonus.Where(w => w.PagoEmFolha && (w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL"))).Sum(s => s.Valor);
 
                 var b = Bonus.Where(w => w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).FirstOrDefault();
 
                 foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
                 {
-                    if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL"))
+                    if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL")
+                        || bonus.Descricao.StartsWith("AUXÍLIO") || bonus.Descricao.StartsWith("PASSAGEM"))
                     {
                         continue;
                     }
@@ -129,6 +130,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             {
                 foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
                 {
+                    if (bonus.Descricao.StartsWith("AUXÍLIO") || bonus.Descricao.StartsWith("PASSAGEM"))
+                    {
+                        continue;
+                    }
                     var brow = bonusDataSet.Bonus.NewBonusRow();
                     brow.id = i++.ToString();
                     brow.data = bonus.DataString;

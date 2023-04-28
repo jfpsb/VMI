@@ -82,6 +82,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             else
             {
                 primeiroDia = WidgetsMes.Where(w => w.IsDiaUtil).First().Date;
+                ultimoDia = WidgetsMes.Where(w => w.IsDiaUtil).Last().Date;
             }
 
             int numDias = WidgetsMes.Where(w => w.IsDiaUtil).Count();
