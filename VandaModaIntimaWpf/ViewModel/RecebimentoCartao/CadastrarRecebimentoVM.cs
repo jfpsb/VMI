@@ -167,6 +167,19 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                                 recebimentoPorOperadora.Add("PIX", valor);
                             }
                         }
+                        if (memo.Contains("DIN") || memo.Contains("DINHEIRO"))
+                        {
+                            double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
+
+                            if (recebimentoPorOperadora.ContainsKey("DINHEIRO"))
+                            {
+                                recebimentoPorOperadora["DINHEIRO"] += valor;
+                            }
+                            else
+                            {
+                                recebimentoPorOperadora.Add("DINHEIRO", valor);
+                            }
+                        }
                         else if (memo.Equals("CR VD CART"))
                         {
                             double valor = double.Parse(transacao.Element("TRNAMT").Value.Replace('.', ','));
@@ -234,6 +247,10 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     if (rpo.Key.Equals("PIX"))
                     {
                         recebimento.Observacao = "PIX";
+                    }
+                    else if (rpo.Key.Equals("DINHEIRO"))
+                    {
+                        recebimento.Observacao = "DINHEIRO";
                     }
                     else if (rpo.Key.Equals("DEP CART GENÉRICO"))
                     {
