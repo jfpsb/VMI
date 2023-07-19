@@ -114,7 +114,35 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar hora extra por período, agrupado por tipo de hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+        public async Task<IList<HoraExtra>> ListarPorMesFuncionarioGroupByTipoHoraExtra(int ano, int mes, Funcionario funcionario)
+        {
+            try
+            {
+                DateTime inicio = new DateTime(ano, mes, 1);
+                DateTime fim = inicio.AddMonths(1).AddSeconds(-1);
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Between("Data", inicio, fim))
+                    .Add(Restrictions.Eq("Funcionario", funcionario));
 
+                criteria.SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Sum("Horas"), "Horas")
+                    .Add(Projections.Sum("Minutos"), "Minutos")
+                    .Add(Projections.Property("Data"), "Data")
+                    .Add(Projections.Property("Id"), "Id")
+                    .Add(Projections.Property("LojaTrabalho"), "LojaTrabalho")
+                    .Add(Projections.Property("Uuid"), "Uuid")
+                    .Add(Projections.Property("Funcionario"), "Funcionario")
+                    .Add(Projections.GroupProperty("TipoHoraExtra"), "TipoHoraExtra"));
+
+                criteria.SetResultTransformer(Transformers.AliasToBean<HoraExtra>());
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar hora extra por dia funcionario agrupado por tipo de hora");
+                throw new Exception($"Erro ao listar hora extra por período, agrupado por tipo de hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
         public async Task<HoraExtra> ListarPorDiaFuncionario(DateTime dia, Funcionario funcionario)
         {
             try
