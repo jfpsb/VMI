@@ -34,7 +34,7 @@ namespace VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel
             }
         }
 
-        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna, Style estilo)
+        protected void EscreveHeaders(Worksheet worksheet, string[] colunas, int linha, int coluna, Microsoft.Office.Interop.Excel.Style estilo)
         {
             //Escreve cabeçalho baseado nas colunas do model e estiliza
             for (int i = 0; i < colunas.Length; i++)
