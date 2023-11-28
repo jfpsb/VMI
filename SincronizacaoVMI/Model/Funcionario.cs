@@ -8,6 +8,7 @@ namespace SincronizacaoVMI.Model
         private string _cpf;
         private Loja _loja;
         private Loja _lojaTrabalho;
+        private Funcao _funcao;
         private string _nome;
         private string _endereco;
         private string _telefone;
@@ -151,6 +152,20 @@ namespace SincronizacaoVMI.Model
             {
                 _lojaTrabalho = value;
                 OnPropertyChanged("LojaTrabalho");
+            }
+        }
+
+        public virtual Funcao Funcao
+        {
+            get
+            {
+                return _funcao;
+            }
+
+            set
+            {
+                _funcao = value;
+                OnPropertyChanged("Funcao");
             }
         }
 

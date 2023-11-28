@@ -27,6 +27,7 @@
     <None Remove="Mapas\Ferias.hbm.xml" />
     <None Remove="Mapas\FolhaPagamento.hbm.xml" />
     <None Remove="Mapas\Fornecedor.hbm.xml" />
+    <None Remove="Mapas\Funcao.hbm.xml" />
     <None Remove="Mapas\Funcionario.hbm.xml" />
     <None Remove="Mapas\Grade.hbm.xml" />
     <None Remove="Mapas\HistoricoProdutoGrade.hbm.xml" />
@@ -81,6 +82,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
     <EmbeddedResource Include="Mapas\Ferias.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Funcao.hbm.xml" />
     <EmbeddedResource Include="Mapas\InscricaoImobiliaria.hbm.xml" />
     <EmbeddedResource Include="Mapas\Estoque.hbm.xml" />
     <EmbeddedResource Include="Mapas\Bonus.hbm.xml" />
