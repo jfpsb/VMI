@@ -215,6 +215,10 @@
                                                                         Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
+                                                    <DataGridCheckBoxColumn Header="Paga Antes do Vencimento"
+                                                                            Binding="{Binding Paga}"
+                                                                            IsReadOnly="True"
+                                                                            Width="Auto"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                             <DataGrid Width="Auto"

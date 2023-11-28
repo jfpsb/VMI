@@ -54,7 +54,11 @@ namespace VandaModaIntimaWpf.Util
                     {
                         Directory.CreateDirectory("Resources/Feriados");
                         StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                        File.WriteAllText($"Resources/Feriados/{ano}.json", reader.ReadToEnd());
+                        var conteudo = reader.ReadToEnd();
+
+                        if (conteudo.Length == 0)
+                            throw new Exception("Não foi possível baixar calendário!");
+                        File.WriteAllText($"Resources/Feriados/{ano}.json", conteudo);
                     }
                 }
                 catch (Exception ex)

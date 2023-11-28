@@ -121,6 +121,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 var prow = parcelaDataSet.Parcela.NewParcelaRow();
                 prow.id = parcela.Id.ToString();
                 prow.numero = parcela.Numero.ToString();
+                prow.paga = parcela.Paga ? "SIM":"NÃO";
                 prow.valor = parcela.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                 prow.data_adiantamento = parcela.Adiantamento.DataString;
                 prow.numero_com_total = parcela.NumeroComTotal;

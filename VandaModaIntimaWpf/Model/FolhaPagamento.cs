@@ -83,7 +83,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return Parcelas.Sum(s => s.Valor);
+                return Parcelas.Where(w => !w.Paga).Sum(s => s.Valor);
             }
         }
         public virtual bool Fechada
