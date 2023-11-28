@@ -177,8 +177,6 @@ namespace SincronizacaoVMI
                     _threadsByType.Add(typeof(IntervaloPonto).FullName, new Thread((instancia) => { ElapsedGenerico<IntervaloPonto>(); }));
                     _threadsByType.Add(typeof(VendaEmCartao).FullName, new Thread((instancia) => { ElapsedGenerico<VendaEmCartao>(); }));
                     _threadsByType.Add(typeof(ParcelaCartao).FullName, new Thread((instancia) => { ElapsedGenerico<ParcelaCartao>(); }));
-                    _threadsByType.Add(typeof(Funcao).FullName, new Thread((instancia) => { ElapsedGenerico<Funcao>(); }));
-
 
                     foreach (var t in _threadsByType)
                     {

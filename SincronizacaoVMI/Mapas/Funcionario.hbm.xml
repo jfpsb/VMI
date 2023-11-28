@@ -8,7 +8,6 @@
 		<property name="Uuid" />
 		<many-to-one name="Loja" class="SincronizacaoVMI.Model.Loja" column="loja" lazy="false" not-null="true"/>
 		<many-to-one name="LojaTrabalho" class="SincronizacaoVMI.Model.Loja" column="loja_trabalho" lazy="false" not-null="true"/>
-		<many-to-one name="Funcao" class="SincronizacaoVMI.Model.Funcao" column="funcao" />
 		<property name="Nome" column="nome" />
 		<property name="Endereco" column="endereco" />
 		<property name="Telefone" column="telefone" />

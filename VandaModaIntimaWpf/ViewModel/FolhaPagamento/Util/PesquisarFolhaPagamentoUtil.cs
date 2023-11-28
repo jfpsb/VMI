@@ -51,12 +51,6 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
                 var parcelas = await daoParcela.ListarPorFuncionarioMesAno(folha.Funcionario, folha.Mes, folha.Ano);
                 folha.Parcelas = parcelas;
 
-                foreach(Parcela p in folha.Parcelas)
-                {
-                    if (p.Paga)
-                        p.Adiantamento.Descricao += " (PAGA ANTES DO VENCIMENTO)";
-                }
-
                 //Lista todos os bônus do funcionário (inclusive bônus cancelados)
                 folha.Bonus = await daoBonus.ListarPorFuncionario(funcionario, dataReferencia.Month, dataReferencia.Year);
 
