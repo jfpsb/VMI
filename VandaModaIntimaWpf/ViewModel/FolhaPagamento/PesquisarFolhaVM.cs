@@ -565,12 +565,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         private void GetListaCalculoBonusMeta()
         {
-            ListaCalculoBonusMeta = new ObservableCollection<ICalculaBonusMeta>();
-            ListaCalculoBonusMeta.Add(new CalculaBonusMetaMeioPorcento());
-            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcento());
-            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoAposMeta());
-            ListaCalculoBonusMeta.Add(new CalculaBonusMetaUmPorcentoMais200());
-            ListaCalculoBonusMeta.Add(new CalculaBonusMetaFinalDeAno());
+            ListaCalculoBonusMeta = new ObservableCollection<ICalculaBonusMeta>
+            {
+                new CalculaBonusMetaMeioPorcento(),
+                new CalculaBonusMetaUmPorcento(),
+                new CalculaBonusMetaUmPorcentoAposMeta(),
+                new CalculaBonusMetaUmPorcentoMais200(),
+                new CalculaBonusMetaFinalDeAno(),
+                new CalculaBonusMetaUmPorcentoEGratificacao()
+            };
         }
 
         protected override WorksheetContainer<Model.FolhaPagamento>[] GetWorksheetContainers()
