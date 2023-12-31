@@ -16,26 +16,17 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
                 return $"COMISSÃO DE VENDA - 1% - {mes.ToString("MMMM", CultureInfo.GetCultureInfo("pt-BR"))}";
             }
 
-            return $"GRATIFICAÇÃO NATAL";
+            return "GRATIFICAÇÃO NATAL";
         }
 
         public double RetornaValorDoBonus(double totalVendido, double valorMeta)
         {
-            double valorBonusMeta = 150; //Valor padrão
-
-            if (totalVendido > 0 && valorMeta > 0) //Vendedor
+            if (valorMeta > 0 && totalVendido >= valorMeta) //Vendedor
             {
-                double baseDeCalculo = 0;
-
-                if (totalVendido >= valorMeta)
-                {
-                    baseDeCalculo = totalVendido;
-                }
-
-                return baseDeCalculo * 0.01; //1%
+                return totalVendido * 0.01; //1%
             }
 
-            return valorBonusMeta;
+            return 150;
         }
     }
 }

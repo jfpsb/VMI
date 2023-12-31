@@ -572,7 +572,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 new CalculaBonusMetaUmPorcentoAposMeta(),
                 new CalculaBonusMetaUmPorcentoMais200(),
                 new CalculaBonusMetaFinalDeAno(),
-                new CalculaBonusMetaUmPorcentoEGratificacao()
+                new CalculaBonusMetaUmPorcentoEGratificacao(),
+                new CalculoBonusMetaProporcionalMaxUmPorcento()
             };
         }
 
