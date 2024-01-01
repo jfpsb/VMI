@@ -332,6 +332,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 foreach (var parcela in parcelasEmAberto)
                 {
                     parcela.Paga = true;
+                    parcela.PagaEm = folhasAbertas[0].Vencimento;
                 }
 
                 var dao = daoEntidade as DAOFolhaPagamento;
@@ -368,6 +369,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 foreach (var parcela in FolhaPagamento.Parcelas)
                 {
                     parcela.Paga = true;
+                    parcela.PagaEm = FolhaPagamento.Vencimento;
                 }
 
 

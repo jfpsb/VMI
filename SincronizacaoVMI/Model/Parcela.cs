@@ -12,6 +12,7 @@ namespace SincronizacaoVMI.Model
         private bool _statusPagaAtual;
         private int _mes;
         private int _ano;
+        private DateTime? _pagaem;
 
         public virtual Adiantamento Adiantamento
         {
@@ -94,6 +95,15 @@ namespace SincronizacaoVMI.Model
             {
                 _ano = value;
                 OnPropertyChanged("Ano");
+            }
+        }
+        public virtual DateTime? PagaEm
+        {
+            get => _pagaem;
+            set
+            {
+                _pagaem = value;
+                OnPropertyChanged("PagaEm");
             }
         }
         public virtual object GetIdentifier()

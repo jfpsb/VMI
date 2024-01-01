@@ -215,8 +215,8 @@
                                                                         Binding="{Binding Valor, StringFormat='C', ConverterCulture=pt-BR}"
                                                                         IsReadOnly="True"
                                                                         Width="Auto" />
-                                                    <DataGridCheckBoxColumn Header="Paga Antes do Vencimento"
-                                                                            Binding="{Binding Paga}"
+                                                    <DataGridTextColumn Header="Paga Em"
+                                                                        Binding="{Binding PagaEm, StringFormat='d', ConverterCulture=pt-BR}"
                                                                             IsReadOnly="True"
                                                                             Width="Auto"/>
                                                 </DataGrid.Columns>

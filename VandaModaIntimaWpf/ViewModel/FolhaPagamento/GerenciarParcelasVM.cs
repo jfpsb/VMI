@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
@@ -14,6 +15,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
     {
         private Adiantamento _adiantamento;
         private Parcela _parcela;
+        private Model.FolhaPagamento _folha;
         private BindingList<Parcela> _parcelas;
         private bool _adiantarAtrasarParcelasConjunto;
         private IMessageBoxService messageBoxService;
@@ -76,6 +78,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     if (!f.Paga && f.StatusPagaAtual)
                     {
                         f.Paga = true;
+                        f.PagaEm = DateTime.Now;
                     }
                 });
 

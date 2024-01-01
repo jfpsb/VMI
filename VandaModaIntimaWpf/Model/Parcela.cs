@@ -15,6 +15,7 @@ namespace VandaModaIntimaWpf.Model
         private bool _statusPagaAtual;
         private int _mes;
         private int _ano;
+        private DateTime? _pagaem;
 
         [JsonIgnore]
         public virtual string GetContextMenuHeader => throw new NotImplementedException();
@@ -122,6 +123,16 @@ namespace VandaModaIntimaWpf.Model
                 OnPropertyChanged("Ano");
                 OnPropertyChanged("Vencimento");
                 OnPropertyChanged("FolhaReferencia");
+            }
+        }
+
+        public virtual DateTime? PagaEm
+        {
+            get => _pagaem;
+            set
+            {
+                _pagaem = value;
+                OnPropertyChanged("PagaEm");
             }
         }
 
