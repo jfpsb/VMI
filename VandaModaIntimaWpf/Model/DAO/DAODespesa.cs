@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -100,6 +101,34 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("Data"));
+                return await Listar(criteria);
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de despesa por mês e ano");
+                throw new Exception($"Erro ao listar contagens por mês e ano. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
+        /// <summary>
+        /// Lista as despesas agendadas agrupando por loja.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<IList<Despesa>> ListarAgendadas(DateTime data)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Gt("Data", data));
+                criteria.AddOrder(Order.Asc("Loja"));
+                criteria.SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Sum("Valor"), "Valor")
+                    .Add(Projections.GroupProperty("Loja"), "Loja"));
+
+                criteria.SetResultTransformer(Transformers.AliasToBean<Despesa>());
+
                 return await Listar(criteria);
             }
             catch (Exception ex)

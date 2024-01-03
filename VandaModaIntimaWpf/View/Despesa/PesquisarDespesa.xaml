@@ -98,7 +98,7 @@
                     <View:DataUpDown Grid.Row="1"
                                      Grid.Column="1"
                                      Data="{Binding DataEscolhida, Mode=TwoWay}"
-                                     DataStringFormat="MMM/yyyy"/>
+                                     DataStringFormat="MMM/yyyy" />
                     <Label Grid.Row="2"
                            Content="Loja:" />
                     <ComboBox Grid.Row="2"
@@ -220,6 +220,47 @@
                                     <ContextMenu Template="{StaticResource PesquisaDataGridContextMenu}" />
                                 </DataGrid.ContextMenu>
                             </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Despesas Agendadas">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Content="Data:" />
+                                <DatePicker Grid.Column="1"
+                                            Width="225"
+                                            HorizontalAlignment="Left"
+                                            SelectedDate="{Binding DataPesquisaAgendado, Mode=TwoWay}"/>
+                                <DataGrid IsReadOnly="True"
+                                          Grid.ColumnSpan="2"
+                                          Grid.Row="1"
+                                          ItemsSource="{Binding DespesasAgendadas, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
+                                          CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="{DynamicResource loja_header}"
+                                                            Width="*"
+                                                            Binding="{Binding Entidade.Loja.Nome}" />
+                                        <DataGridTextColumn Header="Valor"
+                                                            Width="*"
+                                                            Binding="{Binding Entidade.Valor, StringFormat=C, ConverterCulture=pt-BR}" />
+                                    </DataGrid.Columns>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <Separator Margin="15,5,15,5" />
+                                            <MenuItem Header="{DynamicResource copiar}"
+                                                      Command="{Binding CopiarValorCelulaComando}" />
+                                            
+                                            <Separator Margin="15,5,15,5" />
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                </DataGrid>
+                            </Grid>
                         </TabItem>
                     </TabControl>
                 </Grid>

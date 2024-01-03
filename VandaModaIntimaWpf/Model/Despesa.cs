@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.Model
         private string _detalhes;
         public virtual Dictionary<string, string> DictionaryIdentifier => throw new NotImplementedException();
 
-        public virtual string GetContextMenuHeader => $"{TipoDespesa.Nome} - {Valor}";
+        public virtual string GetContextMenuHeader => $"{TipoDespesa?.Nome} - {Valor}";
 
         public virtual int Id
         {

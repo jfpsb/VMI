@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
@@ -12,6 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
     public class PesquisarDespesaVM : APesquisarViewModel<Model.Despesa>
     {
         private DateTime _dataEscolhida;
+        private DateTime _dataPesquisaAgendado;
         private string _filtrarPor;
         private DAO<Model.TipoDespesa> daoTipoDespesa;
         private DAO<Model.Loja> daoLoja;
@@ -25,6 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasEmpresarial;
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasFamiliar;
         private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasResidencial;
+        private ObservableCollection<EntidadeComCampo<Model.Despesa>> _despesasAgendadas;
 
         public ICommand AbrirDespesaGroupByLojaComando { get; set; }
 
@@ -45,6 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             FiltrarPor = "Sem Filtro";
             DataEscolhida = DateTime.Now;
+            DataPesquisaAgendado = DateTime.Now;
             AbaSelecionada = 0;
         }
 
@@ -53,7 +57,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             _windowService.ShowDialog(new DespesaGroupByDescricaoViewModel(), null);
         }
 
-        private void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void PesquisarDespesaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -77,6 +81,10 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 case "FiltrarPor":
                     if (FiltrarPor.Equals("Sem Filtro"))
                         TermoPesquisa = string.Empty;
+                    break;
+                case "DataPesquisaAgendado":
+                    DAODespesa dao = (DAODespesa)daoEntidade;
+                    DespesasAgendadas = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarAgendadas(DataPesquisaAgendado)));
                     break;
             }
         }
@@ -172,6 +180,15 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 OnPropertyChanged("DataEscolhida");
                 OnPropertyChanged("TermoPesquisa");
                 OnPropertyChanged("AbaSelecionada");
+            }
+        }
+        public DateTime DataPesquisaAgendado
+        {
+            get => _dataPesquisaAgendado;
+            set
+            {
+                _dataPesquisaAgendado = value;
+                OnPropertyChanged("DataPesquisaAgendado");
             }
         }
         public string FiltrarPor
@@ -270,6 +287,15 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _despesasResidencial = value;
                 OnPropertyChanged("DespesasResidencial");
+            }
+        }
+        public ObservableCollection<EntidadeComCampo<Model.Despesa>> DespesasAgendadas
+        {
+            get => _despesasAgendadas;
+            set
+            {
+                _despesasAgendadas = value;
+                OnPropertyChanged("DespesasAgendadas");
             }
         }
     }
