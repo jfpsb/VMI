@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Marca
             Entidade = new MarcaModel();
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new MarcaModel();
             Entidade.Nome = string.Empty;

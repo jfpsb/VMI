@@ -48,8 +48,12 @@ namespace VandaModaIntimaWpf.ViewModel
         protected IProgress<string> setDescricaoBarraProgresso;
         protected IProgress<bool> setIsIndefinidaBarraProgresso;
 
-        public delegate void AposDeletarDoBDEventHandler(AposDeletarDoBDEventArgs e);
-        public event AposDeletarDoBDEventHandler AposDeletarDoBD;
+        protected delegate void AposDeletarEventHandler(AposCRUDEventArgs e);
+        protected delegate void AposSalvarEventHandler(AposCRUDEventArgs e);
+
+        protected event AposSalvarEventHandler AposSalvarEvento;
+        protected event AposDeletarEventHandler AposDeletarEvento;
+
         public ICommand AbrirCadastrarComando { get; set; }
         public ICommand AbrirImprimirComando { get; set; }
         public ICommand AbrirApagarComando { get; set; }
@@ -114,9 +118,9 @@ namespace VandaModaIntimaWpf.ViewModel
             //openView.ShowDialog(GetTelaRelatorioVM());
         }
         public abstract bool Editavel(object parameter);
-        protected virtual void ChamaAposDeletarDoBD(AposDeletarDoBDEventArgs e)
+        protected virtual void ChamaAposDeletarDoBD(AposCRUDEventArgs e)
         {
-            AposDeletarDoBD?.Invoke(e);
+            AposDeletarEvento?.Invoke(e);
         }
         public void AbrirCadastrar(object parameter)
         {
@@ -127,6 +131,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     if (result == true)
                     {
                         OnPropertyChanged("TermoPesquisa");
+                        AposSalvarEvento?.Invoke(new AposCRUDEventArgs { Sucesso = result == true });
                     }
                 });
             }
@@ -146,6 +151,7 @@ namespace VandaModaIntimaWpf.ViewModel
                     {
                         await daoEntidade.RefreshEntidade(EntidadeSelecionada.Entidade);
                         OnPropertyChanged("TermoPesquisa");
+                        AposSalvarEvento?.Invoke(new AposCRUDEventArgs { Sucesso = result == true });
                     }
                 });
             }
@@ -181,9 +187,9 @@ namespace VandaModaIntimaWpf.ViewModel
                         pesquisarViewModelStrategy.TelaApagarCaption(), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                AposDeletarDoBDEventArgs e2 = new AposDeletarDoBDEventArgs()
+                AposCRUDEventArgs e2 = new AposCRUDEventArgs()
                 {
-                    DeletadoComSucesso = deletado
+                    Sucesso = deletado
                 };
 
                 ChamaAposDeletarDoBD(e2);

@@ -344,7 +344,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
         {
             throw new NotImplementedException();
         }
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
 
         }

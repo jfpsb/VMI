@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
 
             return valido;
         }
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new LojaModel();
             Entidade.Cnpj = Entidade.Nome = Entidade.Telefone = Entidade.Endereco = Entidade.InscricaoEstadual = string.Empty;

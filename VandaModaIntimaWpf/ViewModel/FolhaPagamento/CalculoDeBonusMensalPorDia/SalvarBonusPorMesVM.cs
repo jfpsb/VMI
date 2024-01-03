@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             GetFuncionarios();
         }
 
-        private void SalvaImagemCalendarios(AposInserirBDEventArgs e)
+        private void SalvaImagemCalendarios(AposCRUDEventArgs e)
         {
             var marcados = Funcionarios.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
             string calendarioNome = "CalendarioPassagem.png";
@@ -76,7 +76,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             }
         }
 
-        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async override Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             var marcados = Funcionarios.Where(w => w.IsChecked).Select(s => s.Entidade).ToList();
 
@@ -125,9 +125,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 }
             }
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
-                IssoEUmUpdate = IssoEUmUpdate,
+                IssoEhUpdate = IssoEUmUpdate,
                 Sucesso = _result,
                 Parametro = parametro
             };
@@ -184,7 +184,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
 
         }

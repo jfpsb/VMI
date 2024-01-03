@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             });
         }
 
-        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async override Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             _result = false;
             try
@@ -149,9 +149,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
             if (lojasEntidadeComCampo != null && lojasEntidadeComCampo.Count > 0)
             {
-                AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+                AposCRUDEventArgs e = new AposCRUDEventArgs()
                 {
-                    IssoEUmUpdate = IssoEUmUpdate,
+                    IssoEhUpdate = IssoEUmUpdate,
                     Sucesso = _result,
                     Parametro = parametro
                 };
@@ -280,7 +280,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             }
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Model.Despesa novaEntidade = new Model.Despesa();
             novaEntidade.TipoDespesa = Entidade.TipoDespesa;

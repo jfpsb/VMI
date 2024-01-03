@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
                     break;
             }
         }
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new FornecedorModel();
             Entidade.Cnpj = Entidade.Nome = Entidade.Fantasia = Entidade.Email = string.Empty;

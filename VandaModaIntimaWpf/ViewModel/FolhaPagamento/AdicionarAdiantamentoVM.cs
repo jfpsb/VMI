@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             ValorMaximoParcela = funcionario.Salario / 2;
         }
 
-        private async void SalvaDespesaDeAdiantamento(AposInserirBDEventArgs e)
+        private async void SalvaDespesaDeAdiantamento(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {
@@ -199,7 +199,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new Model.Adiantamento()
             {

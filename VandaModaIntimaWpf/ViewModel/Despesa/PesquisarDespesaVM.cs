@@ -45,11 +45,18 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             GetLojas();
 
             PropertyChanged += PesquisarDespesaVM_PropertyChanged;
+            AposSalvarEvento += AtualizaListagemAgendados;
+            AposDeletarEvento += AtualizaListagemAgendados;
 
             FiltrarPor = "Sem Filtro";
             DataEscolhida = DateTime.Now;
             DataPesquisaAgendado = DateTime.Now;
             AbaSelecionada = 0;
+        }
+
+        private void AtualizaListagemAgendados(AposCRUDEventArgs e)
+        {
+            if (e.Sucesso) OnPropertyChanged("DataPesquisaAgendado");
         }
 
         private void AbrirDespesaGroupByLoja(object obj)

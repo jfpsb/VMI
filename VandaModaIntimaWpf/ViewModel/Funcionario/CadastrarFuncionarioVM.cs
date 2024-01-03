@@ -342,7 +342,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
             }
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {

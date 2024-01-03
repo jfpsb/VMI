@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private void FecharTela(AposInserirBDEventArgs e)
+        private void FecharTela(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {
@@ -42,7 +42,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
 
         }

@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
         }
 
@@ -106,7 +106,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             return true;
         }
 
-        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async override Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             _result = false;
             try
@@ -123,9 +123,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
-                IssoEUmUpdate = IssoEUmUpdate,
+                IssoEhUpdate = IssoEUmUpdate,
                 Sucesso = _result,
                 Parametro = parametro
             };

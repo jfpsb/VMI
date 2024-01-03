@@ -96,7 +96,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             }
         }
 
-        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async override Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             try
             {
@@ -110,9 +110,9 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Cadastro de Vendas Em Cartão", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
-                IssoEUmUpdate = false,
+                IssoEhUpdate = false,
                 Sucesso = _result,
                 Parametro = parametro
             };
@@ -137,7 +137,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             throw new NotImplementedException();
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
                 VendasEmCartao.Clear();

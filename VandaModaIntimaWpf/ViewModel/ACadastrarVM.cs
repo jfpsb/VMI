@@ -29,7 +29,7 @@ namespace VandaModaIntimaWpf.ViewModel
         private string _btnSalvarToolTip;
 
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
-        public delegate void AposInserirNoBancoDeDadosEventHandler(AposInserirBDEventArgs e);
+        public delegate void AposInserirNoBancoDeDadosEventHandler(AposCRUDEventArgs e);
         public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
         public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
         public ICommand SalvarComando { get; set; }
@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Lê novamente o estado da Entidade do banco de dados para atualizar os valores criados através de triggers
         /// </summary>
         /// <param name="e">Argumento Do Evento Após Inserir Em Banco De Dados</param>
-        protected virtual async void RefreshEntidade(AposInserirBDEventArgs e)
+        protected virtual async void RefreshEntidade(AposCRUDEventArgs e)
         {
             if (e.Sucesso && e.UuidEntidade != null)
             {
@@ -102,7 +102,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Executa a operação de salvar entidade
         /// </summary>
         /// <returns>Parâmetros do evento após inserção, em caso de sucesso ou falha</returns>
-        protected async virtual Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async virtual Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             _result = false;
             try
@@ -118,9 +118,9 @@ namespace VandaModaIntimaWpf.ViewModel
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
-                IssoEUmUpdate = IssoEUmUpdate,
+                IssoEhUpdate = IssoEUmUpdate,
                 UuidEntidade = Entidade.Uuid,
                 Sucesso = _result,
                 Parametro = parametro
@@ -139,7 +139,7 @@ namespace VandaModaIntimaWpf.ViewModel
         /// <summary>
         /// Retorna as propriedades da entidade a seus valores iniciais
         /// </summary>
-        public abstract void ResetaPropriedades(AposInserirBDEventArgs e);
+        public abstract void ResetaPropriedades(AposCRUDEventArgs e);
 
         /// <summary>
         /// Realiza os testes para determinar se todos os requisitos necessários para permitir o cadastro foram atingidos
@@ -152,12 +152,12 @@ namespace VandaModaIntimaWpf.ViewModel
         /// Redefine os campos do formulário para os valores padrões
         /// </summary>
         /// <param name="e"></param>
-        private void RedefinirTela(AposInserirBDEventArgs e)
+        private void RedefinirTela(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {
                 // Se a operação for um Update não há alteração no formulário
-                if (!e.IssoEUmUpdate)
+                if (!e.IssoEhUpdate)
                     ResetaPropriedades(e);
             }
         }

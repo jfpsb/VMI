@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
 
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new Model.Representante();
             Fornecedores.Clear();

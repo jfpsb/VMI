@@ -195,7 +195,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
 
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new Model.EntradaDeMercadoria();
             Entidade.Loja = Lojas[0];

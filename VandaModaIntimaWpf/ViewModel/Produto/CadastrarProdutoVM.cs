@@ -364,9 +364,9 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             _windowService.ShowDialog(new CadastrarGradeVM(_session), null);
         }
 
-        private void LimpaGrades(AposInserirBDEventArgs e)
+        private void LimpaGrades(AposCRUDEventArgs e)
         {
-            if (e.UuidEntidade != null && !e.IssoEUmUpdate)
+            if (e.UuidEntidade != null && !e.IssoEhUpdate)
             {
                 Grades.Clear();
             }
@@ -463,7 +463,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
 
             return valido;
         }
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {

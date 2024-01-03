@@ -55,7 +55,7 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             PropertyChanged += PesquisaRecebimentosExistentes;
         }
 
-        protected async override void RefreshEntidade(AposInserirBDEventArgs e)
+        protected async override void RefreshEntidade(AposCRUDEventArgs e)
         {
             if (e.Sucesso)
             {
@@ -80,14 +80,14 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
             }
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Recebimentos.Clear();
             Recebimentos = new ObservableCollection<Model.RecebimentoCartao>();
             MatrizComboBoxIndex = 0;
         }
 
-        protected async override Task<AposInserirBDEventArgs> ExecutarSalvar(object parametro)
+        protected async override Task<AposCRUDEventArgs> ExecutarSalvar(object parametro)
         {
             try
             {
@@ -101,9 +101,9 @@ namespace VandaModaIntimaWpf.ViewModel.RecebimentoCartao
                     $"Para mais detalhes acesse {Log.LogBanco}.\n\n{ex.Message}\n\n{ex.InnerException.Message}", "Cadastro de Recebimentos Em Conta", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            AposInserirBDEventArgs e = new AposInserirBDEventArgs()
+            AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
-                IssoEUmUpdate = false,
+                IssoEhUpdate = false,
                 Sucesso = _result,
                 Parametro = parametro
             };

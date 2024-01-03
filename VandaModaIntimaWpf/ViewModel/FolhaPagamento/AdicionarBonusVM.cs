@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             AposInserirNoBancoDeDados += SalvarBonusMensal;
         }
 
-        private async void SalvarBonusMensal(AposInserirBDEventArgs e)
+        private async void SalvarBonusMensal(AposCRUDEventArgs e)
         {
             var bonusInserido = await daoEntidade.ListarPorUuid((Guid)e.UuidEntidade);
 
@@ -70,7 +70,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Entidade.Data = DateTime.Now;
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new Bonus
             {

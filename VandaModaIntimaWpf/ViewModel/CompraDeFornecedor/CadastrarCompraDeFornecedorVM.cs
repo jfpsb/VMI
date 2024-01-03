@@ -200,7 +200,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
                 _messageBoxService.Show(ex.Message);
             }
         }
-        private void CopiarArquivos(AposInserirBDEventArgs e)
+        private void CopiarArquivos(AposCRUDEventArgs e)
         {
             if (Arquivos.Count > 0 && e.Sucesso)
             {
@@ -348,7 +348,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             }
         }
 
-        public override void ResetaPropriedades(AposInserirBDEventArgs e)
+        public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
             Entidade = new Model.CompraDeFornecedor();
             Entidade.DataPedido = DateTime.Now;
