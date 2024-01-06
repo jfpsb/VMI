@@ -111,7 +111,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         }
 
         /// <summary>
-        /// Lista as despesas agendadas agrupando por loja.
+        /// Lista as despesas empresariais agendadas agrupando por loja.
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -122,6 +122,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Gt("Data", data));
+                criteria.Add(Restrictions.Eq("TipoDespesa", session.Get<TipoDespesa>(1)));
                 criteria.AddOrder(Order.Asc("Loja"));
                 criteria.SetProjection(Projections.ProjectionList()
                     .Add(Projections.Sum("Valor"), "Valor")

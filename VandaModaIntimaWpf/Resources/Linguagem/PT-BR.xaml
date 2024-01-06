@@ -274,7 +274,9 @@
         <System:String>COSTUREIRA DALILA</System:String>
         <System:String>COSTUREIRA ADNA</System:String>
         <System:String>COSTUREIRA VITÓRIA</System:String>
+        <System:String>COSTUREIRAS</System:String>
         <System:String>PAGAMENTO DE PEDIDO</System:String>
+        <System:String>PEDIDO EXCLUSIVO</System:String>
         <System:String>OUTROS</System:String>
     </x:Array>
 

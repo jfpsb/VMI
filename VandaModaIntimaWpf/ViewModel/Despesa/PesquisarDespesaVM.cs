@@ -83,6 +83,9 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         case 2:
                             TotalEmDespesas = DespesasResidencial.Sum(s => s.Entidade.Valor);
                             break;
+                        case 3:
+                            TotalEmDespesas = DespesasAgendadas.Sum(s => s.Entidade.Valor);
+                            break;
                     }
                     break;
                 case "FiltrarPor":
@@ -92,6 +95,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 case "DataPesquisaAgendado":
                     DAODespesa dao = (DAODespesa)daoEntidade;
                     DespesasAgendadas = new ObservableCollection<EntidadeComCampo<Model.Despesa>>(EntidadeComCampo<Model.Despesa>.CriarListaEntidadeComCampo(await dao.ListarAgendadas(DataPesquisaAgendado)));
+                    TotalEmDespesas = DespesasAgendadas.Sum(s => s.Entidade.Valor);
                     break;
             }
         }
