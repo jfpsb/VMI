@@ -82,18 +82,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.cs">
-      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Update="ViewModel\DataSets\HoraExtraFaltasDataSet.Designer.cs">
+      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Update="ViewModel\DataSets\HoraExtraSubReportDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HoraExtraSubReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ViewModel\DataSets\ParcelaDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ParcelaDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Update="ViewModel\DataSets\PontoEletronicoDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -116,6 +118,7 @@
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas - Copy.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
     <EmbeddedResource Include="View\FolhaPagamento\Relatorios\SubRelatorioHoraExtra.rdlc" />
@@ -196,16 +199,10 @@
     <None Update="ViewModel\DataSets\FolhaPagamentoDataSet.xss">
       <DependentUpon>FolhaPagamentoDataSet.xsd</DependentUpon>
     </None>
-    <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xsc">
-      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
-    </None>
     <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xsd">
       <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>HoraExtraFaltasDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="ViewModel\DataSets\HoraExtraFaltasDataSet.xss">
-      <DependentUpon>HoraExtraFaltasDataSet.xsd</DependentUpon>
+      <Generator>MSDataSetGenerator</Generator>
     </None>
     <None Update="ViewModel\DataSets\HoraExtraSubReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
@@ -772,6 +769,7 @@
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioBonus2.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioFolhaPagamento.rdlc" />
+    <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas - Copy.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioHoraExtraFaltas.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\RelatorioParcela.rdlc" />
     <None Remove="View\FolhaPagamento\Relatorios\SubRelatorioHoraExtra.rdlc" />

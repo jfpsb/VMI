@@ -295,6 +295,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columndescricao;
             
+            private global::System.Data.DataColumn columnpagaem;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public ParcelaDataTable() {
@@ -394,6 +396,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn pagaemColumn {
+                get {
+                    return this.columnpagaem;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +439,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ParcelaRow AddParcelaRow(string id, string numero, string valor, string paga, string data_adiantamento, string numero_com_total, string total_adiantamentos, string descricao) {
+            public ParcelaRow AddParcelaRow(string id, string numero, string valor, string paga, string data_adiantamento, string numero_com_total, string total_adiantamentos, string descricao, string pagaem) {
                 ParcelaRow rowParcelaRow = ((ParcelaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -439,7 +449,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         data_adiantamento,
                         numero_com_total,
                         total_adiantamentos,
-                        descricao};
+                        descricao,
+                        pagaem};
                 rowParcelaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowParcelaRow);
                 return rowParcelaRow;
@@ -470,6 +481,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnnumero_com_total = base.Columns["numero_com_total"];
                 this.columntotal_adiantamentos = base.Columns["total_adiantamentos"];
                 this.columndescricao = base.Columns["descricao"];
+                this.columnpagaem = base.Columns["pagaem"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -491,6 +503,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columntotal_adiantamentos);
                 this.columndescricao = new global::System.Data.DataColumn("descricao", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndescricao);
+                this.columnpagaem = new global::System.Data.DataColumn("pagaem", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpagaem);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -761,6 +775,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string pagaem {
+                get {
+                    try {
+                        return ((string)(this[this.tableParcela.pagaemColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'pagaem\' in table \'Parcela\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableParcela.pagaemColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsidNull() {
                 return this.IsNull(this.tableParcela.idColumn);
             }
@@ -853,6 +883,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetdescricaoNull() {
                 this[this.tableParcela.descricaoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IspagaemNull() {
+                return this.IsNull(this.tableParcela.pagaemColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetpagaemNull() {
+                this[this.tableParcela.pagaemColumn] = global::System.Convert.DBNull;
             }
         }
         

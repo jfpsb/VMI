@@ -19,6 +19,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
     {
         private IList<Model.FolhaPagamento> _folhas;
         private DAOHoraExtra daoHoraExtra;
+        private DAOTipoHoraExtra daoTipoHora;
         private DAOFaltas daoFaltas;
         private DateTime dataEscolhida;
         public TelaRelatorioHoraExtraFaltas()
@@ -33,6 +34,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             _folhas = folhas;
             daoHoraExtra = new DAOHoraExtra(session);
             daoFaltas = new DAOFaltas(session);
+            daoTipoHora = new DAOTipoHoraExtra(session);
             dataEscolhida = data;
         }
 
@@ -47,22 +49,88 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 var falta = await daoFaltas.ListarFaltasPorMesFuncionarioSoma(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario);
                 var possuiHorasExtras = (await daoHoraExtra.ListarPorMesFuncionario(dataEscolhida.Year, dataEscolhida.Month, folha.Funcionario)).Any();
 
-                //Exclui do relatório funcionários que não possuem bônus que são pagos em folha, não possuem faltas, nem horas extras.
-                if (!folha.Bonus.Any(a => a.PagoEmFolha) && falta == null && !possuiHorasExtras)
-                {
-                    continue;
-                }
-
                 if (falta == null) falta = new Model.Faltas();
 
                 var herow = horaExtraFaltasDataSet.HoraExtra.NewHoraExtraRow();
 
-                herow.cpf_funcionario = folha.Funcionario.Cpf;
                 herow.nome_funcionario = folha.Funcionario.Nome;
                 herow.nome_loja = folha.Funcionario.Loja.Nome;
                 herow.mes_referencia = folha.MesReferencia;
 
                 herow.faltas = falta.TotalEmString;
+
+                var he_60 = await daoHoraExtra.ListarSomaPorMesFuncionarioTipoHoraExtra(folha.Mes, folha.Ano, folha.Funcionario, await daoTipoHora.ListarPorId(2));
+                var he_100 = await daoHoraExtra.ListarSomaPorMesFuncionarioTipoHoraExtra(folha.Mes, folha.Ano, folha.Funcionario, await daoTipoHora.ListarPorId(1));
+
+                if (he_60 != null)
+                {
+                    herow.hora_extra_60 = he_60.TotalEmString;
+                }
+                else
+                {
+                    herow.hora_extra_60 = "-- : --";
+                }
+
+                if (he_100 != null)
+                {
+                    herow.hora_extra_100 = he_100.TotalEmString;
+                }
+                else
+                {
+                    herow.hora_extra_100 = "-- : --";
+                }
+
+                herow.recebe_vale_transporte = folha.Funcionario.RecebePassagem && !folha.Funcionario.Nome.Contains("VANUSA") ? "SIM" : "NÃO";
+
+                if (folha.Funcionario.RecebePassagem && !folha.Funcionario.Nome.Contains("VANUSA"))
+                {
+                    var bonus_passagem = folha.Bonus.Where(w => w.Descricao.Contains("ÔNIBUS")).FirstOrDefault();
+                    if (bonus_passagem != null)
+                    {
+                        herow.valor_vale_transporte = bonus_passagem.Valor.ToString("C", CultureInfo.CurrentCulture);
+                    }
+                }
+                else
+                {
+                    herow.valor_vale_transporte = "R$ 0,00";
+                }
+
+                string comissoes = "";
+
+                var somaComissao = folha.Bonus.Where(w => w.Descricao.StartsWith("COMISSÃO") && w.PagoEmFolha).Sum(s => s.Valor);
+                var somaGratificacao = folha.Bonus.Where(w => w.Descricao.StartsWith("GRATIFICAÇÃO") && w.PagoEmFolha).Sum(s => s.Valor);
+                var valorAdicionalCaixa = folha.Bonus.Where(w => w.Descricao.Contains("ADICIONAL") && w.PagoEmFolha).Sum(s => s.Valor);
+
+                //Contratado como vendedor mas exercendo função de caixa. Adicional entra como comissão
+                if (folha.Funcionario.Funcao.Nome.Equals("VENDEDOR") && valorAdicionalCaixa != 0.0)
+                {
+                    somaComissao += valorAdicionalCaixa;
+                }
+                else if (folha.Funcionario.Funcao.Nome.Contains("CAIXA"))
+                {
+                    //Contratado como operador de caixa.
+                    comissoes += "ADICIONAL DE CAIXA 17%\n";
+                }
+
+                if (somaComissao > 0.0)
+                    comissoes += $"COMISSÃO = {somaComissao.ToString("C", CultureInfo.CurrentCulture)}\n";
+                if (somaGratificacao > 0.0)
+                    comissoes += $"GRATIFICAÇÃO = {somaGratificacao.ToString("C", CultureInfo.CurrentCulture)}\n";
+
+                foreach (var bonus in folha.Bonus.Where(w => w.PagoEmFolha))
+                {
+                    if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL")
+                        || bonus.Descricao.StartsWith("AUXÍLIO") || bonus.Descricao.StartsWith("PASSAGEM")
+                        || bonus.Descricao.StartsWith("GRATIFICAÇÃO"))
+                    {
+                        continue; //Insere bonus que não tem tratamento especial
+                    }
+
+                    comissoes += $"{bonus.Descricao.Replace(" (PAGO EM FOLHA)", "")} = {bonus.Valor.ToString("C", CultureInfo.CurrentCulture)}\n";
+                }
+
+                if (comissoes.Length > 0)
+                    herow.comissoes = comissoes.Remove(comissoes.Length - 1, 1); //Remove o último \n
 
                 horaExtraFaltasDataSet.HoraExtra.AddHoraExtraRow(herow);
             }
@@ -71,93 +139,10 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
             ReportViewerUtil.ConfiguraReportViewer(HoraExtraFaltaReportViewer,
                 "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioHoraExtraFaltas.rdlc",
-                reportDataSource, SubReportProcessing);
+                reportDataSource);
 
             HoraExtraFaltaReportViewer.LocalReport.Refresh();
             HoraExtraFaltaReportViewer.RefreshReport();
-        }
-
-        private async void SubReportProcessing(object sender, SubreportProcessingEventArgs e)
-        {
-            var cpf = e.Parameters["CPFFuncionario"].Values[0].ToString();
-            var folha = _folhas.Where(w => w.Funcionario.Cpf.Equals(cpf)).FirstOrDefault();
-
-            BonusDataSet bonusDataSet = new BonusDataSet();
-            HoraExtraSubReportDataSet horaExtraSubReportDataSet = new HoraExtraSubReportDataSet();
-
-            int i = 0;
-            var Bonus = folha.Bonus;
-
-            if (folha.Funcionario.Funcao.Nome.Equals("VENDEDOR"))
-            {
-                Model.Bonus bonusAgregado = new Model.Bonus();
-                double soma = Bonus.Where(w => w.PagoEmFolha && (w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL"))).Sum(s => s.Valor);
-
-                var b = Bonus.Where(w => w.Descricao.StartsWith("COMISSÃO") || w.Descricao.StartsWith("ADICIONAL")).FirstOrDefault();
-
-                foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
-                {
-                    if (bonus.Descricao.StartsWith("COMISSÃO") || bonus.Descricao.StartsWith("ADICIONAL")
-                        || bonus.Descricao.StartsWith("AUXÍLIO") || bonus.Descricao.StartsWith("PASSAGEM"))
-                    {
-                        continue;
-                    }
-                    var brow = bonusDataSet.Bonus.NewBonusRow();
-                    brow.id = i++.ToString();
-                    brow.data = bonus.DataString;
-                    brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
-                    brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    bonusDataSet.Bonus.AddBonusRow(brow);
-                }
-
-                if (soma != 0.0)
-                {
-                    bonusAgregado.Data = b.Data;
-                    bonusAgregado.Descricao = "COMISSÃO";
-                    bonusAgregado.Valor = soma;
-
-                    var brow2 = bonusDataSet.Bonus.NewBonusRow();
-                    brow2.id = i++.ToString();
-                    brow2.data = bonusAgregado.DataString;
-                    brow2.descricao = bonusAgregado.Descricao;
-                    brow2.valor = bonusAgregado.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    bonusDataSet.Bonus.AddBonusRow(brow2);
-                }
-            }
-            else
-            {
-                foreach (var bonus in Bonus.Where(w => w.PagoEmFolha))
-                {
-                    if (bonus.Descricao.StartsWith("AUXÍLIO") || bonus.Descricao.StartsWith("PASSAGEM"))
-                    {
-                        continue;
-                    }
-                    var brow = bonusDataSet.Bonus.NewBonusRow();
-                    brow.id = i++.ToString();
-                    brow.data = bonus.DataString;
-                    brow.descricao = bonus.Descricao.Replace(" (PAGO EM FOLHA)", "");
-                    brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
-
-                    bonusDataSet.Bonus.AddBonusRow(brow);
-                }
-            }
-
-            IList<Model.HoraExtra> horasExtras = await daoHoraExtra.ListarPorMesFuncionarioGroupByTipoHoraExtra(dataEscolhida, folha.Funcionario);
-
-            foreach (var horaextra in horasExtras.OrderBy(o => o.TipoHoraExtra.Descricao))
-            {
-                var herow = horaExtraSubReportDataSet.horaextra.NewhoraextraRow();
-                herow.totalhoras = horaextra.TotalEmString;
-                herow.tipohoraextra = horaextra.TipoHoraExtra.Descricao;
-                horaExtraSubReportDataSet.horaextra.AddhoraextraRow(herow);
-            }
-
-            ReportDataSource reportDataSource1 = new ReportDataSource("DataSetBonus", bonusDataSet.Tables[0]);
-            ReportDataSource reportDataSource2 = new ReportDataSource("DataSetHoraExtra", horaExtraSubReportDataSet.Tables[0]);
-            e.DataSources.Add(reportDataSource1);
-            e.DataSources.Add(reportDataSource2);
         }
     }
 }

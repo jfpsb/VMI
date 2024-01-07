@@ -287,7 +287,15 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnfaltas;
             
-            private global::System.Data.DataColumn columncpf_funcionario;
+            private global::System.Data.DataColumn columnhora_extra_60;
+            
+            private global::System.Data.DataColumn columnhora_extra_100;
+            
+            private global::System.Data.DataColumn columncomissoes;
+            
+            private global::System.Data.DataColumn columnrecebe_vale_transporte;
+            
+            private global::System.Data.DataColumn columnvalor_vale_transporte;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -356,9 +364,41 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn cpf_funcionarioColumn {
+            public global::System.Data.DataColumn hora_extra_60Column {
                 get {
-                    return this.columncpf_funcionario;
+                    return this.columnhora_extra_60;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn hora_extra_100Column {
+                get {
+                    return this.columnhora_extra_100;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn comissoesColumn {
+                get {
+                    return this.columncomissoes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn recebe_vale_transporteColumn {
+                get {
+                    return this.columnrecebe_vale_transporte;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn valor_vale_transporteColumn {
+                get {
+                    return this.columnvalor_vale_transporte;
                 }
             }
             
@@ -399,14 +439,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string mes_referencia, string faltas, string cpf_funcionario) {
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string mes_referencia, string faltas, string hora_extra_60, string hora_extra_100, string comissoes, string recebe_vale_transporte, string valor_vale_transporte) {
                 HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nome_funcionario,
                         nome_loja,
                         mes_referencia,
                         faltas,
-                        cpf_funcionario};
+                        hora_extra_60,
+                        hora_extra_100,
+                        comissoes,
+                        recebe_vale_transporte,
+                        valor_vale_transporte};
                 rowHoraExtraRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHoraExtraRow);
                 return rowHoraExtraRow;
@@ -433,7 +477,11 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columnnome_loja = base.Columns["nome_loja"];
                 this.columnmes_referencia = base.Columns["mes_referencia"];
                 this.columnfaltas = base.Columns["faltas"];
-                this.columncpf_funcionario = base.Columns["cpf_funcionario"];
+                this.columnhora_extra_60 = base.Columns["hora_extra_60"];
+                this.columnhora_extra_100 = base.Columns["hora_extra_100"];
+                this.columncomissoes = base.Columns["comissoes"];
+                this.columnrecebe_vale_transporte = base.Columns["recebe_vale_transporte"];
+                this.columnvalor_vale_transporte = base.Columns["valor_vale_transporte"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -447,8 +495,16 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnmes_referencia);
                 this.columnfaltas = new global::System.Data.DataColumn("faltas", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfaltas);
-                this.columncpf_funcionario = new global::System.Data.DataColumn("cpf_funcionario", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncpf_funcionario);
+                this.columnhora_extra_60 = new global::System.Data.DataColumn("hora_extra_60", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_extra_60);
+                this.columnhora_extra_100 = new global::System.Data.DataColumn("hora_extra_100", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhora_extra_100);
+                this.columncomissoes = new global::System.Data.DataColumn("comissoes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncomissoes);
+                this.columnrecebe_vale_transporte = new global::System.Data.DataColumn("recebe_vale_transporte", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrecebe_vale_transporte);
+                this.columnvalor_vale_transporte = new global::System.Data.DataColumn("valor_vale_transporte", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvalor_vale_transporte);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -655,17 +711,81 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string cpf_funcionario {
+            public string hora_extra_60 {
                 get {
                     try {
-                        return ((string)(this[this.tableHoraExtra.cpf_funcionarioColumn]));
+                        return ((string)(this[this.tableHoraExtra.hora_extra_60Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cpf_funcionario\' in table \'HoraExtra\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_extra_60\' in table \'HoraExtra\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableHoraExtra.cpf_funcionarioColumn] = value;
+                    this[this.tableHoraExtra.hora_extra_60Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string hora_extra_100 {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.hora_extra_100Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'hora_extra_100\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.hora_extra_100Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string comissoes {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.comissoesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'comissoes\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.comissoesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string recebe_vale_transporte {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.recebe_vale_transporteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'recebe_vale_transporte\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.recebe_vale_transporteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string valor_vale_transporte {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.valor_vale_transporteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'valor_vale_transporte\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.valor_vale_transporteColumn] = value;
                 }
             }
             
@@ -719,14 +839,62 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Iscpf_funcionarioNull() {
-                return this.IsNull(this.tableHoraExtra.cpf_funcionarioColumn);
+            public bool Ishora_extra_60Null() {
+                return this.IsNull(this.tableHoraExtra.hora_extra_60Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setcpf_funcionarioNull() {
-                this[this.tableHoraExtra.cpf_funcionarioColumn] = global::System.Convert.DBNull;
+            public void Sethora_extra_60Null() {
+                this[this.tableHoraExtra.hora_extra_60Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Ishora_extra_100Null() {
+                return this.IsNull(this.tableHoraExtra.hora_extra_100Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Sethora_extra_100Null() {
+                this[this.tableHoraExtra.hora_extra_100Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IscomissoesNull() {
+                return this.IsNull(this.tableHoraExtra.comissoesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetcomissoesNull() {
+                this[this.tableHoraExtra.comissoesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isrecebe_vale_transporteNull() {
+                return this.IsNull(this.tableHoraExtra.recebe_vale_transporteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setrecebe_vale_transporteNull() {
+                this[this.tableHoraExtra.recebe_vale_transporteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isvalor_vale_transporteNull() {
+                return this.IsNull(this.tableHoraExtra.valor_vale_transporteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setvalor_vale_transporteNull() {
+                this[this.tableHoraExtra.valor_vale_transporteColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -130,5 +130,31 @@ namespace VandaModaIntimaWpf.Model.DAO
                 throw new Exception($"Erro ao listar hora extra. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
+
+        public async Task<HoraExtra> ListarSomaPorMesFuncionarioTipoHoraExtra(int mes, int ano, Funcionario funcionario, TipoHoraExtra tipo)
+        {
+            try
+            {
+                DateTime inicio = new DateTime(ano, mes, 1);
+                DateTime fim = inicio.AddMonths(1).AddSeconds(-1);
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Between("Data", inicio, fim))
+                    .Add(Restrictions.Eq("Funcionario", funcionario))
+                    .Add(Restrictions.Eq("TipoHoraExtra", tipo));
+
+                criteria.SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Sum("Horas"), "Horas")
+                    .Add(Projections.Sum("Minutos"), "Minutos"));
+
+                criteria.SetResultTransformer(Transformers.AliasToBean<HoraExtra>());
+
+                return await criteria.UniqueResultAsync<HoraExtra>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar soma hora extra por mes funcionario por tipo de hora");
+                throw new Exception($"Erro ao listar hora extra por mês de funcionário com tipo específico. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
     }
 }
