@@ -20,10 +20,14 @@ using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
+// Configure log4net using the .config file
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace VandaModaIntimaWpf.View
 {
     public partial class VandaModaIntima : Window
     {
+        
         public VandaModaIntima()
         {
             InitializeComponent();

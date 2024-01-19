@@ -29,6 +29,8 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
         private string[] _tiposDescricao = GetResource.GetStringArray("CmbTipoDescricaoDespesa");
         private bool _isCmbLojasEnabled = true;
         private IList<EntidadeComCampo<Model.Loja>> lojasEntidadeComCampo;
+        private bool _registrarCompraDeFornecedor;
+        private bool _podeRegistrarCompraDeFornecedor;
 
         protected DateTime? ultimaDataVencimento = null;
 
@@ -90,6 +92,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             _result = false;
             try
             {
+                //Caso seja cadastro de mesma despesa para várias lojas
                 if (lojasEntidadeComCampo != null && lojasEntidadeComCampo.Count > 0)
                 {
                     string mensagem = "Múltiplas lojas estão selecionadas. Esta despesa será cadastrada na(s) loja(s):\n";
@@ -111,6 +114,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     if (result == MessageBoxResult.Yes)
                     {
                         IList<Model.Despesa> despesas = new List<Model.Despesa>();
+                        IList<Model.CompraDeFornecedor> compras = new List<Model.CompraDeFornecedor>();
 
                         foreach (var lojaComCampo in lojasMarcadas)
                         {
@@ -129,10 +133,34 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                                 Valor = Entidade.Valor,
                                 Detalhes = Entidade.Detalhes
                             };
+
                             despesas.Add(despesa);
+
+                            if (RegistrarCompraDeFornecedor)
+                            {
+                                var compra = new Model.CompraDeFornecedor()
+                                {
+                                    Fornecedor = Entidade.Fornecedor,
+                                    Representante = Entidade.Representante,
+                                    Loja = loja,
+                                    Valor = Entidade.Valor,
+                                    DataPedido = Entidade.Data,
+                                    Pago = true
+                                };
+
+                                compras.Add(compra);
+                            }
                         }
 
-                        await daoEntidade.Inserir(despesas);
+                        if (RegistrarCompraDeFornecedor)
+                        {
+                            await daoEntidade.InserirMultiplasListas(despesas, compras);
+                        }
+                        else
+                        {
+                            await daoEntidade.Inserir(despesas);
+                        }
+
                         _result = true;
                         _messageBoxService.Show("Despesas foram salvas com sucesso.",
                             viewModelStrategy.MessageBoxCaption(),
@@ -140,15 +168,23 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                             MessageBoxImage.Information);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                _messageBoxService.Show($"Erro ao salvar despesas.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                else if (RegistrarCompraDeFornecedor)
+                {
+                    var compra = new Model.CompraDeFornecedor()
+                    {
+                        Fornecedor = Entidade.Fornecedor,
+                        Representante = Entidade.Representante,
+                        Loja = Entidade.Loja,
+                        Valor = Entidade.Valor,
+                        DataPedido = Entidade.Data,
+                        Pago = true
+                    };
 
-            if (lojasEntidadeComCampo != null && lojasEntidadeComCampo.Count > 0)
-            {
+                    await daoEntidade.InserirMultiplasEntidades(Entidade, compra);
+
+                    _result = true;
+                }
+
                 AposCRUDEventArgs e = new AposCRUDEventArgs()
                 {
                     IssoEhUpdate = IssoEUmUpdate,
@@ -158,10 +194,14 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                 return e;
             }
-            else
+            catch (Exception ex)
             {
-                return await base.ExecutarSalvar(parametro);
+                _messageBoxService.Show($"Erro ao salvar despesas.\n\n{ex.Message}\n\n{ex.InnerException?.Message}", viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            //Caso as condições acima não sejam verdadeiras, é feito o cadastro com o método base
+            return await base.ExecutarSalvar(parametro);
         }
 
         private void CadastrarDespesaVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -262,6 +302,22 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                             Entidade.Representante = Entidade.Fornecedor.Representante;
                         }
                     }
+
+                    //Se Fornecedor for null e Representante for null não é possível registrar a despesa como compra de fornecedor
+                    if (Entidade.Fornecedor == null && Entidade.Representante == null)
+                    {
+                        RegistrarCompraDeFornecedor = false;
+                        PodeRegistrarCompraDeFornecedor = false;
+                    }
+                    else if (Entidade.Fornecedor != null && Entidade.Fornecedor.Cnpj == null && Entidade.Representante != null && Entidade.Representante.Id == 0)
+                    {
+                        RegistrarCompraDeFornecedor = false;
+                        PodeRegistrarCompraDeFornecedor = false;
+                    }
+                    else
+                    {
+                        PodeRegistrarCompraDeFornecedor = true;
+                    }
                     break;
                 case "Loja":
                     if (Entidade.Loja != null)
@@ -276,6 +332,22 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                 case "Representante":
                     if (Entidade.Representante != null && Entidade.Representante.Id == 0)
                         Entidade.Representante = null;
+
+                    //Se Fornecedor for null e Representante for null não é possível registrar a despesa como compra de fornecedor
+                    if (Entidade.Fornecedor == null && Entidade.Representante == null)
+                    {
+                        RegistrarCompraDeFornecedor = false;
+                        PodeRegistrarCompraDeFornecedor = false;
+                    }
+                    else if (Entidade.Fornecedor != null && Entidade.Fornecedor.Cnpj == null && Entidade.Representante != null && Entidade.Representante.Id == 0)
+                    {
+                        RegistrarCompraDeFornecedor = false;
+                        PodeRegistrarCompraDeFornecedor = false;
+                    }
+                    else
+                    {
+                        PodeRegistrarCompraDeFornecedor = true;
+                    }
                     break;
             }
         }
@@ -456,6 +528,33 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
             {
                 _isCmbLojasEnabled = value;
                 OnPropertyChanged("IsCmbLojasEnabled");
+            }
+        }
+        public bool RegistrarCompraDeFornecedor
+        {
+            get
+            {
+                return _registrarCompraDeFornecedor;
+            }
+
+            set
+            {
+                _registrarCompraDeFornecedor = value;
+                OnPropertyChanged("RegistrarCompraDeFornecedor");
+            }
+        }
+
+        public bool PodeRegistrarCompraDeFornecedor
+        {
+            get
+            {
+                return _podeRegistrarCompraDeFornecedor;
+            }
+
+            set
+            {
+                _podeRegistrarCompraDeFornecedor = value;
+                OnPropertyChanged("PodeRegistrarCompraDeFornecedor");
             }
         }
     }

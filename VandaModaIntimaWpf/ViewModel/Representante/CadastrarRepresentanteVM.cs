@@ -28,7 +28,7 @@ namespace VandaModaIntimaWpf.ViewModel.Representante
             GetComboBoxFornecedores();
 
             AdicionarFornecedorComando = new RelayCommand(AdicionarFornecedor);
-            AntesDeInserirNoBancoDeDados += ColocaFornecedoresEmEntidade;
+            AntesDeSalvarEvento += ColocaFornecedoresEmEntidade;
         }
 
         private void ColocaFornecedoresEmEntidade()

@@ -1,6 +1,7 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.BancoDeDados.ConnectionFactory;
@@ -33,6 +34,34 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
+
+        /// <summary>
+        /// Realiza o cadastro de várias entidades, podem ser diferentes tipos.
+        /// </summary>
+        /// <param name="objeto"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public virtual async Task InserirMultiplasEntidades(params object[] objeto)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (object entidade in objeto)
+                    {
+                        await session.SaveAsync(entidade);
+                    }
+
+                    await tx.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await tx.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "inserir multiplas entidades em banco de dados");
+                    throw new Exception($"Erro ao inserir múltiplas entidadeas em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
         public virtual async Task Inserir(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
@@ -52,6 +81,30 @@ namespace VandaModaIntimaWpf.Model.DAO
                     await transacao.RollbackAsync();
                     Log.EscreveLogBanco(ex, "inserir lista em banco de dados");
                     throw new Exception($"Erro ao inserir lista em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual async Task InserirMultiplasListas(params object[] listas)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var lista in listas)
+                    {
+                        foreach (var item in lista as IList)
+                        {
+                            await session.SaveOrUpdateAsync(item);
+                        }
+                    }
+
+                    await transacao.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    await transacao.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "inserir multiplas listas em banco de dados");
+                    throw new Exception($"Erro ao inserir múltiplas listas em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
             }
         }

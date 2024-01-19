@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             Folha = folha;
             this.dataEscolhida = dataEscolhida;
 
-            AntesDeInserirNoBancoDeDados += ConfiguraBonus;
+            AntesDeSalvarEvento += ConfiguraBonus;
 
             Entidade = new Bonus()
             {
@@ -33,7 +33,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             InicioPagamento = new DateTime(dataEscolhida.Year, dataEscolhida.Month, 1);
 
-            AposInserirNoBancoDeDados += SalvarBonusMensal;
+            AposSalvarEvento += SalvarBonusMensal;
         }
 
         private async void SalvarBonusMensal(AposCRUDEventArgs e)

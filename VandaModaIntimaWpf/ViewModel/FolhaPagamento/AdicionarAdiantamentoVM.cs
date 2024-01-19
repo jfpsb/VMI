@@ -37,8 +37,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 Valor = 0
             };
 
-            AntesDeInserirNoBancoDeDados += AtribuiData;
-            AposInserirNoBancoDeDados += SalvaDespesaDeAdiantamento;
+            AntesDeSalvarEvento += AtribuiData;
+            AposSalvarEvento += SalvaDespesaDeAdiantamento;
 
             InicioPagamento = new DateTime(_dataEscolhida.Year, _dataEscolhida.Month, 1);
             ValorMaximoParcela = funcionario.Salario / 2;

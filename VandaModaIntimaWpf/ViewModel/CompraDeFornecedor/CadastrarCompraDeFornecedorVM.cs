@@ -24,7 +24,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         protected DAOFornecedor daoFornecedor;
         protected DAOLoja daoLoja;
         protected DAORepresentante daoRepresentante;
-        protected ObservableCollection<Model.ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
+        protected ObservableCollection<ArquivosCompraFornecedor> _arquivos; //Guarda arquivos de compra adicionados
         protected string caminhoDocVMI = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima", "Arquivos De Compras De Fornecedor");
         private ObservableCollection<Model.Fornecedor> _fornecedores;
         private ObservableCollection<Model.Representante> _representantes;
@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             GetLojas();
             GetRepresentantes();
 
-            AposInserirNoBancoDeDados += CopiarArquivos;
+            AposSalvarEvento += CopiarArquivos;
 
             ProcurarArquivoComando = new RelayCommand(ProcurarArquivo);
             ImportarXmlNFeComando = new RelayCommand(ImportarXmlNFe);

@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             viewModelStrategy = new AdicionarSalarioLiquidoVMStrategy();
             Entidade = folha;
-            AposInserirNoBancoDeDados += FecharTela;
+            AposSalvarEvento += FecharTela;
             PropertyChanged += SetaValorSalarioLiquido;
         }
 

@@ -11,10 +11,9 @@
                      mc:Ignorable="d"
                      Title="Pesquisar Compras De Fornecedor"
                      Width="1000"
-                     Height="600"
+                     Height="700"
                      WindowState="Maximized"
-                     WindowStartupLocation="CenterScreen"
-                     >
+                     WindowStartupLocation="CenterScreen">
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarCompraDeFornecedorVM />
     </View:APesquisarView.DataContext>
@@ -86,6 +85,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -97,9 +97,10 @@
                     <Label Content="Mês Do Pedido:" />
                     <View:DataUpDown Grid.Column="1"
                                      Width="210"
+                                     VerticalAlignment="Center"
                                      HorizontalAlignment="Left"
                                      Data="{Binding DataEscolhida, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     DataStringFormat="MMM/yyyy"/>
+                                     DataStringFormat="MMM/yyyy" />
                     <Label Grid.Row="1"
                            Content="Pesquisar Por:" />
                     <ComboBox Grid.Row="1"
@@ -123,8 +124,31 @@
                     <TextBox Grid.Row="3"
                              Grid.Column="1"
                              Text="{Binding TermoPesquisa, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGrid Grid.Column="2"
+                              Grid.RowSpan="4"
+                              FontSize="13"
+                              ItemsSource="{Binding ComprasAPagar, UpdateSourceTrigger=PropertyChanged}"
+                              CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Loja"
+                                                Binding="{Binding Loja.Nome}"
+                                                IsReadOnly="True" />
+                            <DataGridTextColumn Header="Valor"
+                                                Binding="{Binding Valor, StringFormat=C, ConverterCulture=pt-BR}"
+                                                IsReadOnly="True" />
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <Separator Margin="15,5,15,5" />
+                                <MenuItem Header="{DynamicResource copiar}"
+                                          Command="{Binding CopiarValorCelulaComando}" />
+
+                                <Separator Margin="15,5,15,5" />
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                    </DataGrid>
                     <DataGrid Grid.Row="4"
-                              Grid.ColumnSpan="2"
+                              Grid.ColumnSpan="3"
                               ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding EntidadeSelecionada, Mode=OneWayToSource}"
                               CurrentCell="{Binding CelulaSelecionada, Mode=TwoWay}">

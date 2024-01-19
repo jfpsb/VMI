@@ -36,6 +36,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Content="Tipo De Despesa:" />
         <ComboBox Grid.Column="1"
@@ -53,7 +54,7 @@
                     SelectedDate="{Binding Entidade.Data}" />
         <CheckBox Grid.Row="2"
                   VerticalAlignment="Center"
-                  Content="Inserir Data De Vencimento"
+                  Content="Inserir data de vencimento"
                   Margin="5"
                   FontSize="14"
                   IsChecked="{Binding InserirVencimentoFlag, Mode=TwoWay}" />
@@ -142,7 +143,15 @@
                  Height="120"
                  MaxLength="250"
                  AcceptsReturn="True" />
-        <Button Grid.Row="12"
+        <CheckBox Grid.Row="12"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
+                  Content="Registrar compra de fornecedor baseado nessa despesa"
+                  Margin="5"
+                  FontSize="14"
+                  IsChecked="{Binding RegistrarCompraDeFornecedor, Mode=TwoWay}"
+                  IsEnabled="{Binding PodeRegistrarCompraDeFornecedor}" />
+        <Button Grid.Row="13"
                 Grid.ColumnSpan="2"
                 Content="{DynamicResource salvar}"
                 Style="{StaticResource BotaoCadastrar}"

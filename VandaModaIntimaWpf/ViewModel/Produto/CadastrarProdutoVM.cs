@@ -102,11 +102,11 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             PropertyChanged += PrecoVendaAlterado;
             PropertyChanged += AplicaIcmsAlterado;
 
-            AntesDeInserirNoBancoDeDados += ChecaProdutoGrades;
-            AntesDeInserirNoBancoDeDados += ConfiguraProdutoAntesDeInserir;
-            AntesDeInserirNoBancoDeDados += AdicionaGradesEmEntidade;
+            AntesDeSalvarEvento += ChecaProdutoGrades;
+            AntesDeSalvarEvento += ConfiguraProdutoAntesDeInserir;
+            AntesDeSalvarEvento += AdicionaGradesEmEntidade;
 
-            AposInserirNoBancoDeDados += LimpaGrades;
+            AposSalvarEvento += LimpaGrades;
 
             GetFornecedores();
             GetMarcas();

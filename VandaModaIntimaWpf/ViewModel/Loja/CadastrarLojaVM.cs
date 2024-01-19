@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Loja
             Aliquota = new Model.AliquotasImposto();
             Aliquotas = new ObservableCollection<Model.AliquotasImposto>();
             GetMatrizes();
-            AntesDeInserirNoBancoDeDados += ConfiguraLojaAntesDeInserir;
+            AntesDeSalvarEvento += ConfiguraLojaAntesDeInserir;
             AdicionarAliquotaComando = new RelayCommand(AdicionarAliquota);
             DeletarAliquotaComando = new RelayCommand(DeletarAliquota);
         }

@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
             _daoTipoContagem = new DAOTipoContagem(_session);
             daoEntidade = new DAOContagem(_session);
 
-            AntesDeInserirNoBancoDeDados += ConfiguraContagem;
+            AntesDeSalvarEvento += ConfiguraContagem;
 
             GetLojas();
             GetTiposContagem();

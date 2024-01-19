@@ -89,7 +89,7 @@ namespace VandaModaIntimaWpf.ViewModel.Funcionario
 
             Entidade.PropertyChanged += Entidade_PropertyChanged;
             PropertyChanged += CadastrarFuncionarioVM_PropertyChanged;
-            AntesDeInserirNoBancoDeDados += ConfiguraFuncionarioAntesDeInserir;
+            AntesDeSalvarEvento += ConfiguraFuncionarioAntesDeInserir;
 
             AdicionarChavePixComando = new RelayCommand(AdicionarChavePix, ValidaChavePix);
             AdicionarContaBancariaComando = new RelayCommand(AdicionarContaBancaria, ValidaContaBancaria);

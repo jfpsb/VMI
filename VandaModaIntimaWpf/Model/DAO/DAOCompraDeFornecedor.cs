@@ -1,6 +1,8 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Transform;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
@@ -83,6 +85,67 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 Log.EscreveLogBanco(ex, "listagem de compra de fornecedor por data em DAOCompraDeFornecedor");
                 throw new Exception($"Erro ao listar compras de fornecedor por data. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
+        public async Task<IList<CompraDeFornecedor>> ListarComprasAPagar()
+        {
+            try
+            {
+                IQueryOver<CompraDeFornecedor, Loja> query = session.QueryOver<CompraDeFornecedor>()
+                    .Right
+                    .JoinQueryOver(c => c.Loja);
+
+
+                var criteria = CriarCriteria("CompraFornecedor");
+
+                var c2 = criteria.CreateCriteria("Loja", "Loja", NHibernate.SqlCommand.JoinType.RightOuterJoin, Restrictions.Conjunction()
+                    .Add(Restrictions.Eq("CompraFornecedor.Deletado", false))
+                    .Add(Restrictions.Eq("CompraFornecedor.Pago", false)))
+                    .Add(Restrictions.Conjunction()
+                    .Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")))
+                    .Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")))
+                    .Add(Restrictions.Eq("Deletado", false)));
+
+                criteria.AddOrder(Order.Asc("Loja.Nome"));
+                criteria.SetProjection(
+                    Projections.RootEntity(),
+                    Projections.ProjectionList()                    
+                    .Add(Projections.Property("Loja"), "Loja")
+                    .Add(Projections.Sum("Valor"), "Valor")
+                    .Add(Projections.GroupProperty("Loja.Cnpj")));
+
+                criteria.SetCacheable(true);
+                criteria.SetCacheMode(CacheMode.Normal);
+
+                var result = await criteria.ListAsync<object[]>();
+                IList<CompraDeFornecedor> compras = new List<CompraDeFornecedor>();
+
+                foreach ( var item in result )
+                {
+                    if (item[0] == null)
+                    {
+                        var loja = await session.GetAsync<Loja>(item[3]);
+
+                        CompraDeFornecedor compra = new CompraDeFornecedor()
+                        {
+                            Loja = loja
+                        };
+
+                        compras.Add(compra);
+                    }
+                    else
+                    {
+                        compras.Add(item[0] as CompraDeFornecedor);
+                    }
+                }
+
+                return compras;
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listagem de despesa por mês e ano");
+                throw new Exception($"Erro ao listar contagens por mês e ano. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
     }

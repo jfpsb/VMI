@@ -12,7 +12,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             daoEntidade = new DAOFolhaPagamento(_session);
             viewModelStrategy = new AdicionarTotalVendidoVMStrategy();
             Entidade = folha;
-            AposInserirNoBancoDeDados += FecharTela;
+            AposSalvarEvento += FecharTela;
         }
 
         private void FecharTela(AposCRUDEventArgs e)

@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.EntradaDeMercadoria
             DeletarEntradaDeProdutoComando = new RelayCommand(DeletarEntradaDeProduto);
 
             PropertyChanged += PesquisaProdutos;
-            AntesDeInserirNoBancoDeDados += CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados;
+            AntesDeSalvarEvento += CadastrarEntradaDeMercadoriaVM_AntesDeInserirNoBancoDeDados;
 
             GetLojas();
             TermoPesquisaProduto = "";

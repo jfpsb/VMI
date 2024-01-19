@@ -46,7 +46,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             daoFuncionario = new DAOFuncionario(_session);
             daoEntidade = new DAOBonus(_session);
 
-            AposInserirNoBancoDeDados += SalvaImagemCalendarios;
+            AposSalvarEvento += SalvaImagemCalendarios;
 
             GetFuncionarios();
         }

@@ -1,14 +1,10 @@
-﻿using NHibernate;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
-using VandaModaIntimaWpf.Model.DAO.MySQL;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Services.Interfaces;
-using VandaModaIntimaWpf.ViewModel.SQL;
 
 namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
 {
@@ -17,6 +13,7 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
         private int pesquisarPor;
         private Model.Loja _loja;
         private ObservableCollection<Model.Loja> _lojas;
+        private ObservableCollection<Model.CompraDeFornecedor> _comprasAPagar;
         private DAOLoja daoLoja;
         private DateTime _dataEscolhida;
         private double _totalEmCompras;
@@ -29,9 +26,18 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             DataEscolhida = DateTime.Now;
 
             GetLojas();
+            GetComprasAPagar();
+
+            AposSalvarEvento += RecalculaComprasAPagar;
+            AposDeletarEvento += RecalculaComprasAPagar;
 
             TermoPesquisa = "";
             PesquisarPor = 0;
+        }
+
+        private void RecalculaComprasAPagar(AposCRUDEventArgs e)
+        {
+            GetComprasAPagar();
         }
 
         private async void GetLojas()
@@ -39,6 +45,18 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             Lojas = new ObservableCollection<Model.Loja>(await daoLoja.ListarSomenteLojas());
             Lojas.Insert(0, new Model.Loja { Nome = "TODAS AS LOJAS" });
 
+        }
+
+        private async void GetComprasAPagar()
+        {
+            var dao = daoEntidade as DAOCompraDeFornecedor;
+            ComprasAPagar = new ObservableCollection<Model.CompraDeFornecedor>(await dao.ListarComprasAPagar());
+            var compraSoma = new Model.CompraDeFornecedor()
+            {
+                Valor = ComprasAPagar.Sum(s => s.Valor)
+            };
+
+            ComprasAPagar.Add(compraSoma);
         }
 
         public int PesquisarPor
@@ -90,6 +108,20 @@ namespace VandaModaIntimaWpf.ViewModel.CompraDeFornecedor
             {
                 _totalEmCompras = value;
                 OnPropertyChanged("TotalEmCompras");
+            }
+        }
+
+        public ObservableCollection<Model.CompraDeFornecedor> ComprasAPagar
+        {
+            get
+            {
+                return _comprasAPagar;
+            }
+
+            set
+            {
+                _comprasAPagar = value;
+                OnPropertyChanged("ComprasAPagar");
             }
         }
 

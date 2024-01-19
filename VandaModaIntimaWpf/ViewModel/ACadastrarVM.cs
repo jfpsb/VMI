@@ -30,8 +30,8 @@ namespace VandaModaIntimaWpf.ViewModel
 
         public delegate void AntesDeInserirNoBancoDeDadosEventHandler();
         public delegate void AposInserirNoBancoDeDadosEventHandler(AposCRUDEventArgs e);
-        public event AposInserirNoBancoDeDadosEventHandler AposInserirNoBancoDeDados;
-        public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeInserirNoBancoDeDados;
+        public event AposInserirNoBancoDeDadosEventHandler AposSalvarEvento;
+        public event AntesDeInserirNoBancoDeDadosEventHandler AntesDeSalvarEvento;
         public ICommand SalvarComando { get; set; }
         /// <summary>
         /// Construtor abstrato para ViewModel de telas de cadastro de entidade
@@ -46,9 +46,9 @@ namespace VandaModaIntimaWpf.ViewModel
             _messageBoxService = new MessageBoxService();
             SalvarComando = new RelayCommand(Salvar, ValidacaoSalvar);
 
-            AposInserirNoBancoDeDados += RedefinirTela;
-            AposInserirNoBancoDeDados += RefreshEntidade;
-            AntesDeInserirNoBancoDeDados += ResetaChecagem;
+            AposSalvarEvento += RedefinirTela;
+            AposSalvarEvento += RefreshEntidade;
+            AntesDeSalvarEvento += ResetaChecagem;
 
             AntesInserirBDChecagem = true;
         }
@@ -86,11 +86,11 @@ namespace VandaModaIntimaWpf.ViewModel
         {
             try
             {
-                AntesDeInserirNoBancoDeDados?.Invoke();
+                AntesDeSalvarEvento?.Invoke();
                 if (AntesInserirBDChecagem)
                 {
                     var e = await ExecutarSalvar(parameter);
-                    AposInserirNoBancoDeDados?.Invoke(e);
+                    AposSalvarEvento?.Invoke(e);
                 }
             }
             catch (Exception e)
