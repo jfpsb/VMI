@@ -92,11 +92,6 @@ namespace VandaModaIntimaWpf.Model.DAO
         {
             try
             {
-                IQueryOver<CompraDeFornecedor, Loja> query = session.QueryOver<CompraDeFornecedor>()
-                    .Right
-                    .JoinQueryOver(c => c.Loja);
-
-
                 var criteria = CriarCriteria("CompraFornecedor");
 
                 var c2 = criteria.CreateCriteria("Loja", "Loja", NHibernate.SqlCommand.JoinType.RightOuterJoin, Restrictions.Conjunction()
@@ -110,7 +105,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.AddOrder(Order.Asc("Loja.Nome"));
                 criteria.SetProjection(
                     Projections.RootEntity(),
-                    Projections.ProjectionList()                    
+                    Projections.ProjectionList()
                     .Add(Projections.Property("Loja"), "Loja")
                     .Add(Projections.Sum("Valor"), "Valor")
                     .Add(Projections.GroupProperty("Loja.Cnpj")));
@@ -121,31 +116,30 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var result = await criteria.ListAsync<object[]>();
                 IList<CompraDeFornecedor> compras = new List<CompraDeFornecedor>();
 
-                foreach ( var item in result )
+                foreach (var item in result)
                 {
+                    CompraDeFornecedor compra = new CompraDeFornecedor();
+                    var loja = await session.GetAsync<Loja>(item[3]);
+                    compra.Loja = loja;
+
                     if (item[0] == null)
                     {
-                        var loja = await session.GetAsync<Loja>(item[3]);
-
-                        CompraDeFornecedor compra = new CompraDeFornecedor()
-                        {
-                            Loja = loja
-                        };
-
-                        compras.Add(compra);
+                        compra.Valor = 0;
                     }
                     else
                     {
-                        compras.Add(item[0] as CompraDeFornecedor);
+                        compra.Valor = (double)item[2];
                     }
+
+                    compras.Add(compra);
                 }
 
                 return compras;
             }
             catch (Exception ex)
             {
-                Log.EscreveLogBanco(ex, "listagem de despesa por mês e ano");
-                throw new Exception($"Erro ao listar contagens por mês e ano. Acesse {Log.LogBanco} para mais detalhes", ex);
+                Log.EscreveLogBanco(ex, "listagem de compras a pagar");
+                throw new Exception($"Erro ao listar compras a pagar. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
     }

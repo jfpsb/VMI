@@ -166,6 +166,15 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                             viewModelStrategy.MessageBoxCaption(),
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
+
+                        AposCRUDEventArgs e = new AposCRUDEventArgs()
+                        {
+                            IssoEhUpdate = IssoEUmUpdate,
+                            Sucesso = _result,
+                            Parametro = parametro
+                        };
+
+                        return e;
                     }
                 }
                 else if (RegistrarCompraDeFornecedor)
@@ -183,16 +192,19 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                     await daoEntidade.InserirMultiplasEntidades(Entidade, compra);
 
                     _result = true;
-                }
 
-                AposCRUDEventArgs e = new AposCRUDEventArgs()
-                {
-                    IssoEhUpdate = IssoEUmUpdate,
-                    Sucesso = _result,
-                    Parametro = parametro
-                };
+                    _messageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
+                    MessageBoxButton.OK, MessageBoxImage.Information);
 
-                return e;
+                    AposCRUDEventArgs e = new AposCRUDEventArgs()
+                    {
+                        IssoEhUpdate = IssoEUmUpdate,
+                        Sucesso = _result,
+                        Parametro = parametro
+                    };
+
+                    return e;
+                }                
             }
             catch (Exception ex)
             {
