@@ -176,6 +176,17 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                         return e;
                     }
+                    else
+                    {
+                        AposCRUDEventArgs e = new AposCRUDEventArgs()
+                        {
+                            IssoEhUpdate = IssoEUmUpdate,
+                            Sucesso = _result,
+                            Parametro = parametro
+                        };
+
+                        return e;
+                    }
                 }
                 else if (RegistrarCompraDeFornecedor)
                 {
