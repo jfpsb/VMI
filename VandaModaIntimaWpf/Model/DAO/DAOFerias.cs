@@ -47,8 +47,10 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var mesConsulta = DateTime.Now.AddMonths(2);
 
                 var criteria = CriarCriteria();
+                criteria.CreateAlias("Funcionario", "Funcionario");
                 criteria.Add(Expression.Sql("MONTH({alias}.Inicio) = ?", mesConsulta.Month, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("YEAR({alias}.Inicio) = ?", mesConsulta.Year, NHibernateUtil.Int32));
+                criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
 
                 return await Listar(criteria);
             }
