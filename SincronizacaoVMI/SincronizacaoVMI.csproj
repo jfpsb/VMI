@@ -19,6 +19,7 @@
     <None Remove="Mapas\ContaBancaria.hbm.xml" />
     <None Remove="Mapas\Contagem.hbm.xml" />
     <None Remove="Mapas\ContagemProduto.hbm.xml" />
+    <None Remove="Mapas\DescontoEmFolha.hbm.xml" />
     <None Remove="Mapas\Despesa.hbm.xml" />
     <None Remove="Mapas\EntradaDeMercadoria.hbm.xml" />
     <None Remove="Mapas\EntradaMercadoriaProdutoGrade.hbm.xml" />
@@ -81,6 +82,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Mapas\Banco.hbm.xml" />
+    <EmbeddedResource Include="Mapas\DescontoEmFolha.hbm.xml" />
     <EmbeddedResource Include="Mapas\Ferias.hbm.xml" />
     <EmbeddedResource Include="Mapas\Funcao.hbm.xml" />
     <EmbeddedResource Include="Mapas\InscricaoImobiliaria.hbm.xml" />

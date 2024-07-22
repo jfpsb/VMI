@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System;
-
-namespace VandaModaIntimaWpf.Model
+﻿namespace SincronizacaoVMI.Model
 {
     public class DescontoEmFolha : AModel, IModel
     {
@@ -12,8 +9,6 @@ namespace VandaModaIntimaWpf.Model
         private int _anoReferencia;
         private bool _repeteMensal;
         private double _valor;
-
-        public virtual string GetContextMenuHeader => Descricao;
 
         public virtual int Id
         {
@@ -122,11 +117,6 @@ namespace VandaModaIntimaWpf.Model
         public virtual object GetIdentifier()
         {
             return Id;
-        }
-
-        public virtual void InicializaLazyLoad()
-        {
-            throw new NotImplementedException();
         }
     }
 }
