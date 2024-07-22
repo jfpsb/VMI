@@ -107,6 +107,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Mapas\DescontoEmFolha.hbm.xml" />
     <EmbeddedResource Include="Mapas\Funcao.hbm.xml" />
     <EmbeddedResource Include="Mapas\ParcelaCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\VendaEmCartao.hbm.xml" />
@@ -755,6 +756,7 @@
     <EmbeddedResource Remove="Shared\FrmWait.resx" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Mapas\DescontoEmFolha.hbm.xml" />
     <None Remove="Mapas\Funcao.hbm.xml" />
     <None Remove="Mapas\ParcelaCartao.hbm.xml" />
     <None Remove="Mapas\VendaEmCartao.hbm.xml" />

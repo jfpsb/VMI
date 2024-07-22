@@ -297,6 +297,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columnvalor_vale_transporte;
             
+            private global::System.Data.DataColumn columndescontoemfolha;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public HoraExtraDataTable() {
@@ -404,6 +406,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn descontoemfolhaColumn {
+                get {
+                    return this.columndescontoemfolha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,7 +449,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string mes_referencia, string faltas, string hora_extra_60, string hora_extra_100, string comissoes, string recebe_vale_transporte, string valor_vale_transporte) {
+            public HoraExtraRow AddHoraExtraRow(string nome_funcionario, string nome_loja, string mes_referencia, string faltas, string hora_extra_60, string hora_extra_100, string comissoes, string recebe_vale_transporte, string valor_vale_transporte, string descontoemfolha) {
                 HoraExtraRow rowHoraExtraRow = ((HoraExtraRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nome_funcionario,
@@ -450,7 +460,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                         hora_extra_100,
                         comissoes,
                         recebe_vale_transporte,
-                        valor_vale_transporte};
+                        valor_vale_transporte,
+                        descontoemfolha};
                 rowHoraExtraRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHoraExtraRow);
                 return rowHoraExtraRow;
@@ -482,6 +493,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columncomissoes = base.Columns["comissoes"];
                 this.columnrecebe_vale_transporte = base.Columns["recebe_vale_transporte"];
                 this.columnvalor_vale_transporte = base.Columns["valor_vale_transporte"];
+                this.columndescontoemfolha = base.Columns["descontoemfolha"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +517,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnrecebe_vale_transporte);
                 this.columnvalor_vale_transporte = new global::System.Data.DataColumn("valor_vale_transporte", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnvalor_vale_transporte);
+                this.columndescontoemfolha = new global::System.Data.DataColumn("descontoemfolha", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndescontoemfolha);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -791,6 +805,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string descontoemfolha {
+                get {
+                    try {
+                        return ((string)(this[this.tableHoraExtra.descontoemfolhaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'descontoemfolha\' in table \'HoraExtra\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoraExtra.descontoemfolhaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isnome_funcionarioNull() {
                 return this.IsNull(this.tableHoraExtra.nome_funcionarioColumn);
             }
@@ -895,6 +925,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setvalor_vale_transporteNull() {
                 this[this.tableHoraExtra.valor_vale_transporteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsdescontoemfolhaNull() {
+                return this.IsNull(this.tableHoraExtra.descontoemfolhaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetdescontoemfolhaNull() {
+                this[this.tableHoraExtra.descontoemfolhaColumn] = global::System.Convert.DBNull;
             }
         }
         

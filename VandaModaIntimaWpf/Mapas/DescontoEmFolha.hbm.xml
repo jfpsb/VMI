@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="VandaModaIntimaWpf"
+                   namespace="VandaModaIntimaWpf.Model">
+
+	<class name="DescontoEmFolha">
+		<id name="Id" type="Int32">
+			<generator class="native" />
+		</id>
+		<property name="Uuid" />
+		<property name="MesReferencia" column="mes_referencia" />
+		<property name="AnoReferencia" column="ano_referencia" />
+		<property name="Descricao" />
+		<property name="Valor" />
+		<property name="RepeteMensal" />
+		<property name="CriadoEm" />
+		<property name="ModificadoEm" />
+		<property name="DeletadoEm" />
+		<property name="Deletado" />
+		<many-to-one name="Funcionario"
+                 class="VandaModaIntimaWpf.Model.Funcionario"/>
+	</class>
+
+</hibernate-mapping>

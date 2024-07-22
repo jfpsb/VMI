@@ -55,10 +55,14 @@
           <DataField>valor_vale_transporte</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="descontoemfolha">
+          <DataField>descontoemfolha</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>HoraExtraFaltasDataSet</rd:DataSetName>
-        <rd:SchemaPath>D:\Projetos Visual Studio\VMI\VandaModaIntimaWpf\ViewModel\DataSets\HoraExtraFaltasDataSet2.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Projetos Visual Studio\VMI\VandaModaIntimaWpf\ViewModel\DataSets\HoraExtraFaltasDataSet.xsd</rd:SchemaPath>
         <rd:TableName>HoraExtra</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -77,7 +81,10 @@
                   <Width>5.5271cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.67173cm</Width>
+                  <Width>5.24257cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.92916cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.68685cm</Width>
@@ -89,7 +96,7 @@
                   <Width>2.44816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.6815cm</Width>
+                  <Width>4.1815cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.21819cm</Width>
@@ -100,7 +107,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.72478cm</Height>
+                  <Height>1.10884cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -159,6 +166,41 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox6</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>Black</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Descontos Em Folha</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -455,6 +497,39 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="descontoemfolha">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!descontoemfolha.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial</FontFamily>
+                                    <FontSize>6pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>descontoemfolha</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>=IIf(RowNumber("DataSetHoraExtraFalta") Mod 2 = 0, "LightGrey", "No Color")</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="faltas">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -667,6 +742,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -689,7 +765,7 @@
             <DataSetName>DataSetHoraExtraFalta</DataSetName>
             <Top>0.10583cm</Top>
             <Left>0.05703cm</Left>
-            <Height>1.10884cm</Height>
+            <Height>1.4929cm</Height>
             <Width>28.1509cm</Width>
             <Style>
               <Border>
@@ -698,14 +774,14 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>12.1467mm</Height>
+        <Height>15.9873mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>282.0793mm</Width>
+      <Width>283.00222mm</Width>
       <Page>
         <PageHeader>
           <Height>20.29984mm</Height>
@@ -917,7 +993,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.81166cm</Height>
+          <Height>1.20853cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -966,7 +1042,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>OverallPageNumber</rd:DefaultName>
-              <Top>0.02645cm</Top>
+              <Top>0.42332cm</Top>
               <Left>12.94271cm</Left>
               <Height>0.78521cm</Height>
               <Width>14.83606cm</Width>

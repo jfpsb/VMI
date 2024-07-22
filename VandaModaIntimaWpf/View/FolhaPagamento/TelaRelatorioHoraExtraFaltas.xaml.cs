@@ -20,6 +20,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
         private IList<Model.FolhaPagamento> _folhas;
         private DAOHoraExtra daoHoraExtra;
         private DAOTipoHoraExtra daoTipoHora;
+        private DAODescontoEmFolha daoDescontoEmFolha;
         private DAOFaltas daoFaltas;
         private DateTime dataEscolhida;
         public TelaRelatorioHoraExtraFaltas()
@@ -35,6 +36,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
             daoHoraExtra = new DAOHoraExtra(session);
             daoFaltas = new DAOFaltas(session);
             daoTipoHora = new DAOTipoHoraExtra(session);
+            daoDescontoEmFolha = new DAODescontoEmFolha(session);
             dataEscolhida = data;
         }
 
@@ -58,6 +60,19 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 herow.mes_referencia = folha.MesReferencia;
 
                 herow.faltas = falta.TotalEmString;
+
+                var descontosMensais = await daoDescontoEmFolha.ListarDescontosEmFolhaMensais(folha.Funcionario);
+
+                string descontosCombinados = "";
+
+                foreach (var desconto in descontosMensais)
+                {
+                    if (folha.Mes < desconto.MesReferencia && folha.Ano <= desconto.AnoReferencia) continue;
+
+                    descontosCombinados += desconto.Descricao + "\n";
+                }
+
+                herow.descontoemfolha = descontosCombinados;
 
                 var he_60 = await daoHoraExtra.ListarSomaPorMesFuncionarioTipoHoraExtra(folha.Mes, folha.Ano, folha.Funcionario, await daoTipoHora.ListarPorId(2));
                 var he_100 = await daoHoraExtra.ListarSomaPorMesFuncionarioTipoHoraExtra(folha.Mes, folha.Ano, folha.Funcionario, await daoTipoHora.ListarPorId(1));
