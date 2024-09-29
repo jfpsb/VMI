@@ -30,10 +30,10 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     var data = values[0];
                     var hora = values[1];
                     var valorBruto = values[4];
-                    var valorLiquido = values[15];
+                    var valorLiquido = values[16];
                     var modalidade = values[5];
-                    var bandeira = values[8];
-                    var nsu = values[16].Trim();
+                    var bandeira = values[9];
+                    var nsu = values[17].Trim();
 
                     Model.VendaEmCartao vendaEmCartao = new Model.VendaEmCartao();
 
@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                     vendaEmCartao.Loja = loja;
                     vendaEmCartao.OperadoraCartao = operadora;
 
-                    int numParcelas = int.Parse(values[7]);
+                    int numParcelas = int.Parse(values[8]);
                     double valorParcelaBruto = vendaEmCartao.ValorBruto / numParcelas;
                     double valorParcelaLiquido = vendaEmCartao.ValorLiquido / numParcelas;
                     int diasParaPagamento = 1; //Guarda em quantos dias úteis será paga a parcela da venda
