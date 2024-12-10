@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -43,7 +44,8 @@ namespace VandaModaIntimaWpf.View.Ferias
             {
                 RowDefinition rowDefinition = new RowDefinition();
                 rowDefinition.Height = (GridLength)converter.ConvertFromString("*");
-                rowDefinition.MaxHeight = 35;
+                //rowDefinition.MaxHeight = 55;
+                rowDefinition.MaxHeight = 50;
                 (d as VisualControlFerias).GridItensFerias.RowDefinitions.Add(rowDefinition);
 
                 for (int i = 0; i < 13; i++)
@@ -70,6 +72,9 @@ namespace VandaModaIntimaWpf.View.Ferias
 
                     if (i == 0)
                     {
+                        StackPanel stackPanel = new StackPanel();
+                        stackPanel.Orientation = Orientation.Vertical;
+
                         Border textBoxBorderNome = new Border
                         {
                             BorderThickness = new Thickness(0.6),
@@ -83,7 +88,7 @@ namespace VandaModaIntimaWpf.View.Ferias
                         };
                         TextBlock textBoxNome = new TextBlock
                         {
-                            FontSize = 14,
+                            FontSize = 13,
                             Text = funcionario.Nome,
                             TextWrapping = TextWrapping.Wrap,
                             FontWeight = FontWeights.Bold,
@@ -92,12 +97,28 @@ namespace VandaModaIntimaWpf.View.Ferias
                             Padding = new Thickness(0)
                         };
 
+                        TextBlock textBoxLojaTrabalho = new TextBlock
+                        {
+                            FontSize = 8,
+                            Text = funcionario.LojaTrabalho.Nome.Split('-').Last().Trim(),
+                            TextWrapping = TextWrapping.Wrap,
+                            FontWeight = FontWeights.Bold,
+                            TextAlignment = TextAlignment.Center,
+                            Background = new SolidColorBrush(Colors.LightYellow),
+                            Margin = new Thickness(1),
+                            Padding = new Thickness(0)
+                        };
+
                         textBoxBorderNome.ContextMenu = contextMenu;
                         scrollViewer.Content = textBoxNome;
                         textBoxBorderNome.Child = scrollViewer;
-                        (d as VisualControlFerias).GridItensFerias.Children.Add(textBoxBorderNome);
-                        Grid.SetColumn(textBoxBorderNome, i);
-                        Grid.SetRow(textBoxBorderNome, row);
+
+                        stackPanel.Children.Add(textBoxBorderNome);
+                        stackPanel.Children.Add(textBoxLojaTrabalho);
+
+                        (d as VisualControlFerias).GridItensFerias.Children.Add(stackPanel);
+                        Grid.SetColumn(stackPanel, i);
+                        Grid.SetRow(stackPanel, row);
                         continue;
                     }
 
