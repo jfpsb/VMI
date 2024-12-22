@@ -5,9 +5,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
 {
     public class CalculaBonusMetaUmPorcentoEGratificacao : ICalculaBonusMeta
     {
-        public string NomeParaDisplay => "SE VENDEDOR BATER SUA META RECEBE 1% SOBRE VALOR VENDIDO. GRATIFICAÇÃO DE R$ 150,00 PARA RESTANTE.";
+        public string NomeParaDisplay => "SE VENDEDOR BATER SUA META RECEBE 1% SOBRE VALOR VENDIDO. GRATIFICAÇÃO DE R$ 200,00 PARA RESTANTE.";
 
-        public string Descricao => "Se vendedor bateu a meta de venda individual, recebe 1% do valor total vendido; senão, recebe R$ 150,00 como gratificação. Gratifica R$150,00 para funcionários em outras funções. Utilizado somente no mês de dezembro.";
+        public string Descricao => "Se vendedor bateu a meta de venda individual, recebe 1% do valor total vendido; senão, recebe R$ 200,00 como gratificação. Gratifica R$200,00 para funcionários em outras funções. Utilizado somente no mês de dezembro.";
 
         public string DescricaoBonus(DateTime mes, double totalVendido, double valorMeta)
         {
@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta
                 return totalVendido * 0.01; //1%
             }
 
-            return 150;
+            return 200;
         }
     }
 }
