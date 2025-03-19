@@ -1,0 +1,3 @@
+﻿namespace VandaModaIntimaWpf.ViewModel.DataSets
+{
+}

@@ -9,17 +9,18 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="BonusDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BonusDataSet" msprop:Generator_UserDSName="BonusDataSet">
+  <xs:element name="BonusDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="BonusDataSet" msprop:Generator_DataSetName="BonusDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Bonus" msprop:Generator_TableClassName="BonusDataTable" msprop:Generator_TableVarName="tableBonus" msprop:Generator_RowChangedName="BonusRowChanged" msprop:Generator_TablePropName="Bonus" msprop:Generator_RowDeletingName="BonusRowDeleting" msprop:Generator_RowChangingName="BonusRowChanging" msprop:Generator_RowEvHandlerName="BonusRowChangeEventHandler" msprop:Generator_RowDeletedName="BonusRowDeleted" msprop:Generator_RowClassName="BonusRow" msprop:Generator_UserTableName="Bonus" msprop:Generator_RowEvArgName="BonusRowChangeEvent">
+        <xs:element name="Bonus" msprop:Generator_RowEvHandlerName="BonusRowChangeEventHandler" msprop:Generator_RowDeletedName="BonusRowDeleted" msprop:Generator_RowDeletingName="BonusRowDeleting" msprop:Generator_RowEvArgName="BonusRowChangeEvent" msprop:Generator_TablePropName="Bonus" msprop:Generator_RowChangedName="BonusRowChanged" msprop:Generator_RowChangingName="BonusRowChanging" msprop:Generator_TableClassName="BonusDataTable" msprop:Generator_RowClassName="BonusRow" msprop:Generator_TableVarName="tableBonus" msprop:Generator_UserTableName="Bonus">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
-              <xs:element name="data" msprop:Generator_ColumnVarNameInTable="columndata" msprop:Generator_ColumnPropNameInRow="data" msprop:Generator_ColumnPropNameInTable="dataColumn" msprop:Generator_UserColumnName="data" type="xs:string" minOccurs="0" />
-              <xs:element name="descricao" msprop:Generator_ColumnVarNameInTable="columndescricao" msprop:Generator_ColumnPropNameInRow="descricao" msprop:Generator_ColumnPropNameInTable="descricaoColumn" msprop:Generator_UserColumnName="descricao" type="xs:string" minOccurs="0" />
-              <xs:element name="valor" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
-              <xs:element name="total_bonus" msprop:Generator_ColumnVarNameInTable="columntotal_bonus" msprop:Generator_ColumnPropNameInRow="total_bonus" msprop:Generator_ColumnPropNameInTable="total_bonusColumn" msprop:Generator_UserColumnName="total_bonus" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_UserColumnName="id" type="xs:string" />
+              <xs:element name="data" msprop:Generator_ColumnPropNameInRow="data" msprop:Generator_ColumnPropNameInTable="dataColumn" msprop:Generator_ColumnVarNameInTable="columndata" msprop:Generator_UserColumnName="data" type="xs:string" minOccurs="0" />
+              <xs:element name="descricao" msprop:Generator_ColumnPropNameInRow="descricao" msprop:Generator_ColumnPropNameInTable="descricaoColumn" msprop:Generator_ColumnVarNameInTable="columndescricao" msprop:Generator_UserColumnName="descricao" type="xs:string" minOccurs="0" />
+              <xs:element name="valor" msprop:Generator_ColumnPropNameInRow="valor" msprop:Generator_ColumnPropNameInTable="valorColumn" msprop:Generator_ColumnVarNameInTable="columnvalor" msprop:Generator_UserColumnName="valor" type="xs:string" minOccurs="0" />
+              <xs:element name="total_bonus" msprop:Generator_ColumnPropNameInRow="total_bonus" msprop:Generator_ColumnPropNameInTable="total_bonusColumn" msprop:Generator_ColumnVarNameInTable="columntotal_bonus" msprop:Generator_UserColumnName="total_bonus" type="xs:string" minOccurs="0" />
+              <xs:element name="pagoemfolha" msprop:Generator_ColumnPropNameInRow="pagoemfolha" msprop:Generator_ColumnPropNameInTable="pagoemfolhaColumn" msprop:Generator_ColumnVarNameInTable="columnpagoemfolha" msprop:Generator_UserColumnName="pagoemfolha" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

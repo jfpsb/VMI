@@ -112,6 +112,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 brow.descricao = bonus.Descricao;
                 brow.valor = bonus.Valor.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
                 brow.total_bonus = _folha.TotalBonus.ToString("C", CultureInfo.CreateSpecificCulture("pt-BR"));
+                brow.pagoemfolha = bonus.PagoEmFolha ? "SIM" : "NÃO";
 
                 bonusDataSet.Bonus.AddBonusRow(brow);
             }

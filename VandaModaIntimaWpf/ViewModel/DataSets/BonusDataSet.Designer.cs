@@ -289,6 +289,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             private global::System.Data.DataColumn columntotal_bonus;
             
+            private global::System.Data.DataColumn columnpagoemfolha;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BonusDataTable() {
@@ -364,6 +366,14 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn pagoemfolhaColumn {
+                get {
+                    return this.columnpagoemfolha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -399,14 +409,15 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public BonusRow AddBonusRow(string id, string data, string descricao, string valor, string total_bonus) {
+            public BonusRow AddBonusRow(string id, string data, string descricao, string valor, string total_bonus, string pagoemfolha) {
                 BonusRow rowBonusRow = ((BonusRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         data,
                         descricao,
                         valor,
-                        total_bonus};
+                        total_bonus,
+                        pagoemfolha};
                 rowBonusRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBonusRow);
                 return rowBonusRow;
@@ -441,6 +452,7 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 this.columndescricao = base.Columns["descricao"];
                 this.columnvalor = base.Columns["valor"];
                 this.columntotal_bonus = base.Columns["total_bonus"];
+                this.columnpagoemfolha = base.Columns["pagoemfolha"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -456,6 +468,8 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
                 base.Columns.Add(this.columnvalor);
                 this.columntotal_bonus = new global::System.Data.DataColumn("total_bonus", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntotal_bonus);
+                this.columnpagoemfolha = new global::System.Data.DataColumn("pagoemfolha", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpagoemfolha);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("BonusKey1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
@@ -677,6 +691,22 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string pagoemfolha {
+                get {
+                    try {
+                        return ((string)(this[this.tableBonus.pagoemfolhaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'pagoemfolha\' in table \'Bonus\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBonus.pagoemfolhaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsdataNull() {
                 return this.IsNull(this.tableBonus.dataColumn);
             }
@@ -721,6 +751,18 @@ namespace VandaModaIntimaWpf.ViewModel.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Settotal_bonusNull() {
                 this[this.tableBonus.total_bonusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IspagoemfolhaNull() {
+                return this.IsNull(this.tableBonus.pagoemfolhaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetpagoemfolhaNull() {
+                this[this.tableBonus.pagoemfolhaColumn] = global::System.Convert.DBNull;
             }
         }
         
