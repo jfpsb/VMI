@@ -83,9 +83,20 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             DataEscolhida = DateTime.Now;
 
-            if (DateTime.Now.Day <= DateTimeUtil.RetornaDataUtil(5, DataEscolhida.Month, DataEscolhida.Year).Day)
+            try
             {
-                DataEscolhida = DateTime.Now.AddMonths(-1);
+                if (DateTime.Now.Day <= DateTimeUtil.RetornaDiaUtilComFeriado(5, DataEscolhida.Month, DataEscolhida.Year).Day)
+                {
+                    DataEscolhida = DateTime.Now.AddMonths(-1);
+                }
+            }
+            catch (FileNotFoundException fex)
+            {
+                _messageBoxService.Show(fex.Message);
+                if (DateTime.Now.Day <= DateTimeUtil.RetornaDiaUtilSemFeriado(5, DataEscolhida.Month, DataEscolhida.Year).Day)
+                {
+                    DataEscolhida = DateTime.Now.AddMonths(-1);
+                }
             }
 
             AbrirAdicionarAdiantamentoComando = new RelayCommand(AbrirAdicionarAdiantamento);

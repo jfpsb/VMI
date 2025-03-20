@@ -2,6 +2,7 @@
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VandaModaIntimaWpf.Util;
 
@@ -145,7 +146,14 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 DateTime mesSeguinteFolha = new DateTime(Ano, Mes, 5).AddMonths(1);
-                return DateTimeUtil.RetornaDataUtil(5, mesSeguinteFolha.Month, mesSeguinteFolha.Year);
+                try
+                {
+                    return DateTimeUtil.RetornaDiaUtilComFeriado(5, mesSeguinteFolha.Month, mesSeguinteFolha.Year);
+                }
+                catch (FileNotFoundException)
+                {
+                    return DateTimeUtil.RetornaDiaUtilSemFeriado(5, mesSeguinteFolha.Month, mesSeguinteFolha.Year);
+                }
             }
         }
 
