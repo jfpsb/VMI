@@ -188,6 +188,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual DateTime DataLimiteFichaPeriodica
+        {
+            get
+            {
+                return new DateTime(DateTime.Now.Year, Admissao.Value.Month - 1, Admissao.Value.Day);
+            }
+        }
+
         public virtual string Email
         {
             get => _email;

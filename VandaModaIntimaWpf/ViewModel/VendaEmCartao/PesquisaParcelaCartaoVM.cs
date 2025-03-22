@@ -29,14 +29,14 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
             Parcelas = new ObservableCollection<ParcelaCartao>();
             LojasComCampo = new ObservableCollection<EntidadeComCampo<Model.Loja>>();
 
+            PropertyChanged += PesquisaParcelaCartaoVM_PropertyChanged;
+
             DataEscolhida = DateTime.Now;
             TotalBruto = 0;
             TotalLiquido = 0;
 
             var task1 = GetLojas();
             task1.Wait();
-
-            PropertyChanged += PesquisaParcelaCartaoVM_PropertyChanged;
         }
 
         private void PesquisaParcelaCartaoVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

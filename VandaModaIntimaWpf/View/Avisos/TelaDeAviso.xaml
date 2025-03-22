@@ -93,6 +93,56 @@
                         </Grid>
                     </Border>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type Model:Funcionario}">
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="Black"
+                            Padding="3">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.ColumnSpan="2"
+                                   Content="SOLICITAR FICHA DE EXAME PERIÓDICO"
+                                   FontWeight="Bold"
+                                   FontSize="15"
+                                   Background="Yellow"
+                                   BorderBrush="Black"
+                                   BorderThickness="1.5" />
+                            <Label Grid.Row="1"
+                                   Content="Funcionário: "
+                                   FontWeight="Bold" />
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Padding="0"
+                                   Content="{Binding Nome}" />
+                            <Label Grid.Row="2"
+                                   Content="Data de admissão:"
+                                   FontWeight="Bold" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Text="{Binding Admissao, StringFormat='dd/MM/yyyy'}">
+                            </TextBlock>
+                            <Label Grid.Row="3"
+                                   Content="Data limite para solicitar:"
+                                   FontWeight="Bold" />
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       FontSize="14"
+                                       Text="{Binding DataLimiteFichaPeriodica, StringFormat='dd/MM/yyyy'}">
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
             </ListBox.Resources>
         </ListBox>
     </Grid>

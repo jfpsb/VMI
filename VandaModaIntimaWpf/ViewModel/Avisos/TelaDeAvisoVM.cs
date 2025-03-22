@@ -17,6 +17,7 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
     {
         private ObservableCollection<object> _itensAvisos;
         private DAOFerias daoFerias;
+        private DAOFuncionario daoFuncionario;
         private ISession session;
         private IMessageBoxService messageBoxService;
 
@@ -26,9 +27,11 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
         {
             session = SessionProvider.GetSession();
             daoFerias = new DAOFerias(session);
+            daoFuncionario = new DAOFuncionario(session);
             messageBoxService = new MessageBoxService();
             ItensAvisos = new ObservableCollection<object>();
 
+            //Avisos a partir do dia 20 do mês
             //Consulta férias
             if (DateTime.Now.Day >= 20)
             {
@@ -40,6 +43,20 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
                 }
 
                 GerarComunicacaoComando = new RelayCommand(GerarComunicacao);
+            }
+
+            //Avisos a partir do dia 25 do mês
+            if (DateTime.Now.Day >= 20)
+            {
+                var funcionarios = daoFuncionario.ListarNaoDemitidos().Result;
+
+                foreach (var func in funcionarios)
+                {
+                    if ((func.Admissao?.Month - 1) == DateTime.Now.Month + 1)
+                    {
+                        ItensAvisos.Add(func);
+                    }
+                }
             }
         }
 
