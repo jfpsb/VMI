@@ -71,7 +71,13 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Content="{Binding MesSeguinte}"
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding DesmarcarTodosComando}">Desmarcar Todos</Button>
+                <Button Command="{Binding MarcarTodosComando}">Marcar Todos</Button>
+                <Button Command="{Binding MarcarDiasUteisComando}">Marcar Dias Úteis</Button>
+            </StackPanel>
+            <Label Grid.Row="1"
+                   Content="{Binding MesSeguinte}"
                    FontWeight="Bold"
                    BorderThickness="0,0,0,1"
                    BorderBrush="Black"
@@ -80,7 +86,7 @@
                    Language="pt-BR"
                    Margin="5,0,0,0" />
             <Grid HorizontalAlignment="Center"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Style="{StaticResource DiasSemanaStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -113,7 +119,7 @@
                        ToolTip="Sábado" />
             </Grid>
             <ItemsControl ItemsSource="{Binding WidgetsMes}"
-                          Grid.Row="2">
+                          Grid.Row="3">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid HorizontalAlignment="Center">
@@ -139,14 +145,14 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
             <TextBlock Text="{Binding ValorTotal, StringFormat='Valor Total: {0:C}', ConverterCulture=pt-BR}"
-                       Grid.Row="3"
+                       Grid.Row="4"
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Grid.ColumnSpan="2"
                        FontSize="16"
                        Margin="0, 5, 5, 0"
                        FontWeight="Bold" />
-            <Grid Grid.Row="4"
+            <Grid Grid.Row="5"
                   Grid.ColumnSpan="2"
                   HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>

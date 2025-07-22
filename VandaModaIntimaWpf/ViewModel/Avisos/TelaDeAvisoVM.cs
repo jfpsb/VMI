@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
                 GerarComunicacaoComando = new RelayCommand(GerarComunicacao);
             }
 
-            //Avisos a partir do dia 25 do mês
+            //Avisos a partir do dia 20 do mês
             if (DateTime.Now.Day >= 20)
             {
                 var funcionarios = daoFuncionario.ListarNaoDemitidos().Result;

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NHibernate;
+using NHibernate.Util;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -29,6 +30,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
         // Comando para adicionar valor do bônus para os funcionários
         public ICommand AbrirAdicionarBonusComando { get; set; }
+        public ICommand DesmarcarTodosComando { get; set; }
+        public ICommand MarcarTodosComando { get; set; }
+        public ICommand MarcarDiasUteisComando { get; set; }
 
         public CalculoDeBonusMensalPorDiaVM(ISession session, DateTime dataEscolhida, ICalculoDeBonus calculoDeBonus)
         {
@@ -48,6 +52,22 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
             DataEscolhida = dataEscolhida;
 
             AbrirAdicionarBonusComando = new RelayCommand(AbrirAdicionarBonus);
+            DesmarcarTodosComando = new RelayCommand(DesmarcarTodos);
+            MarcarTodosComando = new RelayCommand(MarcarTodos);
+            MarcarDiasUteisComando = new RelayCommand(MarcarDiasUteis);
+        }
+
+        private void MarcarDiasUteis(object obj)
+        {
+            OnPropertyChanged("DataEscolhida");
+        }
+
+        private void MarcarTodos(object obj)
+        {
+            foreach (var widget in WidgetsMes)
+            {
+                widget.IsDiaUtil = true;
+            }
         }
 
         private void ValorDiarioAlterado(object sender, PropertyChangedEventArgs e)
@@ -67,6 +87,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                 {
                     ValorDiario = calculoDeBonus.ValorDiario();
                 }
+            }
+        }
+
+        private void DesmarcarTodos(object obj)
+        {
+            foreach(var widget in WidgetsMes)
+            {
+                widget.IsDiaUtil = false;
             }
         }
 
@@ -131,6 +159,11 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
                     row++;
 
                 if (dateTime.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
+                }
+
+                if (dateTime.DayOfWeek == DayOfWeek.Saturday && calculoDeBonus is CalculoDeAlmoco)
                 {
                     dataWidgetPassagem.TipoDia = "DIA NÃO ÚTIL";
                 }

@@ -112,7 +112,7 @@
                                    Content="SOLICITAR FICHA DE EXAME PERIÓDICO"
                                    FontWeight="Bold"
                                    FontSize="15"
-                                   Background="Yellow"
+                                   Background="Orange"
                                    BorderBrush="Black"
                                    BorderThickness="1.5" />
                             <Label Grid.Row="1"
