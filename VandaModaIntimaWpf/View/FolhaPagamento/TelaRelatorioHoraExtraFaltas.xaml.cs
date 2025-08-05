@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
 
                 herow.faltas = falta.TotalEmString;
 
-                var descontosMensais = await daoDescontoEmFolha.ListarDescontosEmFolhaMensais(folha.Funcionario);
+                var descontosMensais = await daoDescontoEmFolha.ListarDescontosEmFolhaAtual(folha.Funcionario, dataEscolhida.Month, dataEscolhida.Year);
 
                 string descontosCombinados = "";
 
@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.View.FolhaPagamento
                 {
                     if (folha.Mes < desconto.MesReferencia && folha.Ano <= desconto.AnoReferencia) continue;
 
-                    descontosCombinados += desconto.Descricao + "\n";
+                    descontosCombinados += "--> " + desconto.Descricao + ".\n";
                 }
 
                 herow.descontoemfolha = descontosCombinados;

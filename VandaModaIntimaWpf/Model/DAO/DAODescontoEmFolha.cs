@@ -2,8 +2,6 @@
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
 
@@ -38,7 +36,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         }
 
         /// <summary>
-        /// Lista os descontos da folha atual.
+        /// Lista os descontos da folha atual e também lista os descontos que são descontados todo mês.
         /// </summary>
         /// <returns></returns>
         public async Task<IList<DescontoEmFolha>> ListarDescontosEmFolhaAtual(Funcionario funcionario, int mes, int ano)
@@ -48,9 +46,12 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
-                criteria.Add(Restrictions.Eq("MesReferencia", mes));
-                criteria.Add(Restrictions.Eq("AnoReferencia", ano));
-                criteria.Add(Restrictions.Eq("RepeteMensal", false));
+
+                criteria.Add(Restrictions.Disjunction()
+                    .Add(Restrictions.Eq("RepeteMensal", true))
+                    .Add(Restrictions.Conjunction()
+                        .Add(Restrictions.Eq("MesReferencia", mes))
+                        .Add(Restrictions.Eq("AnoReferencia", ano))));
 
                 return await Listar(criteria);
             }
