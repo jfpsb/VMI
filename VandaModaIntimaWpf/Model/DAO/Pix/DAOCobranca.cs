@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.Model.DAO.Pix
                     criteria.AddOrder(Order.Asc("Calendario.Criacao"));
                     criteria.Add(Restrictions.Eq("Loja", loja));
                     criteria.Add(Restrictions.Between("Calendario.Criacao", dia.Date.ToUniversalTime(), dia.Date.ToUniversalTime().AddDays(1).AddSeconds(-1)));
-                    return await Listar(criteria);
+                    return await ListarAsync(criteria);
 
                 }
                 catch (Exception ex)

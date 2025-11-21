@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
                 criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Cnpj", "%" + termo + "%")));
                 criteria.AddOrder(Order.Asc("Cnpj"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
                 criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "11111111111111")));
                 criteria.AddOrder(Order.Asc("Cnpj"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Not(Restrictions.Eq("Cnpj", "000000000")));
                 criteria.AddOrder(Order.Asc("Cnpj"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Disjunction().Add(Restrictions.Like("Nome", "%" + termo + "%")));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

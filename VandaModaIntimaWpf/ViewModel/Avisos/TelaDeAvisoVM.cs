@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
             //Consulta férias
             if (DateTime.Now.Day >= 20)
             {
-                var ferias = daoFerias.RetornaFeriasParaComunicao().Result;
+                var ferias = daoFerias.RetornaFeriasParaComunicao();
 
                 foreach (var f in ferias)
                 {
@@ -48,7 +48,7 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
             //Avisos a partir do dia 20 do mês
             if (DateTime.Now.Day >= 20)
             {
-                var funcionarios = daoFuncionario.ListarNaoDemitidos().Result;
+                var funcionarios = daoFuncionario.ListarNaoDemitidos();
 
                 foreach (var func in funcionarios)
                 {

@@ -105,7 +105,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia
 
                 try
                 {
-                    await daoEntidade.Inserir(bonuses);
+                    await daoEntidade.InserirAsync(bonuses);
                     _result = true;
                     _messageBoxService.Show(_salvarBonus.MensagemInseridoSucesso(),
                         _salvarBonus.MensagemCaption(),

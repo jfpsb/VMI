@@ -184,7 +184,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
                 {
                     try
                     {
-                        await daoPix.Inserir(pixAtt);
+                        await daoPix.InserirAsync(pixAtt);
                     }
                     catch (Exception ex)
                     {
@@ -365,7 +365,7 @@ namespace VandaModaIntimaWpf.ViewModel.Pix
 
                 try
                 {
-                    await daoCobranca.Inserir(cobranca);
+                    await daoCobranca.InserirAsync(cobranca);
                     await daoCobranca.RefreshEntidade(cobranca);
                     ApresentaQRCodePixVM dadosPixViewModel = new ApresentaQRCodePixVM(_session, cobranca.Id, messageBoxService);
                     windowService.ShowDialog(dadosPixViewModel, async (result, vm) =>

@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.Model.DAO
         /// de comunicação de férias.
         /// </summary>
         /// <returns></returns>
-        public async Task<IList<Ferias>> RetornaFeriasParaComunicao()
+        public IList<Ferias> RetornaFeriasParaComunicao()
         {
             try
             {
@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("YEAR({alias}.Inicio) = ?", mesConsulta.Year, NHibernateUtil.Int32));
                 criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
 
-                return await Listar(criteria);
+                return Listar(criteria);
             }
             catch (Exception ex)
             {

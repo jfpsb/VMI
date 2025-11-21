@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.Contagem
 
             try
             {
-                await daoContagemProduto.Inserir(contagemProduto);
+                await daoContagemProduto.InserirAsync(contagemProduto);
                 await daoEntidade.RefreshEntidade(Entidade);
                 Contagens = new ObservableCollection<ContagemProdutoModel>(Entidade.Contagens);
                 PesquisaProdutoTxtBox = string.Empty;

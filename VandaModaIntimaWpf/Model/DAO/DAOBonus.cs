@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("MesReferencia", mes))
                     .Add(Restrictions.Eq("AnoReferencia", ano))
                     .Add(Restrictions.Eq("Funcionario", funcionario));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                     .Add(Restrictions.Eq("AnoReferencia", ano))
                     .Add(Restrictions.Eq("Funcionario", funcionario))
                     .Add(Restrictions.Eq("PagoEmFolha", true));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -97,7 +97,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Model.Bonus>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Model.Bonus>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -201,7 +201,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Model.Bonus>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

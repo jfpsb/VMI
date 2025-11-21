@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Not(Restrictions.Eq("PrecoCusto", 0.0)));
                 criteria.Add(Restrictions.Gt(Projections.SqlProjection("preco_venda - preco_custo", new string[] { "dif_preco" }, new NHibernate.Type.IType[] { NHibernateUtil.Boolean }), 0.0));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

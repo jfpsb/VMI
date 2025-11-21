@@ -18,7 +18,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Eq("Loja", loja));
                 criteria.Add(Restrictions.Between("Data", dataInicial, dataFinal));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Eq("TipoContagem", tipoContagem));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

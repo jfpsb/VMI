@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("TipoGrade.Id", tipoGrade.Id));
                 criteria.AddOrder(Order.Asc("Nome"));
                 criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

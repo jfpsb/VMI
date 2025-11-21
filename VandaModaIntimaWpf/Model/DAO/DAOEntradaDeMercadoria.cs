@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", periodo.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", periodo.Month, NHibernateUtil.Int32));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

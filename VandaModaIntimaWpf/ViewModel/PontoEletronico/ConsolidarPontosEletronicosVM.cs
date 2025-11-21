@@ -234,7 +234,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
         private async Task GetFuncionarios()
         {
-            Funcionarios = new ObservableCollection<Model.Funcionario>(await daoFuncionario.ListarNaoDemitidos());
+            Funcionarios = new ObservableCollection<Model.Funcionario>(daoFuncionario.ListarNaoDemitidos());
         }
 
         public ObservableCollection<Model.Funcionario> Funcionarios

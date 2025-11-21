@@ -14,7 +14,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
         {
         }
 
-        public async Task<IList<Produto>> ListarPorDescricao(string descricao)
+        public IList<Produto> ListarPorDescricao(string descricao)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Like("Descricao", "%" + descricao + "%"));
                 criteria.AddOrder(Order.Asc("Descricao"));
                 criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
-                return await ListarComNovaSession(criteria);
+                return ListarComNovaSession(criteria);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.AddOrder(Order.Asc("Descricao"));
                 criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
 
-                return await ListarComNovaSession(criteria);
+                return await ListarComNovaSessionAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Like("CodBarra", "%" + codigo + "%"));
                 criteria.AddOrder(Order.Asc("CodBarra"));
                 criteria.SetResultTransformer(new DistinctRootEntityResultTransformer());
-                return await ListarComNovaSession(criteria);
+                return await ListarComNovaSessionAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -103,7 +103,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     .Add(Restrictions.Like("Fornecedor.Nome", "%" + fornecedor + "%"))
                     .Add(Restrictions.Like("Fornecedor.Fantasia", "%" + fornecedor + "%")));
                 criteria.SetResultTransformer(Transformers.DistinctRootEntity);
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -118,7 +118,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 var criteria = CriarCriteria();
                 criteria.CreateAlias("Marca", "Marca");
                 criteria.Add(Restrictions.Like("Marca.Nome", "%" + marca + "%"));
-                return await ListarComNovaSession(criteria);
+                return await ListarComNovaSessionAsync(criteria);
             }
             catch (Exception ex)
             {

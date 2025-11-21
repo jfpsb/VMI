@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
             {
                 var criteria = CriarCriteria();
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     .Add(Restrictions.Like("Nome", "%" + nome + "%"))
                     .Add(Restrictions.Like("Fantasia", "%" + nome + "%")));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Disjunction()
                     .Add(Restrictions.Like("Cnpj", "%" + cnpj + "%")));
                 criteria.AddOrder(Order.Asc("Cnpj"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Disjunction()
                     .Add(Restrictions.Like("Email", "%" + email + "%")));
                 criteria.AddOrder(Order.Asc("Email"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Disjunction()
                     .Add(Restrictions.Like("Cnpj", termo))
                     .Add(Restrictions.Like("Nome", termo)));
-                var result = await Listar(criteria);
+                var result = await ListarAsync(criteria);
                 if (result.Count == 0)
                 {
                     return null;

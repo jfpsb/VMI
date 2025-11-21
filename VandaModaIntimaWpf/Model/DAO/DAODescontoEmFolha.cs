@@ -26,7 +26,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
                 criteria.Add(Restrictions.Eq("RepeteMensal", true));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                         .Add(Restrictions.Eq("MesReferencia", mes))
                         .Add(Restrictions.Eq("AnoReferencia", ano))));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

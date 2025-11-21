@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Eq("Nome", nome));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

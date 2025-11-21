@@ -154,11 +154,11 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
 
                         if (RegistrarCompraDeFornecedor)
                         {
-                            await daoEntidade.InserirMultiplasListas(despesas, compras);
+                            await daoEntidade.InserirListasAsync(despesas, compras);
                         }
                         else
                         {
-                            await daoEntidade.Inserir(despesas);
+                            await daoEntidade.InserirAsync(despesas);
                         }
 
                         _result = true;
@@ -200,7 +200,7 @@ namespace VandaModaIntimaWpf.ViewModel.Despesa
                         Pago = true
                     };
 
-                    await daoEntidade.InserirMultiplasEntidades(Entidade, compra);
+                    await daoEntidade.InserirAsync(Entidade, compra);
 
                     _result = true;
 

@@ -75,7 +75,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Between("Data", inicio, fim));
                 criteria.AddOrder(Order.Asc("Data"));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

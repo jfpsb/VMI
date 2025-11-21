@@ -107,7 +107,7 @@ namespace VandaModaIntimaWpf.ViewModel
             _result = false;
             try
             {
-                await daoEntidade.InserirOuAtualizar(Entidade);
+                await daoEntidade.InserirOuAtualizarAsync(Entidade);
                 _result = true;
                 _messageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);

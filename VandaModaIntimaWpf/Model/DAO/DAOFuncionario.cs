@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     criteria.Add(Restrictions.IsNull("Demissao"));
                 }
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                     criteria.Add(Restrictions.IsNull("Demissao"));
                 }
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                     criteria.Add(Restrictions.IsNull("Demissao"));
                 }
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -82,14 +82,15 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
-        public async Task<IList<Model.Funcionario>> ListarNaoDemitidos()
+        public IList<Model.Funcionario> ListarNaoDemitidos()
         {
             try
             {
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.IsNull("Demissao"));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+
+                return Listar(criteria);
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.IsNull("Demissao"));
                 criteria.Add(Restrictions.Eq("LojaTrabalho", loja));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

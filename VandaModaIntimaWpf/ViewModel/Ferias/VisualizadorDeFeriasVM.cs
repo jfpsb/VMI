@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.ViewModel.Ferias
 
         private async void GetFuncionarios()
         {
-            Funcionarios = new ObservableCollection<Model.Funcionario>((await daoFuncionario.ListarNaoDemitidos()).OrderBy(o => o.LojaTrabalho.Cnpj).ToList());
+            Funcionarios = new ObservableCollection<Model.Funcionario>((daoFuncionario.ListarNaoDemitidos()).OrderBy(o => o.LojaTrabalho.Cnpj).ToList());
         }
 
         public ObservableCollection<Model.Funcionario> Funcionarios

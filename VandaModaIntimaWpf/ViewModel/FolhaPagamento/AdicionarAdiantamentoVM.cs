@@ -67,7 +67,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             Valor = adiantamento.Valor
                         };
 
-                        await daoDespesa.Inserir(despesa);
+                        await daoDespesa.InserirAsync(despesa);
 
                         _messageBoxService.Show("Despesa decorrente de adiantamento foi salva com sucesso em despesas.", "Adicionar Adiantamento", MessageBoxButton.OK, MessageBoxImage.Information);
                     }

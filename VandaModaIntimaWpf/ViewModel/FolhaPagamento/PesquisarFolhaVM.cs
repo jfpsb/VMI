@@ -162,7 +162,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
             try
             {
-                await daoDespesa.Inserir(despesas);
+                await daoDespesa.InserirAsync(despesas);
                 _messageBoxService.Show("Valores De Salários De Funcionários Foram Adicionados Em Despesas Com Sucesso!", "Adicionar Salários De Funcionários Em Despesas", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)

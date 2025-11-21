@@ -19,7 +19,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -35,7 +35,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Like("Nome", $"%{nome}%"));
                 criteria.AddOrder(Order.Asc("Nome"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

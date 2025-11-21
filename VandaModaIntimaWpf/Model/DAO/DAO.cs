@@ -17,7 +17,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             this.session = session;
         }
 
-        public virtual async Task Inserir(E objeto)
+        public virtual async Task InserirAsync(E objeto)
         {
             using (ITransaction tx = session.BeginTransaction())
             {
@@ -35,13 +35,31 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
 
+        public virtual void Inserir(E objeto)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+                     session.Save(objeto);
+                     tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    Log.EscreveLogBanco(ex, "inserir em banco de dados");
+                    throw new Exception($"Erro ao inserir em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+
         /// <summary>
         /// Realiza o cadastro de várias entidades, podem ser diferentes tipos.
         /// </summary>
         /// <param name="objeto"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public virtual async Task InserirMultiplasEntidades(params object[] objeto)
+        public virtual async Task InserirAsync(params object[] objeto)
         {
             using (ITransaction tx = session.BeginTransaction())
             {
@@ -62,7 +80,28 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
-        public virtual async Task Inserir(IList<E> objetos)
+        public virtual void Inserir(params object[] objeto)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (object entidade in objeto)
+                    {
+                        session.SaveAsync(entidade);
+                    }
+
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tx.Rollback();
+                    Log.EscreveLogBanco(ex, "inserir multiplas entidades em banco de dados");
+                    throw new Exception($"Erro ao inserir múltiplas entidadeas em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual async Task InserirAsync(IList<E> objetos)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -70,7 +109,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 {
                     foreach (E e in objetos)
                     {
-                        //e.Uuid = Guid.NewGuid();
                         await session.SaveOrUpdateAsync(e);
                     }
 
@@ -84,7 +122,28 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
-        public virtual async Task InserirMultiplasListas(params object[] listas)
+        public virtual void Inserir(IList<E> objetos)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (E e in objetos)
+                    {
+                        session.SaveOrUpdate(e);
+                    }
+
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    Log.EscreveLogBanco(ex, "inserir lista em banco de dados");
+                    throw new Exception($"Erro ao inserir lista em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual async Task InserirListasAsync(params object[] listas)
         {
             using (var transacao = session.BeginTransaction())
             {
@@ -108,7 +167,31 @@ namespace VandaModaIntimaWpf.Model.DAO
                 }
             }
         }
-        public virtual async Task InserirOuAtualizar(E objeto)
+        public virtual void InserirListas(params object[] listas)
+        {
+            using (var transacao = session.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var lista in listas)
+                    {
+                        foreach (var item in lista as IList)
+                        {
+                            session.SaveOrUpdate(item);
+                        }
+                    }
+
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    Log.EscreveLogBanco(ex, "inserir multiplas listas em banco de dados");
+                    throw new Exception($"Erro ao inserir múltiplas listas em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual async Task InserirOuAtualizarAsync(E objeto)
         {
             using (ITransaction tx = session.BeginTransaction())
             {
@@ -120,6 +203,23 @@ namespace VandaModaIntimaWpf.Model.DAO
                 catch (Exception ex)
                 {
                     await tx.RollbackAsync();
+                    Log.EscreveLogBanco(ex, "inserir ou atualizar em banco de dados");
+                    throw new Exception($"Erro ao inserir ou atualizar em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+                }
+            }
+        }
+        public virtual void InserirOuAtualizar(E objeto)
+        {
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                try
+                {
+                    session.SaveOrUpdate(objeto);
+                    tx.Commit();
+                }
+                catch (Exception ex)
+                {
+                     tx.Rollback();
                     Log.EscreveLogBanco(ex, "inserir ou atualizar em banco de dados");
                     throw new Exception($"Erro ao inserir ou atualizar em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
                 }
@@ -256,18 +356,31 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
         }
         /// <summary>
-        /// Retorna Uma Lista De Itens Baseado No Criteria Informado E Que Não Estejam Deletados
+        /// Retorna de forma assíncrona uma lista de itens baseada no criteria informado e que não estejam deletados
         /// </summary>
         /// <param name="criteria">Criteria Para Ser Usado Na Query</param>
         /// <returns>Lista De Itens Do Tipo E</returns>
-        public virtual async Task<IList<E>> Listar(ICriteria criteria)
+        public virtual async Task<IList<E>> ListarAsync(ICriteria criteria)
         {
             criteria.Add(Restrictions.Eq("Deletado", false));
             criteria.SetCacheable(true);
             criteria.SetCacheMode(CacheMode.Normal);
             return await criteria.ListAsync<E>();
         }
-        public virtual async Task<IList<E>> ListarComNovaSession(ICriteria criteria)
+
+        /// <summary>
+        /// Retorna de forma síncrona uma lista de itens baseada no criteria informado e que não estejam deletados
+        /// </summary>
+        /// <param name="criteria">Criteria Para Ser Usado Na Query</param>
+        /// <returns>Lista De Itens Do Tipo E</returns>
+        public virtual IList<E> Listar(ICriteria criteria)
+        {
+            criteria.Add(Restrictions.Eq("Deletado", false));
+            criteria.SetCacheable(true);
+            criteria.SetCacheMode(CacheMode.Normal);
+            return criteria.List<E>();
+        }
+        public virtual async Task<IList<E>> ListarComNovaSessionAsync(ICriteria criteria)
         {
             try
             {
@@ -277,6 +390,24 @@ namespace VandaModaIntimaWpf.Model.DAO
                     criteria.SetCacheable(true);
                     criteria.SetCacheMode(CacheMode.Normal);
                     return await criteria.ListAsync<E>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "listar com nova session em banco de dados");
+                throw new Exception($"Erro ao listar com nova session em banco de dados. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+        public virtual IList<E> ListarComNovaSession(ICriteria criteria)
+        {
+            try
+            {
+                using (ISession session = SessionProvider.GetSession())
+                {
+                    criteria.Add(Restrictions.Eq("Deletado", false));
+                    criteria.SetCacheable(true);
+                    criteria.SetCacheMode(CacheMode.Normal);
+                    return criteria.List<E>();
                 }
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.AddOrder(Order.Asc("DataPagamento"));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.SetProjection(projecoes);
                 criteria.SetResultTransformer(Transformers.AliasToBean<ParcelaCartao>());
                 criteria.AddOrder(Order.Asc("DataPagamento"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

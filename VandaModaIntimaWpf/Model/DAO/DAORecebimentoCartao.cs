@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Eq("Mes", mes));
                 criteria.Add(Restrictions.Eq("Ano", ano));
                 criteria.Add(Restrictions.Eq("Loja", loja));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch(Exception ex)
             {
@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                 criteria.Add(Restrictions.Eq("Ano", ano));
                 criteria.Add(Restrictions.Eq("Loja", loja));
                 criteria.Add(Restrictions.Eq("Banco", banco));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch(Exception ex)
             {
@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     .Add(Projections.Property("Loja"), "Loja")
                     .Add(Projections.GroupProperty("Loja")));
                 criteria.SetResultTransformer(Transformers.AliasToBean<RecebimentoCartao>());
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch(Exception ex)
             {
@@ -94,7 +94,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<RecebimentoCartao>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch(Exception ex)
             {

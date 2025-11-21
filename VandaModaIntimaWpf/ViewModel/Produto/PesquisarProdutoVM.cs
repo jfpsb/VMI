@@ -61,7 +61,7 @@ namespace VandaModaIntimaWpf.ViewModel.Produto
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Descricao:
-                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorDescricao(termo));
+                    ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(daoProduto.ListarPorDescricao(termo));
                     break;
                 case (int)OpcoesPesquisa.CodBarra:
                     ents = EntidadeComCampo<ProdutoModel>.CriarListaEntidadeComCampo(await daoProduto.ListarPorCodigoDeBarra(termo));

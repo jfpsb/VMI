@@ -44,7 +44,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<HoraExtra>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                     .Add(Projections.GroupProperty("TipoHoraExtra"), "TipoHoraExtra"));
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<HoraExtra>());
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

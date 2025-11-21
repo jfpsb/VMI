@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 var criteria = CriarCriteria();
                 criteria.AddOrder(Order.Asc("Descricao"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("Data"));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("YEAR({alias}.Data) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql("MONTH({alias}.Data) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("Data"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Despesa>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

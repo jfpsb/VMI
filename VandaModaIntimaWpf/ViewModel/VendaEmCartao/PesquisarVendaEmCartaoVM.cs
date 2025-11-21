@@ -72,7 +72,7 @@ namespace VandaModaIntimaWpf.ViewModel.VendaEmCartao
                 despesa.TipoDespesa = await daoTipoDespesa.RetornaTipoDespesaEmpresarial();
                 despesa.Valor = TaxaOperadora;
 
-                await daoDespesa.Inserir(despesa);
+                await daoDespesa.InserirAsync(despesa);
                 _messageBoxService.Show("Despesa salva com sucesso.", pesquisarViewModelStrategy.PesquisarEntidadeCaption(), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)

@@ -20,7 +20,7 @@ namespace VandaModaIntimaWpf.Model.DAO.Pix
                 var criteria = CriarCriteria();
                 criteria.Add(Restrictions.Between("Horario", dia.Date.ToUniversalTime(), dia.Date.ToUniversalTime().AddHours(23).AddMinutes(59)));
                 criteria.Add(Restrictions.Eq("Loja", loja));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.Model.DAO.MySQL
                     .Add(Projections.Property("Contagem"), "Contagem")
                     .Add(Projections.GroupProperty("Produto"), "Produto"));
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

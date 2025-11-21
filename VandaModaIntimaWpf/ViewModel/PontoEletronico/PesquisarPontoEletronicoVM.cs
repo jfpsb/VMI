@@ -63,7 +63,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
         private async Task GetFuncionarios()
         {
-            Funcionarios = await daoFuncionario.ListarNaoDemitidos();
+            Funcionarios = daoFuncionario.ListarNaoDemitidos();
         }
 
         public override bool Editavel(object parameter)

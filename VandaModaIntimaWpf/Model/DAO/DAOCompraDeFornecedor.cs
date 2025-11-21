@@ -25,7 +25,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("DataPedido"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("DataPedido"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("DataPedido"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql($"YEAR(DataPedido) = ?", data.Year, NHibernateUtil.Int32));
                 criteria.Add(Expression.Sql($"MONTH(DataPedido) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.AddOrder(Order.Asc("DataPedido"));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

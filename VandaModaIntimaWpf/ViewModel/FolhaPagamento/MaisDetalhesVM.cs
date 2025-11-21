@@ -81,7 +81,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     if (BonusEscolhido.BonusMensal)
                     {
                         BonusEscolhido.BonusCancelado = true;
-                        await daoBonus.InserirOuAtualizar(BonusEscolhido);
+                        await daoBonus.InserirOuAtualizarAsync(BonusEscolhido);
                     }
                     else
                     {

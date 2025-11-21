@@ -37,7 +37,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Model.EntradaMercadoriaProdutoGrade>());
 
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {

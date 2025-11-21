@@ -119,7 +119,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
                     try
                     {
-                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        await daoEntidade.InserirOuAtualizarAsync(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.RetornoDeIntervalo);
                         messageBoxService.Show("Retorno de intervalo salvo com sucesso.");
                         await PopulaListaDePontos();
@@ -169,7 +169,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
 
                     try
                     {
-                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        await daoEntidade.InserirOuAtualizarAsync(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.SaidaParaIntervalo);
                         messageBoxService.Show("Saída para intervalo salva com sucesso.");
                         await PopulaListaDePontos();
@@ -208,7 +208,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     PontoEletronico.Saida = DateTime.Now;
                     try
                     {
-                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        await daoEntidade.InserirOuAtualizarAsync(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Saida);
                         await PopulaListaDePontos();
                     }
@@ -239,7 +239,7 @@ namespace VandaModaIntimaWpf.ViewModel.PontoEletronico
                     PontoEletronico.Entrada = DateTime.Now;
                     try
                     {
-                        await daoEntidade.InserirOuAtualizar(PontoEletronico);
+                        await daoEntidade.InserirOuAtualizarAsync(PontoEletronico);
                         ImprimirComprovanteRegistroPonto(PontoEletronico, TipoPonto.Entrada);
                         await PopulaListaDePontos();
                     }

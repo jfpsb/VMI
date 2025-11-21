@@ -50,7 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                     PagoEmFolha = bonusInserido.PagoEmFolha
                 };
 
-                await daoBonusMensal.Inserir(bonusMensal);
+                await daoBonusMensal.InserirAsync(bonusMensal);
             }
         }
 

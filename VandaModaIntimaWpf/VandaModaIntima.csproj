@@ -539,7 +539,7 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
       <Version>1.1.135</Version>
     </PackageReference>
-    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="MySql.Data" Version="9.5.0" />
     <PackageReference Include="MySqlConnector" Version="2.5.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>

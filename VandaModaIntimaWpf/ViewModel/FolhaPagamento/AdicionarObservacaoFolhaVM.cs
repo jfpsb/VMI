@@ -40,7 +40,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         {
             try
             {
-                await daoFolha.InserirOuAtualizar(Folha);
+                await daoFolha.InserirOuAtualizarAsync(Folha);
                 messageBoxService.Show("Observação foi adicionada com sucesso.", "Adicionar Observação Em Folha De Pagamento",
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }

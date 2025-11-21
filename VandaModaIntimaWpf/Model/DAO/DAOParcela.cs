@@ -22,7 +22,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("Adiantamento.Funcionario", funcionario))
                     .Add(Restrictions.Eq("Mes", mes))
                     .Add(Restrictions.Eq("Ano", ano));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.CreateAlias("Adiantamento", "Adiantamento");
                 criteria.Add(Restrictions.Eq("Adiantamento.Funcionario", funcionario));
                 criteria.Add(Restrictions.Eq("Paga", false));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Disjunction().
                     Add(Restrictions.Not(Restrictions.Eq("Mes", mes))).
                     Add(Restrictions.Not(Restrictions.Eq("Ano", ano))));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch(Exception ex)
             {

@@ -47,7 +47,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Expression.Sql("MONTH({alias}.Dia) = ?", data.Month, NHibernateUtil.Int32));
                 criteria.Add(Restrictions.Eq("Funcionario", funcionario));
                 criteria.Add(Restrictions.Eq("Deletado", false));
-                return await Listar(criteria);
+                return await ListarAsync(criteria);
             }
             catch (Exception ex)
             {
