@@ -54,13 +54,13 @@ namespace VandaModaIntimaWpf.ViewModel.Fornecedor
             switch (pesquisarPor)
             {
                 case (int)OpcoesPesquisa.Cnpj:
-                    Entidades = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorCnpj(termo)));
+                    Entidades = [.. EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorCnpj(termo))];
                     break;
                 case (int)OpcoesPesquisa.Nome:
-                    Entidades = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorNome(termo)));
+                    Entidades = [.. EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorNome(termo))];
                     break;
                 case (int)OpcoesPesquisa.Email:
-                    Entidades = new ObservableCollection<EntidadeComCampo<FornecedorModel>>(EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorEmail(termo)));
+                    Entidades = [.. EntidadeComCampo<FornecedorModel>.CriarListaEntidadeComCampo(await daoFornecedor.ListarPorEmail(termo))];
                     break;
             }
         }

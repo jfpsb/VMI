@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.View.Avisos
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as TelaDeAvisoVM).ItensAvisos.Count == 0)
+            if ((DataContext as TelaDeAvisoVM).ItensAvisos?.Count == 0)
                 Close();
         }
     }
