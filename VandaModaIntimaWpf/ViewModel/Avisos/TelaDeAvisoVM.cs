@@ -52,7 +52,7 @@ namespace VandaModaIntimaWpf.ViewModel.Avisos
 
                 foreach (var func in funcionarios)
                 {
-                    if ((func.Admissao?.Month - 1) == DateTime.Now.Month + 1)
+                    if (func.Admissao?.AddMonths(-1).Month == DateTime.Now.AddMonths(1).Month)
                     {
                         ItensAvisos.Add(func);
                     }

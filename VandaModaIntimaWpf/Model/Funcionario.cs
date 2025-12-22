@@ -192,7 +192,7 @@ namespace VandaModaIntimaWpf.Model
         {
             get
             {
-                return new DateTime(DateTime.Now.Year, Admissao.Value.Month - 1, Admissao.Value.Day);
+                return new DateTime(DateTime.Now.Year, Admissao.Value.AddMonths(-1).Month, Admissao.Value.Day);
             }
         }
 
