@@ -9,6 +9,7 @@
         <ConnectString>Dsn=MySQLServer</ConnectString>
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
+      <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>b7f4411d-f60d-4dc9-a9cd-dbfe3734958f</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -200,9 +201,10 @@ First(Fields!loja.Value, "DataSetFerias") = "20.970.327/0002-84","MARIA VANDA SI
 First(Fields!loja.Value, "DataSetFerias") = "20.970.327/0001-01","MARIA VANDA SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0001-01","JOSE LUCAS SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0002-92","JOSE LUCAS SILVA BORGES",
-First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0003-73","JOSE LUCAS SILVA BORGES",
+First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0004-54","JOSE LUCAS SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0001-22","JOSE FELIPE SILVA BORGES",
-First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0002-03","JOSE FELIPE SILVA BORGES"
+First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0002-03","JOSE FELIPE SILVA BORGES",
+First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0003-94","JOSE FELIPE SILVA BORGES"
 )</Value>
                     <Style>
                       <FontFamily>Gotham</FontFamily>
@@ -702,9 +704,10 @@ First(Fields!loja.Value, "DataSetFerias") = "20.970.327/0002-84","MARIA VANDA SI
 First(Fields!loja.Value, "DataSetFerias") = "20.970.327/0001-01","MARIA VANDA SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0001-01","JOSE LUCAS SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0002-92","JOSE LUCAS SILVA BORGES",
-First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0003-73","JOSE LUCAS SILVA BORGES",
+First(Fields!loja.Value, "DataSetFerias") = "13.938.943/0004-54","JOSE LUCAS SILVA BORGES",
 First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0001-22","JOSE FELIPE SILVA BORGES",
-First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0002-03","JOSE FELIPE SILVA BORGES"
+First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0002-03","JOSE FELIPE SILVA BORGES",
+First(Fields!loja.Value, "DataSetFerias") = "17.361.873/0003-94","JOSE FELIPE SILVA BORGES"
 )</Value>
                     <Style>
                       <FontFamily>Gotham</FontFamily>
