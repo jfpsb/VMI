@@ -20,9 +20,431 @@ using System.Xml.Serialization;
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+[System.Xml.Serialization.XmlRootAttribute("Signature", Namespace="http://www.w3.org/2000/09/xmldsig#", IsNullable=false)]
+public partial class SignatureType {
+    
+    private SignedInfoType signedInfoField;
+    
+    private SignatureValueType signatureValueField;
+    
+    private KeyInfoType keyInfoField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public SignedInfoType SignedInfo {
+        get {
+            return this.signedInfoField;
+        }
+        set {
+            this.signedInfoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public SignatureValueType SignatureValue {
+        get {
+            return this.signatureValueField;
+        }
+        set {
+            this.signatureValueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public KeyInfoType KeyInfo {
+        get {
+            return this.keyInfoField;
+        }
+        set {
+            this.keyInfoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoType {
+    
+    private SignedInfoTypeCanonicalizationMethod canonicalizationMethodField;
+    
+    private SignedInfoTypeSignatureMethod signatureMethodField;
+    
+    private ReferenceType referenceField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public SignedInfoTypeCanonicalizationMethod CanonicalizationMethod {
+        get {
+            return this.canonicalizationMethodField;
+        }
+        set {
+            this.canonicalizationMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public SignedInfoTypeSignatureMethod SignatureMethod {
+        get {
+            return this.signatureMethodField;
+        }
+        set {
+            this.signatureMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ReferenceType Reference {
+        get {
+            return this.referenceField;
+        }
+        set {
+            this.referenceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoTypeCanonicalizationMethod {
+    
+    private string algorithmField;
+    
+    public SignedInfoTypeCanonicalizationMethod() {
+        this.algorithmField = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class X509DataType {
+    
+    private byte[] x509CertificateField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] X509Certificate {
+        get {
+            return this.x509CertificateField;
+        }
+        set {
+            this.x509CertificateField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class KeyInfoType {
+    
+    private X509DataType x509DataField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public X509DataType X509Data {
+        get {
+            return this.x509DataField;
+        }
+        set {
+            this.x509DataField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignatureValueType {
+    
+    private string idField;
+    
+    private byte[] valueField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute(DataType="base64Binary")]
+    public byte[] Value {
+        get {
+            return this.valueField;
+        }
+        set {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class TransformType {
+    
+    private string[] xPathField;
+    
+    private TTransformURI algorithmField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("XPath")]
+    public string[] XPath {
+        get {
+            return this.xPathField;
+        }
+        set {
+            this.xPathField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public TTransformURI Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public enum TTransformURI {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/2000/09/xmldsig#enveloped-signature")]
+    httpwwww3org200009xmldsigenvelopedsignature,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/TR/2001/REC-xml-c14n-20010315")]
+    httpwwww3orgTR2001RECxmlc14n20010315,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class ReferenceType {
+    
+    private TransformType[] transformsField;
+    
+    private ReferenceTypeDigestMethod digestMethodField;
+    
+    private byte[] digestValueField;
+    
+    private string idField;
+    
+    private string uRIField;
+    
+    private string typeField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("Transform", IsNullable=false)]
+    public TransformType[] Transforms {
+        get {
+            return this.transformsField;
+        }
+        set {
+            this.transformsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ReferenceTypeDigestMethod DigestMethod {
+        get {
+            return this.digestMethodField;
+        }
+        set {
+            this.digestMethodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] DigestValue {
+        get {
+            return this.digestValueField;
+        }
+        set {
+            this.digestValueField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string URI {
+        get {
+            return this.uRIField;
+        }
+        set {
+            this.uRIField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Type {
+        get {
+            return this.typeField;
+        }
+        set {
+            this.typeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class ReferenceTypeDigestMethod {
+    
+    private string algorithmField;
+    
+    public ReferenceTypeDigestMethod() {
+        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#sha1";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
+public partial class SignedInfoTypeSignatureMethod {
+    
+    private string algorithmField;
+    
+    public SignedInfoTypeSignatureMethod() {
+        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
+    public string Algorithm {
+        get {
+            return this.algorithmField;
+        }
+        set {
+            this.algorithmField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
 [System.Xml.Serialization.XmlRootAttribute("nfeProc", Namespace="http://www.portalfiscal.inf.br/nfe", IsNullable=false)]
-public partial class TNfeProc : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNfeProc {
     
     private TNFe nFeField;
     
@@ -37,7 +459,6 @@ public partial class TNfeProc : object, System.ComponentModel.INotifyPropertyCha
         }
         set {
             this.nFeField = value;
-            this.RaisePropertyChanged("NFe");
         }
     }
     
@@ -48,7 +469,6 @@ public partial class TNfeProc : object, System.ComponentModel.INotifyPropertyCha
         }
         set {
             this.protNFeField = value;
-            this.RaisePropertyChanged("protNFe");
         }
     }
     
@@ -60,16 +480,6 @@ public partial class TNfeProc : object, System.ComponentModel.INotifyPropertyCha
         }
         set {
             this.versaoField = value;
-            this.RaisePropertyChanged("versao");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -80,7 +490,7 @@ public partial class TNfeProc : object, System.ComponentModel.INotifyPropertyCha
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFe : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFe {
     
     private TNFeInfNFe infNFeField;
     
@@ -95,7 +505,6 @@ public partial class TNFe : object, System.ComponentModel.INotifyPropertyChanged
         }
         set {
             this.infNFeField = value;
-            this.RaisePropertyChanged("infNFe");
         }
     }
     
@@ -106,7 +515,6 @@ public partial class TNFe : object, System.ComponentModel.INotifyPropertyChanged
         }
         set {
             this.infNFeSuplField = value;
-            this.RaisePropertyChanged("infNFeSupl");
         }
     }
     
@@ -118,16 +526,6 @@ public partial class TNFe : object, System.ComponentModel.INotifyPropertyChanged
         }
         set {
             this.signatureField = value;
-            this.RaisePropertyChanged("Signature");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -138,7 +536,7 @@ public partial class TNFe : object, System.ComponentModel.INotifyPropertyChanged
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFe {
     
     private TNFeInfNFeIde ideField;
     
@@ -176,6 +574,10 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
     
     private TInfRespTec infRespTecField;
     
+    private TNFeInfNFeInfSolicNFF infSolicNFFField;
+    
+    private TNFeInfNFeAgropecuario agropecuarioField;
+    
     private string versaoField;
     
     private string idField;
@@ -187,7 +589,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.ideField = value;
-            this.RaisePropertyChanged("ide");
         }
     }
     
@@ -198,7 +599,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.emitField = value;
-            this.RaisePropertyChanged("emit");
         }
     }
     
@@ -209,7 +609,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.avulsaField = value;
-            this.RaisePropertyChanged("avulsa");
         }
     }
     
@@ -220,7 +619,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.destField = value;
-            this.RaisePropertyChanged("dest");
         }
     }
     
@@ -231,7 +629,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.retiradaField = value;
-            this.RaisePropertyChanged("retirada");
         }
     }
     
@@ -242,7 +639,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.entregaField = value;
-            this.RaisePropertyChanged("entrega");
         }
     }
     
@@ -254,7 +650,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.autXMLField = value;
-            this.RaisePropertyChanged("autXML");
         }
     }
     
@@ -266,7 +661,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.detField = value;
-            this.RaisePropertyChanged("det");
         }
     }
     
@@ -277,7 +671,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.totalField = value;
-            this.RaisePropertyChanged("total");
         }
     }
     
@@ -288,7 +681,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.transpField = value;
-            this.RaisePropertyChanged("transp");
         }
     }
     
@@ -299,7 +691,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.cobrField = value;
-            this.RaisePropertyChanged("cobr");
         }
     }
     
@@ -310,7 +701,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.pagField = value;
-            this.RaisePropertyChanged("pag");
         }
     }
     
@@ -321,7 +711,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.infIntermedField = value;
-            this.RaisePropertyChanged("infIntermed");
         }
     }
     
@@ -332,7 +721,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.infAdicField = value;
-            this.RaisePropertyChanged("infAdic");
         }
     }
     
@@ -343,7 +731,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.exportaField = value;
-            this.RaisePropertyChanged("exporta");
         }
     }
     
@@ -354,7 +741,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.compraField = value;
-            this.RaisePropertyChanged("compra");
         }
     }
     
@@ -365,7 +751,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.canaField = value;
-            this.RaisePropertyChanged("cana");
         }
     }
     
@@ -376,7 +761,26 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.infRespTecField = value;
-            this.RaisePropertyChanged("infRespTec");
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeInfSolicNFF infSolicNFF {
+        get {
+            return this.infSolicNFFField;
+        }
+        set {
+            this.infSolicNFFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeAgropecuario agropecuario {
+        get {
+            return this.agropecuarioField;
+        }
+        set {
+            this.agropecuarioField = value;
         }
     }
     
@@ -388,7 +792,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.versaoField = value;
-            this.RaisePropertyChanged("versao");
         }
     }
     
@@ -400,16 +803,6 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
         }
         set {
             this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -420,7 +813,7 @@ public partial class TNFeInfNFe : object, System.ComponentModel.INotifyPropertyC
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeIde {
     
     private TCodUfIBGE cUFField;
     
@@ -438,11 +831,15 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
     
     private string dhSaiEntField;
     
+    private string dPrevEntregaField;
+    
     private TNFeInfNFeIdeTpNF tpNFField;
     
     private TNFeInfNFeIdeIdDest idDestField;
     
     private string cMunFGField;
+    
+    private string cMunFGIBSField;
     
     private TNFeInfNFeIdeTpImp tpImpField;
     
@@ -453,6 +850,14 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
     private TAmb tpAmbField;
     
     private TFinNFe finNFeField;
+    
+    private TTpNFDebito tpNFDebitoField;
+    
+    private bool tpNFDebitoFieldSpecified;
+    
+    private TTpNFCredito tpNFCreditoField;
+    
+    private bool tpNFCreditoFieldSpecified;
     
     private TNFeInfNFeIdeIndFinal indFinalField;
     
@@ -472,6 +877,10 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
     
     private TNFeInfNFeIdeNFref[] nFrefField;
     
+    private TCompraGov gCompraGovField;
+    
+    private string[] gPagAntecipadoField;
+    
     /// <remarks/>
     public TCodUfIBGE cUF {
         get {
@@ -479,7 +888,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.cUFField = value;
-            this.RaisePropertyChanged("cUF");
         }
     }
     
@@ -490,7 +898,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.cNFField = value;
-            this.RaisePropertyChanged("cNF");
         }
     }
     
@@ -501,7 +908,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.natOpField = value;
-            this.RaisePropertyChanged("natOp");
         }
     }
     
@@ -512,7 +918,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.modField = value;
-            this.RaisePropertyChanged("mod");
         }
     }
     
@@ -523,7 +928,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.serieField = value;
-            this.RaisePropertyChanged("serie");
         }
     }
     
@@ -534,7 +938,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.nNFField = value;
-            this.RaisePropertyChanged("nNF");
         }
     }
     
@@ -545,7 +948,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.dhEmiField = value;
-            this.RaisePropertyChanged("dhEmi");
         }
     }
     
@@ -556,7 +958,16 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.dhSaiEntField = value;
-            this.RaisePropertyChanged("dhSaiEnt");
+        }
+    }
+    
+    /// <remarks/>
+    public string dPrevEntrega {
+        get {
+            return this.dPrevEntregaField;
+        }
+        set {
+            this.dPrevEntregaField = value;
         }
     }
     
@@ -567,7 +978,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.tpNFField = value;
-            this.RaisePropertyChanged("tpNF");
         }
     }
     
@@ -578,7 +988,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.idDestField = value;
-            this.RaisePropertyChanged("idDest");
         }
     }
     
@@ -589,7 +998,16 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.cMunFGField = value;
-            this.RaisePropertyChanged("cMunFG");
+        }
+    }
+    
+    /// <remarks/>
+    public string cMunFGIBS {
+        get {
+            return this.cMunFGIBSField;
+        }
+        set {
+            this.cMunFGIBSField = value;
         }
     }
     
@@ -600,7 +1018,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.tpImpField = value;
-            this.RaisePropertyChanged("tpImp");
         }
     }
     
@@ -611,7 +1028,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.tpEmisField = value;
-            this.RaisePropertyChanged("tpEmis");
         }
     }
     
@@ -622,7 +1038,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.cDVField = value;
-            this.RaisePropertyChanged("cDV");
         }
     }
     
@@ -633,7 +1048,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.tpAmbField = value;
-            this.RaisePropertyChanged("tpAmb");
         }
     }
     
@@ -644,7 +1058,48 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.finNFeField = value;
-            this.RaisePropertyChanged("finNFe");
+        }
+    }
+    
+    /// <remarks/>
+    public TTpNFDebito tpNFDebito {
+        get {
+            return this.tpNFDebitoField;
+        }
+        set {
+            this.tpNFDebitoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool tpNFDebitoSpecified {
+        get {
+            return this.tpNFDebitoFieldSpecified;
+        }
+        set {
+            this.tpNFDebitoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TTpNFCredito tpNFCredito {
+        get {
+            return this.tpNFCreditoField;
+        }
+        set {
+            this.tpNFCreditoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool tpNFCreditoSpecified {
+        get {
+            return this.tpNFCreditoFieldSpecified;
+        }
+        set {
+            this.tpNFCreditoFieldSpecified = value;
         }
     }
     
@@ -655,7 +1110,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.indFinalField = value;
-            this.RaisePropertyChanged("indFinal");
         }
     }
     
@@ -666,7 +1120,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.indPresField = value;
-            this.RaisePropertyChanged("indPres");
         }
     }
     
@@ -677,7 +1130,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.indIntermedField = value;
-            this.RaisePropertyChanged("indIntermed");
         }
     }
     
@@ -689,7 +1141,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.indIntermedFieldSpecified = value;
-            this.RaisePropertyChanged("indIntermedSpecified");
         }
     }
     
@@ -700,7 +1151,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.procEmiField = value;
-            this.RaisePropertyChanged("procEmi");
         }
     }
     
@@ -711,7 +1161,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.verProcField = value;
-            this.RaisePropertyChanged("verProc");
         }
     }
     
@@ -722,7 +1171,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.dhContField = value;
-            this.RaisePropertyChanged("dhCont");
         }
     }
     
@@ -733,7 +1181,6 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.xJustField = value;
-            this.RaisePropertyChanged("xJust");
         }
     }
     
@@ -745,16 +1192,27 @@ public partial class TNFeInfNFeIde : object, System.ComponentModel.INotifyProper
         }
         set {
             this.nFrefField = value;
-            this.RaisePropertyChanged("NFref");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TCompraGov gCompraGov {
+        get {
+            return this.gCompraGovField;
+        }
+        set {
+            this.gCompraGovField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayItemAttribute("refNFe", IsNullable=false)]
+    public string[] gPagAntecipado {
+        get {
+            return this.gPagAntecipadoField;
+        }
+        set {
+            this.gPagAntecipadoField = value;
         }
     }
 }
@@ -1029,6 +1487,80 @@ public enum TFinNFe {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("4")]
     Item4,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("5")]
+    Item5,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("6")]
+    Item6,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TTpNFDebito {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("02")]
+    Item02,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("03")]
+    Item03,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("04")]
+    Item04,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("05")]
+    Item05,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("06")]
+    Item06,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("07")]
+    Item07,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("08")]
+    Item08,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TTpNFCredito {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("02")]
+    Item02,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("03")]
+    Item03,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("04")]
+    Item04,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("05")]
+    Item05,
 }
 
 /// <remarks/>
@@ -1125,7 +1657,7 @@ public enum TProcEmi {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFref : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeIdeNFref {
     
     private object itemField;
     
@@ -1137,6 +1669,7 @@ public partial class TNFeInfNFeIdeNFref : object, System.ComponentModel.INotifyP
     [System.Xml.Serialization.XmlElementAttribute("refNF", typeof(TNFeInfNFeIdeNFrefRefNF))]
     [System.Xml.Serialization.XmlElementAttribute("refNFP", typeof(TNFeInfNFeIdeNFrefRefNFP))]
     [System.Xml.Serialization.XmlElementAttribute("refNFe", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("refNFeSig", typeof(string))]
     [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
     public object Item {
         get {
@@ -1144,7 +1677,6 @@ public partial class TNFeInfNFeIdeNFref : object, System.ComponentModel.INotifyP
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
         }
     }
     
@@ -1156,16 +1688,6 @@ public partial class TNFeInfNFeIdeNFref : object, System.ComponentModel.INotifyP
         }
         set {
             this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -1176,7 +1698,7 @@ public partial class TNFeInfNFeIdeNFref : object, System.ComponentModel.INotifyP
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFrefRefECF : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeIdeNFrefRefECF {
     
     private TNFeInfNFeIdeNFrefRefECFMod modField;
     
@@ -1191,7 +1713,6 @@ public partial class TNFeInfNFeIdeNFrefRefECF : object, System.ComponentModel.IN
         }
         set {
             this.modField = value;
-            this.RaisePropertyChanged("mod");
         }
     }
     
@@ -1202,7 +1723,6 @@ public partial class TNFeInfNFeIdeNFrefRefECF : object, System.ComponentModel.IN
         }
         set {
             this.nECFField = value;
-            this.RaisePropertyChanged("nECF");
         }
     }
     
@@ -1213,16 +1733,6 @@ public partial class TNFeInfNFeIdeNFrefRefECF : object, System.ComponentModel.IN
         }
         set {
             this.nCOOField = value;
-            this.RaisePropertyChanged("nCOO");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -1251,778 +1761,40 @@ public enum TNFeInfNFeIdeNFrefRefECFMod {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TProtNFe : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private TProtNFeInfProt infProtField;
-    
-    private SignatureType signatureField;
-    
-    private string versaoField;
-    
-    /// <remarks/>
-    public TProtNFeInfProt infProt {
-        get {
-            return this.infProtField;
-        }
-        set {
-            this.infProtField = value;
-            this.RaisePropertyChanged("infProt");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-    public SignatureType Signature {
-        get {
-            return this.signatureField;
-        }
-        set {
-            this.signatureField = value;
-            this.RaisePropertyChanged("Signature");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string versao {
-        get {
-            return this.versaoField;
-        }
-        set {
-            this.versaoField = value;
-            this.RaisePropertyChanged("versao");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TProtNFeInfProt : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeIdeNFrefRefNF {
     
-    private TAmb tpAmbField;
+    private TCodUfIBGE cUFField;
     
-    private string verAplicField;
-    
-    private string chNFeField;
-    
-    private string dhRecbtoField;
-    
-    private string nProtField;
-    
-    private byte[] digValField;
-    
-    private string cStatField;
-    
-    private string xMotivoField;
-    
-    private string cMsgField;
-    
-    private string xMsgField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public TAmb tpAmb {
-        get {
-            return this.tpAmbField;
-        }
-        set {
-            this.tpAmbField = value;
-            this.RaisePropertyChanged("tpAmb");
-        }
-    }
-    
-    /// <remarks/>
-    public string verAplic {
-        get {
-            return this.verAplicField;
-        }
-        set {
-            this.verAplicField = value;
-            this.RaisePropertyChanged("verAplic");
-        }
-    }
-    
-    /// <remarks/>
-    public string chNFe {
-        get {
-            return this.chNFeField;
-        }
-        set {
-            this.chNFeField = value;
-            this.RaisePropertyChanged("chNFe");
-        }
-    }
-    
-    /// <remarks/>
-    public string dhRecbto {
-        get {
-            return this.dhRecbtoField;
-        }
-        set {
-            this.dhRecbtoField = value;
-            this.RaisePropertyChanged("dhRecbto");
-        }
-    }
-    
-    /// <remarks/>
-    public string nProt {
-        get {
-            return this.nProtField;
-        }
-        set {
-            this.nProtField = value;
-            this.RaisePropertyChanged("nProt");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] digVal {
-        get {
-            return this.digValField;
-        }
-        set {
-            this.digValField = value;
-            this.RaisePropertyChanged("digVal");
-        }
-    }
-    
-    /// <remarks/>
-    public string cStat {
-        get {
-            return this.cStatField;
-        }
-        set {
-            this.cStatField = value;
-            this.RaisePropertyChanged("cStat");
-        }
-    }
-    
-    /// <remarks/>
-    public string xMotivo {
-        get {
-            return this.xMotivoField;
-        }
-        set {
-            this.xMotivoField = value;
-            this.RaisePropertyChanged("xMotivo");
-        }
-    }
-    
-    /// <remarks/>
-    public string cMsg {
-        get {
-            return this.cMsgField;
-        }
-        set {
-            this.cMsgField = value;
-            this.RaisePropertyChanged("cMsg");
-        }
-    }
-    
-    /// <remarks/>
-    public string xMsg {
-        get {
-            return this.xMsgField;
-        }
-        set {
-            this.xMsgField = value;
-            this.RaisePropertyChanged("xMsg");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-[System.Xml.Serialization.XmlRootAttribute("Signature", Namespace="http://www.w3.org/2000/09/xmldsig#", IsNullable=false)]
-public partial class SignatureType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private SignedInfoType signedInfoField;
-    
-    private SignatureValueType signatureValueField;
-    
-    private KeyInfoType keyInfoField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public SignedInfoType SignedInfo {
-        get {
-            return this.signedInfoField;
-        }
-        set {
-            this.signedInfoField = value;
-            this.RaisePropertyChanged("SignedInfo");
-        }
-    }
-    
-    /// <remarks/>
-    public SignatureValueType SignatureValue {
-        get {
-            return this.signatureValueField;
-        }
-        set {
-            this.signatureValueField = value;
-            this.RaisePropertyChanged("SignatureValue");
-        }
-    }
-    
-    /// <remarks/>
-    public KeyInfoType KeyInfo {
-        get {
-            return this.keyInfoField;
-        }
-        set {
-            this.keyInfoField = value;
-            this.RaisePropertyChanged("KeyInfo");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private SignedInfoTypeCanonicalizationMethod canonicalizationMethodField;
-    
-    private SignedInfoTypeSignatureMethod signatureMethodField;
-    
-    private ReferenceType referenceField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public SignedInfoTypeCanonicalizationMethod CanonicalizationMethod {
-        get {
-            return this.canonicalizationMethodField;
-        }
-        set {
-            this.canonicalizationMethodField = value;
-            this.RaisePropertyChanged("CanonicalizationMethod");
-        }
-    }
-    
-    /// <remarks/>
-    public SignedInfoTypeSignatureMethod SignatureMethod {
-        get {
-            return this.signatureMethodField;
-        }
-        set {
-            this.signatureMethodField = value;
-            this.RaisePropertyChanged("SignatureMethod");
-        }
-    }
-    
-    /// <remarks/>
-    public ReferenceType Reference {
-        get {
-            return this.referenceField;
-        }
-        set {
-            this.referenceField = value;
-            this.RaisePropertyChanged("Reference");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoTypeCanonicalizationMethod : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string algorithmField;
-    
-    public SignedInfoTypeCanonicalizationMethod() {
-        this.algorithmField = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-            this.RaisePropertyChanged("Algorithm");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignedInfoTypeSignatureMethod : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string algorithmField;
-    
-    public SignedInfoTypeSignatureMethod() {
-        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-            this.RaisePropertyChanged("Algorithm");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class ReferenceType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private TransformType[] transformsField;
-    
-    private ReferenceTypeDigestMethod digestMethodField;
-    
-    private byte[] digestValueField;
-    
-    private string idField;
-    
-    private string uRIField;
-    
-    private string typeField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute("Transform", IsNullable=false)]
-    public TransformType[] Transforms {
-        get {
-            return this.transformsField;
-        }
-        set {
-            this.transformsField = value;
-            this.RaisePropertyChanged("Transforms");
-        }
-    }
-    
-    /// <remarks/>
-    public ReferenceTypeDigestMethod DigestMethod {
-        get {
-            return this.digestMethodField;
-        }
-        set {
-            this.digestMethodField = value;
-            this.RaisePropertyChanged("DigestMethod");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] DigestValue {
-        get {
-            return this.digestValueField;
-        }
-        set {
-            this.digestValueField = value;
-            this.RaisePropertyChanged("DigestValue");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string URI {
-        get {
-            return this.uRIField;
-        }
-        set {
-            this.uRIField = value;
-            this.RaisePropertyChanged("URI");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Type {
-        get {
-            return this.typeField;
-        }
-        set {
-            this.typeField = value;
-            this.RaisePropertyChanged("Type");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class TransformType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string[] xPathField;
-    
-    private TTransformURI algorithmField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("XPath")]
-    public string[] XPath {
-        get {
-            return this.xPathField;
-        }
-        set {
-            this.xPathField = value;
-            this.RaisePropertyChanged("XPath");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute()]
-    public TTransformURI Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-            this.RaisePropertyChanged("Algorithm");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public enum TTransformURI {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/2000/09/xmldsig#enveloped-signature")]
-    httpwwww3org200009xmldsigenvelopedsignature,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("http://www.w3.org/TR/2001/REC-xml-c14n-20010315")]
-    httpwwww3orgTR2001RECxmlc14n20010315,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class ReferenceTypeDigestMethod : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string algorithmField;
-    
-    public ReferenceTypeDigestMethod() {
-        this.algorithmField = "http://www.w3.org/2000/09/xmldsig#sha1";
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="anyURI")]
-    public string Algorithm {
-        get {
-            return this.algorithmField;
-        }
-        set {
-            this.algorithmField = value;
-            this.RaisePropertyChanged("Algorithm");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class SignatureValueType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string idField;
-    
-    private byte[] valueField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTextAttribute(DataType="base64Binary")]
-    public byte[] Value {
-        get {
-            return this.valueField;
-        }
-        set {
-            this.valueField = value;
-            this.RaisePropertyChanged("Value");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class KeyInfoType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private X509DataType x509DataField;
-    
-    private string idField;
-    
-    /// <remarks/>
-    public X509DataType X509Data {
-        get {
-            return this.x509DataField;
-        }
-        set {
-            this.x509DataField = value;
-            this.RaisePropertyChanged("X509Data");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
-    public string Id {
-        get {
-            return this.idField;
-        }
-        set {
-            this.idField = value;
-            this.RaisePropertyChanged("Id");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
-public partial class X509DataType : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private byte[] x509CertificateField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] X509Certificate {
-        get {
-            return this.x509CertificateField;
-        }
-        set {
-            this.x509CertificateField = value;
-            this.RaisePropertyChanged("X509Certificate");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TInfRespTec : object, System.ComponentModel.INotifyPropertyChanged {
+    private string aAMMField;
     
     private string cNPJField;
     
-    private string xContatoField;
+    private TNFeInfNFeIdeNFrefRefNFMod modField;
     
-    private string emailField;
+    private string serieField;
     
-    private string foneField;
+    private string nNFField;
     
-    private string idCSRTField;
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
     
-    private byte[] hashCSRTField;
+    /// <remarks/>
+    public string AAMM {
+        get {
+            return this.aAMMField;
+        }
+        set {
+            this.aAMMField = value;
+        }
+    }
     
     /// <remarks/>
     public string CNPJ {
@@ -2031,336 +1803,36 @@ public partial class TInfRespTec : object, System.ComponentModel.INotifyProperty
         }
         set {
             this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
         }
     }
     
     /// <remarks/>
-    public string xContato {
+    public TNFeInfNFeIdeNFrefRefNFMod mod {
         get {
-            return this.xContatoField;
+            return this.modField;
         }
         set {
-            this.xContatoField = value;
-            this.RaisePropertyChanged("xContato");
+            this.modField = value;
         }
     }
     
     /// <remarks/>
-    public string email {
+    public string serie {
         get {
-            return this.emailField;
+            return this.serieField;
         }
         set {
-            this.emailField = value;
-            this.RaisePropertyChanged("email");
+            this.serieField = value;
         }
     }
     
     /// <remarks/>
-    public string fone {
+    public string nNF {
         get {
-            return this.foneField;
+            return this.nNFField;
         }
         set {
-            this.foneField = value;
-            this.RaisePropertyChanged("fone");
-        }
-    }
-    
-    /// <remarks/>
-    public string idCSRT {
-        get {
-            return this.idCSRTField;
-        }
-        set {
-            this.idCSRTField = value;
-            this.RaisePropertyChanged("idCSRT");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-    public byte[] hashCSRT {
-        get {
-            return this.hashCSRTField;
-        }
-        set {
-            this.hashCSRTField = value;
-            this.RaisePropertyChanged("hashCSRT");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TVeiculo : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string placaField;
-    
-    private TUf ufField;
-    
-    private string rNTCField;
-    
-    /// <remarks/>
-    public string placa {
-        get {
-            return this.placaField;
-        }
-        set {
-            this.placaField = value;
-            this.RaisePropertyChanged("placa");
-        }
-    }
-    
-    /// <remarks/>
-    public TUf UF {
-        get {
-            return this.ufField;
-        }
-        set {
-            this.ufField = value;
-            this.RaisePropertyChanged("UF");
-        }
-    }
-    
-    /// <remarks/>
-    public string RNTC {
-        get {
-            return this.rNTCField;
-        }
-        set {
-            this.rNTCField = value;
-            this.RaisePropertyChanged("RNTC");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TUf {
-    
-    /// <remarks/>
-    AC,
-    
-    /// <remarks/>
-    AL,
-    
-    /// <remarks/>
-    AM,
-    
-    /// <remarks/>
-    AP,
-    
-    /// <remarks/>
-    BA,
-    
-    /// <remarks/>
-    CE,
-    
-    /// <remarks/>
-    DF,
-    
-    /// <remarks/>
-    ES,
-    
-    /// <remarks/>
-    GO,
-    
-    /// <remarks/>
-    MA,
-    
-    /// <remarks/>
-    MG,
-    
-    /// <remarks/>
-    MS,
-    
-    /// <remarks/>
-    MT,
-    
-    /// <remarks/>
-    PA,
-    
-    /// <remarks/>
-    PB,
-    
-    /// <remarks/>
-    PE,
-    
-    /// <remarks/>
-    PI,
-    
-    /// <remarks/>
-    PR,
-    
-    /// <remarks/>
-    RJ,
-    
-    /// <remarks/>
-    RN,
-    
-    /// <remarks/>
-    RO,
-    
-    /// <remarks/>
-    RR,
-    
-    /// <remarks/>
-    RS,
-    
-    /// <remarks/>
-    SC,
-    
-    /// <remarks/>
-    SE,
-    
-    /// <remarks/>
-    SP,
-    
-    /// <remarks/>
-    TO,
-    
-    /// <remarks/>
-    EX,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TIpi : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string cNPJProdField;
-    
-    private string cSeloField;
-    
-    private string qSeloField;
-    
-    private string cEnqField;
-    
-    private object itemField;
-    
-    /// <remarks/>
-    public string CNPJProd {
-        get {
-            return this.cNPJProdField;
-        }
-        set {
-            this.cNPJProdField = value;
-            this.RaisePropertyChanged("CNPJProd");
-        }
-    }
-    
-    /// <remarks/>
-    public string cSelo {
-        get {
-            return this.cSeloField;
-        }
-        set {
-            this.cSeloField = value;
-            this.RaisePropertyChanged("cSelo");
-        }
-    }
-    
-    /// <remarks/>
-    public string qSelo {
-        get {
-            return this.qSeloField;
-        }
-        set {
-            this.qSeloField = value;
-            this.RaisePropertyChanged("qSelo");
-        }
-    }
-    
-    /// <remarks/>
-    public string cEnq {
-        get {
-            return this.cEnqField;
-        }
-        set {
-            this.cEnqField = value;
-            this.RaisePropertyChanged("cEnq");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("IPINT", typeof(TIpiIPINT))]
-    [System.Xml.Serialization.XmlElementAttribute("IPITrib", typeof(TIpiIPITrib))]
-    public object Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TIpiIPINT : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private TIpiIPINTCST cSTField;
-    
-    /// <remarks/>
-    public TIpiIPINTCST CST {
-        get {
-            return this.cSTField;
-        }
-        set {
-            this.cSTField = value;
-            this.RaisePropertyChanged("CST");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            this.nNFField = value;
         }
     }
 }
@@ -2369,7 +1841,7 @@ public partial class TIpiIPINT : object, System.ComponentModel.INotifyPropertyCh
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TIpiIPINTCST {
+public enum TNFeInfNFeIdeNFrefRefNFMod {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("01")]
@@ -2378,38 +1850,6 @@ public enum TIpiIPINTCST {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("02")]
     Item02,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03")]
-    Item03,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04")]
-    Item04,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05")]
-    Item05,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("51")]
-    Item51,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("52")]
-    Item52,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("53")]
-    Item53,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("54")]
-    Item54,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("55")]
-    Item55,
 }
 
 /// <remarks/>
@@ -2418,158 +1858,43 @@ public enum TIpiIPINTCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TIpiIPITrib : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeIdeNFrefRefNFP {
     
-    private TIpiIPITribCST cSTField;
+    private TCodUfIBGE cUFField;
     
-    private string[] itemsField;
-    
-    private ItemsChoiceType[] itemsElementNameField;
-    
-    private string vIPIField;
-    
-    /// <remarks/>
-    public TIpiIPITribCST CST {
-        get {
-            return this.cSTField;
-        }
-        set {
-            this.cSTField = value;
-            this.RaisePropertyChanged("CST");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("pIPI", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("qUnid", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("vBC", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("vUnid", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
-    public string[] Items {
-        get {
-            return this.itemsField;
-        }
-        set {
-            this.itemsField = value;
-            this.RaisePropertyChanged("Items");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemsChoiceType[] ItemsElementName {
-        get {
-            return this.itemsElementNameField;
-        }
-        set {
-            this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
-        }
-    }
-    
-    /// <remarks/>
-    public string vIPI {
-        get {
-            return this.vIPIField;
-        }
-        set {
-            this.vIPIField = value;
-            this.RaisePropertyChanged("vIPI");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TIpiIPITribCST {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("00")]
-    Item00,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("49")]
-    Item49,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("50")]
-    Item50,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("99")]
-    Item99,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemsChoiceType {
-    
-    /// <remarks/>
-    pIPI,
-    
-    /// <remarks/>
-    qUnid,
-    
-    /// <remarks/>
-    vBC,
-    
-    /// <remarks/>
-    vUnid,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TLocal : object, System.ComponentModel.INotifyPropertyChanged {
+    private string aAMMField;
     
     private string itemField;
     
-    private ItemChoiceType4 itemElementNameField;
-    
-    private string xNomeField;
-    
-    private string xLgrField;
-    
-    private string nroField;
-    
-    private string xCplField;
-    
-    private string xBairroField;
-    
-    private string cMunField;
-    
-    private string xMunField;
-    
-    private TUf ufField;
-    
-    private string cEPField;
-    
-    private string cPaisField;
-    
-    private string xPaisField;
-    
-    private string foneField;
-    
-    private string emailField;
+    private ItemChoiceType itemElementNameField;
     
     private string ieField;
+    
+    private TNFeInfNFeIdeNFrefRefNFPMod modField;
+    
+    private string serieField;
+    
+    private string nNFField;
+    
+    /// <remarks/>
+    public TCodUfIBGE cUF {
+        get {
+            return this.cUFField;
+        }
+        set {
+            this.cUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string AAMM {
+        get {
+            return this.aAMMField;
+        }
+        set {
+            this.aAMMField = value;
+        }
+    }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
@@ -2581,162 +1906,17 @@ public partial class TLocal : object, System.ComponentModel.INotifyPropertyChang
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType4 ItemElementName {
+    public ItemChoiceType ItemElementName {
         get {
             return this.itemElementNameField;
         }
         set {
             this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
-        }
-    }
-    
-    /// <remarks/>
-    public string xNome {
-        get {
-            return this.xNomeField;
-        }
-        set {
-            this.xNomeField = value;
-            this.RaisePropertyChanged("xNome");
-        }
-    }
-    
-    /// <remarks/>
-    public string xLgr {
-        get {
-            return this.xLgrField;
-        }
-        set {
-            this.xLgrField = value;
-            this.RaisePropertyChanged("xLgr");
-        }
-    }
-    
-    /// <remarks/>
-    public string nro {
-        get {
-            return this.nroField;
-        }
-        set {
-            this.nroField = value;
-            this.RaisePropertyChanged("nro");
-        }
-    }
-    
-    /// <remarks/>
-    public string xCpl {
-        get {
-            return this.xCplField;
-        }
-        set {
-            this.xCplField = value;
-            this.RaisePropertyChanged("xCpl");
-        }
-    }
-    
-    /// <remarks/>
-    public string xBairro {
-        get {
-            return this.xBairroField;
-        }
-        set {
-            this.xBairroField = value;
-            this.RaisePropertyChanged("xBairro");
-        }
-    }
-    
-    /// <remarks/>
-    public string cMun {
-        get {
-            return this.cMunField;
-        }
-        set {
-            this.cMunField = value;
-            this.RaisePropertyChanged("cMun");
-        }
-    }
-    
-    /// <remarks/>
-    public string xMun {
-        get {
-            return this.xMunField;
-        }
-        set {
-            this.xMunField = value;
-            this.RaisePropertyChanged("xMun");
-        }
-    }
-    
-    /// <remarks/>
-    public TUf UF {
-        get {
-            return this.ufField;
-        }
-        set {
-            this.ufField = value;
-            this.RaisePropertyChanged("UF");
-        }
-    }
-    
-    /// <remarks/>
-    public string CEP {
-        get {
-            return this.cEPField;
-        }
-        set {
-            this.cEPField = value;
-            this.RaisePropertyChanged("CEP");
-        }
-    }
-    
-    /// <remarks/>
-    public string cPais {
-        get {
-            return this.cPaisField;
-        }
-        set {
-            this.cPaisField = value;
-            this.RaisePropertyChanged("cPais");
-        }
-    }
-    
-    /// <remarks/>
-    public string xPais {
-        get {
-            return this.xPaisField;
-        }
-        set {
-            this.xPaisField = value;
-            this.RaisePropertyChanged("xPais");
-        }
-    }
-    
-    /// <remarks/>
-    public string fone {
-        get {
-            return this.foneField;
-        }
-        set {
-            this.foneField = value;
-            this.RaisePropertyChanged("fone");
-        }
-    }
-    
-    /// <remarks/>
-    public string email {
-        get {
-            return this.emailField;
-        }
-        set {
-            this.emailField = value;
-            this.RaisePropertyChanged("email");
         }
     }
     
@@ -2747,16 +1927,36 @@ public partial class TLocal : object, System.ComponentModel.INotifyPropertyChang
         }
         set {
             this.ieField = value;
-            this.RaisePropertyChanged("IE");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeIdeNFrefRefNFPMod mod {
+        get {
+            return this.modField;
+        }
+        set {
+            this.modField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public string serie {
+        get {
+            return this.serieField;
+        }
+        set {
+            this.serieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nNF {
+        get {
+            return this.nNFField;
+        }
+        set {
+            this.nNFField = value;
         }
     }
 }
@@ -2765,7 +1965,276 @@ public partial class TLocal : object, System.ComponentModel.INotifyPropertyChang
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType4 {
+public enum ItemChoiceType {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeIdeNFrefRefNFPMod {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("04")]
+    Item04,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType1 {
+    
+    /// <remarks/>
+    refCTe,
+    
+    /// <remarks/>
+    refECF,
+    
+    /// <remarks/>
+    refNF,
+    
+    /// <remarks/>
+    refNFP,
+    
+    /// <remarks/>
+    refNFe,
+    
+    /// <remarks/>
+    refNFeSig,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCompraGov {
+    
+    private TEnteGov tpEnteGovField;
+    
+    private string pRedutorField;
+    
+    private TOperCompraGov tpOperGovField;
+    
+    /// <remarks/>
+    public TEnteGov tpEnteGov {
+        get {
+            return this.tpEnteGovField;
+        }
+        set {
+            this.tpEnteGovField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pRedutor {
+        get {
+            return this.pRedutorField;
+        }
+        set {
+            this.pRedutorField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TOperCompraGov tpOperGov {
+        get {
+            return this.tpOperGovField;
+        }
+        set {
+            this.tpOperGovField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TEnteGov {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TOperCompraGov {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeEmit {
+    
+    private string itemField;
+    
+    private ItemChoiceType2 itemElementNameField;
+    
+    private string xNomeField;
+    
+    private string xFantField;
+    
+    private TEnderEmi enderEmitField;
+    
+    private string ieField;
+    
+    private string iESTField;
+    
+    private string imField;
+    
+    private string cNAEField;
+    
+    private TNFeInfNFeEmitCRT cRTField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType2 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xNome {
+        get {
+            return this.xNomeField;
+        }
+        set {
+            this.xNomeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xFant {
+        get {
+            return this.xFantField;
+        }
+        set {
+            this.xFantField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEnderEmi enderEmit {
+        get {
+            return this.enderEmitField;
+        }
+        set {
+            this.enderEmitField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IEST {
+        get {
+            return this.iESTField;
+        }
+        set {
+            this.iESTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IM {
+        get {
+            return this.imField;
+        }
+        set {
+            this.imField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNAE {
+        get {
+            return this.cNAEField;
+        }
+        set {
+            this.cNAEField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeEmitCRT CRT {
+        get {
+            return this.cRTField;
+        }
+        set {
+            this.cRTField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType2 {
     
     /// <remarks/>
     CNPJ,
@@ -2780,168 +2249,7 @@ public enum ItemChoiceType4 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TEndereco : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string xLgrField;
-    
-    private string nroField;
-    
-    private string xCplField;
-    
-    private string xBairroField;
-    
-    private string cMunField;
-    
-    private string xMunField;
-    
-    private TUf ufField;
-    
-    private string cEPField;
-    
-    private string cPaisField;
-    
-    private string xPaisField;
-    
-    private string foneField;
-    
-    /// <remarks/>
-    public string xLgr {
-        get {
-            return this.xLgrField;
-        }
-        set {
-            this.xLgrField = value;
-            this.RaisePropertyChanged("xLgr");
-        }
-    }
-    
-    /// <remarks/>
-    public string nro {
-        get {
-            return this.nroField;
-        }
-        set {
-            this.nroField = value;
-            this.RaisePropertyChanged("nro");
-        }
-    }
-    
-    /// <remarks/>
-    public string xCpl {
-        get {
-            return this.xCplField;
-        }
-        set {
-            this.xCplField = value;
-            this.RaisePropertyChanged("xCpl");
-        }
-    }
-    
-    /// <remarks/>
-    public string xBairro {
-        get {
-            return this.xBairroField;
-        }
-        set {
-            this.xBairroField = value;
-            this.RaisePropertyChanged("xBairro");
-        }
-    }
-    
-    /// <remarks/>
-    public string cMun {
-        get {
-            return this.cMunField;
-        }
-        set {
-            this.cMunField = value;
-            this.RaisePropertyChanged("cMun");
-        }
-    }
-    
-    /// <remarks/>
-    public string xMun {
-        get {
-            return this.xMunField;
-        }
-        set {
-            this.xMunField = value;
-            this.RaisePropertyChanged("xMun");
-        }
-    }
-    
-    /// <remarks/>
-    public TUf UF {
-        get {
-            return this.ufField;
-        }
-        set {
-            this.ufField = value;
-            this.RaisePropertyChanged("UF");
-        }
-    }
-    
-    /// <remarks/>
-    public string CEP {
-        get {
-            return this.cEPField;
-        }
-        set {
-            this.cEPField = value;
-            this.RaisePropertyChanged("CEP");
-        }
-    }
-    
-    /// <remarks/>
-    public string cPais {
-        get {
-            return this.cPaisField;
-        }
-        set {
-            this.cPaisField = value;
-            this.RaisePropertyChanged("cPais");
-        }
-    }
-    
-    /// <remarks/>
-    public string xPais {
-        get {
-            return this.xPaisField;
-        }
-        set {
-            this.xPaisField = value;
-            this.RaisePropertyChanged("xPais");
-        }
-    }
-    
-    /// <remarks/>
-    public string fone {
-        get {
-            return this.foneField;
-        }
-        set {
-            this.foneField = value;
-            this.RaisePropertyChanged("fone");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TEnderEmi {
     
     private string xLgrField;
     
@@ -2976,7 +2284,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xLgrField = value;
-            this.RaisePropertyChanged("xLgr");
         }
     }
     
@@ -2987,7 +2294,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.nroField = value;
-            this.RaisePropertyChanged("nro");
         }
     }
     
@@ -2998,7 +2304,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xCplField = value;
-            this.RaisePropertyChanged("xCpl");
         }
     }
     
@@ -3009,7 +2314,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xBairroField = value;
-            this.RaisePropertyChanged("xBairro");
         }
     }
     
@@ -3020,7 +2324,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.cMunField = value;
-            this.RaisePropertyChanged("cMun");
         }
     }
     
@@ -3031,7 +2334,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xMunField = value;
-            this.RaisePropertyChanged("xMun");
         }
     }
     
@@ -3042,7 +2344,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.ufField = value;
-            this.RaisePropertyChanged("UF");
         }
     }
     
@@ -3053,7 +2354,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.cEPField = value;
-            this.RaisePropertyChanged("CEP");
         }
     }
     
@@ -3064,7 +2364,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.cPaisField = value;
-            this.RaisePropertyChanged("cPais");
         }
     }
     
@@ -3076,7 +2375,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.cPaisFieldSpecified = value;
-            this.RaisePropertyChanged("cPaisSpecified");
         }
     }
     
@@ -3087,7 +2385,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xPaisField = value;
-            this.RaisePropertyChanged("xPais");
         }
     }
     
@@ -3099,7 +2396,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.xPaisFieldSpecified = value;
-            this.RaisePropertyChanged("xPaisSpecified");
         }
     }
     
@@ -3110,16 +2406,6 @@ public partial class TEnderEmi : object, System.ComponentModel.INotifyPropertyCh
         }
         set {
             this.foneField = value;
-            this.RaisePropertyChanged("fone");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -3239,458 +2525,6 @@ public enum TEnderEmiXPais {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFrefRefNF : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private TCodUfIBGE cUFField;
-    
-    private string aAMMField;
-    
-    private string cNPJField;
-    
-    private TNFeInfNFeIdeNFrefRefNFMod modField;
-    
-    private string serieField;
-    
-    private string nNFField;
-    
-    /// <remarks/>
-    public TCodUfIBGE cUF {
-        get {
-            return this.cUFField;
-        }
-        set {
-            this.cUFField = value;
-            this.RaisePropertyChanged("cUF");
-        }
-    }
-    
-    /// <remarks/>
-    public string AAMM {
-        get {
-            return this.aAMMField;
-        }
-        set {
-            this.aAMMField = value;
-            this.RaisePropertyChanged("AAMM");
-        }
-    }
-    
-    /// <remarks/>
-    public string CNPJ {
-        get {
-            return this.cNPJField;
-        }
-        set {
-            this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeIdeNFrefRefNFMod mod {
-        get {
-            return this.modField;
-        }
-        set {
-            this.modField = value;
-            this.RaisePropertyChanged("mod");
-        }
-    }
-    
-    /// <remarks/>
-    public string serie {
-        get {
-            return this.serieField;
-        }
-        set {
-            this.serieField = value;
-            this.RaisePropertyChanged("serie");
-        }
-    }
-    
-    /// <remarks/>
-    public string nNF {
-        get {
-            return this.nNFField;
-        }
-        set {
-            this.nNFField = value;
-            this.RaisePropertyChanged("nNF");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeNFrefRefNFMod {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("02")]
-    Item02,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeIdeNFrefRefNFP : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private TCodUfIBGE cUFField;
-    
-    private string aAMMField;
-    
-    private string itemField;
-    
-    private ItemChoiceType itemElementNameField;
-    
-    private string ieField;
-    
-    private TNFeInfNFeIdeNFrefRefNFPMod modField;
-    
-    private string serieField;
-    
-    private string nNFField;
-    
-    /// <remarks/>
-    public TCodUfIBGE cUF {
-        get {
-            return this.cUFField;
-        }
-        set {
-            this.cUFField = value;
-            this.RaisePropertyChanged("cUF");
-        }
-    }
-    
-    /// <remarks/>
-    public string AAMM {
-        get {
-            return this.aAMMField;
-        }
-        set {
-            this.aAMMField = value;
-            this.RaisePropertyChanged("AAMM");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
-        }
-    }
-    
-    /// <remarks/>
-    public string IE {
-        get {
-            return this.ieField;
-        }
-        set {
-            this.ieField = value;
-            this.RaisePropertyChanged("IE");
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeIdeNFrefRefNFPMod mod {
-        get {
-            return this.modField;
-        }
-        set {
-            this.modField = value;
-            this.RaisePropertyChanged("mod");
-        }
-    }
-    
-    /// <remarks/>
-    public string serie {
-        get {
-            return this.serieField;
-        }
-        set {
-            this.serieField = value;
-            this.RaisePropertyChanged("serie");
-        }
-    }
-    
-    /// <remarks/>
-    public string nNF {
-        get {
-            return this.nNFField;
-        }
-        set {
-            this.nNFField = value;
-            this.RaisePropertyChanged("nNF");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType {
-    
-    /// <remarks/>
-    CNPJ,
-    
-    /// <remarks/>
-    CPF,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TNFeInfNFeIdeNFrefRefNFPMod {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04")]
-    Item04,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType1 {
-    
-    /// <remarks/>
-    refCTe,
-    
-    /// <remarks/>
-    refECF,
-    
-    /// <remarks/>
-    refNF,
-    
-    /// <remarks/>
-    refNFP,
-    
-    /// <remarks/>
-    refNFe,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeEmit : object, System.ComponentModel.INotifyPropertyChanged {
-    
-    private string itemField;
-    
-    private ItemChoiceType2 itemElementNameField;
-    
-    private string xNomeField;
-    
-    private string xFantField;
-    
-    private TEnderEmi enderEmitField;
-    
-    private string ieField;
-    
-    private string iESTField;
-    
-    private string imField;
-    
-    private string cNAEField;
-    
-    private TNFeInfNFeEmitCRT cRTField;
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
-    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
-    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
-    public string Item {
-        get {
-            return this.itemField;
-        }
-        set {
-            this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType2 ItemElementName {
-        get {
-            return this.itemElementNameField;
-        }
-        set {
-            this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
-        }
-    }
-    
-    /// <remarks/>
-    public string xNome {
-        get {
-            return this.xNomeField;
-        }
-        set {
-            this.xNomeField = value;
-            this.RaisePropertyChanged("xNome");
-        }
-    }
-    
-    /// <remarks/>
-    public string xFant {
-        get {
-            return this.xFantField;
-        }
-        set {
-            this.xFantField = value;
-            this.RaisePropertyChanged("xFant");
-        }
-    }
-    
-    /// <remarks/>
-    public TEnderEmi enderEmit {
-        get {
-            return this.enderEmitField;
-        }
-        set {
-            this.enderEmitField = value;
-            this.RaisePropertyChanged("enderEmit");
-        }
-    }
-    
-    /// <remarks/>
-    public string IE {
-        get {
-            return this.ieField;
-        }
-        set {
-            this.ieField = value;
-            this.RaisePropertyChanged("IE");
-        }
-    }
-    
-    /// <remarks/>
-    public string IEST {
-        get {
-            return this.iESTField;
-        }
-        set {
-            this.iESTField = value;
-            this.RaisePropertyChanged("IEST");
-        }
-    }
-    
-    /// <remarks/>
-    public string IM {
-        get {
-            return this.imField;
-        }
-        set {
-            this.imField = value;
-            this.RaisePropertyChanged("IM");
-        }
-    }
-    
-    /// <remarks/>
-    public string CNAE {
-        get {
-            return this.cNAEField;
-        }
-        set {
-            this.cNAEField = value;
-            this.RaisePropertyChanged("CNAE");
-        }
-    }
-    
-    /// <remarks/>
-    public TNFeInfNFeEmitCRT CRT {
-        get {
-            return this.cRTField;
-        }
-        set {
-            this.cRTField = value;
-            this.RaisePropertyChanged("CRT");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType2 {
-    
-    /// <remarks/>
-    CNPJ,
-    
-    /// <remarks/>
-    CPF,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
 public enum TNFeInfNFeEmitCRT {
     
@@ -3705,6 +2539,10 @@ public enum TNFeInfNFeEmitCRT {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("3")]
     Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
 }
 
 /// <remarks/>
@@ -3713,7 +2551,7 @@ public enum TNFeInfNFeEmitCRT {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeAvulsa {
     
     private string cNPJField;
     
@@ -3744,7 +2582,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
         }
     }
     
@@ -3755,7 +2592,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.xOrgaoField = value;
-            this.RaisePropertyChanged("xOrgao");
         }
     }
     
@@ -3766,7 +2602,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.matrField = value;
-            this.RaisePropertyChanged("matr");
         }
     }
     
@@ -3777,7 +2612,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.xAgenteField = value;
-            this.RaisePropertyChanged("xAgente");
         }
     }
     
@@ -3788,7 +2622,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.foneField = value;
-            this.RaisePropertyChanged("fone");
         }
     }
     
@@ -3799,7 +2632,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.ufField = value;
-            this.RaisePropertyChanged("UF");
         }
     }
     
@@ -3810,7 +2642,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.nDARField = value;
-            this.RaisePropertyChanged("nDAR");
         }
     }
     
@@ -3821,7 +2652,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.dEmiField = value;
-            this.RaisePropertyChanged("dEmi");
         }
     }
     
@@ -3832,7 +2662,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.vDARField = value;
-            this.RaisePropertyChanged("vDAR");
         }
     }
     
@@ -3843,7 +2672,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.repEmiField = value;
-            this.RaisePropertyChanged("repEmi");
         }
     }
     
@@ -3854,16 +2682,6 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
         }
         set {
             this.dPagField = value;
-            this.RaisePropertyChanged("dPag");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -3874,7 +2692,7 @@ public partial class TNFeInfNFeAvulsa : object, System.ComponentModel.INotifyPro
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDest {
     
     private string itemField;
     
@@ -3905,7 +2723,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
         }
     }
     
@@ -3917,7 +2734,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
         }
     }
     
@@ -3928,7 +2744,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.xNomeField = value;
-            this.RaisePropertyChanged("xNome");
         }
     }
     
@@ -3939,7 +2754,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.enderDestField = value;
-            this.RaisePropertyChanged("enderDest");
         }
     }
     
@@ -3950,7 +2764,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.indIEDestField = value;
-            this.RaisePropertyChanged("indIEDest");
         }
     }
     
@@ -3961,7 +2774,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.ieField = value;
-            this.RaisePropertyChanged("IE");
         }
     }
     
@@ -3972,7 +2784,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.iSUFField = value;
-            this.RaisePropertyChanged("ISUF");
         }
     }
     
@@ -3983,7 +2794,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.imField = value;
-            this.RaisePropertyChanged("IM");
         }
     }
     
@@ -3994,16 +2804,6 @@ public partial class TNFeInfNFeDest : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.emailField = value;
-            this.RaisePropertyChanged("email");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -4022,6 +2822,238 @@ public enum ItemChoiceType3 {
     
     /// <remarks/>
     idEstrangeiro,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TEndereco {
+    
+    private string xLgrField;
+    
+    private string nroField;
+    
+    private string xCplField;
+    
+    private string xBairroField;
+    
+    private string cMunField;
+    
+    private string xMunField;
+    
+    private TUf ufField;
+    
+    private string cEPField;
+    
+    private string cPaisField;
+    
+    private string xPaisField;
+    
+    private string foneField;
+    
+    /// <remarks/>
+    public string xLgr {
+        get {
+            return this.xLgrField;
+        }
+        set {
+            this.xLgrField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nro {
+        get {
+            return this.nroField;
+        }
+        set {
+            this.nroField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xCpl {
+        get {
+            return this.xCplField;
+        }
+        set {
+            this.xCplField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xBairro {
+        get {
+            return this.xBairroField;
+        }
+        set {
+            this.xBairroField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cMun {
+        get {
+            return this.cMunField;
+        }
+        set {
+            this.cMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMun {
+        get {
+            return this.xMunField;
+        }
+        set {
+            this.xMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUf UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CEP {
+        get {
+            return this.cEPField;
+        }
+        set {
+            this.cEPField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cPais {
+        get {
+            return this.cPaisField;
+        }
+        set {
+            this.cPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xPais {
+        get {
+            return this.xPaisField;
+        }
+        set {
+            this.xPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string fone {
+        get {
+            return this.foneField;
+        }
+        set {
+            this.foneField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TUf {
+    
+    /// <remarks/>
+    AC,
+    
+    /// <remarks/>
+    AL,
+    
+    /// <remarks/>
+    AM,
+    
+    /// <remarks/>
+    AP,
+    
+    /// <remarks/>
+    BA,
+    
+    /// <remarks/>
+    CE,
+    
+    /// <remarks/>
+    DF,
+    
+    /// <remarks/>
+    ES,
+    
+    /// <remarks/>
+    GO,
+    
+    /// <remarks/>
+    MA,
+    
+    /// <remarks/>
+    MG,
+    
+    /// <remarks/>
+    MS,
+    
+    /// <remarks/>
+    MT,
+    
+    /// <remarks/>
+    PA,
+    
+    /// <remarks/>
+    PB,
+    
+    /// <remarks/>
+    PE,
+    
+    /// <remarks/>
+    PI,
+    
+    /// <remarks/>
+    PR,
+    
+    /// <remarks/>
+    RJ,
+    
+    /// <remarks/>
+    RN,
+    
+    /// <remarks/>
+    RO,
+    
+    /// <remarks/>
+    RR,
+    
+    /// <remarks/>
+    RS,
+    
+    /// <remarks/>
+    SC,
+    
+    /// <remarks/>
+    SE,
+    
+    /// <remarks/>
+    SP,
+    
+    /// <remarks/>
+    TO,
+    
+    /// <remarks/>
+    EX,
 }
 
 /// <remarks/>
@@ -4048,8 +3080,226 @@ public enum TNFeInfNFeDestIndIEDest {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TLocal {
+    
+    private string itemField;
+    
+    private ItemChoiceType4 itemElementNameField;
+    
+    private string xNomeField;
+    
+    private string xLgrField;
+    
+    private string nroField;
+    
+    private string xCplField;
+    
+    private string xBairroField;
+    
+    private string cMunField;
+    
+    private string xMunField;
+    
+    private TUf ufField;
+    
+    private string cEPField;
+    
+    private string cPaisField;
+    
+    private string xPaisField;
+    
+    private string foneField;
+    
+    private string emailField;
+    
+    private string ieField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType4 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xNome {
+        get {
+            return this.xNomeField;
+        }
+        set {
+            this.xNomeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xLgr {
+        get {
+            return this.xLgrField;
+        }
+        set {
+            this.xLgrField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nro {
+        get {
+            return this.nroField;
+        }
+        set {
+            this.nroField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xCpl {
+        get {
+            return this.xCplField;
+        }
+        set {
+            this.xCplField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xBairro {
+        get {
+            return this.xBairroField;
+        }
+        set {
+            this.xBairroField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cMun {
+        get {
+            return this.cMunField;
+        }
+        set {
+            this.cMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMun {
+        get {
+            return this.xMunField;
+        }
+        set {
+            this.xMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUf UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CEP {
+        get {
+            return this.cEPField;
+        }
+        set {
+            this.cEPField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cPais {
+        get {
+            return this.cPaisField;
+        }
+        set {
+            this.cPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xPais {
+        get {
+            return this.xPaisField;
+        }
+        set {
+            this.xPaisField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string fone {
+        get {
+            return this.foneField;
+        }
+        set {
+            this.foneField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string email {
+        get {
+            return this.emailField;
+        }
+        set {
+            this.emailField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string IE {
+        get {
+            return this.ieField;
+        }
+        set {
+            this.ieField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType4 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeAutXML : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeAutXML {
     
     private string itemField;
     
@@ -4065,7 +3315,6 @@ public partial class TNFeInfNFeAutXML : object, System.ComponentModel.INotifyPro
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
         }
     }
     
@@ -4077,16 +3326,6 @@ public partial class TNFeInfNFeAutXML : object, System.ComponentModel.INotifyPro
         }
         set {
             this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -4110,7 +3349,7 @@ public enum ItemChoiceType5 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDet {
     
     private TNFeInfNFeDetProd prodField;
     
@@ -4119,6 +3358,12 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
     private TNFeInfNFeDetImpostoDevol impostoDevolField;
     
     private string infAdProdField;
+    
+    private TNFeInfNFeDetObsItem obsItemField;
+    
+    private string vItemField;
+    
+    private TNFeInfNFeDetDFeReferenciado dFeReferenciadoField;
     
     private string nItemField;
     
@@ -4129,7 +3374,6 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
         }
         set {
             this.prodField = value;
-            this.RaisePropertyChanged("prod");
         }
     }
     
@@ -4140,7 +3384,6 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
         }
         set {
             this.impostoField = value;
-            this.RaisePropertyChanged("imposto");
         }
     }
     
@@ -4151,7 +3394,6 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
         }
         set {
             this.impostoDevolField = value;
-            this.RaisePropertyChanged("impostoDevol");
         }
     }
     
@@ -4162,7 +3404,36 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
         }
         set {
             this.infAdProdField = value;
-            this.RaisePropertyChanged("infAdProd");
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetObsItem obsItem {
+        get {
+            return this.obsItemField;
+        }
+        set {
+            this.obsItemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vItem {
+        get {
+            return this.vItemField;
+        }
+        set {
+            this.vItemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetDFeReferenciado DFeReferenciado {
+        get {
+            return this.dFeReferenciadoField;
+        }
+        set {
+            this.dFeReferenciadoField = value;
         }
     }
     
@@ -4174,16 +3445,6 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
         }
         set {
             this.nItemField = value;
-            this.RaisePropertyChanged("nItem");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -4194,11 +3455,13 @@ public partial class TNFeInfNFeDet : object, System.ComponentModel.INotifyProper
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProd {
     
     private string cProdField;
     
     private string cEANField;
+    
+    private string cBarraField;
     
     private string xProdField;
     
@@ -4216,6 +3479,12 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
     
     private string cBenefField;
     
+    private TNFeInfNFeDetProdGCred[] gCredField;
+    
+    private TTpCredPresIBSZFM tpCredPresIBSZFMField;
+    
+    private bool tpCredPresIBSZFMFieldSpecified;
+    
     private string eXTIPIField;
     
     private string cFOPField;
@@ -4229,6 +3498,8 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
     private string vProdField;
     
     private string cEANTribField;
+    
+    private string cBarraTribField;
     
     private string uTribField;
     
@@ -4246,6 +3517,10 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
     
     private TNFeInfNFeDetProdIndTot indTotField;
     
+    private TNFeInfNFeDetProdIndBemMovelUsado indBemMovelUsadoField;
+    
+    private bool indBemMovelUsadoFieldSpecified;
+    
     private TNFeInfNFeDetProdDI[] diField;
     
     private TNFeInfNFeDetProdDetExport[] detExportField;
@@ -4258,6 +3533,10 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
     
     private TNFeInfNFeDetProdRastro[] rastroField;
     
+    private TNFeInfNFeDetProdInfProdNFF infProdNFFField;
+    
+    private TNFeInfNFeDetProdInfProdEmb infProdEmbField;
+    
     private object[] itemsField;
     
     /// <remarks/>
@@ -4267,7 +3546,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cProdField = value;
-            this.RaisePropertyChanged("cProd");
         }
     }
     
@@ -4278,7 +3556,16 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cEANField = value;
-            this.RaisePropertyChanged("cEAN");
+        }
+    }
+    
+    /// <remarks/>
+    public string cBarra {
+        get {
+            return this.cBarraField;
+        }
+        set {
+            this.cBarraField = value;
         }
     }
     
@@ -4289,7 +3576,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.xProdField = value;
-            this.RaisePropertyChanged("xProd");
         }
     }
     
@@ -4300,7 +3586,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nCMField = value;
-            this.RaisePropertyChanged("NCM");
         }
     }
     
@@ -4312,7 +3597,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nVEField = value;
-            this.RaisePropertyChanged("NVE");
         }
     }
     
@@ -4323,7 +3607,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cESTField = value;
-            this.RaisePropertyChanged("CEST");
         }
     }
     
@@ -4334,7 +3617,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.indEscalaField = value;
-            this.RaisePropertyChanged("indEscala");
         }
     }
     
@@ -4346,7 +3628,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.indEscalaFieldSpecified = value;
-            this.RaisePropertyChanged("indEscalaSpecified");
         }
     }
     
@@ -4357,7 +3638,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cNPJFabField = value;
-            this.RaisePropertyChanged("CNPJFab");
         }
     }
     
@@ -4368,7 +3648,38 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cBenefField = value;
-            this.RaisePropertyChanged("cBenef");
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("gCred")]
+    public TNFeInfNFeDetProdGCred[] gCred {
+        get {
+            return this.gCredField;
+        }
+        set {
+            this.gCredField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TTpCredPresIBSZFM tpCredPresIBSZFM {
+        get {
+            return this.tpCredPresIBSZFMField;
+        }
+        set {
+            this.tpCredPresIBSZFMField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool tpCredPresIBSZFMSpecified {
+        get {
+            return this.tpCredPresIBSZFMFieldSpecified;
+        }
+        set {
+            this.tpCredPresIBSZFMFieldSpecified = value;
         }
     }
     
@@ -4379,7 +3690,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.eXTIPIField = value;
-            this.RaisePropertyChanged("EXTIPI");
         }
     }
     
@@ -4390,7 +3700,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cFOPField = value;
-            this.RaisePropertyChanged("CFOP");
         }
     }
     
@@ -4401,7 +3710,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.uComField = value;
-            this.RaisePropertyChanged("uCom");
         }
     }
     
@@ -4412,7 +3720,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.qComField = value;
-            this.RaisePropertyChanged("qCom");
         }
     }
     
@@ -4423,7 +3730,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vUnComField = value;
-            this.RaisePropertyChanged("vUnCom");
         }
     }
     
@@ -4434,7 +3740,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vProdField = value;
-            this.RaisePropertyChanged("vProd");
         }
     }
     
@@ -4445,7 +3750,16 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.cEANTribField = value;
-            this.RaisePropertyChanged("cEANTrib");
+        }
+    }
+    
+    /// <remarks/>
+    public string cBarraTrib {
+        get {
+            return this.cBarraTribField;
+        }
+        set {
+            this.cBarraTribField = value;
         }
     }
     
@@ -4456,7 +3770,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.uTribField = value;
-            this.RaisePropertyChanged("uTrib");
         }
     }
     
@@ -4467,7 +3780,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.qTribField = value;
-            this.RaisePropertyChanged("qTrib");
         }
     }
     
@@ -4478,7 +3790,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vUnTribField = value;
-            this.RaisePropertyChanged("vUnTrib");
         }
     }
     
@@ -4489,7 +3800,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vFreteField = value;
-            this.RaisePropertyChanged("vFrete");
         }
     }
     
@@ -4500,7 +3810,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vSegField = value;
-            this.RaisePropertyChanged("vSeg");
         }
     }
     
@@ -4511,7 +3820,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vDescField = value;
-            this.RaisePropertyChanged("vDesc");
         }
     }
     
@@ -4522,7 +3830,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vOutroField = value;
-            this.RaisePropertyChanged("vOutro");
         }
     }
     
@@ -4533,7 +3840,27 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.indTotField = value;
-            this.RaisePropertyChanged("indTot");
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetProdIndBemMovelUsado indBemMovelUsado {
+        get {
+            return this.indBemMovelUsadoField;
+        }
+        set {
+            this.indBemMovelUsadoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indBemMovelUsadoSpecified {
+        get {
+            return this.indBemMovelUsadoFieldSpecified;
+        }
+        set {
+            this.indBemMovelUsadoFieldSpecified = value;
         }
     }
     
@@ -4545,7 +3872,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.diField = value;
-            this.RaisePropertyChanged("DI");
         }
     }
     
@@ -4557,7 +3883,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.detExportField = value;
-            this.RaisePropertyChanged("detExport");
         }
     }
     
@@ -4568,7 +3893,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.xPedField = value;
-            this.RaisePropertyChanged("xPed");
         }
     }
     
@@ -4579,7 +3903,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nItemPedField = value;
-            this.RaisePropertyChanged("nItemPed");
         }
     }
     
@@ -4590,7 +3913,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nFCIField = value;
-            this.RaisePropertyChanged("nFCI");
         }
     }
     
@@ -4602,7 +3924,26 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.rastroField = value;
-            this.RaisePropertyChanged("rastro");
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetProdInfProdNFF infProdNFF {
+        get {
+            return this.infProdNFFField;
+        }
+        set {
+            this.infProdNFFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetProdInfProdEmb infProdEmb {
+        get {
+            return this.infProdEmbField;
+        }
+        set {
+            this.infProdEmbField = value;
         }
     }
     
@@ -4618,16 +3959,6 @@ public partial class TNFeInfNFeDetProd : object, System.ComponentModel.INotifyPr
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -4648,6 +3979,78 @@ public enum TNFeInfNFeDetProdIndEscala {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetProdGCred {
+    
+    private string cCredPresumidoField;
+    
+    private string pCredPresumidoField;
+    
+    private string vCredPresumidoField;
+    
+    /// <remarks/>
+    public string cCredPresumido {
+        get {
+            return this.cCredPresumidoField;
+        }
+        set {
+            this.cCredPresumidoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pCredPresumido {
+        get {
+            return this.pCredPresumidoField;
+        }
+        set {
+            this.pCredPresumidoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPresumido {
+        get {
+            return this.vCredPresumidoField;
+        }
+        set {
+            this.vCredPresumidoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TTpCredPresIBSZFM {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
 public enum TNFeInfNFeDetProdIndTot {
     
@@ -4663,10 +4066,21 @@ public enum TNFeInfNFeDetProdIndTot {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetProdIndBemMovelUsado {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdDI {
     
     private string nDIField;
     
@@ -4684,7 +4098,9 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
     
     private TNFeInfNFeDetProdDITpIntermedio tpIntermedioField;
     
-    private string cNPJField;
+    private string itemField;
+    
+    private ItemChoiceType6 itemElementNameField;
     
     private TUfEmi uFTerceiroField;
     
@@ -4701,7 +4117,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.nDIField = value;
-            this.RaisePropertyChanged("nDI");
         }
     }
     
@@ -4712,7 +4127,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.dDIField = value;
-            this.RaisePropertyChanged("dDI");
         }
     }
     
@@ -4723,7 +4137,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.xLocDesembField = value;
-            this.RaisePropertyChanged("xLocDesemb");
         }
     }
     
@@ -4734,7 +4147,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.uFDesembField = value;
-            this.RaisePropertyChanged("UFDesemb");
         }
     }
     
@@ -4745,7 +4157,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.dDesembField = value;
-            this.RaisePropertyChanged("dDesemb");
         }
     }
     
@@ -4756,7 +4167,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.tpViaTranspField = value;
-            this.RaisePropertyChanged("tpViaTransp");
         }
     }
     
@@ -4767,7 +4177,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.vAFRMMField = value;
-            this.RaisePropertyChanged("vAFRMM");
         }
     }
     
@@ -4778,18 +4187,30 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.tpIntermedioField = value;
-            this.RaisePropertyChanged("tpIntermedio");
         }
     }
     
     /// <remarks/>
-    public string CNPJ {
+    [System.Xml.Serialization.XmlElementAttribute("CNPJ", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("CPF", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
         get {
-            return this.cNPJField;
+            return this.itemField;
         }
         set {
-            this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType6 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
         }
     }
     
@@ -4800,7 +4221,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.uFTerceiroField = value;
-            this.RaisePropertyChanged("UFTerceiro");
         }
     }
     
@@ -4812,7 +4232,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.uFTerceiroFieldSpecified = value;
-            this.RaisePropertyChanged("UFTerceiroSpecified");
         }
     }
     
@@ -4823,7 +4242,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.cExportadorField = value;
-            this.RaisePropertyChanged("cExportador");
         }
     }
     
@@ -4835,16 +4253,6 @@ public partial class TNFeInfNFeDetProdDI : object, System.ComponentModel.INotify
         }
         set {
             this.adiField = value;
-            this.RaisePropertyChanged("adi");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -4902,6 +4310,10 @@ public enum TNFeInfNFeDetProdDITpViaTransp {
     /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("12")]
     Item12,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("13")]
+    Item13,
 }
 
 /// <remarks/>
@@ -4926,10 +4338,23 @@ public enum TNFeInfNFeDetProdDITpIntermedio {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType6 {
+    
+    /// <remarks/>
+    CNPJ,
+    
+    /// <remarks/>
+    CPF,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdDIAdi {
     
     private string nAdicaoField;
     
@@ -4948,7 +4373,6 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
         }
         set {
             this.nAdicaoField = value;
-            this.RaisePropertyChanged("nAdicao");
         }
     }
     
@@ -4959,7 +4383,6 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
         }
         set {
             this.nSeqAdicField = value;
-            this.RaisePropertyChanged("nSeqAdic");
         }
     }
     
@@ -4970,7 +4393,6 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
         }
         set {
             this.cFabricanteField = value;
-            this.RaisePropertyChanged("cFabricante");
         }
     }
     
@@ -4981,7 +4403,6 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
         }
         set {
             this.vDescDIField = value;
-            this.RaisePropertyChanged("vDescDI");
         }
     }
     
@@ -4992,16 +4413,6 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
         }
         set {
             this.nDrawField = value;
-            this.RaisePropertyChanged("nDraw");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5012,7 +4423,7 @@ public partial class TNFeInfNFeDetProdDIAdi : object, System.ComponentModel.INot
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdDetExport : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdDetExport {
     
     private string nDrawField;
     
@@ -5025,7 +4436,6 @@ public partial class TNFeInfNFeDetProdDetExport : object, System.ComponentModel.
         }
         set {
             this.nDrawField = value;
-            this.RaisePropertyChanged("nDraw");
         }
     }
     
@@ -5036,16 +4446,6 @@ public partial class TNFeInfNFeDetProdDetExport : object, System.ComponentModel.
         }
         set {
             this.exportIndField = value;
-            this.RaisePropertyChanged("exportInd");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5056,7 +4456,7 @@ public partial class TNFeInfNFeDetProdDetExport : object, System.ComponentModel.
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdDetExportExportInd : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdDetExportExportInd {
     
     private string nREField;
     
@@ -5071,7 +4471,6 @@ public partial class TNFeInfNFeDetProdDetExportExportInd : object, System.Compon
         }
         set {
             this.nREField = value;
-            this.RaisePropertyChanged("nRE");
         }
     }
     
@@ -5082,7 +4481,6 @@ public partial class TNFeInfNFeDetProdDetExportExportInd : object, System.Compon
         }
         set {
             this.chNFeField = value;
-            this.RaisePropertyChanged("chNFe");
         }
     }
     
@@ -5093,16 +4491,6 @@ public partial class TNFeInfNFeDetProdDetExportExportInd : object, System.Compon
         }
         set {
             this.qExportField = value;
-            this.RaisePropertyChanged("qExport");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5113,7 +4501,7 @@ public partial class TNFeInfNFeDetProdDetExportExportInd : object, System.Compon
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdRastro {
     
     private string nLoteField;
     
@@ -5132,7 +4520,6 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
         }
         set {
             this.nLoteField = value;
-            this.RaisePropertyChanged("nLote");
         }
     }
     
@@ -5143,7 +4530,6 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
         }
         set {
             this.qLoteField = value;
-            this.RaisePropertyChanged("qLote");
         }
     }
     
@@ -5154,7 +4540,6 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
         }
         set {
             this.dFabField = value;
-            this.RaisePropertyChanged("dFab");
         }
     }
     
@@ -5165,7 +4550,6 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
         }
         set {
             this.dValField = value;
-            this.RaisePropertyChanged("dVal");
         }
     }
     
@@ -5176,16 +4560,6 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
         }
         set {
             this.cAgregField = value;
-            this.RaisePropertyChanged("cAgreg");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5196,7 +4570,85 @@ public partial class TNFeInfNFeDetProdRastro : object, System.ComponentModel.INo
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdArma : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdInfProdNFF {
+    
+    private string cProdFiscoField;
+    
+    private string cOperNFFField;
+    
+    /// <remarks/>
+    public string cProdFisco {
+        get {
+            return this.cProdFiscoField;
+        }
+        set {
+            this.cProdFiscoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cOperNFF {
+        get {
+            return this.cOperNFFField;
+        }
+        set {
+            this.cOperNFFField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetProdInfProdEmb {
+    
+    private string xEmbField;
+    
+    private string qVolEmbField;
+    
+    private string uEmbField;
+    
+    /// <remarks/>
+    public string xEmb {
+        get {
+            return this.xEmbField;
+        }
+        set {
+            this.xEmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qVolEmb {
+        get {
+            return this.qVolEmbField;
+        }
+        set {
+            this.qVolEmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string uEmb {
+        get {
+            return this.uEmbField;
+        }
+        set {
+            this.uEmbField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetProdArma {
     
     private TNFeInfNFeDetProdArmaTpArma tpArmaField;
     
@@ -5213,7 +4665,6 @@ public partial class TNFeInfNFeDetProdArma : object, System.ComponentModel.INoti
         }
         set {
             this.tpArmaField = value;
-            this.RaisePropertyChanged("tpArma");
         }
     }
     
@@ -5224,7 +4675,6 @@ public partial class TNFeInfNFeDetProdArma : object, System.ComponentModel.INoti
         }
         set {
             this.nSerieField = value;
-            this.RaisePropertyChanged("nSerie");
         }
     }
     
@@ -5235,7 +4685,6 @@ public partial class TNFeInfNFeDetProdArma : object, System.ComponentModel.INoti
         }
         set {
             this.nCanoField = value;
-            this.RaisePropertyChanged("nCano");
         }
     }
     
@@ -5246,16 +4695,6 @@ public partial class TNFeInfNFeDetProdArma : object, System.ComponentModel.INoti
         }
         set {
             this.descrField = value;
-            this.RaisePropertyChanged("descr");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5281,7 +4720,7 @@ public enum TNFeInfNFeDetProdArmaTpArma {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdComb {
     
     private string cProdANPField;
     
@@ -5305,6 +4744,10 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
     
     private TNFeInfNFeDetProdCombEncerrante encerranteField;
     
+    private string pBioField;
+    
+    private TNFeInfNFeDetProdCombOrigComb[] origCombField;
+    
     /// <remarks/>
     public string cProdANP {
         get {
@@ -5312,7 +4755,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.cProdANPField = value;
-            this.RaisePropertyChanged("cProdANP");
         }
     }
     
@@ -5323,7 +4765,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.descANPField = value;
-            this.RaisePropertyChanged("descANP");
         }
     }
     
@@ -5334,7 +4775,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.pGLPField = value;
-            this.RaisePropertyChanged("pGLP");
         }
     }
     
@@ -5345,7 +4785,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.pGNnField = value;
-            this.RaisePropertyChanged("pGNn");
         }
     }
     
@@ -5356,7 +4795,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.pGNiField = value;
-            this.RaisePropertyChanged("pGNi");
         }
     }
     
@@ -5367,7 +4805,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.vPartField = value;
-            this.RaisePropertyChanged("vPart");
         }
     }
     
@@ -5378,7 +4815,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.cODIFField = value;
-            this.RaisePropertyChanged("CODIF");
         }
     }
     
@@ -5389,7 +4825,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.qTempField = value;
-            this.RaisePropertyChanged("qTemp");
         }
     }
     
@@ -5400,7 +4835,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.uFConsField = value;
-            this.RaisePropertyChanged("UFCons");
         }
     }
     
@@ -5411,7 +4845,6 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.cIDEField = value;
-            this.RaisePropertyChanged("CIDE");
         }
     }
     
@@ -5422,16 +4855,27 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
         }
         set {
             this.encerranteField = value;
-            this.RaisePropertyChanged("encerrante");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string pBio {
+        get {
+            return this.pBioField;
+        }
+        set {
+            this.pBioField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("origComb")]
+    public TNFeInfNFeDetProdCombOrigComb[] origComb {
+        get {
+            return this.origCombField;
+        }
+        set {
+            this.origCombField = value;
         }
     }
 }
@@ -5442,7 +4886,7 @@ public partial class TNFeInfNFeDetProdComb : object, System.ComponentModel.INoti
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdCombCIDE : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdCombCIDE {
     
     private string qBCProdField;
     
@@ -5457,7 +4901,6 @@ public partial class TNFeInfNFeDetProdCombCIDE : object, System.ComponentModel.I
         }
         set {
             this.qBCProdField = value;
-            this.RaisePropertyChanged("qBCProd");
         }
     }
     
@@ -5468,7 +4911,6 @@ public partial class TNFeInfNFeDetProdCombCIDE : object, System.ComponentModel.I
         }
         set {
             this.vAliqProdField = value;
-            this.RaisePropertyChanged("vAliqProd");
         }
     }
     
@@ -5479,16 +4921,6 @@ public partial class TNFeInfNFeDetProdCombCIDE : object, System.ComponentModel.I
         }
         set {
             this.vCIDEField = value;
-            this.RaisePropertyChanged("vCIDE");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5499,7 +4931,7 @@ public partial class TNFeInfNFeDetProdCombCIDE : object, System.ComponentModel.I
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdCombEncerrante {
     
     private string nBicoField;
     
@@ -5518,7 +4950,6 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
         }
         set {
             this.nBicoField = value;
-            this.RaisePropertyChanged("nBico");
         }
     }
     
@@ -5529,7 +4960,6 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
         }
         set {
             this.nBombaField = value;
-            this.RaisePropertyChanged("nBomba");
         }
     }
     
@@ -5540,7 +4970,6 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
         }
         set {
             this.nTanqueField = value;
-            this.RaisePropertyChanged("nTanque");
         }
     }
     
@@ -5551,7 +4980,6 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
         }
         set {
             this.vEncIniField = value;
-            this.RaisePropertyChanged("vEncIni");
         }
     }
     
@@ -5562,16 +4990,6 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
         }
         set {
             this.vEncFinField = value;
-            this.RaisePropertyChanged("vEncFin");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5582,7 +5000,67 @@ public partial class TNFeInfNFeDetProdCombEncerrante : object, System.ComponentM
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdMed : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdCombOrigComb {
+    
+    private TNFeInfNFeDetProdCombOrigCombIndImport indImportField;
+    
+    private TCodUfIBGE cUFOrigField;
+    
+    private string pOrigField;
+    
+    /// <remarks/>
+    public TNFeInfNFeDetProdCombOrigCombIndImport indImport {
+        get {
+            return this.indImportField;
+        }
+        set {
+            this.indImportField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCodUfIBGE cUFOrig {
+        get {
+            return this.cUFOrigField;
+        }
+        set {
+            this.cUFOrigField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pOrig {
+        get {
+            return this.pOrigField;
+        }
+        set {
+            this.pOrigField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetProdCombOrigCombIndImport {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetProdMed {
     
     private string cProdANVISAField;
     
@@ -5597,7 +5075,6 @@ public partial class TNFeInfNFeDetProdMed : object, System.ComponentModel.INotif
         }
         set {
             this.cProdANVISAField = value;
-            this.RaisePropertyChanged("cProdANVISA");
         }
     }
     
@@ -5608,7 +5085,6 @@ public partial class TNFeInfNFeDetProdMed : object, System.ComponentModel.INotif
         }
         set {
             this.xMotivoIsencaoField = value;
-            this.RaisePropertyChanged("xMotivoIsencao");
         }
     }
     
@@ -5619,16 +5095,6 @@ public partial class TNFeInfNFeDetProdMed : object, System.ComponentModel.INotif
         }
         set {
             this.vPMCField = value;
-            this.RaisePropertyChanged("vPMC");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -5639,7 +5105,7 @@ public partial class TNFeInfNFeDetProdMed : object, System.ComponentModel.INotif
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetProdVeicProd {
     
     private TNFeInfNFeDetProdVeicProdTpOp tpOpField;
     
@@ -5696,7 +5162,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.tpOpField = value;
-            this.RaisePropertyChanged("tpOp");
         }
     }
     
@@ -5707,7 +5172,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.chassiField = value;
-            this.RaisePropertyChanged("chassi");
         }
     }
     
@@ -5718,7 +5182,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.cCorField = value;
-            this.RaisePropertyChanged("cCor");
         }
     }
     
@@ -5729,7 +5192,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.xCorField = value;
-            this.RaisePropertyChanged("xCor");
         }
     }
     
@@ -5740,7 +5202,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.potField = value;
-            this.RaisePropertyChanged("pot");
         }
     }
     
@@ -5751,7 +5212,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.cilinField = value;
-            this.RaisePropertyChanged("cilin");
         }
     }
     
@@ -5762,7 +5222,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.pesoLField = value;
-            this.RaisePropertyChanged("pesoL");
         }
     }
     
@@ -5773,7 +5232,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.pesoBField = value;
-            this.RaisePropertyChanged("pesoB");
         }
     }
     
@@ -5784,7 +5242,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.nSerieField = value;
-            this.RaisePropertyChanged("nSerie");
         }
     }
     
@@ -5795,7 +5252,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.tpCombField = value;
-            this.RaisePropertyChanged("tpComb");
         }
     }
     
@@ -5806,7 +5262,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.nMotorField = value;
-            this.RaisePropertyChanged("nMotor");
         }
     }
     
@@ -5817,7 +5272,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.cMTField = value;
-            this.RaisePropertyChanged("CMT");
         }
     }
     
@@ -5828,7 +5282,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.distField = value;
-            this.RaisePropertyChanged("dist");
         }
     }
     
@@ -5839,7 +5292,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.anoModField = value;
-            this.RaisePropertyChanged("anoMod");
         }
     }
     
@@ -5850,7 +5302,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.anoFabField = value;
-            this.RaisePropertyChanged("anoFab");
         }
     }
     
@@ -5861,7 +5312,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.tpPintField = value;
-            this.RaisePropertyChanged("tpPint");
         }
     }
     
@@ -5872,7 +5322,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.tpVeicField = value;
-            this.RaisePropertyChanged("tpVeic");
         }
     }
     
@@ -5883,7 +5332,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.espVeicField = value;
-            this.RaisePropertyChanged("espVeic");
         }
     }
     
@@ -5894,7 +5342,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.vINField = value;
-            this.RaisePropertyChanged("VIN");
         }
     }
     
@@ -5905,7 +5352,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.condVeicField = value;
-            this.RaisePropertyChanged("condVeic");
         }
     }
     
@@ -5916,7 +5362,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.cModField = value;
-            this.RaisePropertyChanged("cMod");
         }
     }
     
@@ -5927,7 +5372,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.cCorDENATRANField = value;
-            this.RaisePropertyChanged("cCorDENATRAN");
         }
     }
     
@@ -5938,7 +5382,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.lotaField = value;
-            this.RaisePropertyChanged("lota");
         }
     }
     
@@ -5949,16 +5392,6 @@ public partial class TNFeInfNFeDetProdVeicProd : object, System.ComponentModel.I
         }
         set {
             this.tpRestField = value;
-            this.RaisePropertyChanged("tpRest");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -6055,7 +5488,7 @@ public enum TNFeInfNFeDetProdVeicProdTpRest {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImposto {
     
     private string vTotTribField;
     
@@ -6071,6 +5504,10 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
     
     private TNFeInfNFeDetImpostoICMSUFDest iCMSUFDestField;
     
+    private TIS isField;
+    
+    private TTribNFe iBSCBSField;
+    
     /// <remarks/>
     public string vTotTrib {
         get {
@@ -6078,7 +5515,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.vTotTribField = value;
-            this.RaisePropertyChanged("vTotTrib");
         }
     }
     
@@ -6093,7 +5529,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -6104,7 +5539,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.pISField = value;
-            this.RaisePropertyChanged("PIS");
         }
     }
     
@@ -6115,7 +5549,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.pISSTField = value;
-            this.RaisePropertyChanged("PISST");
         }
     }
     
@@ -6126,7 +5559,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.cOFINSField = value;
-            this.RaisePropertyChanged("COFINS");
         }
     }
     
@@ -6137,7 +5569,6 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.cOFINSSTField = value;
-            this.RaisePropertyChanged("COFINSST");
         }
     }
     
@@ -6148,16 +5579,26 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
         }
         set {
             this.iCMSUFDestField = value;
-            this.RaisePropertyChanged("ICMSUFDest");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TIS IS {
+        get {
+            return this.isField;
+        }
+        set {
+            this.isField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public TTribNFe IBSCBS {
+        get {
+            return this.iBSCBSField;
+        }
+        set {
+            this.iBSCBSField = value;
         }
     }
 }
@@ -6168,18 +5609,22 @@ public partial class TNFeInfNFeDetImposto : object, System.ComponentModel.INotif
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMS : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMS {
     
     private object itemField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("ICMS00", typeof(TNFeInfNFeDetImpostoICMSICMS00))]
+    [System.Xml.Serialization.XmlElementAttribute("ICMS02", typeof(TNFeInfNFeDetImpostoICMSICMS02))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS10", typeof(TNFeInfNFeDetImpostoICMSICMS10))]
+    [System.Xml.Serialization.XmlElementAttribute("ICMS15", typeof(TNFeInfNFeDetImpostoICMSICMS15))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS20", typeof(TNFeInfNFeDetImpostoICMSICMS20))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS30", typeof(TNFeInfNFeDetImpostoICMSICMS30))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS40", typeof(TNFeInfNFeDetImpostoICMSICMS40))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS51", typeof(TNFeInfNFeDetImpostoICMSICMS51))]
+    [System.Xml.Serialization.XmlElementAttribute("ICMS53", typeof(TNFeInfNFeDetImpostoICMSICMS53))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS60", typeof(TNFeInfNFeDetImpostoICMSICMS60))]
+    [System.Xml.Serialization.XmlElementAttribute("ICMS61", typeof(TNFeInfNFeDetImpostoICMSICMS61))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS70", typeof(TNFeInfNFeDetImpostoICMSICMS70))]
     [System.Xml.Serialization.XmlElementAttribute("ICMS90", typeof(TNFeInfNFeDetImpostoICMSICMS90))]
     [System.Xml.Serialization.XmlElementAttribute("ICMSPart", typeof(TNFeInfNFeDetImpostoICMSICMSPart))]
@@ -6196,16 +5641,6 @@ public partial class TNFeInfNFeDetImpostoICMS : object, System.ComponentModel.IN
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -6216,7 +5651,7 @@ public partial class TNFeInfNFeDetImpostoICMS : object, System.ComponentModel.IN
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS00 {
     
     private Torig origField;
     
@@ -6241,7 +5676,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -6252,7 +5686,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -6263,7 +5696,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -6274,7 +5706,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -6285,7 +5716,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -6296,7 +5726,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -6307,7 +5736,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -6318,16 +5746,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS00 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -6415,7 +5833,87 @@ public enum TNFeInfNFeDetImpostoICMSICMS00ModBC {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS02 {
+    
+    private Torig origField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS02CST cSTField;
+    
+    private string qBCMonoField;
+    
+    private string adRemICMSField;
+    
+    private string vICMSMonoField;
+    
+    /// <remarks/>
+    public Torig orig {
+        get {
+            return this.origField;
+        }
+        set {
+            this.origField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS02CST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMono {
+        get {
+            return this.qBCMonoField;
+        }
+        set {
+            this.qBCMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMS {
+        get {
+            return this.adRemICMSField;
+        }
+        set {
+            this.adRemICMSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMono {
+        get {
+            return this.vICMSMonoField;
+        }
+        set {
+            this.vICMSMonoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS02CST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("02")]
+    Item02,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoICMSICMS10 {
     
     private Torig origField;
     
@@ -6453,6 +5951,10 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
     
     private string vFCPSTField;
     
+    private string vICMSSTDesonField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS10MotDesICMSST motDesICMSSTField;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -6460,7 +5962,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -6471,7 +5972,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -6482,7 +5982,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -6493,7 +5992,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -6504,7 +6002,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -6515,7 +6012,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -6526,7 +6022,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vBCFCPField = value;
-            this.RaisePropertyChanged("vBCFCP");
         }
     }
     
@@ -6537,7 +6032,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -6548,7 +6042,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
@@ -6559,7 +6052,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -6570,7 +6062,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -6581,7 +6072,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -6592,7 +6082,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -6603,7 +6092,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -6614,7 +6102,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -6625,7 +6112,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -6636,7 +6122,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -6647,16 +6132,26 @@ public partial class TNFeInfNFeDetImpostoICMSICMS10 : object, System.ComponentMo
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string vICMSSTDeson {
+        get {
+            return this.vICMSSTDesonField;
+        }
+        set {
+            this.vICMSSTDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS10MotDesICMSST motDesICMSST {
+        get {
+            return this.motDesICMSSTField;
+        }
+        set {
+            this.motDesICMSSTField = value;
         }
     }
 }
@@ -6733,10 +6228,184 @@ public enum TNFeInfNFeDetImpostoICMSICMS10ModBCST {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS10MotDesICMSST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("9")]
+    Item9,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("12")]
+    Item12,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS15 {
+    
+    private Torig origField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS15CST cSTField;
+    
+    private string qBCMonoField;
+    
+    private string adRemICMSField;
+    
+    private string vICMSMonoField;
+    
+    private string qBCMonoRetenField;
+    
+    private string adRemICMSRetenField;
+    
+    private string vICMSMonoRetenField;
+    
+    private string pRedAdRemField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS15MotRedAdRem motRedAdRemField;
+    
+    /// <remarks/>
+    public Torig orig {
+        get {
+            return this.origField;
+        }
+        set {
+            this.origField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS15CST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMono {
+        get {
+            return this.qBCMonoField;
+        }
+        set {
+            this.qBCMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMS {
+        get {
+            return this.adRemICMSField;
+        }
+        set {
+            this.adRemICMSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMono {
+        get {
+            return this.vICMSMonoField;
+        }
+        set {
+            this.vICMSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMonoReten {
+        get {
+            return this.qBCMonoRetenField;
+        }
+        set {
+            this.qBCMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMSReten {
+        get {
+            return this.adRemICMSRetenField;
+        }
+        set {
+            this.adRemICMSRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoReten {
+        get {
+            return this.vICMSMonoRetenField;
+        }
+        set {
+            this.vICMSMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pRedAdRem {
+        get {
+            return this.pRedAdRemField;
+        }
+        set {
+            this.pRedAdRemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS15MotRedAdRem motRedAdRem {
+        get {
+            return this.motRedAdRemField;
+        }
+        set {
+            this.motRedAdRemField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS15CST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("15")]
+    Item15,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS15MotRedAdRem {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("9")]
+    Item9,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoICMSICMS20 {
     
     private Torig origField;
     
@@ -6762,6 +6431,10 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
     
     private TNFeInfNFeDetImpostoICMSICMS20MotDesICMS motDesICMSField;
     
+    private TNFeInfNFeDetImpostoICMSICMS20IndDeduzDeson indDeduzDesonField;
+    
+    private bool indDeduzDesonFieldSpecified;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -6769,7 +6442,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -6780,7 +6452,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -6791,7 +6462,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -6802,7 +6472,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
         }
     }
     
@@ -6813,7 +6482,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -6824,7 +6492,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -6835,7 +6502,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -6846,7 +6512,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.vBCFCPField = value;
-            this.RaisePropertyChanged("vBCFCP");
         }
     }
     
@@ -6857,7 +6522,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -6868,7 +6532,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
@@ -6879,7 +6542,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -6890,16 +6552,27 @@ public partial class TNFeInfNFeDetImpostoICMSICMS20 : object, System.ComponentMo
         }
         set {
             this.motDesICMSField = value;
-            this.RaisePropertyChanged("motDesICMS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS20IndDeduzDeson indDeduzDeson {
+        get {
+            return this.indDeduzDesonField;
+        }
+        set {
+            this.indDeduzDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDeduzDesonSpecified {
+        get {
+            return this.indDeduzDesonFieldSpecified;
+        }
+        set {
+            this.indDeduzDesonFieldSpecified = value;
         }
     }
 }
@@ -6960,10 +6633,25 @@ public enum TNFeInfNFeDetImpostoICMSICMS20MotDesICMS {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS20IndDeduzDeson {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS30 {
     
     private Torig origField;
     
@@ -6991,6 +6679,10 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
     
     private TNFeInfNFeDetImpostoICMSICMS30MotDesICMS motDesICMSField;
     
+    private TNFeInfNFeDetImpostoICMSICMS30IndDeduzDeson indDeduzDesonField;
+    
+    private bool indDeduzDesonFieldSpecified;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -6998,7 +6690,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -7009,7 +6700,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -7020,7 +6710,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -7031,7 +6720,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -7042,7 +6730,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -7053,7 +6740,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -7064,7 +6750,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -7075,7 +6760,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -7086,7 +6770,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -7097,7 +6780,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -7108,7 +6790,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -7119,7 +6800,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -7130,16 +6810,27 @@ public partial class TNFeInfNFeDetImpostoICMSICMS30 : object, System.ComponentMo
         }
         set {
             this.motDesICMSField = value;
-            this.RaisePropertyChanged("motDesICMS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS30IndDeduzDeson indDeduzDeson {
+        get {
+            return this.indDeduzDesonField;
+        }
+        set {
+            this.indDeduzDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDeduzDesonSpecified {
+        get {
+            return this.indDeduzDesonFieldSpecified;
+        }
+        set {
+            this.indDeduzDesonFieldSpecified = value;
         }
     }
 }
@@ -7212,10 +6903,25 @@ public enum TNFeInfNFeDetImpostoICMSICMS30MotDesICMS {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS30IndDeduzDeson {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS40 {
     
     private Torig origField;
     
@@ -7225,6 +6931,10 @@ public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentMo
     
     private TNFeInfNFeDetImpostoICMSICMS40MotDesICMS motDesICMSField;
     
+    private TNFeInfNFeDetImpostoICMSICMS40IndDeduzDeson indDeduzDesonField;
+    
+    private bool indDeduzDesonFieldSpecified;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -7232,7 +6942,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -7243,7 +6952,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -7254,7 +6962,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentMo
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -7265,16 +6972,27 @@ public partial class TNFeInfNFeDetImpostoICMSICMS40 : object, System.ComponentMo
         }
         set {
             this.motDesICMSField = value;
-            this.RaisePropertyChanged("motDesICMS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS40IndDeduzDeson indDeduzDeson {
+        get {
+            return this.indDeduzDesonField;
+        }
+        set {
+            this.indDeduzDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDeduzDesonSpecified {
+        get {
+            return this.indDeduzDesonFieldSpecified;
+        }
+        set {
+            this.indDeduzDesonFieldSpecified = value;
         }
     }
 }
@@ -7356,10 +7074,25 @@ public enum TNFeInfNFeDetImpostoICMSICMS40MotDesICMS {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS40IndDeduzDeson {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS51 {
     
     private Torig origField;
     
@@ -7370,6 +7103,8 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
     private bool modBCFieldSpecified;
     
     private string pRedBCField;
+    
+    private string cBenefRBCField;
     
     private string vBCField;
     
@@ -7389,6 +7124,12 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
     
     private string vFCPField;
     
+    private string pFCPDifField;
+    
+    private string vFCPDifField;
+    
+    private string vFCPEfetField;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -7396,7 +7137,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -7407,7 +7147,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -7418,7 +7157,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -7430,7 +7168,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.modBCFieldSpecified = value;
-            this.RaisePropertyChanged("modBCSpecified");
         }
     }
     
@@ -7441,7 +7178,16 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
+        }
+    }
+    
+    /// <remarks/>
+    public string cBenefRBC {
+        get {
+            return this.cBenefRBCField;
+        }
+        set {
+            this.cBenefRBCField = value;
         }
     }
     
@@ -7452,7 +7198,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -7463,7 +7208,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -7474,7 +7218,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vICMSOpField = value;
-            this.RaisePropertyChanged("vICMSOp");
         }
     }
     
@@ -7485,7 +7228,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.pDifField = value;
-            this.RaisePropertyChanged("pDif");
         }
     }
     
@@ -7496,7 +7238,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vICMSDifField = value;
-            this.RaisePropertyChanged("vICMSDif");
         }
     }
     
@@ -7507,7 +7248,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -7518,7 +7258,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vBCFCPField = value;
-            this.RaisePropertyChanged("vBCFCP");
         }
     }
     
@@ -7529,7 +7268,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -7540,16 +7278,36 @@ public partial class TNFeInfNFeDetImpostoICMSICMS51 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string pFCPDif {
+        get {
+            return this.pFCPDifField;
+        }
+        set {
+            this.pFCPDifField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public string vFCPDif {
+        get {
+            return this.vFCPDifField;
+        }
+        set {
+            this.vFCPDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vFCPEfet {
+        get {
+            return this.vFCPEfetField;
+        }
+        set {
+            this.vFCPEfetField = value;
         }
     }
 }
@@ -7594,7 +7352,147 @@ public enum TNFeInfNFeDetImpostoICMSICMS51ModBC {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS53 {
+    
+    private Torig origField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS53CST cSTField;
+    
+    private string qBCMonoField;
+    
+    private string adRemICMSField;
+    
+    private string vICMSMonoOpField;
+    
+    private string pDifField;
+    
+    private string vICMSMonoDifField;
+    
+    private string vICMSMonoField;
+    
+    private string qBCMonoDifField;
+    
+    private string adRemICMSDifField;
+    
+    /// <remarks/>
+    public Torig orig {
+        get {
+            return this.origField;
+        }
+        set {
+            this.origField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS53CST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMono {
+        get {
+            return this.qBCMonoField;
+        }
+        set {
+            this.qBCMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMS {
+        get {
+            return this.adRemICMSField;
+        }
+        set {
+            this.adRemICMSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoOp {
+        get {
+            return this.vICMSMonoOpField;
+        }
+        set {
+            this.vICMSMonoOpField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pDif {
+        get {
+            return this.pDifField;
+        }
+        set {
+            this.pDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoDif {
+        get {
+            return this.vICMSMonoDifField;
+        }
+        set {
+            this.vICMSMonoDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMono {
+        get {
+            return this.vICMSMonoField;
+        }
+        set {
+            this.vICMSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMonoDif {
+        get {
+            return this.qBCMonoDifField;
+        }
+        set {
+            this.qBCMonoDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMSDif {
+        get {
+            return this.adRemICMSDifField;
+        }
+        set {
+            this.adRemICMSDifField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS53CST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("53")]
+    Item53,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoICMSICMS60 {
     
     private Torig origField;
     
@@ -7629,7 +7527,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -7640,7 +7537,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -7651,7 +7547,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vBCSTRetField = value;
-            this.RaisePropertyChanged("vBCSTRet");
         }
     }
     
@@ -7662,7 +7557,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.pSTField = value;
-            this.RaisePropertyChanged("pST");
         }
     }
     
@@ -7673,7 +7567,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vICMSSubstitutoField = value;
-            this.RaisePropertyChanged("vICMSSubstituto");
         }
     }
     
@@ -7684,7 +7577,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vICMSSTRetField = value;
-            this.RaisePropertyChanged("vICMSSTRet");
         }
     }
     
@@ -7695,7 +7587,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTRetField = value;
-            this.RaisePropertyChanged("vBCFCPSTRet");
         }
     }
     
@@ -7706,7 +7597,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.pFCPSTRetField = value;
-            this.RaisePropertyChanged("pFCPSTRet");
         }
     }
     
@@ -7717,7 +7607,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vFCPSTRetField = value;
-            this.RaisePropertyChanged("vFCPSTRet");
         }
     }
     
@@ -7728,7 +7617,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.pRedBCEfetField = value;
-            this.RaisePropertyChanged("pRedBCEfet");
         }
     }
     
@@ -7739,7 +7627,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vBCEfetField = value;
-            this.RaisePropertyChanged("vBCEfet");
         }
     }
     
@@ -7750,7 +7637,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.pICMSEfetField = value;
-            this.RaisePropertyChanged("pICMSEfet");
         }
     }
     
@@ -7761,16 +7647,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS60 : object, System.ComponentMo
         }
         set {
             this.vICMSEfetField = value;
-            this.RaisePropertyChanged("vICMSEfet");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -7792,7 +7668,87 @@ public enum TNFeInfNFeDetImpostoICMSICMS60CST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS61 {
+    
+    private Torig origField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS61CST cSTField;
+    
+    private string qBCMonoRetField;
+    
+    private string adRemICMSRetField;
+    
+    private string vICMSMonoRetField;
+    
+    /// <remarks/>
+    public Torig orig {
+        get {
+            return this.origField;
+        }
+        set {
+            this.origField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS61CST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMonoRet {
+        get {
+            return this.qBCMonoRetField;
+        }
+        set {
+            this.qBCMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemICMSRet {
+        get {
+            return this.adRemICMSRetField;
+        }
+        set {
+            this.adRemICMSRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoRet {
+        get {
+            return this.vICMSMonoRetField;
+        }
+        set {
+            this.vICMSMonoRetField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS61CST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("61")]
+    Item61,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoICMSICMS70 {
     
     private Torig origField;
     
@@ -7836,6 +7792,14 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
     
     private TNFeInfNFeDetImpostoICMSICMS70MotDesICMS motDesICMSField;
     
+    private TNFeInfNFeDetImpostoICMSICMS70IndDeduzDeson indDeduzDesonField;
+    
+    private bool indDeduzDesonFieldSpecified;
+    
+    private string vICMSSTDesonField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS70MotDesICMSST motDesICMSSTField;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -7843,7 +7807,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -7854,7 +7817,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -7865,7 +7827,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -7876,7 +7837,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
         }
     }
     
@@ -7887,7 +7847,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -7898,7 +7857,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -7909,7 +7867,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -7920,7 +7877,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vBCFCPField = value;
-            this.RaisePropertyChanged("vBCFCP");
         }
     }
     
@@ -7931,7 +7887,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -7942,7 +7897,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
@@ -7953,7 +7907,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -7964,7 +7917,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -7975,7 +7927,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -7986,7 +7937,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -7997,7 +7947,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -8008,7 +7957,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -8019,7 +7967,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -8030,7 +7977,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -8041,7 +7987,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -8052,7 +7997,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -8063,16 +8007,47 @@ public partial class TNFeInfNFeDetImpostoICMSICMS70 : object, System.ComponentMo
         }
         set {
             this.motDesICMSField = value;
-            this.RaisePropertyChanged("motDesICMS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS70IndDeduzDeson indDeduzDeson {
+        get {
+            return this.indDeduzDesonField;
+        }
+        set {
+            this.indDeduzDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDeduzDesonSpecified {
+        get {
+            return this.indDeduzDesonFieldSpecified;
+        }
+        set {
+            this.indDeduzDesonFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSSTDeson {
+        get {
+            return this.vICMSSTDesonField;
+        }
+        set {
+            this.vICMSSTDesonField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS70MotDesICMSST motDesICMSST {
+        get {
+            return this.motDesICMSSTField;
+        }
+        set {
+            this.motDesICMSSTField = value;
         }
     }
 }
@@ -8168,10 +8143,44 @@ public enum TNFeInfNFeDetImpostoICMSICMS70MotDesICMS {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS70IndDeduzDeson {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS70MotDesICMSST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("9")]
+    Item9,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("12")]
+    Item12,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMS90 {
     
     private Torig origField;
     
@@ -8215,6 +8224,14 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
     
     private TNFeInfNFeDetImpostoICMSICMS90MotDesICMS motDesICMSField;
     
+    private TNFeInfNFeDetImpostoICMSICMS90IndDeduzDeson indDeduzDesonField;
+    
+    private bool indDeduzDesonFieldSpecified;
+    
+    private string vICMSSTDesonField;
+    
+    private TNFeInfNFeDetImpostoICMSICMS90MotDesICMSST motDesICMSSTField;
+    
     /// <remarks/>
     public Torig orig {
         get {
@@ -8222,7 +8239,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -8233,7 +8249,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -8244,7 +8259,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -8255,7 +8269,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -8266,7 +8279,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
         }
     }
     
@@ -8277,7 +8289,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -8288,7 +8299,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -8299,7 +8309,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vBCFCPField = value;
-            this.RaisePropertyChanged("vBCFCP");
         }
     }
     
@@ -8310,7 +8319,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pFCPField = value;
-            this.RaisePropertyChanged("pFCP");
         }
     }
     
@@ -8321,7 +8329,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
@@ -8332,7 +8339,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -8343,7 +8349,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -8354,7 +8359,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -8365,7 +8369,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -8376,7 +8379,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -8387,7 +8389,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -8398,7 +8399,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -8409,7 +8409,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -8420,7 +8419,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -8431,7 +8429,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -8442,16 +8439,47 @@ public partial class TNFeInfNFeDetImpostoICMSICMS90 : object, System.ComponentMo
         }
         set {
             this.motDesICMSField = value;
-            this.RaisePropertyChanged("motDesICMS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS90IndDeduzDeson indDeduzDeson {
+        get {
+            return this.indDeduzDesonField;
+        }
+        set {
+            this.indDeduzDesonField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDeduzDesonSpecified {
+        get {
+            return this.indDeduzDesonFieldSpecified;
+        }
+        set {
+            this.indDeduzDesonFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSSTDeson {
+        get {
+            return this.vICMSSTDesonField;
+        }
+        set {
+            this.vICMSSTDesonField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoICMSICMS90MotDesICMSST motDesICMSST {
+        get {
+            return this.motDesICMSSTField;
+        }
+        set {
+            this.motDesICMSSTField = value;
         }
     }
 }
@@ -8547,10 +8575,44 @@ public enum TNFeInfNFeDetImpostoICMSICMS90MotDesICMS {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS90IndDeduzDeson {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoICMSICMS90MotDesICMSST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("9")]
+    Item9,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("12")]
+    Item12,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSPart {
     
     private Torig origField;
     
@@ -8578,6 +8640,12 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
     
     private string vICMSSTField;
     
+    private string vBCFCPSTField;
+    
+    private string pFCPSTField;
+    
+    private string vFCPSTField;
+    
     private string pBCOpField;
     
     private TUf uFSTField;
@@ -8589,7 +8657,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -8600,7 +8667,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -8611,7 +8677,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -8622,7 +8687,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -8633,7 +8697,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
         }
     }
     
@@ -8644,7 +8707,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -8655,7 +8717,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -8666,7 +8727,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -8677,7 +8737,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -8688,7 +8747,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -8699,7 +8757,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -8710,7 +8767,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -8721,7 +8777,36 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
+        }
+    }
+    
+    /// <remarks/>
+    public string vBCFCPST {
+        get {
+            return this.vBCFCPSTField;
+        }
+        set {
+            this.vBCFCPSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pFCPST {
+        get {
+            return this.pFCPSTField;
+        }
+        set {
+            this.pFCPSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vFCPST {
+        get {
+            return this.vFCPSTField;
+        }
+        set {
+            this.vFCPSTField = value;
         }
     }
     
@@ -8732,7 +8817,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.pBCOpField = value;
-            this.RaisePropertyChanged("pBCOp");
         }
     }
     
@@ -8743,16 +8827,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSPart : object, System.Component
         }
         set {
             this.uFSTField = value;
-            this.RaisePropertyChanged("UFST");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -8836,7 +8910,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSPartModBCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN101 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN101 {
     
     private Torig origField;
     
@@ -8853,7 +8927,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN101 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -8864,7 +8937,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN101 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
         }
     }
     
@@ -8875,7 +8947,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN101 : object, System.Componen
         }
         set {
             this.pCredSNField = value;
-            this.RaisePropertyChanged("pCredSN");
         }
     }
     
@@ -8886,16 +8957,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN101 : object, System.Componen
         }
         set {
             this.vCredICMSSNField = value;
-            this.RaisePropertyChanged("vCredICMSSN");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -8917,9 +8978,11 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN101CSOSN {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN102 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN102 {
     
     private Torig origField;
+    
+    private bool origFieldSpecified;
     
     private TNFeInfNFeDetImpostoICMSICMSSN102CSOSN cSOSNField;
     
@@ -8930,7 +8993,17 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN102 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool origSpecified {
+        get {
+            return this.origFieldSpecified;
+        }
+        set {
+            this.origFieldSpecified = value;
         }
     }
     
@@ -8941,16 +9014,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN102 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -8984,7 +9047,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN102CSOSN {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN201 {
     
     private Torig origField;
     
@@ -9019,7 +9082,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -9030,7 +9092,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
         }
     }
     
@@ -9041,7 +9102,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -9052,7 +9112,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -9063,7 +9122,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -9074,7 +9132,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -9085,7 +9142,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -9096,7 +9152,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -9107,7 +9162,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -9118,7 +9172,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -9129,7 +9182,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -9140,7 +9192,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.pCredSNField = value;
-            this.RaisePropertyChanged("pCredSN");
         }
     }
     
@@ -9151,16 +9202,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN201 : object, System.Componen
         }
         set {
             this.vCredICMSSNField = value;
-            this.RaisePropertyChanged("vCredICMSSN");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -9217,7 +9258,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN201ModBCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN202 {
     
     private Torig origField;
     
@@ -9248,7 +9289,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -9259,7 +9299,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
         }
     }
     
@@ -9270,7 +9309,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -9281,7 +9319,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -9292,7 +9329,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -9303,7 +9339,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -9314,7 +9349,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -9325,7 +9359,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -9336,7 +9369,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -9347,7 +9379,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -9358,16 +9389,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN202 : object, System.Componen
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -9428,7 +9449,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN202ModBCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN500 {
     
     private Torig origField;
     
@@ -9463,7 +9484,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -9474,7 +9494,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
         }
     }
     
@@ -9485,7 +9504,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vBCSTRetField = value;
-            this.RaisePropertyChanged("vBCSTRet");
         }
     }
     
@@ -9496,7 +9514,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.pSTField = value;
-            this.RaisePropertyChanged("pST");
         }
     }
     
@@ -9507,7 +9524,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vICMSSubstitutoField = value;
-            this.RaisePropertyChanged("vICMSSubstituto");
         }
     }
     
@@ -9518,7 +9534,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vICMSSTRetField = value;
-            this.RaisePropertyChanged("vICMSSTRet");
         }
     }
     
@@ -9529,7 +9544,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vBCFCPSTRetField = value;
-            this.RaisePropertyChanged("vBCFCPSTRet");
         }
     }
     
@@ -9540,7 +9554,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.pFCPSTRetField = value;
-            this.RaisePropertyChanged("pFCPSTRet");
         }
     }
     
@@ -9551,7 +9564,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vFCPSTRetField = value;
-            this.RaisePropertyChanged("vFCPSTRet");
         }
     }
     
@@ -9562,7 +9574,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.pRedBCEfetField = value;
-            this.RaisePropertyChanged("pRedBCEfet");
         }
     }
     
@@ -9573,7 +9584,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vBCEfetField = value;
-            this.RaisePropertyChanged("vBCEfet");
         }
     }
     
@@ -9584,7 +9594,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.pICMSEfetField = value;
-            this.RaisePropertyChanged("pICMSEfet");
         }
     }
     
@@ -9595,16 +9604,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN500 : object, System.Componen
         }
         set {
             this.vICMSEfetField = value;
-            this.RaisePropertyChanged("vICMSEfet");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -9626,9 +9625,11 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN500CSOSN {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSSN900 {
     
     private Torig origField;
+    
+    private bool origFieldSpecified;
     
     private TNFeInfNFeDetImpostoICMSICMSSN900CSOSN cSOSNField;
     
@@ -9671,7 +9672,17 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool origSpecified {
+        get {
+            return this.origFieldSpecified;
+        }
+        set {
+            this.origFieldSpecified = value;
         }
     }
     
@@ -9682,7 +9693,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.cSOSNField = value;
-            this.RaisePropertyChanged("CSOSN");
         }
     }
     
@@ -9693,7 +9703,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.modBCField = value;
-            this.RaisePropertyChanged("modBC");
         }
     }
     
@@ -9704,7 +9713,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -9715,7 +9723,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pRedBCField = value;
-            this.RaisePropertyChanged("pRedBC");
         }
     }
     
@@ -9726,7 +9733,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pICMSField = value;
-            this.RaisePropertyChanged("pICMS");
         }
     }
     
@@ -9737,7 +9743,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -9748,7 +9753,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.modBCSTField = value;
-            this.RaisePropertyChanged("modBCST");
         }
     }
     
@@ -9759,7 +9763,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pMVASTField = value;
-            this.RaisePropertyChanged("pMVAST");
         }
     }
     
@@ -9770,7 +9773,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pRedBCSTField = value;
-            this.RaisePropertyChanged("pRedBCST");
         }
     }
     
@@ -9781,7 +9783,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -9792,7 +9793,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pICMSSTField = value;
-            this.RaisePropertyChanged("pICMSST");
         }
     }
     
@@ -9803,7 +9803,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vICMSSTField = value;
-            this.RaisePropertyChanged("vICMSST");
         }
     }
     
@@ -9814,7 +9813,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vBCFCPSTField = value;
-            this.RaisePropertyChanged("vBCFCPST");
         }
     }
     
@@ -9825,7 +9823,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pFCPSTField = value;
-            this.RaisePropertyChanged("pFCPST");
         }
     }
     
@@ -9836,7 +9833,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -9847,7 +9843,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.pCredSNField = value;
-            this.RaisePropertyChanged("pCredSN");
         }
     }
     
@@ -9858,16 +9853,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSSN900 : object, System.Componen
         }
         set {
             this.vCredICMSSNField = value;
-            this.RaisePropertyChanged("vCredICMSSN");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -9947,7 +9932,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSSN900ModBCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSICMSST {
     
     private Torig origField;
     
@@ -9986,7 +9971,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.origField = value;
-            this.RaisePropertyChanged("orig");
         }
     }
     
@@ -9997,7 +9981,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -10008,7 +9991,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vBCSTRetField = value;
-            this.RaisePropertyChanged("vBCSTRet");
         }
     }
     
@@ -10019,7 +10001,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.pSTField = value;
-            this.RaisePropertyChanged("pST");
         }
     }
     
@@ -10030,7 +10011,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vICMSSubstitutoField = value;
-            this.RaisePropertyChanged("vICMSSubstituto");
         }
     }
     
@@ -10041,7 +10021,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vICMSSTRetField = value;
-            this.RaisePropertyChanged("vICMSSTRet");
         }
     }
     
@@ -10052,7 +10031,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vBCFCPSTRetField = value;
-            this.RaisePropertyChanged("vBCFCPSTRet");
         }
     }
     
@@ -10063,7 +10041,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.pFCPSTRetField = value;
-            this.RaisePropertyChanged("pFCPSTRet");
         }
     }
     
@@ -10074,7 +10051,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vFCPSTRetField = value;
-            this.RaisePropertyChanged("vFCPSTRet");
         }
     }
     
@@ -10085,7 +10061,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vBCSTDestField = value;
-            this.RaisePropertyChanged("vBCSTDest");
         }
     }
     
@@ -10096,7 +10071,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vICMSSTDestField = value;
-            this.RaisePropertyChanged("vICMSSTDest");
         }
     }
     
@@ -10107,7 +10081,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.pRedBCEfetField = value;
-            this.RaisePropertyChanged("pRedBCEfet");
         }
     }
     
@@ -10118,7 +10091,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vBCEfetField = value;
-            this.RaisePropertyChanged("vBCEfet");
         }
     }
     
@@ -10129,7 +10101,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.pICMSEfetField = value;
-            this.RaisePropertyChanged("pICMSEfet");
         }
     }
     
@@ -10140,16 +10111,6 @@ public partial class TNFeInfNFeDetImpostoICMSICMSST : object, System.ComponentMo
         }
         set {
             this.vICMSEfetField = value;
-            this.RaisePropertyChanged("vICMSEfet");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -10175,7 +10136,7 @@ public enum TNFeInfNFeDetImpostoICMSICMSSTCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoII {
     
     private string vBCField;
     
@@ -10192,7 +10153,6 @@ public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INot
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -10203,7 +10163,6 @@ public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INot
         }
         set {
             this.vDespAduField = value;
-            this.RaisePropertyChanged("vDespAdu");
         }
     }
     
@@ -10214,7 +10173,6 @@ public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INot
         }
         set {
             this.vIIField = value;
-            this.RaisePropertyChanged("vII");
         }
     }
     
@@ -10225,16 +10183,77 @@ public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INot
         }
         set {
             this.vIOFField = value;
-            this.RaisePropertyChanged("vIOF");
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIpi {
+    
+    private string cNPJProdField;
+    
+    private string cSeloField;
+    
+    private string qSeloField;
+    
+    private string cEnqField;
+    
+    private object itemField;
+    
+    /// <remarks/>
+    public string CNPJProd {
+        get {
+            return this.cNPJProdField;
+        }
+        set {
+            this.cNPJProdField = value;
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string cSelo {
+        get {
+            return this.cSeloField;
+        }
+        set {
+            this.cSeloField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public string qSelo {
+        get {
+            return this.qSeloField;
+        }
+        set {
+            this.qSeloField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cEnq {
+        get {
+            return this.cEnqField;
+        }
+        set {
+            this.cEnqField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("IPINT", typeof(TIpiIPINT))]
+    [System.Xml.Serialization.XmlElementAttribute("IPITrib", typeof(TIpiIPITrib))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
         }
     }
 }
@@ -10245,7 +10264,181 @@ public partial class TNFeInfNFeDetImpostoII : object, System.ComponentModel.INot
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TIpiIPINT {
+    
+    private TIpiIPINTCST cSTField;
+    
+    /// <remarks/>
+    public TIpiIPINTCST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TIpiIPINTCST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("01")]
+    Item01,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("02")]
+    Item02,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("03")]
+    Item03,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("04")]
+    Item04,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("05")]
+    Item05,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("51")]
+    Item51,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("52")]
+    Item52,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("53")]
+    Item53,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("54")]
+    Item54,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("55")]
+    Item55,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIpiIPITrib {
+    
+    private TIpiIPITribCST cSTField;
+    
+    private string[] itemsField;
+    
+    private ItemsChoiceType[] itemsElementNameField;
+    
+    private string vIPIField;
+    
+    /// <remarks/>
+    public TIpiIPITribCST CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("pIPI", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("qUnid", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("vBC", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("vUnid", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemsElementName")]
+    public string[] Items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("ItemsElementName")]
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemsChoiceType[] ItemsElementName {
+        get {
+            return this.itemsElementNameField;
+        }
+        set {
+            this.itemsElementNameField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIPI {
+        get {
+            return this.vIPIField;
+        }
+        set {
+            this.vIPIField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TIpiIPITribCST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("00")]
+    Item00,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("49")]
+    Item49,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("50")]
+    Item50,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("99")]
+    Item99,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemsChoiceType {
+    
+    /// <remarks/>
+    pIPI,
+    
+    /// <remarks/>
+    qUnid,
+    
+    /// <remarks/>
+    vBC,
+    
+    /// <remarks/>
+    vUnid,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoISSQN {
     
     private string vBCField;
     
@@ -10255,7 +10448,7 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
     
     private string cMunFGField;
     
-    private TCListServ cListServField;
+    private string cListServField;
     
     private string vDeducaoField;
     
@@ -10286,7 +10479,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -10297,7 +10489,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vAliqField = value;
-            this.RaisePropertyChanged("vAliq");
         }
     }
     
@@ -10308,7 +10499,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vISSQNField = value;
-            this.RaisePropertyChanged("vISSQN");
         }
     }
     
@@ -10319,18 +10509,16 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.cMunFGField = value;
-            this.RaisePropertyChanged("cMunFG");
         }
     }
     
     /// <remarks/>
-    public TCListServ cListServ {
+    public string cListServ {
         get {
             return this.cListServField;
         }
         set {
             this.cListServField = value;
-            this.RaisePropertyChanged("cListServ");
         }
     }
     
@@ -10341,7 +10529,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vDeducaoField = value;
-            this.RaisePropertyChanged("vDeducao");
         }
     }
     
@@ -10352,7 +10539,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vOutroField = value;
-            this.RaisePropertyChanged("vOutro");
         }
     }
     
@@ -10363,7 +10549,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vDescIncondField = value;
-            this.RaisePropertyChanged("vDescIncond");
         }
     }
     
@@ -10374,7 +10559,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vDescCondField = value;
-            this.RaisePropertyChanged("vDescCond");
         }
     }
     
@@ -10385,7 +10569,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.vISSRetField = value;
-            this.RaisePropertyChanged("vISSRet");
         }
     }
     
@@ -10396,7 +10579,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.indISSField = value;
-            this.RaisePropertyChanged("indISS");
         }
     }
     
@@ -10407,7 +10589,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.cServicoField = value;
-            this.RaisePropertyChanged("cServico");
         }
     }
     
@@ -10418,7 +10599,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.cMunField = value;
-            this.RaisePropertyChanged("cMun");
         }
     }
     
@@ -10429,7 +10609,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.cPaisField = value;
-            this.RaisePropertyChanged("cPais");
         }
     }
     
@@ -10440,7 +10619,6 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.nProcessoField = value;
-            this.RaisePropertyChanged("nProcesso");
         }
     }
     
@@ -10451,821 +10629,8 @@ public partial class TNFeInfNFeDetImpostoISSQN : object, System.ComponentModel.I
         }
         set {
             this.indIncentivoField = value;
-            this.RaisePropertyChanged("indIncentivo");
         }
     }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
-public enum TCListServ {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.01")]
-    Item0101,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.02")]
-    Item0102,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.03")]
-    Item0103,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.04")]
-    Item0104,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.05")]
-    Item0105,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.06")]
-    Item0106,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.07")]
-    Item0107,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.08")]
-    Item0108,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01.09")]
-    Item0109,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("02.01")]
-    Item0201,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03.02")]
-    Item0302,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03.03")]
-    Item0303,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03.04")]
-    Item0304,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03.05")]
-    Item0305,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.01")]
-    Item0401,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.02")]
-    Item0402,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.03")]
-    Item0403,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.04")]
-    Item0404,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.05")]
-    Item0405,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.06")]
-    Item0406,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.07")]
-    Item0407,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.08")]
-    Item0408,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.09")]
-    Item0409,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.10")]
-    Item0410,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.11")]
-    Item0411,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.12")]
-    Item0412,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.13")]
-    Item0413,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.14")]
-    Item0414,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.15")]
-    Item0415,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.16")]
-    Item0416,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.17")]
-    Item0417,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.18")]
-    Item0418,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.19")]
-    Item0419,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.20")]
-    Item0420,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.21")]
-    Item0421,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.22")]
-    Item0422,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04.23")]
-    Item0423,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.01")]
-    Item0501,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.02")]
-    Item0502,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.03")]
-    Item0503,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.04")]
-    Item0504,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.05")]
-    Item0505,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.06")]
-    Item0506,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.07")]
-    Item0507,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.08")]
-    Item0508,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05.09")]
-    Item0509,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.01")]
-    Item0601,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.02")]
-    Item0602,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.03")]
-    Item0603,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.04")]
-    Item0604,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.05")]
-    Item0605,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06.06")]
-    Item0606,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.01")]
-    Item0701,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.02")]
-    Item0702,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.03")]
-    Item0703,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.04")]
-    Item0704,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.05")]
-    Item0705,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.06")]
-    Item0706,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.07")]
-    Item0707,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.08")]
-    Item0708,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.09")]
-    Item0709,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.10")]
-    Item0710,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.11")]
-    Item0711,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.12")]
-    Item0712,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.13")]
-    Item0713,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.16")]
-    Item0716,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.17")]
-    Item0717,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.18")]
-    Item0718,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.19")]
-    Item0719,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.20")]
-    Item0720,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.21")]
-    Item0721,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07.22")]
-    Item0722,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("08.01")]
-    Item0801,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("08.02")]
-    Item0802,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("09.01")]
-    Item0901,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("09.02")]
-    Item0902,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("09.03")]
-    Item0903,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.01")]
-    Item1001,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.02")]
-    Item1002,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.03")]
-    Item1003,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.04")]
-    Item1004,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.05")]
-    Item1005,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.06")]
-    Item1006,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.07")]
-    Item1007,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.08")]
-    Item1008,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.09")]
-    Item1009,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("10.10")]
-    Item1010,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("11.01")]
-    Item1101,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("11.02")]
-    Item1102,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("11.03")]
-    Item1103,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("11.04")]
-    Item1104,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.01")]
-    Item1201,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.02")]
-    Item1202,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.03")]
-    Item1203,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.04")]
-    Item1204,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.05")]
-    Item1205,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.06")]
-    Item1206,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.07")]
-    Item1207,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.08")]
-    Item1208,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.09")]
-    Item1209,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.10")]
-    Item1210,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.11")]
-    Item1211,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.12")]
-    Item1212,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.13")]
-    Item1213,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.14")]
-    Item1214,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.15")]
-    Item1215,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.16")]
-    Item1216,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12.17")]
-    Item1217,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("13.02")]
-    Item1302,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("13.03")]
-    Item1303,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("13.04")]
-    Item1304,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("13.05")]
-    Item1305,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.01")]
-    Item1401,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.02")]
-    Item1402,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.03")]
-    Item1403,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.04")]
-    Item1404,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.05")]
-    Item1405,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.06")]
-    Item1406,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.07")]
-    Item1407,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.08")]
-    Item1408,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.09")]
-    Item1409,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.10")]
-    Item1410,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.11")]
-    Item1411,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.12")]
-    Item1412,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.13")]
-    Item1413,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14.14")]
-    Item1414,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.01")]
-    Item1501,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.02")]
-    Item1502,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.03")]
-    Item1503,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.04")]
-    Item1504,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.05")]
-    Item1505,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.06")]
-    Item1506,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.07")]
-    Item1507,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.08")]
-    Item1508,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.09")]
-    Item1509,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.10")]
-    Item1510,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.11")]
-    Item1511,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.12")]
-    Item1512,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.13")]
-    Item1513,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.14")]
-    Item1514,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.15")]
-    Item1515,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.16")]
-    Item1516,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.17")]
-    Item1517,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15.18")]
-    Item1518,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("16.01")]
-    Item1601,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("16.02")]
-    Item1602,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.01")]
-    Item1701,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.02")]
-    Item1702,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.03")]
-    Item1703,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.04")]
-    Item1704,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.05")]
-    Item1705,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.06")]
-    Item1706,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.08")]
-    Item1708,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.09")]
-    Item1709,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.10")]
-    Item1710,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.11")]
-    Item1711,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.12")]
-    Item1712,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.13")]
-    Item1713,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.14")]
-    Item1714,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.15")]
-    Item1715,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.16")]
-    Item1716,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.17")]
-    Item1717,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.18")]
-    Item1718,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.19")]
-    Item1719,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.20")]
-    Item1720,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.21")]
-    Item1721,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.22")]
-    Item1722,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.23")]
-    Item1723,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.24")]
-    Item1724,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17.25")]
-    Item1725,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("18.01")]
-    Item1801,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("19.01")]
-    Item1901,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("20.01")]
-    Item2001,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("20.02")]
-    Item2002,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("20.03")]
-    Item2003,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("21.01")]
-    Item2101,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("22.01")]
-    Item2201,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("23.01")]
-    Item2301,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("24.01")]
-    Item2401,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25.01")]
-    Item2501,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25.02")]
-    Item2502,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25.03")]
-    Item2503,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25.04")]
-    Item2504,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25.05")]
-    Item2505,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("26.01")]
-    Item2601,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("27.01")]
-    Item2701,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("28.01")]
-    Item2801,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("29.01")]
-    Item2901,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("30.01")]
-    Item3001,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("31.01")]
-    Item3101,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("32.01")]
-    Item3201,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("33.01")]
-    Item3301,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("34.01")]
-    Item3401,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("35.01")]
-    Item3501,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("36.01")]
-    Item3601,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("37.01")]
-    Item3701,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("38.01")]
-    Item3801,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("39.01")]
-    Item3901,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("40.01")]
-    Item4001,
 }
 
 /// <remarks/>
@@ -11324,7 +10689,7 @@ public enum TNFeInfNFeDetImpostoISSQNIndIncentivo {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPIS : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPIS {
     
     private object itemField;
     
@@ -11339,16 +10704,6 @@ public partial class TNFeInfNFeDetImpostoPIS : object, System.ComponentModel.INo
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11359,7 +10714,7 @@ public partial class TNFeInfNFeDetImpostoPIS : object, System.ComponentModel.INo
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPISPISAliq : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPISPISAliq {
     
     private TNFeInfNFeDetImpostoPISPISAliqCST cSTField;
     
@@ -11376,7 +10731,6 @@ public partial class TNFeInfNFeDetImpostoPISPISAliq : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -11387,7 +10741,6 @@ public partial class TNFeInfNFeDetImpostoPISPISAliq : object, System.ComponentMo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -11398,7 +10751,6 @@ public partial class TNFeInfNFeDetImpostoPISPISAliq : object, System.ComponentMo
         }
         set {
             this.pPISField = value;
-            this.RaisePropertyChanged("pPIS");
         }
     }
     
@@ -11409,16 +10761,6 @@ public partial class TNFeInfNFeDetImpostoPISPISAliq : object, System.ComponentMo
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11444,7 +10786,7 @@ public enum TNFeInfNFeDetImpostoPISPISAliqCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPISPISNT : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPISPISNT {
     
     private TNFeInfNFeDetImpostoPISPISNTCST cSTField;
     
@@ -11455,16 +10797,6 @@ public partial class TNFeInfNFeDetImpostoPISPISNT : object, System.ComponentMode
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11506,7 +10838,7 @@ public enum TNFeInfNFeDetImpostoPISPISNTCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPISPISOutr : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPISPISOutr {
     
     private TNFeInfNFeDetImpostoPISPISOutrCST cSTField;
     
@@ -11523,7 +10855,6 @@ public partial class TNFeInfNFeDetImpostoPISPISOutr : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -11539,7 +10870,6 @@ public partial class TNFeInfNFeDetImpostoPISPISOutr : object, System.ComponentMo
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -11552,7 +10882,6 @@ public partial class TNFeInfNFeDetImpostoPISPISOutr : object, System.ComponentMo
         }
         set {
             this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
         }
     }
     
@@ -11563,16 +10892,6 @@ public partial class TNFeInfNFeDetImpostoPISPISOutr : object, System.ComponentMo
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11705,7 +11024,7 @@ public enum ItemsChoiceType1 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPISPISQtde : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPISPISQtde {
     
     private TNFeInfNFeDetImpostoPISPISQtdeCST cSTField;
     
@@ -11722,7 +11041,6 @@ public partial class TNFeInfNFeDetImpostoPISPISQtde : object, System.ComponentMo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -11733,7 +11051,6 @@ public partial class TNFeInfNFeDetImpostoPISPISQtde : object, System.ComponentMo
         }
         set {
             this.qBCProdField = value;
-            this.RaisePropertyChanged("qBCProd");
         }
     }
     
@@ -11744,7 +11061,6 @@ public partial class TNFeInfNFeDetImpostoPISPISQtde : object, System.ComponentMo
         }
         set {
             this.vAliqProdField = value;
-            this.RaisePropertyChanged("vAliqProd");
         }
     }
     
@@ -11755,16 +11071,6 @@ public partial class TNFeInfNFeDetImpostoPISPISQtde : object, System.ComponentMo
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11786,13 +11092,17 @@ public enum TNFeInfNFeDetImpostoPISPISQtdeCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoPISST : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoPISST {
     
     private string[] itemsField;
     
     private ItemsChoiceType2[] itemsElementNameField;
     
     private string vPISField;
+    
+    private TNFeInfNFeDetImpostoPISSTIndSomaPISST indSomaPISSTField;
+    
+    private bool indSomaPISSTFieldSpecified;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("pPIS", typeof(string))]
@@ -11806,7 +11116,6 @@ public partial class TNFeInfNFeDetImpostoPISST : object, System.ComponentModel.I
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -11819,7 +11128,6 @@ public partial class TNFeInfNFeDetImpostoPISST : object, System.ComponentModel.I
         }
         set {
             this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
         }
     }
     
@@ -11830,16 +11138,27 @@ public partial class TNFeInfNFeDetImpostoPISST : object, System.ComponentModel.I
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoPISSTIndSomaPISST indSomaPISST {
+        get {
+            return this.indSomaPISSTField;
+        }
+        set {
+            this.indSomaPISSTField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indSomaPISSTSpecified {
+        get {
+            return this.indSomaPISSTFieldSpecified;
+        }
+        set {
+            this.indSomaPISSTFieldSpecified = value;
         }
     }
 }
@@ -11866,10 +11185,25 @@ public enum ItemsChoiceType2 {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoPISSTIndSomaPISST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINS : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINS {
     
     private object itemField;
     
@@ -11884,16 +11218,6 @@ public partial class TNFeInfNFeDetImpostoCOFINS : object, System.ComponentModel.
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11904,7 +11228,7 @@ public partial class TNFeInfNFeDetImpostoCOFINS : object, System.ComponentModel.
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq {
     
     private TNFeInfNFeDetImpostoCOFINSCOFINSAliqCST cSTField;
     
@@ -11921,7 +11245,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq : object, System.Compo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -11932,7 +11255,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq : object, System.Compo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -11943,7 +11265,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq : object, System.Compo
         }
         set {
             this.pCOFINSField = value;
-            this.RaisePropertyChanged("pCOFINS");
         }
     }
     
@@ -11954,16 +11275,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSAliq : object, System.Compo
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -11989,7 +11300,7 @@ public enum TNFeInfNFeDetImpostoCOFINSCOFINSAliqCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINSCOFINSNT : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINSCOFINSNT {
     
     private TNFeInfNFeDetImpostoCOFINSCOFINSNTCST cSTField;
     
@@ -12000,16 +11311,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSNT : object, System.Compone
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12051,7 +11352,7 @@ public enum TNFeInfNFeDetImpostoCOFINSCOFINSNTCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr {
     
     private TNFeInfNFeDetImpostoCOFINSCOFINSOutrCST cSTField;
     
@@ -12068,7 +11369,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr : object, System.Compo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -12084,7 +11384,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr : object, System.Compo
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -12097,7 +11396,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr : object, System.Compo
         }
         set {
             this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
         }
     }
     
@@ -12108,16 +11406,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSOutr : object, System.Compo
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12250,7 +11538,7 @@ public enum ItemsChoiceType3 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde {
     
     private TNFeInfNFeDetImpostoCOFINSCOFINSQtdeCST cSTField;
     
@@ -12267,7 +11555,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde : object, System.Compo
         }
         set {
             this.cSTField = value;
-            this.RaisePropertyChanged("CST");
         }
     }
     
@@ -12278,7 +11565,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde : object, System.Compo
         }
         set {
             this.qBCProdField = value;
-            this.RaisePropertyChanged("qBCProd");
         }
     }
     
@@ -12289,7 +11575,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde : object, System.Compo
         }
         set {
             this.vAliqProdField = value;
-            this.RaisePropertyChanged("vAliqProd");
         }
     }
     
@@ -12300,16 +11585,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSCOFINSQtde : object, System.Compo
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12331,13 +11606,17 @@ public enum TNFeInfNFeDetImpostoCOFINSCOFINSQtdeCST {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoCOFINSST : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoCOFINSST {
     
     private string[] itemsField;
     
     private ItemsChoiceType4[] itemsElementNameField;
     
     private string vCOFINSField;
+    
+    private TNFeInfNFeDetImpostoCOFINSSTIndSomaCOFINSST indSomaCOFINSSTField;
+    
+    private bool indSomaCOFINSSTFieldSpecified;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("pCOFINS", typeof(string))]
@@ -12351,7 +11630,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSST : object, System.ComponentMode
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -12364,7 +11642,6 @@ public partial class TNFeInfNFeDetImpostoCOFINSST : object, System.ComponentMode
         }
         set {
             this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
         }
     }
     
@@ -12375,16 +11652,27 @@ public partial class TNFeInfNFeDetImpostoCOFINSST : object, System.ComponentMode
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeDetImpostoCOFINSSTIndSomaCOFINSST indSomaCOFINSST {
+        get {
+            return this.indSomaCOFINSSTField;
+        }
+        set {
+            this.indSomaCOFINSSTField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indSomaCOFINSSTSpecified {
+        get {
+            return this.indSomaCOFINSSTFieldSpecified;
+        }
+        set {
+            this.indSomaCOFINSSTFieldSpecified = value;
         }
     }
 }
@@ -12411,10 +11699,25 @@ public enum ItemsChoiceType4 {
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeDetImpostoCOFINSSTIndSomaCOFINSST {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("0")]
+    Item0,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoICMSUFDest {
     
     private string vBCUFDestField;
     
@@ -12441,7 +11744,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.vBCUFDestField = value;
-            this.RaisePropertyChanged("vBCUFDest");
         }
     }
     
@@ -12452,7 +11754,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.vBCFCPUFDestField = value;
-            this.RaisePropertyChanged("vBCFCPUFDest");
         }
     }
     
@@ -12463,7 +11764,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.pFCPUFDestField = value;
-            this.RaisePropertyChanged("pFCPUFDest");
         }
     }
     
@@ -12474,7 +11774,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.pICMSUFDestField = value;
-            this.RaisePropertyChanged("pICMSUFDest");
         }
     }
     
@@ -12485,7 +11784,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.pICMSInterField = value;
-            this.RaisePropertyChanged("pICMSInter");
         }
     }
     
@@ -12496,7 +11794,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.pICMSInterPartField = value;
-            this.RaisePropertyChanged("pICMSInterPart");
         }
     }
     
@@ -12507,7 +11804,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.vFCPUFDestField = value;
-            this.RaisePropertyChanged("vFCPUFDest");
         }
     }
     
@@ -12518,7 +11814,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.vICMSUFDestField = value;
-            this.RaisePropertyChanged("vICMSUFDest");
         }
     }
     
@@ -12529,16 +11824,6 @@ public partial class TNFeInfNFeDetImpostoICMSUFDest : object, System.ComponentMo
         }
         set {
             this.vICMSUFRemetField = value;
-            this.RaisePropertyChanged("vICMSUFRemet");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12567,8 +11852,1419 @@ public enum TNFeInfNFeDetImpostoICMSUFDestPICMSInter {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIS {
+    
+    private string cSTISField;
+    
+    private string cClassTribISField;
+    
+    private string vBCISField;
+    
+    private string pISField;
+    
+    private string pISEspecField;
+    
+    private string uTribField;
+    
+    private string qTribField;
+    
+    private string vISField;
+    
+    /// <remarks/>
+    public string CSTIS {
+        get {
+            return this.cSTISField;
+        }
+        set {
+            this.cSTISField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cClassTribIS {
+        get {
+            return this.cClassTribISField;
+        }
+        set {
+            this.cClassTribISField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vBCIS {
+        get {
+            return this.vBCISField;
+        }
+        set {
+            this.vBCISField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pIS {
+        get {
+            return this.pISField;
+        }
+        set {
+            this.pISField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pISEspec {
+        get {
+            return this.pISEspecField;
+        }
+        set {
+            this.pISEspecField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string uTrib {
+        get {
+            return this.uTribField;
+        }
+        set {
+            this.uTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qTrib {
+        get {
+            return this.qTribField;
+        }
+        set {
+            this.qTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIS {
+        get {
+            return this.vISField;
+        }
+        set {
+            this.vISField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TTribNFe {
+    
+    private string cSTField;
+    
+    private string cClassTribField;
+    
+    private TIndDoacao indDoacaoField;
+    
+    private bool indDoacaoFieldSpecified;
+    
+    private object itemField;
+    
+    private TEstornoCred gEstornoCredField;
+    
+    private object item1Field;
+    
+    /// <remarks/>
+    public string CST {
+        get {
+            return this.cSTField;
+        }
+        set {
+            this.cSTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cClassTrib {
+        get {
+            return this.cClassTribField;
+        }
+        set {
+            this.cClassTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TIndDoacao indDoacao {
+        get {
+            return this.indDoacaoField;
+        }
+        set {
+            this.indDoacaoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool indDoacaoSpecified {
+        get {
+            return this.indDoacaoFieldSpecified;
+        }
+        set {
+            this.indDoacaoFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("gAjusteCompet", typeof(TAjusteCompet))]
+    [System.Xml.Serialization.XmlElementAttribute("gIBSCBS", typeof(TCIBS))]
+    [System.Xml.Serialization.XmlElementAttribute("gIBSCBSMono", typeof(TMonofasia))]
+    [System.Xml.Serialization.XmlElementAttribute("gTransfCred", typeof(TTransfCred))]
+    public object Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TEstornoCred gEstornoCred {
+        get {
+            return this.gEstornoCredField;
+        }
+        set {
+            this.gEstornoCredField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("gCredPresIBSZFM", typeof(TCredPresIBSZFM))]
+    [System.Xml.Serialization.XmlElementAttribute("gCredPresOper", typeof(TCredPresOper))]
+    public object Item1 {
+        get {
+            return this.item1Field;
+        }
+        set {
+            this.item1Field = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TIndDoacao {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TAjusteCompet {
+    
+    private string competApurField;
+    
+    private string vIBSField;
+    
+    private string vCBSField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="gYearMonth")]
+    public string competApur {
+        get {
+            return this.competApurField;
+        }
+        set {
+            this.competApurField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBS {
+        get {
+            return this.vIBSField;
+        }
+        set {
+            this.vIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBS {
+        get {
+            return this.vCBSField;
+        }
+        set {
+            this.vCBSField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCIBS {
+    
+    private string vBCField;
+    
+    private TCIBSGIBSUF gIBSUFField;
+    
+    private TCIBSGIBSMun gIBSMunField;
+    
+    private string vIBSField;
+    
+    private TCIBSGCBS gCBSField;
+    
+    private TTribRegular gTribRegularField;
+    
+    private TTribCompraGov gTribCompraGovField;
+    
+    /// <remarks/>
+    public string vBC {
+        get {
+            return this.vBCField;
+        }
+        set {
+            this.vBCField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCIBSGIBSUF gIBSUF {
+        get {
+            return this.gIBSUFField;
+        }
+        set {
+            this.gIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCIBSGIBSMun gIBSMun {
+        get {
+            return this.gIBSMunField;
+        }
+        set {
+            this.gIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBS {
+        get {
+            return this.vIBSField;
+        }
+        set {
+            this.vIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCIBSGCBS gCBS {
+        get {
+            return this.gCBSField;
+        }
+        set {
+            this.gCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TTribRegular gTribRegular {
+        get {
+            return this.gTribRegularField;
+        }
+        set {
+            this.gTribRegularField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TTribCompraGov gTribCompraGov {
+        get {
+            return this.gTribCompraGovField;
+        }
+        set {
+            this.gTribCompraGovField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoDevol : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TCIBSGIBSUF {
+    
+    private string pIBSUFField;
+    
+    private TDif gDifField;
+    
+    private TDevTrib gDevTribField;
+    
+    private TRed gRedField;
+    
+    private string vIBSUFField;
+    
+    /// <remarks/>
+    public string pIBSUF {
+        get {
+            return this.pIBSUFField;
+        }
+        set {
+            this.pIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDif gDif {
+        get {
+            return this.gDifField;
+        }
+        set {
+            this.gDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDevTrib gDevTrib {
+        get {
+            return this.gDevTribField;
+        }
+        set {
+            this.gDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRed gRed {
+        get {
+            return this.gRedField;
+        }
+        set {
+            this.gRedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSUF {
+        get {
+            return this.vIBSUFField;
+        }
+        set {
+            this.vIBSUFField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TDif {
+    
+    private string pDifField;
+    
+    private string vDifField;
+    
+    /// <remarks/>
+    public string pDif {
+        get {
+            return this.pDifField;
+        }
+        set {
+            this.pDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vDif {
+        get {
+            return this.vDifField;
+        }
+        set {
+            this.vDifField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TDevTrib {
+    
+    private string vDevTribField;
+    
+    /// <remarks/>
+    public string vDevTrib {
+        get {
+            return this.vDevTribField;
+        }
+        set {
+            this.vDevTribField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TRed {
+    
+    private string pRedAliqField;
+    
+    private string pAliqEfetField;
+    
+    /// <remarks/>
+    public string pRedAliq {
+        get {
+            return this.pRedAliqField;
+        }
+        set {
+            this.pRedAliqField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqEfet {
+        get {
+            return this.pAliqEfetField;
+        }
+        set {
+            this.pAliqEfetField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCIBSGIBSMun {
+    
+    private string pIBSMunField;
+    
+    private TDif gDifField;
+    
+    private TDevTrib gDevTribField;
+    
+    private TRed gRedField;
+    
+    private string vIBSMunField;
+    
+    /// <remarks/>
+    public string pIBSMun {
+        get {
+            return this.pIBSMunField;
+        }
+        set {
+            this.pIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDif gDif {
+        get {
+            return this.gDifField;
+        }
+        set {
+            this.gDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDevTrib gDevTrib {
+        get {
+            return this.gDevTribField;
+        }
+        set {
+            this.gDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRed gRed {
+        get {
+            return this.gRedField;
+        }
+        set {
+            this.gRedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMun {
+        get {
+            return this.vIBSMunField;
+        }
+        set {
+            this.vIBSMunField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCIBSGCBS {
+    
+    private string pCBSField;
+    
+    private TDif gDifField;
+    
+    private TDevTrib gDevTribField;
+    
+    private TRed gRedField;
+    
+    private string vCBSField;
+    
+    /// <remarks/>
+    public string pCBS {
+        get {
+            return this.pCBSField;
+        }
+        set {
+            this.pCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDif gDif {
+        get {
+            return this.gDifField;
+        }
+        set {
+            this.gDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TDevTrib gDevTrib {
+        get {
+            return this.gDevTribField;
+        }
+        set {
+            this.gDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TRed gRed {
+        get {
+            return this.gRedField;
+        }
+        set {
+            this.gRedField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBS {
+        get {
+            return this.vCBSField;
+        }
+        set {
+            this.vCBSField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TTribRegular {
+    
+    private string cSTRegField;
+    
+    private string cClassTribRegField;
+    
+    private string pAliqEfetRegIBSUFField;
+    
+    private string vTribRegIBSUFField;
+    
+    private string pAliqEfetRegIBSMunField;
+    
+    private string vTribRegIBSMunField;
+    
+    private string pAliqEfetRegCBSField;
+    
+    private string vTribRegCBSField;
+    
+    /// <remarks/>
+    public string CSTReg {
+        get {
+            return this.cSTRegField;
+        }
+        set {
+            this.cSTRegField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cClassTribReg {
+        get {
+            return this.cClassTribRegField;
+        }
+        set {
+            this.cClassTribRegField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqEfetRegIBSUF {
+        get {
+            return this.pAliqEfetRegIBSUFField;
+        }
+        set {
+            this.pAliqEfetRegIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribRegIBSUF {
+        get {
+            return this.vTribRegIBSUFField;
+        }
+        set {
+            this.vTribRegIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqEfetRegIBSMun {
+        get {
+            return this.pAliqEfetRegIBSMunField;
+        }
+        set {
+            this.pAliqEfetRegIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribRegIBSMun {
+        get {
+            return this.vTribRegIBSMunField;
+        }
+        set {
+            this.vTribRegIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqEfetRegCBS {
+        get {
+            return this.pAliqEfetRegCBSField;
+        }
+        set {
+            this.pAliqEfetRegCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribRegCBS {
+        get {
+            return this.vTribRegCBSField;
+        }
+        set {
+            this.vTribRegCBSField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TTribCompraGov {
+    
+    private string pAliqIBSUFField;
+    
+    private string vTribIBSUFField;
+    
+    private string pAliqIBSMunField;
+    
+    private string vTribIBSMunField;
+    
+    private string pAliqCBSField;
+    
+    private string vTribCBSField;
+    
+    /// <remarks/>
+    public string pAliqIBSUF {
+        get {
+            return this.pAliqIBSUFField;
+        }
+        set {
+            this.pAliqIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribIBSUF {
+        get {
+            return this.vTribIBSUFField;
+        }
+        set {
+            this.vTribIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqIBSMun {
+        get {
+            return this.pAliqIBSMunField;
+        }
+        set {
+            this.pAliqIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribIBSMun {
+        get {
+            return this.vTribIBSMunField;
+        }
+        set {
+            this.vTribIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pAliqCBS {
+        get {
+            return this.pAliqCBSField;
+        }
+        set {
+            this.pAliqCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTribCBS {
+        get {
+            return this.vTribCBSField;
+        }
+        set {
+            this.vTribCBSField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TMonofasia {
+    
+    private TMonofasiaGMonoPadrao gMonoPadraoField;
+    
+    private TMonofasiaGMonoReten gMonoRetenField;
+    
+    private TMonofasiaGMonoRet gMonoRetField;
+    
+    private TMonofasiaGMonoDif gMonoDifField;
+    
+    private string vTotIBSMonoItemField;
+    
+    private string vTotCBSMonoItemField;
+    
+    /// <remarks/>
+    public TMonofasiaGMonoPadrao gMonoPadrao {
+        get {
+            return this.gMonoPadraoField;
+        }
+        set {
+            this.gMonoPadraoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TMonofasiaGMonoReten gMonoReten {
+        get {
+            return this.gMonoRetenField;
+        }
+        set {
+            this.gMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TMonofasiaGMonoRet gMonoRet {
+        get {
+            return this.gMonoRetField;
+        }
+        set {
+            this.gMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TMonofasiaGMonoDif gMonoDif {
+        get {
+            return this.gMonoDifField;
+        }
+        set {
+            this.gMonoDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTotIBSMonoItem {
+        get {
+            return this.vTotIBSMonoItemField;
+        }
+        set {
+            this.vTotIBSMonoItemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vTotCBSMonoItem {
+        get {
+            return this.vTotCBSMonoItemField;
+        }
+        set {
+            this.vTotCBSMonoItemField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TMonofasiaGMonoPadrao {
+    
+    private string qBCMonoField;
+    
+    private string adRemIBSField;
+    
+    private string adRemCBSField;
+    
+    private string vIBSMonoField;
+    
+    private string vCBSMonoField;
+    
+    /// <remarks/>
+    public string qBCMono {
+        get {
+            return this.qBCMonoField;
+        }
+        set {
+            this.qBCMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemIBS {
+        get {
+            return this.adRemIBSField;
+        }
+        set {
+            this.adRemIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemCBS {
+        get {
+            return this.adRemCBSField;
+        }
+        set {
+            this.adRemCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMono {
+        get {
+            return this.vIBSMonoField;
+        }
+        set {
+            this.vIBSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMono {
+        get {
+            return this.vCBSMonoField;
+        }
+        set {
+            this.vCBSMonoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TMonofasiaGMonoReten {
+    
+    private string qBCMonoRetenField;
+    
+    private string adRemIBSRetenField;
+    
+    private string vIBSMonoRetenField;
+    
+    private string adRemCBSRetenField;
+    
+    private string vCBSMonoRetenField;
+    
+    /// <remarks/>
+    public string qBCMonoReten {
+        get {
+            return this.qBCMonoRetenField;
+        }
+        set {
+            this.qBCMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemIBSReten {
+        get {
+            return this.adRemIBSRetenField;
+        }
+        set {
+            this.adRemIBSRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMonoReten {
+        get {
+            return this.vIBSMonoRetenField;
+        }
+        set {
+            this.vIBSMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemCBSReten {
+        get {
+            return this.adRemCBSRetenField;
+        }
+        set {
+            this.adRemCBSRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMonoReten {
+        get {
+            return this.vCBSMonoRetenField;
+        }
+        set {
+            this.vCBSMonoRetenField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TMonofasiaGMonoRet {
+    
+    private string qBCMonoRetField;
+    
+    private string adRemIBSRetField;
+    
+    private string vIBSMonoRetField;
+    
+    private string adRemCBSRetField;
+    
+    private string vCBSMonoRetField;
+    
+    /// <remarks/>
+    public string qBCMonoRet {
+        get {
+            return this.qBCMonoRetField;
+        }
+        set {
+            this.qBCMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemIBSRet {
+        get {
+            return this.adRemIBSRetField;
+        }
+        set {
+            this.adRemIBSRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMonoRet {
+        get {
+            return this.vIBSMonoRetField;
+        }
+        set {
+            this.vIBSMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string adRemCBSRet {
+        get {
+            return this.adRemCBSRetField;
+        }
+        set {
+            this.adRemCBSRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMonoRet {
+        get {
+            return this.vCBSMonoRetField;
+        }
+        set {
+            this.vCBSMonoRetField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TMonofasiaGMonoDif {
+    
+    private string pDifIBSField;
+    
+    private string vIBSMonoDifField;
+    
+    private string pDifCBSField;
+    
+    private string vCBSMonoDifField;
+    
+    /// <remarks/>
+    public string pDifIBS {
+        get {
+            return this.pDifIBSField;
+        }
+        set {
+            this.pDifIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMonoDif {
+        get {
+            return this.vIBSMonoDifField;
+        }
+        set {
+            this.vIBSMonoDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string pDifCBS {
+        get {
+            return this.pDifCBSField;
+        }
+        set {
+            this.pDifCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMonoDif {
+        get {
+            return this.vCBSMonoDifField;
+        }
+        set {
+            this.vCBSMonoDifField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TTransfCred {
+    
+    private string vIBSField;
+    
+    private string vCBSField;
+    
+    /// <remarks/>
+    public string vIBS {
+        get {
+            return this.vIBSField;
+        }
+        set {
+            this.vIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBS {
+        get {
+            return this.vCBSField;
+        }
+        set {
+            this.vCBSField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TEstornoCred {
+    
+    private string vIBSEstCredField;
+    
+    private string vCBSEstCredField;
+    
+    /// <remarks/>
+    public string vIBSEstCred {
+        get {
+            return this.vIBSEstCredField;
+        }
+        set {
+            this.vIBSEstCredField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSEstCred {
+        get {
+            return this.vCBSEstCredField;
+        }
+        set {
+            this.vCBSEstCredField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCredPresIBSZFM {
+    
+    private string competApurField;
+    
+    private TTpCredPresIBSZFM tpCredPresIBSZFMField;
+    
+    private string vCredPresIBSZFMField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="gYearMonth")]
+    public string competApur {
+        get {
+            return this.competApurField;
+        }
+        set {
+            this.competApurField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TTpCredPresIBSZFM tpCredPresIBSZFM {
+        get {
+            return this.tpCredPresIBSZFMField;
+        }
+        set {
+            this.tpCredPresIBSZFMField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPresIBSZFM {
+        get {
+            return this.vCredPresIBSZFMField;
+        }
+        set {
+            this.vCredPresIBSZFMField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCredPresOper {
+    
+    private string vBCCredPresField;
+    
+    private string cCredPresField;
+    
+    private TCredPres gIBSCredPresField;
+    
+    private TCredPres gCBSCredPresField;
+    
+    /// <remarks/>
+    public string vBCCredPres {
+        get {
+            return this.vBCCredPresField;
+        }
+        set {
+            this.vBCCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cCredPres {
+        get {
+            return this.cCredPresField;
+        }
+        set {
+            this.cCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCredPres gIBSCredPres {
+        get {
+            return this.gIBSCredPresField;
+        }
+        set {
+            this.gIBSCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TCredPres gCBSCredPres {
+        get {
+            return this.gCBSCredPresField;
+        }
+        set {
+            this.gCBSCredPresField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TCredPres {
+    
+    private string pCredPresField;
+    
+    private string itemField;
+    
+    private ItemChoiceType7 itemElementNameField;
+    
+    /// <remarks/>
+    public string pCredPres {
+        get {
+            return this.pCredPresField;
+        }
+        set {
+            this.pCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("vCredPres", typeof(string))]
+    [System.Xml.Serialization.XmlElementAttribute("vCredPresCondSus", typeof(string))]
+    [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+    public string Item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public ItemChoiceType7 ItemElementName {
+        get {
+            return this.itemElementNameField;
+        }
+        set {
+            this.itemElementNameField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
+public enum ItemChoiceType7 {
+    
+    /// <remarks/>
+    vCredPres,
+    
+    /// <remarks/>
+    vCredPresCondSus,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetImpostoDevol {
     
     private string pDevolField;
     
@@ -12581,7 +13277,6 @@ public partial class TNFeInfNFeDetImpostoDevol : object, System.ComponentModel.I
         }
         set {
             this.pDevolField = value;
-            this.RaisePropertyChanged("pDevol");
         }
     }
     
@@ -12592,16 +13287,6 @@ public partial class TNFeInfNFeDetImpostoDevol : object, System.ComponentModel.I
         }
         set {
             this.iPIField = value;
-            this.RaisePropertyChanged("IPI");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12612,7 +13297,7 @@ public partial class TNFeInfNFeDetImpostoDevol : object, System.ComponentModel.I
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeDetImpostoDevolIPI : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetImpostoDevolIPI {
     
     private string vIPIDevolField;
     
@@ -12623,16 +13308,6 @@ public partial class TNFeInfNFeDetImpostoDevolIPI : object, System.ComponentMode
         }
         set {
             this.vIPIDevolField = value;
-            this.RaisePropertyChanged("vIPIDevol");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -12643,13 +13318,153 @@ public partial class TNFeInfNFeDetImpostoDevolIPI : object, System.ComponentMode
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTotal : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeDetObsItem {
+    
+    private TNFeInfNFeDetObsItemObsCont obsContField;
+    
+    private TNFeInfNFeDetObsItemObsFisco obsFiscoField;
+    
+    /// <remarks/>
+    public TNFeInfNFeDetObsItemObsCont obsCont {
+        get {
+            return this.obsContField;
+        }
+        set {
+            this.obsContField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TNFeInfNFeDetObsItemObsFisco obsFisco {
+        get {
+            return this.obsFiscoField;
+        }
+        set {
+            this.obsFiscoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetObsItemObsCont {
+    
+    private string xTextoField;
+    
+    private string xCampoField;
+    
+    /// <remarks/>
+    public string xTexto {
+        get {
+            return this.xTextoField;
+        }
+        set {
+            this.xTextoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string xCampo {
+        get {
+            return this.xCampoField;
+        }
+        set {
+            this.xCampoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetObsItemObsFisco {
+    
+    private string xTextoField;
+    
+    private string xCampoField;
+    
+    /// <remarks/>
+    public string xTexto {
+        get {
+            return this.xTextoField;
+        }
+        set {
+            this.xTextoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string xCampo {
+        get {
+            return this.xCampoField;
+        }
+        set {
+            this.xCampoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeDetDFeReferenciado {
+    
+    private string chaveAcessoField;
+    
+    private string nItemField;
+    
+    /// <remarks/>
+    public string chaveAcesso {
+        get {
+            return this.chaveAcessoField;
+        }
+        set {
+            this.chaveAcessoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nItem {
+        get {
+            return this.nItemField;
+        }
+        set {
+            this.nItemField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeTotal {
     
     private TNFeInfNFeTotalICMSTot iCMSTotField;
     
     private TNFeInfNFeTotalISSQNtot iSSQNtotField;
     
     private TNFeInfNFeTotalRetTrib retTribField;
+    
+    private TISTot iSTotField;
+    
+    private TIBSCBSMonoTot iBSCBSTotField;
+    
+    private string vNFTotField;
     
     /// <remarks/>
     public TNFeInfNFeTotalICMSTot ICMSTot {
@@ -12658,7 +13473,6 @@ public partial class TNFeInfNFeTotal : object, System.ComponentModel.INotifyProp
         }
         set {
             this.iCMSTotField = value;
-            this.RaisePropertyChanged("ICMSTot");
         }
     }
     
@@ -12669,7 +13483,6 @@ public partial class TNFeInfNFeTotal : object, System.ComponentModel.INotifyProp
         }
         set {
             this.iSSQNtotField = value;
-            this.RaisePropertyChanged("ISSQNtot");
         }
     }
     
@@ -12680,16 +13493,36 @@ public partial class TNFeInfNFeTotal : object, System.ComponentModel.INotifyProp
         }
         set {
             this.retTribField = value;
-            this.RaisePropertyChanged("retTrib");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TISTot ISTot {
+        get {
+            return this.iSTotField;
+        }
+        set {
+            this.iSTotField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public TIBSCBSMonoTot IBSCBSTot {
+        get {
+            return this.iBSCBSTotField;
+        }
+        set {
+            this.iBSCBSTotField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vNFTot {
+        get {
+            return this.vNFTotField;
+        }
+        set {
+            this.vNFTotField = value;
         }
     }
 }
@@ -12700,7 +13533,7 @@ public partial class TNFeInfNFeTotal : object, System.ComponentModel.INotifyProp
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTotalICMSTot {
     
     private string vBCField;
     
@@ -12723,6 +13556,18 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
     private string vFCPSTField;
     
     private string vFCPSTRetField;
+    
+    private string qBCMonoField;
+    
+    private string vICMSMonoField;
+    
+    private string qBCMonoRetenField;
+    
+    private string vICMSMonoRetenField;
+    
+    private string qBCMonoRetField;
+    
+    private string vICMSMonoRetField;
     
     private string vProdField;
     
@@ -12755,7 +13600,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -12766,7 +13610,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vICMSField = value;
-            this.RaisePropertyChanged("vICMS");
         }
     }
     
@@ -12777,7 +13620,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vICMSDesonField = value;
-            this.RaisePropertyChanged("vICMSDeson");
         }
     }
     
@@ -12788,7 +13630,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vFCPUFDestField = value;
-            this.RaisePropertyChanged("vFCPUFDest");
         }
     }
     
@@ -12799,7 +13640,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vICMSUFDestField = value;
-            this.RaisePropertyChanged("vICMSUFDest");
         }
     }
     
@@ -12810,7 +13650,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vICMSUFRemetField = value;
-            this.RaisePropertyChanged("vICMSUFRemet");
         }
     }
     
@@ -12821,7 +13660,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vFCPField = value;
-            this.RaisePropertyChanged("vFCP");
         }
     }
     
@@ -12832,7 +13670,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vBCSTField = value;
-            this.RaisePropertyChanged("vBCST");
         }
     }
     
@@ -12843,7 +13680,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vSTField = value;
-            this.RaisePropertyChanged("vST");
         }
     }
     
@@ -12854,7 +13690,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vFCPSTField = value;
-            this.RaisePropertyChanged("vFCPST");
         }
     }
     
@@ -12865,7 +13700,66 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vFCPSTRetField = value;
-            this.RaisePropertyChanged("vFCPSTRet");
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMono {
+        get {
+            return this.qBCMonoField;
+        }
+        set {
+            this.qBCMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMono {
+        get {
+            return this.vICMSMonoField;
+        }
+        set {
+            this.vICMSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMonoReten {
+        get {
+            return this.qBCMonoRetenField;
+        }
+        set {
+            this.qBCMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoReten {
+        get {
+            return this.vICMSMonoRetenField;
+        }
+        set {
+            this.vICMSMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string qBCMonoRet {
+        get {
+            return this.qBCMonoRetField;
+        }
+        set {
+            this.qBCMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vICMSMonoRet {
+        get {
+            return this.vICMSMonoRetField;
+        }
+        set {
+            this.vICMSMonoRetField = value;
         }
     }
     
@@ -12876,7 +13770,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vProdField = value;
-            this.RaisePropertyChanged("vProd");
         }
     }
     
@@ -12887,7 +13780,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vFreteField = value;
-            this.RaisePropertyChanged("vFrete");
         }
     }
     
@@ -12898,7 +13790,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vSegField = value;
-            this.RaisePropertyChanged("vSeg");
         }
     }
     
@@ -12909,7 +13800,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vDescField = value;
-            this.RaisePropertyChanged("vDesc");
         }
     }
     
@@ -12920,7 +13810,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vIIField = value;
-            this.RaisePropertyChanged("vII");
         }
     }
     
@@ -12931,7 +13820,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vIPIField = value;
-            this.RaisePropertyChanged("vIPI");
         }
     }
     
@@ -12942,7 +13830,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vIPIDevolField = value;
-            this.RaisePropertyChanged("vIPIDevol");
         }
     }
     
@@ -12953,7 +13840,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
         }
     }
     
@@ -12964,7 +13850,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
         }
     }
     
@@ -12975,7 +13860,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vOutroField = value;
-            this.RaisePropertyChanged("vOutro");
         }
     }
     
@@ -12986,7 +13870,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vNFField = value;
-            this.RaisePropertyChanged("vNF");
         }
     }
     
@@ -12997,16 +13880,6 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
         }
         set {
             this.vTotTribField = value;
-            this.RaisePropertyChanged("vTotTrib");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13017,7 +13890,7 @@ public partial class TNFeInfNFeTotalICMSTot : object, System.ComponentModel.INot
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTotalISSQNtot {
     
     private string vServField;
     
@@ -13052,7 +13925,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vServField = value;
-            this.RaisePropertyChanged("vServ");
         }
     }
     
@@ -13063,7 +13935,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vBCField = value;
-            this.RaisePropertyChanged("vBC");
         }
     }
     
@@ -13074,7 +13945,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vISSField = value;
-            this.RaisePropertyChanged("vISS");
         }
     }
     
@@ -13085,7 +13955,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vPISField = value;
-            this.RaisePropertyChanged("vPIS");
         }
     }
     
@@ -13096,7 +13965,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vCOFINSField = value;
-            this.RaisePropertyChanged("vCOFINS");
         }
     }
     
@@ -13107,7 +13975,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.dCompetField = value;
-            this.RaisePropertyChanged("dCompet");
         }
     }
     
@@ -13118,7 +13985,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vDeducaoField = value;
-            this.RaisePropertyChanged("vDeducao");
         }
     }
     
@@ -13129,7 +13995,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vOutroField = value;
-            this.RaisePropertyChanged("vOutro");
         }
     }
     
@@ -13140,7 +14005,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vDescIncondField = value;
-            this.RaisePropertyChanged("vDescIncond");
         }
     }
     
@@ -13151,7 +14015,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vDescCondField = value;
-            this.RaisePropertyChanged("vDescCond");
         }
     }
     
@@ -13162,7 +14025,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.vISSRetField = value;
-            this.RaisePropertyChanged("vISSRet");
         }
     }
     
@@ -13173,7 +14035,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.cRegTribField = value;
-            this.RaisePropertyChanged("cRegTrib");
         }
     }
     
@@ -13185,16 +14046,6 @@ public partial class TNFeInfNFeTotalISSQNtot : object, System.ComponentModel.INo
         }
         set {
             this.cRegTribFieldSpecified = value;
-            this.RaisePropertyChanged("cRegTribSpecified");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13236,7 +14087,7 @@ public enum TNFeInfNFeTotalISSQNtotCRegTrib {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTotalRetTrib {
     
     private string vRetPISField;
     
@@ -13259,7 +14110,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vRetPISField = value;
-            this.RaisePropertyChanged("vRetPIS");
         }
     }
     
@@ -13270,7 +14120,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vRetCOFINSField = value;
-            this.RaisePropertyChanged("vRetCOFINS");
         }
     }
     
@@ -13281,7 +14130,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vRetCSLLField = value;
-            this.RaisePropertyChanged("vRetCSLL");
         }
     }
     
@@ -13292,7 +14140,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vBCIRRFField = value;
-            this.RaisePropertyChanged("vBCIRRF");
         }
     }
     
@@ -13303,7 +14150,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vIRRFField = value;
-            this.RaisePropertyChanged("vIRRF");
         }
     }
     
@@ -13314,7 +14160,6 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vBCRetPrevField = value;
-            this.RaisePropertyChanged("vBCRetPrev");
         }
     }
     
@@ -13325,16 +14170,96 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
         }
         set {
             this.vRetPrevField = value;
-            this.RaisePropertyChanged("vRetPrev");
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TISTot {
+    
+    private string vISField;
+    
+    /// <remarks/>
+    public string vIS {
+        get {
+            return this.vISField;
+        }
+        set {
+            this.vISField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTot {
+    
+    private string vBCIBSCBSField;
+    
+    private TIBSCBSMonoTotGIBS gIBSField;
+    
+    private TIBSCBSMonoTotGCBS gCBSField;
+    
+    private TIBSCBSMonoTotGMono gMonoField;
+    
+    private TIBSCBSMonoTotGEstornoCred gEstornoCredField;
+    
+    /// <remarks/>
+    public string vBCIBSCBS {
+        get {
+            return this.vBCIBSCBSField;
+        }
+        set {
+            this.vBCIBSCBSField = value;
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TIBSCBSMonoTotGIBS gIBS {
+        get {
+            return this.gIBSField;
+        }
+        set {
+            this.gIBSField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public TIBSCBSMonoTotGCBS gCBS {
+        get {
+            return this.gCBSField;
+        }
+        set {
+            this.gCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TIBSCBSMonoTotGMono gMono {
+        get {
+            return this.gMonoField;
+        }
+        set {
+            this.gMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TIBSCBSMonoTotGEstornoCred gEstornoCred {
+        get {
+            return this.gEstornoCredField;
+        }
+        set {
+            this.gEstornoCredField = value;
         }
     }
 }
@@ -13345,7 +14270,349 @@ public partial class TNFeInfNFeTotalRetTrib : object, System.ComponentModel.INot
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TIBSCBSMonoTotGIBS {
+    
+    private TIBSCBSMonoTotGIBSGIBSUF gIBSUFField;
+    
+    private TIBSCBSMonoTotGIBSGIBSMun gIBSMunField;
+    
+    private string vIBSField;
+    
+    private string vCredPresField;
+    
+    private string vCredPresCondSusField;
+    
+    /// <remarks/>
+    public TIBSCBSMonoTotGIBSGIBSUF gIBSUF {
+        get {
+            return this.gIBSUFField;
+        }
+        set {
+            this.gIBSUFField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TIBSCBSMonoTotGIBSGIBSMun gIBSMun {
+        get {
+            return this.gIBSMunField;
+        }
+        set {
+            this.gIBSMunField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBS {
+        get {
+            return this.vIBSField;
+        }
+        set {
+            this.vIBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPres {
+        get {
+            return this.vCredPresField;
+        }
+        set {
+            this.vCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPresCondSus {
+        get {
+            return this.vCredPresCondSusField;
+        }
+        set {
+            this.vCredPresCondSusField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTotGIBSGIBSUF {
+    
+    private string vDifField;
+    
+    private string vDevTribField;
+    
+    private string vIBSUFField;
+    
+    /// <remarks/>
+    public string vDif {
+        get {
+            return this.vDifField;
+        }
+        set {
+            this.vDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vDevTrib {
+        get {
+            return this.vDevTribField;
+        }
+        set {
+            this.vDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSUF {
+        get {
+            return this.vIBSUFField;
+        }
+        set {
+            this.vIBSUFField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTotGIBSGIBSMun {
+    
+    private string vDifField;
+    
+    private string vDevTribField;
+    
+    private string vIBSMunField;
+    
+    /// <remarks/>
+    public string vDif {
+        get {
+            return this.vDifField;
+        }
+        set {
+            this.vDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vDevTrib {
+        get {
+            return this.vDevTribField;
+        }
+        set {
+            this.vDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMun {
+        get {
+            return this.vIBSMunField;
+        }
+        set {
+            this.vIBSMunField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTotGCBS {
+    
+    private string vDifField;
+    
+    private string vDevTribField;
+    
+    private string vCBSField;
+    
+    private string vCredPresField;
+    
+    private string vCredPresCondSusField;
+    
+    /// <remarks/>
+    public string vDif {
+        get {
+            return this.vDifField;
+        }
+        set {
+            this.vDifField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vDevTrib {
+        get {
+            return this.vDevTribField;
+        }
+        set {
+            this.vDevTribField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBS {
+        get {
+            return this.vCBSField;
+        }
+        set {
+            this.vCBSField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPres {
+        get {
+            return this.vCredPresField;
+        }
+        set {
+            this.vCredPresField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCredPresCondSus {
+        get {
+            return this.vCredPresCondSusField;
+        }
+        set {
+            this.vCredPresCondSusField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTotGMono {
+    
+    private string vIBSMonoField;
+    
+    private string vCBSMonoField;
+    
+    private string vIBSMonoRetenField;
+    
+    private string vCBSMonoRetenField;
+    
+    private string vIBSMonoRetField;
+    
+    private string vCBSMonoRetField;
+    
+    /// <remarks/>
+    public string vIBSMono {
+        get {
+            return this.vIBSMonoField;
+        }
+        set {
+            this.vIBSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMono {
+        get {
+            return this.vCBSMonoField;
+        }
+        set {
+            this.vCBSMonoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMonoReten {
+        get {
+            return this.vIBSMonoRetenField;
+        }
+        set {
+            this.vIBSMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMonoReten {
+        get {
+            return this.vCBSMonoRetenField;
+        }
+        set {
+            this.vCBSMonoRetenField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vIBSMonoRet {
+        get {
+            return this.vIBSMonoRetField;
+        }
+        set {
+            this.vIBSMonoRetField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSMonoRet {
+        get {
+            return this.vCBSMonoRetField;
+        }
+        set {
+            this.vCBSMonoRetField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TIBSCBSMonoTotGEstornoCred {
+    
+    private string vIBSEstCredField;
+    
+    private string vCBSEstCredField;
+    
+    /// <remarks/>
+    public string vIBSEstCred {
+        get {
+            return this.vIBSEstCredField;
+        }
+        set {
+            this.vIBSEstCredField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string vCBSEstCred {
+        get {
+            return this.vCBSEstCredField;
+        }
+        set {
+            this.vCBSEstCredField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeTransp {
     
     private TNFeInfNFeTranspModFrete modFreteField;
     
@@ -13366,7 +14633,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.modFreteField = value;
-            this.RaisePropertyChanged("modFrete");
         }
     }
     
@@ -13377,7 +14643,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.transportaField = value;
-            this.RaisePropertyChanged("transporta");
         }
     }
     
@@ -13388,7 +14653,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.retTranspField = value;
-            this.RaisePropertyChanged("retTransp");
         }
     }
     
@@ -13404,7 +14668,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.itemsField = value;
-            this.RaisePropertyChanged("Items");
         }
     }
     
@@ -13417,7 +14680,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.itemsElementNameField = value;
-            this.RaisePropertyChanged("ItemsElementName");
         }
     }
     
@@ -13429,16 +14691,6 @@ public partial class TNFeInfNFeTransp : object, System.ComponentModel.INotifyPro
         }
         set {
             this.volField = value;
-            this.RaisePropertyChanged("vol");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13480,11 +14732,11 @@ public enum TNFeInfNFeTranspModFrete {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTranspTransporta {
     
     private string itemField;
     
-    private ItemChoiceType6 itemElementNameField;
+    private ItemChoiceType8 itemElementNameField;
     
     private string xNomeField;
     
@@ -13508,19 +14760,17 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.itemField = value;
-            this.RaisePropertyChanged("Item");
         }
     }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public ItemChoiceType6 ItemElementName {
+    public ItemChoiceType8 ItemElementName {
         get {
             return this.itemElementNameField;
         }
         set {
             this.itemElementNameField = value;
-            this.RaisePropertyChanged("ItemElementName");
         }
     }
     
@@ -13531,7 +14781,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.xNomeField = value;
-            this.RaisePropertyChanged("xNome");
         }
     }
     
@@ -13542,7 +14791,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.ieField = value;
-            this.RaisePropertyChanged("IE");
         }
     }
     
@@ -13553,7 +14801,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.xEnderField = value;
-            this.RaisePropertyChanged("xEnder");
         }
     }
     
@@ -13564,7 +14811,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.xMunField = value;
-            this.RaisePropertyChanged("xMun");
         }
     }
     
@@ -13575,7 +14821,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.ufField = value;
-            this.RaisePropertyChanged("UF");
         }
     }
     
@@ -13587,16 +14832,6 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
         }
         set {
             this.ufFieldSpecified = value;
-            this.RaisePropertyChanged("UFSpecified");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13605,7 +14840,7 @@ public partial class TNFeInfNFeTranspTransporta : object, System.ComponentModel.
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe", IncludeInSchema=false)]
-public enum ItemChoiceType6 {
+public enum ItemChoiceType8 {
     
     /// <remarks/>
     CNPJ,
@@ -13620,7 +14855,7 @@ public enum ItemChoiceType6 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTranspRetTransp {
     
     private string vServField;
     
@@ -13641,7 +14876,6 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.vServField = value;
-            this.RaisePropertyChanged("vServ");
         }
     }
     
@@ -13652,7 +14886,6 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.vBCRetField = value;
-            this.RaisePropertyChanged("vBCRet");
         }
     }
     
@@ -13663,7 +14896,6 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.pICMSRetField = value;
-            this.RaisePropertyChanged("pICMSRet");
         }
     }
     
@@ -13674,7 +14906,6 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.vICMSRetField = value;
-            this.RaisePropertyChanged("vICMSRet");
         }
     }
     
@@ -13685,7 +14916,6 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.cFOPField = value;
-            this.RaisePropertyChanged("CFOP");
         }
     }
     
@@ -13696,16 +14926,64 @@ public partial class TNFeInfNFeTranspRetTransp : object, System.ComponentModel.I
         }
         set {
             this.cMunFGField = value;
-            this.RaisePropertyChanged("cMunFG");
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TVeiculo {
+    
+    private string placaField;
+    
+    private TUf ufField;
+    
+    private bool ufFieldSpecified;
+    
+    private string rNTCField;
+    
+    /// <remarks/>
+    public string placa {
+        get {
+            return this.placaField;
+        }
+        set {
+            this.placaField = value;
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TUf UF {
+        get {
+            return this.ufField;
+        }
+        set {
+            this.ufField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool UFSpecified {
+        get {
+            return this.ufFieldSpecified;
+        }
+        set {
+            this.ufFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string RNTC {
+        get {
+            return this.rNTCField;
+        }
+        set {
+            this.rNTCField = value;
         }
     }
 }
@@ -13735,7 +15013,7 @@ public enum ItemsChoiceType5 {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTranspVol {
     
     private string qVolField;
     
@@ -13758,7 +15036,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.qVolField = value;
-            this.RaisePropertyChanged("qVol");
         }
     }
     
@@ -13769,7 +15046,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.espField = value;
-            this.RaisePropertyChanged("esp");
         }
     }
     
@@ -13780,7 +15056,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.marcaField = value;
-            this.RaisePropertyChanged("marca");
         }
     }
     
@@ -13791,7 +15066,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.nVolField = value;
-            this.RaisePropertyChanged("nVol");
         }
     }
     
@@ -13802,7 +15076,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.pesoLField = value;
-            this.RaisePropertyChanged("pesoL");
         }
     }
     
@@ -13813,7 +15086,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.pesoBField = value;
-            this.RaisePropertyChanged("pesoB");
         }
     }
     
@@ -13825,16 +15097,6 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
         }
         set {
             this.lacresField = value;
-            this.RaisePropertyChanged("lacres");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13845,7 +15107,7 @@ public partial class TNFeInfNFeTranspVol : object, System.ComponentModel.INotify
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeTranspVolLacres : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeTranspVolLacres {
     
     private string nLacreField;
     
@@ -13856,16 +15118,6 @@ public partial class TNFeInfNFeTranspVolLacres : object, System.ComponentModel.I
         }
         set {
             this.nLacreField = value;
-            this.RaisePropertyChanged("nLacre");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13876,7 +15128,7 @@ public partial class TNFeInfNFeTranspVolLacres : object, System.ComponentModel.I
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCobr : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCobr {
     
     private TNFeInfNFeCobrFat fatField;
     
@@ -13889,7 +15141,6 @@ public partial class TNFeInfNFeCobr : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.fatField = value;
-            this.RaisePropertyChanged("fat");
         }
     }
     
@@ -13901,16 +15152,6 @@ public partial class TNFeInfNFeCobr : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.dupField = value;
-            this.RaisePropertyChanged("dup");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13921,7 +15162,7 @@ public partial class TNFeInfNFeCobr : object, System.ComponentModel.INotifyPrope
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCobrFat {
     
     private string nFatField;
     
@@ -13938,7 +15179,6 @@ public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nFatField = value;
-            this.RaisePropertyChanged("nFat");
         }
     }
     
@@ -13949,7 +15189,6 @@ public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vOrigField = value;
-            this.RaisePropertyChanged("vOrig");
         }
     }
     
@@ -13960,7 +15199,6 @@ public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vDescField = value;
-            this.RaisePropertyChanged("vDesc");
         }
     }
     
@@ -13971,16 +15209,6 @@ public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vLiqField = value;
-            this.RaisePropertyChanged("vLiq");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -13991,7 +15219,7 @@ public partial class TNFeInfNFeCobrFat : object, System.ComponentModel.INotifyPr
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCobrDup : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCobrDup {
     
     private string nDupField;
     
@@ -14006,7 +15234,6 @@ public partial class TNFeInfNFeCobrDup : object, System.ComponentModel.INotifyPr
         }
         set {
             this.nDupField = value;
-            this.RaisePropertyChanged("nDup");
         }
     }
     
@@ -14017,7 +15244,6 @@ public partial class TNFeInfNFeCobrDup : object, System.ComponentModel.INotifyPr
         }
         set {
             this.dVencField = value;
-            this.RaisePropertyChanged("dVenc");
         }
     }
     
@@ -14028,16 +15254,6 @@ public partial class TNFeInfNFeCobrDup : object, System.ComponentModel.INotifyPr
         }
         set {
             this.vDupField = value;
-            this.RaisePropertyChanged("vDup");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14048,7 +15264,7 @@ public partial class TNFeInfNFeCobrDup : object, System.ComponentModel.INotifyPr
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFePag : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFePag {
     
     private TNFeInfNFePagDetPag[] detPagField;
     
@@ -14062,7 +15278,6 @@ public partial class TNFeInfNFePag : object, System.ComponentModel.INotifyProper
         }
         set {
             this.detPagField = value;
-            this.RaisePropertyChanged("detPag");
         }
     }
     
@@ -14073,16 +15288,6 @@ public partial class TNFeInfNFePag : object, System.ComponentModel.INotifyProper
         }
         set {
             this.vTrocoField = value;
-            this.RaisePropertyChanged("vTroco");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14093,7 +15298,7 @@ public partial class TNFeInfNFePag : object, System.ComponentModel.INotifyProper
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFePagDetPag {
     
     private TNFeInfNFePagDetPagIndPag indPagField;
     
@@ -14105,6 +15310,12 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
     
     private string vPagField;
     
+    private string dPagField;
+    
+    private string cNPJPagField;
+    
+    private TUfEmi uFPagField;
+    
     private TNFeInfNFePagDetPagCard cardField;
     
     /// <remarks/>
@@ -14114,7 +15325,6 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.indPagField = value;
-            this.RaisePropertyChanged("indPag");
         }
     }
     
@@ -14126,7 +15336,6 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.indPagFieldSpecified = value;
-            this.RaisePropertyChanged("indPagSpecified");
         }
     }
     
@@ -14137,7 +15346,6 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.tPagField = value;
-            this.RaisePropertyChanged("tPag");
         }
     }
     
@@ -14148,7 +15356,6 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.xPagField = value;
-            this.RaisePropertyChanged("xPag");
         }
     }
     
@@ -14159,7 +15366,36 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.vPagField = value;
-            this.RaisePropertyChanged("vPag");
+        }
+    }
+    
+    /// <remarks/>
+    public string dPag {
+        get {
+            return this.dPagField;
+        }
+        set {
+            this.dPagField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CNPJPag {
+        get {
+            return this.cNPJPagField;
+        }
+        set {
+            this.cNPJPagField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUfEmi UFPag {
+        get {
+            return this.uFPagField;
+        }
+        set {
+            this.uFPagField = value;
         }
     }
     
@@ -14170,16 +15406,6 @@ public partial class TNFeInfNFePagDetPag : object, System.ComponentModel.INotify
         }
         set {
             this.cardField = value;
-            this.RaisePropertyChanged("card");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14205,7 +15431,7 @@ public enum TNFeInfNFePagDetPagIndPag {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFePagDetPagCard {
     
     private TNFeInfNFePagDetPagCardTpIntegra tpIntegraField;
     
@@ -14215,6 +15441,10 @@ public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INo
     
     private string cAutField;
     
+    private string cNPJRecebField;
+    
+    private string idTermPagField;
+    
     /// <remarks/>
     public TNFeInfNFePagDetPagCardTpIntegra tpIntegra {
         get {
@@ -14222,7 +15452,6 @@ public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INo
         }
         set {
             this.tpIntegraField = value;
-            this.RaisePropertyChanged("tpIntegra");
         }
     }
     
@@ -14233,7 +15462,6 @@ public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INo
         }
         set {
             this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
         }
     }
     
@@ -14244,7 +15472,6 @@ public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INo
         }
         set {
             this.tBandField = value;
-            this.RaisePropertyChanged("tBand");
         }
     }
     
@@ -14255,16 +15482,26 @@ public partial class TNFeInfNFePagDetPagCard : object, System.ComponentModel.INo
         }
         set {
             this.cAutField = value;
-            this.RaisePropertyChanged("cAut");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string CNPJReceb {
+        get {
+            return this.cNPJRecebField;
+        }
+        set {
+            this.cNPJRecebField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public string idTermPag {
+        get {
+            return this.idTermPagField;
+        }
+        set {
+            this.idTermPagField = value;
         }
     }
 }
@@ -14290,7 +15527,7 @@ public enum TNFeInfNFePagDetPagCardTpIntegra {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeInfIntermed : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfIntermed {
     
     private string cNPJField;
     
@@ -14303,7 +15540,6 @@ public partial class TNFeInfNFeInfIntermed : object, System.ComponentModel.INoti
         }
         set {
             this.cNPJField = value;
-            this.RaisePropertyChanged("CNPJ");
         }
     }
     
@@ -14314,16 +15550,6 @@ public partial class TNFeInfNFeInfIntermed : object, System.ComponentModel.INoti
         }
         set {
             this.idCadIntTranField = value;
-            this.RaisePropertyChanged("idCadIntTran");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14334,7 +15560,7 @@ public partial class TNFeInfNFeInfIntermed : object, System.ComponentModel.INoti
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfAdic {
     
     private string infAdFiscoField;
     
@@ -14353,7 +15579,6 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
         }
         set {
             this.infAdFiscoField = value;
-            this.RaisePropertyChanged("infAdFisco");
         }
     }
     
@@ -14364,7 +15589,6 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
         }
         set {
             this.infCplField = value;
-            this.RaisePropertyChanged("infCpl");
         }
     }
     
@@ -14376,7 +15600,6 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
         }
         set {
             this.obsContField = value;
-            this.RaisePropertyChanged("obsCont");
         }
     }
     
@@ -14388,7 +15611,6 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
         }
         set {
             this.obsFiscoField = value;
-            this.RaisePropertyChanged("obsFisco");
         }
     }
     
@@ -14400,16 +15622,6 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
         }
         set {
             this.procRefField = value;
-            this.RaisePropertyChanged("procRef");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14420,7 +15632,7 @@ public partial class TNFeInfNFeInfAdic : object, System.ComponentModel.INotifyPr
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeInfAdicObsCont : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfAdicObsCont {
     
     private string xTextoField;
     
@@ -14433,7 +15645,6 @@ public partial class TNFeInfNFeInfAdicObsCont : object, System.ComponentModel.IN
         }
         set {
             this.xTextoField = value;
-            this.RaisePropertyChanged("xTexto");
         }
     }
     
@@ -14445,16 +15656,6 @@ public partial class TNFeInfNFeInfAdicObsCont : object, System.ComponentModel.IN
         }
         set {
             this.xCampoField = value;
-            this.RaisePropertyChanged("xCampo");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14465,7 +15666,7 @@ public partial class TNFeInfNFeInfAdicObsCont : object, System.ComponentModel.IN
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeInfAdicObsFisco : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfAdicObsFisco {
     
     private string xTextoField;
     
@@ -14478,7 +15679,6 @@ public partial class TNFeInfNFeInfAdicObsFisco : object, System.ComponentModel.I
         }
         set {
             this.xTextoField = value;
-            this.RaisePropertyChanged("xTexto");
         }
     }
     
@@ -14490,16 +15690,6 @@ public partial class TNFeInfNFeInfAdicObsFisco : object, System.ComponentModel.I
         }
         set {
             this.xCampoField = value;
-            this.RaisePropertyChanged("xCampo");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14510,11 +15700,15 @@ public partial class TNFeInfNFeInfAdicObsFisco : object, System.ComponentModel.I
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeInfAdicProcRef : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfAdicProcRef {
     
     private string nProcField;
     
     private TNFeInfNFeInfAdicProcRefIndProc indProcField;
+    
+    private TNFeInfNFeInfAdicProcRefTpAto tpAtoField;
+    
+    private bool tpAtoFieldSpecified;
     
     /// <remarks/>
     public string nProc {
@@ -14523,7 +15717,6 @@ public partial class TNFeInfNFeInfAdicProcRef : object, System.ComponentModel.IN
         }
         set {
             this.nProcField = value;
-            this.RaisePropertyChanged("nProc");
         }
     }
     
@@ -14534,16 +15727,27 @@ public partial class TNFeInfNFeInfAdicProcRef : object, System.ComponentModel.IN
         }
         set {
             this.indProcField = value;
-            this.RaisePropertyChanged("indProc");
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public TNFeInfNFeInfAdicProcRefTpAto tpAto {
+        get {
+            return this.tpAtoField;
+        }
+        set {
+            this.tpAtoField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool tpAtoSpecified {
+        get {
+            return this.tpAtoFieldSpecified;
+        }
+        set {
+            this.tpAtoFieldSpecified = value;
         }
     }
 }
@@ -14571,8 +15775,39 @@ public enum TNFeInfNFeInfAdicProcRefIndProc {
     Item3,
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+    
+    /// <remarks/>
     [System.Xml.Serialization.XmlEnumAttribute("9")]
     Item9,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeInfAdicProcRefTpAto {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("08")]
+    Item08,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("10")]
+    Item10,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("12")]
+    Item12,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("14")]
+    Item14,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("15")]
+    Item15,
 }
 
 /// <remarks/>
@@ -14581,7 +15816,7 @@ public enum TNFeInfNFeInfAdicProcRefIndProc {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeExporta : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeExporta {
     
     private TUfEmi uFSaidaPaisField;
     
@@ -14596,7 +15831,6 @@ public partial class TNFeInfNFeExporta : object, System.ComponentModel.INotifyPr
         }
         set {
             this.uFSaidaPaisField = value;
-            this.RaisePropertyChanged("UFSaidaPais");
         }
     }
     
@@ -14607,7 +15841,6 @@ public partial class TNFeInfNFeExporta : object, System.ComponentModel.INotifyPr
         }
         set {
             this.xLocExportaField = value;
-            this.RaisePropertyChanged("xLocExporta");
         }
     }
     
@@ -14618,16 +15851,6 @@ public partial class TNFeInfNFeExporta : object, System.ComponentModel.INotifyPr
         }
         set {
             this.xLocDespachoField = value;
-            this.RaisePropertyChanged("xLocDespacho");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14638,7 +15861,7 @@ public partial class TNFeInfNFeExporta : object, System.ComponentModel.INotifyPr
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCompra : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCompra {
     
     private string xNEmpField;
     
@@ -14653,7 +15876,6 @@ public partial class TNFeInfNFeCompra : object, System.ComponentModel.INotifyPro
         }
         set {
             this.xNEmpField = value;
-            this.RaisePropertyChanged("xNEmp");
         }
     }
     
@@ -14664,7 +15886,6 @@ public partial class TNFeInfNFeCompra : object, System.ComponentModel.INotifyPro
         }
         set {
             this.xPedField = value;
-            this.RaisePropertyChanged("xPed");
         }
     }
     
@@ -14675,16 +15896,6 @@ public partial class TNFeInfNFeCompra : object, System.ComponentModel.INotifyPro
         }
         set {
             this.xContField = value;
-            this.RaisePropertyChanged("xCont");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14695,7 +15906,7 @@ public partial class TNFeInfNFeCompra : object, System.ComponentModel.INotifyPro
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCana {
     
     private string safraField;
     
@@ -14724,7 +15935,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.safraField = value;
-            this.RaisePropertyChanged("safra");
         }
     }
     
@@ -14735,7 +15945,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.refField = value;
-            this.RaisePropertyChanged("ref");
         }
     }
     
@@ -14747,7 +15956,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.forDiaField = value;
-            this.RaisePropertyChanged("forDia");
         }
     }
     
@@ -14758,7 +15966,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.qTotMesField = value;
-            this.RaisePropertyChanged("qTotMes");
         }
     }
     
@@ -14769,7 +15976,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.qTotAntField = value;
-            this.RaisePropertyChanged("qTotAnt");
         }
     }
     
@@ -14780,7 +15986,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.qTotGerField = value;
-            this.RaisePropertyChanged("qTotGer");
         }
     }
     
@@ -14792,7 +15997,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.deducField = value;
-            this.RaisePropertyChanged("deduc");
         }
     }
     
@@ -14803,7 +16007,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.vForField = value;
-            this.RaisePropertyChanged("vFor");
         }
     }
     
@@ -14814,7 +16017,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.vTotDedField = value;
-            this.RaisePropertyChanged("vTotDed");
         }
     }
     
@@ -14825,16 +16027,6 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.vLiqForField = value;
-            this.RaisePropertyChanged("vLiqFor");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14845,7 +16037,7 @@ public partial class TNFeInfNFeCana : object, System.ComponentModel.INotifyPrope
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCanaForDia : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCanaForDia {
     
     private string qtdeField;
     
@@ -14858,7 +16050,6 @@ public partial class TNFeInfNFeCanaForDia : object, System.ComponentModel.INotif
         }
         set {
             this.qtdeField = value;
-            this.RaisePropertyChanged("qtde");
         }
     }
     
@@ -14870,16 +16061,6 @@ public partial class TNFeInfNFeCanaForDia : object, System.ComponentModel.INotif
         }
         set {
             this.diaField = value;
-            this.RaisePropertyChanged("dia");
-        }
-    }
-    
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-    
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
@@ -14890,7 +16071,7 @@ public partial class TNFeInfNFeCanaForDia : object, System.ComponentModel.INotif
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeCanaDeduc : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeCanaDeduc {
     
     private string xDedField;
     
@@ -14903,7 +16084,6 @@ public partial class TNFeInfNFeCanaDeduc : object, System.ComponentModel.INotify
         }
         set {
             this.xDedField = value;
-            this.RaisePropertyChanged("xDed");
         }
     }
     
@@ -14914,16 +16094,88 @@ public partial class TNFeInfNFeCanaDeduc : object, System.ComponentModel.INotify
         }
         set {
             this.vDedField = value;
-            this.RaisePropertyChanged("vDed");
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TInfRespTec {
+    
+    private string cNPJField;
+    
+    private string xContatoField;
+    
+    private string emailField;
+    
+    private string foneField;
+    
+    private string idCSRTField;
+    
+    private byte[] hashCSRTField;
+    
+    /// <remarks/>
+    public string CNPJ {
+        get {
+            return this.cNPJField;
+        }
+        set {
+            this.cNPJField = value;
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    public string xContato {
+        get {
+            return this.xContatoField;
+        }
+        set {
+            this.xContatoField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    public string email {
+        get {
+            return this.emailField;
+        }
+        set {
+            this.emailField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string fone {
+        get {
+            return this.foneField;
+        }
+        set {
+            this.foneField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string idCSRT {
+        get {
+            return this.idCSRTField;
+        }
+        set {
+            this.idCSRTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] hashCSRT {
+        get {
+            return this.hashCSRTField;
+        }
+        set {
+            this.hashCSRTField = value;
         }
     }
 }
@@ -14934,7 +16186,176 @@ public partial class TNFeInfNFeCanaDeduc : object, System.ComponentModel.INotify
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
-public partial class TNFeInfNFeSupl : object, System.ComponentModel.INotifyPropertyChanged {
+public partial class TNFeInfNFeInfSolicNFF {
+    
+    private string xSolicField;
+    
+    /// <remarks/>
+    public string xSolic {
+        get {
+            return this.xSolicField;
+        }
+        set {
+            this.xSolicField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeAgropecuario {
+    
+    private object[] itemsField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("defensivo", typeof(TNFeInfNFeAgropecuarioDefensivo))]
+    [System.Xml.Serialization.XmlElementAttribute("guiaTransito", typeof(TNFeInfNFeAgropecuarioGuiaTransito))]
+    public object[] Items {
+        get {
+            return this.itemsField;
+        }
+        set {
+            this.itemsField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeAgropecuarioDefensivo {
+    
+    private string nReceituarioField;
+    
+    private string cPFRespTecField;
+    
+    /// <remarks/>
+    public string nReceituario {
+        get {
+            return this.nReceituarioField;
+        }
+        set {
+            this.nReceituarioField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string CPFRespTec {
+        get {
+            return this.cPFRespTecField;
+        }
+        set {
+            this.cPFRespTecField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeAgropecuarioGuiaTransito {
+    
+    private TNFeInfNFeAgropecuarioGuiaTransitoTpGuia tpGuiaField;
+    
+    private TUfEmi uFGuiaField;
+    
+    private string serieGuiaField;
+    
+    private string nGuiaField;
+    
+    /// <remarks/>
+    public TNFeInfNFeAgropecuarioGuiaTransitoTpGuia tpGuia {
+        get {
+            return this.tpGuiaField;
+        }
+        set {
+            this.tpGuiaField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public TUfEmi UFGuia {
+        get {
+            return this.uFGuiaField;
+        }
+        set {
+            this.uFGuiaField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string serieGuia {
+        get {
+            return this.serieGuiaField;
+        }
+        set {
+            this.serieGuiaField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nGuia {
+        get {
+            return this.nGuiaField;
+        }
+        set {
+            this.nGuiaField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public enum TNFeInfNFeAgropecuarioGuiaTransitoTpGuia {
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("1")]
+    Item1,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("2")]
+    Item2,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("3")]
+    Item3,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("4")]
+    Item4,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("5")]
+    Item5,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("6")]
+    Item6,
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlEnumAttribute("7")]
+    Item7,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TNFeInfNFeSupl {
     
     private string qrCodeField;
     
@@ -14947,7 +16368,6 @@ public partial class TNFeInfNFeSupl : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.qrCodeField = value;
-            this.RaisePropertyChanged("qrCode");
         }
     }
     
@@ -14958,16 +16378,196 @@ public partial class TNFeInfNFeSupl : object, System.ComponentModel.INotifyPrope
         }
         set {
             this.urlChaveField = value;
-            this.RaisePropertyChanged("urlChave");
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TProtNFe {
+    
+    private TProtNFeInfProt infProtField;
+    
+    private SignatureType signatureField;
+    
+    private string versaoField;
+    
+    /// <remarks/>
+    public TProtNFeInfProt infProt {
+        get {
+            return this.infProtField;
+        }
+        set {
+            this.infProtField = value;
         }
     }
     
-    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.w3.org/2000/09/xmldsig#")]
+    public SignatureType Signature {
+        get {
+            return this.signatureField;
+        }
+        set {
+            this.signatureField = value;
+        }
+    }
     
-    protected void RaisePropertyChanged(string propertyName) {
-        System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-        if ((propertyChanged != null)) {
-            propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string versao {
+        get {
+            return this.versaoField;
+        }
+        set {
+            this.versaoField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.portalfiscal.inf.br/nfe")]
+public partial class TProtNFeInfProt {
+    
+    private TAmb tpAmbField;
+    
+    private string verAplicField;
+    
+    private string chNFeField;
+    
+    private string dhRecbtoField;
+    
+    private string nProtField;
+    
+    private byte[] digValField;
+    
+    private string cStatField;
+    
+    private string xMotivoField;
+    
+    private string cMsgField;
+    
+    private string xMsgField;
+    
+    private string idField;
+    
+    /// <remarks/>
+    public TAmb tpAmb {
+        get {
+            return this.tpAmbField;
+        }
+        set {
+            this.tpAmbField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string verAplic {
+        get {
+            return this.verAplicField;
+        }
+        set {
+            this.verAplicField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string chNFe {
+        get {
+            return this.chNFeField;
+        }
+        set {
+            this.chNFeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string dhRecbto {
+        get {
+            return this.dhRecbtoField;
+        }
+        set {
+            this.dhRecbtoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string nProt {
+        get {
+            return this.nProtField;
+        }
+        set {
+            this.nProtField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+    public byte[] digVal {
+        get {
+            return this.digValField;
+        }
+        set {
+            this.digValField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cStat {
+        get {
+            return this.cStatField;
+        }
+        set {
+            this.cStatField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMotivo {
+        get {
+            return this.xMotivoField;
+        }
+        set {
+            this.xMotivoField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string cMsg {
+        get {
+            return this.cMsgField;
+        }
+        set {
+            this.cMsgField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string xMsg {
+        get {
+            return this.xMsgField;
+        }
+        set {
+            this.xMsgField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="ID")]
+    public string Id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
         }
     }
 }
