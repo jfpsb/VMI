@@ -43,15 +43,6 @@
     <None Remove="Mapas\OperadoraCartaoId.hbm.xml" />
     <None Remove="Mapas\Parcela.hbm.xml" />
     <None Remove="Mapas\ParcelaCartao.hbm.xml" />
-    <None Remove="Mapas\Pix\Calendario.hbm.xml" />
-    <None Remove="Mapas\Pix\Cobranca.hbm.xml" />
-    <None Remove="Mapas\Pix\Devolucao.hbm.xml" />
-    <None Remove="Mapas\Pix\Horario.hbm.xml" />
-    <None Remove="Mapas\Pix\Loc.hbm.xml" />
-    <None Remove="Mapas\Pix\Pagador.hbm.xml" />
-    <None Remove="Mapas\Pix\Pix.hbm.xml" />
-    <None Remove="Mapas\Pix\QRCode.hbm.xml" />
-    <None Remove="Mapas\Pix\Valor.hbm.xml" />
     <None Remove="Mapas\PontoEletronico.hbm.xml" />
     <None Remove="Mapas\Produto.hbm.xml" />
     <None Remove="Mapas\ProdutoGrade.hbm.xml" />

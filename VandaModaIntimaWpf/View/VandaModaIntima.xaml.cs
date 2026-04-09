@@ -11,12 +11,9 @@ using VandaModaIntimaWpf.View.Fornecedor;
 using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
-using VandaModaIntimaWpf.View.Pix;
-using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.VendaEmCartao;
-using VandaModaIntimaWpf.ViewModel.Pix;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
@@ -135,15 +132,6 @@ namespace VandaModaIntimaWpf.View
 
             //PesquisarPontoEletronico pesquisarPonto = new PesquisarPontoEletronico();
             //pesquisarPonto.Show();
-        }
-
-        private void BtnPix_Click(object sender, RoutedEventArgs e)
-        {
-            //PagamentoPix pagamentoPix = new PagamentoPix();
-            //pagamentoPix.Show();
-
-            PesquisarPix pesquisarPix = new PesquisarPix();
-            pesquisarPix.Show();
         }
 
         private void BtnVendaEmCartao_Click(object sender, RoutedEventArgs e)
