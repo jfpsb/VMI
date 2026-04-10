@@ -50,6 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         public VandaModaIntimaVM()
         {
+            WindowService.RegistrarWindow<SalvarProvisionamentos, CadastrarProvisionamentoVM>();
             WindowService.RegistrarWindow<PesquisarProvisionamento, PesquisarProvisionamentoVM>();
             WindowService.RegistrarWindow<SalvarCompraDeFornecedor, CadastrarCompraDeFornecedorVM>();
             WindowService.RegistrarWindow<SalvarCompraDeFornecedor, EditarCompraDeFornecedorVM>();

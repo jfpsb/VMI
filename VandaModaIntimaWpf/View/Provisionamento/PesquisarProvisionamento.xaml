@@ -82,7 +82,7 @@
 
                         <DataGridTextColumn Header="Salário Base"
                                             IsReadOnly="True"
-                                            Binding="{Binding Entidade.Funcionario.Salario, StringFormat='C', ConverterCulture=pt-BR}"
+                                            Binding="{Binding Entidade.SalarioBase, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="*" />
 
                         <DataGridTextColumn Header="Última Remuneração"

@@ -12,6 +12,7 @@
 		<property name="Ano" />
 		<property name="Mes" />
 		<property name="UltimaRemuneracao" />
+		<property name="SalarioBase" />
 		<property name="AvisoPrevio" />
 		<property name="DecimoTerceiro" />
 		<property name="MultaFgts" />

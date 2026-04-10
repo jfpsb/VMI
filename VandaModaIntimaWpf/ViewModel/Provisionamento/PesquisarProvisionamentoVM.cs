@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
         public PesquisarProvisionamentoVM()
         {
             daoEntidade = new DAOProvisionamento(_session);
-
+            pesquisarViewModelStrategy = new PesquisarProvisionamentoVMStrategy();
             MesReferencia = DateTime.Now;
         }
 
@@ -27,7 +27,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
 
         public override object GetCadastrarViewModel()
         {
-            throw new NotImplementedException();
+            return new CadastrarProvisionamentoVM(_session);
         }
 
         public override object GetEditarViewModel()
@@ -37,9 +37,9 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
 
         public override async Task PesquisaItens(string termo)
         {
-            DAOProvisionamento daoProvisionamento = (DAOProvisionamento) daoEntidade;
+            DAOProvisionamento daoProvisionamento = (DAOProvisionamento)daoEntidade;
 
-            if(ListarProvisionamentosTotais)
+            if (ListarProvisionamentosTotais)
             {
                 Entidades = new ObservableCollection<EntidadeComCampo<Model.Provisionamento>>(EntidadeComCampo<Model.Provisionamento>.CriarListaEntidadeComCampo(await daoProvisionamento.ListarProvisionamentosTotaisGroupByFuncionario()));
             }

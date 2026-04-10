@@ -10,6 +10,7 @@ namespace VandaModaIntimaWpf.Model
         private Funcionario _funcionario;
         private int _ano;
         private int _mes;
+        private double _salarioBase;
         private double _ultimaRemuneracao;
         private double _avisoPrevio;
         private double _decimoTerceiro;
@@ -98,6 +99,7 @@ namespace VandaModaIntimaWpf.Model
             {
                 _avisoPrevio = value;
                 OnPropertyChanged("AvisoPrevio");
+                OnPropertyChanged("ProvisionamentoTotal");
             }
         }
 
@@ -112,6 +114,7 @@ namespace VandaModaIntimaWpf.Model
             {
                 _decimoTerceiro = value;
                 OnPropertyChanged("DecimoTerceiro");
+                OnPropertyChanged("ProvisionamentoTotal");
             }
         }
 
@@ -126,6 +129,7 @@ namespace VandaModaIntimaWpf.Model
             {
                 _multaFgts = value;
                 OnPropertyChanged("MultaFgts");
+                OnPropertyChanged("ProvisionamentoTotal");
             }
         }
 
@@ -134,6 +138,20 @@ namespace VandaModaIntimaWpf.Model
             get
             {
                 return MultaFgts + DecimoTerceiro + AvisoPrevio;
+            }
+        }
+
+        public virtual double SalarioBase
+        {
+            get
+            {
+                return _salarioBase;
+            }
+
+            set
+            {
+                _salarioBase = value;
+                OnPropertyChanged("SalarioBase");
             }
         }
 

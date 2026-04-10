@@ -183,7 +183,7 @@
                         Click="BtnProvisionamento_Click">
                     <Button.Content>
                         <StackPanel>
-                            <Image Source="/Resources/CartaoCredito.png"
+                            <Image Source="/Resources/Provisionamento.png"
                                    Height="300"
                                    Width="300" />
                             <Label Content="Provisionamento" />

@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace VandaModaIntimaWpf.ViewModel
         protected Visibility visibilidadeAvisoItemJaExiste = Visibility.Collapsed;
         protected bool isEnabled = true;
         protected E _entidade;
+        protected IList<E> _entidades; //Caso seja cadastro de várias entidades
         protected bool _result;
         protected IMessageBoxService _messageBoxService;
         protected IWindowService _windowService;
@@ -107,7 +109,19 @@ namespace VandaModaIntimaWpf.ViewModel
             _result = false;
             try
             {
-                await daoEntidade.InserirOuAtualizar(Entidade);
+                if (Entidade != null)
+                {
+                    await daoEntidade.InserirOuAtualizar(Entidade);
+                }
+                else if (Entidades != null)
+                {
+                    await daoEntidade.InserirOuAtualizar(Entidades);
+                }
+                else
+                {
+                    throw new Exception("Entidade e Entidades estão null");
+                }
+
                 _result = true;
                 _messageBoxService.Show(viewModelStrategy.MensagemEntidadeSalvaComSucesso(), viewModelStrategy.MessageBoxCaption(),
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -121,10 +135,12 @@ namespace VandaModaIntimaWpf.ViewModel
             AposCRUDEventArgs e = new AposCRUDEventArgs()
             {
                 IssoEhUpdate = IssoEUmUpdate,
-                UuidEntidade = Entidade.Uuid,
                 Sucesso = _result,
                 Parametro = parametro
             };
+
+            if (Entidade != null)
+                e.UuidEntidade = Entidade.Uuid;
 
             return e;
         }
@@ -201,6 +217,20 @@ namespace VandaModaIntimaWpf.ViewModel
                 _entidade = value;
                 _entidade.PropertyChanged += Entidade_PropertyChanged;
                 OnPropertyChanged("Entidade");
+            }
+        }
+
+        public IList<E> Entidades
+        {
+            get
+            {
+                return _entidades;
+            }
+
+            set
+            {
+                _entidades = value;
+                OnPropertyChanged("Entidades");
             }
         }
 
