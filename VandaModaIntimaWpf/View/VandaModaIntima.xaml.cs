@@ -12,6 +12,7 @@ using VandaModaIntimaWpf.View.Funcionario;
 using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.View.Provisionamento;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.VendaEmCartao;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
@@ -138,6 +139,12 @@ namespace VandaModaIntimaWpf.View
         {
             PesquisarVendaEmCartao pesquisarVendaEmCartao = new PesquisarVendaEmCartao();
             pesquisarVendaEmCartao.Show();
+        }
+
+        private void BtnProvisionamento_Click(object sender, RoutedEventArgs e)
+        {
+            PesquisarProvisionamento pesquisarProvisonamento = new PesquisarProvisionamento();
+            pesquisarProvisonamento.Show();
         }
     }
 }

@@ -18,6 +18,7 @@ using VandaModaIntimaWpf.View.Loja;
 using VandaModaIntimaWpf.View.Marca;
 using VandaModaIntimaWpf.View.PontoEletronico;
 using VandaModaIntimaWpf.View.Produto;
+using VandaModaIntimaWpf.View.Provisionamento;
 using VandaModaIntimaWpf.View.RecebimentoCartao;
 using VandaModaIntimaWpf.View.Representante;
 using VandaModaIntimaWpf.View.TipoGrade;
@@ -36,6 +37,7 @@ using VandaModaIntimaWpf.ViewModel.Loja;
 using VandaModaIntimaWpf.ViewModel.Marca;
 using VandaModaIntimaWpf.ViewModel.PontoEletronico;
 using VandaModaIntimaWpf.ViewModel.Produto;
+using VandaModaIntimaWpf.ViewModel.Provisionamento;
 using VandaModaIntimaWpf.ViewModel.RecebimentoCartao;
 using VandaModaIntimaWpf.ViewModel.Representante;
 using VandaModaIntimaWpf.ViewModel.Services.Concretos;
@@ -48,6 +50,7 @@ namespace VandaModaIntimaWpf.ViewModel
     {
         public VandaModaIntimaVM()
         {
+            WindowService.RegistrarWindow<PesquisarProvisionamento, PesquisarProvisionamentoVM>();
             WindowService.RegistrarWindow<SalvarCompraDeFornecedor, CadastrarCompraDeFornecedorVM>();
             WindowService.RegistrarWindow<SalvarCompraDeFornecedor, EditarCompraDeFornecedorVM>();
             WindowService.RegistrarWindow<CadastrarContagem, CadastrarContagemVM>();

@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapas\DescontoEmFolha.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Provisionamento.hbm.xml" />
     <EmbeddedResource Include="Mapas\Funcao.hbm.xml" />
     <EmbeddedResource Include="Mapas\ParcelaCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\VendaEmCartao.hbm.xml" />
