@@ -21,7 +21,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.CreateAlias("Funcionario", "Funcionario");
                 criteria.Add(Restrictions.Eq("Mes", mes));
                 criteria.Add(Restrictions.Eq("Ano", ano));
-                criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
+                //criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
 
                 return await Listar(criteria);
             }
@@ -39,7 +39,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.CreateAlias("Funcionario", "Funcionario");
-                criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
+                //criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
 
                 criteria.SetProjection(Projections.ProjectionList()
                     .Add(Projections.Sum("AvisoPrevio"), "AvisoPrevio")

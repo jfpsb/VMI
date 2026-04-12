@@ -143,6 +143,7 @@
     <Resource Include="Resources\Fonts\Astral Sisters.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Bold.ttf" />
     <Resource Include="Resources\Fonts\Gotham-Regular.ttf" />
+    <Resource Include="Resources\Provisionamento.png" />
     <None Update="Resources\tabelas_inss.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -759,6 +760,7 @@
     <None Remove="Resources\CartaoCredito.png" />
     <None Remove="Resources\CheckMark.png" />
     <None Remove="Resources\ErrorMark.png" />
+    <None Remove="Resources\Provisionamento.png" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoria.rdlc" />
     <None Remove="View\EntradaDeMercadoria\Relatorios\EntradaMercadoriaProdutoGrade.rdlc" />
     <None Remove="View\Ferias\Relatorios\RelatorioFerias.rdlc" />

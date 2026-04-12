@@ -48,6 +48,15 @@
         </View:TelaPesquisaTemplate.Menu>
         <View:TelaPesquisaTemplate.Content>
             <Grid>
+                <Grid.Resources>
+                    <CollectionViewSource x:Key="ProvAgrupado"
+                                          Source="{Binding Entidades}">
+                        <CollectionViewSource.GroupDescriptions>
+                            <PropertyGroupDescription PropertyName="Entidade.Loja" />
+                        </CollectionViewSource.GroupDescriptions>
+                    </CollectionViewSource>
+                    <ViewModel:SomaProvisionamentosConverter x:Key="SomaProvisionamentosConverter" />
+                </Grid.Resources>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -73,8 +82,18 @@
                 <DataGrid Grid.Row="2"
                           Grid.ColumnSpan="2"
                           Name="DataGridProvisionamento"
-                          ItemsSource="{Binding Entidades, UpdateSourceTrigger=PropertyChanged}">
+                          ItemsSource="{Binding Source={StaticResource ProvAgrupado}, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                                              Command="{Binding DataContext.ChecarItensMarcadosComando, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PesquisarProvisionamento}}}">
+
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{DynamicResource funcionario_header}"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.Funcionario.Nome, StringFormat='C', ConverterCulture=pt-BR}"
@@ -111,6 +130,34 @@
                                             Width="*" />
 
                     </DataGrid.Columns>
+                    <DataGrid.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black"
+                                            BorderThickness="0,0,0,2">
+                                        <DockPanel HorizontalAlignment="Stretch"
+                                                   Background="Yellow"
+                                                   LastChildFill="True">
+                                            <TextBlock FontWeight="Bold"
+                                                       FontSize="17"
+                                                       Foreground="Black"
+                                                       HorizontalAlignment="Stretch"
+                                                       Text="{Binding Items[0].Entidade.Loja}"
+                                                       Margin="5" />
+                                            <TextBlock FontWeight="Bold"
+                                                       FontSize="19"
+                                                       HorizontalAlignment="Right"
+                                                       TextAlignment="Right"
+                                                       Foreground="Black"
+                                                       Text="{Binding StringFormat=Soma: {0:C}, Converter={StaticResource SomaProvisionamentosConverter}, ConverterParameter=Entidade.ProvisionamentoTotal, ConverterCulture=pt-BR}"
+                                                       Margin="5" />
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
                 </DataGrid>
             </Grid>
         </View:TelaPesquisaTemplate.Content>

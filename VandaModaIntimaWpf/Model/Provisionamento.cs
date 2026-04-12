@@ -155,6 +155,14 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
+        public virtual string Loja
+        {
+            get
+            {
+                return Funcionario.Loja.Nome;
+            }
+        }
+
         public virtual object GetIdentifier()
         {
             return Id;
