@@ -8,7 +8,6 @@ using System.Timers;
 using System.Threading;
 using Timer = System.Timers.Timer;
 using System.Collections.Generic;
-using SincronizacaoVMI.Model.Pix;
 
 namespace SincronizacaoVMI
 {
@@ -164,15 +163,6 @@ namespace SincronizacaoVMI
                     _threadsByType.Add(typeof(SubGrade).FullName, new Thread((instancia) => { ElapsedGenerico<SubGrade>(); }));
                     _threadsByType.Add(typeof(OperadoraCartaoId).FullName, new Thread((instancia) => { ElapsedGenerico<OperadoraCartaoId>(); }));
                     _threadsByType.Add(typeof(Ferias).FullName, new Thread((instancia) => { ElapsedGenerico<Ferias>(); }));
-                    _threadsByType.Add(typeof(Calendario).FullName, new Thread((instancia) => { ElapsedGenerico<Calendario>(); }));
-                    _threadsByType.Add(typeof(Cobranca).FullName, new Thread((instancia) => { ElapsedGenerico<Cobranca>(); }));
-                    _threadsByType.Add(typeof(Devolucao).FullName, new Thread((instancia) => { ElapsedGenerico<Devolucao>(); }));
-                    _threadsByType.Add(typeof(Horario).FullName, new Thread((instancia) => { ElapsedGenerico<Horario>(); }));
-                    _threadsByType.Add(typeof(Loc).FullName, new Thread((instancia) => { ElapsedGenerico<Loc>(); }));
-                    _threadsByType.Add(typeof(Pagador).FullName, new Thread((instancia) => { ElapsedGenerico<Pagador>(); }));
-                    _threadsByType.Add(typeof(Pix).FullName, new Thread((instancia) => { ElapsedGenerico<Pix>(); }));
-                    _threadsByType.Add(typeof(QRCode).FullName, new Thread((instancia) => { ElapsedGenerico<QRCode>(); }));
-                    _threadsByType.Add(typeof(Valor).FullName, new Thread((instancia) => { ElapsedGenerico<Valor>(); }));
                     _threadsByType.Add(typeof(PontoEletronico).FullName, new Thread((instancia) => { ElapsedGenerico<PontoEletronico>(); }));
                     _threadsByType.Add(typeof(IntervaloPonto).FullName, new Thread((instancia) => { ElapsedGenerico<IntervaloPonto>(); }));
                     _threadsByType.Add(typeof(VendaEmCartao).FullName, new Thread((instancia) => { ElapsedGenerico<VendaEmCartao>(); }));
