@@ -119,6 +119,7 @@
     <EmbeddedResource Include="Mapas\PontoEletronico.hbm.xml" />
     <EmbeddedResource Include="Mapas\Produto.hbm.xml" />
     <EmbeddedResource Include="Mapas\ProdutoGrade.hbm.xml" />
+    <EmbeddedResource Include="Mapas\Provisionamento.hbm.xml" />
     <EmbeddedResource Include="Mapas\RecebimentoCartao.hbm.xml" />
     <EmbeddedResource Include="Mapas\Representante.hbm.xml">
       <SubType>Designer</SubType>

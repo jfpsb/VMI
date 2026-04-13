@@ -123,6 +123,7 @@ namespace SincronizacaoVMI
 
                 if (_threadsByType.Count == 0)
                 {
+                    _threadsByType.Add(typeof(Provisionamento).FullName, new Thread((instancia) => { ElapsedGenerico<Provisionamento>(); }));
                     _threadsByType.Add(typeof(Banco).FullName, new Thread((instancia) => { ElapsedGenerico<Banco>(); }));
                     _threadsByType.Add(typeof(Adiantamento).FullName, new Thread((instancia) => { ElapsedGenerico<Adiantamento>(); }));
                     _threadsByType.Add(typeof(TipoDespesa).FullName, new Thread((instancia) => { ElapsedGenerico<TipoDespesa>(); }));
