@@ -16,7 +16,7 @@ namespace VandaModaIntimaWpf.Model
         private double _decimoTerceiro;
         private double _multaFgts;
 
-        public virtual string GetContextMenuHeader => throw new NotImplementedException();
+        public virtual string GetContextMenuHeader => string.Format("PROVISIONAMENTO TOTAL: {0}", ProvisionamentoTotal);
 
         public virtual int Id
         {

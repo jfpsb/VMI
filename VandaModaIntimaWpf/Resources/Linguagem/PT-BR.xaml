@@ -67,6 +67,7 @@
     <System:String x:Key="preco_dois_pontos">Preço:</System:String>
     <System:String x:Key="preco_custo_dois_pontos">Preço de Custo:</System:String>
     <System:String x:Key="apagar_produtos_marcados">Apagar Produtos Marcados</System:String>
+    <System:String x:Key="apagar_provisionamentos_marcados">Apagar Provisionamentos Marcados</System:String>
     <System:String x:Key="mes_de_referencia">Mês de Referência:</System:String>
     <System:String x:Key="mes_referencia_header">Mês Referência</System:String>
     <System:String x:Key="operadora_cartao_header">Operadora</System:String>
@@ -151,6 +152,14 @@
     <System:String x:Key="produtos_nao_deletados">Produtos Não Foram Deletados</System:String>
     <System:String x:Key="produtos_deletados_com_sucesso">Produtos Foram Deletados Com Sucesso</System:String>
     <System:String x:Key="apagar_produtos">Apagar Produto(s)</System:String>
+
+    <System:String x:Key="certeza_deletar_provisionamento">Tem Certeza Que Deseja Apagar o Provisionamento {0}?</System:String>
+    <System:String x:Key="deseja_apagar_provisionamentos_marcados">Deseja Apagar os Provisionamentos Marcados?</System:String>
+    <System:String x:Key="provisionamento_deletado_com_sucesso">Provisionamento {0} Foi Deletado Com Sucesso</System:String>
+    <System:String x:Key="provisionamento_nao_deletado">Provisionamento Não Foi Deletado</System:String>
+    <System:String x:Key="provisionamentos_nao_deletados">Provisionamentos Não Foram Deletados</System:String>
+    <System:String x:Key="provisionamentos_deletados_com_sucesso">Provisionamentos Foram Deletados Com Sucesso</System:String>
+    <System:String x:Key="apagar_provisionamentos">Apagar Provisionamento(s)</System:String>
 
     <System:String x:Key="certeza_deletar_recebimento">Tem Certeza Que Deseja Apagar o Recebimento de {0} da Loja {1}?</System:String>
     <System:String x:Key="deseja_apagar_recebimento_marcados">Deseja Apagar os Recebimentos Marcados?</System:String>
@@ -262,6 +271,7 @@
         <System:String>PASSAGEM DE ÔNIBUS</System:String>
         <System:String>ALMOÇO</System:String>
         <System:String>MANUTENÇÃO E REPARO</System:String>
+        <System:String>TARIFA PIX</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO REDE</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO STONE</System:String>
         <System:String>TARIFA MÁQUINA DE CARTÃO CAIXA PAGAMENTOS</System:String>

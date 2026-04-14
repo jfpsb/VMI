@@ -10,7 +10,7 @@ namespace VandaModaIntimaWpf.Model.DAO
 {
     public class DAOProvisionamento : DAO<Provisionamento>
     {
-        public DAOProvisionamento(ISession session) : base(session) {}
+        public DAOProvisionamento(ISession session) : base(session) { }
 
         public async Task<IList<Provisionamento>> ListarProvisionamentosPorMesAno(int mes, int ano)
         {
@@ -39,7 +39,6 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.CreateAlias("Funcionario", "Funcionario");
-                //criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
 
                 criteria.SetProjection(Projections.ProjectionList()
                     .Add(Projections.Sum("AvisoPrevio"), "AvisoPrevio")
@@ -54,8 +53,49 @@ namespace VandaModaIntimaWpf.Model.DAO
             }
             catch (Exception ex)
             {
-                Log.EscreveLogBanco(ex, "retorna provisionamentos totais de cada funcionario não demitido");
-                throw new Exception($"Erro ao retornar provisionamentos totais de cada funcionario não demitidos. Acesse {Log.LogBanco} para mais detalhes", ex);
+                Log.EscreveLogBanco(ex, "retorna provisionamentos totais de cada funcionario");
+                throw new Exception($"Erro ao retornar provisionamentos totais de cada funcionario. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
+        public async Task<double> GetTotalProvisionadoPorFuncionario(Funcionario funcionario)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Deletado", false));
+                criteria.SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Sum("AvisoPrevio"), "AvisoPrevio")
+                    );
+
+                return await criteria.UniqueResultAsync<double>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "retorna provisionamento total de um funcionario");
+                throw new Exception($"Erro ao retornar provisionamento total de um funcionario. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+
+        public async Task<int> GetNumeroProvisionadoPorFuncionario(Funcionario funcionario)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Eq("Funcionario", funcionario));
+                criteria.Add(Restrictions.Eq("Deletado", false));
+                criteria.Add(Restrictions.Gt("AvisoPrevio", 0.0));
+                criteria.SetProjection(Projections.ProjectionList()
+                    .Add(Projections.Count("AvisoPrevio"), "AvisoPrevio")
+                    );
+
+                return await criteria.UniqueResultAsync<int>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "retorna provisionamento total de um funcionario");
+                throw new Exception($"Erro ao retornar provisionamento total de um funcionario. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
     }

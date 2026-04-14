@@ -16,7 +16,8 @@
     <View:APesquisarView.DataContext>
         <ViewModel:PesquisarProvisionamentoVM />
     </View:APesquisarView.DataContext>
-    <View:TelaPesquisaTemplate CommandParameter="{Binding ElementName=TelaPesquisarProvisionamento}">
+    <View:TelaPesquisaTemplate BtnApagarMarcadoTexto="{DynamicResource apagar_provisionamentos_marcados}"
+                               CommandParameter="{Binding ElementName=TelaPesquisarProvisionamento}">
         <View:TelaPesquisaTemplate.Menu>
             <Menu>
                 <MenuItem Header="{DynamicResource opcoes}">
