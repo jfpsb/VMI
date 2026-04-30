@@ -69,7 +69,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util
                             var descricao = bonusMensal.Descricao;
                             if (bonusMensal.PagoEmFolha)
                                 descricao += " (PAGO EM FOLHA)";
-                            var bonusJaInserido = folha.Bonus.Count > 0 && folha.Bonus.Any(a => a.Descricao.Equals(descricao));
+                            var bonusJaInserido = folha.Bonus.Count > 0 && folha.Bonus.Any(a => a.Descricao.StartsWith(bonusMensal.Descricao));
 
                             if (bonusJaInserido)
                                 continue;
