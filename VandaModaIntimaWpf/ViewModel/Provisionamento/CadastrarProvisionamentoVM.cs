@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.View.Interfaces;
 
@@ -13,6 +14,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
     public class CadastrarProvisionamentoVM : ACadastrarViewModel<Model.Provisionamento>
     {
         private DAOFuncionario daoFuncionario;
+        private DAOLoja daoLoja;
 
         public ICommand ImportarCSVComando { get; set; }
 
@@ -21,6 +23,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
             viewModelStrategy = new CadastrarProvisionamentoVMStrategy();
             daoEntidade = new DAOProvisionamento(_session);
             daoFuncionario = new DAOFuncionario(_session);
+            daoLoja = new DAOLoja(_session);
             Entidades = new ObservableCollection<Model.Provisionamento>();
 
             ImportarCSVComando = new RelayCommand(ImportarCSV);
@@ -48,17 +51,18 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
 
                             var prov = new Model.Provisionamento
                             {
-                                Funcionario = await daoFuncionario.ListarPorId(colunas[0]), //CPF
-                                Ano = int.Parse(colunas[7].Split('/')[1]), //Competencia Apuracao Ano
-                                UltimaRemuneracao = double.Parse(colunas[11]) //Base Remuneracao Total
+                                Funcionario = await daoFuncionario.ListarPorId(colunas[0]), //Coluna[0] => CPF
+                                Loja = await daoLoja.ListarPorId(colunas[5].Replace("/", "")),
+                                Ano = int.Parse(colunas[7].Split('/')[1]), //Coluna[7] => Competencia Apuracao Ano
+                                UltimaRemuneracao = double.Parse(colunas[11]) //Coluna[11] => Base Remuneracao Total
                             };
 
                             var stringMes = colunas[7].Split('/')[0]; //Divide data e ano
 
                             if (stringMes == "13o") //Arquivo CSV referente ao décimo terceiro
                             {
-                                prov.DecimoTerceiro = 0; //Não provisiona
-                                prov.Mes = 12; //Salvo como mês 12
+                                prov.DecimoTerceiro = 0; //Não provisiona 13º
+                                prov.Mes = 13; //Salva como mês 13
                             }
                             else
                             {
@@ -71,7 +75,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
                             //Provisionamento de aviso prévio começou a ser feito somente a partir da competência 03/2026.
                             //Esta checagem é para não calcular provisionamento de aviso prévio ao cadastrar dados de competências anteriores
                             {
-                                //Número de provisionamentos já feitos por funcionário (mensal)
+                                //Número de provisionamentos de aviso prévio já feitos por funcionário (mensal)
                                 var numProvisionamentos = await (daoEntidade as DAOProvisionamento).GetNumeroProvisionadoPorFuncionario(prov.Funcionario);
                                 //Valor total já provisionado para aviso prévio de funcionário
                                 var avisoPrevioJaProvisionado = await (daoEntidade as DAOProvisionamento).GetTotalProvisionadoPorFuncionario(prov.Funcionario);
@@ -115,7 +119,7 @@ namespace VandaModaIntimaWpf.ViewModel.Provisionamento
 
         public override void ResetaPropriedades(AposCRUDEventArgs e)
         {
-            throw new NotImplementedException();
+            Entidades.Clear();
         }
 
         public override bool ValidacaoSalvar(object parameter)

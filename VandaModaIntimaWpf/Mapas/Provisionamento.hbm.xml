@@ -9,6 +9,7 @@
 		</id>
 		<property name="Uuid" />
 		<many-to-one name="Funcionario" class="VandaModaIntimaWpf.Model.Funcionario" column="funcionario" lazy="false" />
+		<many-to-one name="Loja" class="VandaModaIntimaWpf.Model.Loja" column="loja" lazy="false" />
 		<property name="Ano" />
 		<property name="Mes" />
 		<property name="UltimaRemuneracao" />

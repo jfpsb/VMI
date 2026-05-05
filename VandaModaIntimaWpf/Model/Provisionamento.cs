@@ -8,6 +8,7 @@ namespace VandaModaIntimaWpf.Model
     {
         private int _id;
         private Funcionario _funcionario;
+        private Loja _loja;
         private int _ano;
         private int _mes;
         private double _salarioBase;
@@ -43,6 +44,20 @@ namespace VandaModaIntimaWpf.Model
             {
                 _funcionario = value;
                 OnPropertyChanged("Funcionario");
+            }
+        }
+
+        public virtual Loja Loja
+        {
+            get
+            {
+                return _loja;
+            }
+
+            set
+            {
+                _loja = value;
+                OnPropertyChanged("Loja");
             }
         }
 
@@ -155,11 +170,11 @@ namespace VandaModaIntimaWpf.Model
             }
         }
 
-        public virtual string Loja
+        public virtual string LojaNome
         {
             get
             {
-                return Funcionario.Loja.Nome;
+                return Loja?.Nome;
             }
         }
 

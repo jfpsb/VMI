@@ -53,7 +53,7 @@
                     <CollectionViewSource x:Key="ProvAgrupado"
                                           Source="{Binding Entidades}">
                         <CollectionViewSource.GroupDescriptions>
-                            <PropertyGroupDescription PropertyName="Entidade.Loja" />
+                            <PropertyGroupDescription PropertyName="Entidade.LojaNome" />
                         </CollectionViewSource.GroupDescriptions>
                     </CollectionViewSource>
                     <ViewModel:SomaProvisionamentosConverter x:Key="SomaProvisionamentosConverter" />
@@ -100,6 +100,17 @@
                                             Binding="{Binding Entidade.Funcionario.Nome, StringFormat='C', ConverterCulture=pt-BR}"
                                             Width="*" />
 
+                        <DataGridTextColumn Header="Competência"
+                                            IsReadOnly="True"
+                                            Width="*">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0:00}/{1:0000}">
+                                    <Binding Path="Entidade.Mes" />
+                                    <Binding Path="Entidade.Ano" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+
                         <DataGridTextColumn Header="Salário Base"
                                             IsReadOnly="True"
                                             Binding="{Binding Entidade.SalarioBase, StringFormat='C', ConverterCulture=pt-BR}"
@@ -144,7 +155,7 @@
                                                        FontSize="17"
                                                        Foreground="Black"
                                                        HorizontalAlignment="Stretch"
-                                                       Text="{Binding Items[0].Entidade.Loja}"
+                                                       Text="{Binding Items[0].Entidade.LojaNome}"
                                                        Margin="5" />
                                             <TextBlock FontWeight="Bold"
                                                        FontSize="19"

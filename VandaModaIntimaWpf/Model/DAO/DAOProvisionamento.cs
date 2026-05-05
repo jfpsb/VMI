@@ -19,9 +19,21 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.CreateAlias("Funcionario", "Funcionario");
-                criteria.Add(Restrictions.Eq("Mes", mes));
+
+                var mesDisjunction = Restrictions.Disjunction();
+                if (mes == 12)
+                {
+                    mesDisjunction.Add(Restrictions.Eq("Mes", 12));
+                    mesDisjunction.Add(Restrictions.Eq("Mes", 13));
+                    criteria.Add(mesDisjunction);
+                }
+                else
+                {
+                    criteria.Add(Restrictions.Eq("Mes", mes));
+                }
+
                 criteria.Add(Restrictions.Eq("Ano", ano));
-                //criteria.Add(Restrictions.IsNull("Funcionario.Demissao"));
+                criteria.Add(Restrictions.Gt("MultaFgts", 0.0));
 
                 return await Listar(criteria);
             }
@@ -39,13 +51,20 @@ namespace VandaModaIntimaWpf.Model.DAO
                 var criteria = CriarCriteria();
 
                 criteria.CreateAlias("Funcionario", "Funcionario");
+                criteria.CreateAlias("Loja", "Loja");
 
                 criteria.SetProjection(Projections.ProjectionList()
                     .Add(Projections.Sum("AvisoPrevio"), "AvisoPrevio")
                     .Add(Projections.Sum("DecimoTerceiro"), "DecimoTerceiro")
                     .Add(Projections.Sum("MultaFgts"), "MultaFgts")
                     .Add(Projections.GroupProperty("Funcionario"), "Funcionario")
+                    .Add(Projections.GroupProperty("Loja"), "Loja")
                     );
+
+                //Quando há demissão os provisionamentos são zerados ao inserir um provisionamento com valores negativos para zerar os campos.
+                //Neste caso para não listar os provisionamentos já resgatados, somente listo se o campo de soma de multa do fgts for maior que zero.
+                //Esta soma nunca será zero a não ser que o provisionamento tenha sido resgatado.
+                criteria.Add(Restrictions.Gt(Projections.Sum("MultaFgts"), 0.0));
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<Provisionamento>());
 
@@ -87,8 +106,7 @@ namespace VandaModaIntimaWpf.Model.DAO
                 criteria.Add(Restrictions.Eq("Deletado", false));
                 criteria.Add(Restrictions.Gt("AvisoPrevio", 0.0));
                 criteria.SetProjection(Projections.ProjectionList()
-                    .Add(Projections.Count("AvisoPrevio"), "AvisoPrevio")
-                    );
+                    .Add(Projections.Count(Projections.Id())));
 
                 return await criteria.UniqueResultAsync<int>();
             }
