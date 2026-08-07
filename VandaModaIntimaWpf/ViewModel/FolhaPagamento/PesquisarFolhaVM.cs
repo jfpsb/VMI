@@ -1,6 +1,17 @@
-﻿using System;
+﻿using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf.Canvas.Parser.Filter;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using Microsoft.Reporting.WinForms;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
+using PdfSharp.Pdf.Security;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,13 +22,11 @@ using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
 using VandaModaIntimaWpf.View.Interfaces;
 using VandaModaIntimaWpf.ViewModel.ExportaParaArquivo.Excel;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
-using VandaModaIntimaWpf.ViewModel.Services.Concretos;
-using VandaModaIntimaWpf.ViewModel.Funcionario;
-using Microsoft.Reporting.WinForms;
-using System.IO;
-using VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util;
 using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoBonusMeta;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.CalculoDeBonusMensalPorDia;
+using VandaModaIntimaWpf.ViewModel.FolhaPagamento.Util;
+using VandaModaIntimaWpf.ViewModel.Funcionario;
+using VandaModaIntimaWpf.ViewModel.Services.Concretos;
 
 namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 {
@@ -53,6 +62,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         public ICommand AbrirDadosBancariosComando { get; set; }
         public ICommand AbrirAdicionarObservacaoComando { get; set; }
         public ICommand ExportarFolhasParaPDFComando { get; set; }
+        public ICommand GerarContrachequeDeArquivoDoContadorComando { get; set; }
         public ICommand AdicionarMetaIndividualComando { get; set; }
         public ICommand AbrirAdicionarTotalComando { get; set; }
         public ICommand GerarUltimaFolhaPagamentoComando { get; set; }
@@ -118,6 +128,197 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             GerarUltimaFolhaPagamentoComando = new RelayCommand(GerarUltimaFolhaPagamento);
             AbrirAdicionarFaltasComando = new RelayCommand(AbrirAdicionarFaltas);
             AdicionarValoresDespesaComando = new RelayCommand(AdicionarValoresDespesa);
+            GerarContrachequeDeArquivoDoContadorComando = new RelayCommand(GerarContrachequeDeArquivoDoContador);
+        }
+
+        /// <summary>
+        /// Este método serve para dividir o arquivo de contracheque enviado por walcler no meio horizontalmente, assim fazendo um arquivo pdf de cada contracheque de cada funcionário
+        /// </summary>
+        /// <param name="obj"></param>
+        private async void GerarContrachequeDeArquivoDoContador(object obj)
+        {
+            try
+            {
+                if (obj == null)
+                    throw new Exception($"Parâmetro de comando não configurado em Pesquisar Folha De Pagamento.");
+
+                var fileBrowserDialog = obj as IOpenFileDialog;
+                string caminho = fileBrowserDialog.OpenFileDialog();
+
+                if (caminho != null)
+                {
+                    string caminhoPasta = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(caminho), "CONTRACHEQUES DESMEMBRADOS");
+                    Directory.CreateDirectory(caminhoPasta);
+
+                    using (XPdfForm documento = XPdfForm.FromFile(caminho))
+                    {
+                        int numPaginas = documento.PageCount;
+
+                        CancellationToken token = cancellationTokenSource.Token;
+                        VisibilidadeStatusBar = Visibility.Visible;
+
+                        //Se der exceção ao executar no debug, aperte em Continue que flui normalmente
+                        Task task = Task.Run(() =>
+                        {
+                            token.ThrowIfCancellationRequested();
+
+                            setIsIndefinidaBarraProgresso.Report(true);
+                            setDescricaoBarraProgresso.Report("Iniciando Separação e Exportação De Contracheques Para PDF");
+                            double incremento = 100.0 / numPaginas;
+                            setValorBarraProgresso.Report(-1);
+                            setIsIndefinidaBarraProgresso.Report(false);
+
+                            //Loop para cada página do pdf
+                            for (int pagIndex = 0; pagIndex < numPaginas; pagIndex++)
+                            {
+                                token.ThrowIfCancellationRequested();
+                                setDescricaoBarraProgresso.Report($"Processando Página {pagIndex + 1}");
+
+                                documento.PageNumber = pagIndex + 1; //Configuro qual página do documento estou manipulando
+                                PdfSharp.Pdf.PdfDocument TopOutput = new PdfSharp.Pdf.PdfDocument(); //Representa o documento PDF resultante da metade superior da página do PDF
+                                PdfSharp.Pdf.PdfDocument BottomOutput = new PdfSharp.Pdf.PdfDocument(); //Representa o documento PDF resultante da metade inferior da página do PDF
+
+                                //Obtenho as dimensões da página atual
+                                double larguraPagina = documento.PointWidth;
+                                double alturaPagina = documento.PointHeight;
+                                double meiaAlturaPagina = (alturaPagina / 2) - 15; //Ponto onde irei dividir a página ao meio
+
+                                //Obtendo metade superior e desenhando em novo arquivo PDF
+                                PdfSharp.Pdf.PdfPage topPage = TopOutput.AddPage();
+                                topPage.Width = XUnit.FromPoint(larguraPagina); //Determino a largura da página resultante
+                                topPage.Height = XUnit.FromPoint(meiaAlturaPagina); //Determino a altura da página resultante
+
+                                using (XGraphics gfxTop = XGraphics.FromPdfPage(topPage))
+                                {
+                                    gfxTop.Save();
+
+                                    // Source rect captures the top half; Destination rect paints it exactly onto the new page
+                                    XRect srcRectTop = new XRect(0, 0, larguraPagina, meiaAlturaPagina);
+                                    XRect destRectTop = new XRect(0, 0, larguraPagina, alturaPagina);
+
+                                    gfxTop.IntersectClip(srcRectTop);
+                                    gfxTop.DrawImage(documento, destRectTop, srcRectTop, XGraphicsUnit.Point);
+                                    gfxTop.Restore();
+                                }
+
+                                //Obtendo metade inferior e desenhando em novo arquivo PDF
+                                PdfSharp.Pdf.PdfPage bottomPage = BottomOutput.AddPage();
+                                bottomPage.Width = XUnit.FromPoint(larguraPagina);
+                                bottomPage.Height = XUnit.FromPoint(meiaAlturaPagina);
+
+                                using (XGraphics gfxBottom = XGraphics.FromPdfPage(bottomPage))
+                                {
+                                    gfxBottom.Save();
+                                    gfxBottom.TranslateTransform(0, -meiaAlturaPagina);
+
+                                    // Source rect shifts right by half-width; Destination paints starting at 0 on the new canvas
+                                    XRect srcRectBottom = new XRect(0, meiaAlturaPagina, larguraPagina, meiaAlturaPagina);
+                                    XRect destRectBottom = new XRect(0, 0, larguraPagina, alturaPagina);
+
+                                    gfxBottom.DrawImage(documento, destRectBottom, srcRectBottom, XGraphicsUnit.Point);
+
+                                    gfxBottom.Restore();
+                                }
+
+                                var topOutputCaminho = System.IO.Path.Combine(caminhoPasta, $"pagina-{pagIndex + 1}-1.pdf");
+                                var bottomOutputCaminho = System.IO.Path.Combine(caminhoPasta, $"pagina-{pagIndex + 1}-2.pdf");
+
+                                TopOutput.Save(topOutputCaminho);
+                                BottomOutput.Save(bottomOutputCaminho);
+
+                                topOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, topOutputCaminho);
+                                bottomOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, bottomOutputCaminho);
+
+                                ConfiguraSenhaContraCheque(topOutputCaminho);
+                                ConfiguraSenhaContraCheque(bottomOutputCaminho);
+
+                                setValorBarraProgresso.Report(incremento);
+                            }
+
+                            setDescricaoBarraProgresso.Report($"Contracheques foram desmembrados com sucesso.");
+                        }, token);
+
+                        try
+                        {
+                            await task;
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            _messageBoxService.Show("Desmembramento de contracheques foi cancelado pela usuário");
+                        }
+                        finally
+                        {
+                            cancellationTokenSource.Dispose();
+                            cancellationTokenSource = new CancellationTokenSource();
+                        }
+
+                        await task.ContinueWith(t =>
+                        {
+                            VisibilidadeStatusBar = Visibility.Collapsed;
+                            if (!task.IsCanceled)
+                                _messageBoxService.Show("Contracheques foram desmembrados com sucesso e salvos junto com arquivo original na pasta CONTRACHEQUES DESMEMBRADOS.");
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.Show(ex.Message);
+            }
+        }
+
+        private async void ConfiguraSenhaContraCheque(string caminhoPdf)
+        {
+            PdfSharp.Pdf.PdfDocument arquivoPdf = PdfSharp.Pdf.IO.PdfReader.Open(caminhoPdf, PdfDocumentOpenMode.Modify);
+            PdfSecuritySettings securitySettings = arquivoPdf.SecuritySettings;
+
+            var funcionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(caminhoPdf));
+
+            securitySettings.UserPassword = funcionario.Cpf.Substring(0, 4);
+
+            // 4. (Optional) Restrict user capabilities
+            securitySettings.PermitModifyDocument = false;
+            securitySettings.PermitExtractContent = false;
+
+            // 5. Save the encrypted document
+            arquivoPdf.Save(caminhoPdf);
+            arquivoPdf.Close();
+        }
+
+        /// <summary>
+        /// Extrai nome funcionário de área pré-determinada do contracheque da Real Contabilidade.
+        /// </summary>
+        /// <param name="caminhoPasta">Diretório onde estão e serão salvos os contracheques desmembrados com novos nomes</param>
+        /// <param name="outputCaminho">Caminho do arquivo de contracheque desmembrado</param>
+        /// <returns>Retorna caminho do arquivo com novo nome</returns>
+        private static string ExtraiNomeERenomeia(string caminhoPasta, string outputCaminho)
+        {
+            //Área onde geralmente está o nome no contracheque (pode mudar caso layout do contracheque seja alterado pela contabilidade)
+            //Esta área somente estará correta se o pdf estiver em landscape. Não mudar para retrato.
+            Rectangle RetanguloNome = new Rectangle(78, 326, 275, 20);
+
+            using (iText.Kernel.Pdf.PdfReader reader = new iText.Kernel.Pdf.PdfReader(outputCaminho))
+            {
+                using (iText.Kernel.Pdf.PdfDocument pdfDoc = new iText.Kernel.Pdf.PdfDocument(reader))
+                {
+                    var page = pdfDoc.GetPage(1);
+
+                    // 2. Set up the region filter
+                    TextRegionEventFilter regionFilter = new TextRegionEventFilter(RetanguloNome);
+                    var strategy = new FilteredTextEventListener(new LocationTextExtractionStrategy(), regionFilter);
+
+                    // 3. Extract the text bounded by the rectangle
+                    string extractedText = PdfTextExtractor.GetTextFromPage(page, strategy).Trim();
+
+                    reader.Close();
+
+                    string caminho = System.IO.Path.Combine(caminhoPasta, extractedText + ".pdf");
+
+                    File.Move(outputCaminho, caminho, true);
+
+                    return caminho;
+                }
+            }
         }
 
         private void PesquisarFolhaVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -249,7 +450,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                             var relatorio = new ReportViewer();
                             configuraReportViewer.Configurar(relatorio, reportDataSource, "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioFolhaPagamento.rdlc");
                             byte[] Bytes = relatorio.LocalReport.Render("PDF", "");
-                            string caminhoCompleto = Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf");
+                            string caminhoCompleto = System.IO.Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf");
                             listaBytes.Add(new Tuple<string, byte[]>(caminhoCompleto, Bytes));
                             setValorBarraProgresso.Report(incremento);
                         }

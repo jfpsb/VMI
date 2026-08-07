@@ -2,6 +2,7 @@
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using VandaModaIntimaWpf.Util;
 
@@ -23,6 +24,20 @@ namespace VandaModaIntimaWpf.Model.DAO
             {
                 Log.EscreveLogBanco(ex, "listar funcionário");
                 throw new Exception($"Erro ao listar funcionários. Acesse {Log.LogBanco} para mais detalhes", ex);
+            }
+        }
+        public async Task<Funcionario> GetPorNome(string nome)
+        {
+            try
+            {
+                var criteria = CriarCriteria();
+                criteria.Add(Restrictions.Like("Nome", nome + "%"));
+                return await criteria.UniqueResultAsync<Funcionario>();
+            }
+            catch (Exception ex)
+            {
+                Log.EscreveLogBanco(ex, "retornar funcionário por nome");
+                throw new Exception($"Erro ao lista funcionário por nome. Acesse {Log.LogBanco} para mais detalhes", ex);
             }
         }
         public async Task<IList<Funcionario>> Listar(bool mostraDemitido)

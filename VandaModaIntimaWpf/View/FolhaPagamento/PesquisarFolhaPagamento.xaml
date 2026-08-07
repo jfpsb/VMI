@@ -63,6 +63,13 @@
                             <Image Source="/Resources/PDF_Icon.png" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Gerar Contracheque De Arquivo Do Contador"
+                              Command="{Binding GerarContrachequeDeArquivoDoContadorComando}"
+                              CommandParameter="{Binding ElementName=TelaPesquisarFolhaPagamento}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/PDF_Icon.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator />
                     <MenuItem Header="{DynamicResource ajuda}"
                               Command="{Binding AbrirAjudaComando}">
