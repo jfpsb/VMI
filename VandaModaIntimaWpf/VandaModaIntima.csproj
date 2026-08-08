@@ -527,6 +527,7 @@
       <Version>1.0.8</Version>
     </PackageReference>
     <PackageReference Include="log4net" Version="3.3.2" />
+    <PackageReference Include="MailKit" Version="4.17.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.ReportViewer.Common" Version="10.0.40219.1" />
     <PackageReference Include="Microsoft.ReportViewer.WinForms" Version="10.0.40219.1" />

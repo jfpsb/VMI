@@ -1,6 +1,7 @@
 {
-  "valor_diario_passagem_onibus": 7.8,
-  "valor_diario_vale_alimentacao": 10.0,
+  "valor_diario_passagem_onibus": 8.4,
+  "valor_diario_vale_alimentacao": 12.0,
+  "senha_email": "",
   "credenciais_pix": {
     "13938943000101": {
       "client_id": "",

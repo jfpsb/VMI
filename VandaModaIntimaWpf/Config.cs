@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySqlX.XDevAPI;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NHibernate;
 using System;
@@ -16,6 +17,14 @@ namespace VandaModaIntimaWpf
 
         public static readonly string AppDocumentsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Vanda Moda Intima");
         public static Config Instancia => lazyClient.Value;
+
+        public static string SenhaEmail()
+        {
+            var configJson = File.ReadAllText(Path.Combine(AppDocumentsFolder, "Config.json"));
+            JObject json = JObject.Parse(configJson);
+            var cnpj = json["senha_email"].ToString();
+            return cnpj;
+        }
 
         public static Model.Loja LojaAplicacao(ISession session)
         {

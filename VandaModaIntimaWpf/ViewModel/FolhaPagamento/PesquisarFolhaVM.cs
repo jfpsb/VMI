@@ -3,7 +3,12 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Filter;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using MailKit;
+using MailKit.Net.Imap;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Reporting.WinForms;
+using MimeKit;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
@@ -17,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
@@ -137,6 +143,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         /// <param name="obj"></param>
         private async void GerarContrachequeDeArquivoDoContador(object obj)
         {
+            //TODO: enxugar código
             try
             {
                 if (obj == null)
@@ -158,7 +165,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                         VisibilidadeStatusBar = Visibility.Visible;
 
                         //Se der exceção ao executar no debug, aperte em Continue que flui normalmente
-                        Task task = Task.Run(() =>
+                        Task task = Task.Run(async () =>
                         {
                             token.ThrowIfCancellationRequested();
 
@@ -229,8 +236,14 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                                 topOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, topOutputCaminho);
                                 bottomOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, bottomOutputCaminho);
 
-                                ConfiguraSenhaContraCheque(topOutputCaminho);
-                                ConfiguraSenhaContraCheque(bottomOutputCaminho);
+                                var topFuncionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(topOutputCaminho));
+                                var bottomFuncionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(bottomOutputCaminho));
+
+                                ConfiguraSenhaContraCheque(topOutputCaminho, topFuncionario);
+                                ConfiguraSenhaContraCheque(bottomOutputCaminho, bottomFuncionario);
+
+                                await EnvioPorEmail(topOutputCaminho, topFuncionario, DataEscolhida);
+                                await EnvioPorEmail(bottomOutputCaminho, bottomFuncionario, DataEscolhida);
 
                                 setValorBarraProgresso.Report(incremento);
                             }
@@ -267,12 +280,72 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
             }
         }
 
-        private async void ConfiguraSenhaContraCheque(string caminhoPdf)
+        private async static Task EnvioPorEmail(string outputCaminho, Model.Funcionario funcionario, DateTime dataRef)
+        {
+            //TODO: enxugar código
+            if (funcionario.Email != null && funcionario.Email.Trim().Length != 0)
+            {
+                var mensagem = new MimeMessage();
+
+                mensagem.From.Add(new MailboxAddress("Vanda Moda Íntima", "contato@vandamodaintima.com.br"));
+                //mensagem.To.Add(new MailboxAddress(funcionario.Nome, funcionario.Email));
+                mensagem.To.Add(new MailboxAddress("Felipe", "jfpsb@outlook.com"));
+                mensagem.Subject = $"Contracheque e outros documentos - {dataRef:MMM/yyyy}";
+
+                var builder = new BodyBuilder();
+
+                // Set the HTML version of the message text
+                builder.HtmlBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
+                    $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>";
+
+                // Set the plain-text version (for older email clients)
+                builder.TextBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
+                    $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>";
+
+                // Add an attachment
+                builder.Attachments.Add(outputCaminho);
+
+                mensagem.Body = builder.ToMessageBody();
+
+                // 2. Securely transmit the message using MailKit's SmtpClient wrapper
+                using (var client = new SmtpClient())
+                {
+                    // Connect using modern SecureSocketOptions
+                    await client.ConnectAsync("mail.vandamodaintima.com.br", 465, SecureSocketOptions.SslOnConnect);
+
+                    // Authenticate with server credentials
+                    await client.AuthenticateAsync("contato@vandamodaintima.com.br", Config.SenhaEmail());
+
+                    // Send asynchronously
+                    await client.SendAsync(mensagem);
+                    await client.DisconnectAsync(true);
+                }
+
+                //Insere email na pasta Enviados
+                using var imap = new ImapClient();
+
+                await imap.ConnectAsync("mail.vandamodaintima.com.br", 993, SecureSocketOptions.Auto);
+                await imap.AuthenticateAsync("contato@vandamodaintima.com.br", Config.SenhaEmail());
+
+                IMailFolder sent = null;
+                if (imap.Capabilities.HasFlag(ImapCapabilities.SpecialUse))
+                    sent = imap.GetFolder(SpecialFolder.Sent);
+
+                if (sent == null)
+                {
+                    var personal = imap.GetFolder(imap.PersonalNamespaces[0]);
+                    sent = await personal.GetSubfolderAsync("Enviados");
+                }
+
+                await sent.AppendAsync(mensagem, MessageFlags.Seen);
+                await imap.DisconnectAsync(true).ConfigureAwait(false);
+            }
+        }
+
+        private async void ConfiguraSenhaContraCheque(string caminhoPdf, Model.Funcionario funcionario)
         {
             PdfSharp.Pdf.PdfDocument arquivoPdf = PdfSharp.Pdf.IO.PdfReader.Open(caminhoPdf, PdfDocumentOpenMode.Modify);
             PdfSecuritySettings securitySettings = arquivoPdf.SecuritySettings;
-
-            var funcionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(caminhoPdf));
 
             securitySettings.UserPassword = funcionario.Cpf.Substring(0, 4);
 
