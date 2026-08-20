@@ -377,13 +377,13 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     var funcionario = await daoFuncionario.GetPorNome(extractedText);
 
-                    if (extractedText == null)
+                    if (funcionario == null)
                     {
-                        throw (new Exception("Funcionário não encontrado após leitura de PDF de contracheque."));
+                        throw new Exception("Funcionário não encontrado após leitura de PDF de contracheque.");
                     }
 
                     //Caminho da pasta que irá guardar contra-cheque, comprovante de transferência e relatório VMI
-                    string pastaContracheque = System.IO.Path.Combine(caminhoPasta, extractedText, dataEscolhida.Year.ToString(), dataEscolhida.Month.ToString(), "CONTRACHEQUE");
+                    string pastaContracheque = System.IO.Path.Combine(caminhoPasta, funcionario.Nome, dataEscolhida.Year.ToString(), dataEscolhida.Month.ToString(), "CONTRACHEQUE");
                     Directory.CreateDirectory(pastaContracheque);
 
                     string caminhoArquivoContracheque = System.IO.Path.Combine(pastaContracheque, "Contracheque.pdf");
