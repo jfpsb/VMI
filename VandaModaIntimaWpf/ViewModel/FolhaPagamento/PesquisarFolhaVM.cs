@@ -1,5 +1,4 @@
 ﻿using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Filter;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
@@ -10,7 +9,6 @@ using MailKit.Security;
 using Microsoft.Reporting.WinForms;
 using MimeKit;
 using PdfSharp.Drawing;
-using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using PdfSharp.Pdf.Security;
 using System;
@@ -22,7 +20,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using VandaModaIntimaWpf.Model;
 using VandaModaIntimaWpf.Model.DAO;
 using VandaModaIntimaWpf.Util;
 using VandaModaIntimaWpf.View.FolhaPagamento;
@@ -154,8 +151,8 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                 if (caminho != null)
                 {
-                    string caminhoPasta = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(caminho), "CONTRACHEQUES DESMEMBRADOS");
-                    Directory.CreateDirectory(caminhoPasta);
+                    string caminhoPastaFolha = System.IO.Path.Combine(Config.AppDocumentsFolder, "Folha De Pagamento");
+                    Directory.CreateDirectory(caminhoPastaFolha);
 
                     using (XPdfForm documento = XPdfForm.FromFile(caminho))
                     {
@@ -227,23 +224,15 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                                     gfxBottom.Restore();
                                 }
 
-                                var topOutputCaminho = System.IO.Path.Combine(caminhoPasta, $"pagina-{pagIndex + 1}-1.pdf");
-                                var bottomOutputCaminho = System.IO.Path.Combine(caminhoPasta, $"pagina-{pagIndex + 1}-2.pdf");
+                                var topOutputCaminho = System.IO.Path.Combine(caminhoPastaFolha, $"pagina-{pagIndex + 1}-1.pdf");
+                                var bottomOutputCaminho = System.IO.Path.Combine(caminhoPastaFolha, $"pagina-{pagIndex + 1}-2.pdf");
 
+                                //Salva temporariamente
                                 TopOutput.Save(topOutputCaminho);
                                 BottomOutput.Save(bottomOutputCaminho);
 
-                                topOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, topOutputCaminho);
-                                bottomOutputCaminho = ExtraiNomeERenomeia(caminhoPasta, bottomOutputCaminho);
-
-                                var topFuncionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(topOutputCaminho));
-                                var bottomFuncionario = await daoFuncionario.GetPorNome(System.IO.Path.GetFileNameWithoutExtension(bottomOutputCaminho));
-
-                                ConfiguraSenhaContraCheque(topOutputCaminho, topFuncionario);
-                                ConfiguraSenhaContraCheque(bottomOutputCaminho, bottomFuncionario);
-
-                                await EnvioPorEmail(topOutputCaminho, topFuncionario, DataEscolhida);
-                                await EnvioPorEmail(bottomOutputCaminho, bottomFuncionario, DataEscolhida);
+                                await ExtraiNomeCriptografaEEnviaContracheque(caminhoPastaFolha, topOutputCaminho, DataEscolhida);
+                                await ExtraiNomeCriptografaEEnviaContracheque(caminhoPastaFolha, bottomOutputCaminho, DataEscolhida);
 
                                 setValorBarraProgresso.Report(incremento);
                             }
@@ -292,15 +281,16 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 mensagem.To.Add(new MailboxAddress("Felipe", "jfpsb@outlook.com"));
                 mensagem.Subject = $"Contracheque e outros documentos - {dataRef:MMM/yyyy}";
 
-                var builder = new BodyBuilder();
+                var builder = new BodyBuilder
+                {
+                    // Set the HTML version of the message text
+                    HtmlBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
+                        $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>",
 
-                // Set the HTML version of the message text
-                builder.HtmlBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
-                    $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>";
-
-                // Set the plain-text version (for older email clients)
-                builder.TextBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
-                    $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>";
+                    // Set the plain-text version (for older email clients)
+                    TextBody = $"<p>Documentos referente ao mês {dataRef:MMM/yyyy} em anexo.</p>" +
+                        $"<mark><strong>Utilize os quatro primeiros dígitos do seu CPF para acessar arquivos.</strong></mark>"
+                };
 
                 // Add an attachment
                 builder.Attachments.Add(outputCaminho);
@@ -364,7 +354,7 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
         /// <param name="caminhoPasta">Diretório onde estão e serão salvos os contracheques desmembrados com novos nomes</param>
         /// <param name="outputCaminho">Caminho do arquivo de contracheque desmembrado</param>
         /// <returns>Retorna caminho do arquivo com novo nome</returns>
-        private static string ExtraiNomeERenomeia(string caminhoPasta, string outputCaminho)
+        private async Task ExtraiNomeCriptografaEEnviaContracheque(string caminhoPasta, string outputCaminho, DateTime dataEscolhida)
         {
             //Área onde geralmente está o nome no contracheque (pode mudar caso layout do contracheque seja alterado pela contabilidade)
             //Esta área somente estará correta se o pdf estiver em landscape. Não mudar para retrato.
@@ -385,11 +375,24 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     reader.Close();
 
-                    string caminho = System.IO.Path.Combine(caminhoPasta, extractedText + ".pdf");
+                    var funcionario = await daoFuncionario.GetPorNome(extractedText);
 
-                    File.Move(outputCaminho, caminho, true);
+                    if (extractedText == null)
+                    {
+                        throw (new Exception("Funcionário não encontrado após leitura de PDF de contracheque."));
+                    }
 
-                    return caminho;
+                    //Caminho da pasta que irá guardar contra-cheque, comprovante de transferência e relatório VMI
+                    string pastaContracheque = System.IO.Path.Combine(caminhoPasta, extractedText, dataEscolhida.Year.ToString(), dataEscolhida.Month.ToString(), "CONTRACHEQUE");
+                    Directory.CreateDirectory(pastaContracheque);
+
+                    string caminhoArquivoContracheque = System.IO.Path.Combine(pastaContracheque, "Contracheque.pdf");
+
+                    File.Move(outputCaminho, caminhoArquivoContracheque, true);
+
+                    ConfiguraSenhaContraCheque(caminhoArquivoContracheque, funcionario);
+
+                    //await EnvioPorEmail(caminhoArquivoContracheque, funcionario, dataEscolhida);
                 }
             }
         }
@@ -494,72 +497,72 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
                 if (parameter == null)
                     throw new Exception($"Parâmetro de comando não configurado para ExportarExcel em Pesquisar Folha De Pagamento.");
 
-                var folderBrowserDialog = parameter as IFolderBrowserDialog;
-                string caminhoPasta = folderBrowserDialog.OpenFolderBrowserDialog();
                 IList<Tuple<string, byte[]>> listaBytes = new List<Tuple<string, byte[]>>();
 
-                if (caminhoPasta != null)
-                {
-                    CancellationToken token = cancellationTokenSource.Token;
-                    VisibilidadeStatusBar = Visibility.Visible;
+                CancellationToken token = cancellationTokenSource.Token;
+                VisibilidadeStatusBar = Visibility.Visible;
 
-                    //Se der exceção ao executar no debug, aperte em Continue que flui normalmente
-                    Task task = Task.Run(() =>
+                //Se der exceção ao executar no debug, aperte em Continue que flui normalmente
+                Task task = Task.Run(() =>
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    setIsIndefinidaBarraProgresso.Report(true);
+                    setDescricaoBarraProgresso.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
+                    double incremento = 100.0 / FolhaPagamentos.Count;
+                    setValorBarraProgresso.Report(-1);
+                    setIsIndefinidaBarraProgresso.Report(false);
+
+                    foreach (var folha in FolhaPagamentos)
                     {
                         token.ThrowIfCancellationRequested();
+                        setDescricaoBarraProgresso.Report($"Gerando folha de {folha.Funcionario.Nome}");
 
-                        setIsIndefinidaBarraProgresso.Report(true);
-                        setDescricaoBarraProgresso.Report("Iniciando Exportação De Folhas De Pagamento Para PDF");
-                        double incremento = 100.0 / FolhaPagamentos.Count;
-                        setValorBarraProgresso.Report(-1);
-                        setIsIndefinidaBarraProgresso.Report(false);
+                        //Caminho da pasta que irá guardar contra-cheque, comprovante de transferência e relatório VMI
+                        string caminhoPastaContracheque = System.IO.Path.Combine(Config.AppDocumentsFolder, "Folha De Pagamento", folha.Funcionario.Nome, DataEscolhida.Year.ToString(), DataEscolhida.Month.ToString(), "CONTRACHEQUE");
+                        Directory.CreateDirectory(caminhoPastaContracheque);
 
-                        foreach (var folha in FolhaPagamentos)
+                        var reportDataSource = configuraReportViewer.ConfigurarReportDataSource(folha).Result;
+                        var relatorio = new ReportViewer();
+                        configuraReportViewer.Configurar(relatorio, reportDataSource, "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioFolhaPagamento.rdlc");
+                        byte[] Bytes = relatorio.LocalReport.Render("PDF", "");
+                        string caminhoCompleto = System.IO.Path.Combine(caminhoPastaContracheque, "Relatório Vanda Moda Intima.pdf");
+                        listaBytes.Add(new Tuple<string, byte[]>(caminhoCompleto, Bytes));
+                        setValorBarraProgresso.Report(incremento);
+                    }
+
+                    foreach (var tupla in listaBytes)
+                    {
+                        using (FileStream stream = new FileStream(tupla.Item1, FileMode.Create))
                         {
-                            token.ThrowIfCancellationRequested();
-                            setDescricaoBarraProgresso.Report($"Gerando folha de {folha.Funcionario.Nome}");
-
-                            var reportDataSource = configuraReportViewer.ConfigurarReportDataSource(folha).Result;
-                            var relatorio = new ReportViewer();
-                            configuraReportViewer.Configurar(relatorio, reportDataSource, "VandaModaIntimaWpf.View.FolhaPagamento.Relatorios.RelatorioFolhaPagamento.rdlc");
-                            byte[] Bytes = relatorio.LocalReport.Render("PDF", "");
-                            string caminhoCompleto = System.IO.Path.Combine(caminhoPasta, $"{folha.Funcionario.Nome}.pdf");
-                            listaBytes.Add(new Tuple<string, byte[]>(caminhoCompleto, Bytes));
-                            setValorBarraProgresso.Report(incremento);
+                            stream.Write(tupla.Item2, 0, tupla.Item2.Length);
                         }
-
-                        foreach (var tupla in listaBytes)
-                        {
-                            using (FileStream stream = new FileStream(tupla.Item1, FileMode.Create))
-                            {
-                                stream.Write(tupla.Item2, 0, tupla.Item2.Length);
-                            }
-                        }
-
-                        setDescricaoBarraProgresso.Report($"Folhas de pagamento foram exportadas em PDF com sucesso em {caminhoPasta}");
-                    }, token);
-
-                    try
-                    {
-                        await task;
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        _messageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
-                    }
-                    finally
-                    {
-                        cancellationTokenSource.Dispose();
-                        cancellationTokenSource = new CancellationTokenSource();
                     }
 
-                    await task.ContinueWith(t =>
-                    {
-                        VisibilidadeStatusBar = Visibility.Collapsed;
-                        if (!task.IsCanceled)
-                            _messageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
-                    });
+                    string nomePastaAviso = System.IO.Path.Combine(Config.AppDocumentsFolder, "Folha De Pagamento", "NOME FUNCIONÁRIO", DataEscolhida.Year.ToString(), DataEscolhida.Month.ToString(), "CONTRACHEQUE");
+                    setDescricaoBarraProgresso.Report($"Folhas de pagamento foram exportadas em PDF com sucesso nas pastas de Contracheque em {nomePastaAviso}.");
+                }, token);
+
+                try
+                {
+                    await task;
                 }
+                catch (OperationCanceledException)
+                {
+                    _messageBoxService.Show("Exportação para PDF foi cancelada pela usuário");
+                }
+                finally
+                {
+                    cancellationTokenSource.Dispose();
+                    cancellationTokenSource = new CancellationTokenSource();
+                }
+
+                await task.ContinueWith(t =>
+                {
+                    VisibilidadeStatusBar = Visibility.Collapsed;
+                    if (!task.IsCanceled)
+                        _messageBoxService.Show("Folhas foram exportadas em PDF com sucesso");
+                });
             }
             catch (Exception ex)
             {
