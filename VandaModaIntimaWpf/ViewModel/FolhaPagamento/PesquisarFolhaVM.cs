@@ -375,6 +375,9 @@ namespace VandaModaIntimaWpf.ViewModel.FolhaPagamento
 
                     reader.Close();
 
+                    if (extractedText.Length == 0)
+                        return;
+
                     var funcionario = await daoFuncionario.GetPorNome(extractedText);
 
                     if (funcionario == null)
